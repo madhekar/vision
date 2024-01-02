@@ -2,27 +2,24 @@
 """
 OpenSlide can read virtual slides in several formats:
 
-Aperio (.svs, .tif)
-Hamamatsu (.ndpi, .vms, .vmu)
-Leica (.scn)
-MIRAX (.mrxs)
-Philips (.tiff)
-Sakura (.svslide)
-Trestle (.tif)
-Ventana (.bif, .tif)
-Generic tiled TIFF (.tif)
+* Aperio (.svs, .tif)
+* Hamamatsu (.ndpi, .vms, .vmu)
+* Leica (.scn)
+* MIRAX (.mrxs)
+* Philips (.tiff)
+* Sakura (.svslide)
+* Trestle (.tif)
+* Ventana (.bif, .tif)
+* Generic tiled TIFF (.tif)
 
 OpenSlide allows reading a small amount of image data at the resolution 
 closest to a desired zoom level.
 
 pip install openslide-python
 
-then download the latest windows binaries
+then download the latest binaries
 https://openslide.org/download/
 
-import sys
-for p in sys.path:
-    print(p)
 """
 
 #import pyvips
