@@ -157,13 +157,25 @@ print("Total number of tiles = : ", tiles.tile_count)
 ###### processing and saving each tile to local directory
 cols, rows = tiles.level_tiles[16]
 
-good_img_list=(glob.glob(orig_tile_dir_name+"good/*.tif"))
+good_img_list=(glob.glob(orig_tile_dir_name+"good/*.png"))
 orig_tile_dir_name = "../images/good/"
 norm_tile_dir_name = "../images/normalized_tiles/"
 H_tile_dir_name = "../images/H_tiles/"
 E_tile_dir_name = "../images/E_tiles/"
 
-for row in range(rows):
+for f in good_img_list:
+    print('file: ' + f)
+    image = Image.open(f)
+    temp_tile_RGB = image.convert('RGB')
+    temp_tile_np = np.array(temp_tile_RGB)
+
+    norm_img, H_img, E_img = norm_HnE(temp_tile_np, Io=240, alpha=1, beta=0.15)
+    fname = f.split("/")[-1]
+    tiff.imsave(norm_tile_dir_name+fname , norm_img)
+    tiff.imsave(H_tile_dir_name+fname , H_img)
+    tiff.imsave(E_tile_dir_name+fname , E_img)
+
+""" for row in range(rows):
     for col in range(cols):
         tile_name = str(col) + "_" + str(row)
         #tile_name = os.path.join(tile_dir, '%d_%d' % (col, row))
@@ -172,7 +184,7 @@ for row in range(rows):
         temp_tile_RGB = temp_tile.convert('RGB')
         temp_tile_np = np.array(temp_tile_RGB)
         #Save original tile
-        tiff.imsave(orig_tile_dir_name+tile_name + "_original_good.tif", temp_tile_np)
+        #tiff.imsave(orig_tile_dir_name+tile_name + "_original_good.tif", temp_tile_np)
         
         if temp_tile_np.mean() < 230 and temp_tile_np.std() > 15:
             print("Processing tile number:", tile_name)
@@ -184,7 +196,7 @@ for row in range(rows):
             tiff.imsave(E_tile_dir_name+tile_name + "_E.tif", E_img)
             
         else:
-            print("NOT PROCESSING TILE:", tile_name)
+            print("NOT PROCESSING TILE:", tile_name) """
         
         
         
