@@ -139,7 +139,7 @@ single_tile_RGB.show()
 
 ###### Saving each tile to local directory
 cols, rows = tiles.level_tiles[16]
-
+print("*** total images cols: " + str(cols) + " rows: " + str(rows) + " total: " + str(cols * rows))
 import os
 tile_dir = "../images/saved_tiles/"
 for row in range(rows):
@@ -149,4 +149,4 @@ for row in range(rows):
         temp_tile = tiles.get_tile(16, (col, row))
         temp_tile_RGB = temp_tile.convert('RGB')
         temp_tile_np = np.array(temp_tile_RGB)
-        plt.imsave(tile_name + ".png", temp_tile_np)
+        #plt.imsave(tile_name + ".png", temp_tile_np)
