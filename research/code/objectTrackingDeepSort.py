@@ -27,7 +27,7 @@ class YoloDetector():
             #model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_name, force_reload=True)
             model = torch.hub.load('ultralytics/yolov8', 'custom', path='yolov8/runs/train/exp/weights/last.pt', force_reload=True) 
         else:
-            model = torch.hub.load('ultralytics/yolov8', 'yolov8s', pretrained=True)
+            model = torch.hub.load('ultralytics/yolov8', 'yolov8n', pretrained=True)
         return model
 
     def score_frame(self, frame):
