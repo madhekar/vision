@@ -1,0 +1,12 @@
+[Unit]
+Description=Capture Seurity Events Service
+After=network.target
+
+[Service]
+Type=simple
+User=madhekar
+ExecStart=/home/madhekar/app/poc/capture_secirity_events.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

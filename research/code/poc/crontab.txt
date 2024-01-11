@@ -1,0 +1,2 @@
+0 20   * * *	root  systemctl start security_camera 
+0  8   * * *    root	systemctl stop security_camera
