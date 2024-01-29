@@ -5,21 +5,22 @@ import {useRef} from 'react';
 function App() {
   const localVideoRef = useRef()
 
-  const getUserMedia = () => {
+  const getUserMedia = async () => {
     const constraints = {
       audio : false,
       video : true,
     }
-    navigator.mediaDevices.getUserMedia(constraints)
+ /*    navigator.mediaDevices.getUserMedia(constraints)
     .then(stream => {
       // display stream
       localVideoRef.current.srcObject = stream
     })
     .catch(e => {
       console.log('getUserMedia error ...', e)
-    })
+    }) */
+    const stream = await navigator.mediaDevices.getUserMedia(constraints)
+    localVideoRef.current.srcObject = stream
   }
-
   return (
     <div style={{margin:10}}>
       <button onClick={() => getUserMedia()}>Get Media Access</button>
