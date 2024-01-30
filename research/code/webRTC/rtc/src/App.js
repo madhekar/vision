@@ -1,19 +1,43 @@
 
 import './App.css';
-import {useRef, useEffect} from 'react';
+import React, {useRef, useEffect} from 'react';
+import io from 'socket.io-client'
+
+const socket = io(
+  '/webRTCPeers',
+  { 
+    path: '/webrtc'
+  }
+)
 
 function App() {
   const localVideoRef = useRef()
   const remoteVideoRef = useRef()
   const pc = useRef(new RTCPeerConnection(null))
   const textRef = useRef()
+  const candidates = useRef([])
 
   useEffect(() =>{
+
+    socket.on('connection-success', success => {
+      console.log(success)
+    })
+
+    socket.on('sdp', data => {
+      console.log(data)
+      textRef.current.value = JSON.stringify(data.sdp)
+    })
+
+    socket.on('candidate', candidate => {
+      console.log(candidate)
+      candidates.current = [...candidates.current, candidate]
+    })
 
       const constraints = {
         audio : false,
         video : true,
       }
+
    navigator.mediaDevices.getUserMedia(constraints)
       .then(stream => {
         // display stream
@@ -26,12 +50,15 @@ function App() {
       .catch(e => {
         console.log('getUserMedia error ...', e)
       }) 
+
       const _pc =  new RTCPeerConnection(null)
       _pc.onicecandidate = (e) => {
         if (e.candidate)
           console.log(JSON.stringify(e.candidate))
+          socket.emit('candidate', e.candidate)
       }
-      // connected, dis-connected, failed, closed 
+
+      // connected, disconnected, failed, closed 
       _pc.oniceconnectionstatechange = (e) => {
         console.log(e)
       }
@@ -50,6 +77,11 @@ function App() {
     }).then(sdp => {
       console.log(JSON.stringify(sdp))
       pc.current.setLocalDescription(sdp)
+
+      // send sdp to the server
+      socket.emit('sdp', {
+        sdp,
+      })
     }).catch(e => console.log(e))
   }
 
@@ -60,6 +92,11 @@ function App() {
     }).then(sdp => {
       console.log(JSON.stringify(sdp))
       pc.current.setLocalDescription(sdp)
+
+      //send the answer sdp to the offering peer
+      socket.emit('sdp', {
+        sdp,
+      })
     }).catch(e => console.log(e))
   }
 
@@ -72,11 +109,13 @@ function App() {
   }
 
   const addCandidate = () => {
-    const candidate =  JSON.parse(textRef.current.value)
-    console.log('Additing Candidate...', candidate)
+    //const candidate =  JSON.parse(textRef.current.value)
+    //console.log('Additing Candidate...', candidate)
 
-    pc.current.addIceCandidate(new RTCIceCandidate(candidate))
-
+    candidates.current.forEach(candidate => {
+      console.log(candidate)
+      pc.current.addIceCandidate(new RTCIceCandidate(candidate))
+    })
   }
 
 
@@ -87,11 +126,13 @@ function App() {
         margin: 5, backgroundColor: 'black',
       }}
       ref={localVideoRef} autoPlay></video>
+
       <video style={{
         width: 240, height: 240,
         margin: 5, backgroundColor: 'black',
       }}
       ref={remoteVideoRef} autoPlay></video>
+
       <br />
       <button onClick={createOffer}>Offer</button>
       <button onClick={createAnswer}>Answer</button>
