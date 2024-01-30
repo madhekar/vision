@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import {useRef, useEffect} from 'react';
 
@@ -68,7 +68,7 @@ function App() {
     const sdp = JSON.parse(textRef.current.value)
     console.log(sdp)
 
-    pc.setRemoteDescription(new RTCSessionDescription(sdp))
+    pc.current.setRemoteDescription(new RTCSessionDescription(sdp))
   }
 
   const addCandidate = () => {
