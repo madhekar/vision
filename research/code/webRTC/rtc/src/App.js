@@ -26,6 +26,7 @@ function App() {
       console.log(success)
     })
 
+    // SDP session
     socket.on('sdp', data => {
       console.log(data)
       pc.current.setRemoteDescription(new RTCSessionDescription(data.sdp))
@@ -40,6 +41,7 @@ function App() {
       }
     })
 
+    // ICE candidate
     socket.on('candidate', candidate => {
       console.log(candidate)
       pc.current.addIceCandidate(new RTCIceCandidate(candidate))
