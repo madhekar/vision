@@ -42,10 +42,10 @@ function App() {
     })
 
     // ICE candidate
-    socket.on('candidate', candidate => {
+     socket.on('candidate', candidate => {
       console.log(candidate)
       pc.current.addIceCandidate(new RTCIceCandidate(candidate))
-    })
+    }) 
 
       const constraints = {
         audio : false,
@@ -68,9 +68,10 @@ function App() {
       const _pc =  new RTCPeerConnection(null)
 
       _pc.onicecandidate = (e) => {
-        if (e.candidate)
+        if (e.candidate){
           console.log(JSON.stringify(e.candidate))
           sendToPeer('candidate', e.candidate)
+        }
       }
 
       // connected, disconnected, failed, closed 
