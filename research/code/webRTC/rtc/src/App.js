@@ -11,9 +11,19 @@ const socket = io(
 )
 
 function App() {
+  const pc_config = null
+  const pc_config_new ={
+      'iceServers' : [
+        {
+            'urls': 'stun:[STUN-IP]:[PORT]',
+            'credential' : '[CREDENTIAL]',
+            'username' : '[USERNAME]'
+        }
+      ]
+  }
   const localVideoRef = useRef()
   const remoteVideoRef = useRef()
-  const pc = useRef(new RTCPeerConnection(null))
+  const pc = useRef(new RTCPeerConnection(pc_config))
   const textRef = useRef()
 
   const [offerVisible, setOfferVisible] = useState(true)
