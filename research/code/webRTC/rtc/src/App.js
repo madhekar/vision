@@ -6,21 +6,25 @@ import io from 'socket.io-client'
 const socket = io(
   '/webRTCPeers',
   { 
-    path: '/webrtc'
+    path: '/webrtc',
+    query: {}
   }
 )
 
 function App() {
-  const pc_config = null
-  const pc_config_new ={
+  //const pc_config = null
+  const pc_config ={
       'iceServers' : [
-        {
+ /*        {
             'urls': 'stun:[STUN-IP]:[PORT]',
             'credential' : '[CREDENTIAL]',
             'username' : '[USERNAME]'
+        } */
+        {
+          urls : 'stun:stun.l.google.com:19302'
         }
       ]
-  }
+  } 
   const localVideoRef = useRef()
   const remoteVideoRef = useRef()
   const pc = useRef(new RTCPeerConnection(pc_config))
