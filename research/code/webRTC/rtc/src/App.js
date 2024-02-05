@@ -13,9 +13,9 @@ const socket = io(
 
 function App() {
   //const pc_config = null
-  const pc_config ={
+   const pc_config ={
       'iceServers' : [
- /*        {
+    /*    {
             'urls': 'stun:[STUN-IP]:[PORT]',
             'credential' : '[CREDENTIAL]',
             'username' : '[USERNAME]'
