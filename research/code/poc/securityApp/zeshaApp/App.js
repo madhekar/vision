@@ -42,7 +42,7 @@ class App extends React.Component {
       localStream: null,
       remoteStream: null,
     }
-
+    this.pc
     this.sdp 
     this.socket = null
     this.candidates = []
@@ -51,7 +51,7 @@ class App extends React.Component {
   componentDidMount = () => {
 
     this.socket = io.connect(
-      'https://6b1d-70-137-105-159.ngrok-free.app/webRTCPeers',
+      'https://a6c5-70-137-105-159.ngrok-free.app/webRTCPeers',
       {
         path: '/webrtc',
         query: {}
@@ -62,10 +62,14 @@ class App extends React.Component {
       console.log(success)
     })
 
-    this.socket.on('offer', (sdp) => {
-      this.sdp = JSON.stringify(sdp)
-
-      this.pc.setRemoteDescription(new RTCSessionDescription(sdp))
+    this.socket.on('sdp', data => {
+      this.sdp = JSON.stringify(data.sdp)
+      this.pc.setRemoteDescription(new RTCSessionDescription(data.sdp))
+      if(data.sdp.type === 'offer'){
+        console.log("Incomming Call...")
+      }else{
+        console.log("Call Established.")
+      }
     })
 
     this.socket.on('answer', (sdp) => {
@@ -86,10 +90,14 @@ class App extends React.Component {
       ]
     }
 
-    this.pc = new RTCPeerConnection(pc_config)
+    this.pc = new RTCPeerConnection()
+    this.pc.setConfiguration(pc_config)
+
+    this.pc.getStats().then(desc => console.log(desc))
 
     this.pc.onicecandidate = (e) => {
       if(e.candidate) {
+        console.log(JSON.stringify(e.candidate))
         this.sendToPeer('candidate', e.candidate)
       }
     }
@@ -111,7 +119,8 @@ class App extends React.Component {
       this.setState({
         localStream : stream
       })
-      this.pc.addStream(stream)
+      //this.pc.addStream(stream)
+      stream.getTracks().forEach(track => this.pc.addTrack(track, stream))
     }
 
     const fails = (e) => {
@@ -197,8 +206,8 @@ class App extends React.Component {
   addCandidate = () => {
 
     this.candidates.forEach(candidate => {
-      console.log(JSON.stringify(this.candidate))
-      this.pc.addIceCandidate(new RTCIceCandidate(this.candidate))
+      console.log(JSON.stringify(candidate))
+      this.pc.addIceCandidate(new RTCIceCandidate(candidate))
     });
   }
   
