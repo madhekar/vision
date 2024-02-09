@@ -32,8 +32,8 @@ import{
 
 import io from 'socket.io-client'
 
-const dimention = Dimensions.get('window')
-
+const dimensionx = Dimensions.get('window').width
+const dimensiony = Dimensions.get('window').height
 class App extends React.Component {
 
   constructor(props){
@@ -114,9 +114,9 @@ class App extends React.Component {
       // got remote stream
       debugger
 
-      console.log('***on track')
+      console.log('***on track',e)
       this.setState({
-        remoteStream : e.stream
+        remoteStream : e.streams[0]
       })
     }
 
@@ -251,7 +251,7 @@ class App extends React.Component {
     key = {2}
     mirror = {true}
     style = {{...styles.rtcViewRemote}}
-    objectFit='contain'
+    objectFit='cover'
     streamURL={remoteStream && remoteStream.toURL()}
     />
 
@@ -354,9 +354,9 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   rtcViewRemote: {
-    width: Dimensions.width - 30,
+    width: dimensionx - 10,
     backgroundColor: 'black',
-    height: 200,
+    height: dimensiony - 10,
   }
 
 });
