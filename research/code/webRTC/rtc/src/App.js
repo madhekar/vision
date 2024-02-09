@@ -64,6 +64,9 @@ function App() {
       const constraints = {
         audio : false,
         video : true,
+        options: {
+          mirror: true,
+        }
       }
 
    navigator.mediaDevices.getUserMedia(constraints)

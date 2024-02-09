@@ -20,19 +20,19 @@ const server =  app.listen(port, () => {
 
 io.listen(server)
 
-let connectedPeers = new Map()
+//let connectedPeers = new Map()
 
 const webRTCNamespace = io.of('/webRTCPeers')
 
 webRTCNamespace.on('connection', socket => {
-    console.log(socket.id)
+    console.log('***SocketID:',socket.id)
 
-    socket.emit('connection-sucess', {
-        status: 'connection-sucess',
+    socket.emit('connection-success', {
+        status: 'connection-success',
         socketId: socket.id,
     })
 
-    connectedPeers.set(socket.id, socket)
+    //connectedPeers.set(socket.id, socket)
 
     socket.on('disconnect', () => {
         console.log(`A ${socket.id} has disconnected.`)
@@ -41,8 +41,7 @@ webRTCNamespace.on('connection', socket => {
     socket.on('sdp', data =>{
         console.log(data)
         socket.broadcast.emit('sdp', data)
-        connectedPeers.delete(socket.id)
-
+        //connectedPeers.delete(socket.id)
     })
 
     socket.on('candidate', data => {
