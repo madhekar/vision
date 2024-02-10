@@ -116,7 +116,7 @@ class App extends React.Component {
     }
 
     const works = (stream) =>{
-      console.log('***streamURL:', stream.toURL())
+      console.log('Inside success method of getUserMedia function with streamURL:', stream.toURL())
       this.setState({
         localStream : stream
       })
@@ -125,12 +125,12 @@ class App extends React.Component {
     }
 
     const fails = (e) => {
-      console.log('getUserMedia Error: ', e)
+      console.log('Failed getUserMedia function with Error: ', e)
     }
 
     let isFront = true;
     mediaDevices.enumerateDevices().then(sourceInfos => {
-      console.log('sourceInfos:', sourceInfos);
+      console.log('SourceInfos:', sourceInfos);
       let videoSourceId;
       for (let i =0 ; i < sourceInfos.letgth; i++) {
         const sourceInfo = sourceInfos[i];
@@ -169,25 +169,25 @@ class App extends React.Component {
     }
 
   createOffer = () => {
-    console.log('creating offer')
+    console.log('Inside create offer function.')
 
     this.pc.createOffer({
       offerToReceiveAudio: 1,
       offerToReceiveVideo: 1,
     }).then(sdp =>{
       this.processSDP(sdp)
-    }).catch(e=>console.debug('error creating offer', e))
+    }).catch(e=>console.debug('Error creating offer', e))
   }
 
   createAnswer = () => {
-    console.log('creating answer')
+    console.log('Inside create answer function.')
 
     this.pc.createAnswer({ 
       offerToReceiveAudio: 1,
       offerToReceiveVideo: 1,
     }).then(sdp => {
       this.processSDP(sdp)
-    }).catch(e => console.debug('error creating answer', e))
+    }).catch(e => console.debug('Error creating answer', e))
   }
 
   addCandidate = () => {
@@ -218,7 +218,7 @@ class App extends React.Component {
   ) :
   (
     <View style={{ padding : 15,}}>
-      <Text style={{fontSize:22, textAlign: 'center', color: 'white'}}>waiting for the peer connection...</Text>
+      <Text style={{fontSize:22, textAlign: 'center', color: 'white'}}>Waiting for the peer connection...</Text>
     </View>
   )
 
