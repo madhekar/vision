@@ -71,7 +71,7 @@ function App() {
 
    navigator.mediaDevices.getUserMedia(constraints)
       .then(stream => {
-        // display stream
+        // display local stream
         localVideoRef.current.srcObject = stream
 
         stream.getTracks().forEach(track => {
@@ -79,7 +79,7 @@ function App() {
         })
       })
       .catch(e => {
-        console.log('getUserMedia error ...', e)
+        console.log('getUserMedia error occred ...', e)
       }) 
 
       const _pc =  new RTCPeerConnection(null)
@@ -93,17 +93,15 @@ function App() {
 
       // connected, disconnected, failed, closed 
       _pc.oniceconnectionstatechange = (e) => {
-        console.log(e)
+        console.log('inside on ice connection stete change ',e)
       }
 
       _pc.ontrack = (e) => {
         // got remote stream
         remoteVideoRef.current.srcObject = e.streams[0]
       }
-
       pc.current = _pc
-
-  }, [])
+  }, [])  // end of useEffect
 
   const sendToPeer = (eventType, payload) => {
     socket.emit(eventType, payload)
