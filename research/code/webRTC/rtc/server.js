@@ -7,8 +7,6 @@ const io = require('socket.io')({
 const app = express()
 const port = 8080
 
-//app.get('/', (req, res) => res.send('Hello, WebRTC for Zesha!!'))
-
 app.use(express.static(__dirname + '/build'))
 app.get('/', (req, res, next) => {
     res.sendFile(__dirname + '/build/index.html')
