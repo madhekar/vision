@@ -34,6 +34,7 @@ import io from 'socket.io-client'
 
 const dimensionx = Dimensions.get('window').width
 const dimensiony = Dimensions.get('window').height
+
 class App extends React.Component {
 
   constructor(props){
@@ -74,12 +75,6 @@ class App extends React.Component {
       }
     })
 
- /*    this.socket.on('answer', (sdp) => {
-      this.sdp = JSON.stringify(sdp)
-
-      this.pc.setRemoteDescription(new RTCSessionDescription(sdp))
-    }) */
-
     this.socket.on('candidate', (candidate) =>{
       this.candidates = [...this.candidates, candidate]
       this.pc.addIceCandidate(new RTCIceCandidate(candidate))
@@ -114,20 +109,12 @@ class App extends React.Component {
       // got remote stream
       debugger
 
-      console.log('***on track',e)
+      console.log('ontrack method call')
       this.setState({
         remoteStream : e.streams[0]
       })
     }
 
-  /*    this.pc.onaddstream = (e) => {
-      debugger
-      console.log('***on add stream')
-      this.setState({
-        remoteStream : e.stream
-      })
-    } */ 
-    
     const works = (stream) =>{
       console.log('***streamURL:', stream.toURL())
       this.setState({
@@ -171,15 +158,6 @@ class App extends React.Component {
     });
   }
 
-/*   sendToPeer = (messageType, payload) => {
-    console.log('****sendToPeer', messageType)
-    this.socket.emit(messageType, {
-      socketID : this.socket.id,
-      payload
-    })
-  }  */
-    
-
    sendToPeer = (eventType, payload) => {
     this.socket.emit(eventType, payload)
   }
@@ -191,43 +169,26 @@ class App extends React.Component {
     }
 
   createOffer = () => {
-    console.log('***offer***')
+    console.log('creating offer')
 
     this.pc.createOffer({
       offerToReceiveAudio: 1,
       offerToReceiveVideo: 1,
     }).then(sdp =>{
       this.processSDP(sdp)
-      // console.log(JSON.stringify(sdp))
-
-      // this.pc.setLocalDescription(sdp)
-
-      // this.sendToPeer('sdp', sdp)
     }).catch(e=>console.debug('error creating offer', e))
   }
 
   createAnswer = () => {
-    console.log('***answer***')
+    console.log('creating answer')
 
     this.pc.createAnswer({ 
       offerToReceiveAudio: 1,
       offerToReceiveVideo: 1,
     }).then(sdp => {
       this.processSDP(sdp)
-      // console.log(JSON.stringify(sdp))
-
-      // this.pc.setLocalDescription(sdp)
-
-      // this.sendToPeer('sdp', sdp)
     }).catch(e => console.debug('error creating answer', e))
   }
-
-/*   setRemoteDescription = () => {
-
-    const desc = JSON.parse(this.sdp)
-
-    this.pc.setRemoteDescription(new RTCSessionDescription(desc))
-  } */
 
   addCandidate = () => {
 
@@ -237,7 +198,6 @@ class App extends React.Component {
     });
   }
   
-
  render(){
 
   const {
