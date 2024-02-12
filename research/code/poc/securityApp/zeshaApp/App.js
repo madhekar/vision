@@ -1,5 +1,5 @@
 /**
- * Sample React Native App
+ * React Native zeshaApp
  * https://github.com/facebook/react-native
  *
  * @format
@@ -120,7 +120,6 @@ class App extends React.Component {
       this.setState({
         localStream : stream
       })
-      //this.pc.addStream(stream)
       stream.getTracks().forEach(track => this.pc.addTrack(track, stream))
     }
 
@@ -191,7 +190,6 @@ class App extends React.Component {
   }
 
   addCandidate = () => {
-
     this.candidates.forEach(candidate => {
       console.log(JSON.stringify(candidate))
       this.pc.addIceCandidate(new RTCIceCandidate(candidate))
@@ -214,7 +212,6 @@ class App extends React.Component {
     objectFit='cover'
     streamURL={remoteStream && remoteStream.toURL()}
     />
-
   ) :
   (
     <View style={{ padding : 15,}}>
@@ -223,7 +220,6 @@ class App extends React.Component {
   )
 
   return (
-
     <SafeAreaView style={{flex: 1,}}>
       <StatusBar backgroundColor='blue' barStyle={'dark-content'}/>
       <View style={{...styles.buttonsContainer}}>
@@ -318,7 +314,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     height: dimensiony - 10,
   }
-
 });
 
 export default App;
