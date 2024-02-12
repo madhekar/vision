@@ -15,14 +15,13 @@ function App() {
   //const pc_config = null
    const pc_config ={
       'iceServers' : [
-    /*    {
+      /*{
             'urls': 'stun:[STUN-IP]:[PORT]',
             'credential' : '[CREDENTIAL]',
             'username' : '[USERNAME]'
         } */
-        {
-          urls : 'stun:stun.l.google.com:19302'
-        }
+        { urls : 'stun:stun.l.google.com:19302'},
+        { urls : 'stun:stun2.l.google.com:19302'}
       ]
   } 
   const localVideoRef = useRef()
@@ -97,11 +96,11 @@ function App() {
       }
 
       _pc.ontrack = (e) => {
-        // got remote stream
+        // got the remote stream
         remoteVideoRef.current.srcObject = e.streams[0]
       }
       pc.current = _pc
-  }, [])  // end of useEffect
+  }, [])  // end of useEffect method
 
   const sendToPeer = (eventType, payload) => {
     socket.emit(eventType, payload)
