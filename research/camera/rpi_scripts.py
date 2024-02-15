@@ -53,3 +53,7 @@ libcamera-vid -t 0 --inline -o udp://192.168.68.115:3009 --codec h264
 
 libcamera-vid -o - -t 0 -fps 25 -g 50 -rot 180 -n -a 12 -b 6000000 | ffmpeg -re -ar 44100 -ac 2 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -f h264 -thread_queue_size 256 -i - -vcodec copy -acodec aac -ab 128k -strict experimental -f flv rtmp://a.rtmp.youtube.com/live2/YOUR_KEY_HERE
 
+---
+
+libcamera-vid --framerate 30 --nopreview --inline -t 0 --width 1920 --height 1080 --listen -o - | ffmpeg -i - -profile:v high -pix_fmt yuvj420p -level:v 4.1 -preset ultrafast -tune zerolatency -vcodec libx264 -r 10 -s 1920x1080 -f mpegts -flush_packets 0 udp://192.168.0.3:5000?pkt_size=1316
+
