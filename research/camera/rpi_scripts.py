@@ -46,4 +46,10 @@ rtsp://madhekar:Manya1@us@192.168.68.115:10554/stream_iot
 
 ----
 
-madhekar@zesha:~/app/yolov8-streamlit-detection-tracking $ libcamera-vid -t 0 --inline -o udp://192.168.68.115:3009 --codec h264
+libcamera-vid -t 0 --inline -o udp://192.168.68.115:3009 --codec h264
+
+
+----
+
+libcamera-vid -o - -t 0 -fps 25 -g 50 -rot 180 -n -a 12 -b 6000000 | ffmpeg -re -ar 44100 -ac 2 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -f h264 -thread_queue_size 256 -i - -vcodec copy -acodec aac -ab 128k -strict experimental -f flv rtmp://a.rtmp.youtube.com/live2/YOUR_KEY_HERE
+
