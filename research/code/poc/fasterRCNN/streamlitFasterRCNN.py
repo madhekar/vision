@@ -25,7 +25,8 @@ class zsehaDetector:
     'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'N/A', 'book',
     'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'
     ]
-    def _display_detected_frames(conf, model, st_frame, image, is_display_tracking=None, tracker=None):
+        
+    def _display_detected_frames(self, conf, model, st_frame, image, is_display_tracking=None, tracker=None):
         """
             Display the detected objects on a video frame using the YOLOv8 model.
 
