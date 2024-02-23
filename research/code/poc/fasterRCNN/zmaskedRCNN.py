@@ -36,7 +36,7 @@ class zsehaDetector:
         transform = T.Compose([T.ToTensor()])
         img = transform(img)
         pred = self.model([img])
-
+        print(pred)
         pred_score = list(pred[0]['scores'].detach().cpu().numpy())
         pred_t = [pred_score.index(x) for x in pred_score if x > threshold][-1]
         masks = (pred[0]['masks'] > 0.5).squeeze().detach().cpu().numpy()
@@ -84,10 +84,10 @@ class zsehaDetector:
            cv2.rectangle(img, pt1, pt2, color=(0, 255, 0), thickness=rect_th)
            cv2.putText(img,pred_cls[i], pt1, cv2.FONT_HERSHEY_SIMPLEX, text_size, (0,255,0),thickness=text_th)
         #plt.figure(figsize=(10,10))
-        plt.imshow(img)
+        cv2.imshow(img)
         #plt.xticks([])
         #plt.yticks([])
-        plt.show()
+        #plt.show()
     
 if __name__=='__main__':
     zd = zsehaDetector()
