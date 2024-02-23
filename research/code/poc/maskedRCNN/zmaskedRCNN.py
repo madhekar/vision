@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt 
 from PIL import Image
+import random
 import torch
 import torchvision.transforms as T
 import torchvision
@@ -26,7 +27,8 @@ class zsehaDetector:
     ]
 
     def initEnv(self):
-        self.model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)    
+        self.model = torchvision.models.detection.maskrcnn_resnet50_fpn(weights=torchvision.models.detection.MaskRCNN_ResNet50_FPN_Weights.DEFAULT)
+        #torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)    
         self.model.eval()
 
     def getPrediction(self, imgPath, threshold):
@@ -34,15 +36,28 @@ class zsehaDetector:
         transform = T.Compose([T.ToTensor()])
         img = transform(img)
         pred = self.model([img])
-        pred_class = [self.COCO_INSTANCE_CATEGORY_NAMES[i] for i in list(pred[0]['labels'].numpy())]
-        pred_boxes = [[(i[0], i[1]), (i[2], i[3])] for i in list(pred[0]['boxes'].detach().numpy())]
-        pred_score = list(pred[0]['scores'].detach().numpy())
-        pred_t = [pred_score.index(x) for x in pred_score if x>threshold][-1]
+        print(pred)
+        pred_score = list(pred[0]['scores'].detach().cpu().numpy())
+        pred_t = [pred_score.index(x) for x in pred_score if x > threshold][-1]
+        masks = (pred[0]['masks'] > 0.5).squeeze().detach().cpu().numpy()
+        pred_class = [self.COCO_INSTANCE_CATEGORY_NAMES[i] for i in list(pred[0]['labels'].cpu().numpy())]
+        pred_boxes = [[(i[0], i[1]), (i[2], i[3])] for i in list(pred[0]['boxes'].detach().cpu().numpy())]
+        masks = masks[:pred_t+1]
         pred_boxes = pred_boxes[:pred_t+1]
         pred_class = pred_class[:pred_t+1]
-        return pred_boxes, pred_class
+        return masks, pred_boxes, pred_class
     
-    def dectectEntities(self, imgPath, threshold=0.5, rect_th=2, text_size=1, text_th=2):
+    def random_color_masks(self, image):
+        # I will copy a list of colors here
+        colors = [[0, 255, 0],[0, 0, 255],[255, 0, 0],[0, 255, 255],[255, 255, 0],[255, 0, 255],[80, 70, 180], [250, 80, 190],[245, 145, 50],[70, 150, 250],[50, 190, 190]]
+        r = np.zeros_like(image).astype(np.uint8)
+        g = np.zeros_like(image).astype(np.uint8)
+        b = np.zeros_like(image).astype(np.uint8)
+        r[image==1], g[image==1], b[image==1] = colors[random.randrange(0, 10)]
+        colored_mask = np.stack([r,g,b], axis=2)
+        return colored_mask
+    
+    def dectectEntities(self, imgPath, threshold=0.5, rect_th=2, text_size=.5, text_th=2):
         """
         parameters:
           - img_path - path of the input image
@@ -56,14 +71,18 @@ class zsehaDetector:
             with opencv
           - the final image is displayed
         """
-        boxes, pred_cls = self.getPrediction(imgPath, threshold)
+        masks, boxes, pred_cls = self.getPrediction(imgPath, threshold)
 
-        img = cv2.imread(img_path)
+        img = cv2.imread(imgPath)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         # print(len(boxes))
-        for i in range(len(boxes)):
-           cv2.rectangle(img, boxes[i][0], boxes[i][1],color=(0, 255, 0), thickness=rect_th)
-           cv2.putText(img,pred_cls[i], boxes[i][0], cv2.FONT_HERSHEY_SIMPLEX, text_size, (0,255,0),thickness=text_th)
+        for i in range(len(masks)):
+           rgb_mask = self.random_color_masks(masks[i])
+           img = cv2.addWeighted(img, 1, rgb_mask, 0.5, 0)
+           pt1 = tuple(int(x) for x in boxes[i][0])
+           pt2 = tuple(int(x) for x in boxes[i][1])
+           cv2.rectangle(img, pt1, pt2, color=(0, 255, 0), thickness=rect_th)
+           cv2.putText(img,pred_cls[i], pt1, cv2.FONT_HERSHEY_SIMPLEX, text_size, (0,255,0),thickness=text_th)
         plt.figure(figsize=(20,30))
         plt.imshow(img)
         plt.xticks([])
@@ -75,4 +94,4 @@ if __name__=='__main__':
 
     zd.initEnv()    
 
-    zd.dectectEntities('./kitched.jpg', threshold=.5)
+    zd.dectectEntities('./messy_kitchen.jpg', threshold=.5)
