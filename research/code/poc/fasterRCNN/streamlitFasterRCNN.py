@@ -28,11 +28,11 @@ class zsehaDetector:
         
     def _display_detected_frames(self, conf, model, st_frame, image, is_display_tracking=None, tracker=None):
         """
-            Display the detected objects on a video frame using the YOLOv8 model.
+            Display the detected objects on a video frame using the FASTRCNN model.
 
             Args:
                 - conf (float): Confidence threshold for object detection.
-                - model (YoloV8): A YOLOv8 object detection model.
+                - model (FASTRCNN): 
                 - st_frame (Streamlit object): A Streamlit object to display the detected video.
                 - image (numpy array): A numpy array representing the video frame.
                 - is_display_tracking (bool): A flag indicating whether to display object tracking (default=None).
