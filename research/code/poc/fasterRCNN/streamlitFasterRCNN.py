@@ -1,3 +1,4 @@
+import time
 import matplotlib.pyplot as plt 
 from PIL import Image
 import torch
@@ -102,14 +103,15 @@ class zsehaDetector:
     def getImagePrediction(self, img, threshold):
 
         transform = T.Compose([T.ToTensor()])
-
+        plt.imshow(img)
         img = transform(img)
         pred = self.model([img])
         print(pred)
         pred_score = list(pred[0]['scores'].detach().cpu().numpy())
+        print(pred_score)
         pred_t = [pred_score.index(x) for x in pred_score if x > threshold][-1]
 
-        print(pred_score, pred_t)
+        
 
         pred_class = [self.COCO_INSTANCE_CATEGORY_NAMES[i] for i in list(pred[0]['labels'].cpu().numpy())]
         pred_boxes = [[(i[0], i[1]), (i[2], i[3])] for i in list(pred[0]['boxes'].detach().cpu().numpy())]
@@ -126,7 +128,10 @@ class zsehaDetector:
         try:
             vid_cap = cv2.VideoCapture(source_webcom)
 
+  
             while (vid_cap.isOpened()):
+              
+                time.sleep(10)
 
                 success, img = vid_cap.read()
 
@@ -143,7 +148,7 @@ class zsehaDetector:
                        pt2 = tuple(int(x) for x in boxes[i][1])
                        cv2.rectangle(img, pt1, pt2, color=(0, 255, 0), thickness=rect_th)
                        cv2.putText(img,pred_cls[i], pt1, cv2.FONT_HERSHEY_SIMPLEX, text_size, (0,255,0),thickness=text_th)
-  
+   
                      st_frame = st.empty()
                      self._display_detected_frames(0.5, 'fastRCNN', st_frame, img, False, None) 
                 else:
