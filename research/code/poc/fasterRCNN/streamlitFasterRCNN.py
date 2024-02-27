@@ -175,6 +175,6 @@ if __name__=='__main__':
 
     zd.initEnv()    
 
-    #zd.dectectEntities('./messy_kitchen.jpg', threshold=.5)
+    zd.dectectEntities('./messy_kitchen.jpg', threshold=.5)
 
-    zd.detectEntitiesVideo(threshold=0.5)
+    #zd.detectEntitiesVideo(threshold=0.5)
