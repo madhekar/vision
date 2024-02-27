@@ -27,7 +27,7 @@ class zsehaDetector:
     'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'
     ]
         
-    def _display_detected_frames(self, conf, model, st_frame, image, is_display_tracking=None, tracker=None):
+    def _display_detected_frames(self, st_frame, image):
         """
             Display the detected objects on a video frame using the FASTRCNN model.
 
@@ -42,7 +42,7 @@ class zsehaDetector:
                 None
         """
         # Resize the image to a standard size
-        image = cv2.resize(image, (720, int(720*(9/16))))
+        #image = cv2.resize(image, (720, int(720*(9/16))))
         st_frame.image(image,
                    caption='Detected Video',
                    channels="BGR",
@@ -103,12 +103,12 @@ class zsehaDetector:
     def getImagePrediction(self, img, threshold):
 
         transform = T.Compose([T.ToTensor()])
-        plt.imshow(img)
+      
         img = transform(img)
         pred = self.model([img])
-        print(pred)
+
         pred_score = list(pred[0]['scores'].detach().cpu().numpy())
-        print(pred_score)
+
         pred_t = [pred_score.index(x) for x in pred_score if x > threshold][-1]
 
         
@@ -118,7 +118,7 @@ class zsehaDetector:
 
         pred_boxes = pred_boxes[:pred_t+1]
         pred_class = pred_class[:pred_t+1]
-        print(pred_boxes, pred_class)
+
         return pred_boxes, pred_class
 
 
@@ -128,10 +128,11 @@ class zsehaDetector:
         try:
             vid_cap = cv2.VideoCapture(source_webcom)
 
-  
+            # to display frame at same location
+            st_frame = st.empty()
             while (vid_cap.isOpened()):
               
-                time.sleep(10)
+                time.sleep(1)
 
                 success, img = vid_cap.read()
 
@@ -149,8 +150,7 @@ class zsehaDetector:
                        cv2.rectangle(img, pt1, pt2, color=(0, 255, 0), thickness=rect_th)
                        cv2.putText(img,pred_cls[i], pt1, cv2.FONT_HERSHEY_SIMPLEX, text_size, (0,255,0),thickness=text_th)
    
-                     st_frame = st.empty()
-                     self._display_detected_frames(0.5, 'fastRCNN', st_frame, img, False, None) 
+                     self._display_detected_frames( st_frame, img) 
                 else:
                     vid_cap.release()
                     break
