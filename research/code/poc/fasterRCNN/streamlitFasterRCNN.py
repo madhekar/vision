@@ -27,8 +27,8 @@ class zsehaDetector:
     'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'
     ]
         
-    def _display_detected_frames(self, st_frame, image):
-        """
+
+    """
             Display the detected objects on a video frame using the FASTRCNN model.
 
             Args:
@@ -40,7 +40,9 @@ class zsehaDetector:
 
             Returns:
                 None
-        """
+    """   
+    def _display_detected_frames(self, st_frame, image):
+
         # Resize the image to a standard size
         #image = cv2.resize(image, (720, int(720*(9/16))))
         st_frame.image(image,
@@ -48,7 +50,9 @@ class zsehaDetector:
                    channels="BGR",
                    use_column_width=True
                    )
-
+    """
+        InitEnv
+    """
     def initEnv(self):
         st.title('Zesha Detectron2 POC')
         st.write('Torch version: ' ,torch.__version__, 'Is GPU available?: ', torch.cuda.is_available())
@@ -56,7 +60,9 @@ class zsehaDetector:
         # todo check cuda support
         self.model = torchvision.models.detection.fasterrcnn_resnet50_fpn(weights=torchvision.models.detection.FasterRCNN_ResNet50_FPN_Weights.DEFAULT) 
         self.model.eval()
-
+    """
+        getPrediction
+    """
     def getPrediction(self, imgPath, threshold):
         img = Image.open(imgPath)
         transform = T.Compose([T.ToTensor()])
@@ -73,7 +79,9 @@ class zsehaDetector:
         pred_class = pred_class[:pred_t+1]
         return pred_boxes, pred_class
     
-    
+    """
+        detectEntities
+    """
     def dectectEntities(self, imgPath, threshold=0.5, rect_th=1, text_size=.5, text_th=1):
         """
         parameters:
@@ -100,7 +108,10 @@ class zsehaDetector:
         st_frame = st.empty()
         self._display_detected_frames(0.5, 'fastRCNN', st_frame, img, False, None) 
 
-    def getImagePrediction(self, img, threshold):
+    """
+        getVideoPrediction
+    """
+    def getVideoPrediction(self, img, threshold):
 
         transform = T.Compose([T.ToTensor()])
       
@@ -108,10 +119,7 @@ class zsehaDetector:
         pred = self.model([img])
 
         pred_score = list(pred[0]['scores'].detach().cpu().numpy())
-
         pred_t = [pred_score.index(x) for x in pred_score if x > threshold][-1]
-
-        
 
         pred_class = [self.COCO_INSTANCE_CATEGORY_NAMES[i] for i in list(pred[0]['labels'].cpu().numpy())]
         pred_boxes = [[(i[0], i[1]), (i[2], i[3])] for i in list(pred[0]['boxes'].detach().cpu().numpy())]
@@ -120,7 +128,10 @@ class zsehaDetector:
         pred_class = pred_class[:pred_t+1]
 
         return pred_boxes, pred_class
+    """
+        detectEntitiesVideo
 
+    """
 
     def detectEntitiesVideo(self, threshold=0.5, rect_th=1, text_size=.5, text_th=1):
 
@@ -140,7 +151,7 @@ class zsehaDetector:
                      
                      img = cv2.resize(img,(720, int(720*(9/16))))
 
-                     boxes, pred_cls = self.getImagePrediction(img, threshold)
+                     boxes, pred_cls = self.getVideoPrediction(img, threshold)
                      img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
                      
                      
