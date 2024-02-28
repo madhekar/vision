@@ -106,7 +106,7 @@ class zsehaDetector:
            cv2.rectangle(img, pt1, pt2, color=(0, 255, 0), thickness=rect_th)
            cv2.putText(img,pred_cls[i], pt1, cv2.FONT_HERSHEY_SIMPLEX, text_size, (0,255,0),thickness=text_th)
         st_frame = st.empty()
-        self._display_detected_frames(0.5, 'fastRCNN', st_frame, img, False, None) 
+        self._display_detected_frames( st_frame, img) 
 
     """
         getVideoPrediction
@@ -175,6 +175,6 @@ if __name__=='__main__':
 
     zd.initEnv()    
 
-    zd.dectectEntities('./messy_kitchen.jpg', threshold=.5)
+    #zd.dectectEntities('./messy_kitchen.jpg', threshold=.5)
 
-    #zd.detectEntitiesVideo(threshold=0.5)
+    zd.detectEntitiesVideo(threshold=0.5)
