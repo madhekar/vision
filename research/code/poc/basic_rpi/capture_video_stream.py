@@ -1,5 +1,24 @@
 #!/usr/bin/python3
+'''
+[Unit]
+Description=Cam service
+After=network.target
 
+[Service]
+Type=simple
+User=pi
+ExecStart=/home/pi/cam.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+0 20   * * *	root  systemctl start cam
+0  8   * * *    root	systemctl stop cam
+
+rsync  --remove-source-files -P -av -e ssh madhekar@zesha_ip:/home/madhekar/videos/ /home/bob/vids/
+
+'''
 import socket
 import threading
 import time
