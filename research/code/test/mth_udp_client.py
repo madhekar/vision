@@ -2,6 +2,8 @@ import threading
 import queue
 import cv2
 
+# ffmpeg -re -i C:\Users\test\Downloads\out.ts -strict -2 -c:v copy -an -preset slower -tune stillimage -b 11200k -f rawvideo udp://127.0.0.1:5000
+
 q = queue.Queue()
 
 def receive():
