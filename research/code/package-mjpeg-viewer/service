@@ -1,0 +1,163 @@
+#!/usr/bin/python
+import requests, os, sys, threading, traceback, time
+from werkzeug.http import parse_options_header
+from requests.auth import HTTPBasicAuth, HTTPDigestAuth
+
+from hosted import config
+config.restart_on_update()
+
+MAX_CHUNK_SIZE = 2000000
+
+def log(msg):
+    sys.stderr.write(msg + '\n') 
+    sys.stderr.flush()
+
+def iter_lines(src, delimiter):
+    buf = []
+    for chunk in src:
+        lines = chunk.split(delimiter)
+
+        if buf and len(lines) >= 2:
+            # finish current buffered content with first split
+            buf.append(lines.pop(0))
+            yield ''.join(buf)
+            buf = []
+
+        last = lines.pop()
+        if last:
+            # last split not empty? Then chunk didn't end on delimiter
+            # and we need more content from the next chunk.
+            buf.append(last)
+
+        # if last is empty, the chunk ended on delimiter. we can
+        # throw away the empty 'line'.
+
+        # yield all remaining lines
+        for chunk in lines:
+            yield chunk
+
+    remaining = ''.join(buf)
+    if remaining:
+        yield remaining
+
+def capture(cam, target):
+    if cam['user'] or cam['pass']:
+        auths = [
+            ('digest auth', HTTPDigestAuth(cam['user'], cam['pass'])),
+            ('basic auth',  HTTPBasicAuth(cam['user'], cam['pass'])),
+        ]
+    else:
+        auths = [
+            ('no auth', None)
+        ]
+
+    log("contacting camera %r %r" % (cam, target))
+    for method, auth in auths:
+        log("trying %s" % (method,))
+        r = requests.get(
+            url = cam['url'],
+            stream = True,
+            auth = auth,
+            timeout = 10,
+        )
+        if r.status_code == 200:
+            break
+        if r.status_code != 401:
+            r.raise_for_status()
+    else:
+        raise Exception("cannot authenticate")
+
+    log("response headers: %r" % (r.headers,))
+
+    ct, options = parse_options_header(r.headers['content-type'])
+    log("content-type, options: %r %r" % (ct, options))
+
+    # shitcams
+    boundaries = (
+        options['boundary'],
+        "--%s" % options['boundary']
+    )
+
+    SEARCH_BOUNDARY, HEADER, CONTENT = range(3)
+
+    state = SEARCH_BOUNDARY
+    jpeg = None
+    last_image = time.time()
+
+    for line in iter_lines(r.iter_content(chunk_size=8192), delimiter='\r\n'):
+        if time.time() > last_image + 10:
+            raise Exception("no image in 10 seconds")
+
+        # log("%s %r" % (state, line))
+        if state == SEARCH_BOUNDARY:
+            if line in boundaries:
+                log('boundary')
+                state = HEADER
+                max_size = MAX_CHUNK_SIZE
+        elif state == HEADER:
+            line = line.strip()
+            if not line:
+                # header/content separator
+                log('header complete')
+                state = CONTENT
+                if jpeg:
+                    jpeg.close()
+                # dot-file, so info-beamer doesn't pick it up
+                jpeg = open('.tmp-%s' % target, 'wb')
+            else:
+                key, value = line.split(':', 1)
+                key = key.lower()
+                if key == 'content-length':
+                    max_size = int(value)
+        elif state == CONTENT:
+            # print repr(line)
+            if line in boundaries:
+                log('boundary (in content)')
+                state = HEADER
+                max_size = MAX_CHUNK_SIZE
+
+                # finish frame
+                jpeg.close()
+                jpeg = None
+                os.rename('.tmp-%s' % target, target)
+                last_image = time.time()
+            elif jpeg.tell() < max_size:
+                jpeg.write(line)
+                jpeg.write('\r\n')
+            else:
+                log('too large')
+                state = SEARCH_BOUNDARY
+
+def cam_loop(cam, target):
+    while 1:
+        try:
+            capture(cam, target)
+        except Exception:
+            traceback.print_exc()
+            log("restarting cam %r in 5 seconds" % (cam,))
+            time.sleep(5)
+
+def run_in_thread(fn, kwargs):
+    def wrap():
+        try:
+            while 1:
+                fn(**kwargs)
+        except Exception:
+            traceback.print_exc()
+            os._exit(1)
+    thread = threading.Thread(target=wrap)
+    thread.daemon = True
+    thread.start()
+
+def main():
+    for idx, cam in enumerate(config.cams):
+        run_in_thread(cam_loop, dict(
+            cam = cam,
+            target = 'zz-cam-frame-%03d.jpg' % (idx+1)
+        ))
+
+    while 1:
+        time.sleep(10)
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,8 @@
+{
+    "name": "MJPEG Stream Viewer",
+    "author": "Florian Wesch <fw@info-beamer.com>",
+    "desc": "Show multiple MJPEG streams (from cameras, etc..)",
+    "repository": "https://github.com/info-beamer/package-mjpeg-viewer",
+    "platforms": ["pi/epoch-1", "pi-4"],
+    "version": "2"
+}

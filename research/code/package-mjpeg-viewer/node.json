@@ -1,0 +1,71 @@
+{
+    "name": "MJPEG",
+    "permissions": {
+        "network": "Needs to access MJPEG streams"
+    },
+    "options": [{
+        "title": "Camera List",
+        "name": "cams",
+        "type": "list",
+        "itemname": "Camera",
+        "items": [{
+            "title": "Url",
+            "ui_width": 12,
+            "name": "url",
+            "placeholder": "Url of camera stream. E.g. http://xx.xx.xx.xx/axis-cgi/mjpg/video.cgi",
+            "type": "string",
+            "default": ""
+        }, {
+            "title": "HTTP username",
+            "ui_width": 3,
+            "name": "user",
+            "placeholder": "username",
+            "type": "string",
+            "default": ""
+        }, {
+            "title": "HTTP password",
+            "ui_width": 3,
+            "name": "pass",
+            "placeholder": "password",
+            "type": "string",
+            "default": ""
+        }, {
+            "title": "Cam Name",
+            "ui_width": 6,
+            "name": "name",
+            "placeholder": "",
+            "type": "string",
+            "default": ""
+        }]
+    }, {
+        "title": "Layout",
+        "ui_width": 4,
+        "name": "layout",
+        "type": "select",
+        "options": [
+            ["auto", "Automatic (default)"],
+            [[2, 1], "2x1"],
+            [[1, 2], "1x2"],
+            [[3, 2], "3x2"],
+            [[4, 3], "4x3"]
+        ],
+        "default": "auto"
+    }, {
+        "title": "Max image loads/s",
+        "ui_width": 4,
+        "name": "image_per_second",
+        "type": "select",
+        "options": [
+            [1, "1"],
+            [2, "2"],
+            [3, "3"],
+            [4, "4"],
+            [5, "5"],
+            [6, "6"],
+            [7, "7"],
+            [8, "8"],
+            ["unlimited", "Unlimited"]
+        ],
+        "default": 2
+    }]
+}
