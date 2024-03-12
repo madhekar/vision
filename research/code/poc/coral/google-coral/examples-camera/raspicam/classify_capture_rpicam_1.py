@@ -16,7 +16,6 @@
 import argparse
 import collections
 from collections import deque
-from matplotlib import pyplot as plt
 import common
 import io
 import numpy as np
@@ -55,30 +54,28 @@ def main():
 
     interpreter = common.make_interpreter(args.model)
     interpreter.allocate_tensors()
-    msize = (224, 224)
 
     with picamera2.Picamera2() as camera:
-        video_config = camera.create_video_configuration(main={"size": msize, "format": "RGB888"})
-        camera.configure(video_config)
+        camera.resolution = (640, 480)
+        camera.framerate = 30
+        camera.annotate_text_size = 20
         width, height, channels = common.input_image_size(interpreter)
-        camera.start() #_preview()
+        camera.start_preview()
         try:
+            stream = io.BytesIO()
             fps = deque(maxlen=20)
             fps.append(time.time())
-            while True:
-                stream = camera.capture_array('main')
-                #camera.capture_file('classify.png')
-                #plt.imshow(stream, interpolation='nearest')
-                #plt.show()
-
-                input = stream.astype(np.uint8)
-                #camera.capture_file('classify.png')
-                #print('size', input.shape)
-
+            for foo in camera.capture_continuous(stream,
+                                                 format='rgb',
+                                                 use_video_port=True,
+                                                 resize=(width, height)):
+                stream.truncate()
+                stream.seek(0)
+                input = np.frombuffer(stream.getvalue(), dtype=np.uint8)
                 start_ms = time.time()
                 common.input_tensor(interpreter)[:,:] = np.reshape(input, common.input_image_size(interpreter))
                 interpreter.invoke()
-                results = get_output(interpreter, top_k=5, score_threshold=0)
+                results = get_output(interpreter, top_k=3, score_threshold=0)
                 inference_ms = (time.time() - start_ms)*1000.0
                 fps.append(time.time())
                 fps_ms = len(fps)/(fps[-1] - fps[0])
@@ -86,7 +83,6 @@ def main():
                 for result in results:
                    camera.annotate_text += '\n{:.0f}% {}'.format(100*result[1], labels[result[0]])
                 print(camera.annotate_text)
-                time.sleep(10)
         finally:
             camera.stop_preview()
 
