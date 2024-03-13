@@ -56,24 +56,25 @@ def main():
     interpreter = common.make_interpreter(args.model)
     interpreter.allocate_tensors()
     msize = (224, 224)
-
     with picamera2.Picamera2() as camera:
         video_config = camera.create_video_configuration(main={"size": msize, "format": "RGB888"})
         camera.configure(video_config)
         width, height, channels = common.input_image_size(interpreter)
-        camera.start() #_preview()
+        camera.start()
         try:
             fps = deque(maxlen=20)
             fps.append(time.time())
-            while True:
-                stream = camera.capture_array('main')
-                #camera.capture_file('classify.png')
-                #plt.imshow(stream, interpolation='nearest')
-                #plt.show()
+            plt.show(block=False)
+            fig = plt.figure()
 
-                input = stream.astype(np.uint8)
-                #camera.capture_file('classify.png')
-                #print('size', input.shape)
+            while True:
+                input = camera.capture_array('main')
+                input = input.astype(np.uint8)
+                ax = fig.add_subplot(111)
+                ax.imshow(input, cmap='hot', interpolation='nearest')
+                fig.canvas.draw()
+                fig.canvas.flush_events()
+                plt.pause(2)
 
                 start_ms = time.time()
                 common.input_tensor(interpreter)[:,:] = np.reshape(input, common.input_image_size(interpreter))
@@ -86,9 +87,8 @@ def main():
                 for result in results:
                    camera.annotate_text += '\n{:.0f}% {}'.format(100*result[1], labels[result[0]])
                 print(camera.annotate_text)
-                time.sleep(10)
         finally:
-            camera.stop_preview()
+            camera.stop()
 
 
 if __name__ == '__main__':
