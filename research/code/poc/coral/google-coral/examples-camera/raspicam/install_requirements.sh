@@ -14,4 +14,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-sudo pip3 install picamera
+sudo pip3 install picamera2
