@@ -25,10 +25,12 @@ class zsehaDetector:
     'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'
     ]
 
+    # torchvision model ResNet50
     def initEnv(self):
         self.model = torchvision.models.detection.fasterrcnn_resnet50_fpn(weights=torchvision.models.detection.FasterRCNN_ResNet50_FPN_Weights.DEFAULT) 
         self.model.eval()
 
+    # get brediction and bounding boxes
     def getPrediction(self, imgPath, threshold):
         img = Image.open(imgPath)
         transform = T.Compose([T.ToTensor()])

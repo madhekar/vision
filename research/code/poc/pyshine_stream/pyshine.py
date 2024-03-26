@@ -1,4 +1,5 @@
 # Part 01 using opencv access webcam and transmit the video in HTML
+# https://pyshine.com/Easy-video-streaming-in-raspberrypi-python/
 import cv2
 import  pyshine as ps #  pip3 install pyshine==0.0.9
 HTML="""
