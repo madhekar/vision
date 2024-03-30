@@ -5,7 +5,7 @@ import subprocess as sp
 FFMPEG_BIN = "ffmpeg" # on Linux ans Mac OS
 #-i tcp://192.168.0.15:2222
 command = [ FFMPEG_BIN,
-			'-i', 'tcp://192.168.68.120:2222',
+			'-i', 'udp://192.168.68.115:2222',
 		#	'-f', 'image2pipe',
 			'-f', 'rawvideo',
 			'-tune', 'zerolatency',
