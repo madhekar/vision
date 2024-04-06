@@ -18,7 +18,7 @@ while perf._nframes < args["num_frames"]:
     (ret, frame) = stream.read()
     frame = imutils.resize(frame, width=400)
 
-    if args["display"] > 0:
+    if args["display"] >= 0:
         cv2.imshow("Frame", frame)
         key = cv2.waitKey(1) & 0xFF
 
