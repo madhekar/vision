@@ -16,21 +16,22 @@ ap.add_argument("-d", "--display", type=int, default=-1,
 args = vars(ap.parse_args())
 
 camera = Picamera2()
-conf = camera.create_video_configuration(main = {'size' : (320,240), 'XBGR8888' : format}, conrols = {'FrameRate' : 32})
+conf = camera.create_video_configuration(main = {'size' : (320,240), 'XBGR8888' : format}, controls = {'FrameRate' : 32})
 camera.configure(conf)
-stream = camera.capture_array()
+#stream = camera.capture_array()
 
 print("[INFO] sampling frames from `picamera` module...")
 time.sleep(2.0)
 fps = fps().start()
+i = 0
 
-for (i, f) in enumerate(stream):
+while True:
 	# grab the frame from the stream and resize it to have a maximum
 	# width of 400 pixels
-	frame = f.array
+	frame = camera.capture_array()
 	frame = imutils.resize(frame, width=400)
 	# check to see if the frame should be displayed to our screen
-	if args["display"] > 0:
+	if args["display"] >= 0:
 		cv2.imshow("Frame", frame)
 		key = cv2.waitKey(1) & 0xFF
 	# clear the stream in preparation for the next frame and update
@@ -41,9 +42,9 @@ for (i, f) in enumerate(stream):
 		break
 # stop the timer and display FPS information
 fps.stop()
+
 print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
 print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
 # do a bit of cleanup
 cv2.destroyAllWindows()
-stream.close()
 camera.close()

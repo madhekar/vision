@@ -9,9 +9,10 @@ class PiVideoStream():
             #self.camera.preview_configuration.main.size = resolution
             self.conf = self.camera.create_video_configuration(main = {'size' : resolution, 'format' : format}, conrols = {'FrameRate' : framerate})
             self.camera.configure(self.conf)
-            self.stream = self.camera.capture_array()
+            #self.stream = self.camera.capture_array()
             # initialize the frame and the variable used to indicate
 		    # if the thread should be stopped
+            self.camera.start()
             self.frame = None
             self.stopped = False
 
@@ -20,12 +21,11 @@ class PiVideoStream():
                 return self
 
         def update(self):
-                for f in self.stream:
+                while True:
                        # get a frame from the stream
-                       self.frame = f.array
+                       self.frame = self.camera.capture_array()
 
                        if self.stopped:
-                              self.stream.close()
                               self.camera.close()
                               return
 
