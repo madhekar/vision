@@ -1,36 +1,51 @@
 from picamera2 import Picamera2
 from threading import Thread
+from libcamera import Transform
+import time
 import cv2
 
-class PiVideoStream():
-    	def __init__(self, resolution=(320, 240), format = 'XBGR8888', framerate=32):
+class Pi2VideoStream():
+    	def __init__(self, size=(320, 240), format = 'XBGR8888', framerate=32, vflip=True, hflip=False):
 		    # initialize the camera and stream
+            self.size = size
+            self.format = format
+            self.vflip = vflip
+            self.hflip = hflip
+
             self.camera = Picamera2()
+            self.camera.set_logging(Picamera2.INFO)
             #self.camera.preview_configuration.main.size = resolution
-            self.conf = self.camera.create_video_configuration(main = {'size' : resolution, 'format' : format}, conrols = {'FrameRate' : framerate})
-            self.camera.configure(self.conf)
+            self.conf = self.camera.create_video_configuration(main = {'size' : self.size, 'format' : self.format}, 
+                                                               conrols = {'FrameRate' : framerate})
+
+            self.camera.configure(self.conf, transform = Transform(vflip=self.vflip, hflip=self.hflip))
             #self.stream = self.camera.capture_array()
             # initialize the frame and the variable used to indicate
 		    # if the thread should be stopped
             self.camera.start()
+            time.sleep(2)
+            self.thread = None
             self.frame = None
             self.stopped = False
 
         def start(self):
-                Thread(target=self.update, args=()).start()
-                return self
+               self.thread =  Thread(target=self.update, args=())
+               self.thread.daemon = True
+               self.thread.start()
+               return self
 
         def update(self):
                 while True:
                        # get a frame from the stream
-                       self.frame = self.camera.capture_array()
-
                        if self.stopped:
-                              self.camera.close()
                               return
+                       time.sleep(0.001)
 
         def read(self):
+                  self.frame =  self.camera.capture_array('main')
                   return self.frame
 
         def stop(self):
+                  self.camera.stop()
+                  time.sleep(1)
                   self.stopped = True                           
