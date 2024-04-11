@@ -11,39 +11,34 @@ class Pi2VideoStream():
             self.format = format
             self.vflip = vflip
             self.hflip = hflip
-
             self.camera = Picamera2()
             self.camera.set_logging(Picamera2.INFO)
-            #self.camera.preview_configuration.main.size = resolution
             self.conf = self.camera.create_video_configuration(main = {'size' : self.size, 'format' : self.format}, controls = {'FrameRate' : framerate}, transform = Transform(vflip=self.vflip, hflip=self.hflip))
             self.camera.configure(self.conf)
-            #self.stream = self.camera.capture_array()
-            # initialize the frame and the variable used to indicate
-            # if the thread should be stopped
             self.camera.start()
-            time.sleep(2)
+            time.sleep(1)
             self.thread = None
             self.frame = None
             self.stopped = False
             
     def start(self):
-               self.thread = Thread(target=self.update, args=())
-               self.thread.daemon = True
-               self.thread.start()
-               return self
+            self.thread = Thread(target=self.update, args=())
+            self.thread.daemon = True
+            self.thread.start()
+            return self
 
     def update(self):
-                while True:
-                       # get a frame from the stream
-                       if self.stopped:
-                              return
-                       time.sleep(0.001)
+            while True:
+                # get a frame from the stream
+                if self.stopped:
+                    return
+                    time.sleep(0.001)
 
     def read(self):
-                  self.frame =  self.camera.capture_array('main')
-                  return self.frame
+            self.frame =  self.camera.capture_array('main')
+            return self.frame
 
     def stop(self):
-                  self.camera.stop()
-                  time.sleep(1)
-                  self.stopped = True                           
+            self.camera.stop()
+            time.sleep(1)
+            self.stopped = True                           
