@@ -141,14 +141,14 @@ function App() {
       return (
         <div>
           <button onClick={createOffer} style={{width: 50, height:40, margin: 5}}>Call</button>
-              ( {status} ) 
+               ( {status} ) 
         </div>
       ) 
     } else if (answerVisible){
       return(
         <div>
-          <button onClick={createAnswer}>Answer</button>
-          {status} 
+          <button onClick={createAnswer} style={{width: 80, height:40, margin: 5}}>Answer</button>
+          ( {status} )
         </div>
       )
     }
@@ -158,9 +158,10 @@ function App() {
     <div style={{margin:5, position: 'absolute'}}> 
       <br/>
         {showHideButton()}
-         <div>{status}</div> 
+         {/* <div>{status}</div>  */}
+         <textarea ref={textRef} hidden= {true} style={{margin: 5}}></textarea>  
       <br />
-       <textarea ref={textRef} style={{zIndex:30}}></textarea> 
+        
 
       <video resizeMode = {'stretch'} style={{
         position: 'absolute', width: 480,  margin: 5, backgroundColor: 'black', aspectRatio: '9/16', zIndex: 1
