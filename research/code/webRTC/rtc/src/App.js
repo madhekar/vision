@@ -140,36 +140,40 @@ function App() {
     if (offerVisible){
       return (
         <div>
-          <button onClick={createOffer}>Call</button>
+          <button onClick={createOffer} style={{width: 50, height:40, margin: 5}}>Call</button>
+              ( {status} ) 
         </div>
       ) 
     } else if (answerVisible){
       return(
         <div>
           <button onClick={createAnswer}>Answer</button>
+          {status} 
         </div>
       )
     }
   }
 
   return (
-    <div style={{margin:10}}>
-      <video style={{
-        width: 360, height: 270, margin: 10, backgroundColor: 'black',
-      }}
-      ref={localVideoRef} autoPlay></video>
+    <div style={{margin:5, position: 'absolute'}}> 
+      <br/>
+        {showHideButton()}
+         <div>{status}</div> 
+      <br />
+       <textarea ref={textRef} style={{zIndex:30}}></textarea> 
 
-      <video style={{
-        width: 360, height: 270, margin: 10, backgroundColor: 'black',
+      <video resizeMode = {'stretch'} style={{
+        position: 'absolute', width: 480,  margin: 5, backgroundColor: 'black', aspectRatio: '9/16', zIndex: 1
       }}
       ref={remoteVideoRef} autoPlay></video>
 
-      <br />
-        {showHideButton()}
-        <div>{status}</div>
-      <br />
-        <textarea ref={textRef}></textarea>
-    </div>
+      <video resizeMode = {'stretch'} style={{
+        position: 'absolute', width: 120, height:90, margin: 5, backgroundColor: 'black', zIndex: 2
+      }}
+      ref={localVideoRef} autoPlay></video>
+     
+    
+     </div>
   );
 }
 
