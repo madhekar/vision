@@ -39,12 +39,14 @@ class App extends React.Component {
 
   constructor(props){
     super(props)
+
     this.state = {
       localStream: null,
       remoteStream: null,
     }
-    this.pc
-    this.sdp 
+
+    this.pc = null
+    this.sdp = null
     this.socket = null
     this.candidates = []
   }
@@ -52,29 +54,31 @@ class App extends React.Component {
   componentDidMount = () => {
 
     this.socket = io.connect(
-      'https://5147-70-137-105-159.ngrok-free.app/webRTCPeers',
+      'https://aafb-70-137-105-159.ngrok-free.app/webRTCPeers',  //https://aafb-70-137-105-159.ngrok-free.app
       {
         path: '/webrtc',
         query: {}
       }
     )
-
+    // connection is successful
     this.socket.on('connection-success', success => {
-      console('***URL: ', this.socket.toURL())
+      //console.log('***URL: ', this.socket.toURL())
       console.log(success)
     })
 
+    // sdp received
     this.socket.on('sdp', data => {
-
       this.sdp = JSON.stringify(data.sdp)
-      this.pc.setRemoteDescription(new RTCSessionDescription(data.sdp))
-      if(data.sdp.type === 'offer'){
+      console.log('****', this.sdp.type);
+      if(data.sdp.type === 'offer' || data.sdp.type === 'answer'){   
+        this.pc.setRemoteDescription(new RTCSessionDescription(data.sdp))
         console.log("Incomming Call...")
       }else{
         console.log("Call Established.")
       }
     })
 
+    // candidate is received
     this.socket.on('candidate', (candidate) =>{
       this.candidates = [...this.candidates, candidate]
       this.pc.addIceCandidate(new RTCIceCandidate(candidate))
@@ -89,7 +93,6 @@ class App extends React.Component {
     }
 
     this.pc = new RTCPeerConnection()
-
     this.pc.setConfiguration(pc_config)
 
     this.pc.getStats().then(desc => console.log('PeerConnection stats:',desc))
@@ -115,6 +118,7 @@ class App extends React.Component {
       })
     }
 
+    // successfully received stream
     const works = (stream) =>{
       console.log('Inside success method of getUserMedia function with streamURL:', stream.toURL())
       this.setState({
@@ -142,7 +146,7 @@ class App extends React.Component {
         audio: true,
         video: {
           mandatory: {
-            minWidth: 500,
+            minWidth: 500,   // custom width, height and framerate
             minHeight: 300,
             minFrameRate: 30
         },
@@ -150,13 +154,16 @@ class App extends React.Component {
         optional: (videoSourceId ? [{ sourceId: videoSourceId}] : [])
       }
     }
-      const constraints_ ={audio: true, video:true}
+      // const constraints_ ={audio: true, video:true}
       console.debug(constraints)
 
-      mediaDevices.getUserMedia(constraints).then(works).catch(fails)
+      mediaDevices.getUserMedia(constraints)
+      .then(works)
+      .catch(fails);
     });
   }
 
+  // send to peer
    sendToPeer = (eventType, payload) => {
     this.socket.emit(eventType, payload)
   }
@@ -178,6 +185,7 @@ class App extends React.Component {
     }).catch(e=>console.debug('Error creating offer', e))
   }
 
+  // create answer
   createAnswer = () => {
     console.log('Inside create answer function.')
 
@@ -206,16 +214,16 @@ class App extends React.Component {
   const remoteVideo = remoteStream ?
   (
     <RTCView
-    key = {2}
-    mirror = {true}
-    style = {{...styles.rtcViewRemote}}
-    objectFit='cover'
-    streamURL={remoteStream && remoteStream.toURL()}
+      key = {2}
+      mirror = {true}
+      style = {{...styles.rtcViewRemote}}
+      objectFit='cover'
+      streamURL={remoteStream && remoteStream.toURL()}
     />
   ) :
   (
     <View style={{ padding : 15,}}>
-      <Text style={{fontSize:22, textAlign: 'center', color: 'white'}}>Waiting for the peer connection...</Text>
+      <Text style={{fontSize:22, textAlign: 'center', color: 'white'}}>waiting...</Text>
     </View>
   )
 

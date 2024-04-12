@@ -34,7 +34,6 @@ function App() {
   const [status, setStatus] = useState('Make a call now')
 
   useEffect(() =>{
-
     socket.on('connection-success', success => {
       console.log(success)
     })
@@ -61,7 +60,7 @@ function App() {
     }) 
 
       const constraints = {
-        audio : false,
+        audio : true,
         video : true,
         options: {
           mirror: true,
@@ -112,6 +111,7 @@ function App() {
      sendToPeer( 'sdp', { sdp })
     }
 
+  // create offer  
   const createOffer = () => {
     pc.current.createOffer({
       offerToReceiveAudio: 1,
@@ -123,6 +123,7 @@ function App() {
     }).catch(e => console.log(e))
   }
 
+  // create answer
   const createAnswer = () => {
     pc.current.createAnswer({
       offerToReceiveAudio: 1,
@@ -154,12 +155,12 @@ function App() {
   return (
     <div style={{margin:10}}>
       <video style={{
-        width: 240, height: 240, margin: 5, backgroundColor: 'black',
+        width: 360, height: 270, margin: 10, backgroundColor: 'black',
       }}
       ref={localVideoRef} autoPlay></video>
 
       <video style={{
-        width: 240, height: 240, margin: 5, backgroundColor: 'black',
+        width: 360, height: 270, margin: 10, backgroundColor: 'black',
       }}
       ref={remoteVideoRef} autoPlay></video>
 
