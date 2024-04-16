@@ -179,9 +179,9 @@ function App() {
       <video style={{
         position: 'fixed', 
         right: 0, 
-        width: 200,  
-        height: 200, 
+        width: 300,   
         margin: 5, 
+        resizeMode: 'stretch',
         backgroundColor: 'black',  
         zIndex: 2
       }}
