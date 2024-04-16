@@ -2,6 +2,8 @@
 import './App.css';
 import React, {useRef, useEffect, useState} from 'react';
 import io from 'socket.io-client'
+import Video from './Components/zvideo';
+
 
 const socket = io(
   '/webRTCPeers',
@@ -32,6 +34,7 @@ function App() {
   const [offerVisible, setOfferVisible] = useState(true)
   const [answerVisible, setAnswerVisible] = useState(false)
   const [status, setStatus] = useState('Make a call now')
+  // const [localStream, setLocalStream] = useState(null)
 
   useEffect(() =>{
     socket.on('connection-success', success => {
@@ -67,10 +70,17 @@ function App() {
         }
       }
 
+     //const _pc =  new RTCPeerConnection(null)
+
    navigator.mediaDevices.getUserMedia(constraints)
       .then(stream => {
         // display local stream
         localVideoRef.current.srcObject = stream
+        //this.setState({ localStream: stream})
+        //window.localStream = stream
+        //_pc.addStream(stream)
+       // setLocalStream(stream)
+        console.log(stream)
 
         stream.getTracks().forEach(track => {
           _pc.addTrack(track, stream)
@@ -80,7 +90,7 @@ function App() {
         console.log('getUserMedia error occred ...', e)
       }) 
 
-      const _pc =  new RTCPeerConnection(null)
+     const _pc =  new RTCPeerConnection(null)
 
       _pc.onicecandidate = (e) => {
         if (e.candidate){
@@ -155,27 +165,46 @@ function App() {
   }
 
   return (
+
     <div style={{margin:5, position: 'absolute'}}> 
+     <div style={{zIndex:4, position:'fixed'}}>
       <br/>
         {showHideButton()}
          {/* <div>{status}</div>  */}
-         <textarea ref={textRef} hidden= {true} style={{margin: 5}}></textarea>  
+         <textarea ref={textRef} hidden= {false} style={{margin: 5}}></textarea>  
       <br />
-        
+      </div>
 
-      <video resizeMode = {'stretch'} style={{
-        position: 'absolute', width: 480,  margin: 5, backgroundColor: 'black', aspectRatio: '9/16', zIndex: 1
+{/* local video stream */}
+      <video style={{
+        position: 'fixed', 
+        right: 0, 
+        width: 200,  
+        height: 200, 
+        margin: 5, 
+        backgroundColor: 'black',  
+        zIndex: 2
       }}
-      ref={remoteVideoRef} autoPlay></video>
+      ref={localVideoRef} 
+      //videoStream = {localStream}
+      autoPlay muted />
 
-      <video resizeMode = {'stretch'} style={{
-        position: 'absolute', width: 120, height:90, margin: 5, backgroundColor: 'black', zIndex: 2
+
+{/* remote video stream */}
+      <video  style={{
+        position: 'fixed', 
+        bottom: 0, 
+        minWidth: '100%', 
+        minHeight:'100%', 
+        margin: 5, 
+        backgroundColor: 'black', 
+        zIndex: 1
       }}
-      ref={localVideoRef} autoPlay></video>
-     
-    
+      ref={remoteVideoRef} 
+      autoPlay />
      </div>
   );
-}
+ }
+
 
 export default App;

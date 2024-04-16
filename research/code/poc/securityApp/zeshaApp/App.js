@@ -54,7 +54,7 @@ class App extends React.Component {
   componentDidMount = () => {
 
     this.socket = io.connect(
-      'https://aafb-70-137-105-159.ngrok-free.app/webRTCPeers',  //https://aafb-70-137-105-159.ngrok-free.app
+      'https://adb3-70-137-105-159.ngrok-free.app/webRTCPeers',  //https://aafb-70-137-105-159.ngrok-free.app
       {
         path: '/webrtc',
         query: {}
