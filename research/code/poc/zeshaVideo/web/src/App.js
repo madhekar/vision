@@ -11,8 +11,7 @@ class App extends Component {
     this.state = {
       localStream: null,     // used to hold local stream object to avoid recreating the stream everytime a new offer comes
       remoteStream: null,    // used to hold remote stream object that is displayed in the main screen
-
-      remoteStreams: [],     // holds all Video Streams (all remote streams)
+      remoteStreams:[],     // holds all Video Streams (all remote streams)
       peerConnections: {},   // holds all Peer Connections
       selectedVideo: null,
 
@@ -35,11 +34,7 @@ class App extends Component {
     }
 
     // DONT FORGET TO CHANGE TO YOUR URL
-    this.serviceIP = 'https://8a21-70-137-105-159.ngrok-free.app/webrtcPeer'
-
-    // https://reactjs.org/docs/refs-and-the-dom.html
-    // this.localVideoref = React.createRef()
-    // this.remoteVideoref = React.createRef()
+    this.serviceIP = 'https://e358-70-137-105-159.ngrok-free.app/webrtcPeer'
 
     this.socket = null
     // this.candidates = []
@@ -99,7 +94,6 @@ class App extends Component {
   }
 
   createPeerConnection = (socketID, callback) => {
-
     try {
       let pc = new RTCPeerConnection(this.state.pc_config)
 
@@ -252,7 +246,6 @@ class App extends Component {
           pc.createAnswer(this.state.sdpConstraints)
             .then(sdp => {
               pc.setLocalDescription(sdp)
-
               this.sendToPeer('answer', sdp, {
                 local: this.socket.id,
                 remote: data.socketID
@@ -276,55 +269,6 @@ class App extends Component {
       if (pc)
         pc.addIceCandidate(new RTCIceCandidate(data.candidate))
     })
-
-    // const pc_config = null
-
-    // const pc_config = {
-    //   "iceServers": [
-    //     // {
-    //     //   urls: 'stun:[STUN_IP]:[PORT]',
-    //     //   'credentials': '[YOR CREDENTIALS]',
-    //     //   'username': '[USERNAME]'
-    //     // },
-    //     {
-    //       urls : 'stun:stun.l.google.com:19302'
-    //     }
-    //   ]
-    // }
-
-    // https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection
-    // create an instance of RTCPeerConnection
-    // this.pc = new RTCPeerConnection(this.state.pc_config)
-
-    // triggered when a new candidate is returned
-    // this.pc.onicecandidate = (e) => {
-    //   // send the candidates to the remote peer
-    //   // see addCandidate below to be triggered on the remote peer
-    //   if (e.candidate) {
-    //     // console.log(JSON.stringify(e.candidate))
-    //     this.sendToPeer('candidate', e.candidate)
-    //   }
-    // }
-
-    // triggered when there is a change in connection state
-    // this.pc.oniceconnectionstatechange = (e) => {
-    //   console.log(e)
-    // }
-
-    // triggered when a stream is added to pc, see below - this.pc.addStream(stream)
-    // this.pc.onaddstream = (e) => {
-    //   this.remoteVideoref.current.srcObject = e.stream
-    // }
-
-    // this.pc.ontrack = (e) => {
-    //   debugger
-    //   // this.remoteVideoref.current.srcObject = e.streams[0]
-
-    //   this.setState({
-    //     remoteStream: e.streams[0]
-    //   })
-    // }
-
   }
 
   switchVideo = (_video) => {
@@ -353,7 +297,6 @@ class App extends Component {
             resizeMode: 'stretch',
             backgroundColor: 'black'
           }}
-          // ref={this.localVideoref}
           videoStream={this.state.localStream}
           autoPlay muted>
         </Video>
