@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
+import io from 'socket.io-client';
 
-import io from 'socket.io-client'
-
-import Video from './components/video'
-import Videos from './components/videos'
+import Video from './components/video';
+import Videos from './components/videos';
 
 class App extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      localStream: null,    // used to hold local stream object to avoid recreating the stream everytime a new offer comes
+      localStream: null,     // used to hold local stream object to avoid recreating the stream everytime a new offer comes
       remoteStream: null,    // used to hold remote stream object that is displayed in the main screen
 
-      remoteStreams: [],    // holds all Video Streams (all remote streams)
-      peerConnections: {},  // holds all Peer Connections
+      remoteStreams: [],     // holds all Video Streams (all remote streams)
+      peerConnections: {},   // holds all Peer Connections
       selectedVideo: null,
 
       status: 'Please wait...',
@@ -36,7 +35,7 @@ class App extends Component {
     }
 
     // DONT FORGET TO CHANGE TO YOUR URL
-    this.serviceIP = '/webrtcPeer'
+    this.serviceIP = 'https://8a21-70-137-105-159.ngrok-free.app/webrtcPeer'
 
     // https://reactjs.org/docs/refs-and-the-dom.html
     // this.localVideoref = React.createRef()
@@ -56,7 +55,6 @@ class App extends Component {
       this.setState({
         localStream: stream
       })
-
       this.whoisOnline()
     }
 
@@ -68,7 +66,7 @@ class App extends Component {
     // https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
     // see the above link for more constraint options
     const constraints = {
-      // audio: true,
+      audio: true,
       video: true,
       // video: {
       //   width: 1280,
@@ -84,8 +82,8 @@ class App extends Component {
 
     // https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
     navigator.mediaDevices.getUserMedia(constraints)
-      .then(success)
-      .catch(failure)
+    .then(success)
+    .catch(failure)
   }
 
   whoisOnline = () => {
@@ -159,7 +157,7 @@ class App extends Component {
       }
 
       pc.close = () => {
-        // alert('GONE')
+         alert('GONE')
       }
 
       if (this.state.localStream)
@@ -177,6 +175,8 @@ class App extends Component {
 
   componentDidMount = () => {
 
+    console.log('=>componentDidMount', this.serviceIP)
+
     this.socket = io.connect(
       this.serviceIP,
       {
@@ -184,13 +184,13 @@ class App extends Component {
         query: {}
       }
     )
-
+    
     this.socket.on('connection-success', data => {
 
       this.getLocalStream()
 
       console.log(data.success)
-      const status = data.peerCount > 1 ? `Total Connected Peers: ${data.peerCount}` : 'Waiting for other peers to connect'
+      const status = data.peerCount > 1 ? `Number connected: ${data.peerCount}` : 'Waiting...'
 
       this.setState({
         status: status
@@ -336,7 +336,7 @@ class App extends Component {
 
   render() {
 
-    console.log(this.state.localStream)
+    console.log('=>', this.state.localStream)
 
     const statusText = <div style={{ color: 'yellow', padding: 5 }}>{this.state.status}</div>
 
@@ -348,8 +348,9 @@ class App extends Component {
             position: 'absolute',
             right:0,
             width: 200,
-            height: 200,
+            //height: 200,
             margin: 5,
+            resizeMode: 'stretch',
             backgroundColor: 'black'
           }}
           // ref={this.localVideoref}
@@ -388,13 +389,13 @@ class App extends Component {
         </div>
         <br />
 
-        {/* <div style={{zIndex: 1, position: 'fixed'}} >
+{/*         <div style={{zIndex: 1, position: 'fixed'}} >
           <button onClick={this.createOffer}>Offer</button>
           <button onClick={this.createAnswer}>Answer</button>
 
           <br />
           <textarea style={{ width: 450, height:40 }} ref={ref => { this.textref = ref }} />
-        </div> */}
+        </div>  */}
         {/* <br />
         <button onClick={this.setRemoteDescription}>Set Remote Desc</button>
         <button onClick={this.addCandidate}>Add Candidate</button> */}

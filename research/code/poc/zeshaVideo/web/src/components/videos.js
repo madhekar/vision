@@ -69,4 +69,4 @@ class Videos extends Component {
 
 }
 
-export default Videos
+export default Videos;

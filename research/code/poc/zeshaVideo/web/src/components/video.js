@@ -15,7 +15,7 @@ class Video extends Component {
   componentWillReceiveProps(nextProps) { 
     console.log(nextProps.videoStream)
 
-    if (nextProps.videoStream && (nextProps.videoStream !== this.props.videoStream)) {
+    if (nextProps.videoStream && nextProps.videoStream !== this.props.videoStream) {
       this.video.srcObject = nextProps.videoStream
     }
   }
@@ -38,4 +38,4 @@ class Video extends Component {
   }
 }
 
-export default Video
+export default Video;

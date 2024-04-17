@@ -1,15 +1,12 @@
-
 const express = require('express')
-
-var io = require('socket.io')
-({
+const io = require('socket.io')({
   path: '/io/webrtc'
 })
 
 const app = express()
 const port = 8080
 
-// app.get('/', (req, res) => res.send('Hello World!!!!!'))
+//app.get('/', (req, res) => res.send('Hello World!!!!!'))
 
 //https://expressjs.com/en/guide/writing-middleware.html
 app.use(express.static(__dirname + '/build'))
@@ -17,7 +14,7 @@ app.get('/', (req, res, next) => {
     res.sendFile(__dirname + '/build/index.html')
 })
 
-const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+const server = app.listen(port, () => { console.log(`WebRTC app listening on port ${port}!`)})
 
 io.listen(server)
 
@@ -36,7 +33,7 @@ peers.on('connection', socket => {
 
   connectedPeers.set(socket.id, socket)
 
-  console.log(socket.id)
+  console.log('*SocketID:',socket.id)
   socket.emit('connection-success', {
     success: socket.id,
     peerCount: connectedPeers.size,
@@ -45,6 +42,7 @@ peers.on('connection', socket => {
   const broadcast = () => socket.broadcast.emit('joined-peers', {
     peerCount: connectedPeers.size,
   })
+
   broadcast()
 
   const disconnectedPeer = (socketID) => socket.broadcast.emit('peer-disconnected', {
@@ -72,8 +70,8 @@ peers.on('connection', socket => {
     for (const [socketID, socket] of connectedPeers.entries()) {
       // don't send to self
       if (socketID === data.socketID.remote) {
-        // console.log('Offer', socketID, data.socketID, data.payload.type)
-        socket.emit('offer', {
+         console.log('Offer', socketID, data.socketID, data.payload.type)
+         socket.emit('offer', {
             sdp: data.payload,
             socketID: data.socketID.local
           }
