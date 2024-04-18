@@ -34,7 +34,7 @@ class App extends Component {
     }
 
     // DONT FORGET TO CHANGE TO YOUR URL
-    this.serviceIP = 'https://e358-70-137-105-159.ngrok-free.app/webrtcPeer'
+    this.serviceIP = 'https://dc2e-70-137-105-159.ngrok-free.app/webrtcPeer'
 
     this.socket = null
     // this.candidates = []
