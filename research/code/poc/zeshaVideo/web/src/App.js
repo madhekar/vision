@@ -11,10 +11,9 @@ class App extends Component {
     this.state = {
       localStream: null,     // used to hold local stream object to avoid recreating the stream everytime a new offer comes
       remoteStream: null,    // used to hold remote stream object that is displayed in the main screen
-      remoteStreams:[],     // holds all Video Streams (all remote streams)
+      remoteStreams:[],      // holds all Video Streams (all remote streams)
       peerConnections: {},   // holds all Peer Connections
       selectedVideo: null,
-
       status: 'Please wait...',
 
       pc_config: {
@@ -40,27 +39,32 @@ class App extends Component {
     // this.candidates = []
   }
 
+
   getLocalStream = () => {
-    // called when getUserMedia() successfully returns - see below
-    // getUserMedia() returns a MediaStream object (https://developer.mozilla.org/en-US/docs/Web/API/MediaStream)
-    const success = (stream) => {
+  /*
+   called when getUserMedia() successfully returns - see below
+   getUserMedia() returns a MediaStream object (https://developer.mozilla.org/en-US/docs/Web/API/MediaStream)
+  */
+  const success = (stream) => {
       window.localStream = stream
-      // this.localVideoref.current.srcObject = stream
-      // this.pc.addStream(stream);
+
       this.setState({
         localStream: stream
       })
       this.whoisOnline()
-    }
-
-    // called when getUserMedia() fails - see below
-    const failure = (e) => {
+  }
+  /*
+   called when getUserMedia() fails
+  */  
+  const failure = (e) => {
       console.log('getUserMedia Error: ', e)
-    }
+  }
 
-    // https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
-    // see the above link for more constraint options
-    const constraints = {
+  /*
+   https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+   see the above link for more constraint options
+  */
+  const constraints = {
       audio: true,
       video: true,
       // video: {
@@ -75,17 +79,25 @@ class App extends Component {
       }
     }
 
-    // https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+  /*
+   https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+  */
     navigator.mediaDevices.getUserMedia(constraints)
     .then(success)
     .catch(failure)
   }
 
+  /*
+   sdp message to let peers know I'm joining
+  */
+
   whoisOnline = () => {
-    // let all peers know I am joining
     this.sendToPeer('onlinePeers', null, {local: this.socket.id})
   }
 
+  /*
+    Generic send message to peers
+  */
   sendToPeer = (messageType, payload, socketID) => {
     this.socket.emit(messageType, {
       socketID,
@@ -94,10 +106,11 @@ class App extends Component {
   }
 
   createPeerConnection = (socketID, callback) => {
+
     try {
       let pc = new RTCPeerConnection(this.state.pc_config)
 
-      // add pc to peerConnections object
+      // add a new pc (peer connectionqq) to peerConnections object
       const peerConnections = { ...this.state.peerConnections, [socketID]: pc }
       this.setState({
         peerConnections
@@ -137,6 +150,7 @@ class App extends Component {
 
           // get currently selected video
           let selectedVideo = prevState.remoteStreams.filter(stream => stream.id === prevState.selectedVideo.id)
+
           // if the video is still in the list, then do nothing, otherwise set to new video stream
           selectedVideo = selectedVideo.length ? {} : { selectedVideo: remoteVideo }
 
@@ -167,9 +181,12 @@ class App extends Component {
     }
   }
 
+  /*
+  method with instance mounted
+  */
   componentDidMount = () => {
 
-    console.log('=>componentDidMount', this.serviceIP)
+    console.log('=>componentDidMount...', this.serviceIP)
 
     this.socket = io.connect(
       this.serviceIP,
@@ -191,7 +208,11 @@ class App extends Component {
       })
     })
 
+    /*
+      on peer-disconnect event received 
+    */
     this.socket.on('peer-disconnected', data => {
+
       console.log('peer-disconnected', data)
 
       const remoteStreams = this.state.remoteStreams.filter(stream => stream.id !== data.socketID)
@@ -209,14 +230,9 @@ class App extends Component {
       )
     })
 
-    // this.socket.on('offerOrAnswer', (sdp) => {
-
-    //   this.textref.value = JSON.stringify(sdp)
-
-    //   // set sdp as remote description
-    //   this.pc.setRemoteDescription(new RTCSessionDescription(sdp))
-    // })
-
+    /*
+      on online-peer event received 
+    */
     this.socket.on('online-peer', socketID => {
       console.log('connected peers ...', socketID)
 
@@ -233,10 +249,13 @@ class App extends Component {
                   local: this.socket.id,
                   remote: socketID
                 })
-          })
+            })
         })
     })
 
+    /*
+      on offer event received 
+    */
     this.socket.on('offer', data => {
       this.createPeerConnection(data.socketID, pc => {
         pc.addStream(this.state.localStream)
@@ -255,6 +274,9 @@ class App extends Component {
       })
     })
 
+    /*
+      on answer event received 
+    */
     this.socket.on('answer', data => {
       // get remote's peerConnection
       const pc = this.state.peerConnections[data.socketID]
@@ -262,6 +284,9 @@ class App extends Component {
       pc.setRemoteDescription(new RTCSessionDescription(data.sdp)).then(()=>{})
     })
 
+    /*
+      on candidate event received 
+    */
     this.socket.on('candidate', (data) => {
       // get remote's peerConnection
       const pc = this.state.peerConnections[data.socketID]
@@ -271,6 +296,9 @@ class App extends Component {
     })
   }
 
+  /*
+    switchVideo method
+  */
   switchVideo = (_video) => {
     console.log(_video)
     this.setState({
@@ -278,6 +306,9 @@ class App extends Component {
     })
   }
 
+  /*
+    render method! 
+  */
   render() {
 
     console.log('=>', this.state.localStream)
@@ -331,20 +362,9 @@ class App extends Component {
           ></Videos>
         </div>
         <br />
-
-{/*         <div style={{zIndex: 1, position: 'fixed'}} >
-          <button onClick={this.createOffer}>Offer</button>
-          <button onClick={this.createAnswer}>Answer</button>
-
-          <br />
-          <textarea style={{ width: 450, height:40 }} ref={ref => { this.textref = ref }} />
-        </div>  */}
-        {/* <br />
-        <button onClick={this.setRemoteDescription}>Set Remote Desc</button>
-        <button onClick={this.addCandidate}>Add Candidate</button> */}
-      </div>
+   </div>
     )
   }
-}
+  }
 
 export default App;
