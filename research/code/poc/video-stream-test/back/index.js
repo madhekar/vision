@@ -38,14 +38,14 @@ app.get('/videos/:filename', (req, res) => {
         res.writeHead(206, head);
         file.pipe(res);
       }
-      else{
-
+      else
+      {
         const head = {
             'Content-Length' : fileSize,
             'Content-Type' : 'video/mp4'
         };
         res.writeHead(200, head);
-        fs.createReadStream(filepath).pipe(res)
+        fs.createReadStream(filepath).pipe(res);
      }
 })
 
