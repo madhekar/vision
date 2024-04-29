@@ -8,13 +8,13 @@ mac does only allow display called from the Main Thread
 q = Queue()
 
 def process():
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
     ret, frame = cap.read()
 
     while ret:
           ret, frame = cap.read()
-#detection part in my case I use tensorflow then 
-     # end of detection part 
+          #detection part in my case I use tensorflow then 
+          # end of detection part 
           q.put(frame)
 
 def Display():
