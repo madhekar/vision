@@ -2,6 +2,8 @@
 import './App.css';
 import React, {useRef, useEffect, useState} from 'react';
 import io from 'socket.io-client'
+import Video from './Components/zvideo';
+
 
 const socket = io(
   '/webRTCPeers',
@@ -32,9 +34,9 @@ function App() {
   const [offerVisible, setOfferVisible] = useState(true)
   const [answerVisible, setAnswerVisible] = useState(false)
   const [status, setStatus] = useState('Make a call now')
+  // const [localStream, setLocalStream] = useState(null)
 
   useEffect(() =>{
-
     socket.on('connection-success', success => {
       console.log(success)
     })
@@ -61,17 +63,24 @@ function App() {
     }) 
 
       const constraints = {
-        audio : false,
+        audio : true,
         video : true,
         options: {
           mirror: true,
         }
       }
 
+     //const _pc =  new RTCPeerConnection(null)
+
    navigator.mediaDevices.getUserMedia(constraints)
       .then(stream => {
         // display local stream
         localVideoRef.current.srcObject = stream
+        //this.setState({ localStream: stream})
+        //window.localStream = stream
+        //_pc.addStream(stream)
+       // setLocalStream(stream)
+        console.log(stream)
 
         stream.getTracks().forEach(track => {
           _pc.addTrack(track, stream)
@@ -81,7 +90,7 @@ function App() {
         console.log('getUserMedia error occred ...', e)
       }) 
 
-      const _pc =  new RTCPeerConnection(null)
+     const _pc =  new RTCPeerConnection(null)
 
       _pc.onicecandidate = (e) => {
         if (e.candidate){
@@ -112,6 +121,7 @@ function App() {
      sendToPeer( 'sdp', { sdp })
     }
 
+  // create offer  
   const createOffer = () => {
     pc.current.createOffer({
       offerToReceiveAudio: 1,
@@ -123,6 +133,7 @@ function App() {
     }).catch(e => console.log(e))
   }
 
+  // create answer
   const createAnswer = () => {
     pc.current.createAnswer({
       offerToReceiveAudio: 1,
@@ -139,37 +150,61 @@ function App() {
     if (offerVisible){
       return (
         <div>
-          <button onClick={createOffer}>Call</button>
+          <button onClick={createOffer} style={{width: 50, height:40, margin: 5}}>Call</button>
+               ( {status} ) 
         </div>
       ) 
     } else if (answerVisible){
       return(
         <div>
-          <button onClick={createAnswer}>Answer</button>
+          <button onClick={createAnswer} style={{width: 80, height:40, margin: 5}}>Answer</button>
+          ( {status} )
         </div>
       )
     }
   }
 
   return (
-    <div style={{margin:10}}>
-      <video style={{
-        width: 240, height: 240, margin: 5, backgroundColor: 'black',
-      }}
-      ref={localVideoRef} autoPlay></video>
 
-      <video style={{
-        width: 240, height: 240, margin: 5, backgroundColor: 'black',
-      }}
-      ref={remoteVideoRef} autoPlay></video>
-
-      <br />
+    <div style={{margin:5, position: 'absolute'}}> 
+     <div style={{zIndex:4, position:'fixed'}}>
+      <br/>
         {showHideButton()}
-        <div>{status}</div>
+         {/* <div>{status}</div>  */}
+         <textarea ref={textRef} hidden= {false} style={{margin: 5}}></textarea>  
       <br />
-        <textarea ref={textRef}></textarea>
-    </div>
+      </div>
+
+{/* local video stream */}
+      <video style={{
+        position: 'fixed', 
+        right: 0, 
+        width: 300,   
+        margin: 5, 
+        resizeMode: 'stretch',
+        backgroundColor: 'black',  
+        zIndex: 2
+      }}
+      ref={localVideoRef} 
+      //videoStream = {localStream}
+      autoPlay muted />
+
+
+{/* remote video stream */}
+      <video  style={{
+        position: 'fixed', 
+        bottom: 0, 
+        minWidth: '100%', 
+        minHeight:'100%', 
+        margin: 5, 
+        backgroundColor: 'black', 
+        zIndex: 1
+      }}
+      ref={remoteVideoRef} 
+      autoPlay />
+     </div>
   );
-}
+ }
+
 
 export default App;
