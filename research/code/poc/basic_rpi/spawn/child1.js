@@ -1,5 +1,6 @@
 const spawn = require('child_process').spawn;
 const stream = require('stream')
+const events_1 = require("events")
 
 function runIt(cmd, args) {
     return new Promise(function(resolve, reject) {
@@ -32,7 +33,9 @@ function runIt(cmd, args) {
 }
 
 //usage
-runIt('libcamera-vid', ['--framerate', '30', '--timeout', '0', '--nopreview', '--output', '-']).then(function(stdoutData) {
+// runIt('libcamera-vid', ['--framerate', '30', '--timeout', '0', '--nopreview', '--output', '-'])
+runIt('ls', ['-al', '..'])
+.then(function(stdoutData) {
    console.log(`data: ${stdoutData}`)
 }, function(err) {
     console.log(`error: ${err}`)
