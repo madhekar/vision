@@ -1,5 +1,5 @@
 const  {StreamCamera, Codec } = require("pi-camera-connect");
-import * as fs from "fs";
+const {fs} = require( "fs");
 
 // Capture 5 seconds of H264 video and save to disk
 const runApp = async () => {
