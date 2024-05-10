@@ -1,0 +1,13 @@
+[00802378] main interface error: no suitable interface module
+[00775b98] main libvlc error: interface "globalhotkeys,none" initialization failed
+[00802378] dummy interface: using the dummy interface module...
+[e3203500] main stream error: unknown query 0x30e in demux_vaControlHelper
+[008e6408] main interface error: no suitable interface module
+[00859b98] main libvlc error: interface "globalhotkeys,none" initialization failed
+[008e6408] dummy interface: using the dummy interface module...
+[e3303500] main stream error: unknown query 0x30e in demux_vaControlHelper
+[0197a2a0] main interface error: no suitable interface module
+[018edb98] main libvlc error: interface "globalhotkeys,none" initialization failed
+[0197a2a0] dummy interface: using the dummy interface module...
+[e3400b18] stream_out_rtp stream out: Consider passing --rtsp-host=IP on the command line instead.
+[e3402f88] main stream error: unknown query 0x30e in demux_vaControlHelper
