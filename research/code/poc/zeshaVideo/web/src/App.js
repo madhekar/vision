@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 
-import Video from './components/video';
-import Videos from './components/videos';
+import Video from './components/Video';
+import Videos from './components/Videos';
 
 class App extends Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class App extends Component {
   */
   const success = (stream) => {
       window.localStream = stream
-
+      this.pc.addStream(stream) //?
       this.setState({
         localStream: stream
       })

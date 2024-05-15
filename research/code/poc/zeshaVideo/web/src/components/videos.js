@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Video from './video'
+import Video from './Video'
 
 class Videos extends Component {
   constructor(props) {

@@ -29,7 +29,7 @@ class Video extends Component {
           id={this.props.id}
           muted={this.props.muted}
           autoPlay
-          style={{ ...this.props.videoStyles }}
+          style={{ ...this.props.videoStyle }}
           // ref={ this.props.videoRef }
           ref={ (ref) => {this.video = ref }}
         ></video>
