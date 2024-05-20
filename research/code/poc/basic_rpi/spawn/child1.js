@@ -8,7 +8,7 @@ function runIt(cmd, args) {
         const child_ = spawn(cmd, args);
 
         // Edit thomas.g: My child process generates binary data so I use buffers instead, see my comments inside the code 
-        // Edit thomas.g: let stdoutData = new Buffer(0)
+        // Edit thomas.g: let stdoutData = new Buffer(0) -- depricated
         //let stdoutData = "";
         let stdoutData = new Buffer.alloc(0)
         let stderrData= "";
