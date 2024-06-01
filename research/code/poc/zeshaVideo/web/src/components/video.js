@@ -22,15 +22,15 @@ class Video extends Component {
 
   render() {
     return (
-      <div
-        style={{ ...this.props.frameStyle }}
+      <div 
+      style={{ ...this.props.frameStyle }}
       >
         <video
           id={this.props.id}
           muted={this.props.muted}
           autoPlay
           style={{ ...this.props.videoStyle }}
-          // ref={ this.props.videoRef }
+
           ref={ (ref) => {this.video = ref }}
         ></video>
       </div>
