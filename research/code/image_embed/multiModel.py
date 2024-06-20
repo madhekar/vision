@@ -9,7 +9,9 @@ from PIL import Image
 import numpy as np
 from matplotlib import pyplot as plt
 
-client = chromadb.PersistentClient(path="DB")
+#client = chromadb.PersistentClient(path="DB")
+
+client = chromadb.Client(Settings(persist_directory='db/'))
 
 embedding_function = OpenCLIPEmbeddingFunction()
 '''
@@ -17,7 +19,7 @@ Images
 '''
 image_loader = ImageLoader()
 
-collection_images = client.create_collection(
+collection_images = client.get_or_create_collection(
     name='multimodal_collection_images', 
     embedding_function=embedding_function, 
     data_loader=image_loader)
@@ -33,7 +35,7 @@ collection_images.add(ids=ids, uris=image_uris)
 '''
 text
 '''
-collection_text = client.create_collection(
+collection_text = client.get_or_create_collection(
     name='multimodal_collection_text', 
     embedding_function=embedding_function, 
     )
@@ -75,20 +77,18 @@ raw_image = Image.open(query_image)
 
 doc = collection_text.query(
     query_embeddings=embedding_function(query_image),
-    
     n_results=1,
-        
 )['documents'][0][0]
 
 plt.imshow(raw_image)
 plt.show()
-imgs = collection_images.query(query_uris=query_image, include=['data'], n_results=3)
+imgs = collection_images.query(query_uris=query_image, include=['data'], n_results=1)
 for img in imgs['data'][0][1:]:
     plt.imshow(img)
     plt.axis("off")
     plt.show()
 
-print('doccument: ', doc)    
+print('=> doccument: ', doc)    
 
 
 '''
@@ -115,7 +115,8 @@ streamer = TextStreamer(processor.tokenizer)
 with torch.inference_mode():
   output = model.generate(**inputs, max_new_tokens=200, do_sample=True, use_cache=False, top_p=0.9, temperature=1.2, eos_token_id=processor.tokenizer.eos_token_id, streamer=streamer)
 
-print(processor.tokenizer.decode(output[0]).replace(prompt, "").replace("<|im_end|>", ""))  
+
+print('=> output:', processor.tokenizer.decode(output[0]).replace(prompt, "").replace("<|im_end|>", ""))  
 
 '''
 '''
