@@ -9,13 +9,15 @@ from PIL import Image
 import numpy as np
 from matplotlib import pyplot as plt
 
-#client = chromadb.PersistentClient(path="DB")
+# Get the uris to the images
+IMAGE_FOLDER = '/home/madhekar/work/vision/research/code/image_embed/flowers/allflowers'
 
 client = chromadb.Client(Settings(persist_directory='db/'))
 
 embedding_function = OpenCLIPEmbeddingFunction()
+
 '''
-Images
+Image collection inside vector database 'chromadb'
 '''
 image_loader = ImageLoader()
 
@@ -24,16 +26,15 @@ collection_images = client.get_or_create_collection(
     embedding_function=embedding_function, 
     data_loader=image_loader)
 
-# Get the uris to the images
-IMAGE_FOLDER = '/home/madhekar/work/vision/research/code/image_embed/flowers/allflowers'
-
+# add image embeddings in vector db
 image_uris = sorted([os.path.join(IMAGE_FOLDER, image_name) for image_name in os.listdir(IMAGE_FOLDER) if not image_name.endswith('.txt')])
 print('\n', image_uris)
 ids = [str(i) for i in range(len(image_uris))]
 
 collection_images.add(ids=ids, uris=image_uris)
+
 '''
-text
+text collection inside vector database
 '''
 collection_text = client.get_or_create_collection(
     name='multimodal_collection_text', 
@@ -42,7 +43,7 @@ collection_text = client.get_or_create_collection(
 
 text_pth = sorted([os.path.join(IMAGE_FOLDER, image_name) for image_name in os.listdir(IMAGE_FOLDER) if image_name.endswith('.txt')])
 
-print('text paths: \n', text_pth)
+print('=> text paths: \n', text_pth)
 
 list_of_text = []
 for text in text_pth:
@@ -52,7 +53,7 @@ for text in text_pth:
 
 ids_txt_list = ['id'+str(i) for i in range(len(list_of_text))]
 
-print('text generate ids:\n',ids_txt_list)
+print('=> text generate ids:\n',ids_txt_list)
 
 collection_text.add(
     documents = list_of_text,
@@ -60,16 +61,16 @@ collection_text.add(
 )
 
 '''
-
+model autotokenizer and processor componnents for LLM model MC-LLaVA-3b with trust flag
 '''
 from transformers import AutoTokenizer, AutoProcessor, AutoModel,TextStreamer
 
-model = AutoModel.from_pretrained("visheratin/MC-LLaVA-3b")
-tokenizer = AutoTokenizer.from_pretrained("visheratin/MC-LLaVA-3b")
+model = AutoModel.from_pretrained("visheratin/MC-LLaVA-3b", trust_remote_code=True)
+tokenizer = AutoTokenizer.from_pretrained("visheratin/MC-LLaVA-3b", trust_remote_code=True)
 processor = AutoProcessor.from_pretrained("visheratin/MC-LLaVA-3b", trust_remote_code=True)
 
 '''
-
+create query on image, also shows similar document in vector database (not using LLM)
 '''
 question = 'Answer with organized answers: What type of rose is in the picture? Mention some of its characteristics and how to take care of it ?'
 query_image = '/home/madhekar/work/edata/kaggle/input/flowers/flowers/rose/00f6e89a2f949f8165d5222955a5a37d.jpg'
@@ -80,19 +81,19 @@ doc = collection_text.query(
     n_results=1,
 )['documents'][0][0]
 
+print('=> doccument: ', doc)  
+
 plt.imshow(raw_image)
 plt.show()
+
 imgs = collection_images.query(query_uris=query_image, include=['data'], n_results=1)
 for img in imgs['data'][0][1:]:
     plt.imshow(img)
     plt.axis("off")
     plt.show()
 
-print('=> doccument: ', doc)    
-
-
 '''
-
+create prompt to test the LLM
 '''
 prompt = """<|im_start|>system
 A chat between a curious human and an artificial intelligence assistant.
@@ -105,12 +106,12 @@ The assistant does not hallucinate and pays very close attention to the details.
 """.format(question='question', article=doc)
 
 '''
+generate propcssor using image and associated prompt query, and generate LLM response
 '''
 with torch.inference_mode():
     inputs = processor(prompt, [raw_image], model, max_crops=100, num_tokens=728)
 
 streamer = TextStreamer(processor.tokenizer)    
-
 
 with torch.inference_mode():
   output = model.generate(**inputs, max_new_tokens=200, do_sample=True, use_cache=False, top_p=0.9, temperature=1.2, eos_token_id=processor.tokenizer.eos_token_id, streamer=streamer)
