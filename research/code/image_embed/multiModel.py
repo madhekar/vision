@@ -28,7 +28,7 @@ collection_images = client.get_or_create_collection(
 
 # add image embeddings in vector db
 image_uris = sorted([os.path.join(IMAGE_FOLDER, image_name) for image_name in os.listdir(IMAGE_FOLDER) if not image_name.endswith('.txt')])
-print('\n', image_uris)
+print('=> image urls: \n', '\n'.join(image_uris))
 ids = [str(i) for i in range(len(image_uris))]
 
 collection_images.add(ids=ids, uris=image_uris)
@@ -43,7 +43,7 @@ collection_text = client.get_or_create_collection(
 
 text_pth = sorted([os.path.join(IMAGE_FOLDER, image_name) for image_name in os.listdir(IMAGE_FOLDER) if image_name.endswith('.txt')])
 
-print('=> text paths: \n', text_pth)
+print('=> text paths: \n', '\n'.join(text_pth))
 
 list_of_text = []
 for text in text_pth:
@@ -53,7 +53,7 @@ for text in text_pth:
 
 ids_txt_list = ['id'+str(i) for i in range(len(list_of_text))]
 
-print('=> text generate ids:\n',ids_txt_list)
+print('=> text generate ids:\n', ids_txt_list)
 
 collection_text.add(
     documents = list_of_text,
@@ -114,7 +114,7 @@ with torch.inference_mode():
 streamer = TextStreamer(processor.tokenizer)    
 
 with torch.inference_mode():
-  output = model.generate(**inputs, max_new_tokens=200, do_sample=True, use_cache=False, top_p=0.9, temperature=1.2, eos_token_id=processor.tokenizer.eos_token_id, streamer=streamer)
+  output = model.generate(**inputs, max_new_tokens=200, do_sample=True, use_cache=False, top_p=0.9, temperature=0.2, eos_token_id=processor.tokenizer.eos_token_id, streamer=streamer)
 
 
 print('=> output:', processor.tokenizer.decode(output[0]).replace(prompt, "").replace("<|im_end|>", ""))  
