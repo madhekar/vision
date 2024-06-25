@@ -12,8 +12,10 @@ from matplotlib import pyplot as plt
 # Get the uris to the images
 IMAGE_FOLDER = '/home/madhekar/work/vision/research/code/image_embed/flowers/allflowers'
 
+# vector database persistance 
 client = chromadb.Client(Settings(persist_directory='db/'))
 
+#openclip embedding function!
 embedding_function = OpenCLIPEmbeddingFunction()
 
 '''

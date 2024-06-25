@@ -16,8 +16,11 @@ train_data=data["train"]
 val_data=data["validation"]
 
 from PIL import Image
+import PIL
 import requests
 import torch
+import os
+import cv2, numpy
 
 class captiondatset(torch.utils.data.Dataset):
     def __init__(self, datasets):
@@ -25,9 +28,13 @@ class captiondatset(torch.utils.data.Dataset):
     def __len__(self):
        return len(self.datasets['image_url'])    
     def __getitem__(self, idx):
-
+     try:
       image = Image.open(requests.get(self.datasets['image_url'][idx],stream=True).raw)
-      image_features = image_processor(image, return_tensors="pt").pixel_values
+      #image = cv2.imread(requests.get(self.datasets['image_url'][idx],stream=True).raw, cv2.IMREAD_UNCHANGED)
+      #filestr = requests.get(self.datasets['image_url'][idx],stream=True).text
+      #file_bytes = numpy.fromstring(filestr, numpy.uint8)
+      #image = cv2.imdecode(file_bytes, cv2.IMREAD_UNCHANGED)
+      image_features = image_processor(numpy.array(image), return_tensors="pt").pixel_values
 
       labels = tokenizer(self.datasets["caption"][idx],return_tensors="pt",
                                           max_length=46,
@@ -35,6 +42,10 @@ class captiondatset(torch.utils.data.Dataset):
                                           return_token_type_ids=True,
                                           truncation=True).input_ids
       return {'pixel_values':image_features.squeeze(0),'labels':labels.squeeze(0)}
+     except PIL.UnidentifiedImageError as e:
+          print(f"Error in file {self.datasets['image_url']}: {e}")
+          #os.remove((self.datasets['image_url']))
+
 datsets_train = captiondatset(train_data)
 dataset_val = captiondatset(val_data)
 
