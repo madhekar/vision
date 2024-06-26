@@ -27,9 +27,15 @@ if search_img:
 #camera_img = st.sidebar.camera_input('take a camera picture') 
 
 
-search_txt = st.sidebar.text_input('enter the search term: ', placeholder='enter shot search term', disabled=False)
-st.sidebar.write('upload image:')
+search_txt = st.sidebar.text_input('enter the search term: ', placeholder='enter short search term', disabled=False)
+
+st.sidebar.slider('select top results pct', 0.0,1.0, (0.0, 1.0))
+
+st.sidebar.slider('select LLM temperature: ', 0.0, 2.0, (0.0, 1.0))
+
 st.sidebar.button('submit!')
+
+
 
 imgs = image_select(
    label='select image',
