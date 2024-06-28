@@ -7,7 +7,7 @@ from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
 from PIL import Image
 import numpy as np
-from matplotlib import pyplot as plt
+
 
 # Get the uris to the images
 IMAGE_FOLDER = '/home/madhekar/work/vision/research/code/image_embed/flowers/allflowers'
@@ -83,7 +83,7 @@ doc = collection_text.query(
     n_results=1,
 )['documents'][0][0]
 
-print('=> doccument: ', doc)  
+print('/n=> doccument: ', doc)  
 
 plt.imshow(raw_image)
 plt.show()
