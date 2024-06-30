@@ -1,5 +1,6 @@
 import os
 import streamlit as st
+from dotenv import load_dotenv
 
 import chromadb as cdb
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
@@ -8,7 +9,12 @@ from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
 
 # vector database path
-DB_PATH = 'vdb/'
+# DB_PATH = 'vdb/'
+load_dotenv('.env.local')
+storage_path = os.getenv('STORAGE_PATH')
+
+if storage_path is None:
+    raise ValueError("STORAGE_PATH environment variable is not set")
 
 # Get the uris to the images
 IMAGE_FOLDER = '/home/madhekar/work/vision/research/code/image_embed/flowers/allflowers'
@@ -17,7 +23,7 @@ IMAGE_FOLDER = '/home/madhekar/work/vision/research/code/image_embed/flowers/all
 def createVectorDB():
 
     # vector database persistance
-    client = cdb.Client(Settings(persist_directory=DB_PATH))
+    client = cdb.Client(path=storage_path)
 
     # openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
