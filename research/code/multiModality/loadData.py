@@ -13,6 +13,7 @@ DB_PATH = 'vdb/'
 # Get the uris to the images
 IMAGE_FOLDER = '/home/madhekar/work/vision/research/code/image_embed/flowers/allflowers'
 
+@st.cache_resource
 def createVectorDB():
 
     # vector database persistance

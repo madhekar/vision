@@ -51,7 +51,7 @@ if btn:
   question = 'Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?'
 
   doc = cTxts.query(
-    query_embeddings=embedding_function('./'+ sim.name),
+    query_embeddings=embedding_function('./' + sim.name),
     n_results=1,
   )['documents'][0][0]
 
@@ -59,13 +59,19 @@ if btn:
   
   timgs=[]
   imgs = cImgs.query(query_uris='./' + sim.name, include=['data'], n_results=6)
-  for img in imgs['data'][0][1:]:
+  for img in imgs['data'][0][0]:
     timgs.append(img)
 
+
   dimgs = image_select(
-    label='select image',
-    images= timgs,
-    captions=['caption one','caption two', 'caption three','caption fore', 'caption five'],
-  )
+      label='select image',
+      images= timgs,
+      #captions=['caption one','caption two', 'caption three','caption fore', 'caption five'],
+    )
 
   st.image(dimgs, use_column_width='always')
+    
+    
+    
+  
+  
