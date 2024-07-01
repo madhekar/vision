@@ -66,7 +66,7 @@ if btn:
   dimgs = image_select(
       label='select image',
       images= timgs,
-      #captions=['caption one','caption two', 'caption three','caption fore', 'caption five'],
+      captions=['caption one','caption two', 'caption three','caption fore', 'caption five'],
     )
 
   st.image(dimgs, use_column_width='always')

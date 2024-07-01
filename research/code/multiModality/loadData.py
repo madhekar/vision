@@ -9,8 +9,7 @@ from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
 
 # vector database path
-# DB_PATH = 'vdb/'
-load_dotenv('.env.local')
+load_dotenv('/home/madhekar/.env.local')
 storage_path = os.getenv('STORAGE_PATH')
 
 if storage_path is None:
@@ -19,20 +18,22 @@ if storage_path is None:
 # Get the uris to the images
 IMAGE_FOLDER = '/home/madhekar/work/vision/research/code/image_embed/flowers/allflowers'
 
-@st.cache_resource
+
 def createVectorDB():
 
     # vector database persistance
-    client = cdb.Client(path=storage_path)
+    client = cdb.PersistentClient( path=storage_path, settings=Settings(allow_reset=True))
+
+    # reset chromadb persistant store
+    client.reset()
 
     # openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
 
-    ''' 
-       Image collection inside vector database 'chromadb' 
-    '''
+    # Image collection inside vector database 'chromadb'
     image_loader = ImageLoader()
 
+    # collection images define
     collection_images = client.get_or_create_collection(
       name='multimodal_collection_images', 
       embedding_function=embedding_function, 
@@ -79,18 +80,19 @@ def createVectorDB():
 
 
 def setLLM():
-    """
-    model autotokenizer and processor componnents for LLM model MC-LLaVA-3b with trust flag
-    """
+    '''
+        model autotokenizer and processor componnents for LLM model MC-LLaVA-3b with trust flag
+    '''
+
     model = AutoModel.from_pretrained("visheratin/MC-LLaVA-3b", trust_remote_code=True)
-    tokenizer = AutoTokenizer.from_pretrained(
-        "visheratin/MC-LLaVA-3b", trust_remote_code=True
-    )
-    processor = AutoProcessor.from_pretrained(
-        "visheratin/MC-LLaVA-3b", trust_remote_code=True
-    )
+
+    tokenizer = AutoTokenizer.from_pretrained( "visheratin/MC-LLaVA-3b", trust_remote_code=True)
+
+    processor = AutoProcessor.from_pretrained( "visheratin/MC-LLaVA-3b", trust_remote_code=True)
+
     return model, tokenizer, processor
 
 
+@st.cache_resource
 def init():
     return createVectorDB()
