@@ -74,8 +74,8 @@ processor = AutoProcessor.from_pretrained("visheratin/MC-LLaVA-3b", trust_remote
 '''
 create query on image, also shows similar document in vector database (not using LLM)
 '''
-question = 'Answer with organized answers: What type of rose is in the picture? Mention some of its characteristics and how to take care of it ?'
-query_image = '/home/madhekar/work/edata/kaggle/input/flowers/flowers/rose/00f6e89a2f949f8165d5222955a5a37d.jpg'
+question = 'Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?'
+query_image = '/home/madhekar/work/edata/kaggle/input/flowers/flowers/daisy/1fec876ebb.jpg' #'rose/00f6e89a2f949f8165d5222955a5a37d.jpg'
 raw_image = Image.open(query_image)
 
 doc = collection_text.query(

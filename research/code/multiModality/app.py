@@ -1,4 +1,5 @@
 import streamlit as st
+#from streamlit_option_menu import option_menu
 from PIL import Image
 from streamlit_image_select import image_select
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
@@ -59,7 +60,7 @@ if btn:
   
   timgs=[]
   imgs = cImgs.query(query_uris='./' + sim.name, include=['data'], n_results=6)
-  for img in imgs['data'][0][0]:
+  for img in imgs['data'][0][1:]:
     timgs.append(img)
 
 
