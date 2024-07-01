@@ -1,4 +1,5 @@
 import os
+import uuid
 import streamlit as st
 from dotenv import load_dotenv
 
@@ -42,9 +43,9 @@ def createVectorDB():
 
     # add image embeddings in vector db
     image_uris = sorted([os.path.join(IMAGE_FOLDER, image_name) for image_name in os.listdir(IMAGE_FOLDER) if not image_name.endswith('.txt')])
+    ids = [str(uuid.uuid4()) for _ in range(len(image_uris))]
+    
     print('=> image urls: \n', '\n'.join(image_uris))
-    ids = [str(i) for i in range(len(image_uris))]
-
     collection_images.add(ids=ids, uris=image_uris)
 
     '''
@@ -70,7 +71,7 @@ def createVectorDB():
             text = f.read()
             list_of_text.append(text)
 
-    ids_txt_list = ["id" + str(i) for i in range(len(list_of_text))]
+    ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
 
     print("=> text generate ids:\n", ids_txt_list)
 

@@ -40,7 +40,7 @@ with st.sidebar.form(key='attributes'):
 
      te = st.slider('select LLM temperature: ', 0.0, 2.0, (0.0, 1.0))
 
-     btn = st.form_submit_button(label='process')
+     btn = st.form_submit_button(label='Search')
 
 if btn:
   '''
@@ -49,7 +49,7 @@ if btn:
   # openclip embedding function!
   embedding_function = OpenCLIPEmbeddingFunction()
   
-  question = 'Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?'
+  # question = 'Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?'
 
   doc = cTxts.query(
     query_embeddings=embedding_function('./' + sim.name),
