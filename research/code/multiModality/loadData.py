@@ -78,7 +78,7 @@ def createVectorDB():
 
     return collection_images, collection_text
 
-
+@st.cache_resource
 def setLLM():
     '''
         model autotokenizer and processor componnents for LLM model MC-LLaVA-3b with trust flag
