@@ -1,7 +1,8 @@
 import streamlit as st
-#from streamlit_option_menu import option_menu
-from PIL import Image
+# from streamlit_option_menu import option_menu
 from streamlit_image_select import image_select
+from PIL import Image
+
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from transformers import AutoTokenizer, AutoProcessor, AutoModel, TextStreamer
 import chromadb.utils.embedding_functions
@@ -16,7 +17,6 @@ cImgs, cTxts = init()
 
 # init LLM modules
 m, t, p = setLLM()
-
 
 st.sidebar.title('seach criteria')
 with st.sidebar.form(key='attributes'):
@@ -43,36 +43,40 @@ with st.sidebar.form(key='attributes'):
      btn = st.form_submit_button(label='Search')
 
 if btn:
-  '''
+    '''
      create query on image, also shows similar document in vector database (not using LLM)
-  '''
-  # openclip embedding function!
-  embedding_function = OpenCLIPEmbeddingFunction()
-  
-  # question = 'Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?'
+    '''
+    # openclip embedding function!
+    embedding_function = OpenCLIPEmbeddingFunction()
 
-  doc = cTxts.query(
+    # question = 'Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?'
+
+    doc = cTxts.query(
     query_embeddings=embedding_function('./' + sim.name),
     n_results=1,
-  )['documents'][0][0]
+    )['documents'][0][0]
 
-  st.text_area(label='flower description', value=doc)
-  
-  timgs=[]
-  imgs = cImgs.query(query_uris='./' + sim.name, include=['data'], n_results=6)
-  for img in imgs['data'][0][1:]:
-    timgs.append(img)
+    st.text_area(label='flower description', value=doc)
+    imgs = []
+    imgs = cImgs.query(query_uris='./' + sim.name, include=['data'], n_results=6)
+    for img in imgs['data'][0][1:]:
+        st.session_state.timgs.append(img)
 
-
-  dimgs = image_select(
-      label='select image',
-      images= timgs,
-      captions=['caption one','caption two', 'caption three','caption fore', 'caption five'],
+if 'timgs' not in st.session_state:
+    st.session_state['timgs'] = []
+    
+if ('timgs' in st.session_state and len(st.session_state['timgs']) >0):    
+    dimgs = image_select(
+        label="select image",
+        images=st.session_state.timgs,
+        captions=[
+            "caption one",
+            "caption two",
+            "caption three",
+            "caption fore",
+            "caption five",
+        ],
+        key="select_image",
     )
 
-  st.image(dimgs, use_column_width='always')
-    
-    
-    
-  
-  
+    st.image(dimgs, use_column_width="always")
