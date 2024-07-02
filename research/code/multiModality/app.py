@@ -18,29 +18,30 @@ cImgs, cTxts = init()
 # init LLM modules
 m, t, p = setLLM()
 
+
 st.sidebar.title('seach criteria')
-with st.sidebar.form(key='attributes'):
-  
-     ms = st.multiselect('select search result modalities', ['img', 'txt', 'video', 'audio'])
-  
-     sim = st.file_uploader('search doc/image: ', type=['png', 'jpeg', 'mpg'])
-  
-     im = None
-     if sim:
-       im = Image.open(sim)
-       name = sim.name
-       st.image(im, caption="select image")
-       with open(name, "wb") as f:
-         f.write(sim.getbuffer())
+# with st.sidebar.form(key='attributes'):
+
+ms = st.sidebar.multiselect('select search result modalities', ['img', 'txt', 'video', 'audio'])
+
+sim = st.sidebar.file_uploader('search doc/image: ', type=['png', 'jpeg', 'mpg'])
+
+im = None
+if sim:
+    im = Image.open(sim)
+    name = sim.name
+    st.sidebar.image(im, caption="select image")
+    with open(name, "wb") as f:
+        f.write(sim.getbuffer())
 
 
-     txt = st.text_input('enter the search term: ', placeholder='enter short search term', disabled=False)
+txt = st.sidebar.text_input('enter the search term: ', placeholder='enter short search term', disabled=False)
 
-     top = st.slider('select top results pct', 0.0,1.0, (0.0, 1.0))
+top = st.sidebar.slider('select top results pct', 0.0,1.0, (0.0, 1.0))
 
-     te = st.slider('select LLM temperature: ', 0.0, 2.0, (0.0, 1.0))
+te = st.sidebar.slider('select LLM temperature: ', 0.0, 2.0, (0.0, 1.0))
 
-     btn = st.form_submit_button(label='Search')
+btn = st.sidebar.button(label="Search")
 
 if btn:
     '''
@@ -50,25 +51,35 @@ if btn:
     embedding_function = OpenCLIPEmbeddingFunction()
 
     # question = 'Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?'
-
-    doc = cTxts.query(
+    if 'document' not in st.session_state:
+        st.session_state['document'] = ""
+        
+    st.session_state['document'] = cTxts.query(
     query_embeddings=embedding_function('./' + sim.name),
     n_results=1,
     )['documents'][0][0]
+          
 
-    st.text_area(label='flower description', value=doc)
-    imgs = []
+    if 'timgs' in st.session_state:
+        st.session_state["timgs"] = []
+       
     imgs = cImgs.query(query_uris='./' + sim.name, include=['data'], n_results=6)
+    #st.write('=>images: ', imgs)
     for img in imgs['data'][0][1:]:
-        st.session_state.timgs.append(img)
+        st.session_state['timgs'].append(img)
+
 
 if 'timgs' not in st.session_state:
     st.session_state['timgs'] = []
+
+if (len(st.session_state['timgs']) > 1):  
     
-if ('timgs' in st.session_state and len(st.session_state['timgs']) >0):    
+    st.text_area(label='flower description', value=st.session_state['document'])
+    
     dimgs = image_select(
         label="select image",
-        images=st.session_state.timgs,
+        images=st.session_state['timgs'],
+        use_container_width=True,
         captions=[
             "caption one",
             "caption two",
@@ -76,7 +87,8 @@ if ('timgs' in st.session_state and len(st.session_state['timgs']) >0):
             "caption fore",
             "caption five",
         ],
-        key="select_image",
     )
 
     st.image(dimgs, use_column_width="always")
+    
+   
