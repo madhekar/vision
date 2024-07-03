@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 import chromadb as cdb
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
-from transformers import AutoTokenizer, AutoProcessor, AutoModel, TextStreamer
+
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
 
@@ -78,20 +78,6 @@ def createVectorDB():
     collection_text.add(documents=list_of_text, ids=ids_txt_list)
 
     return collection_images, collection_text
-
-@st.cache_resource(ttl=36000, show_spinner=True)
-def setLLM():
-    '''
-        model autotokenizer and processor componnents for LLM model MC-LLaVA-3b with trust flag
-    '''
-
-    model = AutoModel.from_pretrained("visheratin/MC-LLaVA-3b", trust_remote_code=True)
-
-    tokenizer = AutoTokenizer.from_pretrained( "visheratin/MC-LLaVA-3b", trust_remote_code=True)
-
-    processor = AutoProcessor.from_pretrained( "visheratin/MC-LLaVA-3b", trust_remote_code=True)
-
-    return model, tokenizer, processor
 
 
 @st.cache_resource(ttl=36000, show_spinner=True)

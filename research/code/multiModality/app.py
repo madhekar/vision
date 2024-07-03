@@ -1,18 +1,18 @@
 import streamlit as st
-import torch
+import asyncio
 
 # from streamlit_option_menu import option_menu
 from streamlit_image_select import image_select
 from PIL import Image
 
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
-from transformers import AutoTokenizer, AutoProcessor, AutoModel, TextStreamer
-import chromadb.utils.embedding_functions
-from loadData import init, setLLM
+
+from loadData import init
+from LLM import setLLM, fetch_llm_text
 # import chromadb as cdb
 
 st.set_page_config(
-    page_title="zesha flower search",
+    page_title="zesha: flower search",
     page_icon="",
     initial_sidebar_state="auto",
     layout="wide",
@@ -25,6 +25,18 @@ cImgs, cTxts = init()
 # init LLM modules
 m, t, p = setLLM()
 
+if "document" not in st.session_state:
+    st.session_state["document"] = "This is good"
+
+if "timgs" not in st.session_state:
+    st.session_state["timgs"] = []
+
+if "llm_text" not in st.session_state:
+    st.session_state["llm_text"] = ""
+
+
+async def getLLMText():
+    st.session_state['llm_text'] = await fetch_llm_text(sim, model=m, processor=p, top=top, temperature=te)
 
 st.sidebar.title("seach criteria")
 # with st.sidebar.form(key='attributes'):
@@ -48,11 +60,13 @@ txt = st.sidebar.text_input(
     "enter the search term: ", placeholder="enter short search term", disabled=False
 )
 
-top = st.sidebar.slider("select top results pct", 0.0, 1.0, (0.0, 1.0))
+top = st.sidebar.slider("select top results pct", 0.0, 1.0, 0.8)
 
-te = st.sidebar.slider("select LLM temperature: ", 0.0, 2.0, (0.0, 1.0))
+te = st.sidebar.slider("select LLM temperature: ", 0.0, 1.0, 0.9)
 
 btn = st.sidebar.button(label="Search")
+
+
 
 if btn:
     
@@ -75,52 +89,13 @@ if btn:
     for img in imgs["data"][0][1:]:
         st.session_state["timgs"].append(img)
 
-    
-    # create prompt to test the LLM
-    
-    prompt = """<|im_start|>system
-    A chat between a curious human and an artificial intelligence assistant.
-    The assistant is an exprt in flowers , and gives helpful, detailed, and polite answers to the human's questions.
-    The assistant does not hallucinate and pays very close attention to the details.<|im_end|>
-    <|im_start|>user
-    <image>
-    {question} Use the following article as an answer source. Do not write outside its scope unless you find your answer better {article} if you thin your answer is better add it after document.<|im_end|>
-    <|im_start|>assistant
-    """.format(question="question", article=st.session_state["document"])
+    asyncio.run(getLLMText())
 
-    
-    # generate propcssor using image and associated prompt query, and generate LLM response
-    
-    with torch.inference_mode():
-        inputs = p(prompt, [Image.open(sim)], m, max_crops=100, num_tokens=728)
-
-    streamer = TextStreamer(p.tokenizer)
-
-    with torch.inference_mode():
-      output = m.generate(
-        **inputs,
-        max_new_tokens=200,
-        do_sample=True,
-        use_cache=False,
-        top_p=0.9,
-        temperature=0.2,
-        eos_token_id=p.tokenizer.eos_token_id,
-        streamer=streamer,
-       )
-
-    st.text_area(
-       label="LLM",
-        value=p.tokenizer.decode(output[0]).replace(prompt, "").replace("<|im_end|>", ""),
-    )
-
-
-if "document" not in st.session_state:
-    st.session_state["document"] = ""
-
-if "timgs" not in st.session_state:
-    st.session_state["timgs"] = []
 
 if len(st.session_state["timgs"]) > 1:
+    
+    st.text_area(label="LLM caption", value=st.session_state['llm_text'])
+    
     st.text_area(label="flower description", value=st.session_state["document"])
 
     dimgs = image_select(
@@ -137,3 +112,5 @@ if len(st.session_state["timgs"]) > 1:
     )
 
     st.image(dimgs, use_column_width="always")
+
+
