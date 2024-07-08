@@ -24,15 +24,12 @@ def setLLM():
 
     return model, tokenizer, processor
 
-
-def fetch_llm_text(imUrl, model, processor, top, temperature, question):
-    
     # create prompt to test the LLM
     # Do not write outside its scope unless you find your answer better {article} if you thin your answer is better add it after document.<|im_end|>
+def fetch_llm_text(imUrl, model, processor, top, temperature, question):
     
-    prompt = """
-    <|im_start|>system
-    A chat between a curious human and an artificial intelligence assistant.The assistant is an exprt in flowers , and gives helpful, detailed, and polite answers to the human's questions. The assistant does not hallucinate and pays very close attention to the details.
+    prompt = """<|im_start|>system
+    A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in flowers , and gives helpful, detailed, and polite answers to the human's questions. The assistant does not hallucinate and pays very close attention to the details.
     <|im_end|>
     
     <|im_start|>user

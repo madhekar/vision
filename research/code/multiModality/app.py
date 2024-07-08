@@ -51,13 +51,15 @@ im = None
 if sim:
     im = Image.open(sim)
     name = sim.name
-    st.sidebar.image(im, caption="select image")
+    st.sidebar.image(im, caption="selected image to find simili...")
     with open(name, "wb") as f:
         f.write(sim.getbuffer())
 
 
 txt = st.sidebar.text_input(
-    "enter the search term: ", placeholder="enter short search term", disabled=False
+    "enter the search term: ", placeholder="enter search term: ", 
+    value= "Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?", 
+    disabled=False
 )
 
 top = st.sidebar.slider("select top results pct", 0.0, 1.0, 0.8)
@@ -70,11 +72,10 @@ btn = st.sidebar.button(label="Search")
 
 if btn:
     
-    # create query on image, also shows similar document in vector database (not using LLM)
-    # openclip embedding function!
+    # create query on image, also shows similar document in vector database (not using LLM)  -- openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
 
-    question = "Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?"
+    #question = "Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?"
 
     st.session_state["document"] = cTxts.query(
         query_embeddings=embedding_function("./" + sim.name),
@@ -89,7 +90,7 @@ if btn:
     for img in imgs["data"][0][1:]:
         st.session_state["timgs"].append(img)
 
-    getLLMText(question=question)
+    getLLMText(question=txt)
 
 
 if len(st.session_state["timgs"]) > 1:
@@ -103,11 +104,11 @@ if len(st.session_state["timgs"]) > 1:
         images=st.session_state["timgs"],
         use_container_width=True,
         captions=[
-            "caption one",
-            "caption two",
-            "caption three",
-            "caption fore",
-            "caption five",
+            "simili - A",
+            "simili - B",
+            "simili - C",
+            "simili - D",
+            "simili - E",
         ],
     )
 
