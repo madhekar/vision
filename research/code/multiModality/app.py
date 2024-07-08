@@ -35,8 +35,8 @@ if "llm_text" not in st.session_state:
     st.session_state["llm_text"] = ""
 
 
-def getLLMText():
-    st.session_state['llm_text'] = fetch_llm_text(sim, model=m, processor=p, top=top, temperature=te)
+def getLLMText(question):
+    st.session_state['llm_text'] = fetch_llm_text(sim, model=m, processor=p, top=top, temperature=te, question = question)
 
 st.sidebar.title("seach criteria")
 # with st.sidebar.form(key='attributes'):
@@ -89,7 +89,7 @@ if btn:
     for img in imgs["data"][0][1:]:
         st.session_state["timgs"].append(img)
 
-    getLLMText()
+    getLLMText(question=question)
 
 
 if len(st.session_state["timgs"]) > 1:

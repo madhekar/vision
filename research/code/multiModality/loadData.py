@@ -34,7 +34,7 @@ def createVectorDB():
     # Image collection inside vector database 'chromadb'
     image_loader = ImageLoader()
 
-    # collection images define
+    # collection images defined
     collection_images = client.get_or_create_collection(
       name='multimodal_collection_images', 
       embedding_function=embedding_function, 
@@ -43,6 +43,7 @@ def createVectorDB():
 
     # add image embeddings in vector db
     image_uris = sorted([os.path.join(IMAGE_FOLDER, image_name) for image_name in os.listdir(IMAGE_FOLDER) if not image_name.endswith('.txt')])
+    
     ids = [str(uuid.uuid4()) for _ in range(len(image_uris))]
     
     print('=> image urls: \n', '\n'.join(image_uris))
