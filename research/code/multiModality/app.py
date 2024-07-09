@@ -95,9 +95,9 @@ if btn:
 
 if len(st.session_state["timgs"]) > 1:
     
-    st.text_area(label="LLM caption", value=st.session_state['llm_text'])
+    st.text_area( label='description', value=st.session_state['llm_text'])
     
-    st.text_area(label="flower description", value=st.session_state["document"])
+    #st.text_area(label="flower description", value=st.session_state["document"])
 
     dimgs = image_select(
         label="select image",

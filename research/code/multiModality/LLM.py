@@ -5,7 +5,15 @@ from PIL import Image
 from transformers import AutoTokenizer, AutoProcessor, AutoModel
 from transformers import TextStreamer
 
-
+"""
+Automodel is a term used to describe a machine learning model that can be automatically generated or trained. 
+This can be done in a variety of ways, such as using AutoML tools or by using techniques such as transfer learning.
+Automodels are often used in machine learning because they can significantly reduce the time and effort required to develop and deploy models. 
+For example, an AutoML tool can be used to automatically generate a variety of different model architectures and then train and evaluate them on a given dataset. 
+This can help users to quickly identify the best model architecture for their specific needs.
+Automodels are also becoming increasingly popular in the field of natural language processing (NLP). 
+This is because AutoNLP tools can be used to automatically generate and train language models for a variety of tasks, such as text classification, question answering, and machine translation.
+"""
 @st.cache_resource(ttl=36000, show_spinner=True)
 def setLLM():
     """
@@ -45,9 +53,11 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question):
         inputs = processor(
             prompt, [Image.open(imUrl)], model, max_crops=150, num_tokens=500
         )
-
+        
+    # streamer 
     streamer = TextStreamer(processor.tokenizer)
 
+    # model generator
     with torch.inference_mode():
         output = model.generate(
             **inputs,
@@ -58,6 +68,9 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question):
             temperature=temperature,
             eos_token_id=processor.tokenizer.eos_token_id,
             streamer=streamer,
+            #return_dict_in_generate=True,
+            #output_scores=True
+            
         )
     #st.write('=>out: ', output )
     result = processor.tokenizer.decode(output[0])
