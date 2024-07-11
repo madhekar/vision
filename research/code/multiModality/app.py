@@ -30,6 +30,9 @@ if "document" not in st.session_state:
 
 if "timgs" not in st.session_state:
     st.session_state["timgs"] = []
+    
+if "meta" not in st.session_state:
+    st.session_state["meta"] = []
 
 if "llm_text" not in st.session_state:
     st.session_state["llm_text"] = ""
@@ -84,13 +87,19 @@ if btn:
 
     if "timgs" in st.session_state:
         st.session_state["timgs"] = []
+        
+    if "meta" in st.session_state:
+        st.session_state["meta"] = []   
 
-    imgs = cImgs.query(query_uris="./" + sim.name, include=["data"], n_results=6)
-    # st.write('=>images: ', imgs)
+    imgs = cImgs.query(query_uris="./" + sim.name, include=["data", "metadatas"], n_results=6)
+    st.write('=>images: ', imgs)
     for img in imgs["data"][0][1:]:
         st.session_state["timgs"].append(img)
+    for mdata in imgs["metadatas"][0][1:]:
+        st.session_state["meta"].append(mdata.get('location'))
+        
 
-    getLLMText(question=txt)
+    #getLLMText(question=txt)
 
 
 if len(st.session_state["timgs"]) > 1:
@@ -103,13 +112,7 @@ if len(st.session_state["timgs"]) > 1:
         label="select image",
         images=st.session_state["timgs"],
         use_container_width=True,
-        captions=[
-            "simili - A",
-            "simili - B",
-            "simili - C",
-            "simili - D",
-            "simili - E",
-        ],
+        captions=st.session_state["meta"],
     )
 
     st.image(dimgs, use_column_width="always")

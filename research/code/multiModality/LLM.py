@@ -51,7 +51,7 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question):
     # generate propcssor using image and associated prompt query, and generate LLM response
     with torch.inference_mode():
         inputs = processor(
-            prompt, [Image.open(imUrl)], model, max_crops=150, num_tokens=500
+            prompt, [Image.open(imUrl)], model, max_crops=10, num_tokens=20
         )
         
     # streamer 
@@ -61,7 +61,7 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question):
     with torch.inference_mode():
         output = model.generate(
             **inputs,
-            max_new_tokens=250,
+            max_new_tokens=20,
             do_sample=True,
             use_cache=False,
             top_p=top,
