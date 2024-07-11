@@ -34,19 +34,19 @@ def setLLM():
 
     # create prompt to test the LLM
     # Do not write outside its scope unless you find your answer better {article} if you thin your answer is better add it after document.<|im_end|>
-def fetch_llm_text(imUrl, model, processor, top, temperature, question):
+def fetch_llm_text(imUrl, model, processor, top, temperature, question, article):
     
     prompt = """<|im_start|>system
-    A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in flowers , and gives helpful, detailed, and polite answers to the human's questions. The assistant does not hallucinate and pays very close attention to the details.
+    A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, and gives helpful, detailed, and polite answers to the human's questions. The assistant does not hallucinate and pays very close attention to the details.
     <|im_end|>
     
     <|im_start|>user
     <image>
-    {question} 
+    {question} Use the following article as an answer source. {article}
     <|im_end|> 
     
     <|im_start|>assistant
-    """.format(question=question) #, article=st.session_state["document"])
+    """.format(question=question, article=article) #, article=st.session_state["document"])
 
     # generate propcssor using image and associated prompt query, and generate LLM response
     with torch.inference_mode():

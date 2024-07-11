@@ -14,12 +14,12 @@ from LLM import setLLM, fetch_llm_text
 # import chromadb as cdb
 
 st.set_page_config(
-    page_title="zesha: flower search",
+    page_title="zesha: Multi Modality Search (MMS)",
     page_icon="",
     initial_sidebar_state="auto",
     layout="wide",
 )  # (margins_css)
-st.title("Flower Search")
+st.title("Zesha: MMS")
 
 # load data
 cImgs, cTxts = init()
@@ -28,7 +28,7 @@ cImgs, cTxts = init()
 m, t, p = setLLM()
 
 if "document" not in st.session_state:
-    st.session_state["document"] = "This is good"
+    st.session_state["document"] = ""
 
 if "timgs" not in st.session_state:
     st.session_state["timgs"] = []
@@ -40,8 +40,8 @@ if "llm_text" not in st.session_state:
     st.session_state["llm_text"] = ""
 
 
-def getLLMText(question):
-    st.session_state['llm_text'] = fetch_llm_text(sim, model=m, processor=p, top=top, temperature=te, question = question)
+def getLLMText(question, article):
+    st.session_state['llm_text'] = fetch_llm_text(sim, model=m, processor=p, top=top, temperature=te, question = question, article=article)
 
 st.sidebar.title("seach criteria")
 # with st.sidebar.form(key='attributes'):
@@ -104,17 +104,17 @@ if btn:
         st.session_state["meta"].append(mdata.get('location') + ": (" + mdata.get('datetime') + ")")
         
 
-    getLLMText(question=txt)
+    getLLMText(question=txt, article=st.session_state['document'])
 
 
 if len(st.session_state["timgs"]) > 1:
     
-    st.text_area( label='description', value=st.session_state['llm_text'])
+    st.text_area( label='LLM Description', value=st.session_state['llm_text'])
     
-    st.text_area(label="flower description", value=st.session_state["document"])
+    st.text_area(label="Embedding Description", value=st.session_state["document"])
 
     dimgs = image_select(
-        label="select image",
+        label="Select Image",
         images=st.session_state["timgs"],
         use_container_width=True,
         captions=st.session_state["meta"],

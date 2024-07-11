@@ -7,23 +7,32 @@ from geopy.geocoders import Nominatim
 
 
 def getDateTime(img):
+    value = []
     # open the image
     image = Image.open(img)
 
     # extracting the exif metadata
     exifdata = image.getexif()
     date_time = exifdata.get(306)
-    value = (date_time.split(" ")[0]).split(":")[:3]
-    value.append(date_time)
+    if date_time:
+       value = (date_time.split(" ")[0]).split(":")[:3]
+       value.append(date_time)
+    else:
+        value = ['0000','00','00','0000:00:00 00:00:00']   
     # print(value)
     return value
 
 
 def gpsInfo(img):
+    gps = ""
     # Get the data from image file and return a dictionary
     data = gpsphoto.getGPSData(img)
-    # print(data["Latitude"], data["Longitude"])
-    return str(data["Latitude"]) + ", " + str(data["Longitude"])
+    print(data)
+    if 'Latitude' in data and 'Longitude' in data:
+        gps = str(data["Latitude"]) + ", " + str(data["Longitude"])
+    else:
+        gps = '32.9437, 117.2088'
+    return gps
 
 
 def getLocationDetails(strLnL):

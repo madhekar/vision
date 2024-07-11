@@ -20,7 +20,7 @@ if storage_path is None:
 
 # Get the uris to the images
 #IMAGE_FOLDER = '/home/madhekar/work/vision/research/code/image_embed/flowers/allflowers'
-IMAGE_FOLDER = '/home/madhekar/work/zsource/family/img_train'
+IMAGE_FOLDER = '/home/madhekar/work/zsource/family/img'
 DOCUMENT_FOLDER = "/home/madhekar/work/zsource/family/doc"
 
 def createVectorDB():
