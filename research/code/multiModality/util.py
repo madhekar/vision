@@ -18,7 +18,7 @@ def getDateTime(img):
        value = (date_time.split(" ")[0]).split(":")[:3]
        value.append(date_time)
     else:
-        value = ['0000','00','00','0000:00:00 00:00:00']   
+        value = ['2000','01','01','2000:01:01 00:00:00']   
     # print(value)
     return value
 
