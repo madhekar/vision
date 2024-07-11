@@ -1,9 +1,11 @@
 import streamlit as st
 import asyncio
+import datetime
 
 # from streamlit_option_menu import option_menu
 from streamlit_image_select import image_select
-from PIL import Image
+from PIL import Image, ImageOps
+
 
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 
@@ -61,9 +63,12 @@ if sim:
 
 txt = st.sidebar.text_input(
     "enter the search term: ", placeholder="enter search term: ", 
-    value= "Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?", 
+    #value= "Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?", 
+    value= "Answer with organized answers: Who is the person or persons in the picture? Mention some facts about them.",
     disabled=False
 )
+
+dr = st.sidebar.date_input("select date range", datetime.date(2000,1,1))
 
 top = st.sidebar.slider("select top results pct", 0.0, 1.0, 0.8)
 
@@ -92,21 +97,21 @@ if btn:
         st.session_state["meta"] = []   
 
     imgs = cImgs.query(query_uris="./" + sim.name, include=["data", "metadatas"], n_results=6)
-    st.write('=>images: ', imgs)
+    #st.write('=>images: ', imgs)
     for img in imgs["data"][0][1:]:
         st.session_state["timgs"].append(img)
     for mdata in imgs["metadatas"][0][1:]:
-        st.session_state["meta"].append(mdata.get('location'))
+        st.session_state["meta"].append(mdata.get('location') + ": (" + mdata.get('datetime') + ")")
         
 
-    #getLLMText(question=txt)
+    getLLMText(question=txt)
 
 
 if len(st.session_state["timgs"]) > 1:
     
     st.text_area( label='description', value=st.session_state['llm_text'])
     
-    #st.text_area(label="flower description", value=st.session_state["document"])
+    st.text_area(label="flower description", value=st.session_state["document"])
 
     dimgs = image_select(
         label="select image",
@@ -114,7 +119,8 @@ if len(st.session_state["timgs"]) > 1:
         use_container_width=True,
         captions=st.session_state["meta"],
     )
-
-    st.image(dimgs, use_column_width="always")
-
+    im = Image.fromarray(dimgs)
+    nim = ImageOps.expand(im,border=(20,20,20,20), fill=(222,222,222))
+    st.image(nim, use_column_width="always")
+    
 
