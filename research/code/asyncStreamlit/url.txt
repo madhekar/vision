@@ -1,0 +1,4 @@
+-tiktoken
+-sentencepiece
+-https://www.youtube.com/watch?v=zduSFxRajkE
+-https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbEQtRllaZUN3aDJ1V01oWnpfRzhrR19Qb054QXxBQ3Jtc0tsR1VMZ0o1Z2dCbjRhNGN6bklQaHViRWZFcVY4Zl92cFlzdnpDQmZNUjNseEZ3bEJfOE9SYm1MUl8wRnE1UnFZT3FpQ1RJNllOLVRiVzhtQWREYUduUEpVWFltUG9JakR5cXRyZl9vdW4yYTRxcHhydw&q=https%3A%2F%2Fgithub.com%2Fkarpathy%2Fminbpe&v=zduSFxRajkE
