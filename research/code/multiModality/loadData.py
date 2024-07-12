@@ -19,7 +19,6 @@ if storage_path is None:
     raise ValueError("STORAGE_PATH environment variable is not set")
 
 # Get the uris to the images
-#IMAGE_FOLDER = '/home/madhekar/work/vision/research/code/image_embed/flowers/allflowers'
 IMAGE_FOLDER = '/home/madhekar/work/zsource/family/img'
 DOCUMENT_FOLDER = "/home/madhekar/work/zsource/family/doc"
 
@@ -30,6 +29,9 @@ def createVectorDB():
 
     # reset chromadb persistant store
     # client.reset()
+    
+    #list of collections
+    collections_list = [c.name for c in client.list_collections()]
 
     # openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
@@ -43,22 +45,22 @@ def createVectorDB():
       embedding_function=embedding_function, 
       data_loader=image_loader
       )
-
-    # add image embeddings in vector db
-    image_uris = sorted([os.path.join(IMAGE_FOLDER, image_name) for image_name in os.listdir(IMAGE_FOLDER) if not image_name.endswith('.txt')])
+    if 'multimodal_collection_images' not in collections_list:
+       # add image embeddings in vector db
+       image_uris = sorted([os.path.join(IMAGE_FOLDER, image_name) for image_name in os.listdir(IMAGE_FOLDER) if not image_name.endswith('.txt')])
     
-    #create uuids for each image
-    ids = [str(uuid.uuid4()) for _ in range(len(image_uris))]
+       #create uuids for each image
+       ids = [str(uuid.uuid4()) for _ in range(len(image_uris))]
     
-    # create metadata for each image
-    metadata = []#[{'year': util.getMetadata(u)[0], 'month':util.getMetadata(u)[1], 'day': util.getMetadata(u)[2], 'datetime': util.getMetadata(u)[3], 'location': util.getMetadata(u)[4]}   for u in image_uris]
-    for url in image_uris:
-        v = util.getMetadata(url)
-        metadata.append({'year': v[0], 'month':v[1], 'day': v[2], 'datetime': v[3], 'location': v[4]})
+       # create metadata for each image
+       metadata = []
+       for url in image_uris:
+          v = util.getMetadata(url)
+          metadata.append({'year': v[0], 'month':v[1], 'day': v[2], 'datetime': v[3], 'location': v[4]})
     
     
-    print('=> image urls: \n', '\n'.join(image_uris))
-    collection_images.add(ids=ids, metadatas=metadata, uris=image_uris)
+       print('=> image urls: \n', '\n'.join(image_uris))
+       collection_images.add(ids=ids, metadatas=metadata, uris=image_uris)
 
     '''
        Text collection inside vector database 'chromadb'
@@ -67,29 +69,30 @@ def createVectorDB():
       name="multimodal_collection_text",
       embedding_function=embedding_function,
     )
-
-    text_pth = sorted(
+    
+    if 'multimodal_collection_text' not in collections_list:
+      text_pth = sorted(
         [
             os.path.join(DOCUMENT_FOLDER, document_name)
             for document_name in os.listdir(DOCUMENT_FOLDER)
             if document_name.endswith(".txt")
         ]
-    )
+      )
 
-    print("=> text paths: \n", "\n".join(text_pth))
+      print("=> text paths: \n", "\n".join(text_pth))
 
-    list_of_text = []
+      list_of_text = []
 
-    for text in text_pth:
+      for text in text_pth:
         with open(text, "r") as f:
             text = f.read()
             list_of_text.append(text)
 
-    ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
+      ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
 
-    print("=> text generate ids:\n", ids_txt_list)
+      print("=> text generate ids:\n", ids_txt_list)
 
-    collection_text.add(documents=list_of_text, ids=ids_txt_list)
+      collection_text.add(documents=list_of_text, ids=ids_txt_list)
 
     return collection_images, collection_text
 
