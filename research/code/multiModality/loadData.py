@@ -51,7 +51,11 @@ def createVectorDB():
     ids = [str(uuid.uuid4()) for _ in range(len(image_uris))]
     
     # create metadata for each image
-    metadata = [{'year': util.getMetadata(u)[0], 'month':util.getMetadata(u)[1], 'day': util.getMetadata(u)[2], 'datetime': util.getMetadata(u)[3], 'location': util.getMetadata(u)[4]}  for u in image_uris]
+    metadata = []#[{'year': util.getMetadata(u)[0], 'month':util.getMetadata(u)[1], 'day': util.getMetadata(u)[2], 'datetime': util.getMetadata(u)[3], 'location': util.getMetadata(u)[4]}   for u in image_uris]
+    for url in image_uris:
+        v = util.getMetadata(url)
+        metadata.append({'year': v[0], 'month':v[1], 'day': v[2], 'datetime': v[3], 'location': v[4]})
+    
     
     print('=> image urls: \n', '\n'.join(image_uris))
     collection_images.add(ids=ids, metadatas=metadata, uris=image_uris)
