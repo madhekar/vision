@@ -104,7 +104,7 @@ if btn:
         st.session_state["meta"].append(mdata.get('location') + ": (" + mdata.get('datetime') + ")")
         
 
-    getLLMText(question=txt, article=st.session_state['document'])
+    #getLLMText(question=txt, article=st.session_state['document'])
 
 
 if len(st.session_state["timgs"]) > 1:
