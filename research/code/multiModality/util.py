@@ -93,4 +93,3 @@ def setGpsLocation(fname, lat, lng):
 
     exiv_image.writeMetadata()
 
-set_gps_location(sys.argv[1], float(sys.argv[2]), float(sys.argv[3]))

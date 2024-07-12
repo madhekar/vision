@@ -29,7 +29,7 @@ def createVectorDB():
     client = cdb.PersistentClient( path=storage_path, settings=Settings(allow_reset=True))
 
     # reset chromadb persistant store
-    client.reset()
+    # client.reset()
 
     # openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
