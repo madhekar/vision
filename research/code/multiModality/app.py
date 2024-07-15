@@ -65,7 +65,7 @@ if sim:
 txt = st.sidebar.text_input(
     "enter the search term: ", placeholder="enter search term: ", 
     #value= "Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?", 
-    value= "Answer with organized answers: Who is the person or persons in the picture? Mention some facts about them.",
+    value= "Answer with organized answers: Who is the persion or persons in the picture? Mention some facts about the picture.",
     disabled=False
 )
 
@@ -76,7 +76,6 @@ top = st.sidebar.slider("select top results pct", 0.0, 1.0, 0.8)
 te = st.sidebar.slider("select LLM temperature: ", 0.0, 1.0, 0.9)
 
 btn = st.sidebar.button(label="Search")
-
 
 
 if btn:
@@ -114,7 +113,7 @@ if btn:
         st.session_state["meta"].append(mdata.get('location') + ": (" + mdata.get('datetime') + ")")
         
 
-    getLLMText(question=txt, article=st.session_state['document'])
+    #getLLMText(question=txt, article=st.session_state['document'])
 
 
 if len(st.session_state["timgs"]) > 1:
