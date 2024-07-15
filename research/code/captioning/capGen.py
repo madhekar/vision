@@ -43,7 +43,7 @@ width, height = image.size
 print("=>image", image.resize((int(0.3 * width), int(0.3 * height))))
 print("=>text", example["text"])
 
-
+# captiong dataset loader
 class ImageCaptioningDataset(Dataset):
     def __init__(self, dataset, processor):
         self.dataset = dataset
@@ -132,6 +132,9 @@ for epoch in range(50):
         optimizer.step()
         optimizer.zero_grad()
         
+torch.save(model, './zgit')        
+
+theModel = torch.load('./zgit')
         
 # load image
 example = dataset[0]
@@ -143,6 +146,6 @@ print("=>image", image.resize((int(0.3 * width), int(0.3 * height))))
 inputs = processor(images=image, return_tensors="pt").to(device)
 pixel_values = inputs.pixel_values
 
-generated_ids = model.generate(pixel_values=pixel_values, max_length=50)
+generated_ids = theModel.generate(pixel_values=pixel_values, max_length=100)
 generated_caption = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
 print("=> generated caption:", generated_caption)
