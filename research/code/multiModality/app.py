@@ -5,6 +5,7 @@ import datetime
 # from streamlit_option_menu import option_menu
 from streamlit_image_select import image_select
 from PIL import Image, ImageOps
+import util
 
 
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
@@ -68,7 +69,7 @@ txt = st.sidebar.text_input(
     disabled=False
 )
 
-dr = st.sidebar.date_input("select date range", datetime.date(2000,1,1))
+dr = st.sidebar.date_input("select date range", datetime.date(2022,1,1))
 
 top = st.sidebar.slider("select top results pct", 0.0, 1.0, 0.8)
 
@@ -95,16 +96,25 @@ if btn:
         
     if "meta" in st.session_state:
         st.session_state["meta"] = []   
+    #st.write("=>images: ", util.getMetadata(sim.name))
+    
+    qmdata = util.getMetadata(sim.name)
+    imgs = cImgs.query(
+        query_uris="./" + sim.name,
+        include=["data", "metadatas"],
+        n_results=6,
+        where={
+            "$and": [{"year": qmdata[0]}, {"month": qmdata[1]}, {"day": qmdata[2]}]
+        },
+    )
 
-    imgs = cImgs.query(query_uris="./" + sim.name, include=["data", "metadatas"], n_results=6)
-    #st.write('=>images: ', imgs)
     for img in imgs["data"][0][1:]:
         st.session_state["timgs"].append(img)
     for mdata in imgs["metadatas"][0][1:]:
         st.session_state["meta"].append(mdata.get('location') + ": (" + mdata.get('datetime') + ")")
         
 
-    #getLLMText(question=txt, article=st.session_state['document'])
+    getLLMText(question=txt, article=st.session_state['document'])
 
 
 if len(st.session_state["timgs"]) > 1:
