@@ -51,7 +51,7 @@ ms = st.sidebar.multiselect(
     "select search result modalities", ["img", "txt", "video", "audio"]
 )
 
-sim = st.sidebar.file_uploader("search doc/image: ", type=["png", "jpeg", "mpg"])
+sim = st.sidebar.file_uploader("search doc/image: ", type=["png", "jpeg", "mpg", 'jpg','PNG','JPG'])
 
 im = None
 if sim:
@@ -130,6 +130,6 @@ if len(st.session_state["timgs"]) > 1:
     )
     im = Image.fromarray(dimgs)
     nim = ImageOps.expand(im,border=(20,20,20,20), fill=(222,222,222))
-    st.image(nim, use_column_width="always")
-    
-
+    display_im = st.image(nim, use_column_width="always")
+    #rot = nim.rotate(-90)
+    #display_im.image(rot)

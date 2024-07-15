@@ -33,7 +33,7 @@ with open(iroot + "metadata.jsonl", "w") as f:
         f.write(json.dumps(item) + "\n")
         
 
-dataset = load_dataset("imagefolder", data_dir=iroot, split="train")
+dataset = load_dataset("imagefolder", data_dir=iroot, split="train", num_proc=4)
 
 print(dataset)
 
@@ -72,7 +72,7 @@ item = train_dataset[0]
 for k, v in item.items():
     print("=>key: value", k, v.shape)
 
-train_dataloader = DataLoader(train_dataset, shuffle=True, batch_size=2)
+train_dataloader = DataLoader(train_dataset, shuffle=True, batch_size=2, num_workers=4)
 
 batch = next(iter(train_dataloader))
 for k,v in batch.items():
