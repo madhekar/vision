@@ -369,6 +369,7 @@ for epoch in range(50):
         loss.backward()
 
         optimizer.step()
+        
         optimizer.zero_grad()
         
 torch.save(model, './zgit')        
@@ -376,7 +377,7 @@ torch.save(model, './zgit')
 theModel = torch.load('./zgit')
         
 # load image
-example = dataset[0]
+example = dataset[10]
 image = example["image"]
 width, height = image.size
 print("=>image", image.resize((int(0.3 * width), int(0.3 * height))))
