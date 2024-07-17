@@ -23,3 +23,24 @@ with torch.no_grad(), torch.cpu.amp.autocast():
     text_probs = (100.0 * image_features @ text_features.T).softmax(dim=-1)
 
 print("Label probs:", text_probs)  # prints: [[1., 0., 0.]]
+
+
+
+torchrun --nproc_per_node 6 -m training.main \
+    --batch-size 5 \
+    --precision amp \
+    --workers 4 \
+    --report-to tensorboard \
+    --save-frequency 1 \
+    --logs="./logs" \
+    --dataset-type csv \
+    --csv-separator="," \
+    --train-data ./project-zesha.csv \
+    --csv-img-key filepath \
+    --csv-caption-key caption \
+    --warmup 1000 \
+    --lr=5e-6 \
+    --wd=0.1 \
+    --epochs=32 \
+    --model ViT-B-32 \
+    --pretrained ./model-zesha
