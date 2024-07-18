@@ -94,3 +94,4 @@ def instance_segmentation(img_path, threshold=0.5, rect_th=3,
 
 img, pred_classes, masks = instance_segmentation('./car.jpg', rect_th=5, text_th=4)
 plt.imshow(img)
+plt.show()
