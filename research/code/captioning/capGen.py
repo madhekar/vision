@@ -267,7 +267,7 @@ caps = [
 ]
 
 # add metadata.jsonl file to this folder
-with open(iroot + "metadata.jsonl", "w") as f:
+with open(iroot + 'metadata' + "metadata.jsonl", "w") as f:
     for item in caps:
         f.write(json.dumps(item) + "")
         
