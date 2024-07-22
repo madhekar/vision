@@ -4,9 +4,7 @@ import os
 import json
 from PIL import Image
 
-# Load the CLIP model architecture
-device = "cuda" if torch.cuda.is_available() else "cpu"
-model, preprocess = clip.load("ViT-B/32", device=device, jit=False)
+import streamlit as st
 
 # paths
 train_json_path = "/home/madhekar/work/zsource/family/metadata/project-zesha-class.json"
@@ -28,31 +26,18 @@ object_names = [
     "Bhiman",
 ]
 
-# input data as a list
-input_data = []
-with open(train_json_path, "r") as file:
-    for line in file:
-        obj = json.loads(line)
-        input_data.append(obj)
-
-# Load the saved state dictionary
-model.load_state_dict(torch.load("./trained_clip_model.pth"))
-
-
-# Set the model to evaluation mode
-model.eval()
-
 #
-def inferring_from_model(sample_index):
+def inferring_from_model(model, fname):
+    """
     image_json = input_data[sample_index]
 
     # Construct the full path to the image file using the given 'image_path'
-    image_path = os.path.join(test_image_path, image_json["file_name"])
-    """  image_class = image_json["class"]
-    image_path, image_class """
-    print("Image path: ", image_path)
+    image_path = os.path.join(train_image_path, image_json["file_name"])
+      image_class = image_json["class"]
+    image_path, image_class 
+    print("Image path: ", image_path)"""
     
-    image = preprocess(Image.open(image_path)).unsqueeze(0).to(device)
+    image = preprocess(Image.open(fname)).unsqueeze(0).to(device)
     #print(image.shape)
     
     # Tokenize and move the people item names to the appropriate device
@@ -77,8 +62,37 @@ def inferring_from_model(sample_index):
     values, indices = similarity[0].topk(5)
 
     # Print the top predictions
-    print("\nTop predictions:\n")
+    st.write("\nTop predictions:\n")
     for value, index in zip(values, indices):
-        print(f"{object_names[index]:>16s}: {100 * value.item():.2f}%")
+        st.write(f"{object_names[index]:>16s}: {100 * value.item():.2f}%")
 
-inferring_from_model(sample_index=2)
+if __name__ == "__main__":
+    st.title("OpenCLIP fine tune image caption - prediction test")
+    # Load the CLIP model architecture
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model, preprocess = clip.load("ViT-B/32", device=device, jit=False)
+
+    # input data as a list
+    input_data = []
+    with open(train_json_path, "r") as file:
+        for line in file:
+            obj = json.loads(line)
+            input_data.append(obj)
+
+    # Load the saved state dictionary
+    model.load_state_dict(torch.load("./trained_clip_model.pth"))
+
+
+    # Set the model to evaluation mode
+    model.eval()
+    
+    select_file = st.file_uploader('select image file', accept_multiple_files=False)
+    if select_file:
+        im = Image.open(select_file)
+        name = select_file.name
+        st.image(im, caption="selected image to find simili...")
+    
+    btn = st.button('predict caption')        
+    if btn: 
+       inferring_from_model(model, select_file)
+    
