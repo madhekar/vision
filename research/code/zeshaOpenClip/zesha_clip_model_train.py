@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
+from util import getNamesCombination
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -28,7 +29,7 @@ with open(train_json_path, "r") as file:
         obj = json.loads(line)
         input_data.append(obj)
 
-print(input_data[:2])
+#print(input_data[:2])
 
 
 train_image_path = "/home/madhekar/work/zsource/family/img_train/"
@@ -44,7 +45,7 @@ for item in input_data:
     caption = item["text"]
     list_txt.append(caption)
 
-print(list_image_path[:5], list_txt[:5])
+print(list_image_path[:2], list_txt[:2], len(list_image_path))
 
 
 
@@ -72,21 +73,17 @@ class image_title_dataset:
 
 # to check with only 50 examples
 # dataset = image_title_dataset(list_image_path[:10000], list_txt[:10000])
-dataset = image_title_dataset(list_image_path, list_txt)
-train_dataloader = DataLoader(dataset, batch_size=256, shuffle=True)
 
+dataset = image_title_dataset(list_image_path, list_txt)
+
+train_dataloader = DataLoader(dataset, batch_size=128, shuffle=True)
 
 len(next(iter(train_dataloader)))
 
-
-optimizer = torch.optim.Adam(
-    model.parameters(), lr=5e-5, betas=(0.9, 0.98), eps=1e-6, weight_decay=0.2
-)
+optimizer = torch.optim.Adam(model.parameters(), lr=5e-5, betas=(0.9, 0.98), eps=1e-6, weight_decay=0.2)
 
 loss_img = nn.CrossEntropyLoss()
 loss_txt = nn.CrossEntropyLoss()
-
-
 
 '''
 Ground truth and loss calculation:
@@ -118,7 +115,7 @@ This approach allows the model to learn rich, multi-modal representations withou
 '''
 
 # training
-n_epochs = 50
+n_epochs = 100
 
 for epoch in range(n_epochs):
     pbar = tqdm(train_dataloader, total=len(train_dataloader))
@@ -147,19 +144,7 @@ for epoch in range(n_epochs):
         pbar.set_description(f"Epoch {epoch}/{n_epochs}, Loss: {total_loss.item():.4f}")
 
 #obect names
-object_names = [
-    "Esha",
-    "Anjali",
-    "Bhalchandra",
-    "Esha.Anjali",
-    "Esha,Bhalchandra",
-    "Esha,Anjali,Bhalchandra",
-    "Esha,Shibangi",
-    "Anjali,Shoma",
-    "Esha,Asha",
-    "Shoma",
-    "Bhiman"
-]
+object_names =  getNamesCombination()
 
 print(len(object_names))
 
@@ -179,7 +164,7 @@ image = preprocess(Image.open(image_path)).unsqueeze(0).to(device)
 print(image.shape)
 
 # Tokenize and move the people item names to the appropriate device
-text = torch.cat([clip.tokenize(f"a photo of a {c}") for c in object_names]).to(
+text = torch.cat([clip.tokenize(f"a image of a {c}") for c in object_names]).to(
     device
 )
 print(text.shape)
@@ -275,4 +260,4 @@ def inferring_from_model(sample_index):
     plt.show()
 
 
-inferring_from_model(sample_index=15)
+inferring_from_model(sample_index=5)

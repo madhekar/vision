@@ -3,6 +3,7 @@ import torch
 import os
 import json
 from PIL import Image
+from util import getNamesCombination
 
 import streamlit as st
 
@@ -12,19 +13,7 @@ train_image_path = "/home/madhekar/work/zsource/family/img_train/"
 test_image_path = "/home/madhekar/work/zsource/family/img/"
 
 # obect names
-object_names = [
-    "Esha",
-    "Anjali",
-    "Bhalchandra",
-    "Esha.Anjali",
-    "Esha,Bhalchandra",
-    "Esha,Anjali,Bhalchandra",
-    "Esha,Shibangi",
-    "Anjali,Shoma",
-    "Esha,Asha",
-    "Shoma",
-    "Bhiman",
-]
+object_names = getNamesCombination()
 
 #
 def inferring_from_model(model, fname):
@@ -40,8 +29,9 @@ def inferring_from_model(model, fname):
     image = preprocess(Image.open(fname)).unsqueeze(0).to(device)
     #print(image.shape)
     
+    st.write([clip.tokenize(f"a photo of {c}") for c in object_names])
     # Tokenize and move the people item names to the appropriate device
-    text = torch.cat([clip.tokenize(f"a photo of a {c}") for c in object_names]).to(
+    text = torch.cat([clip.tokenize(f"a photo of {c}") for c in object_names]).to(
     device)
     #print(text.shape)
 
