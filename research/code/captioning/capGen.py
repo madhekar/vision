@@ -13,257 +13,177 @@ from transformers import AutoModelForCausalLM
 iroot = "/home/madhekar/work/zsource/family/img_train/"
 
 caps = [
-        {
-            "file_name": "IMG_8035.PNG",
-            "text": "Anjali and Bhalchandra outdoor visit to san diego country side near Julian",
-        },
-        {
-            "file_name": "20150307_221806.jpg",
-            "text": "Anjali and Esha after enjoying Holi festival in Mira Mesa, San Diego, CA",
-        },
-        {
-            "file_name": "20150307_221945.jpg",
-            "text": "Esha, Anjali and Bhalchandra (middle) picture taken after Esha and Anjali return enjoying holi festival in San Diego, CA.",
-        },
-        {
-            "file_name": "IMG_0070.JPG",
-            "text": "Esha dressed up to serve for Father's day!",
-        },
-        {
-            "file_name": "IMG_0139.JPG",
-            "text": "Esha and Shibangi at Torry Pines State Park near Del Mar.",
-        },
-        {
-            "file_name": "IMG_0608.JPG",
-            "text": "Bhalchandra standing by sea shore on the way to Seward, Alaska traveling  from Anchorage.",
-        },
-        {
-            "file_name": "IMG_0610.JPG",
-            "text": "Esha and Bhalchandra by the sea shore on the way to Seaward, Alaska traveling from Anchorage, Alaska.",
-        },
-        {
-            "file_name": "IMG_0738.JPG",
-            "text": "Esha, Anjali and Shibangi before boarding glacier tour in Seward, Alaska.",
-        },
-        {
-            "file_name": "IMG_0974.JPG",
-            "text": "Esha and Anjali at home in San Diego, CA.",
-        },
-        {
-            "file_name": "IMG_2050.JPG",
-            "text": "Esha trying out peculiar selfie pose.  ",
-        },
-        {
-            "file_name": "IMG_2290.JPG",
-            "text": "Esha, trying out peculiar selfie pose. ",
-        },
-        {
-            "file_name": "IMG_2313.JPG",
-            "text": "Esha and Anjali on boat in route to Enchilada, Mexico",
-        },
-        {
-            "file_name": "IMG_2405.JPG",
-            "text": "Esha, Anjali and Bhalchandra on Ensenada, Mexico beach.",
-        },
-        {
-            "file_name": "IMG_5868.PNG",
-            "text": "Esha and Bhalchandra posing for picture in front of BAPS temple in Chino Hills, CA.",
-        },
-        {
-            "file_name": "IMG_5941.PNG",
-            "text": "Esha posing for picture at Home garden in San Diego, CA",
-        },
-        {
-            "file_name": "IMG_6073.PNG",
-            "text": "Esha and Anjali hiking near annie canyon trail near Solana Beach, CA",
-        },
-        {
-            "file_name": "IMG_6097.PNG",
-            "text": "Esha and Anjali on trail after SPA visit near Orange County, CA",
-        },
-        {
-            "file_name": "IMGP3353.JPG",
-            "text": "Esha, taking pictures on assignment with Outside the Lance, Liberty Station, CA ",
-        },
-        {
-            "file_name": "IMGP3437.JPG",
-            "text": "Esha, posing for picture before Senior Prom day at Torry Pines High School.",
-        },
-        {
-            "file_name": "IMGP3442.JPG",
-            "text": "Esha, posing for picture before Senior prom at Torry Pines High School.",
-        },
-        {
-            "file_name": "IMGP3450.JPG",
-            "text": "Esha, posing for picture before Senior prom at Torry Pines High School.",
-        },
-        {
-            "file_name": "IMG_0441.JPG",
-            "text": "Esha and Shibangi outside cabin near Talkeetna, Alaska",
-        },
-        {
-            "file_name": "IMG_0467.JPG",
-            "text": "Esha and Shibangi on the way to sight seeing near Talkeetna, Alaska",
-        },
-        {
-            "file_name": "IMG_0493.JPG",
-            "text": "Anjali, sight seeing near Talkeetna, Alaska",
-        },
-        {
-            "file_name": "IMG_0499.JPG",
-            "text": "Esha in front of Mount MacKenzie near Talkeetna, Alaska",
-        },
-        {
-            "file_name": "IMG_0504.JPG",
-            "text": "Shibangi in front of Mount MacKenzie near Talkeetna, Alaska",
-        },
-        {
-            "file_name": "IMG_0511.JPG",
-            "text": "Bhalchandra in front of Mount MacKenzie near Talkeetna, Alaska",
-        },
-        {
-            "file_name": "IMG_0540.JPG",
-            "text": "Esha, on river excursion tour near Talkeetna, Alaska",
-        },
-        {
-            "file_name": "IMG_0550.JPG",
-            "text": "Anjali and Shoma sight seeing near Talkeetna, Alaska",
-        },
-        {
-            "file_name": "IMG_0564.JPG",
-            "text": "Esha and Shibangi enjoying sleepover inside cabin near Talkeetna, Alaska",
-        },
-        {
-            "file_name": "IMG_1057.JPG",
-            "text": "Esha, posing in front of hear favorite rose plant at home in San Diego, CA",
-        },
-        {
-            "file_name": "IMG_1129.JPG",
-            "text": "Anjali and Bhalchandra on Del Mar beach.",
-        },
-        {
-            "file_name": "IMG_1360.JPG",
-            "text": "Esha after attending holi festival in San Diego, CA",
-        },
-        {
-            "file_name": "IMG_1363.JPG",
-            "text": "Esha in happy mood after attending holi festival in San Diego, CA",
-        },
-        {
-            "file_name": "IMG_1512.JPG",
-            "text": "Selfie time Anjali, Bhalchandra and Esha.",
-        },
-        {"file_name": "IMG_1588.JPG", "text": "Esha, posing for selfie"},
-        {
-            "file_name": "IMG_1724.JPG",
-            "text": "Esha, picture taken during parent visit to school, embracing moment!",
-        },
-        {
-            "file_name": "IMG_1754.JPG",
-            "text": "Esha, trying out new jewelry in selfie. ",
-        },
-        {
-            "file_name": "IMG_1794.JPG",
-            "text": "Esha and Anjali  trying out new jewelry and makeup. ",
-        },
-        {
-            "file_name": "IMG_2920.JPG",
-            "text": "Esha trying out new spectacles and no makeup in selfie.",
-        },
-        {
-            "file_name": "IMG_3491.JPG",
-            "text": "Esha and Ajji in Sequoia national forest.",
-        },
-        {
-            "file_name": "IMG_4367.JPG",
-            "text": "Bhalchandra and Shamsunder as young kids.",
-        },
-        {
-            "file_name": "IMG_5380.PNG",
-            "text": "Esha and Anjali in after Esha's graduation in Berkeley, CA.",
-        },
-        {
-            "file_name": "IMG_5389.PNG",
-            "text": "Esha, Anjali and Bhalchandra outside Sather Gate in Berkeley, CA after Esha's Graduation.",
-        },
-        {
-            "file_name": "IMG_5521.PNG",
-            "text": "Esha and Anjali relaxing in Air B and B in Berkeley, CA.",
-        },
-        {
-            "file_name": "IMG_5523.PNG",
-            "text": "Esha relaxing in Air B and B in Berkeley, CA.",
-        },
-        {
-            "file_name": "IMG_5544.PNG",
-            "text": "Esha and Anjali site seeing near university town of Berkeley, CA.",
-        },
-        {
-            "file_name": "IMG_5575.PNG",
-            "text": "Esha in a garden near university town of Berkeley, CA.",
-        },
-        {"file_name": "IMG_6181.PNG", "text": "Esha, in a garden near phoenix AZ."},
-        {
-            "file_name": "IMG_6538.PNG",
-            "text": "Anjali, in a botanical garden near golden Gate state park in San Francisco, CA.",
-        },
-        {
-            "file_name": "IMG_6869.PNG",
-            "text": "Esha and Anjali in a weeding posing in front of a decorated wall to take pictures.",
-        },
-        {
-            "file_name": "IMG_7738.PNG",
-            "text": "Esha and Anjali in Arizona posing in front of a decorated shop.",
-        },
-        {
-            "file_name": "IMG_7767.PNG",
-            "text": "Esha  posing in a kings palace garden chair\/ bench, in Mexico City.",
-        },
-        {
-            "file_name": "IMGP3237.JPG",
-            "text": "Esha seeking picture taken was any good.",
-        },
-        {
-            "file_name": "IMGP3241.JPG",
-            "text": "Esha, before Bharatnatyam dance performance.",
-        },
-        {
-            "file_name": "IMGP3261.JPG",
-            "text": "Esha, posing before Bharatnatyam dance performance.",
-        },
-        {
-            "file_name": "IMGP3274.JPG",
-            "text": "Esha, expressions before Bharatnatyam dance performance.",
-        },
-        {"file_name": "IMG_0568.JPG", "text": "Shoma and Anjali in Seward, Alaska"},
-        {
-            "file_name": "IMG_0585.JPG",
-            "text": "Esha, enjoying grand exit with flip doors from old movie's",
-        },
-        {
-            "file_name": "IMG_1808.JPG",
-            "text": "Esha and Anjali Selfie time before performance at the Balboa, San Diego, CA",
-        },
-        {
-            "file_name": "IMG_1841.JPG",
-            "text": "Esha Selfie time before performance at the Balboa, San Diego, CA",
-        },
-        {
-            "file_name": "IMG_5586.PNG",
-            "text": "Anjali posing for royal pose near Berkeley, CA",
-        },
-        {
-            "file_name": "IMG_5863.PNG",
-            "text": "Esha and Anjali in BAPS temple in Chino Hills.",
-        },
-        {
-            "file_name": "IMGP3275.JPG",
-            "text": "Esha  before bharathnatyam performance San Diego, CA",
-        },
-        {
-            "file_name": "IMGP3291.JPG",
-            "text": "Esha before Bharathnatyam performance in San Diego, CA",
-        },
+
+{
+    "file_name": "IMG_1129.JPG",
+    "text": "Anjali and Bhalchandra on Del Mar beach. They (Anjali and Bhalchandra) look happy to visit the place occasionally.",
+    "class": "Anjali,Bhalchandra"
+},
+{
+    "file_name": "IMG_1360.JPG",
+    "text": "Esha after attending holi festival in San Diego, CA. Esha, is so excited to participate in such social events. As the picture depicts she (Esha) is all colorful.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMG_1363.JPG",
+    "text": "Esha in happy mood after attending holi festival in San Diego, CA. Esha, is so excited to participate in such social events. As the picture depicts she (Esha) is all colorful.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMG_1512.JPG",
+    "text": "Selfie time Esha, Anjali and Bhalchandra. This is probably a early weekend they Esha, Anjali and Bhalchandra are excited with the events that day.",
+    "class": "Esha,Anjali,Bhalchandra"
+},
+{
+    "file_name": "IMG_1588.JPG",
+    "text": "Esha, posing for selfie. Esha in different pose every time.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMG_1724.JPG",
+    "text": "Esha, picture taken during parent visit to school, embracing moment! Esha in different pose every time.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMG_1754.JPG",
+    "text": "Esha, trying out new jewelry in selfie. Esha in different pose every time. ",
+    "class": "Esha"
+},
+{
+    "file_name": "IMG_1794.JPG",
+    "text": "Esha and Anjali trying out new jewelry and makeup. Esha and Anjali look happy about new ornaments.",
+    "class": "Esha,Anjali"
+},
+{
+    "file_name": "IMG_2920.JPG",
+    "text": "Esha trying out new spectacles and no makeup in selfie. Esha in different pose every time.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMG_3491.JPG",
+    "text": "Esha and Aaji in Sequoia national forest. Esha and Aaji look happy in this location.",
+    "class": "Esha,Aaji"
+},
+{
+    "file_name": "IMG_4367.JPG",
+    "text": "Bhalchandra and Sham as young kids. Old photo of Bhalchandra and Sham both look excited.",
+    "class": "Bhalchandra,Sham"
+},
+{
+    "file_name": "IMG_5380.PNG",
+    "text": "Esha and Anjali in after Esha's graduation in Berkeley, CA. Photo shows they (Esha and Anjali) are happy with graduation and they (Esha and Anjali) are hugging each other.",
+    "class": "Esha,Anjali"
+},
+{
+    "file_name": "IMG_5389.PNG",
+    "text": "Esha, Anjali and Bhalchandra outside Sather Gate in Berkeley, CA after Esha's Graduation.  Anjali and Bhalchandra are attending much after graduation due to COVID, Esha is wearing all graduation parhelia",
+    "class": "Esha,Anjali,Bhalchandra"
+},
+{
+    "file_name": "IMG_5521.PNG",
+    "text": "Esha and Anjali relaxing in Air B and B in Berkeley, CA. Esha as usual trying to look cool and all and Anjali busy knowing it all inside out history of Berkeley City.",
+    "class": "Esha,Anjali"
+},
+{
+    "file_name": "IMG_5523.PNG",
+    "text": "Esha relaxing in Air B and B in Berkeley, CA. Esha as usual trying to look cool and all. Anyone would feel like making fun of Esha's extra cool behavior.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMG_5544.PNG",
+    "text": "Esha and Anjali site seeing near university town of Berkeley, CA. They, Esha and Anjali, are in an open garden area near UC",
+    "class": "Esha,Anjali"
+},
+{
+    "file_name": "IMG_5575.PNG",
+    "text": "Esha in a garden near university town of Berkeley, CA. After Esha's graduation she (Esha) looks happy and contented time to leave Berkeley. Esha had 4 year long stay here.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMG_6181.PNG",
+    "text": "Esha, in a garden near phoenix AZ. She (Esha) is enjoying cactus garden in the trip.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMG_6538.PNG",
+    "text": "Anjali, in a botanical garden near golden Gate state park in San Francisco, CA. This was pleasant surprise for Anjali.",
+    "class": "Anjali"
+},
+{
+    "file_name": "IMG_6869.PNG",
+    "text": "Esha and Anjali in a wedding, posing in front of a decorated wall to take pictures. Esha and Anjali love to participate such social events.",
+    "class": "Esha,Anjali"
+},
+{
+    "file_name": "IMG_7738.PNG",
+    "text": "Esha and Anjali in Arizona posing in front of a decorated shop. They (Esha and Anjali) are happy to see Arizona environment.",
+    "class": "Esha,Anjali"
+},
+{
+    "file_name": "IMG_7767.PNG",
+    "text": "Esha  posing in a kings palace garden chair or bench, in Mexico City. Esha is trying to look extra cool.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMGP3237.JPG",
+    "text": "Esha seeking picture taken was any good. Esha is trying to look extra cool.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMGP3241.JPG",
+    "text": "Esha, before Bharatnatyam dance performance. Esha is trying to look extra cool.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMGP3261.JPG",
+    "text": "Esha, posing before Bharatnatyam dance performance. Esha is trying to look extra cool.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMGP3274.JPG",
+    "text": "Esha, expressions before Bharatnatyam dance performance. Esha is trying to look extra cool.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMG_0568.JPG",
+    "text": "Anjali and Shoma in Seward, Alaska. They (Anjali and Shoma) were sitting in Air B and B in Seward, Alaska.",
+    "class": "Anjali,Shoma"
+},
+{
+    "file_name": "IMG_0585.JPG",
+    "text": "Esha, enjoying grand exit with flip doors from old movie. Esha is trying extra cool as if she is participating in movie shooting.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMG_1808.JPG",
+    "text": "Esha and Anjali Selfie time before performance at the Balboa, San Diego, CA. They Esha and Anjali look very excited to participate in such social events.",
+    "class": "Esha,Anjali"
+},
+{
+    "file_name": "IMG_1841.JPG",
+    "text": "Esha Selfie time before performance at the Balboa, San Diego, CA. She, Esha look very excited to participate in such social events.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMG_5586.PNG",
+    "text": "Anjali posing for royal pose near Berkeley, CA. Anjali look very excited to have there goggles.",
+    "class": "Anjali"
+},
+{
+    "file_name": "IMG_5863.PNG",
+    "text": "Esha and Anjali in BAPS temple in Chino Hills. They Esha and Anjali look very excited to visit this temple.",
+    "class": "Esha,Anjali"
+},
+{
+    "file_name": "IMGP3275.JPG",
+    "text": "Esha  before Bharatnatyam performance San Diego, CA. Esha is excited and busy practicing before performance.",
+    "class": "Esha"
+},
+{
+    "file_name": "IMGP3291.JPG",
+    "text": "Esha before Bharatnatyam performance in San Diego, CA. Esha is excited and busy practicing before performance.",
+    "class": "Esha"
+}
 ]
 
 # add metadata.jsonl file to this folder

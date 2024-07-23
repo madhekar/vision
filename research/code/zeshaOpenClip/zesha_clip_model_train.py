@@ -115,7 +115,7 @@ This approach allows the model to learn rich, multi-modal representations withou
 '''
 
 # training
-n_epochs = 100
+n_epochs = 50
 
 for epoch in range(n_epochs):
     pbar = tqdm(train_dataloader, total=len(train_dataloader))
