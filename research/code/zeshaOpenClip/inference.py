@@ -29,7 +29,7 @@ def inferring_from_model(model, fname):
     image = preprocess(Image.open(fname)).unsqueeze(0).to(device)
     #print(image.shape)
     
-    st.write([clip.tokenize(f"a photo of {c}") for c in object_names])
+    #st.write([clip.tokenize(f"a photo of {c}") for c in object_names])
     # Tokenize and move the people item names to the appropriate device
     text = torch.cat([clip.tokenize(f"a photo of {c}") for c in object_names]).to(
     device)

@@ -1,6 +1,6 @@
 from itertools import combinations
 
-names = ['Esha', 'Anjali', 'Bhalchandra', 'Shibangi', 'Asha']
+names = ['Esha', 'Anjali', 'Bhalchandra']
 
 def getNamesCombination():
     la, lb, lc = [], [], []
