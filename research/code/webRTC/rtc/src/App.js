@@ -2,7 +2,7 @@
 import './App.css';
 import React, {useRef, useEffect, useState} from 'react';
 import io from 'socket.io-client'
-import Video from './Components/zvideo';
+import Video from './Components/Video';
 
 
 const socket = io(
@@ -14,19 +14,14 @@ const socket = io(
 )
 
 function App() {
-  //const pc_config = null
    const pc_config ={
       'iceServers' : [
-      /*{
-            'urls': 'stun:[STUN-IP]:[PORT]',
-            'credential' : '[CREDENTIAL]',
-            'username' : '[USERNAME]'
-        } */
         { urls : 'stun:stun.l.google.com:19302'},
         { urls : 'stun:stun2.l.google.com:19302'}
       ]
   } 
-  const localVideoRef = useRef()
+
+  //const localVideoRef = useRef()
   const remoteVideoRef = useRef()
   const pc = useRef(new RTCPeerConnection(pc_config))
   const textRef = useRef()
@@ -34,7 +29,7 @@ function App() {
   const [offerVisible, setOfferVisible] = useState(true)
   const [answerVisible, setAnswerVisible] = useState(false)
   const [status, setStatus] = useState('Make a call now')
-  // const [localStream, setLocalStream] = useState(null)
+  const [localStream, setLocalStream] = useState(null)
 
   useEffect(() =>{
     socket.on('connection-success', success => {
@@ -75,13 +70,12 @@ function App() {
    navigator.mediaDevices.getUserMedia(constraints)
       .then(stream => {
         // display local stream
-        localVideoRef.current.srcObject = stream
-        //this.setState({ localStream: stream})
+        //localVideoRef.current.srcObject = stream
+        setLocalStream(stream)
         //window.localStream = stream
         //_pc.addStream(stream)
        // setLocalStream(stream)
-        console.log(stream)
-
+    
         stream.getTracks().forEach(track => {
           _pc.addTrack(track, stream)
         })
@@ -163,7 +157,7 @@ function App() {
       )
     }
   }
-
+ //console.log(this.state.localStream)
   return (
 
     <div style={{margin:5, position: 'absolute'}}> 
@@ -176,7 +170,8 @@ function App() {
       </div>
 
 {/* local video stream */}
-      <video style={{
+      <Video 
+      videoStyles={{
         position: 'fixed', 
         right: 0, 
         width: 300,   
@@ -185,13 +180,13 @@ function App() {
         backgroundColor: 'black',  
         zIndex: 2
       }}
-      ref={localVideoRef} 
-      //videoStream = {localStream}
-      autoPlay muted />
+      //ref={localVideoRef} 
+      videoStream = {this.state.localStream}
+      autoPlay/>
 
 
 {/* remote video stream */}
-      <video  style={{
+ {/*      <video  style={{
         position: 'fixed', 
         bottom: 0, 
         minWidth: '100%', 
@@ -201,7 +196,7 @@ function App() {
         zIndex: 1
       }}
       ref={remoteVideoRef} 
-      autoPlay />
+      autoPlay /> */}
      </div>
   );
  }

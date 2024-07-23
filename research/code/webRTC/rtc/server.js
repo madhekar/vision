@@ -14,7 +14,7 @@ app.get('/', (req, res, next) => {
 })
 
 const server =  app.listen(port, () => {
-    console.log(`*WebRTC App is listening on port ${port}`)
+    console.log(`=> WebRTC App is listening on port ${port}`)
 })
 
 io.listen(server)
@@ -24,7 +24,7 @@ io.listen(server)
 const webRTCNamespace = io.of('/webRTCPeers')
 
 webRTCNamespace.on('connection', socket => {
-    console.log('*SocketID:',socket.id)
+    console.log('=> SocketID:',socket.id)
 
     socket.emit('connection-success', {
         status: 'connection-success',
@@ -34,17 +34,17 @@ webRTCNamespace.on('connection', socket => {
     //connectedPeers.set(socket.id, socket)
 
     socket.on('disconnect', () => {
-        console.log(`*SocketID ${socket.id} has disconnected.`)
+        console.log(`=> SocketID ${socket.id} has disconnected.`)
     })
 
     socket.on('sdp', data =>{
-        console.log('*SDP: ${data}')
+        console.log('=> SDP: ${data}')
         socket.broadcast.emit('sdp', data)
         //connectedPeers.delete(socket.id)
     })
 
     socket.on('candidate', data => {
-        console.log('*Candidate: ${data}')
+        console.log('=> Candidate: ${data}')
         socket.broadcast.emit('candidate', data)
     })
 })
