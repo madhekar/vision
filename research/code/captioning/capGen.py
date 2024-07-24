@@ -361,8 +361,10 @@ print("=>image", image.resize((int(0.3 * width), int(0.3 * height))))
 print("=>text", example["text"]) """
 
 transform = transforms.Compose([
+    transforms.Resize((224,224)),
     transforms.RandomHorizontalFlip(p=0.2),
-    transforms.ColorJitter(brightness=.5, hue=.1),
+    transforms.ColorJitter(brightness=.5, hue=.1, saturation=.05),
+    transforms.RandomRotation(20),
     #transforms.Normalize((.5,.5,.5),(.5,.5,.5)),
     transforms.PILToTensor()
 ]) 
