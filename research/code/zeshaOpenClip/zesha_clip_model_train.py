@@ -10,6 +10,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from util import getNamesCombination
+from torchvision import transforms
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -69,7 +70,13 @@ class image_title_dataset:
 
         # returned is the preprocessed image and the preprocessed (tokenized) title
         return image, title
-
+###
+transform = transforms.Compose([
+    transforms.ToPILImage(),
+    transforms.RandomHorizontalFlip(),
+    transforms.ToTensor()
+])
+###
 
 # to check with only 50 examples
 # dataset = image_title_dataset(list_image_path[:10000], list_txt[:10000])
