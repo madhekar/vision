@@ -15,7 +15,7 @@ st.set_page_config(
     layout="wide",
 )  # (margins_css)
 
-iroot = "/home/madhekar/work/zsource/family/img/"
+iroot = "/home/madhekar/work/zsource/family/img_train/"
 device = "cuda" if torch.cuda.is_available() else "cpu"
 processor = AutoProcessor.from_pretrained("microsoft/git-base")
 
@@ -43,6 +43,7 @@ if __name__ == "__main__":
     imfiles = []
     if selected_files:
         for f in selected_files:
+            print(iroot + f.name)
             gen_cap.append(generate(Image.open(iroot +f.name)))
             imfiles.append(iroot+ f.name)
             

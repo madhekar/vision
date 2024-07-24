@@ -1,5 +1,5 @@
 # pip install -q datasets
-
+import os
 import json
 import torch
 from PIL import Image
@@ -10,7 +10,11 @@ from transformers import AutoProcessor
 from torch.utils.data import DataLoader
 from transformers import AutoModelForCausalLM
 
+from torchvision import transforms
+
 iroot = "/home/madhekar/work/zsource/family/img_train/"
+
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 caps = [
     {
@@ -350,17 +354,25 @@ dataset = load_dataset("imagefolder", data_dir=iroot, split="train")
 
 print(dataset)
 
-example = dataset[0]
+""" example = dataset[0]
 image = example["image"]
 width, height = image.size
 print("=>image", image.resize((int(0.3 * width), int(0.3 * height))))
-print("=>text", example["text"])
+print("=>text", example["text"]) """
+
+transform = transforms.Compose([
+    transforms.RandomHorizontalFlip(p=0.2),
+    transforms.ColorJitter(brightness=.5, hue=.1),
+    #transforms.Normalize((.5,.5,.5),(.5,.5,.5)),
+    transforms.PILToTensor()
+]) 
 
 # captiong dataset loader
 class ImageCaptioningDataset(Dataset):
-    def __init__(self, dataset, processor):
+    def __init__(self, dataset, processor, transform):
         self.dataset = dataset
         self.processor = processor
+        self.transform = transform
 
     def __len__(self):
         return len(self.dataset)
@@ -368,24 +380,26 @@ class ImageCaptioningDataset(Dataset):
     def __getitem__(self, idx):
         item = self.dataset[idx]
 
-        encoding = self.processor(images=item["image"], text=item["text"], padding="max_length", return_tensors="pt")
+        im = self.transform(item['image'])
+        #print(im)
+        encoding = self.processor(images=im, text=item["text"], padding="max_length", return_tensors="pt")
 
         # remove batch dimension
         encoding = {k:v.squeeze() for k,v in encoding.items()}
 
         return encoding
      
-
+     
 processor = AutoProcessor.from_pretrained("microsoft/git-base")
      
-train_dataset = ImageCaptioningDataset(dataset, processor)
+train_dataset = ImageCaptioningDataset(dataset, processor, transform)
      
 
 item = train_dataset[0]
 for k, v in item.items():
     print("=>key: value", k, v.shape)
 
-train_dataloader = DataLoader(train_dataset, shuffle=True, batch_size=2, num_workers=4)
+train_dataloader = DataLoader(train_dataset, shuffle=True, batch_size=2, num_workers=2)
 
 batch = next(iter(train_dataloader))
 for k,v in batch.items():
@@ -393,7 +407,7 @@ for k,v in batch.items():
      
 print("=>processor decode:", processor.decode(batch["input_ids"][0]))
 
-MEAN = np.array([123.675, 116.280, 103.530]) / 255
+""" MEAN = np.array([123.675, 116.280, 103.530]) / 255
 STD = np.array([58.395, 57.120, 57.375]) / 255
 
 unnormalized_image = (
@@ -404,7 +418,7 @@ unnormalized_image = (unnormalized_image * 255).astype(np.uint8)
 
 unnormalized_image = np.moveaxis(unnormalized_image, 0, -1)
 
-Image.fromarray(unnormalized_image).show()
+Image.fromarray(unnormalized_image).show() """
 
 
 model = AutoModelForCausalLM.from_pretrained("microsoft/git-base")
@@ -426,7 +440,7 @@ model.to(device)
 
 model.train()
 
-for epoch in range(5):
+for epoch in range(50):
     print("Epoch:", epoch)
     for idx, batch in enumerate(train_dataloader):
         input_ids = batch.pop("input_ids").to(device)
