@@ -361,7 +361,7 @@ print("=>image", image.resize((int(0.3 * width), int(0.3 * height))))
 print("=>text", example["text"]) """
 
 transform = transforms.Compose([
-    #transforms.Resize((224,224)),
+    transforms.Resize((224,224)),
     transforms.RandomHorizontalFlip(p=0.2),
     transforms.ColorJitter(brightness=.5, hue=.1, saturation=.05),
     transforms.RandomRotation(20),
@@ -442,7 +442,7 @@ model.to(device)
 
 model.train()
 
-for epoch in range(200):
+for epoch in range(500):
     print("Epoch:", epoch)
     for idx, batch in enumerate(train_dataloader):
         input_ids = batch.pop("input_ids").to(device)
