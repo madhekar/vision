@@ -27,6 +27,7 @@ train_json_path = "/home/madhekar/work/zsource/family/metadata/project-zesha-cla
 input_data = []
 with open(train_json_path, "r") as file:
     for line in file:
+        print(line)
         obj = json.loads(line)
         input_data.append(obj)
 
@@ -54,9 +55,10 @@ print(list_image_path[:2], list_txt[:2], len(list_image_path))
 # Images are loaded and preprocessed on demand, saving memory.
 # Define a custom dataset
 class image_title_dataset:
-    def __init__(self, list_image_path, list_txt):
+    def __init__(self, list_image_path, list_txt, xform):
         self.image_path = list_image_path
         self.title = clip.tokenize(list_txt)
+        self.xform = xform
 
     def __len__(self):
         return len(self.title)
@@ -66,22 +68,28 @@ class image_title_dataset:
         # when an item is requested. This is memory-efficient
         # as it doesn't load all images into memory at once
         image = preprocess(Image.open(self.image_path[idx]))
+        image = self.xform(image)
         title = self.title[idx]
 
         # returned is the preprocessed image and the preprocessed (tokenized) title
         return image, title
 ###
-transform = transforms.Compose([
-    transforms.ToPILImage(),
-    transforms.RandomHorizontalFlip(),
-    transforms.ToTensor()
-])
+transform = transforms.Compose(
+    [
+        # transforms.Resize((224,224)),
+        transforms.RandomHorizontalFlip(p=0.2),
+        transforms.ColorJitter(brightness=0.5, hue=0.1, saturation=0.05),
+        transforms.RandomRotation(20),
+        # transforms.Normalize((.5,.5,.5),(.5,.5,.5)),
+        transforms.PILToTensor(),
+    ]
+)
 ###
 
 # to check with only 50 examples
 # dataset = image_title_dataset(list_image_path[:10000], list_txt[:10000])
 
-dataset = image_title_dataset(list_image_path, list_txt)
+dataset = image_title_dataset(list_image_path, list_txt, transform)
 
 train_dataloader = DataLoader(dataset, batch_size=128, shuffle=True)
 

@@ -15,7 +15,7 @@ st.set_page_config(
     layout="wide",
 )  # (margins_css)
 
-iroot = "/home/madhekar/work/zsource/family/img_train/"
+iroot = "/home/madhekar/work/zsource/family/img/"
 device = "cuda" if torch.cuda.is_available() else "cpu"
 processor = AutoProcessor.from_pretrained("microsoft/git-base")
 
