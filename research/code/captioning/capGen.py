@@ -442,7 +442,7 @@ model.to(device)
 
 model.train()
 
-for epoch in range(500):
+for epoch in range(244):
     print("Epoch:", epoch)
     for idx, batch in enumerate(train_dataloader):
         input_ids = batch.pop("input_ids").to(device)
