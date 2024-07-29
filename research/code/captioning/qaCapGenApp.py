@@ -34,9 +34,9 @@ def generate(image):
     return generated_caption
 
 if __name__ == "__main__":
-    st.title('GIT image caption Model test')
+    st.title('Image Caption (GIT)')
     
-    selected_files = st.sidebar.file_uploader('select image files', accept_multiple_files=True)
+    selected_files = st.sidebar.file_uploader('Select Image Files:', accept_multiple_files=True)
     print(selected_files)  
     
     gen_cap = []
@@ -47,7 +47,7 @@ if __name__ == "__main__":
             gen_cap.append(generate(Image.open(iroot +f.name)))
             imfiles.append(iroot+ f.name)
             
-    btn = st.sidebar.button('generate captions')        
+    btn = st.sidebar.button('Generate Captions')        
     if btn:    
        dimgs = image_select(
           label="Select Image",

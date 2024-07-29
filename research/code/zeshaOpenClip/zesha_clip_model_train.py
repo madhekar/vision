@@ -76,12 +76,12 @@ class image_title_dataset:
 ###
 transform = transforms.Compose(
     [
-        # transforms.Resize((224,224)),
+        #transforms.Resize((224,224)),
         transforms.RandomHorizontalFlip(p=0.2),
         transforms.ColorJitter(brightness=0.5, hue=0.1, saturation=0.05),
         transforms.RandomRotation(20),
         # transforms.Normalize((.5,.5,.5),(.5,.5,.5)),
-        transforms.PILToTensor(),
+        transforms.ToTensor(),
     ]
 )
 ###
@@ -91,7 +91,7 @@ transform = transforms.Compose(
 
 dataset = image_title_dataset(list_image_path, list_txt, transform)
 
-train_dataloader = DataLoader(dataset, batch_size=128, shuffle=True)
+train_dataloader = DataLoader(dataset, batch_size=8, shuffle=True)
 
 len(next(iter(train_dataloader)))
 
@@ -130,7 +130,7 @@ This approach allows the model to learn rich, multi-modal representations withou
 '''
 
 # training
-n_epochs = 50
+n_epochs = 5
 
 for epoch in range(n_epochs):
     pbar = tqdm(train_dataloader, total=len(train_dataloader))
