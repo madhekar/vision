@@ -49,7 +49,18 @@ for item in input_data:
 
 print(list_image_path[:2], list_txt[:2], len(list_image_path))
 
-
+###
+transform = transforms.Compose(
+    [
+        transforms.Resize((224, 224)),
+        transforms.RandomHorizontalFlip(p=0.2),
+        transforms.ColorJitter(brightness=0.5, hue=0.1, saturation=0.05),
+        transforms.RandomRotation(20),
+        # transforms.Normalize((.5,.5,.5),(.5,.5,.5)),
+        transforms.ToTensor(),
+    ]
+)
+###
 
 # Text tokenization is done once at initialization, saving computation during training.
 # Images are loaded and preprocessed on demand, saving memory.
@@ -68,23 +79,12 @@ class image_title_dataset:
         # when an item is requested. This is memory-efficient
         # as it doesn't load all images into memory at once
         image = preprocess(Image.open(self.image_path[idx]))
-        image = self.xform(image)
+        #image = self.xform(image)
         title = self.title[idx]
 
         # returned is the preprocessed image and the preprocessed (tokenized) title
         return image, title
-###
-transform = transforms.Compose(
-    [
-        #transforms.Resize((224,224)),
-        transforms.RandomHorizontalFlip(p=0.2),
-        transforms.ColorJitter(brightness=0.5, hue=0.1, saturation=0.05),
-        transforms.RandomRotation(20),
-        # transforms.Normalize((.5,.5,.5),(.5,.5,.5)),
-        transforms.ToTensor(),
-    ]
-)
-###
+
 
 # to check with only 50 examples
 # dataset = image_title_dataset(list_image_path[:10000], list_txt[:10000])
@@ -130,7 +130,7 @@ This approach allows the model to learn rich, multi-modal representations withou
 '''
 
 # training
-n_epochs = 5
+n_epochs = 500
 
 for epoch in range(n_epochs):
     pbar = tqdm(train_dataloader, total=len(train_dataloader))
