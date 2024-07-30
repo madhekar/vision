@@ -12,6 +12,7 @@ from torch.utils.data import Dataset
 from PIL import Image
 import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader
+import util
 
 '''
 load zesha image data
@@ -50,7 +51,8 @@ model, preprocess = clip.load("ViT-B/32", device=device, jit=False)
 validate
 '''
 indices = [3, 4, 5]
-subclasses = list(set(example['class'] for example in ds))
+subclasses = util.subclasses
+print(subclasses)
 
 # Preprocess the text descriptions for each subcategory
 text_inputs = torch.cat([clip.tokenize(f"a photo of {c}") for c in subclasses]).to(device)
@@ -119,6 +121,7 @@ class ZPhotoTitleDataset(Dataset):
         image = train_image_path + item["file_name"]
         subclass = item["class"]
         label = subclasses.index(subclass)
+        #print('->', label)
         return self.transform(Image.open(image)), label
     
   
@@ -152,7 +155,7 @@ optimizer = optim.Adam(model_ft.classifier.parameters(), lr=1e-4)
 
 '''
 # Number of epochs for training
-num_epochs = 200
+num_epochs = 400
 
 # Training loop
 for epoch in range(num_epochs):

@@ -1,6 +1,26 @@
 from itertools import combinations
 
 names = ['Esha', 'Anjali', 'Bhalchandra']
+subclasses = [
+    "Esha",
+    "Anjali",
+    "Bhalchandra",
+    "Esha,Anjali",
+    "Esha,Bhalchandra",
+    "Anjali,Bhalchandra",
+    "Esha,Anjali,Bhalchandra",
+    "Bhalchandra,Sham",
+    "Esha,Aaji",
+    "Esha,Kumar",
+    "Aaji",
+    "Kumar",
+    "Esha,Anjali,Shibangi",
+    "Esha,Shibangi",
+    "Anjali,Shoma",
+    "Shibangi",
+    "Shoma",
+    "Bhiman",
+]
 
 def getNamesCombination():
     la, lb, lc = [], [], []
