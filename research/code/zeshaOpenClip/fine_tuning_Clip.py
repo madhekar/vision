@@ -223,9 +223,6 @@ indices = [3, 4, 5]
 transform = transforms.Compose(
     [
         transforms.Resize((224, 224)),
-        transforms.RandomHorizontalFlip(p=0.2),
-        transforms.ColorJitter(brightness=0.5, hue=0.1, saturation=0.05),
-        transforms.RandomRotation(20),
         transforms.ToTensor(),
         transforms.Normalize(
             (0.48145466, 0.4578275, 0.40821073),
