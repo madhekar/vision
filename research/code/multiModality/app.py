@@ -1,5 +1,4 @@
 import streamlit as st
-import asyncio
 import datetime
 
 # from streamlit_option_menu import option_menu
@@ -67,7 +66,8 @@ txt = st.sidebar.text_input(
     "enter the search term: ",
     placeholder="enter search term: ",
     # value= "Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?",
-    value="Answer with the organized thoughts: Please describe the picture.",  # entities in the picture, Also mention some facts about the picture.",
+    # value="Answer with the organized thoughts: Please describe the picture.",  # entities in the picture, Also mention some facts about the picture.",
+    value="Answer with the organized thoughts: Please describe the picture along with the names of people, ",
     disabled=False,
 )
 
@@ -114,9 +114,10 @@ if btn:
     for mdata in imgs["metadatas"][0][1:]:
         st.session_state["meta"].append(mdata.get('location') + ": (" + mdata.get('datetime') + ")")
         
-    entity_names = entities.getEntityNames(sim)     
+    entity_names = entities.getEntityNames(sim.name)  
+    #st.write(entity_names)   
 
-    getLLMText(question=txt, article=st.session_state['document'] + entity_names)
+    getLLMText(question=txt, article= entity_names)#st.session_state['document'])
 
 
 if len(st.session_state["timgs"]) > 1:

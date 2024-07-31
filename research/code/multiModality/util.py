@@ -51,7 +51,7 @@ def gpsInfo(img):
     gps = ()
     # Get the data from image file and return a dictionary
     data = gpsphoto.getGPSData(img)
-    print(data)
+    #print(data)
     if 'Latitude' in data and 'Longitude' in data:
         gps = (data["Latitude"], data["Longitude"])
     else:
