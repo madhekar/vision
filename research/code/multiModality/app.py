@@ -41,8 +41,8 @@ if "llm_text" not in st.session_state:
     st.session_state["llm_text"] = ""
 
 
-def getLLMText(question, article):
-    st.session_state['llm_text'] = fetch_llm_text(sim, model=m, processor=p, top=top, temperature=te, question = question, article=article)
+def getLLMText(question, article, location):
+    st.session_state['llm_text'] = fetch_llm_text(sim, model=m, processor=p, top=top, temperature=te, question = question, article=article, location=location)
 
 st.sidebar.title("seach criteria")
 # with st.sidebar.form(key='attributes'):
@@ -67,7 +67,7 @@ txt = st.sidebar.text_input(
     placeholder="enter search term: ",
     # value= "Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?",
     # value="Answer with the organized thoughts: Please describe the picture.",  # entities in the picture, Also mention some facts about the picture.",
-    value="Answer with the organized thoughts: Please describe the picture along with the names of people, ",
+    value="Answer with the organized thoughts: Please describe the picture, ",
     disabled=False,
 )
 
@@ -117,7 +117,8 @@ if btn:
     entity_names = entities.getEntityNames(sim.name)  
     #st.write(entity_names)   
 
-    getLLMText(question=txt, article= entity_names)#st.session_state['document'])
+    getLLMText(
+        question=txt, article=entity_names, location=mdata.get("location"))#st.session_state['document'])
 
 
 if len(st.session_state["timgs"]) > 1:
