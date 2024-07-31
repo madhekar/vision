@@ -114,8 +114,7 @@ if btn:
     for mdata in imgs["metadatas"][0][1:]:
         st.session_state["meta"].append(mdata.get('location') + ": (" + mdata.get('datetime') + ")")
         
-    entity_names = entities.getEntityNames(sim.name)  
-    #st.write(entity_names)   
+    entity_names = entities.getEntityNames(sim.name)   
 
     getLLMText(
         question=txt, article=entity_names, location=mdata.get("location"))#st.session_state['document'])
@@ -123,9 +122,9 @@ if btn:
 
 if len(st.session_state["timgs"]) > 1:
     
-    st.text_area( label='LLM Description', value=st.session_state['llm_text'])
+    st.text_area( label='Description', value=st.session_state['llm_text'], height=12)
     
-    st.text_area(label="Embedding Description", value=st.session_state["document"])
+    #st.text_area(label="Embedding Description", value=st.session_state["document"])
 
     dimgs = image_select(
         label="Select Image",
