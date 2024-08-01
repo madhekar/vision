@@ -20,7 +20,7 @@ st.set_page_config(
     initial_sidebar_state="auto",
     layout="wide",
 )  # (margins_css)
-st.title("Zesha: MMS")
+st.title("Zesha: Family Media Portal")
 
 # load data
 cImgs, cTxts = init()
@@ -48,7 +48,7 @@ st.sidebar.title("seach criteria")
 # with st.sidebar.form(key='attributes'):
 
 ms = st.sidebar.multiselect(
-    "select search result modalities", ["img", "txt", "video", "audio"]
+    "select search result modalities", ["image", "text", "video", "audio"]
 )
 
 sim = st.sidebar.file_uploader("search doc/image: ", type=["png", "jpeg", "mpg", 'jpg','PNG','JPG'])
@@ -65,8 +65,6 @@ if sim:
 txt = st.sidebar.text_input(
     "enter the search term: ",
     placeholder="enter search term: ",
-    # value= "Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?",
-    # value="Answer with the organized thoughts: Please describe the picture.",  # entities in the picture, Also mention some facts about the picture.",
     value="Answer with the organized thoughts: Please describe the picture, ",
     disabled=False,
 )
@@ -75,7 +73,7 @@ dr = st.sidebar.date_input("select date range", datetime.date(2022,1,1))
 
 top = st.sidebar.slider("select top results pct", 0.0, 1.0, 0.8)
 
-te = st.sidebar.slider("select LLM temperature: ", 0.0, 1.0, 0.9)
+te = st.sidebar.slider("select LLM temperature: ", 0.0, 1.0, 0.8)
 
 btn = st.sidebar.button(label="Search")
 
@@ -84,8 +82,6 @@ if btn:
     
     # create query on image, also shows similar document in vector database (not using LLM)  -- openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
-
-    #question = "Answer with organized answers: What type of flower is in the picture? Mention some of its characteristics and how to take care of it ?"
 
     st.session_state["document"] = cTxts.query(
         query_embeddings=embedding_function("./" + sim.name),
@@ -97,9 +93,9 @@ if btn:
         
     if "meta" in st.session_state:
         st.session_state["meta"] = []   
-    #st.write("=>images: ", util.getMetadata(sim.name))
     
     qmdata = util.getMetadata(sim.name)
+
     imgs = cImgs.query(
         query_uris="./" + sim.name,
         include=["data", "metadatas"],
@@ -122,7 +118,7 @@ if btn:
 
 if len(st.session_state["timgs"]) > 1:
     
-    st.text_area( label='Description', value=st.session_state['llm_text'], height=12)
+    st.text_area( label='Description', value=st.session_state['llm_text'], height=14)
     
     #st.text_area(label="Embedding Description", value=st.session_state["document"])
 
