@@ -20,7 +20,7 @@ st.set_page_config(
     initial_sidebar_state="auto",
     layout="wide",
 )  # (margins_css)
-st.title("Zesha: Family Media Portal")
+st.title("Unified Media Portal")
 
 # load data
 cImgs, cTxts = init()
@@ -123,7 +123,7 @@ if len(st.session_state["timgs"]) > 1:
     #st.text_area(label="Embedding Description", value=st.session_state["document"])
 
     dimgs = image_select(
-        label="Select Image",
+        label="Similar Images",
         images=st.session_state["timgs"],
         use_container_width=True,
         captions=st.session_state["meta"],
