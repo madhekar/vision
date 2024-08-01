@@ -14,7 +14,7 @@ def scaled_size(width, height):
   return target_image_width, height_size
 
 def get_frames(content):
-  with tempfile.NamedTemporaryFile() as f:
+  with tempfile.NamedTemporaryFile(delete_on_close=True) as f:
     f.write(io.BytesIO(content).getbuffer())
 
     probe = ffmpeg.probe(f.name, threads=1)
