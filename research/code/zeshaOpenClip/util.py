@@ -71,4 +71,9 @@ and Portuguese and back to English to fill out the captions for these images.
 
 As shown in these loss plots below, image augmentation reduced overfitting significantly, and text and image augmentation reduced overfitting even further.
 
+https://www.di.ens.fr/willow/research/howto100m/
+https://github.com/antoine77340/howto100m
+https://github.com/antoine77340/video_feature_extractor/tree/master
+
+
 """
