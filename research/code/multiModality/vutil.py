@@ -9,10 +9,19 @@ target_image_width = 224
 
 img_model = SentenceTransformer(modules=[models.CLIPModel()])
 
+def encode_image_base64(image):
+   buf = BytesIO()
+   image.save(buf, format="PNG")
+   return base64.b64encode(buf.getvalue()).decode()
+
 def scaled_size(width, height):
   width_percent = (target_image_width / float(width))
   height_size = int((float(height) * float(width_percent)))
   return target_image_width, height_size
+
+def resize_image(width, height, max_size=1080):
+   ratio = min(max_size / width, max_size / height)
+   return int(width * ratio), int(height * ratio)
 
 def get_frames(content):
   with tempfile.NamedTemporaryFile() as f:
