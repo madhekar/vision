@@ -39,12 +39,10 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question, article,
     prompt = """<|im_start|>system
     A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, and gives helpful, detailed, and polite answers to the human's questions. The assistant does not hallucinate and pays very close attention to the details.
     <|im_end|>
-    
     <|im_start|>user
     <image>
      {question}please you must include the person name(s) "{article}" and location details "{location}" in the answer.
     <|im_end|> 
-    
     <|im_start|>assistant
     """.format(question=question, article=article, location=location) #, article=st.session_state["document"])
 

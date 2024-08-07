@@ -61,10 +61,15 @@ if sim:
     with open(name, "wb") as f:
         f.write(sim.getbuffer())
 
+modalityTxt = st.sidebar.text_input(
+    "search images based on following",
+    placeholder="search images for...",
+    disabled=False
+)
 
 txt = st.sidebar.text_input(
-    "enter the search term: ",
-    placeholder="enter search term: ",
+    "enter the search prompt for LLM: ",
+    placeholder="enter search promt: ",
     value="Answer with the organized thoughts: Please describe the picture, ",
     disabled=False,
 )
