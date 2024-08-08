@@ -4,6 +4,8 @@ import tempfile
 import numpy as np
 from PIL import Image
 from sentence_transformers import models, SentenceTransformer
+import base64
+from io import BytesIO
 
 target_image_width = 224
 
