@@ -50,7 +50,6 @@ def createVectorDB():
        # add image embeddings in vector db
        #image_uris = sorted([os.path.join(IMAGE_FOLDER, image_name) for image_name in os.listdir(IMAGE_FOLDER) if not image_name.endswith('.txt')])
        image_uris = sorted(util.getRecursive(IMAGE_FOLDER))
-       st.write(image_uris)
        #create uuids for each image
        ids = [str(uuid.uuid4()) for _ in range(len(image_uris))]
     

@@ -48,8 +48,10 @@ st.sidebar.title("seach criteria")
 # with st.sidebar.form(key='attributes'):
 
 ms = st.sidebar.multiselect(
-    "select search result modalities", ["image", "text", "video", "audio"]
+    "select search result modalities", ["image", "text", "video", "audio"], ["image", "text"]
 )
+
+s = st.sidebar.selectbox("select search modality", ("text", "image"), index=1)
 
 sim = st.sidebar.file_uploader("search doc/image: ", type=["png", "jpeg", "mpg", 'jpg','PNG','JPG'])
 
@@ -57,7 +59,8 @@ im = None
 if sim:
     im = Image.open(sim)
     name = sim.name
-    st.sidebar.image(im, caption="selected image to find simili...")
+    st.sidebar.image(im, caption="selected image")
+    st.sidebar.write(st.session_state["llm_text"])
     with open(name, "wb") as f:
         f.write(sim.getbuffer())
 
@@ -100,7 +103,7 @@ if btn:
         st.session_state["meta"] = []   
     
     qmdata = util.getMetadata(sim.name)
-    #st.write(qmdata)
+    st.write(qmdata)
 
     imgs = cImgs.query(
         query_uris="./" + sim.name,
@@ -118,13 +121,14 @@ if btn:
         
     entity_names = entities.getEntityNames(sim.name)   
 
-    #getLLMText(
-    #    question=txt, article=entity_names, location=qmdata[4])#st.session_state['document'])
+    getLLMText(question=txt, article=entity_names, location=qmdata[4])#st.session_state['document'])
+
+    st.rerun()
 
 
 if len(st.session_state["timgs"]) > 1:
     
-    st.text_area( label='Description', value=st.session_state['llm_text'], height=14)
+    #st.text_area( label='Description', value=st.session_state['llm_text'], height=14)
     
     #st.text_area(label="Embedding Description", value=st.session_state["document"])
 
