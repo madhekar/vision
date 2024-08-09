@@ -19,7 +19,8 @@ if storage_path is None:
     raise ValueError("STORAGE_PATH environment variable is not set")
 
 # Get the uris to the images
-IMAGE_FOLDER = '/home/madhekar/work/zsource/family/img'
+#IMAGE_FOLDER = '/home/madhekar/work/zsource/family/img'
+IMAGE_FOLDER = '/home/madhekar/Pictures'
 DOCUMENT_FOLDER = "/home/madhekar/work/zsource/family/doc"
 
 def createVectorDB():
@@ -47,8 +48,9 @@ def createVectorDB():
       )
     if 'multimodal_collection_images' not in collections_list:
        # add image embeddings in vector db
-       image_uris = sorted([os.path.join(IMAGE_FOLDER, image_name) for image_name in os.listdir(IMAGE_FOLDER) if not image_name.endswith('.txt')])
-    
+       #image_uris = sorted([os.path.join(IMAGE_FOLDER, image_name) for image_name in os.listdir(IMAGE_FOLDER) if not image_name.endswith('.txt')])
+       image_uris = sorted(util.getRecursive(IMAGE_FOLDER))
+       st.write(image_uris)
        #create uuids for each image
        ids = [str(uuid.uuid4()) for _ in range(len(image_uris))]
     

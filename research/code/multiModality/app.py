@@ -100,6 +100,7 @@ if btn:
         st.session_state["meta"] = []   
     
     qmdata = util.getMetadata(sim.name)
+    #st.write(qmdata)
 
     imgs = cImgs.query(
         query_uris="./" + sim.name,
@@ -117,8 +118,8 @@ if btn:
         
     entity_names = entities.getEntityNames(sim.name)   
 
-    getLLMText(
-        question=txt, article=entity_names, location=mdata.get("location"))#st.session_state['document'])
+    #getLLMText(
+    #    question=txt, article=entity_names, location=qmdata[4])#st.session_state['document'])
 
 
 if len(st.session_state["timgs"]) > 1:

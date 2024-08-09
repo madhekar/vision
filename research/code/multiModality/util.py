@@ -1,4 +1,6 @@
 import sys
+import os
+import glob
 from PIL import Image
 from PIL.ExifTags import TAGS
 import pyexiv2
@@ -29,6 +31,12 @@ subclasses = [
     "Bhiman",
 ]
 
+def getRecursive(rootDir):
+    flist=[]
+    for fn in glob.glob(rootDir + '/**/*', recursive=True):
+        if not os.path.isdir(os.path.abspath(fn)):
+            flist.append(os.path.abspath(fn))
+    return flist    
 
 def getDateTime(img):
     value = []
