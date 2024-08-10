@@ -103,7 +103,7 @@ if btn:
         st.session_state["meta"] = []   
     
     qmdata = util.getMetadata(sim.name)
-    st.write(qmdata)
+    #st.write(qmdata)
 
     imgs = cImgs.query(
         query_uris="./" + sim.name,

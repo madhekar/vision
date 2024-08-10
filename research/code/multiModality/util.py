@@ -1,13 +1,14 @@
-import sys
+
 import os
 import glob
 from PIL import Image
-from PIL.ExifTags import TAGS
 import pyexiv2
-import fractions
 from GPSPhoto import gpsphoto
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
+
+default_home_loc = (32.968699774829794, -117.18420145463236)
+default_date_time = ['2000','01','01','2000:01:01 01:01:01'] 
 
 names = ["Esha", "Anjali", "Bhalchandra"]
 subclasses = [
@@ -50,8 +51,7 @@ def getDateTime(img):
        value = (date_time.split(" ")[0]).split(":")[:3]
        value.append(date_time)
     else:
-        value = ['2000','01','01','2000:01:01 01:01:01']   
-    # print(value)
+        value = default_date_time
     return value
 
 
@@ -63,7 +63,7 @@ def gpsInfo(img):
     if 'Latitude' in data and 'Longitude' in data:
         gps = (data["Latitude"], data["Longitude"])
     else:
-        gps = (32.968699774829794, -117.18420145463236)
+        gps = default_home_loc
     return gps
 
 
