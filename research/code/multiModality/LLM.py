@@ -57,7 +57,7 @@ async def fetch_llm_text(imUrl, model, processor, top, temperature, question, ar
 
     # model generator
     with torch.inference_mode():
-        output = model.generate(
+        output =  model.generate(
             **inputs,
             max_new_tokens=70,
             do_sample=True,

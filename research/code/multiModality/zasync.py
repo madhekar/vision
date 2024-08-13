@@ -24,7 +24,7 @@ async def get_data(
         processor,
         top,
         temperature,
-        question,
+        question, 
         article,
         location,
     )
