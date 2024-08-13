@@ -1,5 +1,6 @@
 import streamlit as st
 import datetime
+import zasync as zas
 
 # from streamlit_option_menu import option_menu
 from streamlit_image_select import image_select
@@ -42,7 +43,16 @@ if "llm_text" not in st.session_state:
 
 
 def getLLMText(question, article, location):
-    st.session_state['llm_text'] = fetch_llm_text(sim, model=m, processor=p, top=top, temperature=te, question = question, article=article, location=location)
+    st.session_state["llm_text"] = zas.get_data(
+        sim,
+        model=m,
+        processor=p,
+        top=top,
+        temperature=te,
+        question=question,
+        article=article,
+        location=location,
+    )#fetch_llm_text(sim, model=m, processor=p, top=top, temperature=te, question = question, article=article, location=location)
 
 st.sidebar.title("seach criteria")
 # with st.sidebar.form(key='attributes'):
@@ -121,7 +131,18 @@ if btn:
         
     entity_names = entities.getEntityNames(sim.name)   
 
-    getLLMText(question=txt, article=entity_names, location=qmdata[4])#st.session_state['document'])
+    zas.async_main(
+        sim,
+        model=m,
+        processor=p,
+        top=top,
+        temperature=te,
+        question=txt,
+        article=entity_names,
+        location=qmdata[4]
+    )
+
+    #getLLMText(question=txt, article=entity_names, location=qmdata[4])#st.session_state['document'])
 
     st.rerun()
 
