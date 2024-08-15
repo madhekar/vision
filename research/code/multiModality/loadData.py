@@ -57,7 +57,9 @@ def createVectorDB():
        metadata = []
        for url in image_uris:
           v = util.getMetadata(url)
-          metadata.append({'year': v[0], 'month':v[1], 'day': v[2], 'datetime': v[3], 'location': v[4]})
+          d = util.getDescription(url)
+          n = util.getpeopleNames(url)
+          metadata.append({'year': v[0], 'month':v[1], 'day': v[2], 'datetime': v[3], 'location': v[4], 'names': n,'description': d})
     
     
        print('=> image urls: \n', '\n'.join(image_uris))

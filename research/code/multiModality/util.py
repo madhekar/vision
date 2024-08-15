@@ -123,3 +123,9 @@ def setGpsLocation(fname, lat, lng):
 
     exiv_image.writeMetadata()
 
+def getpeopleNames(url):
+  return "people names in {url}"
+
+
+def getDescription(url):
+    return "this is image description for: {url}"
