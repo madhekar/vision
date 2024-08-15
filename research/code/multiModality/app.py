@@ -1,18 +1,16 @@
 import streamlit as st
 import datetime
-import zasync as zas
 
 # from streamlit_option_menu import option_menu
 from streamlit_image_select import image_select
 from PIL import Image, ImageOps
 import util
-import entities
 
 
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 
 from loadData import init
-from LLM import setLLM, fetch_llm_text
+# from LLM import setLLM
 # import chromadb as cdb
 
 st.set_page_config(
@@ -27,7 +25,7 @@ st.title("Unified Media Portal")
 cImgs, cTxts = init()
 
 # init LLM modules
-m, t, p = setLLM()
+#m, t, p = setLLM()
 
 if "document" not in st.session_state:
     st.session_state["document"] = ""
@@ -42,7 +40,7 @@ if "llm_text" not in st.session_state:
     st.session_state["llm_text"] = ""
 
 
-def getLLMText(question, article, location):
+""" def getLLMText(question, article, location):
     st.session_state["llm_text"] = zas.get_data(
         sim,
         model=m,
@@ -53,7 +51,7 @@ def getLLMText(question, article, location):
         article=article,
         location=location,
     )#fetch_llm_text(sim, model=m, processor=p, top=top, temperature=te, question = question, article=article, location=location)
-
+ """
 st.sidebar.title("seach criteria")
 # with st.sidebar.form(key='attributes'):
 
@@ -80,25 +78,23 @@ modalityTxt = st.sidebar.text_input(
     disabled=False
 )
 
-txt = st.sidebar.text_input(
+""" txt = st.sidebar.text_input(
     "enter the search prompt for LLM: ",
     placeholder="enter search promt: ",
     value="Answer with the organized thoughts: Please describe the picture, ",
     disabled=False,
-)
+) """
 
 dr = st.sidebar.date_input("select date range", datetime.date(2022,1,1))
 
-top = st.sidebar.slider("select top results pct", 0.0, 1.0, 0.8)
+#top = st.sidebar.slider("select top results pct", 0.0, 1.0, 0.8)
 
-te = st.sidebar.slider("select LLM temperature: ", 0.0, 1.0, 0.8)
+#te = st.sidebar.slider("select LLM temperature: ", 0.0, 1.0, 0.8)
 
 search_btn = st.sidebar.button(label="Search")
 
 
 if search_btn:
-    st.session_state["llm_text"] = ""
-
     # create query on image, also shows similar document in vector database (not using LLM)  -- openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
 
@@ -114,7 +110,7 @@ if search_btn:
         st.session_state["meta"] = []   
     
     qmdata = util.getMetadata(sim.name)
-    #st.write(qmdata)
+    st.write(qmdata)
 
     imgs = cImgs.query(
         query_uris="./" + sim.name,
@@ -128,10 +124,10 @@ if search_btn:
     for img in imgs["data"][0][1:]:
         st.session_state["timgs"].append(img)
     for mdata in imgs["metadatas"][0][1:]:
-        st.session_state["meta"].append(mdata.get('location') + ": (" + mdata.get('datetime') + ")")
-        
+        st.session_state["meta"].append("Desc: " + mdata.get("description") + "\nLocation:" + mdata.get("location") + "\nDate" + mdata.get("datetime"))
+    """
     entity_names = entities.getEntityNames(sim.name)   
-
+ 
     zas.async_main(
         sim,
         model=m,
@@ -141,12 +137,12 @@ if search_btn:
         question=txt,
         article=entity_names,
         location=qmdata[4]
-    )
+    ) """
 
     
     #getLLMText(question=txt, article=entity_names, location=qmdata[4])#st.session_state['document'])
 
-    st.rerun()
+    #st.rerun()
 
 
 if len(st.session_state["timgs"]) > 1:

@@ -4,6 +4,9 @@ import uuid
 import streamlit as st
 from dotenv import load_dotenv
 import util
+from entities import getEntityNames
+import LLM
+import zasync as zas
 
 import chromadb as cdb
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
@@ -40,6 +43,9 @@ def createVectorDB():
     # Image collection inside vector database 'chromadb'
     image_loader = ImageLoader()
 
+    # init LLM modules
+    m, t, p = LLM.setLLM()
+
     # collection images defined
     collection_images = client.get_or_create_collection(
       name='multimodal_collection_images', 
@@ -47,23 +53,49 @@ def createVectorDB():
       data_loader=image_loader
       )
     if 'multimodal_collection_images' not in collections_list:
-       # add image embeddings in vector db
-       #image_uris = sorted([os.path.join(IMAGE_FOLDER, image_name) for image_name in os.listdir(IMAGE_FOLDER) if not image_name.endswith('.txt')])
-       image_uris = sorted(util.getRecursive(IMAGE_FOLDER))
-       #create uuids for each image
-       ids = [str(uuid.uuid4()) for _ in range(len(image_uris))]
-    
-       # create metadata for each image
-       metadata = []
-       for url in image_uris:
-          v = util.getMetadata(url)
-          d = util.getDescription(url)
-          n = util.getpeopleNames(url)
-          metadata.append({'year': v[0], 'month':v[1], 'day': v[2], 'datetime': v[3], 'location': v[4], 'names': n,'description': d})
-    
-    
-       print('=> image urls: \n', '\n'.join(image_uris))
-       collection_images.add(ids=ids, metadatas=metadata, uris=image_uris)
+        # add image embeddings in vector db
+        # image_uris = sorted([os.path.join(IMAGE_FOLDER, image_name) for image_name in os.listdir(IMAGE_FOLDER) if not image_name.endswith('.txt')])
+        image_uris = sorted(util.getRecursive(IMAGE_FOLDER))
+        # create uuids for each image
+        ids = [str(uuid.uuid4()) for _ in range(len(image_uris))]
+
+        # create metadata for each image
+        metadata = []
+        for url in image_uris:
+            """
+            """
+            v = util.getMetadata(url)
+            """
+            """
+            n = getEntityNames(url)
+            """
+            """
+            d = LLM.fetch_llm_text(
+                url,
+                model=m,
+                processor=p,
+                top=0.9,
+                temperature=0.9,
+                question="Answer with the organized thoughts: Please describe the picture, ",
+                article=n,
+                location=v[4]
+            )
+
+            metadata.append(
+                {
+                    "year": v[0],
+                    "month": v[1],
+                    "day": v[2],
+                    "datetime": v[3],
+                    "location": v[4],
+                    "names": str(n),
+                    "description": str(d)
+                }
+            )
+            st.write('metadata: ', v, ' : ', n, ' : ', d)
+
+        #print("=> image urls: \n", "\n".join(image_uris))
+        collection_images.add(ids=ids, metadatas=metadata, uris=image_uris)
 
     '''
        Text collection inside vector database 'chromadb'

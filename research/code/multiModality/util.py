@@ -7,6 +7,7 @@ from GPSPhoto import gpsphoto
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 
+
 default_home_loc = (32.968699774829794, -117.18420145463236)
 default_date_time = ['2000','01','01','2000:01:01 01:01:01'] 
 
@@ -68,14 +69,16 @@ def gpsInfo(img):
 
 
 def getLocationDetails(strLnL):
+    address = "n/a"
 
     geolocator = Nominatim(user_agent="zs")
     
     rev = RateLimiter(geolocator.reverse, min_delay_seconds=1)
     
     location = rev(strLnL, language='en', exactly_one = True)
-    # print(location.address)
-    return location.address
+    if location:
+        address = location.address
+    return address
 
 
 def getMetadata(img):
@@ -122,10 +125,3 @@ def setGpsLocation(fname, lat, lng):
     exiv_image["Exif.GPSInfo.GPSVersionID"] = '2 0 0 0'
 
     exiv_image.writeMetadata()
-
-def getpeopleNames(url):
-  return "people names in {url}"
-
-
-def getDescription(url):
-    return "this is image description for: {url}"
