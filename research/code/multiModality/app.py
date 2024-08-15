@@ -93,11 +93,12 @@ top = st.sidebar.slider("select top results pct", 0.0, 1.0, 0.8)
 
 te = st.sidebar.slider("select LLM temperature: ", 0.0, 1.0, 0.8)
 
-btn = st.sidebar.button(label="Search")
+search_btn = st.sidebar.button(label="Search")
 
 
-if btn:
-    
+if search_btn:
+    st.session_state["llm_text"] = ""
+
     # create query on image, also shows similar document in vector database (not using LLM)  -- openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
 
@@ -142,6 +143,7 @@ if btn:
         location=qmdata[4]
     )
 
+    
     #getLLMText(question=txt, article=entity_names, location=qmdata[4])#st.session_state['document'])
 
     st.rerun()
