@@ -52,6 +52,7 @@ def createVectorDB():
       embedding_function=embedding_function, 
       data_loader=image_loader
       )
+    
     '''
     IMAGE embeddings in vector database
     '''

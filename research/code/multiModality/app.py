@@ -78,21 +78,9 @@ modalityTxt = st.sidebar.text_input(
     disabled=False
 )
 
-""" txt = st.sidebar.text_input(
-    "enter the search prompt for LLM: ",
-    placeholder="enter search promt: ",
-    value="Answer with organized thoughts: Please describe the picture, ",
-    disabled=False,
-) """
-
 dr = st.sidebar.date_input("select date range", datetime.date(2022,1,1))
 
-#top = st.sidebar.slider("select top results pct", 0.0, 1.0, 0.8)
-
-#te = st.sidebar.slider("select LLM temperature: ", 0.0, 1.0, 0.8)
-
 search_btn = st.sidebar.button(label="Search")
-
 
 if search_btn:
     # create query on image, also shows similar document in vector database (not using LLM)  -- openclip embedding function!
