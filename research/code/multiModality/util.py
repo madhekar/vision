@@ -125,3 +125,4 @@ def setGpsLocation(fname, lat, lng):
     exiv_image["Exif.GPSInfo.GPSVersionID"] = '2 0 0 0'
 
     exiv_image.writeMetadata()
+

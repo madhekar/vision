@@ -9,6 +9,9 @@ from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 
 from loadData import init
 
+
+
+
 st.set_page_config(
     page_title="zesha: Multi Modality Search (MMS)",
     page_icon="",
@@ -92,7 +95,7 @@ if search_btn:
     for img in imgs["data"][0][1:]:
         st.session_state["timgs"].append(img)
     for mdata in imgs["metadatas"][0][1:]:
-        st.session_state["meta"].append("Desc: " + mdata.get("description") + "\nLocation:" + mdata.get("location") + "\nDate" + mdata.get("datetime"))
+        st.session_state["meta"].append("Desc: " + mdata.get("description") + "  \nLocation:" + mdata.get("location") + "  \nDate" + mdata.get("datetime"))
 
 if len(st.session_state["timgs"]) > 1:
     
