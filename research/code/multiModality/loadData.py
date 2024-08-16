@@ -78,7 +78,7 @@ def createVectorDB():
                 processor=p,
                 top=0.9,
                 temperature=0.9,
-                question="Answer with the organized thoughts: Please describe the picture, ",
+                question="Answer with organized thoughts: Please describe the picture, ",
                 article=n,
                 location=v[4]
             )

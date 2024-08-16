@@ -41,7 +41,7 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question, article,
     <|im_end|>
     <|im_start|>user
     <image>
-     {question}please you must include the person name(s) "{article}" and location details "{location}" in the answer.
+     {question}you must include the person name(s) "{article}" and location details "{location}" in the answer.
     <|im_end|> 
     <|im_start|>assistant
     """.format(question=question, article=article, location=location) #, article=st.session_state["document"])

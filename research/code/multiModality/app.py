@@ -81,7 +81,7 @@ modalityTxt = st.sidebar.text_input(
 """ txt = st.sidebar.text_input(
     "enter the search prompt for LLM: ",
     placeholder="enter search promt: ",
-    value="Answer with the organized thoughts: Please describe the picture, ",
+    value="Answer with organized thoughts: Please describe the picture, ",
     disabled=False,
 ) """
 
