@@ -54,7 +54,6 @@ def createVectorDB():
       )
     if 'multimodal_collection_images' not in collections_list:
         # add image embeddings in vector db
-        # image_uris = sorted([os.path.join(IMAGE_FOLDER, image_name) for image_name in os.listdir(IMAGE_FOLDER) if not image_name.endswith('.txt')])
         image_uris = sorted(util.getRecursive(IMAGE_FOLDER))
         # create uuids for each image
         ids = [str(uuid.uuid4()) for _ in range(len(image_uris))]
@@ -63,12 +62,15 @@ def createVectorDB():
         metadata = []
         for url in image_uris:
             """
+               extract metadata for url
             """
             v = util.getMetadata(url)
             """
+              extract image caption from model
             """
             n = getEntityNames(url)
             """
+              get LLM discription of image from model.
             """
             d = LLM.fetch_llm_text(
                 url,
