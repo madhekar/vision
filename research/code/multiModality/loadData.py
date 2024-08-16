@@ -52,17 +52,22 @@ def createVectorDB():
       embedding_function=embedding_function, 
       data_loader=image_loader
       )
+    '''
+    IMAGE embeddings in vector database
+    '''
     if 'multimodal_collection_images' not in collections_list:
-        # add image embeddings in vector db
+        
+        # create list of image urls to embedd in vector db
         image_uris = sorted(util.getRecursive(IMAGE_FOLDER))
-        # create uuids for each image
+
+        # create unique uuids for each image
         ids = [str(uuid.uuid4()) for _ in range(len(image_uris))]
 
         # create metadata for each image
         metadata = []
         for url in image_uris:
             """
-               extract metadata for the url
+               extract metadata for the url such as date, time, location
             """
             v = util.getMetadata(url)
             """
@@ -106,7 +111,10 @@ def createVectorDB():
       name="multimodal_collection_text",
       embedding_function=embedding_function,
     )
-    
+
+    '''
+      TEXT Embeddings on vector database
+    '''
     if 'multimodal_collection_text' not in collections_list:
       text_pth = sorted(
         [
