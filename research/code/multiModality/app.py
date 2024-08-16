@@ -5,13 +5,10 @@ import datetime
 from streamlit_image_select import image_select
 from PIL import Image, ImageOps
 import util
-
-
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 
 from loadData import init
-# from LLM import setLLM
-# import chromadb as cdb
+
 
 st.set_page_config(
     page_title="zesha: Multi Modality Search (MMS)",
@@ -23,9 +20,6 @@ st.title("Unified Media Portal")
 
 # load data
 cImgs, cTxts = init()
-
-# init LLM modules
-#m, t, p = setLLM()
 
 if "document" not in st.session_state:
     st.session_state["document"] = ""
@@ -39,19 +33,6 @@ if "meta" not in st.session_state:
 if "llm_text" not in st.session_state:
     st.session_state["llm_text"] = ""
 
-
-""" def getLLMText(question, article, location):
-    st.session_state["llm_text"] = zas.get_data(
-        sim,
-        model=m,
-        processor=p,
-        top=top,
-        temperature=te,
-        question=question,
-        article=article,
-        location=location,
-    )#fetch_llm_text(sim, model=m, processor=p, top=top, temperature=te, question = question, article=article, location=location)
- """
 st.sidebar.title("seach criteria")
 # with st.sidebar.form(key='attributes'):
 
@@ -113,32 +94,9 @@ if search_btn:
         st.session_state["timgs"].append(img)
     for mdata in imgs["metadatas"][0][1:]:
         st.session_state["meta"].append("Desc: " + mdata.get("description") + "\nLocation:" + mdata.get("location") + "\nDate" + mdata.get("datetime"))
-    """
-    entity_names = entities.getEntityNames(sim.name)   
- 
-    zas.async_main(
-        sim,
-        model=m,
-        processor=p,
-        top=top,
-        temperature=te,
-        question=txt,
-        article=entity_names,
-        location=qmdata[4]
-    ) """
-
-    
-    #getLLMText(question=txt, article=entity_names, location=qmdata[4])#st.session_state['document'])
-
-    #st.rerun()
-
 
 if len(st.session_state["timgs"]) > 1:
     
-    #st.text_area( label='Description', value=st.session_state['llm_text'], height=14)
-    
-    #st.text_area(label="Embedding Description", value=st.session_state["document"])
-
     dimgs = image_select(
         label="Similar Images",
         images=st.session_state["timgs"],
