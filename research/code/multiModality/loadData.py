@@ -62,15 +62,15 @@ def createVectorDB():
         metadata = []
         for url in image_uris:
             """
-               extract metadata for url
+               extract metadata for the url
             """
             v = util.getMetadata(url)
             """
-              extract image caption from model
+              extract image caption from the model
             """
             n = getEntityNames(url)
             """
-              get LLM discription of image from model.
+              get LLM discription of image from the model.
             """
             d = LLM.fetch_llm_text(
                 url,
