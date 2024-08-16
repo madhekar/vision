@@ -70,7 +70,7 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, 
             #output_scores=True
             
         )
-    #st.write('=>out: ', output )
+
     result = processor.tokenizer.decode(output[0])
     result = result.replace(prompt, "").replace("<|im_end|>", "").replace("<|im_start|>", "")
     return result

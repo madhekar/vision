@@ -9,7 +9,6 @@ from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 
 from loadData import init
 
-
 st.set_page_config(
     page_title="zesha: Multi Modality Search (MMS)",
     page_icon="",
