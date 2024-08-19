@@ -81,7 +81,8 @@ if search_btn:
         st.session_state["meta"] = []   
     
     qmdata = util.getMetadata(sim.name)
-    st.write(qmdata)
+    #st.write(qmdata)
+    #st.write(" multiline format  \n in two lines ")
 
     imgs = cImgs.query(
         query_uris="./" + sim.name,
@@ -95,7 +96,8 @@ if search_btn:
     for img in imgs["data"][0][1:]:
         st.session_state["timgs"].append(img)
     for mdata in imgs["metadatas"][0][1:]:
-        st.session_state["meta"].append("Desc: " + mdata.get("description") + "  \nLocation:" + mdata.get("location") + "  \nDate" + mdata.get("datetime"))
+        st.session_state["meta"].append("Desc:[" + mdata.get("description") +"] People: ["+ mdata.get("names") + "] Location: [" + mdata.get("location") + "] Date: [" + mdata.get("datetime") + "]")
+
 
 if len(st.session_state["timgs"]) > 1:
     
@@ -106,7 +108,7 @@ if len(st.session_state["timgs"]) > 1:
         captions=st.session_state["meta"],
     )
     im = Image.fromarray(dimgs)
-    nim = ImageOps.expand(im,border=(20,20,20,20), fill=(222,222,222))
+    nim = ImageOps.expand(im,border=(2,2,2,2), fill=(222,222,222))
     display_im = st.image(nim, use_column_width="always")
     #rot = nim.rotate(-90)
     #display_im.image(rot)
