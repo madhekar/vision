@@ -111,7 +111,7 @@ with image:
         )
 
         im = Image.fromarray(st.session_state["timgs"][index])
-        nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(222, 222, 222))
+        nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
         c1, c2 = st.columns([9, 1])
         display_im = c1.image(nim, use_column_width="always")
         c2.markdown(" **:blue[Description]** ")
