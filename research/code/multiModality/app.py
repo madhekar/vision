@@ -1,5 +1,8 @@
 import streamlit as st
 import datetime
+import pandas as pd
+from geopy.geocoders import Nominatim
+from geopy.extra.rate_limiter import RateLimiter
 
 # from streamlit_option_menu import option_menu
 from streamlit_image_select import image_select
@@ -15,9 +18,9 @@ st.set_page_config(
     layout="wide",
 )  # (margins_css)
 st.title( "Home Media Portal")
-st.logo("/home/madhekar/Pictures/IMGP3290.JPG")
+st.logo("/home/madhekar/work/zsource/IMG_8418.jpg")
 
-image, video, documents = st.tabs(["**Image**", "**Video**", "**Documents**"])
+image, video, text = st.tabs(["**Image**", "**Video**", "**Text**"])
 
 # load data
 cImgs, cTxts = init()
@@ -66,6 +69,7 @@ elif s == "text":
     placeholder="search modality types for...",
     disabled=False
   )
+
 st.sidebar.divider()
 
 dr = st.sidebar.date_input("select date range", datetime.date(2022,1,1))
@@ -74,23 +78,31 @@ st.sidebar.divider()
 
 search_btn = st.sidebar.button(label="Search")
 
+#seach button pressed
 if search_btn:
     # create query on image, also shows similar document in vector database (not using LLM)  -- openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
 
+    # execute text collection query
     st.session_state["document"] = cTxts.query(
         query_embeddings=embedding_function("./" + sim.name),
-        n_results=1,
+        n_results=10,
     )["documents"][0][0]
 
+    st.write(st.session_state["document"])
+
+    # reset session_state for temperory images for view
     if "timgs" in st.session_state:
         st.session_state["timgs"] = []
         
+    # reset session_state for metadata    
     if "meta" in st.session_state:
         st.session_state["meta"] = []   
     
+    # get location and datetime metadata for an image
     qmdata = util.getMetadata(sim.name)
 
+    # execute image query with search criteria
     st.session_state["imgs"] = cImgs.query(
         query_uris="./" + sim.name,
         include=["data", "metadatas"],
@@ -123,14 +135,25 @@ with image:
         nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
         c1, c2 = st.columns([9, 1])
         display_im = c1.image(nim, use_column_width="always")
+        c2.divider()
         c2.markdown(" **:blue[Description]** ")
         c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["description"])
         c2.markdown("**:blue[People/ Names]**")
         c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["names"])
-        c2.markdown(" **:blue[Location]** ")
-        c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["location"])
         c2.markdown(" **:blue[DateTime]**")
         c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["datetime"])
+        c2.markdown(" **:blue[Location]** ")
+        c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["location"])
+
+        geolocator = Nominatim(user_agent="Z lookup")
+        geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
+        location = geolocator.geocode(st.session_state["imgs"]["metadatas"][0][1:][index]["location"])
+        lat = location.latitude
+        lon = location.longitude
+        map_data = pd.DataFrame({'lat': [lat], 'lon': [lon]})
+        c2.markdown(" **:blue[Map]** ")
+        c2.map( map_data, zoom=12, size=2)
+
         # rot = nim.rotate(-90)
         # display_im.image(rot)
     else:
@@ -144,6 +167,6 @@ with video:
 
 # Documents Tab
 
-with documents:
+with text:
     st.header("Similar Documents")
     st.write("sorry, no similar documents found in search criteria!")
