@@ -26,7 +26,7 @@ image, video, text = st.tabs(["**Image**", "**Video**", "**Text**"])
 cImgs, cTxts = init()
 
 if "document" not in st.session_state:
-    st.session_state["document"] = st.empty()
+    st.session_state["document"] = []
 
 if "timgs" not in st.session_state:
     st.session_state["timgs"] = []
@@ -83,14 +83,6 @@ if search_btn:
     # create query on image, also shows similar document in vector database (not using LLM)  -- openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
 
-    # execute text collection query
-    st.session_state["document"] = cTxts.query(
-        query_embeddings=embedding_function("./" + sim.name),
-        n_results=10,
-    )["documents"][0][0]
-
-    st.write(st.session_state["document"])
-
     # reset session_state for temperory images for view
     if "timgs" in st.session_state:
         st.session_state["timgs"] = []
@@ -99,18 +91,39 @@ if search_btn:
     if "meta" in st.session_state:
         st.session_state["meta"] = []   
     
-    # get location and datetime metadata for an image
-    qmdata = util.getMetadata(sim.name)
+    if s == "image":
+      # execute text collection query
+      st.session_state["document"] = cTxts.query(
+        query_embeddings=embedding_function("./" + sim.name),
+        n_results=1,
+      )["documents"][0][0]
 
-    # execute image query with search criteria
-    st.session_state["imgs"] = cImgs.query(
+      # get location and datetime metadata for an image
+      qmdata = util.getMetadata(sim.name)
+
+      # execute image query with search criteria
+      st.session_state["imgs"] = cImgs.query(
         query_uris="./" + sim.name,
         include=["data", "metadatas"],
         n_results=6,
         where={
             "$and": [{"year": qmdata[0]}, {"month": qmdata[1]}, {"day": qmdata[2]}]
-        },
-    )
+        },    
+       )        
+
+    elif s == "text":
+        # execute text collection query
+        st.session_state["document"] = cTxts.query(
+          query_texts=modalityTxt,
+          n_results=1,
+        )["documents"][0][0]
+
+        # execute image query with search criteria
+        st.session_state["imgs"] = cImgs.query(
+            query_texts=modalityTxt,
+            include=["data", "metadatas"],
+            n_results=6
+        )   
 
     for img in st.session_state["imgs"]["data"][0][1:]:
         st.session_state["timgs"].append(img)
@@ -165,8 +178,9 @@ with video:
     st.header("Similar Videos")
     st.write("sorry, no similar videos found in search criteria!")
 
-# Documents Tab
-
+#  Documents Tab
 with text:
-    st.header("Similar Documents")
-    st.write("sorry, no similar documents found in search criteria!")
+    if  st.session_state["document"] and len(st.session_state["document"]) > 1:
+        st.text_area("related text", value=st.session_state["document"])
+    else:      
+      st.write("sorry, no similar documents found in search criteria!")
