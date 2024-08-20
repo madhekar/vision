@@ -99,34 +99,33 @@ if search_btn:
 
 # Image TAB
 with image:
-  st.header("Similar Images")
-  if st.session_state["timgs"] and len(st.session_state["timgs"]) > 1:
-    
-    index = image_select(
-        label=">",
-        images=st.session_state["timgs"],
-        use_container_width=True,
-        #captions=st.session_state["meta"],
-        index=0,
-        return_value='index'
-    )
+    st.header("Similar Images")
+    if st.session_state["timgs"] and len(st.session_state["timgs"]) > 1:
+        index = image_select(
+            label="-",
+            images=st.session_state["timgs"],
+            use_container_width=True,
+            # captions=st.session_state["meta"],
+            index=0,
+            return_value="index",
+        )
 
-    im = Image.fromarray(st.session_state["timgs"][index])
-    nim = ImageOps.expand(im,border=(2,2,2,2), fill=(222,222,222))
-    c1,c2 = st.columns([9, 1])
-    display_im = c1.image(nim, use_column_width="always")
-    c2.write(''' **Description** ''')
-    c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["description"])
-    c2.write(''' **People/ Names** ''')
-    c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["names"])
-    c2.write(''' **Location** ''')
-    c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["location"])
-    c2.write(''' **Date** ''')
-    c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["datetime"])
-    #rot = nim.rotate(-90)
-    #display_im.image(rot)
-  else:
-      st.write("sorry, no similar images found in search criteria!")  
+        im = Image.fromarray(st.session_state["timgs"][index])
+        nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(222, 222, 222))
+        c1, c2 = st.columns([9, 1])
+        display_im = c1.image(nim, use_column_width="always")
+        c2.markdown(" **:blue[Description]** ")
+        c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["description"])
+        c2.markdown("**:blue[People/ Names]**")
+        c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["names"])
+        c2.markdown(" **:blue[Location]** ")
+        c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["location"])
+        c2.markdown(" **:blue[DateTime]**")
+        c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["datetime"])
+        # rot = nim.rotate(-90)
+        # display_im.image(rot)
+    else:
+        st.write("sorry, no similar images found in search criteria!")  
 
 
 #  Video TAB
