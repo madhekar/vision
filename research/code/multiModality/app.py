@@ -17,7 +17,9 @@ st.set_page_config(
     initial_sidebar_state="auto",
     layout="wide",
 )  # (margins_css)
+
 st.title( "Home Media Portal")
+
 st.logo("/home/madhekar/work/zsource/IMG_8418.jpg")
 
 image, video, text = st.tabs(["**Image**", "**Video**", "**Text**"])
