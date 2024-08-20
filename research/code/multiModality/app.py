@@ -14,10 +14,10 @@ st.set_page_config(
     initial_sidebar_state="auto",
     layout="wide",
 )  # (margins_css)
-st.title( "Media Search Portal")
+st.title( "Home Media Portal")
 st.logo("/home/madhekar/Pictures/IMGP3290.JPG")
 
-image, video, documents = st.tabs(["***Image***", "***Video***", "***Documents***"])
+image, video, documents = st.tabs(["**Image**", "**Video**", "**Documents**"])
 
 # load data
 cImgs, cTxts = init()
@@ -37,12 +37,18 @@ if "llm_text" not in st.session_state:
 if "imgs" not in st.session_state:
     st.session_state["imgs"] = []
 
-st.sidebar.title("seach criteria")
+st.sidebar.header("seach criteria")
 # with st.sidebar.form(key='attributes'):
 
-ms = st.sidebar.multiselect( "select modalities for search result ", ["image", "text", "video", "audio"], ["image", "text"])
+st.sidebar.divider()
 
 s = st.sidebar.selectbox("select search modality", ("text", "image"), index=1)
+
+st.sidebar.divider()
+
+ms = st.sidebar.multiselect( "select search result modalities", ["image", "text", "video", "audio"], ["image", "text"])
+
+st.sidebar.divider()
 
 sim = st.sidebar.file_uploader("search doc/image: ", type=["png", "jpeg", "mpg", 'jpg','PNG','JPG'])
 
@@ -60,8 +66,11 @@ modalityTxt = st.sidebar.text_input(
     placeholder="search images for...",
     disabled=False
 )
+st.sidebar.divider()
 
 dr = st.sidebar.date_input("select date range", datetime.date(2022,1,1))
+
+st.sidebar.divider()
 
 search_btn = st.sidebar.button(label="Search")
 
@@ -99,10 +108,10 @@ if search_btn:
 
 # Image TAB
 with image:
-    st.header("Similar Images")
+    #st.subheader("Similar Images")
     if st.session_state["timgs"] and len(st.session_state["timgs"]) > 1:
         index = image_select(
-            label="-",
+            label="Similar Images",
             images=st.session_state["timgs"],
             use_container_width=True,
             # captions=st.session_state["meta"],
