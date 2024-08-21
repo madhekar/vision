@@ -1,5 +1,6 @@
 
 import os
+import base64
 import glob
 from PIL import Image
 import pyexiv2
@@ -125,4 +126,9 @@ def setGpsLocation(fname, lat, lng):
     exiv_image["Exif.GPSInfo.GPSVersionID"] = '2 0 0 0'
 
     exiv_image.writeMetadata()
+
+def img_to_base64bytes(img_path):
+    with open(img_path, "rb") as f:
+        data = f.read()
+        return base64.b64encode(data).decode()
 
