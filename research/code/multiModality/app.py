@@ -166,9 +166,13 @@ with image:
 
         im = Image.fromarray(st.session_state["timgs"][index])
         nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
+
         c1, c2 = st.columns([9, 1])
+
         imageLoc = c1.empty()
         display_im = imageLoc.image(nim, use_column_width="always")
+        #st.button(st.image(nim, use_column_width="always"))
+
         c2.divider()
         c2.markdown(" **:blue[Description]** ")
         c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["description"])
