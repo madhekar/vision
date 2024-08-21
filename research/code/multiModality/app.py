@@ -18,15 +18,25 @@ st.set_page_config(
     layout="wide",
 )  # (margins_css)
 
-st.title( "Home Media Portal")
-
 st.html("""
         <style>
+        .reportview-container {
+          margin-top: -2em;
+          margin-right: -10em;
+        }
+        MainMenu { visibility: hidden;}
+        .stDeployButton {display:none;}
+        footer {visibility: hidden;}
+        stDecoration {display: none;}
+
             [alt=Logo] {
             height: 6rem;
         }
         </style>
         """)
+
+st.title( "Home Media Portal")
+
 st.logo("/home/madhekar/work/zsource/zesha-high-resolution-logo.jpeg")
 
 image, video, text = st.tabs(["**Image**", "**Video**", "**Text**"])
