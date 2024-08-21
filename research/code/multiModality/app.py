@@ -20,7 +20,14 @@ st.set_page_config(
 
 st.title( "Home Media Portal")
 
-st.logo("/home/madhekar/work/zsource/IMG_8418.jpg")
+st.html("""
+        <style>
+            [alt=Logo] {
+            height: 6rem;
+        }
+        </style>
+        """)
+st.logo("/home/madhekar/work/zsource/zesha-high-resolution-logo.jpeg")
 
 image, video, text = st.tabs(["**Image**", "**Video**", "**Text**"])
 
@@ -112,6 +119,7 @@ if search_btn:
             "$and": [{"year": qmdata[0]}, {"month": qmdata[1]}, {"day": qmdata[2]}]
         },    
        )        
+      st.write(st.session_state["imgs"])
 
     elif s == "text":
         # execute text collection query
@@ -149,7 +157,8 @@ with image:
         im = Image.fromarray(st.session_state["timgs"][index])
         nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
         c1, c2 = st.columns([9, 1])
-        display_im = c1.image(nim, use_column_width="always")
+        imageLoc = c1.empty()
+        display_im = imageLoc.image(nim, use_column_width="always")
         c2.divider()
         c2.markdown(" **:blue[Description]** ")
         c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["description"])
@@ -169,8 +178,8 @@ with image:
         c2.markdown(" **:blue[Map]** ")
         c2.map( map_data, zoom=12, size=2)
 
-        # rot = nim.rotate(-90)
-        # display_im.image(rot)
+        nim = nim.rotate(-90)
+        imageLoc.image(nim, use_column_width="always")
     else:
         st.write("sorry, no similar images found in search criteria!")  
 
