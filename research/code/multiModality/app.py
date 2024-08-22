@@ -169,11 +169,20 @@ with image:
 
         c1, c2 = st.columns([9, 1])
 
+        c2.divider()
+        col21,col22,col23 = c2.columns([1,1,1])
+        with col21:
+          right = st.button(label='&#x27A1;')
+        with col22:  
+          left = st.button(label="&#x2B05;")
+        with col23:  
+          flip = st.button(label="&#x2195;")
+
         imageLoc = c1.empty()
         display_im = imageLoc.image(nim, use_column_width="always")
         #st.button(st.image(nim, use_column_width="always"))
 
-        c2.divider()
+        #c2.divider()
         c2.markdown(" **:blue[Description]** ")
         c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["description"])
         c2.markdown("**:blue[People/ Names]**")
@@ -192,8 +201,15 @@ with image:
         c2.markdown(" **:blue[Map]** ")
         c2.map( map_data, zoom=12, size=2)
 
-        nim = nim.rotate(-90)
-        imageLoc.image(nim, use_column_width="always")
+        if right:
+           nim = nim.rotate(-90)
+           imageLoc.image(nim, use_column_width="always")
+        if left:
+           nim = nim.rotate(90) 
+           imageLoc.image(nim, use_column_width="always")
+        if flip:   
+           nim = nim.rotate(180) 
+           imageLoc.image(nim, use_column_width="always")
     else:
         st.write("sorry, no similar images found in search criteria!")  
 

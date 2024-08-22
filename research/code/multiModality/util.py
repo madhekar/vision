@@ -127,6 +127,7 @@ def setGpsLocation(fname, lat, lng):
 
     exiv_image.writeMetadata()
 
+
 def img_to_base64bytes(img_path):
     with open(img_path, "rb") as f:
         data = f.read()
