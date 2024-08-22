@@ -170,7 +170,7 @@ with image:
         c1, c2 = st.columns([9, 1])
 
         c2.divider()
-        col21,col22,col23 = c2.columns([1,1,1])
+        col21,col22,col23 = c2.columns([1,1,1], gap='small')
         with col21:
           right = st.button(label='&#x27A1;')
         with col22:  
@@ -183,7 +183,7 @@ with image:
         #st.button(st.image(nim, use_column_width="always"))
 
         #c2.divider()
-        c2.markdown(" **:blue[Description]** ")
+        c2.markdown(" **:blue[Ludicrous Description]** ")
         c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["description"])
         c2.markdown("**:blue[People/ Names]**")
         c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["names"])
