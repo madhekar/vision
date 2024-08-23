@@ -24,7 +24,7 @@ for i in range(0, count, batch_size):
         limit=batch_size,
         offset=i
     )
-    print('batchid:',i , batch)
+    #print('batchid:',i , batch)
 
 """ res = col.query(
     query_images='',
@@ -35,5 +35,9 @@ for i in range(0, count, batch_size):
 print(res) """
 
 print(col.get(where={"ids": {"$eq" : "ff842096-9853-4453-a50b-278c7ad19401"}}))
+
+print(col.get("ff842096-9853-4453-a50b-278c7ad19401"))  # works!
+
+col.update(ids="ff842096-9853-4453-a50b-278c7ad19401", metadatas={"names":"Anjali,Shoma,Esha"})
 
 print(col.get("ff842096-9853-4453-a50b-278c7ad19401"))  # works!
