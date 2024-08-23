@@ -146,3 +146,6 @@ def createVectorDB():
 @st.cache_resource(show_spinner=True)
 def init():
     return createVectorDB()
+
+def updateMetadata():
+    pass

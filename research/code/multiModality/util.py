@@ -8,7 +8,7 @@ import pyexiv2
 from GPSPhoto import gpsphoto
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
-
+import streamlit as st
 
 default_home_loc = (32.968699774829794, -117.18420145463236)
 default_date_time = ['2000','01','01','2000:01:01 01:01:01'] 
@@ -134,8 +134,20 @@ def img_to_base64bytes(img_path):
         data = f.read()
         return base64.b64encode(data).decode()
 
-
 def generate_sha256_hash(txt):
     sha256_hash = hashlib.sha256()
     sha256_hash.update(txt.encode('utf-8'))
     return sha256_hash.hexdigest()
+
+@st.dialog("Update Image Metadata")
+def update_metadata(id, desc, names, dt, loc):
+    _id = id
+    st.text_input(label="description:", value=desc)
+    st.text_input(label="names", value=names)
+    st.text_input(label="datetime", value=dt)
+    st.text_input(label="location", value=loc)
+
+    if st.button("Submit"):
+        #st.session_state.vote = {"item": item, "reason": reason}
+      st.rerun()
+#iqn phase mono crystiline

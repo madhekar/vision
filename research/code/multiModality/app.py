@@ -134,7 +134,7 @@ if search_btn:
             "$and": [{"year": qmdata[0]}, {"month": qmdata[1]}, {"day": qmdata[2]}]
         },    
        )        
-      st.write(st.session_state["imgs"])
+      #st.write(st.session_state["imgs"])
 
     elif s == "text":
         # execute text collection query
@@ -196,13 +196,21 @@ with image:
         if flip:
             nim = nim.rotate(180)
             imageLoc.image(nim, use_column_width="always")
-
+  
         c2.divider()
         colt,cole = c2.columns([.7,.3])
         with colt:
            st.markdown(" **:blue[Ludicrous Description]** ")
         with cole: 
            edit = st.button(label='&#x270D;')  
+
+        if edit:
+            util.update_metadata(
+                desc=st.session_state["imgs"]["metadatas"][0][1:][index]["description"],
+                names=st.session_state["imgs"]["metadatas"][0][1:][index]["names"],
+                dt=st.session_state["imgs"]["metadatas"][0][1:][index]["datetime"],
+                loc=st.session_state["imgs"]["metadatas"][0][1:][index]["location"]
+            ) 
         c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["description"])
         c2.markdown("**:blue[People/ Names]**")
         c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["names"])
@@ -220,12 +228,7 @@ with image:
         c2.markdown(" **:blue[Map]** ")
         c2.map( map_data, zoom=12, size=100, color='#ff00ff')
 
-        if edit:
-           metaEdit = st.form('edit matadata') 
 
-
-
-  
     else:
         st.write("sorry, no similar images found in search criteria!")  
 
@@ -241,3 +244,5 @@ with text:
         st.text_area("related text", value=st.session_state["document"])
     else:      
       st.write("sorry, no similar documents found in search criteria!")
+
+
