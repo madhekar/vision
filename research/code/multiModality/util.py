@@ -1,6 +1,7 @@
 
 import os
 import base64
+import hashlib
 import glob
 from PIL import Image
 import pyexiv2
@@ -133,3 +134,8 @@ def img_to_base64bytes(img_path):
         data = f.read()
         return base64.b64encode(data).decode()
 
+
+def generate_sha256_hash(txt):
+    sha256_hash = hashlib.sha256()
+    sha256_hash.update(txt.encode('utf-8'))
+    return sha256_hash.hexdigest()
