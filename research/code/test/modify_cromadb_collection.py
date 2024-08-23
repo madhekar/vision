@@ -36,4 +36,4 @@ print(res) """
 
 print(col.get(where={"ids": {"$eq" : "ff842096-9853-4453-a50b-278c7ad19401"}}))
 
-print(col.get("ff842096-9853-4453-a50b-278c7ad19401"))
+print(col.get("ff842096-9853-4453-a50b-278c7ad19401"))  # works!
