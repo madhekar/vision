@@ -24,11 +24,16 @@ st.html("""
           margin-top: -2em;
           margin-right: -10em;
         }
+        .block-container{
+        padding-top: 2rem;
+        padding-bottom:0rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        }
         MainMenu { visibility: hidden;}
         .stDeployButton {display:none;}
         footer {visibility: hidden;}
         stDecoration {display: none;}
-
             [alt=Logo] {
             height: 6rem;
         }
