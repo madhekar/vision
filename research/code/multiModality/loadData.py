@@ -25,6 +25,7 @@ if storage_path is None:
 #IMAGE_FOLDER = '/home/madhekar/work/zsource/family/img'
 IMAGE_FOLDER = '/home/madhekar/Pictures'
 DOCUMENT_FOLDER = "/home/madhekar/work/zsource/family/doc"
+image_collection = "multimodal_collection_images"
 
 def createVectorDB():
 
@@ -48,7 +49,7 @@ def createVectorDB():
 
     # collection images defined
     collection_images = client.get_or_create_collection(
-      name='multimodal_collection_images', 
+      name=image_collection, 
       embedding_function=embedding_function, 
       data_loader=image_loader
       )
@@ -147,5 +148,11 @@ def createVectorDB():
 def init():
     return createVectorDB()
 
-def updateMetadata():
-    pass
+def updateMetadata(id, desc, names, dt, loc):
+    # vector database persistance
+    client = cdb.PersistentClient(path=storage_path, settings=Settings(allow_reset=True))
+    col = client.get_collection(image_collection)
+    col.update(
+        ids=id,
+        metadatas={"description": desc, "names": names, "datetime" : dt, "location": loc}
+    )

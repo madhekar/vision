@@ -17,7 +17,7 @@ st.set_page_config(
     initial_sidebar_state="auto",
     layout="wide",
 )  # (margins_css)
-
+                                                                                                                               
 st.html("""
         <style>
         .reportview-container {
@@ -37,8 +37,15 @@ st.html("""
             [alt=Logo] {
             height: 6rem;
         }
+        section[data-testid="stSidebar"] {
+            width: 10rem;  # Set the width to your desired value !important;
+        }
+        .big-font {
+           font-size:1.1rem;
+        }
         </style>
         """)
+
 
 st.title( "Home Media Portal")
 
@@ -134,7 +141,7 @@ if search_btn:
             "$and": [{"year": qmdata[0]}, {"month": qmdata[1]}, {"day": qmdata[2]}]
         },    
        )        
-      #st.write(st.session_state["imgs"])
+      st.write(st.session_state["imgs"])
 
     elif s == "text":
         # execute text collection query
@@ -174,7 +181,7 @@ with image:
 
         c1, c2 = st.columns([9, 1])
 
-        c2.divider()
+        #c2.divider()
         col21,col22,col23 = c2.columns([1,1,1], gap='small')
         with col21:
           right = st.button(label='&#x27A1;')
@@ -197,26 +204,28 @@ with image:
             nim = nim.rotate(180)
             imageLoc.image(nim, use_column_width="always")
   
-        c2.divider()
+        #c2.divider()
         colt,cole = c2.columns([.7,.3])
         with colt:
-           st.markdown(" **:blue[Ludicrous Description]** ")
-        with cole: 
-           edit = st.button(label='&#x270D;')  
+           st.markdown(" **:blue[Ludicrous Desc]** ")
+        with cole:
+                edit = st.button(label="**:blue[&#x270D;]**")  
 
         if edit:
             util.update_metadata(
+                id=st.session_state["imgs"]["ids"][0][index],
                 desc=st.session_state["imgs"]["metadatas"][0][1:][index]["description"],
                 names=st.session_state["imgs"]["metadatas"][0][1:][index]["names"],
                 dt=st.session_state["imgs"]["metadatas"][0][1:][index]["datetime"],
                 loc=st.session_state["imgs"]["metadatas"][0][1:][index]["location"]
             ) 
-        c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["description"])
-        c2.markdown("**:blue[People/ Names]**")
-        c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["names"])
-        c2.markdown(" **:blue[DateTime]**")
+        ori_desc = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["description"]}</p>'  
+        c2.markdown(ori_desc, unsafe_allow_html=True)
+        c2.write("**:blue[People]**")
+        c2.markdown(f'**{st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}**')
+        c2.write(" **:blue[DateTime]**")
         c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["datetime"])
-        c2.markdown(" **:blue[Location]** ")
+        c2.write(" **:blue[Location]** ")
         c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["location"])
 
         geolocator = Nominatim(user_agent="Z lookup")
@@ -225,7 +234,7 @@ with image:
         lat = location.latitude
         lon = location.longitude
         map_data = pd.DataFrame({'lat': [lat], 'lon': [lon]})
-        c2.markdown(" **:blue[Map]** ")
+        #c2.markdown(" **:blue[Map]** ")
         c2.map( map_data, zoom=12, size=100, color='#ff00ff')
 
 

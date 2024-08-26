@@ -142,6 +142,7 @@ def generate_sha256_hash(txt):
 @st.dialog("Update Image Metadata")
 def update_metadata(id, desc, names, dt, loc):
     _id = id
+    print(_id)
     st.text_input(label="description:", value=desc)
     st.text_input(label="names", value=names)
     st.text_input(label="datetime", value=dt)
