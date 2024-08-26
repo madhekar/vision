@@ -38,7 +38,7 @@ st.html("""
             height: 6rem;
         }
         section[data-testid="stSidebar"] {
-            width: 10rem;  # Set the width to your desired value !important;
+            width: 15rem !important;  # Set the width to your desired value 
         }
         .big-font {
            font-size:1.1rem;
