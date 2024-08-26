@@ -43,6 +43,9 @@ st.html("""
         .big-font {
            font-size:1.1rem;
         }
+        .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
+        font-size:1.5rem;
+        }
         </style>
         """)
 
@@ -51,7 +54,7 @@ st.title( "Home Media Portal")
 
 st.logo("/home/madhekar/work/zsource/zesha-high-resolution-logo.jpeg")
 
-image, video, text = st.tabs(["**Image**", "**Video**", "**Text**"])
+image, video, text = st.tabs(["Image", "Video", "Text"])
 
 # load data
 cImgs, cTxts = init()
