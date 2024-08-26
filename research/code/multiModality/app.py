@@ -38,7 +38,7 @@ st.html("""
             height: 6rem;
         }
         section[data-testid="stSidebar"] {
-            width: 15rem !important;  # Set the width to your desired value 
+            width: 18rem !important;  # Set the width to your desired value 
         }
         .big-font {
            font-size:1.1rem;
@@ -74,15 +74,15 @@ if "imgs" not in st.session_state:
 st.sidebar.header("seach criteria")
 # with st.sidebar.form(key='attributes'):
 
-st.sidebar.divider()
+#st.sidebar.divider()
 
 s = st.sidebar.selectbox("select search modality type", ("text", "image"), index=1)
 
-st.sidebar.divider()
+#st.sidebar.divider()
 
 ms = st.sidebar.multiselect( "select result modality types", ["image", "text", "video", "audio"], ["image", "text"])
 
-st.sidebar.divider()
+#st.sidebar.divider()
 
 if s == "image":
   sim = st.sidebar.file_uploader("search image ", type=["png", "jpeg", "mpg", 'jpg','PNG','JPG'])
@@ -101,11 +101,11 @@ elif s == "text":
     disabled=False
   )
 
-st.sidebar.divider()
+#st.sidebar.divider()
 
 dr = st.sidebar.date_input("select date range", datetime.date(2022,1,1))
 
-st.sidebar.divider()
+#st.sidebar.divider()
 
 search_btn = st.sidebar.button(label="Search")
 
