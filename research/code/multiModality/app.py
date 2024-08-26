@@ -210,7 +210,7 @@ with image:
         #c2.divider()
         colt,cole = c2.columns([.7,.3])
         with colt:
-           st.markdown(" **:blue[Ludicrous Desc]** ")
+           st.markdown(" **:blue[Gleeful Desc]** ")
         with cole:
                 edit = st.button(label="**:blue[&#x270D;]**")  
 
@@ -222,14 +222,20 @@ with image:
                 dt=st.session_state["imgs"]["metadatas"][0][1:][index]["datetime"],
                 loc=st.session_state["imgs"]["metadatas"][0][1:][index]["location"]
             ) 
-        ori_desc = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["description"]}</p>'  
-        c2.markdown(ori_desc, unsafe_allow_html=True)
+        o_desc = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["description"]}</p>'  
+        c2.markdown(o_desc, unsafe_allow_html=True)
+
         c2.write("**:blue[People]**")
-        c2.markdown(f'**{st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}**')
-        c2.write(" **:blue[DateTime]**")
-        c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["datetime"])
-        c2.write(" **:blue[Location]** ")
-        c2.write(st.session_state["imgs"]["metadatas"][0][1:][index]["location"])
+        o_names = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
+        c2.markdown(o_names, unsafe_allow_html=True)
+
+        c2.write(" **:blue[Date Time]**")
+        o_datetime = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["datetime"]}</p>'
+        c2.markdown(o_datetime, unsafe_allow_html=True)
+
+        c2.write("**:blue[Location]**")
+        o_location = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["location"]}</p>'
+        c2.markdown(o_location, unsafe_allow_html=True)
 
         geolocator = Nominatim(user_agent="Z lookup")
         geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
@@ -237,8 +243,8 @@ with image:
         lat = location.latitude
         lon = location.longitude
         map_data = pd.DataFrame({'lat': [lat], 'lon': [lon]})
-        #c2.markdown(" **:blue[Map]** ")
-        c2.map( map_data, zoom=12, size=100, color='#ff00ff')
+        c1.markdown(" **:blue[Map]** ")
+        c1.map( map_data, zoom=12, size=100, color='#ff00ff')
 
 
     else:
