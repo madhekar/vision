@@ -41,7 +41,7 @@ st.html("""
             width: 18rem !important;  # Set the width to your desired value 
         }
         .big-font {
-           font-size:1.1rem;
+           font-size:1.2rem;
         }
         .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
         font-size:1.5rem;
@@ -49,6 +49,8 @@ st.html("""
         </style>
         """)
 
+# load data
+cImgs, cTxts = init()
 
 st.title( "Home Media Portal")
 
@@ -56,8 +58,7 @@ st.logo("/home/madhekar/work/zsource/zesha-high-resolution-logo.jpeg")
 
 image, video, text = st.tabs(["Image", "Video", "Text"])
 
-# load data
-cImgs, cTxts = init()
+
 
 if "document" not in st.session_state:
     st.session_state["document"] = []
@@ -243,24 +244,25 @@ with image:
         lat = location.latitude
         lon = location.longitude
         map_data = pd.DataFrame({'lat': [lat], 'lon': [lon]})
-        c1.markdown(" **:blue[Map]** ")
-        c1.map( map_data, zoom=12, size=100, color='#ff00ff')
+        c2.markdown(" **:blue[Map]** ")
+        c2.map( map_data, zoom=12, size=100, color='#ff00ff')
 
 
     else:
-        st.write("sorry, no similar images found in search criteria!")  
+
+        st.write("<p class='big-font'>sorry, no similar images found in search criteria!</p>", unsafe_allow_html=True)  
 
 
 #  Video TAB
 with video:
     #st.header("Similar Videos")
-    st.write("sorry, no similar videos found in search criteria!")
+    st.write("<p class='big-font'>sorry, no similar videos found in search criteria!</p>", unsafe_allow_html=True)
 
 #  Documents Tab
 with text:
     if  st.session_state["document"] and len(st.session_state["document"]) > 1:
         st.text_area("related text", value=st.session_state["document"])
-    else:      
-      st.write("sorry, no similar documents found in search criteria!")
+    else:
+        st.write("<p class='big-font'>sorry, no similar documents found in search criteria!</p>", unsafe_allow_html=True)
 
 
