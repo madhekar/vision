@@ -253,7 +253,7 @@ with image:
 
 #  Video TAB
 with video:
-    st.header("Similar Videos")
+    #st.header("Similar Videos")
     st.write("sorry, no similar videos found in search criteria!")
 
 #  Documents Tab
