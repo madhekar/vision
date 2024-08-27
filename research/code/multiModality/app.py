@@ -6,6 +6,7 @@ from geopy.extra.rate_limiter import RateLimiter
 
 # from streamlit_option_menu import option_menu
 from streamlit_image_select import image_select
+from streamlit_date_picker import date_range_picker,PickerType
 from PIL import Image, ImageOps
 import util
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
@@ -38,7 +39,7 @@ st.html("""
             height: 6rem;
         }
         section[data-testid="stSidebar"] {
-            width: 18rem !important;  # Set the width to your desired value 
+            width: 38rem !important;  # Set the width to your desired value 
         }
         .big-font {
            font-size:1.2rem;
@@ -75,43 +76,55 @@ if "llm_text" not in st.session_state:
 if "imgs" not in st.session_state:
     st.session_state["imgs"] = []
 
-st.sidebar.header("seach criteria")
-# with st.sidebar.form(key='attributes'):
+with st.sidebar:
+    st.markdown("## seach criteria")
 
-#st.sidebar.divider()
+    s = st.selectbox("**:blue[select search type]**", ("text", "image"), index=1)
 
-s = st.sidebar.selectbox("**:blue[select search type]**", ("text", "image"), index=1)
+    ms = st.multiselect(
+        "**:blue[select result types]**",
+        ["image", "text", "video", "audio"],
+        ["image", "text"],
+    )
 
-#st.sidebar.divider()
+    if s == "image":
+        sim = st.sidebar.file_uploader(
+            "### **:blue[search image]**", type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG"]
+        )
+        im = st.empty()
+        if sim:
+            im = Image.open(sim)
+            name = sim.name
+            st.sidebar.image(im, caption="")
+            # st.sidebar.write(st.session_state["llm_text"])
+            with open(name, "wb") as f:
+                f.write(sim.getbuffer())
+    elif s == "text":
+        modalityTxt = st.sidebar.text_input(
+            "**:blue[search text]**",
+            placeholder="search modality types for...",
+            disabled=False,
+        )
 
-ms = st.sidebar.multiselect( "**:blue[select result types]**", ["image", "text", "video", "audio"], ["image", "text"])
+    # dr = st.sidebar.date_input("** :blue[select date range]**", datetime.date(2022,1,1))
 
-#st.sidebar.divider()
+    st.markdown("### :blue[select date range]")
+    default_start, default_end = (
+        datetime.datetime.now() - datetime.timedelta(days=1),
+        datetime.datetime.now(),
+    )
+    refresh_value = datetime.timedelta(days=1)
+    date_range_string = date_range_picker(
+        picker_type=PickerType.date,
+        start=default_start,
+        end=default_end,
+        key="date_range_picker"
+    )
+    if date_range_string:
+        start, end = date_range_string
+        #st.write(f"Week Range Picker [{start}, {end}]")
 
-if s == "image":
-  sim = st.sidebar.file_uploader("**:blue[search image]**", type=["png", "jpeg", "mpg", 'jpg','PNG','JPG'])
-  im = st.empty()
-  if sim:
-    im = Image.open(sim)
-    name = sim.name
-    st.sidebar.image(im, caption="")
-    #st.sidebar.write(st.session_state["llm_text"])
-    with open(name, "wb") as f:
-        f.write(sim.getbuffer())
-elif s == "text":
-  modalityTxt = st.sidebar.text_input(
-    "**:blue[search text]**",
-    placeholder="search modality types for...",
-    disabled=False
-  )
-
-#st.sidebar.divider()
-
-dr = st.sidebar.date_input("**:blue[select date range]**", datetime.date(2022,1,1))
-
-#st.sidebar.divider()
-
-search_btn = st.sidebar.button(label="Search")
+    search_btn = st.button(label="Search")
 
 #seach button pressed
 if search_btn:
