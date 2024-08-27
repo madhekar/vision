@@ -80,34 +80,34 @@ st.sidebar.header("seach criteria")
 
 #st.sidebar.divider()
 
-s = st.sidebar.selectbox("select search modality type", ("text", "image"), index=1)
+s = st.sidebar.selectbox("**:blue[select search type]**", ("text", "image"), index=1)
 
 #st.sidebar.divider()
 
-ms = st.sidebar.multiselect( "select result modality types", ["image", "text", "video", "audio"], ["image", "text"])
+ms = st.sidebar.multiselect( "**:blue[select result types]**", ["image", "text", "video", "audio"], ["image", "text"])
 
 #st.sidebar.divider()
 
 if s == "image":
-  sim = st.sidebar.file_uploader("search image ", type=["png", "jpeg", "mpg", 'jpg','PNG','JPG'])
+  sim = st.sidebar.file_uploader("**:blue[search image]**", type=["png", "jpeg", "mpg", 'jpg','PNG','JPG'])
   im = st.empty()
   if sim:
     im = Image.open(sim)
     name = sim.name
-    st.sidebar.image(im, caption="selected image")
+    st.sidebar.image(im, caption="")
     #st.sidebar.write(st.session_state["llm_text"])
     with open(name, "wb") as f:
         f.write(sim.getbuffer())
 elif s == "text":
   modalityTxt = st.sidebar.text_input(
-    "search types based on text",
+    "**:blue[search text]**",
     placeholder="search modality types for...",
     disabled=False
   )
 
 #st.sidebar.divider()
 
-dr = st.sidebar.date_input("select date range", datetime.date(2022,1,1))
+dr = st.sidebar.date_input("**:blue[select date range]**", datetime.date(2022,1,1))
 
 #st.sidebar.divider()
 
