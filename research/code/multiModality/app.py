@@ -42,49 +42,59 @@ st.html("""
         section[data-testid="stSidebar"] {
             width: 38rem !important;  # Set the width to your desired value 
         }
+
         .big-font {
-           font-size:1.2rem;
+           font-size:1.3rem;
         }
+
+        .big-font-subh {
+           font-size:1.3rem;
+           color:blue;
+           font-weight: bold;
+        }
+
         .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
         font-size:1.5rem;
         }
         .stTextInput > label {
         font-size:1.2rem;
-        #font-weight:bold;
+        font-weight:bold;
         color:blue;
         }
 
         .stMultiSelect > label {
         font-size:1.2rem;
-        #font-weight:bold;
+        font-weight:bold;
         color:blue;
         }
 
         .stSelectbox > label {
         font-size:1.2rem;
-        #font-weight:bold;
+        font-weight:bold;
         color:blue;
         }
 
         .stFileUploader > label {
         font-size:1.2rem;
-        #font-weight:bold;
+        font-weight:bold;
         color:blue;
         }
 
         .stSlider > label {
         font-size:1.2rem;
-        #font-weight:bold;
+        font-weight:bold;
         color:blue;
         }
 
         .stButton > label {
         font-size:1.2rem;
-        #font-weight:bold;
+        font-weight:bold;
         color:blue;
         }
         </style>
         """)
+MIN_DT = datetime.datetime(1900,1,1)
+MAX_DT = datetime.datetime.now()
 
 # load data
 cImgs, cTxts = init()
@@ -130,7 +140,7 @@ with st.sidebar:
 
     if s == "image":
         sim = st.file_uploader(
-            label="", type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG"]
+            label="## Select Image",label_visibility=False type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG"]
         )
         im = st.empty()
         if sim:
@@ -189,14 +199,14 @@ if search_btn:
 
         # get location and datetime metadata for an image
         qmdata = util.getMetadata(sim.name)
-        dt_format = "%Y-%m-%d %H:%M:%S"
-        st.write(qmdata[3])
+        #dt_format = "%Y-%m-%d %H:%M:%S"
+        #st.write(qmdata[3])
         d = parser.parse(qmdata[3]).timestamp()
-        st.write(
-            d,
-            st.session_state["dt_range"][0].timestamp(),
-            st.session_state["dt_range"][1].timestamp(),
-        )
+        #st.write(
+        #    d,
+        #    st.session_state["dt_range"][0].timestamp(),
+        #    st.session_state["dt_range"][1].timestamp(),
+        #)
         
         # execute image query with search criteria
         st.session_state["imgs"] = cImgs.query(
@@ -271,7 +281,7 @@ with image:
         #c2.divider()
         colt,cole = c2.columns([.7,.3])
         with colt:
-           st.markdown(" **:blue[Gleeful Desc]** ")
+           st.markdown("<p class='big-font-subh'>Gleeful Desc</p>", unsafe_allow_html=True)
         with cole:
                 edit = st.button(label="**:blue[&#x270D;]**")  
 
@@ -286,15 +296,15 @@ with image:
         o_desc = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["description"]}</p>'  
         c2.markdown(o_desc, unsafe_allow_html=True)
 
-        c2.write("**:blue[People]**")
+        c2.write("<p class='big-font-subh'>People</p>", unsafe_allow_html=True)
         o_names = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
         c2.markdown(o_names, unsafe_allow_html=True)
 
-        c2.write(" **:blue[Date Time]**")
+        c2.write("<p class='big-font-subh'>Date Time</p>", unsafe_allow_html=True)
         o_datetime = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["datetime"]}</p>'
         c2.markdown(o_datetime, unsafe_allow_html=True)
 
-        c2.write("**:blue[Location]**")
+        c2.write("<p class='big-font-subh'>Location</p>",unsafe_allow_html=True)
         o_location = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["location"]}</p>'
         c2.markdown(o_location, unsafe_allow_html=True)
 
@@ -304,7 +314,7 @@ with image:
         lat = location.latitude
         lon = location.longitude
         map_data = pd.DataFrame({'lat': [lat], 'lon': [lon]})
-        c2.markdown(" **:blue[Map]** ")
+        c2.markdown("<p class='big-font-subh'>Map</p>",unsafe_allow_html=True)
         c2.map( map_data, zoom=12, size=100, color='#ff00ff')
 
 
