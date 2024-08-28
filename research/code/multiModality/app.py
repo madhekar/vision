@@ -140,7 +140,7 @@ with st.sidebar:
 
     if s == "image":
         sim = st.file_uploader(
-            label="## Select Image",label_visibility=False, type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG"]
+            label="## Select Image",label_visibility="hidden", type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG"]
         )
         im = st.empty()
         if sim:
