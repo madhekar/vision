@@ -48,6 +48,41 @@ st.html("""
         .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
         font-size:1.5rem;
         }
+        .stTextInput > label {
+        font-size:1.2rem;
+        #font-weight:bold;
+        color:blue;
+        }
+
+        .stMultiSelect > label {
+        font-size:1.2rem;
+        #font-weight:bold;
+        color:blue;
+        }
+
+        .stSelectbox > label {
+        font-size:1.2rem;
+        #font-weight:bold;
+        color:blue;
+        }
+
+        .stFileUploader > label {
+        font-size:1.2rem;
+        #font-weight:bold;
+        color:blue;
+        }
+
+        .stSlider > label {
+        font-size:1.2rem;
+        #font-weight:bold;
+        color:blue;
+        }
+
+        .stButton > label {
+        font-size:1.2rem;
+        #font-weight:bold;
+        color:blue;
+        }
         </style>
         """)
 
@@ -81,21 +116,21 @@ if "dt_range" not in st.session_state:
     st.session_state["dt_range"] = (datetime.datetime(2010,1,1), datetime.datetime(2019,1,1))   
 
 with st.sidebar:
-    st.markdown("### :red[Seach Criteria]")
+    st.header(":red[Seach Criteria]")
 
     st.divider()
 
-    s = st.selectbox("### **:blue[select search type]**", ("text", "image"), index=1)
+    s = st.selectbox(label="## Search type", options=("text", "image"), index=1)
 
     ms = st.multiselect(
-        "**:blue[select result types]**",
-        ["image", "text", "video", "audio"],
-        ["image", "text"],
+        label="## Result types",
+        options=["image", "text", "video", "audio"],
+        default=["image", "text"],
     )
 
     if s == "image":
-        sim = st.sidebar.file_uploader(
-            "### **:blue[search image]**", type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG"]
+        sim = st.file_uploader(
+            label="", type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG"]
         )
         im = st.empty()
         if sim:
@@ -106,8 +141,8 @@ with st.sidebar:
             with open(name, "wb") as f:
                 f.write(sim.getbuffer())
     elif s == "text":
-        modalityTxt = st.sidebar.text_input(
-            "### **:blue[search text]**",
+        modalityTxt = st.text_input(
+            label="## Search text",
             placeholder="search modality types for...",
             disabled=False,
         )
@@ -121,7 +156,7 @@ with st.sidebar:
         st.session_state["dt_range"] = st.session_state.mySlider
  
     date_range = st.slider(
-        label="# **:blue[select date range]**",
+        label="## Date range",
         key="mySlider",
         value=st.session_state["dt_range"],
         min_value=datetime.datetime(2000, 1, 1),
@@ -130,7 +165,7 @@ with st.sidebar:
         on_change=date_change,
     )   
 
-    search_btn = st.button(label=":blue[Search]")
+    search_btn = st.button(label="## **:blue[Search]**")
 
 #seach button pressed
 if search_btn:
