@@ -1,5 +1,6 @@
 import streamlit as st
 import datetime
+from dateutil import parser
 import pandas as pd
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
@@ -76,10 +77,15 @@ if "llm_text" not in st.session_state:
 if "imgs" not in st.session_state:
     st.session_state["imgs"] = []
 
-with st.sidebar:
-    st.markdown("## seach criteria")
+if "dt_range" not in st.session_state:
+    st.session_state["dt_range"] = (datetime.datetime(2010,1,1), datetime.datetime(2019,1,1))   
 
-    s = st.selectbox("**:blue[select search type]**", ("text", "image"), index=1)
+with st.sidebar:
+    st.markdown("### :red[Seach Criteria]")
+
+    st.divider()
+
+    s = st.selectbox("### **:blue[select search type]**", ("text", "image"), index=1)
 
     ms = st.multiselect(
         "**:blue[select result types]**",
@@ -101,30 +107,30 @@ with st.sidebar:
                 f.write(sim.getbuffer())
     elif s == "text":
         modalityTxt = st.sidebar.text_input(
-            "**:blue[search text]**",
+            "### **:blue[search text]**",
             placeholder="search modality types for...",
             disabled=False,
         )
 
     # dr = st.sidebar.date_input("** :blue[select date range]**", datetime.date(2022,1,1))
 
-    st.markdown("### :blue[select date range]")
-    default_start, default_end = (
-        datetime.datetime.now() - datetime.timedelta(days=1),
-        datetime.datetime.now(),
-    )
-    refresh_value = datetime.timedelta(days=1)
-    date_range_string = date_range_picker(
-        picker_type=PickerType.date,
-        start=default_start,
-        end=default_end,
-        key="date_range_picker"
-    )
-    if date_range_string:
-        start, end = date_range_string
-        #st.write(f"Week Range Picker [{start}, {end}]")
+    #st.markdown("**:blue[select date range]**")
 
-    search_btn = st.button(label="Search")
+
+    def date_change():
+        st.session_state["dt_range"] = st.session_state.mySlider
+ 
+    date_range = st.slider(
+        label="# **:blue[select date range]**",
+        key="mySlider",
+        value=st.session_state["dt_range"],
+        min_value=datetime.datetime(2000, 1, 1),
+        max_value=datetime.datetime.now(),
+        step=datetime.timedelta(days=1),
+        on_change=date_change,
+    )   
+
+    search_btn = st.button(label=":blue[Search]")
 
 #seach button pressed
 if search_btn:
@@ -140,25 +146,31 @@ if search_btn:
         st.session_state["meta"] = []   
     
     if s == "image":
-      # execute text collection query
-      st.session_state["document"] = cTxts.query(
-        query_embeddings=embedding_function("./" + sim.name),
-        n_results=1,
-      )["documents"][0][0]
+        # execute text collection query
+        st.session_state["document"] = cTxts.query(
+            query_embeddings=embedding_function("./" + sim.name),
+            n_results=1,
+        )["documents"][0][0]
 
-      # get location and datetime metadata for an image
-      qmdata = util.getMetadata(sim.name)
+        # get location and datetime metadata for an image
+        qmdata = util.getMetadata(sim.name)
+        dt_format = "%Y-%m-%d %H:%M:%S"
+        st.write(qmdata[3])
+        d = parser.parse(qmdata[3]).timestamp()
+        st.write(
+            d,
+            st.session_state["dt_range"][0].timestamp(),
+            st.session_state["dt_range"][1].timestamp(),
+        )
+        
+        # execute image query with search criteria
+        st.session_state["imgs"] = cImgs.query(
+            query_uris="./" + sim.name,
+            include=["data", "metadatas"],
+            n_results=6,
+        )
 
-      # execute image query with search criteria
-      st.session_state["imgs"] = cImgs.query(
-        query_uris="./" + sim.name,
-        include=["data", "metadatas"],
-        n_results=6,
-        where={
-            "$and": [{"year": qmdata[0]}, {"month": qmdata[1]}, {"day": qmdata[2]}]
-        },    
-       )        
-      st.write(st.session_state["imgs"])
+        st.write(st.session_state["imgs"])
 
     elif s == "text":
         # execute text collection query
