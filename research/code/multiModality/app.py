@@ -215,7 +215,7 @@ if search_btn:
             n_results=6,
         )
 
-        st.write(st.session_state["imgs"])
+        #st.write(st.session_state["imgs"])
 
     elif s == "text":
         # execute text collection query
@@ -258,11 +258,11 @@ with image:
         #c2.divider()
         col21,col22,col23 = c2.columns([1,1,1], gap='small')
         with col21:
-          right = st.button(label='&#x27A1;')
-        with col22:  
-          left = st.button(label="&#x2B05;")
-        with col23:  
-          flip = st.button(label="&#x2195;")
+            right = st.button(label="## **:blue[&#x27A1;]**")
+        with col22:
+            left = st.button(label="## **:blue[&#x2B05;]**")
+        with col23:
+            flip = st.button(label="## **:blue[&#x2195;]**")
 
         imageLoc = c1.empty()
         display_im = imageLoc.image(nim, use_column_width="always")
@@ -283,7 +283,7 @@ with image:
         with colt:
            st.markdown("<p class='big-font-subh'>Gleeful Desc</p>", unsafe_allow_html=True)
         with cole:
-                edit = st.button(label="**:blue[&#x270D;]**")  
+                edit = st.button(label="## **:blue[&#x270D;]**")  
 
         if edit:
             util.update_metadata(
@@ -320,19 +320,19 @@ with image:
 
     else:
 
-        st.write("<p class='big-font'>sorry, no similar images found in search criteria!</p>", unsafe_allow_html=True)  
+        st.write("<p class='big-font-subh'>sorry, no similar images found in search criteria!</p>", unsafe_allow_html=True)  
 
 
 #  Video TAB
 with video:
     #st.header("Similar Videos")
-    st.write("<p class='big-font'>sorry, no similar videos found in search criteria!</p>", unsafe_allow_html=True)
+    st.write("<p class='big-font-subh'>sorry, no similar videos found in search criteria!</p>", unsafe_allow_html=True)
 
 #  Documents Tab
 with text:
     if  st.session_state["document"] and len(st.session_state["document"]) > 1:
-        st.text_area("related text", value=st.session_state["document"])
+        st.text_area(label="Related text", value=st.session_state["document"])
     else:
-        st.write("<p class='big-font'>sorry, no similar documents found in search criteria!</p>", unsafe_allow_html=True)
+        st.write("<p class='big-font-subh'>sorry, no similar documents found in search criteria!</p>", unsafe_allow_html=True)
 
 
