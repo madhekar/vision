@@ -63,7 +63,7 @@ def createVectorDB():
         image_uris = sorted(util.getRecursive(IMAGE_FOLDER))
 
         # create unique uuids for each image
-        ids = [str(uuid.uuid4()) for _ in range(len(image_uris))]
+        ids = [str(uuid.uuid5()) for _ in range(len(image_uris))]
 
         # create metadata for each image
         metadata = []
@@ -87,18 +87,17 @@ def createVectorDB():
                 temperature=0.9,
                 question="Answer with organized thoughts: Please describe the picture, ",
                 article=n,
-                location=v[4]
+                location=v[3]
             )
 
             metadata.append(
                 {
-                    "year": v[0],
-                    "month": v[1],
-                    "day": v[2],
-                    "datetime": v[3],
-                    "location": v[4],
-                    "names": str(n),
-                    "description": str(d)
+                    "ts": v[0],
+                    "lat": v[1],
+                    "lon": v[2],
+                    "loc": v[3],
+                    "nam": str(n),
+                    "txt": str(d),
                 }
             )
             st.write('metadata: ', v, ' : ', n, ' : ', d)
@@ -135,7 +134,7 @@ def createVectorDB():
             text = f.read()
             list_of_text.append(text)
 
-      ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
+      ids_txt_list = [str(uuid.uuid5()) for _ in range(len(list_of_text))]
 
       print("=> text generate ids:\n", ids_txt_list)
 

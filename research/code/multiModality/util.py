@@ -102,6 +102,7 @@ def getMetadata(img):
     lat_lon = gpsInfo(img=img)
     res.append(lat_lon)
     res.append(getLocationDetails(lat_lon))
+    print(res)
     return res
 
 def to_deg(value, loc):
