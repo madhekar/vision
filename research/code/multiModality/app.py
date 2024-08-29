@@ -13,19 +13,20 @@ import streamlit_init
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from loadData import init
 
+# initialize streamlit container UI settings
 streamlit_init.initUI()
 
 # load data
 cImgs, cTxts = init()
 
-st.title( "Home Media Portal")
 
+st.title( "Home Media Portal")
 st.logo("/home/madhekar/work/zsource/zesha-high-resolution-logo.jpeg")
 
+# create default application Tabs
 image, video, text = st.tabs(["Image", "Video", "Text"])
 
-
-
+# init session variables 
 if "document" not in st.session_state:
     st.session_state["document"] = []
 
@@ -44,6 +45,7 @@ if "imgs" not in st.session_state:
 if "dt_range" not in st.session_state:
     st.session_state["dt_range"] = (datetime.datetime(2010,1,1), datetime.datetime(2019,1,1))   
 
+# define application sidebar
 with st.sidebar:
     st.header(":blue[Seach Criteria]")
 
@@ -75,11 +77,6 @@ with st.sidebar:
             placeholder="search modality types for...",
             disabled=False,
         )
-
-    # dr = st.sidebar.date_input("** :blue[select date range]**", datetime.date(2022,1,1))
-
-    #st.markdown("**:blue[select date range]**")
-
 
     def date_change():
         st.session_state["dt_range"] = st.session_state.mySlider
