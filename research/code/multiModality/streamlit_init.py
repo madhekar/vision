@@ -14,7 +14,7 @@ def initUI():
     )  # (margins_css)
 
 
-    st.html("""
+    st.markdown("""
         <style>
             
         .reportview-container {
@@ -48,49 +48,57 @@ def initUI():
         .big-font-subh {
            font-size:1.3rem;
            color:blue;
-           font-weight: bold;
+           #font-weight: bold;
         }
 
         .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
         font-size:1.3rem;
         color:blue;
-        font-weight:bold;    
+        #font-weight:bold;    
         }
             
         .stTextInput > label {
         font-size:1.2rem;
-        font-weight:bold;
+        #font-weight:bold;
         color:blue;
         }
 
         .stMultiSelect > label {
         font-size:1.2rem;
-        font-weight:bold;
+        #font-weight:bold;
         color:blue;
         }
 
         .stSelectbox > label {
         font-size:1.2rem;
-        font-weight:bold;
+        #font-weight:bold;
         color:blue;
         }
 
         .stFileUploader > label {
         font-size:1.2rem;
-        font-weight:bold;
+        #font-weight:bold;
         color:blue;
         }
 
         .stSlider > label {
         font-size:1.2rem;
-        font-weight:bold;
+        #font-weight:bold;
         color:blue;
         }
 
         .stButton > label {
         font-size:1.2rem;
-        font-weight:bold;
+        #font-weight:bold;
         color:blue;
         }
+        
+        .stButton > button:first-child {
+            height:3rem;
+            width:5rem;
+            font-size:1.3rem;
+            #font-weight:bold;
+            color:blue;
+            }
         </style>
-        """)
+        """, unsafe_allow_html=True)
