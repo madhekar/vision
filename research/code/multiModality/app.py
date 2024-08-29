@@ -7,94 +7,13 @@ from geopy.extra.rate_limiter import RateLimiter
 
 # from streamlit_option_menu import option_menu
 from streamlit_image_select import image_select
-from streamlit_date_picker import date_range_picker,PickerType
 from PIL import Image, ImageOps
 import util
+import streamlit_init
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from loadData import init
 
-st.set_page_config(
-    page_title="zesha: Multi Modality Search (MMS)",
-    page_icon="",
-    initial_sidebar_state="auto",
-    layout="wide",
-)  # (margins_css)
-                                                                                                                               
-st.html("""
-        <style>
-        .reportview-container {
-          margin-top: -2em;
-          margin-right: -10em;
-        }
-        .block-container{
-        padding-top: 2rem;
-        padding-bottom:0rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        }
-        MainMenu { visibility: hidden;}
-        .stDeployButton {display:none;}
-        footer {visibility: hidden;}
-        stDecoration {display: none;}
-            [alt=Logo] {
-            height: 6rem;
-        }
-        section[data-testid="stSidebar"] {
-            width: 38rem !important;  # Set the width to your desired value 
-        }
-
-        .big-font {
-           font-size:1.3rem;
-        }
-
-        .big-font-subh {
-           font-size:1.3rem;
-           color:blue;
-           font-weight: bold;
-        }
-
-        .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
-        font-size:1.5rem;
-        }
-        .stTextInput > label {
-        font-size:1.2rem;
-        font-weight:bold;
-        color:blue;
-        }
-
-        .stMultiSelect > label {
-        font-size:1.2rem;
-        font-weight:bold;
-        color:blue;
-        }
-
-        .stSelectbox > label {
-        font-size:1.2rem;
-        font-weight:bold;
-        color:blue;
-        }
-
-        .stFileUploader > label {
-        font-size:1.2rem;
-        font-weight:bold;
-        color:blue;
-        }
-
-        .stSlider > label {
-        font-size:1.2rem;
-        font-weight:bold;
-        color:blue;
-        }
-
-        .stButton > label {
-        font-size:1.2rem;
-        font-weight:bold;
-        color:blue;
-        }
-        </style>
-        """)
-MIN_DT = datetime.datetime(1900,1,1)
-MAX_DT = datetime.datetime.now()
+streamlit_init.initUI()
 
 # load data
 cImgs, cTxts = init()
@@ -126,7 +45,7 @@ if "dt_range" not in st.session_state:
     st.session_state["dt_range"] = (datetime.datetime(2010,1,1), datetime.datetime(2019,1,1))   
 
 with st.sidebar:
-    st.header(":red[Seach Criteria]")
+    st.header(":blue[Seach Criteria]")
 
     st.divider()
 
@@ -169,8 +88,8 @@ with st.sidebar:
         label="## Date range",
         key="mySlider",
         value=st.session_state["dt_range"],
-        min_value=datetime.datetime(2000, 1, 1),
-        max_value=datetime.datetime.now(),
+        min_value=streamlit_init.MIN_DT,
+        max_value=streamlit_init.MAX_DT,
         step=datetime.timedelta(days=1),
         on_change=date_change,
     )   
