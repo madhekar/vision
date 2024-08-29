@@ -130,7 +130,7 @@ if search_btn:
             n_results=6,
         )
 
-        #st.write(st.session_state["imgs"])
+        st.write(st.session_state["imgs"])
 
     elif s == "text":
         # execute text collection query

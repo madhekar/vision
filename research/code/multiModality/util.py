@@ -8,10 +8,12 @@ import pyexiv2
 from GPSPhoto import gpsphoto
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
+import datetime
 import streamlit as st
 
 default_home_loc = (32.968699774829794, -117.18420145463236)
 default_date_time = ['2000','01','01','2000:01:01 01:01:01'] 
+def_date_time = '2000:01:01 01:01:01'
 
 names = ["Esha", "Anjali", "Bhalchandra"]
 subclasses = [
@@ -57,6 +59,18 @@ def getDateTime(img):
         value = default_date_time
     return value
 
+def getTimestamp(img):
+    value = []
+    image = Image(img)
+    # extracting the exif metadata
+    exifdata = image.getexif()
+    date_time = exifdata.get(306)
+    if date_time:
+        value.append(datetime.datetime.timestamp(date_time))
+    else:
+        value.append(datetime.datetime.timestamp(def_date_time))
+    return value    
+
 
 def gpsInfo(img):
     gps = ()
@@ -82,10 +96,12 @@ def getLocationDetails(strLnL):
         address = location.address
     return address
 
-
+# collect all metadata
 def getMetadata(img):
     res = getDateTime(img)
-    res.append(getLocationDetails(gpsInfo(img=img)))
+    lat_lon = gpsInfo(img=img)
+    res.append(lat_lon)
+    res.append(getLocationDetails(lat_lon))
     return res
 
 def to_deg(value, loc):
