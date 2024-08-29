@@ -14,7 +14,8 @@ def initUI():
     )  # (margins_css)
 
 
-    st.markdown("""
+    st.markdown(
+        """
         <style>
             
         .reportview-container {
@@ -50,6 +51,12 @@ def initUI():
            color:blue;
            #font-weight: bold;
         }
+                
+        .big-font-header {
+           font-size:1.5rem;
+           color:blue;
+           font-weight: bold;
+        }        
 
         .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
         font-size:1.3rem;
@@ -101,4 +108,6 @@ def initUI():
             color:blue;
             }
         </style>
-        """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True,
+    )

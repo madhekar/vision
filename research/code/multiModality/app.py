@@ -47,7 +47,7 @@ if "dt_range" not in st.session_state:
 
 # define application sidebar
 with st.sidebar:
-    st.header(":blue[Seach Criteria]")
+    st.markdown("<p class='big-font-header'>Seach Criteria</p>", unsafe_allow_html=True)
 
     st.divider()
 
@@ -173,11 +173,11 @@ with image:
         #c2.divider()
         col21,col22,col23 = c2.columns([1,1,1], gap='small')
         with col21:
-            right = st.button(label="## &#x27A1;")
+            right = st.button(label="## &#x21B7;")
         with col22:
-            left = st.button(label="## &#x2B05;")
+            left = st.button(label="## &#x21B6;")
         with col23:
-            flip = st.button(label="## &#x2195;")
+            flip = st.button(label="## &#x21C5;")
 
         imageLoc = c1.empty()
         display_im = imageLoc.image(nim, use_column_width="always")
