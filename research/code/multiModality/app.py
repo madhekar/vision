@@ -239,19 +239,19 @@ with image:
 
     else:
 
-        st.write("<p class='big-font-subh'>sorry, no similar images found in search criteria!</p>", unsafe_allow_html=True)  
+        st.write("<p class='big-font'>sorry, no similar images found in search criteria!</p>", unsafe_allow_html=True)  
 
 
 #  Video TAB
 with video:
     #st.header("Similar Videos")
-    st.write("<p class='big-font-subh'>sorry, no similar videos found in search criteria!</p>", unsafe_allow_html=True)
+    st.write("<p class='big-font'>sorry, no similar videos found in search criteria!</p>", unsafe_allow_html=True)
 
 #  Documents Tab
 with text:
     if  st.session_state["document"] and len(st.session_state["document"]) > 1:
         st.text_area(label="Related text", value=st.session_state["document"])
     else:
-        st.write("<p class='big-font-subh'>sorry, no similar documents found in search criteria!</p>", unsafe_allow_html=True)
+        st.write("<p class='big-font'>sorry, no similar documents found in search criteria!</p>", unsafe_allow_html=True)
 
 

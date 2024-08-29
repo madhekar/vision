@@ -5,9 +5,10 @@ MIN_DT = datetime.datetime(1998, 1, 1)
 MAX_DT = datetime.datetime.now()
 
 def initUI():
+
     st.set_page_config(
-        page_title="zesha: Multi Modality Search (MMS)",
-        page_icon="",
+        page_title="zesha: Home Media Portal (HMP)",
+        page_icon="/home/madhekar/work/zsource/zesha-high-resolution-logo.jpeg",
         initial_sidebar_state="auto",
         layout="wide",
     )  # (margins_css)
@@ -15,16 +16,19 @@ def initUI():
 
     st.html("""
         <style>
+            
         .reportview-container {
           margin-top: -2em;
           margin-right: -10em;
         }
+            
         .block-container{
         padding-top: 2rem;
         padding-bottom:0rem;
         padding-left: 1rem;
         padding-right: 1rem;
         }
+            
         MainMenu { visibility: hidden;}
         .stDeployButton {display:none;}
         footer {visibility: hidden;}
@@ -32,8 +36,9 @@ def initUI():
             [alt=Logo] {
             height: 6rem;
         }
+            
         section[data-testid="stSidebar"] {
-            width: 38rem !important;  # Set the width to your desired value 
+            width: 25rem !important;  # Set the width to your desired value 
         }
 
         .big-font {
@@ -47,8 +52,11 @@ def initUI():
         }
 
         .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
-        font-size:1.5rem;
+        font-size:1.3rem;
+        color:blue;
+        font-weight:bold;    
         }
+            
         .stTextInput > label {
         font-size:1.2rem;
         font-weight:bold;
