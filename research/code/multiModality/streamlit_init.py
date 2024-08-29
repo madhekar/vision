@@ -35,7 +35,7 @@ def initUI():
         footer {visibility: hidden;}
         stDecoration {display: none;}
             [alt=Logo] {
-            height: 6rem;
+            height: 7rem;
         }
             
         section[data-testid="stSidebar"] {
@@ -44,68 +44,76 @@ def initUI():
 
         .big-font {
            font-size:1.3rem;
+           color:#3E4D34;
+           #font-weight:bold;
         }
 
         .big-font-subh {
            font-size:1.3rem;
-           color:blue;
-           #font-weight: bold;
+           color:#5E734E;
+           font-weight: bold;
         }
                 
         .big-font-header {
            font-size:1.5rem;
-           color:blue;
+           color:#3E4D34;
            font-weight: bold;
         }        
 
+        .big-font-title {
+           font-size:2rem;
+           color:#3E4D34;
+           font-weight: bold;
+        } 
+
         .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
         font-size:1.3rem;
-        color:blue;
-        #font-weight:bold;    
+        color:#5E734E;
+        font-weight:bold;    
         }
             
         .stTextInput > label {
         font-size:1.2rem;
-        #font-weight:bold;
-        color:blue;
+        font-weight:bold;
+        color:#5E734E;
         }
 
         .stMultiSelect > label {
         font-size:1.2rem;
-        #font-weight:bold;
-        color:blue;
+        font-weight:bold;
+        color:#5E734E;
         }
 
         .stSelectbox > label {
         font-size:1.2rem;
-        #font-weight:bold;
-        color:blue;
+        font-weight:bold;
+        color:#5E734E;
         }
 
         .stFileUploader > label {
         font-size:1.2rem;
-        #font-weight:bold;
-        color:blue;
+        font-weight:bold;
+        color:#5E734E;
         }
 
         .stSlider > label {
         font-size:1.2rem;
-        #font-weight:bold;
-        color:blue;
+        font-weight:bold;
+        color:#5E734E;
         }
 
         .stButton > label {
         font-size:1.2rem;
-        #font-weight:bold;
-        color:blue;
+        font-weight:bold;
+        color:#5E734E;
         }
         
         .stButton > button:first-child {
             height:3rem;
-            width:5rem;
-            font-size:1.3rem;
-            #font-weight:bold;
-            color:blue;
+            width:6rem;
+            font-size:1.4rem;
+            font-weight:bold;
+            color:#5E734E;
             }
         </style>
         """,

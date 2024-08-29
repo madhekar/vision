@@ -20,7 +20,7 @@ streamlit_init.initUI()
 cImgs, cTxts = init()
 
 
-st.title( "Home Media Portal")
+st.markdown("<p class='big-font-title'>Home Media Portal</p>", unsafe_allow_html=True)
 st.logo("/home/madhekar/work/zsource/zesha-high-resolution-logo.jpeg")
 
 # create default application Tabs
