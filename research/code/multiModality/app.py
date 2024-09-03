@@ -116,7 +116,7 @@ if search_btn:
         qmdata = util.getMetadata(sim.name)
         #dt_format = "%Y-%m-%d %H:%M:%S"
         #st.write(qmdata[3])
-        d = parser.parse(qmdata[3]).timestamp()
+        #d = parser.parse(qmdata[3]).timestamp()
         #st.write(
         #    d,
         #    st.session_state["dt_range"][0].timestamp(),
@@ -149,7 +149,7 @@ if search_btn:
     for img in st.session_state["imgs"]["data"][0][1:]:
         st.session_state["timgs"].append(img)
     for mdata in st.session_state["imgs"]["metadatas"][0][1:]:
-        st.session_state["meta"].append("Desc:[" + mdata.get("description") +"] ) People: ["+ mdata.get("names") + "] Location: [" + mdata.get("location") + "] Date: [" + mdata.get("datetime") + "]")
+        st.session_state["meta"].append("Desc:[" + mdata.get("txt") +"] ) People: ["+ mdata.get("nam") + "] Location: [" + mdata.get("loc") + "] Date: [" + str(datetime.datetime.fromtimestamp(mdata.get("ts")/1000)) + "]")
 
 
 # Image TAB
@@ -203,29 +203,29 @@ with image:
         if edit:
             util.update_metadata(
                 id=st.session_state["imgs"]["ids"][0][index],
-                desc=st.session_state["imgs"]["metadatas"][0][1:][index]["description"],
-                names=st.session_state["imgs"]["metadatas"][0][1:][index]["names"],
-                dt=st.session_state["imgs"]["metadatas"][0][1:][index]["datetime"],
-                loc=st.session_state["imgs"]["metadatas"][0][1:][index]["location"]
+                desc=st.session_state["imgs"]["metadatas"][0][1:][index]["txt"],
+                names=st.session_state["imgs"]["metadatas"][0][1:][index]["nam"],
+                dt=st.session_state["imgs"]["metadatas"][0][1:][index]["ts"],
+                loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"]
             ) 
-        o_desc = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["description"]}</p>'  
+        o_desc = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["txt"]}</p>'  
         c2.markdown(o_desc, unsafe_allow_html=True)
 
         c2.write("<p class='big-font-subh'>People</p>", unsafe_allow_html=True)
-        o_names = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
+        o_names = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["nam"]}</p>'
         c2.markdown(o_names, unsafe_allow_html=True)
 
         c2.write("<p class='big-font-subh'>Date Time</p>", unsafe_allow_html=True)
-        o_datetime = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["datetime"]}</p>'
+        o_datetime = f'<p class="big-font">{str(datetime.datetime.fromtimestamp(st.session_state["imgs"]["metadatas"][0][1:][index]["ts"]/1000))}</p>'
         c2.markdown(o_datetime, unsafe_allow_html=True)
 
         c2.write("<p class='big-font-subh'>Location</p>",unsafe_allow_html=True)
-        o_location = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["location"]}</p>'
+        o_location = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["loc"]}</p>'
         c2.markdown(o_location, unsafe_allow_html=True)
 
         geolocator = Nominatim(user_agent="Z lookup")
         geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
-        location = geolocator.geocode(st.session_state["imgs"]["metadatas"][0][1:][index]["location"])
+        location = geolocator.geocode(st.session_state["imgs"]["metadatas"][0][1:][index]["loc"])
         lat = location.latitude
         lon = location.longitude
         map_data = pd.DataFrame({'lat': [lat], 'lon': [lon]})
