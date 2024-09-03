@@ -59,7 +59,7 @@ def createVectorDB():
     '''
     if 'multimodal_collection_images' not in collections_list:
         
-        # create list of image urls to embedd in vector db
+        # create list of image urls to embedded in vector db
         image_uris = sorted(util.getRecursive(IMAGE_FOLDER))
 
         # create unique uuids for each image

@@ -12,6 +12,10 @@ async def async_main():
         await asyncio.sleep(1)
         print(result)
 
-asyncio.run(async_main())
+async def async_main2():
+    results = await asyncio.gather(fetch_url_data('www.amazon.com'), fetch_url_data('www.google.com'))
+    print(results)        
 
+#asyncio.run(async_main())
+asyncio.run(async_main2())
 print('do normal stuff..')

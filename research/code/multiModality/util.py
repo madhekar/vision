@@ -39,11 +39,11 @@ subclasses = [
 ]
 
 def getRecursive(rootDir):
-    flist=[]
+    f_list=[]
     for fn in glob.glob(rootDir + '/**/*', recursive=True):
         if not os.path.isdir(os.path.abspath(fn)):
-            flist.append(os.path.abspath(fn))
-    return flist    
+            f_list.append(os.path.abspath(fn))
+    return f_list    
 
 def getDateTime(img):
     value = []
@@ -134,7 +134,7 @@ def setGpsLocation(fname, lat, lng):
 
     print ('lat:', lat_deg, ' lng:', lng_deg)
 
-    # convert decimal coordinates into degrees, munutes and seconds
+    # convert decimal coordinates into degrees, minutes and seconds
     exiv_lat = (pyexiv2.Rational(lat_deg[0]*60+lat_deg[1],60),pyexiv2.Rational(lat_deg[2]*100,6000), pyexiv2.Rational(0, 1))
     exiv_lng = (pyexiv2.Rational(lng_deg[0]*60+lng_deg[1],60),pyexiv2.Rational(lng_deg[2]*100,6000), pyexiv2.Rational(0, 1))
 
