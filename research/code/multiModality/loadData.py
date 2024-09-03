@@ -33,7 +33,7 @@ def createVectorDB():
     client = cdb.PersistentClient( path=storage_path, settings=Settings(allow_reset=True))
 
     # reset chromadb persistant store
-    # client.reset()
+    #client.reset()
     
     #list of collections
     collections_list = [c.name for c in client.list_collections()]
@@ -63,7 +63,7 @@ def createVectorDB():
         image_uris = sorted(util.getRecursive(IMAGE_FOLDER))
 
         # create unique uuids for each image
-        ids = [str(uuid.uuid5()) for _ in range(len(image_uris))]
+        ids = [str(uuid.uuid4()) for _ in range(len(image_uris))]
 
         # create metadata for each image
         metadata = []
@@ -86,7 +86,7 @@ def createVectorDB():
                 top=0.9,
                 temperature=0.9,
                 question="Answer with organized thoughts: Please describe the picture, ",
-                article=n,
+                people=n,
                 location=v[3]
             )
 
@@ -117,28 +117,31 @@ def createVectorDB():
       TEXT Embeddings on vector database
     '''
     if 'multimodal_collection_text' not in collections_list:
-      text_pth = sorted(
-        [
-            os.path.join(DOCUMENT_FOLDER, document_name)
-            for document_name in os.listdir(DOCUMENT_FOLDER)
-            if document_name.endswith(".txt")
+        text_pth = sorted(
+            [
+                os.path.join(DOCUMENT_FOLDER, document_name)
+                for document_name in os.listdir(DOCUMENT_FOLDER)
+                if document_name.endswith(".txt")
+            ]
+        )
+
+        print("=> text paths: \n", "\n".join(text_pth))
+
+        list_of_text = []
+
+        for text in text_pth:
+            with open(text, "r") as f:
+                text = f.read()
+                list_of_text.append(text)
+
+        ids_txt_list = [
+            str(uuid.uuid4())
+            for _ in range(len(list_of_text))
         ]
-      )
 
-      print("=> text paths: \n", "\n".join(text_pth))
+        print("=> text generate ids:\n", ids_txt_list)
 
-      list_of_text = []
-
-      for text in text_pth:
-        with open(text, "r") as f:
-            text = f.read()
-            list_of_text.append(text)
-
-      ids_txt_list = [str(uuid.uuid5()) for _ in range(len(list_of_text))]
-
-      print("=> text generate ids:\n", ids_txt_list)
-
-      collection_text.add(documents=list_of_text, ids=ids_txt_list)
+        collection_text.add(documents=list_of_text, ids=ids_txt_list)
 
     return collection_images, collection_text
 
