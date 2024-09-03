@@ -17,7 +17,7 @@ This is because AutoNLP tools can be used to automatically generate and train la
 @st.cache_resource(ttl=36000, show_spinner=True)
 def setLLM():
     """
-    model autotokenizer and processor componnents for LLM model MC-LLaVA-3b with trust flag
+    model auto-tokenizer and processor components for LLM model MC-LLaVA-3b with trust flag
     """
 
     model = AutoModel.from_pretrained("visheratin/MC-LLaVA-3b", trust_remote_code=True)

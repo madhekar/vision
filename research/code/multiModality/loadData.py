@@ -77,7 +77,7 @@ def createVectorDB():
             """
             n = getEntityNames(url)
             """
-              get LLM discription of image from the model.
+              get LLM description of image from the model.
             """
             d = LLM.fetch_llm_text(
                 url,
