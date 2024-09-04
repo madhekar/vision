@@ -9,6 +9,7 @@ from GPSPhoto import gpsphoto
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 import datetime
+from dateutil import parser
 import streamlit as st
 
 default_home_loc = (32.968699774829794, -117.18420145463236)
@@ -38,11 +39,11 @@ subclasses = [
 ]
 
 def getRecursive(rootDir):
-    flist=[]
+    f_list=[]
     for fn in glob.glob(rootDir + '/**/*', recursive=True):
         if not os.path.isdir(os.path.abspath(fn)):
-            flist.append(os.path.abspath(fn))
-    return flist    
+            f_list.append(os.path.abspath(fn))
+    return f_list    
 
 def getDateTime(img):
     value = []
@@ -61,14 +62,20 @@ def getDateTime(img):
 
 def getTimestamp(img):
     value = []
-    image = Image(img)
+    image = Image.open(img)
     # extracting the exif metadata
     exifdata = image.getexif()
     date_time = exifdata.get(306)
+    print(date_time)
     if date_time:
-        value.append(datetime.datetime.timestamp(date_time))
+        date_time = str(date_time).replace('-',':')
+        value.append(datetime.datetime.timestamp(datetime.datetime.strptime( date_time, "%Y:%m:%d %H:%M:%S")))
     else:
-        value.append(datetime.datetime.timestamp(def_date_time))
+        value.append(
+            datetime.datetime.timestamp(
+                datetime.datetime.strptime(def_date_time, "%Y:%m:%d %H:%M:%S")
+            )
+        )
     return value    
 
 
@@ -98,9 +105,10 @@ def getLocationDetails(strLnL):
 
 # collect all metadata
 def getMetadata(img):
-    res = getDateTime(img)
+    res = getTimestamp(img)
     lat_lon = gpsInfo(img=img)
-    res.append(lat_lon)
+    res.append(lat_lon[0])
+    res.append(lat_lon[1])
     res.append(getLocationDetails(lat_lon))
     print(res)
     return res
@@ -126,7 +134,7 @@ def setGpsLocation(fname, lat, lng):
 
     print ('lat:', lat_deg, ' lng:', lng_deg)
 
-    # convert decimal coordinates into degrees, munutes and seconds
+    # convert decimal coordinates into degrees, minutes and seconds
     exiv_lat = (pyexiv2.Rational(lat_deg[0]*60+lat_deg[1],60),pyexiv2.Rational(lat_deg[2]*100,6000), pyexiv2.Rational(0, 1))
     exiv_lng = (pyexiv2.Rational(lng_deg[0]*60+lng_deg[1],60),pyexiv2.Rational(lng_deg[2]*100,6000), pyexiv2.Rational(0, 1))
 
