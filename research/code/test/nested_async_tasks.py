@@ -57,9 +57,6 @@ class EmbeddingClass:
       return f"describeImage done."
     
 em = EmbeddingClass()
-
-
-
 iList = getRecursive('/Users/emadhekar/erase_me/images/')
 r = asyncio.run(em.safeMaster(iList))
 print('do normal stuff..', r)
