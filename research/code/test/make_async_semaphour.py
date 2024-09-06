@@ -2,7 +2,8 @@ import os
 import uuid
 import asyncio
 import time
-import util
+#import util
+import awaitUtil
 
 from random import randint
 
@@ -10,12 +11,12 @@ async def generateId(self):
     return str(uuid.uuid4())
 
 
-async def timestamp( uri):
+def timestamp( uri):
         #async with sem:
         wait_time = randint(1, 3)
-        await asyncio.sleep(wait_time)
-        ts = util.getTimestamp()
-        return ts   
+        
+        #ts = util.getTimestamp()
+        return wait_time   
     
 async def locationDetails( uri):
         #async with sem:
@@ -40,7 +41,8 @@ async def make_request(url: str, semaphore: asyncio.Semaphore):
     async with semaphore:
         s1 = await generateId(url)
 
-        s2 = await timestamp(url)
+        s2  = await awaitUtil.force_awaitable(timestamp)('url')
+        #s2 = await timestamp(url)
 
         s3 = await locationDetails(url)
 
