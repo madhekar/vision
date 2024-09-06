@@ -2,7 +2,11 @@ import asyncio
 import random
 import os
 
+
+s = asyncio.Semaphore(2)
+
 async def job(id):
+  async with s:  
     print('Starting job:',id )
     await asyncio.sleep(random.randint(1, 3))
     print('Finished job:', id)
