@@ -2,27 +2,24 @@ import os
 import uuid
 import asyncio
 import time
-#import util
+import util
 import awaitUtil
+
 
 from random import randint
 
-async def generateId(self):
+def generateId(self):
     return str(uuid.uuid4())
 
 
 def timestamp( uri):
-        #async with sem:
-        wait_time = randint(1, 3)
-        
-        #ts = util.getTimestamp()
-        return wait_time   
+        ts = util.getTimestamp(uri)
+        return ts   
     
-async def locationDetails( uri):
-        #async with sem:
-        wait_time = randint(1, 3)
-        await asyncio.sleep(wait_time)
-        return f"locationDetails done."   
+def locationDetails( uri):
+        lat_lon = util.gpsInfo(uri)
+        loc = util.getLocationDetails(lat_lon)
+        return lat_lon[0], lat_lon[1], loc 
     
 async def namesOfPeople(uri):
         #async with sem:
@@ -37,14 +34,12 @@ async def describeImage(uri):
         return f"describeImage done." 
 
 async def make_request(url: str, semaphore: asyncio.Semaphore):
-    """simulates request"""
     async with semaphore:
-        s1 = await generateId(url)
+        s1 = await awaitUtil.force_awaitable(generateId)(url)
 
-        s2  = await awaitUtil.force_awaitable(timestamp)('url')
-        #s2 = await timestamp(url)
+        s2 = await awaitUtil.force_awaitable(timestamp)(url)
 
-        s3 = await locationDetails(url)
+        s3 = await awaitUtil.force_awaitable(locationDetails)(url)
 
         r4 = await namesOfPeople(url)
 
@@ -54,9 +49,9 @@ async def make_request(url: str, semaphore: asyncio.Semaphore):
 
 
 async def amain():
-    """main wrapper."""
     semaphore = asyncio.Semaphore(2)
-    tasks = [make_request(img ,semaphore) for img in sorted(os.listdir('/Users/emadhekar/erase_me/images/'))]
+    imgs_path = util.getRecursive("/home/madhekar/Pictures")
+    tasks = [make_request(img_path ,semaphore) for img_path in imgs_path]
     for cor in asyncio.as_completed(tasks):
         res = await cor
         print(res)
