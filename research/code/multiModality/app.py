@@ -223,11 +223,13 @@ with image:
         o_location = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["loc"]}</p>'
         c2.markdown(o_location, unsafe_allow_html=True)
 
-        geolocator = Nominatim(user_agent="Z lookup")
-        geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
-        location = geolocator.geocode(st.session_state["imgs"]["metadatas"][0][1:][index]["loc"])
-        lat = location.latitude
-        lon = location.longitude
+        #geolocator = Nominatim(user_agent="Z lookup")
+        #geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
+        #location = geolocator.geocode(st.session_state["imgs"]["metadatas"][0][1:][index]["loc"])
+        lat = st.session_state["imgs"]["metadatas"][0][1:][index]["lat"]
+        lon = st.session_state["imgs"]["metadatas"][0][1:][index]["lon"]
+        #lat = location.latitude
+        #lon = location.longitude
         map_data = pd.DataFrame({'lat': [lat], 'lon': [lon]})
         c2.markdown("<p class='big-font-subh'>Map</p>",unsafe_allow_html=True)
         c2.map( map_data, zoom=12, size=100, color='#ff00ff')
