@@ -4,6 +4,8 @@ import asyncio
 import time
 import util
 import awaitUtil
+import entities
+import LLM
 
 
 from random import randint
@@ -21,16 +23,25 @@ def locationDetails( uri):
         loc = util.getLocationDetails(lat_lon)
         return lat_lon[0], lat_lon[1], loc 
     
-async def namesOfPeople(uri):
-        #async with sem:
-        wait_time = randint(3, 7)
-        await asyncio.sleep(wait_time)
-        return f"namesOfPeople done."
+def namesOfPeople(uri):
+        names = entities.getEntityNames(uri)
+        return names
 
-async def describeImage(uri):
-        #async with sem:
-        wait_time = randint(5, 10)
-        await asyncio.sleep(wait_time)
+def describeImage(uri):
+        # init LLM modules
+        m, t, p = LLM.setLLM()
+
+        d = LLM.fetch_llm_text(
+                uri,
+                model=m,
+                processor=p,
+                top=0.9,
+                temperature=0.9,
+                question="Answer with organized thoughts: Please describe the picture, ",
+                people=names,
+                location=v[3]
+            )
+
         return f"describeImage done." 
 
 async def make_request(url: str, semaphore: asyncio.Semaphore):
@@ -41,7 +52,7 @@ async def make_request(url: str, semaphore: asyncio.Semaphore):
 
         s3 = await awaitUtil.force_awaitable(locationDetails)(url)
 
-        r4 = await namesOfPeople(url)
+        r4 = await awaitUtil.force_awaitable(namesOfPeople)(url)
 
         r5 = await describeImage(url)
 
@@ -49,7 +60,7 @@ async def make_request(url: str, semaphore: asyncio.Semaphore):
 
 
 async def amain():
-    semaphore = asyncio.Semaphore(2)
+    semaphore = asyncio.Semaphore(5)
     imgs_path = util.getRecursive("/home/madhekar/Pictures")
     tasks = [make_request(img_path ,semaphore) for img_path in imgs_path]
     for cor in asyncio.as_completed(tasks):
