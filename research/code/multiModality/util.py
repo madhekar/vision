@@ -37,7 +37,7 @@ subclasses = [
     "Shoma",
     "Bhiman",
 ]
-
+# recursive call to get all image filenames
 def getRecursive(rootDir):
     f_list=[]
     for fn in glob.glob(rootDir + '/**/*', recursive=True):
@@ -45,6 +45,7 @@ def getRecursive(rootDir):
             f_list.append(os.path.abspath(fn))
     return f_list    
 
+# get data and time from image file
 def getDateTime(img):
     value = []
     # open the image
@@ -60,6 +61,7 @@ def getDateTime(img):
         value = default_date_time
     return value
 
+# get timestamp from image file
 def getTimestamp(img):
     value = []
     image = Image.open(img)
@@ -78,7 +80,7 @@ def getTimestamp(img):
         )
     return value    
 
-
+# get GPS information from image file
 def gpsInfo(img):
     gps = ()
     # Get the data from image file and return a dictionary
@@ -90,7 +92,7 @@ def gpsInfo(img):
         gps = default_home_loc
     return gps
 
-
+# get location address information from latitude and longitude
 def getLocationDetails(strLnL):
     address = "n/a"
 
@@ -176,4 +178,4 @@ def update_metadata(id, desc, names, dt, loc):
     if st.button("Submit"):
         #st.session_state.vote = {"item": item, "reason": reason}
       st.rerun()
-#iqn phase mono crystiline
+#iqn phase mono crystalline
