@@ -63,11 +63,16 @@ def getDateTime(img):
 
 # get timestamp from image file
 def getTimestamp(img):
+<<<<<<< HEAD
     value = []
+=======
+    ts=""
+>>>>>>> 543e6dc1146bcbcf33db1f20e6cdae068c227c03
     image = Image.open(img)
     # extracting the exif metadata
     exifdata = image.getexif()
     date_time = exifdata.get(306)
+<<<<<<< HEAD
     print(date_time)
     if date_time:
         date_time = str(date_time).replace('-',':')
@@ -79,6 +84,15 @@ def getTimestamp(img):
             )
         )
     return value    
+=======
+    #print(date_time)
+    if date_time:
+        date_time = str(date_time).replace('-',':')
+        ts = datetime.datetime.timestamp(datetime.datetime.strptime( date_time, "%Y:%m:%d %H:%M:%S"))
+    else:
+        ts = datetime.datetime.timestamp(datetime.datetime.strptime(def_date_time, "%Y:%m:%d %H:%M:%S"))
+    return ts    
+>>>>>>> 543e6dc1146bcbcf33db1f20e6cdae068c227c03
 
 # get GPS information from image file
 def gpsInfo(img):
@@ -112,7 +126,11 @@ def getMetadata(img):
     res.append(lat_lon[0])
     res.append(lat_lon[1])
     res.append(getLocationDetails(lat_lon))
+<<<<<<< HEAD
     print(res)
+=======
+    #print(res)
+>>>>>>> 543e6dc1146bcbcf33db1f20e6cdae068c227c03
     return res
 
 def to_deg(value, loc):
