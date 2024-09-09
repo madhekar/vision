@@ -27,7 +27,7 @@ def namesOfPeople(uri):
         names = entities.getEntityNames(uri)
         return names
 
-def describeImage(uri):
+""" def describeImage(uri):
         # init LLM modules
         m, t, p = LLM.setLLM()
 
@@ -42,7 +42,7 @@ def describeImage(uri):
                 location=v[3]
             )
 
-        return f"describeImage done." 
+        return f"describeImage done."  """
 
 async def make_request(url: str, semaphore: asyncio.Semaphore):
     async with semaphore:
@@ -54,9 +54,9 @@ async def make_request(url: str, semaphore: asyncio.Semaphore):
 
         r4 = await awaitUtil.force_awaitable(namesOfPeople)(url)
 
-        r5 = await describeImage(url)
+        #r5 = await describeImage(url)
 
-    return (s1, s2, s3, r4, r5)
+    return (s1, s2, s3, r4)
 
 
 async def amain():
