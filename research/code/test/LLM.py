@@ -14,7 +14,7 @@ This can help users to quickly identify the best model architecture for their sp
 Automodels are also becoming increasingly popular in the field of natural language processing (NLP). 
 This is because AutoNLP tools can be used to automatically generate and train language models for a variety of tasks, such as text classification, question answering, and machine translation.
 """
-@st.cache_resource(ttl=36000, show_spinner=True)
+#@st.cache_resource(ttl=36000, show_spinner=True)
 def setLLM():
     """
     model auto-tokenizer and processor components for LLM model MC-LLaVA-3b with trust flag
@@ -36,6 +36,8 @@ def setLLM():
     # Do not write outside its scope unless you find your answer better {article} if you thin your answer is better add it after document.<|im_end|>
 def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, location):
     
+    print('calling LLM')
+
     prompt = """<|im_start|>system
     A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, and gives helpful, detailed, and polite answers to the human's questions. The assistant does not hallucinate and pays very close attention to the details.
     <|im_end|>
@@ -49,7 +51,7 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, 
     # generate propcssor using image and associated prompt query, and generate LLM response
     with torch.inference_mode():
         inputs = processor(
-            prompt, [Image.open(imUrl)], model, max_crops=100, num_tokens=728        
+            prompt, [Image.open(imUrl)], model, max_crops=10, num_tokens=100        #100, 728
             )
         
     # streamer 
@@ -59,7 +61,7 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, 
     with torch.inference_mode():
         output =  model.generate(
             **inputs,
-            max_new_tokens=200,
+            max_new_tokens=70,  #200
             do_sample=True,
             use_cache=False,
             top_p=top,

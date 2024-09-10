@@ -63,7 +63,7 @@ def getDateTime(img):
 
 # get timestamp from image file
 def getTimestamp(img):
-    value = []
+    value = ""
     image = Image.open(img)
     # extracting the exif metadata
     exifdata = image.getexif()
@@ -71,13 +71,11 @@ def getTimestamp(img):
     #print(date_time)
     if date_time:
         date_time = str(date_time).replace('-',':')
-        value.append(datetime.datetime.timestamp(datetime.datetime.strptime( date_time, "%Y:%m:%d %H:%M:%S")))
+        value = datetime.datetime.timestamp(datetime.datetime.strptime( date_time, "%Y:%m:%d %H:%M:%S"))
     else:
-        value.append(
-            datetime.datetime.timestamp(
-                datetime.datetime.strptime(def_date_time, "%Y:%m:%d %H:%M:%S")
+        value= datetime.datetime.timestamp(datetime.datetime.strptime(def_date_time, "%Y:%m:%d %H:%M:%S")
             )
-        )
+        
     return value    
 
 # get GPS information from image file
