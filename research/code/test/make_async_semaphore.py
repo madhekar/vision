@@ -24,6 +24,7 @@ async def worker( name, queue):
         llmStr = await awaitUtil.force_awaitable(describeImage)(dict)
         dict["text"] = llmStr
 
+        
         await f.write(str(dict))
         await f.write(os.linesep)
         

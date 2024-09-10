@@ -34,7 +34,7 @@ def test_sync(*args, **kwargs):
   return str(uuid.uuid4())
 
 async def main():
-   ret = await force_awaitable(test_sync)('url')
+   ret = await force_awaitable(test_sync)("url")
    print(ret)
 asyncio.run(main())
 

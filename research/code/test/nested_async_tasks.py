@@ -35,7 +35,7 @@ class EmbeddingClass:
 
     async def generateId(self):
          #async with sem:
-         return { 'id': str(uuid.uuid4()) }  
+         return { "id": str(uuid.uuid4()) }  
     
     async def timestamp(self, uri):
         #async with sem:
