@@ -38,12 +38,14 @@ subclasses = [
     "Bhiman",
 ]
 # recursive call to get all image filenames
-def getRecursive(rootDir):
+def getRecursive(rootDir, chunk_size=10):
     f_list=[]
-    for fn in glob.glob(rootDir + '/**/*', recursive=True):
+    for fn in glob.iglob(rootDir + '/**/*', recursive=True):
         if not os.path.isdir(os.path.abspath(fn)):
             f_list.append(os.path.abspath(fn))
-    return f_list    
+    for i in range(0, len(f_list), chunk_size):
+        yield f_list[i:i+chunk_size]        
+      
 
 # get data and time from image file
 def getDateTime(img):
