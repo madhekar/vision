@@ -47,8 +47,8 @@ def main():
     selected = st.selectbox("Dummy", [1, 23, 4, 5, 8, 9, 34])
     if st.button("add"):
         manager.do_smth(selected)
-        print('started')
-        st.write('...started')
+        print("started")
+        st.write("...started")
 
 
 if __name__ == "__main__":

@@ -13,8 +13,8 @@ from dateutil import parser
 import streamlit as st
 
 default_home_loc = (32.968699774829794, -117.18420145463236)
-default_date_time = ['2000','01','01','2000:01:01 01:01:01'] 
-def_date_time = '2000:01:01 01:01:01'
+default_date_time = ["2000","01","01","2000:01:01 01:01:01"] 
+def_date_time = "2000:01:01 01:01:01"
 
 names = ["Esha", "Anjali", "Bhalchandra"]
 subclasses = [
@@ -40,7 +40,7 @@ subclasses = [
 # recursive call to get all image filenames
 def getRecursive(rootDir, chunk_size=10):
     f_list=[]
-    for fn in glob.iglob(rootDir + '/**/*', recursive=True):
+    for fn in glob.iglob(rootDir + "/**/*", recursive=True):
         if not os.path.isdir(os.path.abspath(fn)):
             f_list.append(os.path.abspath(fn))
     for i in range(0, len(f_list), chunk_size):
@@ -72,7 +72,7 @@ def getTimestamp(img):
     date_time = exifdata.get(306)
     #print(date_time)
     if date_time:
-        date_time = str(date_time).replace('-',':')
+        date_time = str(date_time).replace("-",":")
         value = datetime.datetime.timestamp(datetime.datetime.strptime( date_time, "%Y:%m:%d %H:%M:%S"))
     else:
         value= datetime.datetime.timestamp(datetime.datetime.strptime(def_date_time, "%Y:%m:%d %H:%M:%S")
@@ -86,7 +86,7 @@ def gpsInfo(img):
     # Get the data from image file and return a dictionary
     data = gpsphoto.getGPSData(img)
     #print(data)
-    if 'Latitude' in data and 'Longitude' in data:
+    if "Latitude" in data and "Longitude" in data:
         gps = (data["Latitude"], data["Longitude"])
     else:
         gps = default_home_loc
@@ -100,7 +100,7 @@ def getLocationDetails(strLnL):
     
     rev = RateLimiter(geolocator.reverse, min_delay_seconds=1)
     
-    location = rev(strLnL, language='en', exactly_one = True)
+    location = rev(strLnL, language="en", exactly_one = True)
     if location:
         address = location.address
     return address
@@ -134,7 +134,7 @@ def setGpsLocation(fname, lat, lng):
     lat_deg = to_deg(lat, ["S", "N"])
     lng_deg = to_deg(lng, ["W", "E"])
 
-    print ('lat:', lat_deg, ' lng:', lng_deg)
+    print ("lat:", lat_deg, " lng:", lng_deg)
 
     # convert decimal coordinates into degrees, minutes and seconds
     exiv_lat = (pyexiv2.Rational(lat_deg[0]*60+lat_deg[1],60),pyexiv2.Rational(lat_deg[2]*100,6000), pyexiv2.Rational(0, 1))
@@ -143,7 +143,7 @@ def setGpsLocation(fname, lat, lng):
     exiv_image = pyexiv2.Image(fname)
     exiv_image.readMetadata()
     exif_keys = exiv_image.exifKeys() 
-    print('exif keys: ', exif_keys)
+    print("exif keys: ", exif_keys)
 
     exiv_image["Exif.GPSInfo.GPSLatitude"] = exiv_lat
     exiv_image["Exif.GPSInfo.GPSLatitudeRef"] = lat_deg[3]
@@ -151,7 +151,7 @@ def setGpsLocation(fname, lat, lng):
     exiv_image["Exif.GPSInfo.GPSLongitudeRef"] = lng_deg[3]
     exiv_image["Exif.Image.GPSTag"] = 654
     exiv_image["Exif.GPSInfo.GPSMapDatum"] = "WGS-84"
-    exiv_image["Exif.GPSInfo.GPSVersionID"] = '2 0 0 0'
+    exiv_image["Exif.GPSInfo.GPSVersionID"] = "2 0 0 0"
 
     exiv_image.writeMetadata()
 
@@ -163,7 +163,7 @@ def img_to_base64bytes(img_path):
 
 def generate_sha256_hash(txt):
     sha256_hash = hashlib.sha256()
-    sha256_hash.update(txt.encode('utf-8'))
+    sha256_hash.update(txt.encode("utf-8"))
     return sha256_hash.hexdigest()
 
 @st.dialog("Update Image Metadata")

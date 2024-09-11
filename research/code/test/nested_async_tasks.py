@@ -8,7 +8,7 @@ sem = asyncio.Semaphore(2)
 
 def getRecursive(rootDir):
     f_list=[]
-    for fn in glob.glob(rootDir + '/**/*', recursive=True):
+    for fn in glob.glob(rootDir + "/**/*", recursive=True):
         if not os.path.isdir(os.path.abspath(fn)):
             f_list.append(os.path.abspath(fn))
     return f_list 
@@ -62,6 +62,6 @@ class EmbeddingClass:
         return f"describeImage done."
     
 em = EmbeddingClass()
-iList = getRecursive('/Users/emadhekar/erase_me/images/')
+iList = getRecursive("/Users/emadhekar/erase_me/images/")
 r = asyncio.run(em.boundedMaster(iList))
-print('do normal stuff..', r)
+print("do normal stuff..", r)

@@ -13,7 +13,7 @@ def test_run():
         val = x
         multiply = val * 10
         q.put((val, multiply))
-        print(val, ':', multiply)
+        print(val, ":", multiply)
         time.sleep(1)
         if x == 8:
             #threading.current_thread().terminate()
@@ -37,5 +37,5 @@ st.title("Streamlit Learning")
 with st.empty():
     update_dashboard()
      
-    st.write('started thread!cd ..') 
+    st.write("started thread!cd ..") 
     

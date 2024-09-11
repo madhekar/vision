@@ -3,8 +3,8 @@ import os
 from dotenv import load_dotenv
 
 # vector database path
-load_dotenv('/home/madhekar/.env.local')
-storage_path = os.getenv('STORAGE_PATH')
+load_dotenv("/home/madhekar/.env.local")
+storage_path = os.getenv("STORAGE_PATH")
 image_collection = "multimodal_collection_images"
 
 client = cdb.PersistentClient( path=storage_path, settings=cdb.config.Settings(allow_reset=True))
@@ -24,12 +24,12 @@ for i in range(0, count, batch_size):
         limit=batch_size,
         offset=i
     )
-    #print('batchid:',i , batch)
+    #print("batchid:",i , batch)
 
 """ res = col.query(
-    query_images='',
+    query_images="",
     n_results=1,
-    where={'ids' : {'$eq': 'fcce570d-a85b-453e-876d-2af6400ce919'}}
+    where={"ids" : {"$eq": "fcce570d-a85b-453e-876d-2af6400ce919"}}
 )    
 
 print(res) """

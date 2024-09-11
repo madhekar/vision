@@ -2,7 +2,7 @@ import asyncio
 import streamlit as st
 
 async def f():
-    st.write('starting...')
+    st.write("starting...")
     await asyncio.sleep(10)
     st.write("ending...")
 

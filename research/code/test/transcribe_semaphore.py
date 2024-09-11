@@ -12,10 +12,10 @@ async def async_transcribe_audio(
     rate_limit_semaphore: asyncio.Semaphore,
 ):
     url = "https://api.openai.com/v1/audio/transcriptions"
-    headers = {"Authorization": f"Bearer {os.environ.get('OPENAI_API_KEY')}"}
+    headers = {"Authorization": f"Bearer {os.environ.get("OPENAI_API_KEY")}"}
 
     async with rate_limit_semaphore:
-        print(f"Starting transcription for '{input_file_path}'")
+        print(f"Starting transcription for "{input_file_path}"")
         async with aiofiles.open(input_file_path, "rb") as file:
             data = aiohttp.FormData()
             data.add_field(
@@ -66,14 +66,14 @@ async def async_transcribe_audio(
                 # do some more backoff, retry, or handing cases
                 return
 
-        print(f"Sending complete for '{input_file_path}'")
+        print(f"Sending complete for "{input_file_path}"")
 
     transcribed_text = transcription["text"]
 
     try:
         async with aiofiles.open(output_file_path, "w") as file:
             await file.write(transcribed_text)
-        print(f"--- Transcribed text successfully saved to '{output_file_path}'.")
+        print(f"--- Transcribed text successfully saved to "{output_file_path}".")
     except Exception as e:
         print(f"Output file error: {e}")
 

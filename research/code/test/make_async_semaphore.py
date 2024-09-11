@@ -8,30 +8,32 @@ import entities
 import LLM
 from random import randint
 import aiofiles
+import json
 
 # init LLM modules
 m, t, p = LLM.setLLM()
-#f = open('data.json', 'w')
+#f = open("data.json", "w")
 
 async def worker( name, queue):
-   async with aiofiles.open('data.json', mode='a') as f:
-    print(f'inside {name} worker!')
-    while True:
-        # Get a "work item" out of the queue.
-        dict = await queue.get()
+    async with aiofiles.open("data.json", mode="a") as f:
+        print(f"inside {name} worker!")
+        while True:
+            # Get a "work item" out of the queue.
+            dict = await queue.get()
 
-        # Sleep for the "sleep_for" seconds.
-        llmStr = await awaitUtil.force_awaitable(describeImage)(dict)
-        dict["text"] = llmStr
+            # Sleep for the "sleep_for" seconds.
+            llmStr = await awaitUtil.force_awaitable(describeImage)(dict)
 
-        
-        await f.write(str(dict))
-        await f.write(os.linesep)
-        
-        # Notify the queue that the "work item" has been processed.
-        queue.task_done()
+            dict["text"] = llmStr
+            
+            st = json.dumps(dict)
+            await f.write(st)
+            await f.write(os.linesep)
 
-        print(f'describeImage {name}  LLMStr: {llmStr}')
+            # Notify the queue that the "work item" has been processed.
+            queue.task_done()
+
+            print(f"describeImage {name}  LLMStr: {llmStr}")
 
 def generateId(self):
     return str(uuid.uuid4())
@@ -53,7 +55,7 @@ def namesOfPeople(uri):
 def describeImage( dict):
         # init LLM modules
         #m, t, p = LLM.setLLM()
-        print(dict.get('loc'))
+        print(dict.get("loc"))
         d = LLM.fetch_llm_text(
                 imUrl=dict.get("url"),
                 model=m,
@@ -88,7 +90,7 @@ async def amain(iList):
     
     semaphore = asyncio.Semaphore(10)    
     
-    #imgs_path = util.getRecursive("/home/madhekar/temp/img_backup/mexico-mexicocity/")
+    #imgs_path = util.getRecursive("/home/madhekar/temp/img_backup/india-karad/")
 
     print(iList)
 
@@ -102,7 +104,7 @@ async def amain(iList):
         
     ts = []
     for i in range(5):
-         t = asyncio.create_task(worker(f'worker-{i}', queue=queue))    
+         t = asyncio.create_task(worker(f"worker-{i}", queue=queue))    
          ts.append(t)
     
     await queue.join()
@@ -111,8 +113,8 @@ async def amain(iList):
          t.cancel()     
 
     #f.close()
-if __name__ == '__main__':
-    img_iterator = util.getRecursive("/home/madhekar/temp/img_backup/mexico-mexicocity", chunk_size=5)
+if __name__ == "__main__":
+    img_iterator = util.getRecursive("/home/madhekar/temp/img_backup/india-karad", chunk_size=5)
     for lst in img_iterator:
        print(lst)
        asyncio.run(amain(lst))
