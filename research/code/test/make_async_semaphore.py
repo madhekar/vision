@@ -12,11 +12,10 @@ import json
 
 # init LLM modules
 m, t, p = LLM.setLLM()
-#f = open("data.json", "w")
 
 async def worker( name, queue):
     async with aiofiles.open("data.json", mode="a") as f:
-        print(f"inside {name} worker!")
+        print(f"{name}!")
         while True:
             # Get a "work item" out of the queue.
             dict = await queue.get()
@@ -25,7 +24,7 @@ async def worker( name, queue):
             llmStr = await awaitUtil.force_awaitable(describeImage)(dict)
 
             dict["text"] = llmStr
-            
+
             st = json.dumps(dict)
             await f.write(st)
             await f.write(os.linesep)
@@ -33,7 +32,7 @@ async def worker( name, queue):
             # Notify the queue that the "work item" has been processed.
             queue.task_done()
 
-            print(f"describeImage {name}  LLMStr: {llmStr}")
+            #print(f"describeImage {name}  LLMStr: {llmStr}")
 
 def generateId(self):
     return str(uuid.uuid4())
@@ -53,9 +52,6 @@ def namesOfPeople(uri):
         return names
 
 def describeImage( dict):
-        # init LLM modules
-        #m, t, p = LLM.setLLM()
-        print(dict.get("loc"))
         d = LLM.fetch_llm_text(
                 imUrl=dict.get("url"),
                 model=m,
@@ -80,8 +76,6 @@ async def make_request(url: str, semaphore: asyncio.Semaphore):
 
         r4 = await awaitUtil.force_awaitable(namesOfPeople)(url)
 
-        #print(url, s1, s2, s3[0], s3[1], s3[2], r4)
-
         return {"url" : url, "id": s1, "timestamp": s2, "lat": s3[0], "lon" : s3[1], "loc": s3[2], "names": r4}
 
 
@@ -89,10 +83,6 @@ async def amain(iList):
     queue = asyncio.Queue()  
     
     semaphore = asyncio.Semaphore(10)    
-    
-    #imgs_path = util.getRecursive("/home/madhekar/temp/img_backup/india-karad/")
-
-    print(iList)
 
     tasks = [make_request(img_path ,semaphore) for img_path in iList]
     
@@ -103,7 +93,7 @@ async def amain(iList):
         queue.put_nowait(res)
         
     ts = []
-    for i in range(5):
+    for i in range(10):
          t = asyncio.create_task(worker(f"worker-{i}", queue=queue))    
          ts.append(t)
     
@@ -112,9 +102,8 @@ async def amain(iList):
     for t in ts:
          t.cancel()     
 
-    #f.close()
 if __name__ == "__main__":
-    img_iterator = util.getRecursive("/home/madhekar/temp/img_backup/india-karad", chunk_size=5)
+
+    img_iterator = util.getRecursive("/home/madhekar/Pictures", chunk_size=10)
     for lst in img_iterator:
-       print(lst)
        asyncio.run(amain(lst))
