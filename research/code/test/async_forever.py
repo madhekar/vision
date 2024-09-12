@@ -23,7 +23,7 @@ def async_main():
     loop.close()
 
 
-btn = st.button(label='call async')
+btn = st.button(label="call async")
 if btn:
       async_main()
-      st.write('done')  
+      st.write("done")  

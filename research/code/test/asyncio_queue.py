@@ -14,7 +14,7 @@ async def worker(name, queue):
         # Notify the queue that the "work item" has been processed.
         queue.task_done()
 
-        print(f'{name} has slept for {sleep_for:.2f} seconds')
+        print(f"{name} has slept for {sleep_for:.2f} seconds")
 
 
 async def main():
@@ -31,7 +31,7 @@ async def main():
     # Create three worker tasks to process the queue concurrently.
     tasks = []
     for i in range(3):
-        task = asyncio.create_task(worker(f'worker-{i}', queue))
+        task = asyncio.create_task(worker(f"worker-{i}", queue))
         tasks.append(task)
 
     # Wait until the queue is fully processed.
@@ -43,9 +43,9 @@ async def main():
     for task in tasks:
         task.cancel()
 
-    print('====')
-    print(f'3 workers slept in parallel for {total_slept_for:.2f} seconds')
-    print(f'total expected sleep time: {total_sleep_time:.2f} seconds')
+    print("====")
+    print(f"3 workers slept in parallel for {total_slept_for:.2f} seconds")
+    print(f"total expected sleep time: {total_sleep_time:.2f} seconds")
 
 
 asyncio.run(main())

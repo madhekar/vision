@@ -4,7 +4,7 @@ import asyncio
 async def waiter(event, seq):
     print(f"A{seq}", end=" ")
     await event.wait()
-    # surprise! event is not set in the statement following 'await event.wait()'
+    # surprise! event is not set in the statement following "await event.wait()"
     assert not event.is_set()
     print(f"B{seq}", end=" ")
 

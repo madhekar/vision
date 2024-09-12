@@ -21,7 +21,7 @@ def scaled_size(width, height):
 
 def get_frames(content):
     with tempfile.NamedTemporaryFile(mode="w+b") as f:
-        f.write(io.BytesIO(content.encode('utf-8')).getbuffer())
+        f.write(io.BytesIO(content.encode("utf-8")).getbuffer())
 
         probe = ffmpeg.probe(f.name, threads=1)
         video_info = next(s for s in probe["streams"] if s["codec_type"] == "video")
@@ -39,7 +39,7 @@ def get_frames(content):
     indexes = np.random.randint(frames.shape[0], size=10)
     return [io.to_byte_array(frame) for frame in frames[indexes, :]]
 
-if __name__=='__main__':
+if __name__=="__main__":
     print(get_frames(video_path + video_name))
 
 
@@ -47,7 +47,7 @@ if __name__=='__main__':
 # ffmpeg -ss 4 -i /home/madhekar/work/zsource/family/video/IMG_0005.MOV -s 320x240 -frames:v 1 output.jpg
 # ffmpeg -i /home/madhekar/work/zsource/family/video/IMG_0005.MOV -r 0.25 output_%04d.png
 # ffmpeg -skip_frame nokey -i /home/madhekar/work/zsource/family/video/IMG_0005.MOV -vsync vfr thumb%04d.png -hide_banner
-# ffmpeg -skip_frame nokey -i /home/madhekar/work/zsource/family/video/IMG_0005.MOV -vf "select='gt(scene,0.4)'" -vsync vfr -q:v 1 -r 0.05 -s 224x224 frame%04d.jpg
+# ffmpeg -skip_frame nokey -i /home/madhekar/work/zsource/family/video/IMG_0005.MOV -vf "select="gt(scene,0.4)"" -vsync vfr -q:v 1 -r 0.05 -s 224x224 frame%04d.jpg
 
 """
     -vsync vfr: discard the unused frames

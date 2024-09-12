@@ -13,7 +13,7 @@ async def create_tasks_func():
         tasks.append(asyncio.create_task(call_model(models[i])))
     await asyncio.wait(tasks)
 
-btn = st.button(label='call models')
+btn = st.button(label="call models")
 if btn:
   loop = asyncio.new_event_loop()
   asyncio.set_event_loop(loop)

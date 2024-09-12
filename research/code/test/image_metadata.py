@@ -14,7 +14,7 @@ def extract(img):
  
   # looping through all the tags present in exifdata
   for tagid in exifdata:
-    #print(tagid, ', ', TAGS.get(tagid, tagid))
+    #print(tagid, ", ", TAGS.get(tagid, tagid))
     # getting the tag name instead of tag id
     tagname = TAGS.get(tagid, tagid)
  
@@ -31,7 +31,7 @@ def getDateTime(img):
     # extracting the exif metadata
     exifdata = image.getexif()
     date_time = exifdata.get(306)
-    value = (date_time.split(' ')[0]).split(':')[:3]
+    value = (date_time.split(" ")[0]).split(":")[:3]
     value.append(date_time)
     #print(value)
     return value

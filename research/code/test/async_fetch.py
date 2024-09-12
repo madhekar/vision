@@ -13,9 +13,9 @@ async def async_main():
         print(result)
 
 async def async_main2():
-    results = await asyncio.gather(fetch_url_data('www.amazon.com'), fetch_url_data('www.google.com'))
+    results = await asyncio.gather(fetch_url_data("www.amazon.com"), fetch_url_data("www.google.com"))
     print(results)        
 
 #asyncio.run(async_main())
 asyncio.run(async_main2())
-print('do normal stuff..')
+print("do normal stuff..")
