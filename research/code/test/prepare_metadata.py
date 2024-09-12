@@ -7,13 +7,14 @@ import entities
 import LLM
 import aiofiles
 import json
+import metadata_properties as mp
 
 # init LLM modules
 m, t, p = LLM.setLLM()
 
 # queue processing rutine
-async def worker( name, queue):
-    async with aiofiles.open("../data.json", mode="a") as f:
+async def worker( name, mp, mf, queue):
+    async with aiofiles.open(mp + mf, mode="a") as f:
         print(f"{name}!")
         while True:
             # Get a "work item" out of the queue.
@@ -82,7 +83,7 @@ async def make_request(url: str, semaphore: asyncio.Semaphore):
 
 
 # main asynchronous function 
-async def amain(iList):
+async def amain(iList, metadata_path, metadata_file, chunk_size):
     queue = asyncio.Queue()  
     
     semaphore = asyncio.Semaphore(10)    
@@ -96,9 +97,11 @@ async def amain(iList):
         queue.put_nowait(res)
         
     ts = []
-    for i in range(10):
-         t = asyncio.create_task(worker(f"worker-{i}", queue=queue))    
-         ts.append(t)
+    for i in range(chunk_size):
+        t = asyncio.create_task(
+            worker(f"worker-{i}", metadata_path, metadata_file, queue=queue)
+        )
+        ts.append(t)
     
     await queue.join()
 
@@ -107,6 +110,11 @@ async def amain(iList):
 
 # kick-off metadata generation 
 if __name__ == "__main__":
-    img_iterator = util.getRecursive("/home/madhekar/Pictures", chunk_size=10)
-    for lst in img_iterator:
-       asyncio.run(amain(lst))
+    print(mp.get_all_keys())
+    image_folder_path = mp.get_value("IMAGE_FOLDER_PATH").data
+    metadata_path = mp.get_value("METADATA_PATH").data
+    metadata_file = mp.get_value("METADATA_FILE").data
+    chunk_size=mp.get_value("CHUNK_SIZE").data
+    img_iterator = util.getRecursive(image_folder_path, chunk_size=chunk_size)
+    for ilist in img_iterator:
+        asyncio.run(amain(ilist, metadata_path, metadata_file, chunk_size))
