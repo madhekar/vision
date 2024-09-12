@@ -1,18 +1,17 @@
 import os
 import uuid
 import asyncio
-import time
 import util
 import awaitUtil
 import entities
 import LLM
-from random import randint
 import aiofiles
 import json
 
 # init LLM modules
 m, t, p = LLM.setLLM()
 
+# queue processing rutine
 async def worker( name, queue):
     async with aiofiles.open("data.json", mode="a") as f:
         print(f"{name}!")
@@ -32,25 +31,27 @@ async def worker( name, queue):
             # Notify the queue that the "work item" has been processed.
             queue.task_done()
 
-            #print(f"describeImage {name}  LLMStr: {llmStr}")
-
+# uuid4 id for vector database
 def generateId(self):
     return str(uuid.uuid4())
 
-
+# convert image date time to timestamp
 def timestamp( uri):
         ts = util.getTimestamp(uri)
         return ts   
-    
+
+# get location details as: latitude, longitude and address    
 def locationDetails( uri):
         lat_lon = util.gpsInfo(uri)
         loc = util.getLocationDetails(lat_lon)
         return lat_lon[0], lat_lon[1], loc 
     
+# get names of people in image    
 def namesOfPeople(uri):
         names = entities.getEntityNames(uri)
         return names
 
+# get image description from LLM
 def describeImage( dict):
         d = LLM.fetch_llm_text(
                 imUrl=dict.get("url"),
@@ -64,6 +65,7 @@ def describeImage( dict):
             )
         return d 
 
+# collect metadata for all images
 async def make_request(url: str, semaphore: asyncio.Semaphore):
     async with semaphore:
         s1 = await awaitUtil.force_awaitable(generateId)(url)
@@ -79,6 +81,7 @@ async def make_request(url: str, semaphore: asyncio.Semaphore):
         return {"url" : url, "id": s1, "timestamp": s2, "lat": s3[0], "lon" : s3[1], "loc": s3[2], "names": r4}
 
 
+# main asynchronous function 
 async def amain(iList):
     queue = asyncio.Queue()  
     
@@ -102,8 +105,8 @@ async def amain(iList):
     for t in ts:
          t.cancel()     
 
+# kick-off metadata generation 
 if __name__ == "__main__":
-
     img_iterator = util.getRecursive("/home/madhekar/Pictures", chunk_size=10)
     for lst in img_iterator:
        asyncio.run(amain(lst))
