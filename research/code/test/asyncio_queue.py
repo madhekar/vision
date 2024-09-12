@@ -24,7 +24,7 @@ async def main():
     # Generate random timings and put them into the queue.
     total_sleep_time = 0
     for _ in range(20):
-        sleep_for = random.uniform(0.05, 1.0)
+        sleep_for = random.uniform(0.05, 3.0)
         total_sleep_time += sleep_for
         queue.put_nowait(sleep_for)
 
