@@ -7,6 +7,7 @@ import entities
 import LLM
 import aiofiles
 import json
+import yaml
 import metadata_properties as mp
 
 # init LLM modules
@@ -110,11 +111,21 @@ async def amain(iList, metadata_path, metadata_file, chunk_size):
 
 # kick-off metadata generation 
 if __name__ == "__main__":
-    print(mp.get_all_keys())
-    image_folder_path = mp.get_value("IMAGE_FOLDER_PATH").data
-    metadata_path = mp.get_value("METADATA_PATH").data
-    metadata_file = mp.get_value("METADATA_FILE").data
-    chunk_size=mp.get_value("CHUNK_SIZE").data
-    img_iterator = util.getRecursive(image_folder_path, chunk_size=chunk_size)
-    for ilist in img_iterator:
-        asyncio.run(amain(ilist, metadata_path, metadata_file, chunk_size))
+    with open("metadata.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        print("**** Metadata Generator Properties****")
+        print(dict)
+        print("**************************************")
+
+        image_dir_path = dict["metadata"][0]["image_dir_path"]
+
+        metadata_path = dict["metadata"][0]["metadata_path"]
+        metadata_file = dict["metadata"][0]["metadata_file"]
+        chunk_size = dict["metadata"][0]["data_chunk_size"]
+
+        img_iterator = util.getRecursive(image_dir_path, chunk_size=chunk_size)
+
+        for ilist in img_iterator:
+            print(ilist)
+            asyncio.run(amain(ilist, metadata_path, metadata_file, chunk_size))

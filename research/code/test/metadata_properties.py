@@ -1,21 +1,20 @@
-from jproperties import Properties
+import yaml
 
-conf = Properties()
 
-with open('metadata.properties', 'rb') as prop:
-    conf.load(prop)
 
-def get_value(key):
-    return conf.get(key)    
+def get_value(dict, key):
+    return dict[key]    
 
-def get_all_keys():
-    return conf.items()
+def get_all_keys(dict):
+    return dict
     
 
 if __name__ == '__main__':
-    pass
-  # for k,v in get_all_keys():
-  #   print (k, ' : ', v.data)
+    
+ with open('metadata.yaml') as prop:
+    dict =  yaml.safe_load(prop)
+    print(str(dict))
+  
 
-  # print(get_value('IMAGE_FOLDER_PATH').data)  
+    print(dict['metadata'][0]['image_dir_path'])
 
