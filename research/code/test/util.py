@@ -40,11 +40,10 @@ subclasses = [
 # recursive call to get all image filenames
 def getRecursive(rootDir, chunk_size=10):
     f_list=[]
-    print(rootDir)
+    
     for fn in glob.iglob(rootDir + "/**/*", recursive=True):
         if not os.path.isdir(os.path.abspath(fn)):
-            f_list.append(os.path.abspath(fn))
-        print(f_list)    
+            f_list.append(os.path.abspath(fn))    
     for i in range(0, len(f_list), chunk_size):
         yield f_list[i:i+chunk_size]        
       
@@ -114,7 +113,7 @@ def getMetadata(img):
     res.append(lat_lon[0])
     res.append(lat_lon[1])
     res.append(getLocationDetails(lat_lon))
-    print(res)
+    #print(res)
     return res
 
 def to_deg(value, loc):

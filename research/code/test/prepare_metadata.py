@@ -93,7 +93,7 @@ async def amain(iList, metadata_path, metadata_file, chunk_size):
     
     for co in asyncio.as_completed(tasks):
         res = await co
-        print(res)
+        #print(res)
         await asyncio.sleep(1)
         queue.put_nowait(res)
         
@@ -118,14 +118,15 @@ if __name__ == "__main__":
         print(dict)
         print("**************************************")
 
-        image_dir_path = dict["metadata"][0]["image_dir_path"]
+        image_dir_path = dict["metadata"]["image_dir_path"]
 
-        metadata_path = dict["metadata"][0]["metadata_path"]
-        metadata_file = dict["metadata"][0]["metadata_file"]
-        chunk_size = dict["metadata"][0]["data_chunk_size"]
+        metadata_path = dict["metadata"]["metadata_path"]
+        metadata_file = dict["metadata"]["metadata_file"]
+        chunk_size = dict["metadata"]["data_chunk_size"]
+        number_of_instances = dict["metadata"]["number_of_instances"]
 
         img_iterator = util.getRecursive(image_dir_path, chunk_size=chunk_size)
 
         for ilist in img_iterator:
-            print(ilist)
-            asyncio.run(amain(ilist, metadata_path, metadata_file, chunk_size))
+            #print(ilist)
+            asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances))
