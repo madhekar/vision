@@ -1,0 +1,8 @@
+
+metadata:
+  image_dir_path: /home/madhekar/Pictures
+  metadata_path: /home/madhekar/work/environments/dev/metadata/
+  metadata_file: metadata.json
+  vectordb_path: /home/madhekar/work/environments/dev/vectordb/
+  data_chunk_size: 10
+  number_of_instances: 10
