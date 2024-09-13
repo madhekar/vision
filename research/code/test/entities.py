@@ -23,7 +23,7 @@ class CLIPFineTuner(nn.Module):
             features = self.model.encode_image(x).float()  # Convert to float32
         return self.classifier(features)
 
-def getEntityNames(image):
+def getEntityNames(image, openclip_finetuned):
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -45,7 +45,7 @@ def getEntityNames(image):
     model_ft = CLIPFineTuner(model, num_classes).to(device)
 
     # Load the saved model weights
-    model_ft.load_state_dict(torch.load("../zeshaOpenClip/clip_finetuned.pth"))
+    model_ft.load_state_dict(torch.load( openclip_finetuned))#"../zeshaOpenClip/clip_finetuned.pth"))
     model_ft.eval()  # Set the model to evaluation mode
     # Transform the image
     image_tensor = (

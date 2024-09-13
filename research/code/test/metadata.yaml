@@ -1,10 +1,10 @@
-
 metadata:
-  image_dir_path: /home/madhekar/Pictures
-  metadata_path: /home/madhekar/work/environments/dev/metadata/
+  image_dir_path: /home/madhekar/work/home-media-app/data/input-data/img/
+  metadata_path: /home/madhekar/work/home-media-app/data/app-data/metadata/
   metadata_file: metadata.json
-  vectordb_path: /home/madhekar/work/environments/dev/vectordb/
+  vectordb_path: /home/madhekar/work/home-media-app/data/app-data/vectordb/
   data_chunk_size: 10
   number_of_instances: 10
 
-  
+models:
+  openclip_finetuned: /home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth  

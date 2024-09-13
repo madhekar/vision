@@ -8,7 +8,7 @@ import LLM
 import aiofiles
 import json
 import yaml
-import metadata_properties as mp
+
 
 # init LLM modules
 m, t, p = LLM.setLLM()
@@ -49,8 +49,8 @@ def locationDetails( uri):
         return lat_lon[0], lat_lon[1], loc 
     
 # get names of people in image    
-def namesOfPeople(uri):
-        names = entities.getEntityNames(uri)
+def namesOfPeople(uri, openclip_finetuned):
+        names = entities.getEntityNames(uri, openclip_finetuned)
         return names
 
 # get image description from LLM
@@ -68,7 +68,7 @@ def describeImage( dict):
         return d 
 
 # collect metadata for all images
-async def make_request(url: str, semaphore: asyncio.Semaphore):
+async def make_request(url: str, openclip_finetuned: str, semaphore: asyncio.Semaphore):
     async with semaphore:
         s1 = await awaitUtil.force_awaitable(generateId)(url)
 
@@ -78,18 +78,18 @@ async def make_request(url: str, semaphore: asyncio.Semaphore):
 
         s3 = await awaitUtil.force_awaitable(locationDetails)(url)
 
-        r4 = await awaitUtil.force_awaitable(namesOfPeople)(url)
+        r4 = await awaitUtil.force_awaitable(namesOfPeople)(url, openclip_finetuned)
 
         return {"url" : url, "id": s1, "timestamp": s2, "lat": s3[0], "lon" : s3[1], "loc": s3[2], "nam": r4}
 
 
 # main asynchronous function 
-async def amain(iList, metadata_path, metadata_file, chunk_size):
+async def amain(iList, metadata_path, metadata_file, chunk_size, openclip_finetuned):
     queue = asyncio.Queue()  
     
     semaphore = asyncio.Semaphore(10)    
 
-    tasks = [make_request(img_path ,semaphore) for img_path in iList]
+    tasks = [make_request(img_path , openclip_finetuned, semaphore) for img_path in iList]
     
     for co in asyncio.as_completed(tasks):
         res = await co
@@ -124,9 +124,10 @@ if __name__ == "__main__":
         metadata_file = dict["metadata"]["metadata_file"]
         chunk_size = dict["metadata"]["data_chunk_size"]
         number_of_instances = dict["metadata"]["number_of_instances"]
+        openclip_finetuned = dict["models"]['openclip_finetuned']
 
         img_iterator = util.getRecursive(image_dir_path, chunk_size=chunk_size)
 
         for ilist in img_iterator:
             #print(ilist)
-            asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances))
+            asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))
