@@ -2,6 +2,7 @@ from PIL import Image
 import imagehash
 import os
 import numpy as np
+import yaml
 import glob
 
 
@@ -10,7 +11,6 @@ def getRecursive(rootDir):
     for fn in glob.iglob(rootDir + "/**/*", recursive=True):
         if not os.path.isdir(os.path.abspath(fn)):
             f_list.append((str(os.path.abspath(fn)).replace(str(os.path.basename(fn)),''), os.path.basename(fn)))
-            print(f_list)
     return f_list
 
 class DuplicateRemover:
@@ -21,14 +21,13 @@ class DuplicateRemover:
 
     def find_duplicates(self):
         """
-        Find and Delete Duplicates
+        Find and Archive Duplicate images
         """
         fnames =  getRecursive(self.dirname)
         hashes = {}
         duplicates = []
-        print("Finding Duplicates Now!\n")
+        print("Finding Duplicate Images Now!\n")
         for image in fnames:
-            print(image)
             with Image.open(os.path.join(image[0], image[1])) as img:
                 temp_hash = imagehash.average_hash(img, self.hash_size)
                 if temp_hash in hashes:
@@ -42,9 +41,7 @@ class DuplicateRemover:
             space_saved = 0
             if a.strip().lower() == "y":
                 for duplicate in duplicates:
-                    print('dup:', duplicate)
                     space_saved += os.path.getsize( os.path.join(duplicate[0], duplicate[1])
-                        #os.path.join(self.dirname, duplicate)
                     )
 
                     os.rename(os.path.join(duplicate[0], duplicate[1]), os.path.join(self.archivedir, duplicate[1]))
@@ -54,7 +51,7 @@ class DuplicateRemover:
             else:
                 print("Thank you for Using Duplicate Remover")
         else:
-            print("No Duplicates Found :(")
+            print("WOW!! No Duplicates Found :)")
 
     def find_similar(self, location, similarity=80):
         fnames = os.listdir(self.dirname)
@@ -77,9 +74,20 @@ class DuplicateRemover:
                     )
 
 if __name__=='__main__':
+    with open("duplicate.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        print("**** duplicate archiver properties****")
+        print(dict)
+        print("**************************************")
+
+        input_image_path = dict["duplicate"]["input_image_path"]
+        archive_dup_path = dict["duplicate"]["archive_dup_path"]
+        
+
     dr = DuplicateRemover(
-        dirname="/home/madhekar/work/home-media-app/data/input-data/img/",
-        archivedir='/home/madhekar/work/home-media-app/data/input-data/archive/'
+        dirname=input_image_path,
+        archivedir=archive_dup_path
     )
 
     dr.find_duplicates()

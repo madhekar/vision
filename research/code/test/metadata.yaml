@@ -6,3 +6,5 @@ metadata:
   vectordb_path: /home/madhekar/work/environments/dev/vectordb/
   data_chunk_size: 10
   number_of_instances: 10
+
+  
