@@ -9,7 +9,6 @@ import aiofiles
 import json
 import yaml
 
-
 # init LLM modules
 m, t, p = LLM.setLLM()
 
@@ -93,7 +92,6 @@ async def amain(iList, metadata_path, metadata_file, chunk_size, openclip_finetu
     
     for co in asyncio.as_completed(tasks):
         res = await co
-        #print(res)
         await asyncio.sleep(1)
         queue.put_nowait(res)
         
@@ -114,9 +112,9 @@ if __name__ == "__main__":
     with open("metadata.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        print("**** Metadata Generator Properties****")
+        print("* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *")
         print(dict)
-        print("**************************************")
+        print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
 
         image_dir_path = dict["metadata"]["image_dir_path"]
 
@@ -129,5 +127,4 @@ if __name__ == "__main__":
         img_iterator = util.getRecursive(image_dir_path, chunk_size=chunk_size)
 
         for ilist in img_iterator:
-            #print(ilist)
             asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))
