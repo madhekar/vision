@@ -18,6 +18,8 @@ def populate_vectordb(df):
   df_metadata = df[["timestamp","lat","lon","loc","nam","txt"]].T.to_dict().values()
   df_url = df["url"]
 
+
+
   print(f'id: \n {df_id.head()} \n metadata: \n {df_metadata} \n url: \n {df_url.head()} ')
 
 if __name__=='__main__':
