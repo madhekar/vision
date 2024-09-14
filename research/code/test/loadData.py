@@ -1,22 +1,26 @@
 import json
 import pandas as pd
 
-data = []
-with open("data.json", mode="r") as f:
+
+
+def load_metadata():
+  data = []
+  with open("data.json", mode="r") as f:
     for line in f:
         data.append(json.loads(line))
 
-#print(type(data[0]))
+    df =  pd.DataFrame(data)
+  return df
 
-#print(data[0]["loc"])
+def populate_vectordb(df):   
+  df_id = df["id"]
+  df_metadata = df[["timestamp","lat","lon","loc","nam","txt"]].T.to_dict().values()
+  df_url = df["url"]
 
-df =  pd.DataFrame(data)
+  print(f'id: \n {df_id.head()} \n metadata: \n {df_metadata} \n url: \n {df_url.head()} ')
 
-#print(df.head())
+if __name__=='__main__':
 
-d_id = df["id"]
-d_metadata = df[["timestamp","lat","lon","loc","nam","txt"]].T.to_dict().values()
-d_url = df["url"]
+   df_vector_database = load_metadata()
 
-print(f'id: \n {d_id.head()} \n metadata: \n {d_metadata} \n url: \n {d_url.head()} ')
-
+   populate_vectordb()
