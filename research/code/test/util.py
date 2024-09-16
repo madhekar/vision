@@ -180,3 +180,7 @@ def update_metadata(id, desc, names, dt, loc):
         #st.session_state.vote = {"item": item, "reason": reason}
       st.rerun()
 #iqn phase mono crystalline
+
+
+def get_foldername_by_datetime():
+    return datetime.datetime.now().strftime("%Y%m%d-%H%M%S")

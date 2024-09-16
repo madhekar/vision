@@ -1,5 +1,6 @@
 from PIL import Image
 import imagehash
+import util
 import os
 import numpy as np
 import yaml
@@ -74,7 +75,7 @@ class DuplicateRemover:
                     )
 
 if __name__=='__main__':
-    with open("duplicate.yaml") as prop:
+    with open("dup_config.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         print("**** duplicate archiver properties****")
@@ -83,7 +84,9 @@ if __name__=='__main__':
 
         input_image_path = dict["duplicate"]["input_image_path"]
         archive_dup_path = dict["duplicate"]["archive_dup_path"]
+        arc_folder_name = util.get_foldername_by_datetime()
         
+        archive_dup_path = os.path.join(archive_dup_path, arc_folder_name)
 
     dr = DuplicateRemover(
         dirname=input_image_path,

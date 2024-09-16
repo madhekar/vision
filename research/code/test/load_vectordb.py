@@ -26,7 +26,7 @@ if __name__=='__main__':
     with open("metadata.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        print("* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *")
+        print("* * * * * * * * * * * Metadata Load Properties * * * * * * * * * * * *")
         print(dict)
         print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
 
