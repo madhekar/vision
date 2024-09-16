@@ -109,7 +109,7 @@ async def amain(iList, metadata_path, metadata_file, chunk_size, openclip_finetu
 
 # kick-off metadata generation 
 if __name__ == "__main__":
-    with open("metadata_config.yaml") as prop:
+    with open("metadata_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         print("* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *")

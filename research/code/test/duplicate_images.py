@@ -75,7 +75,7 @@ class DuplicateRemover:
                     )
 
 if __name__=='__main__':
-    with open("dup_config.yaml") as prop:
+    with open("dup_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         print("**** duplicate archiver properties****")
