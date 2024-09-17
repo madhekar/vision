@@ -1,9 +1,6 @@
 import streamlit as st
 import datetime
-from dateutil import parser
 import pandas as pd
-from geopy.geocoders import Nominatim
-from geopy.extra.rate_limiter import RateLimiter
 
 # from streamlit_option_menu import option_menu
 from streamlit_image_select import image_select
@@ -149,7 +146,7 @@ if search_btn:
     for img in st.session_state["imgs"]["data"][0][1:]:
         st.session_state["timgs"].append(img)
     for mdata in st.session_state["imgs"]["metadatas"][0][1:]:
-        st.session_state["meta"].append("Desc:[" + mdata.get("txt") +"] ) People: ["+ mdata.get("nam") + "] Location: [" + mdata.get("loc") + "] Date: [" + str(datetime.datetime.fromtimestamp(mdata.get("ts")/1000)) + "]")
+        st.session_state["meta"].append("Desc:[" + mdata.get("txt") +"] ) People: ["+ mdata.get("nam") + "] Location: [" + mdata.get("loc") + "] Date: [" + str(datetime.datetime.fromtimestamp(mdata.get("ts"))) + "]")
 
 
 # Image TAB
