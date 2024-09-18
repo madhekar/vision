@@ -160,6 +160,7 @@ def config_load():
         vectordb_dir_path = dict["vectordb"]["vectordb_path"] 
         image_collection_name = dict["vectordb"]["image_collection_name"]
         text_collection_name = dict["vectordb"]["text_collection_name"]
+
     return (vectordb_dir_path, image_collection_name, text_collection_name)
 
 @st.cache_resource(show_spinner=True)

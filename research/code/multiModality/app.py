@@ -131,10 +131,10 @@ if search_btn:
 
     elif s == "text":
         # execute text collection query
-        # st.session_state["document"] = cTxts.query(
-        #   query_texts=modalityTxt,
-        #   n_results=1,
-        # )["documents"][0][0]
+        st.session_state["document"] = cTxts.query(
+           query_texts=modalityTxt,
+           n_results=1,
+         )["documents"][0][0]
 
         # execute image query with search criteria
         st.session_state["imgs"] = cImgs.query(
