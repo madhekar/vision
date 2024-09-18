@@ -10,14 +10,19 @@ from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
 
-def load_metadata(metadata_path, metadata_file):
-  data = []
-  with open(os.path.join(metadata_path, metadata_file), mode="r") as f:
-    for line in f:
-        data.append(json.loads(line))
+def load_metadata(metadata_path, metadata_file, image_final_path):
+    data = []
+    with open(os.path.join(metadata_path, metadata_file), mode="r") as f:
+        for line in f:
+            data.append(json.loads(line))
 
-    df =  pd.DataFrame(data)
-  return df
+        df = pd.DataFrame(data)
+
+        df["url"] = df["url"].replace(
+            "/home/madhekar/work/home-media-app/data/input-data/img",
+            "/home/madhekar/work/home-media-app/data/final-data/img",
+        )
+    return df
 
 
 def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folder, text_collection_name):
@@ -119,14 +124,17 @@ if __name__=='__main__':
 
     metadata_path = dict["metadata"]["metadata_path"]
     metadata_file = dict["metadata"]["metadata_file"]
+
     vectordb_dir_path = dict["vectordb"]["vectordb_path"]   
     image_collection_name = dict["vectordb"]["image_collection_name"]
     text_collection_name = dict["vectordb"]["text_collection_name"]
     text_folder_name = dict["vectordb"]["text_dir_path"]
 
+    image_final_path = dict["prod"]["image_final_path"]
+
     arc_folder_name = util.get_foldername_by_datetime()
 
-    df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file)
+    df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file, image_final_path=image_final_path)
 
     createVectorDB(df_metadata, vectordb_dir_path, image_collection_name, text_folder_name, text_collection_name)
 
