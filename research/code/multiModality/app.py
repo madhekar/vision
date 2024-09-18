@@ -110,7 +110,7 @@ if search_btn:
         )["documents"][0][0]
 
         # get location and datetime metadata for an image
-        qmdata = util.getMetadata(sim.name)
+        #qmdata = util.getMetadata(sim.name)
         #dt_format = "%Y-%m-%d %H:%M:%S"
         #st.write(qmdata[3])
         #d = parser.parse(qmdata[3]).timestamp()
@@ -131,10 +131,10 @@ if search_btn:
 
     elif s == "text":
         # execute text collection query
-        st.session_state["document"] = cTxts.query(
-          query_texts=modalityTxt,
-          n_results=1,
-        )["documents"][0][0]
+        # st.session_state["document"] = cTxts.query(
+        #   query_texts=modalityTxt,
+        #   n_results=1,
+        # )["documents"][0][0]
 
         # execute image query with search criteria
         st.session_state["imgs"] = cImgs.query(
@@ -146,7 +146,7 @@ if search_btn:
     for img in st.session_state["imgs"]["data"][0][1:]:
         st.session_state["timgs"].append(img)
     for mdata in st.session_state["imgs"]["metadatas"][0][1:]:
-        st.session_state["meta"].append("Desc:[" + mdata.get("txt") +"] ) People: ["+ mdata.get("nam") + "] Location: [" + mdata.get("loc") + "] Date: [" + str(datetime.datetime.fromtimestamp(mdata.get("ts"))) + "]")
+        st.session_state["meta"].append("Desc:[" + mdata.get("txt") +"] ) People: ["+ mdata.get("nam") + "] Location: [" + mdata.get("loc") + "] Date: [" + str(datetime.datetime.fromtimestamp(mdata.get("timestamp"))) + "]")
 
 
 # Image TAB
@@ -202,7 +202,7 @@ with image:
                 id=st.session_state["imgs"]["ids"][0][index],
                 desc=st.session_state["imgs"]["metadatas"][0][1:][index]["txt"],
                 names=st.session_state["imgs"]["metadatas"][0][1:][index]["nam"],
-                dt=st.session_state["imgs"]["metadatas"][0][1:][index]["ts"],
+                dt=st.session_state["imgs"]["metadatas"][0][1:][index]["timestamp"],
                 loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"]
             ) 
         o_desc = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["txt"]}</p>'  
@@ -213,7 +213,7 @@ with image:
         c2.markdown(o_names, unsafe_allow_html=True)
 
         c2.write("<p class='big-font-subh'>Date Time</p>", unsafe_allow_html=True)
-        o_datetime = f'<p class="big-font">{str(datetime.datetime.fromtimestamp(st.session_state["imgs"]["metadatas"][0][1:][index]["ts"]))}</p>'
+        o_datetime = f'<p class="big-font">{str(datetime.datetime.fromtimestamp(st.session_state["imgs"]["metadatas"][0][1:][index]["timestamp"]))}</p>'
         c2.markdown(o_datetime, unsafe_allow_html=True)
 
         c2.write("<p class='big-font-subh'>Location</p>",unsafe_allow_html=True)

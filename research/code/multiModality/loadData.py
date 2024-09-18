@@ -46,7 +46,7 @@ def createVectorDB(vdp, icn, tcn):
     image_loader = ImageLoader()
 
     # init LLM modules
-    m, t, p = LLM.setLLM()
+    #m, t, p = LLM.setLLM()
 
     # collection images defined
     collection_images = client.get_or_create_collection(
