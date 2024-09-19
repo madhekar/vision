@@ -9,8 +9,8 @@ n_path = os.path.join("/home/madhekar/work/home-media-app/data/final-data/img/",
 print(f"{o_path} \n {r_path} \n {n_path}")
 
 f_path = o_path.replace(
-    "/home/madhekar/work/home-media-app/data/input-data/img",
-    "/home/madhekar/work/home-media-app/data/final-data/img",
+    "input-data",
+    "final-data",
 )
 
 print(f_path)

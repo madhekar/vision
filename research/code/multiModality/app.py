@@ -18,7 +18,7 @@ cImgs, cTxts = init()
 
 
 st.markdown("<p class='big-font-title'>Home Media Portal</p>", unsafe_allow_html=True)
-st.logo("/home/madhekar/work/zsource/zesha-high-resolution-logo.jpeg")
+st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
 
 # create default application Tabs
 image, video, text = st.tabs(["Image", "Video", "Text"])
@@ -104,10 +104,10 @@ if search_btn:
     
     if s == "image":
         # execute text collection query
-        st.session_state["document"] = cTxts.query(
-            query_embeddings=embedding_function("./" + sim.name),
-            n_results=1,
-        )["documents"][0][0]
+        # st.session_state["document"] = cTxts.query(
+        #     query_embeddings=embedding_function("./" + sim.name),
+        #     n_results=1,
+        # )["documents"][0][0]
 
         # get location and datetime metadata for an image
         #qmdata = util.getMetadata(sim.name)

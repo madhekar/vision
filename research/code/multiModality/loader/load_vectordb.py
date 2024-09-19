@@ -18,9 +18,9 @@ def load_metadata(metadata_path, metadata_file, image_final_path):
 
         df = pd.DataFrame(data)
 
-        df["url"] = df["url"].replace(
-            "/home/madhekar/work/home-media-app/data/input-data/img",
-            "/home/madhekar/work/home-media-app/data/final-data/img",
+        df["url"] = df["url"].str.replace(
+            "input-data",
+            "final-data",
         )
     return df
 
@@ -62,7 +62,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
 
         df_metadatas = df_data[["timestamp", "lat", "lon", "loc", "nam", "txt"]].T.to_dict().values()
   
-        collection_images.add(ids=df_ids.tolist(), metadatas=df_metadatas, uris=df_urls.tolist())
+        collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadatas), uris=df_urls.tolist())
 
         print(f"id: \n {df_ids.head()} \n metadata: \n {df_metadata} \n url: \n {df_urls.head()} ")
 
