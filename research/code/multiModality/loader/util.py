@@ -187,4 +187,6 @@ def get_foldername_by_datetime():
     return datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
 def copy_folder_tree(src_path, dest_path):
-   shutil.copytree(src_path, dest_path)
+    if not os.path.exists(dest_path):
+        os.mkdir(dest_path)
+        shutil.copytree(src_path, dest_path)
