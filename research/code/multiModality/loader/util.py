@@ -10,6 +10,7 @@ from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 import datetime
 from dateutil import parser
+import shutil
 import streamlit as st
 
 default_home_loc = (32.968699774829794, -117.18420145463236)
@@ -184,3 +185,6 @@ def update_metadata(id, desc, names, dt, loc):
 
 def get_foldername_by_datetime():
     return datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+
+def copy_folder_tree(src_path, dest_path):
+   shutil.copytree(src_path, dest_path)
