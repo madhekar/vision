@@ -11,8 +11,9 @@ models:
 
 vectordb:
   vectordb_path: /home/madhekar/work/home-media-app/data/app-data/vectordb/
-  image_collection_name: image_collection_name
-  text_collection_name: text_collection_name
+  image_collection_name: multimodal_collection_images
+  text_collection_name: multimodal_collection_texts
+  video_collection_name: multimodal_collection_videos
   text_dir_path: /home/madhekar/work/home-media-app/data/input-data/txt/
 
 prod:
