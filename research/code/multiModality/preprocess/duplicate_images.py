@@ -8,11 +8,23 @@ import glob
 
 
 def getRecursive(rootDir):
-    types = ('*.jpg', '*.jpeg', '*.png')
     f_list = []
     for fn in glob.iglob(rootDir + "/**/*", recursive=True):
         if not os.path.isdir(os.path.abspath(fn)):
             f_list.append((str(os.path.abspath(fn)).replace(str(os.path.basename(fn)),''), os.path.basename(fn)))
+    return f_list
+
+def getRecursive_by_type(rootDir, types):
+    f_list = []
+    for t in types:
+        for fn in glob.iglob(rootDir + "/**/" + t, recursive=True):
+            if not os.path.isdir(os.path.abspath(fn)):
+                f_list.append(
+                    (
+                        str(os.path.abspath(fn)).replace(str(os.path.basename(fn)), ""),
+                        os.path.basename(fn),
+                    )
+                )
     return f_list
 
 class DuplicateRemover:

@@ -14,6 +14,19 @@ def getRecursive(rootDir):
     return f_list
 
 
+def getRecursive1(rootDir, types):
+    f_list = []
+    for t in types:
+      for fn in glob.iglob(rootDir + "/**/"+t, recursive=True):
+        if not os.path.isdir(os.path.abspath(fn)):
+            f_list.append(
+                (
+                    str(os.path.abspath(fn)).replace(str(os.path.basename(fn)), ""),
+                    os.path.basename(fn),
+                )
+            )
+    return f_list
+
 def get_files_by_types(rootDir, types):
     files_accumulator = []
     for files in types:
@@ -21,8 +34,10 @@ def get_files_by_types(rootDir, types):
     return files_accumulator    
 
 
-fs = get_files_by_types('/home/madhekar/work/home-media-app/data/input-data/img', ['/**/*.jpg', '/**/*.png', '/**/*.jpeg'])
+#fs = get_files_by_types('/home/madhekar/work/home-media-app/data/input-data/img', ['/**/*.jpg', '/**/*.png', '/**/*.jpeg'])
 
 #fs = getRecursive('/home/madhekar/work/home-media-app/data/input-data/img')
+
+fs = getRecursive1('/home/madhekar/work/home-media-app/data/input-data/img',['*.jpg', '*.png', '*.jpeg'])
 
 print(fs)
