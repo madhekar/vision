@@ -1,0 +1,5 @@
+exiftool -gpslatitude -gpslongitude -DateTimeOriginal -csv -T -r -n /home/madhekar/work/home-media-app/data/input-data/img  > out.csv
+
+exiftool -gpslatitude -gpslatituderef -gpslongitude -gpslongituderef -DateTimeOriginal -csv -T -r -n /home/madhekar/work/home-media-app/data/input-data/img  > out.csv
+
+exiftool -DateTimeOriginal -gpslatitude -gpslongitude  -csv -T -r -n /home/madhekar/work/home-media-app/data/input-data/img  > out.csv
