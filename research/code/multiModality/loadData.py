@@ -150,13 +150,11 @@ def config_load():
     with open("app_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        print(
-            "* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *"
-        )
-        print(dict)
-        print(
-            "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-        )
+        print("* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *")
+        for k in dict.keys():
+            print(f"{k} :  {dict[k]}  \n")
+
+        print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
         vectordb_dir_path = dict["vectordb"]["vectordb_path"] 
         image_collection_name = dict["vectordb"]["image_collection_name"]
         text_collection_name = dict["vectordb"]["text_collection_name"]

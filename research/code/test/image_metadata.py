@@ -1,6 +1,6 @@
 import sys
 from PIL import Image
-from PIL.ExifTags import TAGS
+from PIL.ExifTags import TAGS, GPSTAGS, IFD
 from GPSPhoto import gpsphoto
 from geopy.geocoders import Nominatim
     
@@ -23,6 +23,22 @@ def extract(img):
    
     # printing the final result
     print(f"{tagname:25}: {value}")
+
+  for ifd_id in IFD:
+        print('>>>>>>>>>', ifd_id.name, '<<<<<<<<<<')
+        try:
+            ifd = exif.get_ifd(ifd_id)
+
+            if ifd_id == IFD.GPSInfo:
+                resolve = GPSTAGS
+            else:
+                resolve = TAGS
+
+            for k, v in ifd.items():
+                tag = resolve.get(k, k)
+                print(tag, v)
+        except KeyError:
+            pass  
 
 def getDateTime(img):
     # open the image
@@ -57,7 +73,7 @@ def getMetadata(img):
  
 if __name__ =="__main__":
     vf = sys.argv[1]
-    #extract(vf)
+    extract(vf)
     #getLocationDetails(gpsInfo(vf))
     #getDateTime(vf)
     print(getMetadata(vf))
