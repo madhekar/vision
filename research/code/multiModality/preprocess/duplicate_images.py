@@ -8,6 +8,7 @@ import glob
 
 
 def getRecursive(rootDir):
+    types = ('*.jpg', '*.jpeg', '*.png')
     f_list = []
     for fn in glob.iglob(rootDir + "/**/*", recursive=True):
         if not os.path.isdir(os.path.abspath(fn)):
