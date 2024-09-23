@@ -1,0 +1,5 @@
+python detection of USB storage device
+
+ps ax | egrep 'udev|udisk'
+udevadm monitor
+udiskctl monitor
