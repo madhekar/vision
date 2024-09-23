@@ -51,13 +51,14 @@ class DuplicateRemover:
                     hashes[temp_hash] = image
 
         if len(duplicates) != 0:
-            a = input("Do you want to delete these {} Images? Press Y or N:  ".format(len(duplicates)))
+            a = input("Do you want to move/ archive these {} Images? Press Y or N:  ".format(len(duplicates)))
             space_saved = 0
             if a.strip().lower() == "y":
                 for duplicate in duplicates:
                     space_saved += os.path.getsize( os.path.join(duplicate[0], duplicate[1])
                     )
-
+                    if not os.path.exists(self.archivedir):
+                      os.makedirs(self.archivedir)
                     os.rename(os.path.join(duplicate[0], duplicate[1]), os.path.join(self.archivedir, duplicate[1]))
                     print("{} Moved Succesfully!".format(duplicate))
 

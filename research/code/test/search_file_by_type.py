@@ -37,10 +37,10 @@ def get_files_by_types(rootDir, types):
     return files_accumulator    
 
 def move_imges(src, tar, pattern):
-    files = glob.glob(src + '/**/*.jpeg')
+    files = glob.glob(src + '/**/*.png')
     for file in files:
         fn = os.path.basename(file)
-        shutil.move(file, tar + fn)
+        shutil.move(file, os.path.join(tar , fn))
 
 
 #fs = get_files_by_types('/home/madhekar/work/home-media-app/data/input-data/img', ['/**/*.jpg', '/**/*.png', '/**/*.jpeg'])
@@ -52,7 +52,7 @@ def move_imges(src, tar, pattern):
 move_imges(
     "/home/madhekar/work/home-media-app/data/raw-data",
     "/home/madhekar/work/home-media-app/data/input-data/img",
-    '/**/*.jpeg'
+    '/**/*.png'
 )
 
 #print([print(f) for f in fs if f[1] is not None])

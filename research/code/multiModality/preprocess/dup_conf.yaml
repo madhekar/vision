@@ -1,4 +1,4 @@
 
 duplicate:
   input_image_path: '/home/madhekar/work/home-media-app/data/input-data/img/'
-  archive_dup_path: '/home/madhekar/work/home-media-app/data/input-data/archive/'
+  archive_dup_path: '/home/madhekar/work/home-media-app/data/input-data/archive/duplicate'
