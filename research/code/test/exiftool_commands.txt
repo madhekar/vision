@@ -7,6 +7,9 @@ exiftool -gpslatitude -gpslatituderef -gpslongitude -gpslongituderef -DateTimeOr
 
 exiftool -DateTimeOriginal -gpslatitude -gpslongitude  -csv -T -r -n /home/madhekar/work/home-media-app/data/input-data/img  > out.csv
 
+exiftool -ext jpeg -ext jpg -ext png -ext JPEG -ext JPG -ext PNG -DateTimeOriginal -gpslatitude -gpslongitude  -csv -T -r -n /home/madhekar/work/home-media-app/data/input-data/img  > out.csv
+
+exiftool -ext jpeg -ext jpg -ext png -ext JPEG -ext JPG -ext PNG -DateTimeOriginal -gpslatitude -gpslongitude  -csv -T -r -n /home/madhekar/work/home-media-app/data/raw-data  > raw-data.csv
 
 LINUX COMMANDS
 --------------
