@@ -15,3 +15,5 @@ find all images
 find . -type f \( -name '*.JPG' -or -name '*.PNG' -or -name '*.JPEG' -or -name '*.jpg' -or -name '*.png' -or -name '*.jpeg' \) -print0
 
 find -type f -regex ".*/.*\.\(JPEG\|JPG\|JPG\|jpeg\|png\|jpg\)"
+
+find . -type f \( -name '*.JPG' -or -name '*.PNG' -or -name '*.JPEG' -or -name '*.jpg' -or -name '*.png' -or -name '*.jpeg' \) | exiftool -DateTimeOriginal -gpslatitude -gpslongitude -@ -

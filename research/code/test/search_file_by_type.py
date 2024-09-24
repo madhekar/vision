@@ -35,7 +35,6 @@ def get_files_by_types(rootDir, types):
     files_accumulator = []
     for files in types:
         files_accumulator.extend(glob.glob(rootDir + files, recursive=True))
-        files_accumulator.extend('********')
     return files_accumulator    
 
 def move_imges(src, tar, pattern):
@@ -56,6 +55,6 @@ fs = get_files_by_types('/home/madhekar/work/home-media-app/data/raw-data', ['/*
     "/home/madhekar/work/home-media-app/data/input-data/img",
     '/**/*.png'
 ) """
-
-print([print(f) for f in fs])
+print(fs)
+#print([print(f) for f in fs])
 #print(f.count())
