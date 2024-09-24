@@ -1,5 +1,17 @@
+
+EXIFTOOL COMMANDS
+-----------------
 exiftool -gpslatitude -gpslongitude -DateTimeOriginal -csv -T -r -n /home/madhekar/work/home-media-app/data/input-data/img  > out.csv
 
 exiftool -gpslatitude -gpslatituderef -gpslongitude -gpslongituderef -DateTimeOriginal -csv -T -r -n /home/madhekar/work/home-media-app/data/input-data/img  > out.csv
 
 exiftool -DateTimeOriginal -gpslatitude -gpslongitude  -csv -T -r -n /home/madhekar/work/home-media-app/data/input-data/img  > out.csv
+
+
+LINUX COMMANDS
+--------------
+find all images
+
+find . -type f \( -name '*.JPG' -or -name '*.PNG' -or -name '*.JPEG' -or -name '*.jpg' -or -name '*.png' -or -name '*.jpeg' \) -print0
+
+find -type f -regex ".*/.*\.\(JPEG\|JPG\|JPG\|jpeg\|png\|jpg\)"

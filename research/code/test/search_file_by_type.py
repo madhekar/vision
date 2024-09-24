@@ -19,21 +19,23 @@ def getRecursive1(rootDir, types):
     f_list = []
     for t in types:
       for fn in glob.iglob(rootDir + "/**/"+t, recursive=True):
-        print(os.path.abspath(fn))
-        if fn is not None:
-            f_list.append(
-                (
-                    str(os.path.abspath(fn)).replace(str(os.path.basename(fn)), ""),
-                    os.path.basename(fn),
-                )
-            )
-      
+        if fn is not None:        
+            print(os.path.abspath(fn))
+            # f_list.append(
+            #     (
+            #         str(os.path.abspath(fn)).replace(str(os.path.basename(fn)), ""),
+            #         os.path.basename(fn),
+            #     )
+            # )
+        else:    
+            print("fn is None")
     return f_list
 
 def get_files_by_types(rootDir, types):
     files_accumulator = []
     for files in types:
         files_accumulator.extend(glob.glob(rootDir + files, recursive=True))
+        files_accumulator.extend('********')
     return files_accumulator    
 
 def move_imges(src, tar, pattern):
@@ -43,16 +45,17 @@ def move_imges(src, tar, pattern):
         shutil.move(file, os.path.join(tar , fn))
 
 
-#fs = get_files_by_types('/home/madhekar/work/home-media-app/data/input-data/img', ['/**/*.jpg', '/**/*.png', '/**/*.jpeg'])
+fs = get_files_by_types('/home/madhekar/work/home-media-app/data/raw-data', ['/**/*.jpg', '/**/*.png', '/**/*.jpeg', "/**/*.JPEG", "/**/*.JPG", "/**/*.PNG"])
 
 #fs = getRecursive('/home/madhekar/work/home-media-app/data/input-data/img')
 
 #fs = getRecursive1('/home/madhekar/work/home-media-app/data/raw-data',['*.jpg', '*.png', '*.jpeg'])
 
-move_imges(
+""" move_imges(
     "/home/madhekar/work/home-media-app/data/raw-data",
     "/home/madhekar/work/home-media-app/data/input-data/img",
     '/**/*.png'
-)
+) """
 
-#print([print(f) for f in fs if f[1] is not None])
+print([print(f) for f in fs])
+#print(f.count())
