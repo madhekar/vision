@@ -252,19 +252,23 @@ def show_trips() -> None:
 
 def main():
     # L'image à charger
-    image_path = os.path.abspath('IMG_3197.jpg' if len(sys.argv) <= 1 else sys.argv[1])
+    image_path = os.path.abspath(
+        "IMG_3197.jpg"
+        if len(sys.argv) <= 1
+        else sys.argv[1]
+    )
     # Titre
     st.title("EXIF information")
     # On charge l'image
     exif_image = load(image_path)
     # On affiche les informations EXIF
-    display(exif_image)
+    #display(exif_image)
     # On sauve l'image modifiée
-    save(image_path, exif_image)
+    #save(image_path, exif_image)
     # On affiche le lieu de prise de l'image
     show_map(image_path, exif_image)
     # On affiche les lieux de voyage ou d'habitation
-    show_trips()
+    #show_trips()
 
 
 if __name__ == '__main__':
