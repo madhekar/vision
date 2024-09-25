@@ -16,7 +16,7 @@ st.set_page_config(
 def get_pos(lat, lng):
     return lat, lng
 
-m = fl.Map(responsive=True)
+m = fl.Map()
 
 m.add_child(fl.LatLngPopup())
 
@@ -27,8 +27,9 @@ if map.get("last_clicked"):
     data = get_pos(map["last_clicked"]["lat"], map["last_clicked"]["lng"])
 
 if data is not None:
-    st.write(data)
-    print(data)    
+    #st.write(data)
+    print(data)  
+
 dft = pd.read_csv(os.path.join(os.path.abspath(".."), "out.csv"))
 files = dft["SourceFile"]
 
