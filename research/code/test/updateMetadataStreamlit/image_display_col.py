@@ -1,17 +1,41 @@
 import streamlit as st
-from os import listdir
 from math import ceil
 import pandas as pd
+import os
+import folium as fl
+from streamlit_folium import st_folium
 
-directory = r"/home/madhekar/work/home-media-app/data/input-data/img"
-files = listdir(directory)
+st.set_page_config(
+        page_title="zesha: Home Media Portal (HMP)",
+        page_icon="/home/madhekar/work/zsource/zesha-high-resolution-logo.jpeg",
+        initial_sidebar_state="auto",
+        layout="wide",
+    )  # (margins_css)
 
+
+def get_pos(lat, lng):
+    return lat, lng
+
+m = fl.Map(responsive=True)
+
+m.add_child(fl.LatLngPopup())
+
+map = st_folium(m, width='100%')
+
+data = None
+if map.get("last_clicked"):
+    data = get_pos(map["last_clicked"]["lat"], map["last_clicked"]["lng"])
+
+if data is not None:
+    st.write(data)
+    print(data)    
+dft = pd.read_csv(os.path.join(os.path.abspath(".."), "out.csv"))
+files = dft["SourceFile"]
 
 def initialize():
-    df = pd.DataFrame(
-        {"file": files, "incorrect": [False] * len(files), "label": [""] * len(files)}
-    )
-    df.set_index("file", inplace=True)
+    df = pd.read_csv (os.path.join(os.path.abspath('..') , 'out.csv'))
+    #df["idx"] = range(1, len(df) +1)
+    df.set_index("SourceFile", inplace=True)
     return df
 
 
@@ -21,6 +45,8 @@ if "df" not in st.session_state:
 else:
     df = st.session_state.df
 
+#st.write(st.session_state.df.head())
+#files = st.session_state.df["SourceFile"]
 
 controls = st.columns(3)
 with controls[0]:
@@ -38,34 +64,58 @@ def update(image, col):
         st.session_state[f"label_{image}"] = ""
         df.at[image, "label"] = ""
 
+def update_latitude(col, image):
+  df.at[image, col] = st.session_state[f"{col}_{image}"]
+
+def update_longitude(col, image):
+    df.at[image, col] = st.session_state[f"{col}_{image}"]
+
+
+def update_date(col, image):
+    df.at[image, col] = st.session_state[f"{col}_{image}"]
 
 batch = files[(page - 1) * batch_size : page * batch_size]
-
 grid = st.columns(row_size)
+#st.write(batch)
 col = 0
+
 for image in batch:
     with grid[col]:
-        st.image(f"{directory}/{image}", caption="bike")
-        st.checkbox(
-            "Incorrect",
-            key=f"incorrect_{image}",
-            value=df.at[image, "incorrect"],
-            on_change=update,
-            args=(image, "incorrect"),
-        )
-        if df.at[image, "incorrect"]:
-            st.text_input(
-                "New label:",
-                key=f"label_{image}",
-                value=df.at[image, "label"],
-                on_change=update,
-                args=(image, "label"),
-            )
-        else:
-            st.write("##")
-            st.write("##")
-            st.write("###")
+        st.write(page -1 ,batch_size,col, image)
+
+        c1,c2,c3 =st.columns([1,1,1])
+        c1.text_input(value=df.at[image, 'GPSLatitude'], label=f"Lat_{image}", label_visibility="hidden") #,on_change=update_latitude(col, image))
+        c2.text_input(
+            value=df.at[image, "GPSLongitude"],
+            label=f"Lon_{image}",
+            label_visibility="hidden",
+        )  # , on_change=update_longitude(col, image))
+        c3.text_input(
+            value=df.at[image, "DateTimeOriginal"],
+            label=f"dt_{image}",
+            label_visibility="hidden",
+        )  # , on_change=update_date(col, image), args=(image, 'label'))
+        st.image(image, caption=os.path.basename(image))
+        # st.checkbox(
+        #     "Incorrect",
+        #     key=f"incorrect_{image}",
+        #     value=df.at[image, "incorrect"],
+        #     on_change=update,
+        #     args=(image, "incorrect"),
+        # )
+        # if df.at[image, "incorrect"]:
+        #     st.text_input(
+        #         "New label:",
+        #         key=f"label_{image}",
+        #         value=df.at[image, "label"],
+        #         on_change=update,
+        #         args=(image, "label"),
+        #     )
+        # else:
+        #     st.write("##")
+        #     st.write("##")
+        #     st.write("###")
     col = (col + 1) % row_size
 
-st.write("## Corrections")
-df[df["incorrect"] == True]
+# st.write("## Corrections")
+# df[df["incorrect"] == True]
