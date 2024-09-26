@@ -21,7 +21,7 @@ def clear_markers():
     st.session_state["markers"].clear()
 
 def add_marker(lat, lon, label):
-    marker = fl.Marker([lat, lon], popup=label)
+    marker = fl.Marker([lat, lon], popup=label, tooltip=label)
     st.session_state["markers"].append(marker)
 
 @st.cache_data
@@ -56,81 +56,66 @@ def update_date(col, image):
     df.at[image, col] = st.session_state[f"{col}_{image}"]
 
 async def main():
-   m = fl.Map(location=[39.8283, -98.5795], zoom_start=5)
+    m = fl.Map(location=[32.968700, -117.184200], zoom_start=5)
 
-   fg = fl.FeatureGroup(name="zesha")
+    fg = fl.FeatureGroup(name="zesha")
 
-   for marker in st.session_state["markers"]:
+    for marker in st.session_state["markers"]:
         fg.add_child(marker)
 
-   #m.add_child(fl.LatLngPopup())
+    # m.add_child(fl.LatLngPopup())
 
-   map = st_folium(m, width='100%', feature_group_to_add= fg)
+    map = st_folium(m, width="100%", feature_group_to_add=fg)
 
-   data = None
-   if map.get("last_clicked"):
-      data = get_pos(map["last_clicked"]["lat"], map["last_clicked"]["lng"])
+    data = None
+    if map.get("last_clicked"):
+        data = get_pos(map["last_clicked"]["lat"], map["last_clicked"]["lng"])
 
-   if data is not None:
-    #st.write(data)
-    print(data)  
+    if data is not None:
+        # st.write(data)
+        print(data)
 
-   #st.write(st.session_state.df.head())
-   #files = st.session_state.df["SourceFile"]
+    controls = st.columns(3)
+    with controls[0]:
+        batch_size = st.select_slider("Batch size:", range(10, 700, 10))
 
-   controls = st.columns(3)
-   with controls[0]:
-      batch_size = st.select_slider("Batch size:", range(10, 700, 10))
+    with controls[1]:
+        row_size = st.select_slider("Row size:", range(1, 10), value=7)
+        num_batches = ceil(len(files) / batch_size)
 
-   with controls[1]:
-      row_size = st.select_slider("Row size:", range(1, 10), value=7)
-      num_batches = ceil(len(files) / batch_size)
+    with controls[2]:
+        page = st.selectbox("Page", range(1, num_batches + 1))
 
-   with controls[2]:
-      page = st.selectbox("Page", range(1, num_batches + 1))
+    batch = files[(page - 1) * batch_size : page * batch_size]
+    grid = st.columns(row_size)
+    # st.write(batch)
+    col = 0
 
+    for image in batch:
+        with grid[col]:
+            # st.write(page -1 ,batch_size,col, image)
 
-   batch = files[(page - 1) * batch_size : page * batch_size]
-   grid = st.columns(row_size)
-   #st.write(batch)
-   col = 0
+            c1, c2, c3 = st.columns([1, 1, 1])
+            lat = df.at[image, "GPSLatitude"]
+            lon = df.at[image, "GPSLongitude"]
+            label = os.path.basename(image)
+            c1.text_input(
+                value=lat, label=f"Lat_{image}", label_visibility="hidden"
+            )  # ,on_change=update_latitude(col, image))
+            c2.text_input(
+                value=lon, label=f"Lon_{image}", label_visibility="hidden"
+            )  # , on_change=update_longitude(col, image))
+            c3.text_input(
+                value=df.at[image, "DateTimeOriginal"],
+                label=f"dt_{image}",
+                label_visibility="hidden",
+            )  # , on_change=update_date(col, image), args=(image, 'label'))
+            st.image(image, caption=label)
 
-   for image in batch:
-     with grid[col]:
-        #st.write(page -1 ,batch_size,col, image)
+            if lat != "-":
+                add_marker(lat, lon, label)
 
-        c1,c2,c3 =st.columns([1,1,1])
-        lat = df.at[image, "GPSLatitude"] 
-        lon = df.at[image, "GPSLongitude"]
-        label = os.path.basename(image)
-        c1.text_input(value=lat, label=f"Lat_{image}", label_visibility="hidden") #,on_change=update_latitude(col, image))
-        c2.text_input(value=lon,label=f"Lon_{image}",label_visibility="hidden")  # , on_change=update_longitude(col, image))
-        c3.text_input(value=df.at[image, "DateTimeOriginal"],label=f"dt_{image}",label_visibility="hidden")  # , on_change=update_date(col, image), args=(image, 'label'))
-        st.image(image, caption=label)
-
-        if lat != "-":
-           add_marker(lat, lon, label )
-
-     col = (col + 1) % row_size
-
-# m = fl.Map(location=[39.8283, -98.5795], zoom_start=5)
-
-# fg = fl.FeatureGroup(name="zesha")
-
-# m.add_child(fl.LatLngPopup())
-
-# map = st_folium(m, width="100%", feature_group_to_add=fg)
-
-# data = None
-# if map.get("last_clicked"):
-#     data = get_pos(map["last_clicked"]["lat"], map["last_clicked"]["lng"])
-
-# if data is not None:
-#     # st.write(data)
-#     print(data)
-
-# st.write("## Corrections")
-# df[df["incorrect"] == True]
+        col = (col + 1) % row_size
 
 if __name__ == "__main__":
     asyncio.run(main())
