@@ -12,15 +12,22 @@ st.set_page_config(
         layout="wide",
     )  # (margins_css)
 
+if "markers" not in st.session_state:
+    st.session_state["markers"] = []
+
+def marker(lat, lon):
+    return fl.Marker(location=[lat, lon])
 
 def get_pos(lat, lng):
     return lat, lng
 
-m = fl.Map()
+m = fl.Map(location=[39.8283, -98.5795], zoom_start=5)
+
+fg = fl.FeatureGroup(name="zesha")
 
 m.add_child(fl.LatLngPopup())
 
-map = st_folium(m, width='100%')
+map = st_folium(m, width='100%', feature_group_to_add= fg)
 
 data = None
 if map.get("last_clicked"):
@@ -30,9 +37,11 @@ if data is not None:
     #st.write(data)
     print(data)  
 
+
 dft = pd.read_csv(os.path.join(os.path.abspath(".."), "out.csv"))
 files = dft["SourceFile"]
 
+@st.cache_data
 def initialize():
     df = pd.read_csv (os.path.join(os.path.abspath('..') , 'out.csv'))
     #df["idx"] = range(1, len(df) +1)
@@ -85,18 +94,18 @@ for image in batch:
         st.write(page -1 ,batch_size,col, image)
 
         c1,c2,c3 =st.columns([1,1,1])
-        c1.text_input(value=df.at[image, 'GPSLatitude'], label=f"Lat_{image}", label_visibility="hidden") #,on_change=update_latitude(col, image))
-        c2.text_input(
-            value=df.at[image, "GPSLongitude"],
-            label=f"Lon_{image}",
-            label_visibility="hidden",
-        )  # , on_change=update_longitude(col, image))
+        lat = df.at[image, "GPSLatitude"] 
+        lon = df.at[image, "GPSLongitude"]
+        c1.text_input(value=lat, label=f"Lat_{image}", label_visibility="hidden") #,on_change=update_latitude(col, image))
+        c2.text_input(value=lon,label=f"Lon_{image}",label_visibility="hidden",)  # , on_change=update_longitude(col, image))
         c3.text_input(
             value=df.at[image, "DateTimeOriginal"],
             label=f"dt_{image}",
             label_visibility="hidden",
         )  # , on_change=update_date(col, image), args=(image, 'label'))
         st.image(image, caption=os.path.basename(image))
+        if lat != "-":
+           fl.Marker(location=[df.at[image, "GPSLatitude"], df.at[image, "GPSLongitude"]]).add_to(fg)
         # st.checkbox(
         #     "Incorrect",
         #     key=f"incorrect_{image}",
@@ -117,6 +126,22 @@ for image in batch:
         #     st.write("##")
         #     st.write("###")
     col = (col + 1) % row_size
+
+# m = fl.Map(location=[39.8283, -98.5795], zoom_start=5)
+
+# fg = fl.FeatureGroup(name="zesha")
+
+# m.add_child(fl.LatLngPopup())
+
+# map = st_folium(m, width="100%", feature_group_to_add=fg)
+
+# data = None
+# if map.get("last_clicked"):
+#     data = get_pos(map["last_clicked"]["lat"], map["last_clicked"]["lng"])
+
+# if data is not None:
+#     # st.write(data)
+#     print(data)
 
 # st.write("## Corrections")
 # df[df["incorrect"] == True]
