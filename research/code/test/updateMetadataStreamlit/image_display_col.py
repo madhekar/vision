@@ -5,6 +5,7 @@ import pandas as pd
 import os
 import folium as fl
 from streamlit_folium import st_folium
+import base64
 
 st.set_page_config(
         page_title="zesha: Home Media Portal (HMP)",
@@ -22,7 +23,16 @@ def clear_markers():
 
 def add_marker(lat, lon, label, url):
     #iconurl = fl.features.CustomIcon(url, icon_size=(50,50))
-    marker = fl.Marker([lat, lon], popup=label, tooltip=label)#, icon=iconurl)
+    ##
+    # encoded = base64.b64encode(open(url, 'rb').read())
+    # html = '<img src="data:image/jpg;base64,{}">'.format
+    # ifr = fl.IFrame(html(encoded.decode('UTF-8')), width=200, height=200)
+    # popup = fl.Popup(ifr, max_width= 400)
+    ##
+    #t = """<img src='" + url + "' width=50>"""
+    #iframe = fl.IFrame(html=t, width=200, height=100)
+    #pop = fl.Popup(t, max_width=2600)
+    marker = fl.Marker([lat, lon], popup=url, tooltip=label)#, icon=iconurl)
     st.session_state["markers"].append(marker)
 
 @st.cache_data
