@@ -2,20 +2,17 @@
 import os
 import pandas as pd
 
-class loc:
-    def __init__(self) -> None:
-        self.lat = None
-        self.lon = None
-        self.name = None
-        self.locdict = dict()
-    
-    def addLocation(self, lat, lon, name, desc):
-        if name not in self.locdict:
-           self.locdict[name] = {'lat': lat, 'lon': lon, 'desc': desc}
+df = pd.read_csv('locations.csv', index_col=0)
 
-    def getLocation(self, name):
-        return self.locdict(name)       
-    
-    def loadLocations(self):
-        df_loc = pd.read_csv("locations.csv")
+print(df.head())
 
+d = df.to_dict("split")
+d = dict(zip(d["index"], d["data"]))
+
+print(d)
+
+d["ca-science"] = ["esha science fields day",0.0,-0.1]
+
+df = pd.DataFrame.from_dict(d, orient="index")
+
+print(df.head())

@@ -48,10 +48,24 @@ if "df" not in st.session_state:
 else:
     df = st.session_state.df
 
+@st.cache_data
+def loc_init():
+    df_loc = pd.read_csv("locations.csv")
+    df_loc.set_index("name", inplace=True)
+    return df_loc
+
+if "df_loc" not in st.session_state:
+    df_loc = initialize()
+    st.session_state.df_loc = df_loc
+else:
+    df_loc = st.session_state.df
+
+# extract files
 dft = pd.read_csv(os.path.join(os.path.abspath(".."), "out.csv"))
 files = dft["SourceFile"]    
 
-
+dfl = pd.read_csv("locations.csv")
+names = dfl["name"]
 
 def get_pos(lat, lng):
     return lat, lng
@@ -110,17 +124,25 @@ async def main():
             lat = df.at[image, "GPSLatitude"]
             lon = df.at[image, "GPSLongitude"]
             label = os.path.basename(image)
-            c1.text_input(
-                value=lat, label=f"Lat_{image}", label_visibility="hidden"
-            )  # ,on_change=update_latitude(col, image))
-            c2.text_input(
-                value=lon, label=f"Lon_{image}", label_visibility="hidden"
-            )  # , on_change=update_longitude(col, image))
-            c3.text_input(
-                value=df.at[image, "DateTimeOriginal"],
-                label=f"dt_{image}",
-                label_visibility="hidden",
-            )  # , on_change=update_date(col, image), args=(image, 'label'))
+            if lat != "-":
+                c1.text_input(
+                    value=lat, label=f"Lat_{image}", label_visibility="hidden"
+                )  # ,on_change=update_latitude(col, image))
+                c2.text_input(
+                    value=lon, label=f"Lon_{image}", label_visibility="hidden"
+                )  # , on_change=update_longitude(col, image))
+                c3.text_input(
+                    value=df.at[image, "DateTimeOriginal"],
+                    label=f"dt_{image}",
+                    label_visibility="hidden",
+                )  # , on_change=update_date(col, image), args=(image, 'label'))
+            else:
+                c1.selectbox(label=f"location_{image}", label_visibility="hidden", options=names)
+                c2.text_input(
+                    value=df.at[image, "DateTimeOriginal"],
+                    label=f"dt_{image}",
+                    label_visibility="hidden",
+                )  # , on_change=update_date(col, image), args=(image, 'label'))
             st.image(image, caption=label)
 
             if lat != "-":
