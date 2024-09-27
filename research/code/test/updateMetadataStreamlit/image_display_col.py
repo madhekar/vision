@@ -20,8 +20,9 @@ if "markers" not in st.session_state:
 def clear_markers():
     st.session_state["markers"].clear()
 
-def add_marker(lat, lon, label):
-    marker = fl.Marker([lat, lon], popup=label, tooltip=label)
+def add_marker(lat, lon, label, url):
+    #iconurl = fl.features.CustomIcon(url, icon_size=(50,50))
+    marker = fl.Marker([lat, lon], popup=label, tooltip=label)#, icon=iconurl)
     st.session_state["markers"].append(marker)
 
 @st.cache_data
@@ -113,7 +114,7 @@ async def main():
             st.image(image, caption=label)
 
             if lat != "-":
-                add_marker(lat, lon, label)
+                add_marker(lat, lon, label, image)
 
         col = (col + 1) % row_size
 
