@@ -18,6 +18,9 @@ st.set_page_config(
 if "markers" not in st.session_state:
     st.session_state["markers"] = []
 
+if "locations" not in st.session_state:
+   st.session_state["locations"] = []
+
 def clear_markers():
     st.session_state["markers"].clear()
 
@@ -48,17 +51,17 @@ if "df" not in st.session_state:
 else:
     df = st.session_state.df
 
-@st.cache_data
-def loc_init():
-    df_loc = pd.read_csv("locations.csv")
-    df_loc.set_index("name", inplace=True)
-    return df_loc
+# @st.cache_data
+# def loc_init():
+#     df_loc = pd.read_csv("locations.csv")
+#     #df_loc.set_index("name", inplace=True)
+#     return df_loc
 
-if "df_loc" not in st.session_state:
-    df_loc = initialize()
-    st.session_state.df_loc = df_loc
-else:
-    df_loc = st.session_state.df
+# if "df_loc" not in st.session_state:
+#     df_loc = initialize()
+#     st.session_state.df_loc = df_loc
+# else:
+#     df_loc = st.session_state.df
 
 # extract files
 dft = pd.read_csv(os.path.join(os.path.abspath(".."), "out.csv"))
@@ -79,6 +82,10 @@ def update_longitude(col, image):
 
 def update_date(col, image):
     df.at[image, col] = st.session_state[f"{col}_{image}"]
+
+def update_all_latlon():
+    for loc in st.session_state["locations"]:
+        df.at[loc[0],loc[1]] = names[loc[2]]    
 
 async def main():
     m = fl.Map(location=[32.968700, -117.184200], zoom_start=5)
@@ -137,8 +144,9 @@ async def main():
                     label_visibility="hidden",
                 )  # , on_change=update_date(col, image), args=(image, 'label'))
             else:
-                c1.selectbox(label=f"location_{image}", label_visibility="hidden", options=names)
-                c2.text_input(
+                r = c1.selectbox(label=f"location_{image}", label_visibility="hidden", options=names, on_change=update_all_latlon())
+                st.session_state["locations"].append((image, col, r))
+                c3.text_input(
                     value=df.at[image, "DateTimeOriginal"],
                     label=f"dt_{image}",
                     label_visibility="hidden",
