@@ -93,7 +93,7 @@ def update_all_latlon():
     for loc in st.session_state["locations"]:
         print(loc)
         df.at[loc[0],"GPSLatitude"] = dfl.at[loc[2],'lat']   
-        df.at[loc[0], "GPSLongitude"] = dfl.at[loc[2], "lon"]
+        df.at[loc[0], "GPSLongitude"] = dfl.at[loc[2], 'lon']
 
 
 async def main():
@@ -111,11 +111,11 @@ async def main():
 
         st.divider()
         st.markdown("Metadata")
-        st.button(label="Add / Update")
+        st.button(label="Add/Update", on_click=add_metadata(dfl))
 
         st.divider()
         st.markdown("Location / Date")
-        st.button(label="Save")
+        st.button(label="Save", on_click=save_location(df))
 
     with layout[1]:
         m = fl.Map(location=[32.968700, -117.184200], zoom_start=5)
