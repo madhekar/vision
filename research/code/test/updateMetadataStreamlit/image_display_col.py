@@ -63,12 +63,19 @@ else:
 # else:
 #     df_loc = st.session_state.df
 
+st.markdown("<p class='big-font-title'>Home Media Portal</p>", unsafe_allow_html=True)
+st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
+
 # extract files
 dft = pd.read_csv(os.path.join(os.path.abspath(".."), "out.csv"))
 files = dft["SourceFile"]    
 
 dfl = pd.read_csv("locations.csv")
 names = dfl["name"]
+
+dfl.set_index("name",inplace=True)
+
+#st.data_editor(dfl, num_rows="dynamic")
 
 def get_pos(lat, lng):
     return lat, lng
@@ -79,48 +86,60 @@ def update_latitude(col, image):
 def update_longitude(col, image):
     df.at[image, col] = st.session_state[f"{col}_{image}"]
 
-
 def update_date(col, image):
     df.at[image, col] = st.session_state[f"{col}_{image}"]
 
 def update_all_latlon():
     for loc in st.session_state["locations"]:
-        df.at[loc[0],loc[1]] = names[loc[2]]    
+        print(loc)
+        df.at[loc[0],"GPSLatitude"] = dfl.at[loc[2],'lat']   
+        df.at[loc[0], "GPSLongitude"] = dfl.at[loc[2], "lon"]
+
 
 async def main():
-    m = fl.Map(location=[32.968700, -117.184200], zoom_start=5)
 
-    fg = fl.FeatureGroup(name="zesha")
-
-    for marker in st.session_state["markers"]:
-        fg.add_child(marker)
-
-    # m.add_child(fl.LatLngPopup())
-
-    map = st_folium(m, width="100%", feature_group_to_add=fg)
-
-    data = None
-    if map.get("last_clicked"):
-        data = get_pos(map["last_clicked"]["lat"], map["last_clicked"]["lng"])
-
-    if data is not None:
-        # st.write(data)
-        print(data)
-
-    controls = st.columns(3)
-    with controls[0]:
+    layout = st.columns([.05,.95])
+    
+    with layout[0]:
+        
+        st.divider()
+        st.markdown("Select Display")
         batch_size = st.select_slider("Batch size:", range(10, 700, 10))
-
-    with controls[1]:
         row_size = st.select_slider("Row size:", range(1, 10), value=7)
         num_batches = ceil(len(files) / batch_size)
+        page = st.selectbox("Page#:", range(1, num_batches + 1))
 
-    with controls[2]:
-        page = st.selectbox("Page", range(1, num_batches + 1))
+        st.divider()
+        st.markdown("Metadata")
+        st.button(label="Add / Update")
 
+        st.divider()
+        st.markdown("Location / Date")
+        st.button(label="Save")
+
+    with layout[1]:
+        m = fl.Map(location=[32.968700, -117.184200], zoom_start=5)
+
+        fg = fl.FeatureGroup(name="zesha")
+
+        for marker in st.session_state["markers"]:
+            fg.add_child(marker)
+
+        # m.add_child(fl.LatLngPopup())
+
+        map = st_folium(m, width="100%", feature_group_to_add=fg)
+
+        data = None
+        if map.get("last_clicked"):
+            data = get_pos(map["last_clicked"]["lat"], map["last_clicked"]["lng"])
+
+        if data is not None:
+            # st.write(data)
+            print(data)
+
+    st.divider()
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size)
-    # st.write(batch)
     col = 0
 
     for image in batch:
@@ -144,8 +163,9 @@ async def main():
                     label_visibility="hidden",
                 )  # , on_change=update_date(col, image), args=(image, 'label'))
             else:
-                r = c1.selectbox(label=f"location_{image}", label_visibility="hidden", options=names, on_change=update_all_latlon())
-                st.session_state["locations"].append((image, col, r))
+                r = c1.selectbox(label=f"location_{image}", label_visibility="hidden", options=names, index=None, on_change=update_all_latlon())
+                if r:
+                  st.session_state["locations"].append((image, col, r))
                 c3.text_input(
                     value=df.at[image, "DateTimeOriginal"],
                     label=f"dt_{image}",
