@@ -116,6 +116,31 @@ def initUI():
             font-weight:bold;
             color:#5E734E;
             }
+
+        # div[data-testid="column"]:nth-of-type(1)
+        # {
+        #     border: 1px solid black;
+        # }    
+        # div[data-testid="column"]:nth-of-type(2)
+        # {
+        #     border: 1px solid blue;
+        #     text-align:end;
+        # }
+
+        # div[data-testid="stHorizontalBlock"]{
+        #   display: flex
+        # }
+
+        # div[data-testid="column"]{
+        #   flex:1;
+        #   padding: 1em;
+        #   border: solid;
+        #   border-radius: 1px;
+        #   border-color: gray;
+        # }
+
+        
+ 
         </style>
         """,
         unsafe_allow_html=True,

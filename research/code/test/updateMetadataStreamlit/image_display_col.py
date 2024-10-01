@@ -11,6 +11,16 @@ import streamlit_init as sti
 # initialize streamlit container UI settings
 sti.initUI()
 
+st_img = """ 
+width: auto;
+max-width: 800px;
+height: auto;
+max-height: 700px;
+display: block;
+justfy-content: center;
+border-radius: 10%
+"""
+
 st.markdown("<p class='big-font-title'>Metadata Editor - Home Media Portal</p>", unsafe_allow_html=True)
 st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
 
@@ -84,7 +94,7 @@ async def main():
     with l1:
         
         l1.divider()
-        l1.markdown("Select Display")
+        l1.markdown("Display Images")
         batch_size = l1.select_slider("Batch size:", range(10, 700, 10))
         row_size = l1.select_slider("Row size:", range(1, 10), value=7)
         num_batches = ceil(len(files) / batch_size)
@@ -154,7 +164,10 @@ async def main():
                     label_visibility="hidden",
                 )  # , on_change=update_date(col, image), args=(image, 'label'))
             st.image(image, caption=label)
-
+            # st.markdown(
+            #     f'<img src="{image}", style="{st_img}">',
+            #     unsafe_allow_html=True
+            # )
             if lat != "-":
                 add_marker(lat, lon, label, image)
 
