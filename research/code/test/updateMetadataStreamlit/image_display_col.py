@@ -78,8 +78,6 @@ st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg"
 # extract files
 files = pd.read_csv("metadata.csv")["SourceFile"]
 
-
-
 def update_all_latlon():
     if len(st.session_state.df_loc) > 0 :
       for loc in st.session_state["updated_location_list"]:
@@ -87,11 +85,6 @@ def update_all_latlon():
         st.session_state.df.at[loc[0],"GPSLatitude"] = st.session_state.df_loc.at[loc[2],'lat']   
         st.session_state.df.at[loc[0], "GPSLongitude"] = st.session_state.df_loc.at[loc[2], "lon"]
       st.session_state["updated_location_list"].clear()  
-
-# @st.dialog("add update locations")
-# def add_location():
-#     st.data_editor(st.session_state.df_loc)#, num_rows='dynamic')
-#     st.button("submit")
 
 def save_metadata():
    st.session_state.df.to_csv("metadata.csv", sep=",")   
