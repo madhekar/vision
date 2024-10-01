@@ -72,9 +72,6 @@ if "df_loc" not in st.session_state:
 else:
      df_loc = st.session_state.df_loc
 
-st.markdown("<p class='big-font-title'>Home Media Portal</p>", unsafe_allow_html=True)
-st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
-
 # extract files
 files = pd.read_csv("metadata.csv")["SourceFile"]
 
