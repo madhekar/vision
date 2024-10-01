@@ -64,6 +64,7 @@ def initUI():
            font-size:2rem;
            color:#3E4D34;
            font-weight: bold;
+           padding-left: 5rem;
         } 
 
         .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {

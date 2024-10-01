@@ -5,24 +5,14 @@ import pandas as pd
 import os
 import folium as fl
 from streamlit_folium import st_folium
-import base64
+import streamlit_init as sti
 
-st.set_page_config(
-        page_title="zesha: Home Media Portal (HMP)",
-        page_icon="/home/madhekar/work/zsource/zesha-high-resolution-logo.jpeg",
-        initial_sidebar_state="auto",
-        layout="wide",
-    )  # (margins_css)
 
-st.markdown('''
-<style>
-            .streamlit-container {
-            border: 2px solid #000;
-            padding: 5px;
-            }
-            </style>
-            
-            ''', unsafe_allow_html=True)
+# initialize streamlit container UI settings
+sti.initUI()
+
+st.markdown("<p class='big-font-title'>Metadata Editor - Home Media Portal</p>", unsafe_allow_html=True)
+st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
 
 if "markers" not in st.session_state:
     st.session_state["markers"] = []
@@ -47,7 +37,7 @@ def add_marker(lat, lon, label, url):
     marker = fl.Marker([lat, lon], popup=url, tooltip=label)#, icon=iconurl)
     st.session_state["markers"].append(marker)
 
-@st.cache_data
+#@st.cache_data
 def metadata_initialize():
     df = pd.read_csv ('metadata.csv')
     #df["idx"] = range(1, len(df) +1)
@@ -60,7 +50,7 @@ if "df" not in st.session_state:
 else:
     df = st.session_state.df
 
-@st.cache_data
+#@st.cache_data
 def location_initialize():
      df_loc = pd.read_csv("locations.csv")
      df_loc.set_index("name", inplace=True)
@@ -89,27 +79,24 @@ def save_metadata():
 
 async def main():
 
-    layout = st.columns([.12,.88])
+    l1,l2 = st.columns([.12,.88])
     
-    with layout[0]:
+    with l1:
         
-        st.divider()
-        st.markdown("Select Display")
-        batch_size = st.select_slider("Batch size:", range(10, 700, 10))
-        row_size = st.select_slider("Row size:", range(1, 10), value=7)
+        l1.divider()
+        l1.markdown("Select Display")
+        batch_size = l1.select_slider("Batch size:", range(10, 700, 10))
+        row_size = l1.select_slider("Row size:", range(1, 10), value=7)
         num_batches = ceil(len(files) / batch_size)
-        page = st.selectbox("Page#:", range(1, num_batches + 1))
+        page = l1.selectbox("Page#:", range(1, num_batches + 1))
 
-        st.divider()
-        st.markdown("Locations")
+        l1.divider()
+        l1.markdown("Locations")
         #st.button(label="Add/Update", on_click=add_location())
-        st.session_state.df_loc = st.data_editor(st.session_state.df_loc, num_rows="dynamic", use_container_width=True, disabled=["widgets"])
+        st.session_state.df_loc = st.data_editor(st.session_state.df_loc, num_rows="dynamic", use_container_width=True, height=200)
+        l1.button(label="Save Metadata", on_click=save_metadata(), use_container_width=True)
 
-        st.divider()
-        st.markdown("Metadata")
-        st.button(label="Save", on_click=save_metadata())
-
-    with layout[1]:
+    with l2:
         m = fl.Map(location=[32.968700, -117.184200], zoom_start=5)
 
         fg = fl.FeatureGroup(name="zesha")
@@ -117,7 +104,7 @@ async def main():
         for marker in st.session_state["markers"]:
             fg.add_child(marker)
 
-        # m.add_child(fl.LatLngPopup())
+        m.add_child(fl.LatLngPopup())
 
         map = st_folium(m, width="100%", feature_group_to_add=fg)
 
