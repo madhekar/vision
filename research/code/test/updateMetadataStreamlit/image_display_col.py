@@ -14,12 +14,21 @@ st.set_page_config(
         layout="wide",
     )  # (margins_css)
 
+st.markdown('''
+<style>
+            .streamlit-container {
+            border: 2px solid #000;
+            padding: 5px;
+            }
+            </style>
+            
+            ''', unsafe_allow_html=True)
 
 if "markers" not in st.session_state:
     st.session_state["markers"] = []
 
-if "locations" not in st.session_state:
-   st.session_state["locations"] = []
+if "updated_location_list" not in st.session_state:
+    st.session_state["updated_location_list"] = []
 
 def clear_markers():
     st.session_state["markers"].clear()
@@ -39,66 +48,58 @@ def add_marker(lat, lon, label, url):
     st.session_state["markers"].append(marker)
 
 @st.cache_data
-def initialize():
-    df = pd.read_csv (os.path.join(os.path.abspath('..') , 'out.csv'))
+def metadata_initialize():
+    df = pd.read_csv ('metadata.csv')
     #df["idx"] = range(1, len(df) +1)
     df.set_index("SourceFile", inplace=True)
     return df
 
 if "df" not in st.session_state:
-    df = initialize()
+    df = metadata_initialize()
     st.session_state.df = df
 else:
     df = st.session_state.df
 
-# @st.cache_data
-# def loc_init():
-#     df_loc = pd.read_csv("locations.csv")
-#     #df_loc.set_index("name", inplace=True)
-#     return df_loc
+@st.cache_data
+def location_initialize():
+     df_loc = pd.read_csv("locations.csv")
+     df_loc.set_index("name", inplace=True)
+     return df_loc
 
-# if "df_loc" not in st.session_state:
-#     df_loc = initialize()
-#     st.session_state.df_loc = df_loc
-# else:
-#     df_loc = st.session_state.df
+if "df_loc" not in st.session_state:
+     df_loc = location_initialize()
+     st.session_state.df_loc = df_loc
+else:
+     df_loc = st.session_state.df_loc
 
 st.markdown("<p class='big-font-title'>Home Media Portal</p>", unsafe_allow_html=True)
 st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
 
 # extract files
-dft = pd.read_csv(os.path.join(os.path.abspath(".."), "out.csv"))
-files = dft["SourceFile"]    
+files = pd.read_csv("metadata.csv")["SourceFile"]
 
-dfl = pd.read_csv("locations.csv")
-names = dfl["name"]
 
-dfl.set_index("name",inplace=True)
-
-#st.data_editor(dfl, num_rows="dynamic")
-
-def get_pos(lat, lng):
-    return lat, lng
-
-def update_latitude(col, image):
-  df.at[image, col] = st.session_state[f"{col}_{image}"]
-
-def update_longitude(col, image):
-    df.at[image, col] = st.session_state[f"{col}_{image}"]
-
-def update_date(col, image):
-    df.at[image, col] = st.session_state[f"{col}_{image}"]
 
 def update_all_latlon():
-    for loc in st.session_state["locations"]:
-        print(loc)
-        df.at[loc[0],"GPSLatitude"] = dfl.at[loc[2],'lat']   
-        df.at[loc[0], "GPSLongitude"] = dfl.at[loc[2], 'lon']
+    if len(st.session_state.df_loc) > 0 :
+      for loc in st.session_state["updated_location_list"]:
+        print('-->', loc)
+        st.session_state.df.at[loc[0],"GPSLatitude"] = st.session_state.df_loc.at[loc[2],'lat']   
+        st.session_state.df.at[loc[0], "GPSLongitude"] = st.session_state.df_loc.at[loc[2], "lon"]
+      st.session_state["updated_location_list"].clear()  
 
+# @st.dialog("add update locations")
+# def add_location():
+#     st.data_editor(st.session_state.df_loc)#, num_rows='dynamic')
+#     st.button("submit")
+
+def save_metadata():
+   st.session_state.df.to_csv("metadata.csv", sep=",")   
+   st.session_state.df_loc.to_csv("locations.csv", sep=",")
 
 async def main():
 
-    layout = st.columns([.05,.95])
+    layout = st.columns([.12,.88])
     
     with layout[0]:
         
@@ -110,12 +111,13 @@ async def main():
         page = st.selectbox("Page#:", range(1, num_batches + 1))
 
         st.divider()
-        st.markdown("Metadata")
-        st.button(label="Add/Update", on_click=add_metadata(dfl))
+        st.markdown("Locations")
+        #st.button(label="Add/Update", on_click=add_location())
+        st.session_state.df_loc = st.data_editor(st.session_state.df_loc, num_rows="dynamic", use_container_width=True, disabled=["widgets"])
 
         st.divider()
-        st.markdown("Location / Date")
-        st.button(label="Save", on_click=save_location(df))
+        st.markdown("Metadata")
+        st.button(label="Save", on_click=save_metadata())
 
     with layout[1]:
         m = fl.Map(location=[32.968700, -117.184200], zoom_start=5)
@@ -131,7 +133,7 @@ async def main():
 
         data = None
         if map.get("last_clicked"):
-            data = get_pos(map["last_clicked"]["lat"], map["last_clicked"]["lng"])
+            data = (map["last_clicked"]["lat"], map["last_clicked"]["lng"])
 
         if data is not None:
             # st.write(data)
@@ -147,8 +149,8 @@ async def main():
             # st.write(page -1 ,batch_size,col, image)
 
             c1, c2, c3 = st.columns([1, 1, 1])
-            lat = df.at[image, "GPSLatitude"]
-            lon = df.at[image, "GPSLongitude"]
+            lat = st.session_state.df.at[image, "GPSLatitude"]
+            lon = st.session_state.df.at[image, "GPSLongitude"]
             label = os.path.basename(image)
             if lat != "-":
                 c1.text_input(
@@ -158,16 +160,19 @@ async def main():
                     value=lon, label=f"Lon_{image}", label_visibility="hidden"
                 )  # , on_change=update_longitude(col, image))
                 c3.text_input(
-                    value=df.at[image, "DateTimeOriginal"],
+                    value=st.session_state.df.at[image, "DateTimeOriginal"],
                     label=f"dt_{image}",
                     label_visibility="hidden",
                 )  # , on_change=update_date(col, image), args=(image, 'label'))
             else:
-                r = c1.selectbox(label=f"location_{image}", label_visibility="hidden", options=names, index=None, on_change=update_all_latlon())
+                r = c1.selectbox(label=f"location_{image}", 
+                                 label_visibility="hidden", 
+                                 options=st.session_state.df_loc.index.values, 
+                                 index=None, on_change=update_all_latlon())
                 if r:
-                  st.session_state["locations"].append((image, col, r))
+                  st.session_state["updated_location_list"].append((image, col, r))
                 c3.text_input(
-                    value=df.at[image, "DateTimeOriginal"],
+                    value=st.session_state.df.at[image, "DateTimeOriginal"],
                     label=f"dt_{image}",
                     label_visibility="hidden",
                 )  # , on_change=update_date(col, image), args=(image, 'label'))
