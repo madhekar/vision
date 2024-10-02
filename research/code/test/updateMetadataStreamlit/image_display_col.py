@@ -12,8 +12,6 @@ import image_util
 # initialize streamlit container UI settings
 sti.initUI()
 
-
-
 st.markdown("<p class='big-font-title'>Metadata Editor - Home Media Portal</p>", unsafe_allow_html=True)
 st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
 
