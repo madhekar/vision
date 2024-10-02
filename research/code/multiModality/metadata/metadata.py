@@ -1,5 +1,6 @@
 import streamlit as st
 import asyncio
+import yaml
 from math import ceil
 import pandas as pd
 import os
@@ -11,8 +12,6 @@ import image_util
 
 # initialize streamlit container UI settings
 sti.initUI()
-
-
 
 st.markdown("<p class='big-font-title'>Metadata Editor - Home Media Portal</p>", unsafe_allow_html=True)
 st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
@@ -158,4 +157,11 @@ async def main():
         col = (col + 1) % row_size
 
 if __name__ == "__main__":
-    asyncio.run(main())
+     with open("metadata_conf.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        print("* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *")
+        print(dict)
+        print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+
+        asyncio.run(main())
