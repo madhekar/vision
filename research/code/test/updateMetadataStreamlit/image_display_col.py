@@ -23,6 +23,9 @@ if "markers" not in st.session_state:
 if "updated_location_list" not in st.session_state:
     st.session_state["updated_location_list"] = []
 
+if "updated_datetime_list" not in st.session_state:
+    st.session_state["updated_datetime_list"] = []    
+
 def clear_markers():
     st.session_state["markers"].clear()
 
@@ -75,6 +78,10 @@ def update_all_latlon():
         st.session_state.df.at[loc[0],"GPSLatitude"] = st.session_state.df_loc.at[loc[2],'lat']   
         st.session_state.df.at[loc[0], "GPSLongitude"] = st.session_state.df_loc.at[loc[2], "lon"]
       st.session_state["updated_location_list"].clear()  
+
+def update_all_datetime_changes(image, col):
+    #print(st.session_state[f'{col}_{image}'])
+    st.session_state.df.at[image, "DateTimeOriginal"] = st.session_state[f'{col}_{image}']
 
 def save_metadata():
    st.session_state.df.to_csv("metadata.csv", sep=",")   
@@ -136,15 +143,15 @@ async def main():
             if lat != "-":
                 c1.text_input(value=lat, label=f"Lat_{image}", label_visibility="hidden")  # ,on_change=update_latitude(col, image))
                 c2.text_input(value=lon, label=f"Lon_{image}", label_visibility="hidden")  # , on_change=update_longitude(col, image))
-                c3.text_input(value=dt,label=f"dt_{image}",label_visibility="hidden")  # , on_change=update_date(col, image), args=(image, 'label'))
+                c3.text_input(value=dt,label=f"dt_{image}", label_visibility="hidden", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
             else:
                 r = c2.selectbox(label=f"location_{image}", label_visibility="hidden",  options=st.session_state.df_loc.index.values, index=None, on_change=update_all_latlon())
                 if r:
                   st.session_state["updated_location_list"].append((image, col, r))
-                c3.text_input( value=dt,label=f"dt_{image}", label_visibility="hidden")  # , on_change=update_date(col, image), args=(image, 'label'))
-            st.image(image, caption=label)
+                c3.text_input(value=dt,label=f"dt_{image}", label_visibility="hidden", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt')) 
+            st.image(image, caption=label, output_format="JPEG")
             # st.markdown( f'<img src="{image}", style="{st_img}">', unsafe_allow_html=True)
-            #st.markdown(image_util.img_to_html(image), unsafe_allow_html=True)
+            # st.markdown(image_util.img_to_html(image), unsafe_allow_html=True)
             if lat != "-":
                 add_marker(lat, lon, label, image)
 
