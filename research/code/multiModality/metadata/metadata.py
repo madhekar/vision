@@ -7,11 +7,13 @@ import os
 import folium as fl
 from streamlit_folium import st_folium
 import streamlit_init as sti
-import image_util 
+import util 
 
 
 # initialize streamlit container UI settings
 sti.initUI()
+
+smp, smf, mmp, mmf = util.config_load()
 
 st.markdown("<p class='big-font-title'>Metadata Editor - Home Media Portal</p>", unsafe_allow_html=True)
 st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
@@ -44,7 +46,7 @@ def add_marker(lat, lon, label, url):
 
 #@st.cache_data
 def metadata_initialize():
-    df = pd.read_csv ('metadata.csv')
+    df = pd.read_csv (os.path.join(mmp, mmf)) #('metadata.csv')
     #df["idx"] = range(1, len(df) +1)
     df.set_index("SourceFile", inplace=True)
     return df
@@ -57,7 +59,7 @@ else:
 
 #@st.cache_data
 def location_initialize():
-     df_loc = pd.read_csv("locations.csv")
+     df_loc = pd.read_csv (os.path.join(smp, smf)) #("locations.csv")
      df_loc.set_index("name", inplace=True)
      return df_loc
 
@@ -68,7 +70,7 @@ else:
      df_loc = st.session_state.df_loc
 
 # extract files
-files = pd.read_csv("metadata.csv")["SourceFile"]
+files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
 
 def update_all_latlon():
     if len(st.session_state.df_loc) > 0 :
@@ -83,8 +85,9 @@ def update_all_datetime_changes(image, col):
     st.session_state.df.at[image, "DateTimeOriginal"] = st.session_state[f'{col}_{image}']
 
 def save_metadata():
-   st.session_state.df.to_csv("metadata.csv", sep=",")   
-   st.session_state.df_loc.to_csv("locations.csv", sep=",")
+    st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",")
+    st.session_state.df_loc.to_csv(os.path.join(smp, smf), sep=",")
+
 
 async def main():
 
@@ -157,11 +160,4 @@ async def main():
         col = (col + 1) % row_size
 
 if __name__ == "__main__":
-     with open("metadata_conf.yaml") as prop:
-        dict = yaml.safe_load(prop)
-
-        print("* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *")
-        print(dict)
-        print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
-
         asyncio.run(main())
