@@ -6,20 +6,13 @@ import os
 import folium as fl
 from streamlit_folium import st_folium
 import streamlit_init as sti
+import image_util 
 
 
 # initialize streamlit container UI settings
 sti.initUI()
 
-st_img = """ 
-width: auto;
-max-width: 800px;
-height: auto;
-max-height: 700px;
-display: block;
-justfy-content: center;
-border-radius: 10%
-"""
+
 
 st.markdown("<p class='big-font-title'>Metadata Editor - Home Media Portal</p>", unsafe_allow_html=True)
 st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
@@ -138,36 +131,20 @@ async def main():
             c1, c2, c3 = st.columns([1, 1, 1])
             lat = st.session_state.df.at[image, "GPSLatitude"]
             lon = st.session_state.df.at[image, "GPSLongitude"]
+            dt = st.session_state.df.at[image, "DateTimeOriginal"]
             label = os.path.basename(image)
             if lat != "-":
-                c1.text_input(
-                    value=lat, label=f"Lat_{image}", label_visibility="hidden"
-                )  # ,on_change=update_latitude(col, image))
-                c2.text_input(
-                    value=lon, label=f"Lon_{image}", label_visibility="hidden"
-                )  # , on_change=update_longitude(col, image))
-                c3.text_input(
-                    value=st.session_state.df.at[image, "DateTimeOriginal"],
-                    label=f"dt_{image}",
-                    label_visibility="hidden",
-                )  # , on_change=update_date(col, image), args=(image, 'label'))
+                c1.text_input(value=lat, label=f"Lat_{image}", label_visibility="hidden")  # ,on_change=update_latitude(col, image))
+                c2.text_input(value=lon, label=f"Lon_{image}", label_visibility="hidden")  # , on_change=update_longitude(col, image))
+                c3.text_input(value=dt,label=f"dt_{image}",label_visibility="hidden")  # , on_change=update_date(col, image), args=(image, 'label'))
             else:
-                r = c1.selectbox(label=f"location_{image}", 
-                                 label_visibility="hidden", 
-                                 options=st.session_state.df_loc.index.values, 
-                                 index=None, on_change=update_all_latlon())
+                r = c2.selectbox(label=f"location_{image}", label_visibility="hidden",  options=st.session_state.df_loc.index.values, index=None, on_change=update_all_latlon())
                 if r:
                   st.session_state["updated_location_list"].append((image, col, r))
-                c3.text_input(
-                    value=st.session_state.df.at[image, "DateTimeOriginal"],
-                    label=f"dt_{image}",
-                    label_visibility="hidden",
-                )  # , on_change=update_date(col, image), args=(image, 'label'))
+                c3.text_input( value=dt,label=f"dt_{image}", label_visibility="hidden")  # , on_change=update_date(col, image), args=(image, 'label'))
             st.image(image, caption=label)
-            # st.markdown(
-            #     f'<img src="{image}", style="{st_img}">',
-            #     unsafe_allow_html=True
-            # )
+            # st.markdown( f'<img src="{image}", style="{st_img}">', unsafe_allow_html=True)
+            #st.markdown(image_util.img_to_html(image), unsafe_allow_html=True)
             if lat != "-":
                 add_marker(lat, lon, label, image)
 
