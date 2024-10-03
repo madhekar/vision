@@ -1,6 +1,38 @@
+
+"""
+
+This module uses
+
+import pyexiv2
+
+but you have to install py3exiv2 instead of pyexiv2 - you can see it in first line of Tutorial
+
+But it uses some C/C++ code and it needs other modules in C/C++.
+
+On Linux I had to install
+
+apt install exiv2
+
+apt install python3-dev
+
+apt install libexiv2-dev
+
+apt install libboost-python-dev
+
+and later
+
+pip install py3exiv2
+
+(not pyexiv2)
+
+See Dependences on page Developers
+
+"""
+
 import yaml
 import pyexiv2
 import streamlit as st
+from GPSPhoto import gpsphoto
 
 @st.cache_resource
 def config_load():
@@ -48,14 +80,14 @@ def setGpsLocation(fname, lat, lon):
 
     # convert decimal coordinates into degrees, minutes and seconds
     exiv_lat = (
-        pyexiv2.Rational(lat_deg[0] * 60 + lat_deg[1], 60),
-        pyexiv2.Rational(lat_deg[2] * 100, 6000),
-        pyexiv2.Rational(0, 1),
+        pyexiv2.make_fraction(lat_deg[0] * 60 + lat_deg[1], 60),
+        pyexiv2.make_fraction(lat_deg[2] * 100, 6000),
+        pyexiv2.make_fraction(0, 1),
     )
     exiv_lon = (
-        pyexiv2.Rational(lon_deg[0] * 60 + lon_deg[1], 60),
-        pyexiv2.Rational(lon_deg[2] * 100, 6000),
-        pyexiv2.Rational(0, 1),
+        pyexiv2.make_fraction(lon_deg[0] * 60 + lon_deg[1], 60),
+        pyexiv2.make_fraction(lon_deg[2] * 100, 6000),
+        pyexiv2.make_fraction(0, 1),
     )
 
     exiv_image = pyexiv2.Image(fname)
@@ -78,3 +110,19 @@ def setDateTimeOriginal(fname, dt):
     exiv_image = pyexiv2.Image(filename=fname)
     exiv_image["Exif"][pyexiv2.ExifIFD.DateTimeOriginal] = dt
     exiv_image.writeMetaDate()
+
+
+# get GPS information from image file
+def gpsInfo(img):
+    gps = ()
+    # Get the data from image file and return a dictionary
+    data = gpsphoto.getGPSData(img)
+    # print(data)
+    if "Latitude" in data and "Longitude" in data:
+        gps = (data["Latitude"], data["Longitude"])
+    return gps    
+
+def setGpsInfo(fn, lat, lon):
+    photo = gpsphoto.GPSPhoto(fn)
+    info = gpsphoto.GPSInfo((lat, lon))
+    photo.modGPSData(info, fn)

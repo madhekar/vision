@@ -27,7 +27,7 @@ def extract(img):
   for ifd_id in IFD:
         print('>>>>>>>>>', ifd_id.name, '<<<<<<<<<<')
         try:
-            ifd = exif.get_ifd(ifd_id)
+            ifd = exifdata.get_ifd(ifd_id)
 
             if ifd_id == IFD.GPSInfo:
                 resolve = GPSTAGS
@@ -46,9 +46,13 @@ def getDateTime(img):
 
     # extracting the exif metadata
     exifdata = image.getexif()
+    print(exifdata)
     date_time = exifdata.get(306)
-    value = (date_time.split(" ")[0]).split(":")[:3]
-    value.append(date_time)
+    print(date_time)
+    value = ""
+    if date_time:
+       value = (date_time.split(" ")[0]).split(":")[:3]
+       value.append(date_time)
     #print(value)
     return value
 

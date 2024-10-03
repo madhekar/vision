@@ -20,3 +20,44 @@ find . -type f \( -name '*.JPG' -or -name '*.PNG' -or -name '*.JPEG' -or -name '
 find -type f -regex ".*/.*\.\(JPEG\|JPG\|JPG\|jpeg\|png\|jpg\)"
 
 find . -type f \( -name '*.JPG' -or -name '*.PNG' -or -name '*.JPEG' -or -name '*.jpg' -or -name '*.png' -or -name '*.jpeg' \) | exiftool -DateTimeOriginal -gpslatitude -gpslongitude -@ -
+
+OTHER COMMANDS -UPDATE METADATA
+-------------------------------
+
+Your basic command would be (no plus signs, those aren't used with Coordinates)
+exiftool -GPSLatitude=40.6892 -GPSLatitudeRef=N -GPSLongitude=-74.0445 -GPSLongitudeRef=W -GPSAltitude=10 -GPSAltitudeRef="Above Sea Level" FILE
+
+There are two tags for each coordinate that needs to be set because EXIF holds the GPS number and direction separately.
+
+But exiftool is very flexible and the inputs can just be numbers, which can be useful with scripts
+exiftool -GPSLatitude=40.6892 -GPSLatitudeRef=40.6892 -GPSLongitude=-74.0445 -GPSLongitudeRef=-74.0445 -GPSAltitude=10 -GPSAltitudeRef=10 FILE
+
+And even better, you can condense this by using wildcards
+exiftool -GPSLatitude*=40.6892 -GPSLongitude*=-74.0445 -GPSAltitude*=10 FILE
+
+But since you have a Excel file and a KMZ track, you can add data in bulk.
+
+In the case of the Excel file, you would need to alter it to a specific format.  First, the very first column needs to be named "SourceFile" and it needs to have the paths to the file.  This can either be the full path to the files e.g. C:\Users\Velmonte\Desktop\photos\file.jpg, or relative to the Current Directory that you are running the command from.  So if the CD was C:\Users\Velmonte\Desktop\, then the "SourceFile" would have to be .\photos\file.jpg
+
+Next, you'll need 2 columns for each coordinate.  For this you can usually just duplicate the columns you already have.  The columns would need a header line of GPSLatitude, GPSLatitudeRef, GPSLongitude, GPSLongitudeRef, and optionally, GPSAltitude and GPSAltitudeRef.
+
+Then you would save it as a CSV file.  Make sure and choose the comma as the separator, because it can default to a semicolon depening upon the location the computer is set to.  The file would look something like this
+SourceFile,GPSLatitude,GPSLatitudeRef,GPSLongitude,GPSLongitudeRef,GPSAltitude,GPSAltitudeRef
+y:/!temp/Test4.jpg,40.6892,40.6892,-74.0445,-74.0445,10,10
+
+Finally, you would run
+exiftool -csv=/path/to/List.csv C:\Users\Velmonte\Desktop\photos
+
+Details for this process can be found under the -csv option and FAQ #26.
+
+For the KMZ file, it's a bit more complicated.  I believe that would be a KML file that's zipped, so you would have to extract the files.  And I faintly recall that some KML files are structured poorly when it comes to the timing data.  But the basic command would be
+exiftool -geotag /path/to/file.kml C:\Users\Velmonte\Desktop\photos
+
+This command makes the assumption that the images have a correct DateTimeOriginal tag and are in the computer's local timezone.  If this doesn't work, the most common problem is that the time needs to be shifted to UTC.  this can be done with GeoSync (this shifts the time 7 hours in the case of my -07:00 time zone)
+exiftool -geotag /path/to/file.kml -GeoSync=+7:0:0 C:\Users\Velmonte\Desktop\photos
+or Geotime to specify the tag to use
+exiftool -geotag /path/to/file.kml "-Geotime<${DateTimeOriginal}-07:00" C:\Users\Velmonte\Desktop\photos
+
+See the Geotagging with ExifTool page for more details.
+
+Finally I would also suggest trying hvdwolf's jExifToolGUI for a GUI in the case of the KML file.

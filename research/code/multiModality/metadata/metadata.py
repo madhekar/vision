@@ -80,7 +80,7 @@ def update_all_latlon():
             lon = st.session_state.df_loc.at[loc[2], "lon"]
             st.session_state.df.at[loc[0], "GPSLatitude"] = lat
             st.session_state.df.at[loc[0], "GPSLongitude"] = lon
-            util.setGpsLocation(fname=loc[0], lat=lat, lon=lon)
+            util.setGpsInfo(loc[0], lat=lat, lon=lon)
         st.session_state["updated_location_list"].clear()  
 
 def update_all_datetime_changes(image, col):
