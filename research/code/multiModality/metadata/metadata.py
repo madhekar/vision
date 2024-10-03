@@ -73,7 +73,8 @@ else:
 files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
 
 def update_all_latlon():
-    if len(st.session_state.df_loc) > 0 :
+    if len(st.session_state.updated_location_list) > 0 :
+        print(st.session_state["updated_location_list"])
         for loc in st.session_state["updated_location_list"]:
             print("-->", loc)
             lat = st.session_state.df_loc.at[loc[2], "lat"]
@@ -138,7 +139,7 @@ async def main():
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size)
     col = 0
-
+    st.cache_resource
     for image in batch:
         with grid[col]:
             # st.write(page -1 ,batch_size,col, image)
