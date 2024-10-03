@@ -44,7 +44,7 @@ def add_marker(lat, lon, label, url):
     marker = fl.Marker([lat, lon], popup=url, tooltip=label)#, icon=iconurl)
     st.session_state["markers"].append(marker)
 
-#@st.cache_data
+@st.cache_data
 def metadata_initialize():
     df = pd.read_csv (os.path.join(mmp, mmf)) #('metadata.csv')
     #df["idx"] = range(1, len(df) +1)
@@ -57,7 +57,7 @@ if "df" not in st.session_state:
 else:
     df = st.session_state.df
 
-#@st.cache_data
+@st.cache_data
 def location_initialize():
      df_loc = pd.read_csv (os.path.join(smp, smf)) #("locations.csv")
      df_loc.set_index("name", inplace=True)

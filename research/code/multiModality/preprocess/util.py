@@ -157,6 +157,10 @@ def setGpsLocation(fname, lat, lng):
 
     exiv_image.writeMetadata()
 
+def setDateTimeOriginal(fname, dt):
+    exiv_image = pyexiv2.Image(filename=fname)
+    exiv_image["Exif"][pyexiv2.ExifIFD.DateTimeOriginal] = dt
+    exiv_image.writeMetaDate()
 
 def img_to_base64bytes(img_path):
     with open(img_path, "rb") as f:
