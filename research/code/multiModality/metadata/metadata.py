@@ -74,15 +74,21 @@ files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
 
 def update_all_latlon():
     if len(st.session_state.df_loc) > 0 :
-      for loc in st.session_state["updated_location_list"]:
-        print('-->', loc)
-        st.session_state.df.at[loc[0],"GPSLatitude"] = st.session_state.df_loc.at[loc[2],'lat']   
-        st.session_state.df.at[loc[0], "GPSLongitude"] = st.session_state.df_loc.at[loc[2], "lon"]
-      st.session_state["updated_location_list"].clear()  
+        for loc in st.session_state["updated_location_list"]:
+            print("-->", loc)
+            lat = st.session_state.df_loc.at[loc[2], "lat"]
+            lon = st.session_state.df_loc.at[loc[2], "lon"]
+            st.session_state.df.at[loc[0], "GPSLatitude"] = lat
+            st.session_state.df.at[loc[0], "GPSLongitude"] = lon
+            util.setGpsLocation(fname=loc[0], lat=lat, lon=lon)
+        st.session_state["updated_location_list"].clear()  
 
 def update_all_datetime_changes(image, col):
     #print(st.session_state[f'{col}_{image}'])
-    st.session_state.df.at[image, "DateTimeOriginal"] = st.session_state[f'{col}_{image}']
+    dt = st.session_state[f"{col}_{image}"]
+    st.session_state.df.at[image, "DateTimeOriginal"] = dt
+    util.setDateTimeOriginal(image, dt)
+
 
 def save_metadata():
     st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",")

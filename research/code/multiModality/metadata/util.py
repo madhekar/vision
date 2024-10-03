@@ -40,11 +40,11 @@ def to_deg(value, loc):
     return (deg, min, sec, loc_value)
 
 
-def setGpsLocation(fname, lat, lng):
+def setGpsLocation(fname, lat, lon):
     lat_deg = to_deg(lat, ["S", "N"])
-    lng_deg = to_deg(lng, ["W", "E"])
+    lon_deg = to_deg(lon, ["W", "E"])
 
-    print("lat:", lat_deg, " lng:", lng_deg)
+    print("lat:", lat_deg, " lon:", lon_deg)
 
     # convert decimal coordinates into degrees, minutes and seconds
     exiv_lat = (
@@ -52,9 +52,9 @@ def setGpsLocation(fname, lat, lng):
         pyexiv2.Rational(lat_deg[2] * 100, 6000),
         pyexiv2.Rational(0, 1),
     )
-    exiv_lng = (
-        pyexiv2.Rational(lng_deg[0] * 60 + lng_deg[1], 60),
-        pyexiv2.Rational(lng_deg[2] * 100, 6000),
+    exiv_lon = (
+        pyexiv2.Rational(lon_deg[0] * 60 + lon_deg[1], 60),
+        pyexiv2.Rational(lon_deg[2] * 100, 6000),
         pyexiv2.Rational(0, 1),
     )
 
@@ -65,8 +65,8 @@ def setGpsLocation(fname, lat, lng):
 
     exiv_image["Exif.GPSInfo.GPSLatitude"] = exiv_lat
     exiv_image["Exif.GPSInfo.GPSLatitudeRef"] = lat_deg[3]
-    exiv_image["Exif.GPSInfo.GPSLongitude"] = exiv_lng
-    exiv_image["Exif.GPSInfo.GPSLongitudeRef"] = lng_deg[3]
+    exiv_image["Exif.GPSInfo.GPSLongitude"] = exiv_lon
+    exiv_image["Exif.GPSInfo.GPSLongitudeRef"] = lon_deg[3]
     exiv_image["Exif.Image.GPSTag"] = 654
     exiv_image["Exif.GPSInfo.GPSMapDatum"] = "WGS-84"
     exiv_image["Exif.GPSInfo.GPSVersionID"] = "2 0 0 0"
