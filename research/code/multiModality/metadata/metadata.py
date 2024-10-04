@@ -97,11 +97,8 @@ def save_metadata():
 
 
 async def main():
-
     l1,l2 = st.columns([.12,.88])
-    
     with l1:
-        
         l1.divider()
         l1.markdown("Display Images")
         batch_size = l1.select_slider("Batch size:", range(10, 700, 10))
@@ -116,7 +113,7 @@ async def main():
         l1.button(label="Save Metadata", on_click=save_metadata(), use_container_width=True)
 
     with l2:
-        m = fl.Map(location=[32.968700, -117.184200], zoom_start=5)
+        m = fl.Map(location=[32.968700, -117.184200], zoom_start=7)
 
         fg = fl.FeatureGroup(name="zesha")
 
@@ -142,8 +139,6 @@ async def main():
     st.cache_resource
     for image in batch:
         with grid[col]:
-            # st.write(page -1 ,batch_size,col, image)
-
             c1, c2, c3 = st.columns([1, 1, 1])
             lat = st.session_state.df.at[image, "GPSLatitude"]
             lon = st.session_state.df.at[image, "GPSLongitude"]
@@ -158,9 +153,7 @@ async def main():
                 if r:
                   st.session_state["updated_location_list"].append((image, col, r))
                 c3.text_input(value=dt,label=f"dt_{image}", label_visibility="hidden", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt')) 
-            st.image(image, caption=label, output_format="JPEG")
-            # st.markdown( f'<img src="{image}", style="{st_img}">', unsafe_allow_html=True)
-            # st.markdown(image_util.img_to_html(image), unsafe_allow_html=True)
+            st.image(image, caption=label, output_format="JPG")
             if lat != "-":
                 add_marker(lat, lon, label, image)
 
