@@ -47,7 +47,7 @@ with st.sidebar:
 
     st.divider()
 
-    s = st.selectbox(label="## Search type", options=("text", "image"), index=1)
+    s = st.selectbox(label="## Search type", options=("text", "image"), index=1, help='select search modality type')
 
     ms = st.multiselect(
         label="## Result types",
@@ -57,7 +57,8 @@ with st.sidebar:
 
     if s == "image":
         sim = st.file_uploader(
-            label="## Select Image",label_visibility="hidden", type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG"]
+            label="## Select Image",label_visibility="hidden", type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG"],
+            help='select example image to search similar images'
         )
         im = st.empty()
         if sim:
