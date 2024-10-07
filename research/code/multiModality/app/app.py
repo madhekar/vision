@@ -53,6 +53,7 @@ with st.sidebar:
         label="## Result types",
         options=["image", "text", "video", "audio"],
         default=["image", "text"],
+        help='select one or more search result modalities'
     )
 
     if s == "image":
@@ -86,6 +87,7 @@ with st.sidebar:
         max_value=streamlit_init.MAX_DT,
         step=datetime.timedelta(days=1),
         on_change=date_change,
+        help='search result date range'
     )   
     search_btn = st.button(label="## Search")
 
