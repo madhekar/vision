@@ -100,7 +100,7 @@ async def main():
     l1,l2 = st.columns([.12,.88])
     with l1:
         l1.divider()
-        l1.markdown("Display Images")
+        l1.markdown("### Display Images")
         cb,cr,cp = l1.columns([1,1,1])
         with cb:
            batch_size = cb.select_slider("Batch size:", range(10, 700, 10))
@@ -111,9 +111,9 @@ async def main():
            page = cp.selectbox("Page#:", range(1, num_batches + 1))
 
         l1.divider()
-        l1.markdown("Locations")
+        l1.markdown("### Locations")
         #st.button(label="Add/Update", on_click=add_location())
-        st.session_state.df_loc = st.data_editor(st.session_state.df_loc, num_rows="dynamic", use_container_width=True, height=200)
+        st.session_state.df_loc = st.data_editor(st.session_state.df_loc, num_rows="dynamic", use_container_width=True, height=350)
         l1.button(label="Save Metadata", on_click=save_metadata(), use_container_width=True)
 
     with l2:
