@@ -16,7 +16,7 @@ streamlit_init.initUI()
 # load data
 cImgs, cTxts = init()
 
-st.markdown("<p class='big-font-title'>Home Media Portal</p>", unsafe_allow_html=True)
+#st.markdown("<p class='big-font-title'>Home Media Portal</p>", unsafe_allow_html=True)
 st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
 
 # create default application Tabs
@@ -43,7 +43,7 @@ if "dt_range" not in st.session_state:
 
 # define application sidebar
 with st.sidebar:
-    st.markdown("<p class='big-font-header'>Seach Criteria</p>", unsafe_allow_html=True)
+    st.markdown("<p class='big-font-header'>@Home Media Portal</p>", unsafe_allow_html=True)
 
     st.divider()
 
@@ -126,7 +126,7 @@ if search_btn:
         st.session_state["imgs"] = cImgs.query(
             query_uris="./" + sim.name,
             include=["data", "metadatas"],
-            n_results=6,
+            n_results=36,
         )
 
         st.write(st.session_state["imgs"])
@@ -142,7 +142,7 @@ if search_btn:
         st.session_state["imgs"] = cImgs.query(
             query_texts=modalityTxt,
             include=["data", "metadatas"],
-            n_results=6
+            n_results=36
         )   
 
     for img in st.session_state["imgs"]["data"][0][1:]:
