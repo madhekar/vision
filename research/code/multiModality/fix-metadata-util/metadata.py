@@ -101,10 +101,14 @@ async def main():
     with l1:
         l1.divider()
         l1.markdown("Display Images")
-        batch_size = l1.select_slider("Batch size:", range(10, 700, 10))
-        row_size = l1.select_slider("Row size:", range(1, 10), value=7)
-        num_batches = ceil(len(files) / batch_size)
-        page = l1.selectbox("Page#:", range(1, num_batches + 1))
+        cb,cr,cp = l1.columns([1,1,1])
+        with cb:
+           batch_size = cb.select_slider("Batch size:", range(10, 700, 10))
+        with cr:   
+           row_size = cr.select_slider("Row size:", range(1, 10), value=7)   
+           num_batches = ceil(len(files) / batch_size)
+        with cp:   
+           page = cp.selectbox("Page#:", range(1, num_batches + 1))
 
         l1.divider()
         l1.markdown("Locations")
