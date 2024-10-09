@@ -47,14 +47,18 @@ with st.sidebar:
 
     st.divider()
 
-    s = st.selectbox(label="## Search type", options=("text", "image"), index=1, help='select search modality type')
+    s = st.selectbox(label="## Search Modality", options=("text", "image"), index=1, help='select search modality type')
+
+    st.divider()
 
     ms = st.multiselect(
-        label="## Result types",
+        label="## Result Modalities",
         options=["image", "text", "video", "audio"],
         default=["image", "text"],
         help='select one or more search result modalities'
     )
+
+    st.divider()
 
     if s == "image":
         sim = st.file_uploader(
@@ -76,6 +80,8 @@ with st.sidebar:
             disabled=False,
         )
 
+    st.divider()
+
     def date_change():
         st.session_state["dt_range"] = st.session_state.mySlider
  
@@ -89,6 +95,9 @@ with st.sidebar:
         on_change=date_change,
         help='search result date range'
     )   
+
+    st.divider()
+
     search_btn = st.button(label="## Search")
 
 #seach button pressed
