@@ -28,7 +28,7 @@ pip install py3exiv2
 See Dependences on page Developers
 
 """
-
+import pprint
 import yaml
 import pyexiv2
 import streamlit as st
@@ -39,13 +39,9 @@ def config_load():
     with open("metadata_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        print(
-            "* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *"
-        )
-        print(dict)
-        print(
-            "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-        )
+        print("* * * * * * * * * * Metadata Generator Properties * * * * * * * * * * *")
+        pprint.pprint(dict)
+        print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
         static_metadata_path = dict["metadata"]["static_metadata_path"]
         static_metadata_file = dict["metadata"]["static_metadata_file"]
         missing_metadata_path = dict["metadata"]["missing_metadata_path"]
