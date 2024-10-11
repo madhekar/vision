@@ -15,6 +15,8 @@ sudo apt install qdbus
 sudo apt install qdbus-qt5
 sudo apt install qtchooser
 
+https://linuxmeerkat.wordpress.com/2014/11/12/python-detection-of-usb-storage-device/
+
 """
 
 def usbDevices():
@@ -59,6 +61,7 @@ def diskConnected():
     print(iface.bus_name, ':', iface)
 
     for k in iface.GetManagedObjects():
+        d_info = 
         print(k)
 
 
