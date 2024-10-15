@@ -8,6 +8,7 @@ import LLM
 import aiofiles
 import json
 import yaml
+import pprint
 
 # init LLM modules
 m, t, p = LLM.setLLM()
@@ -112,9 +113,9 @@ if __name__ == "__main__":
     with open("preprocess_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        print("* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *")
-        print(dict)
-        print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+        pprint.pprint("* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *")
+        pprint.pprint(dict)
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
 
         image_dir_path = dict["metadata"]["image_dir_path"]
 

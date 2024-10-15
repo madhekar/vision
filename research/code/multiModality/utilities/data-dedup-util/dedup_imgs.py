@@ -5,7 +5,7 @@ import os
 import numpy as np
 import yaml
 import glob
-
+import pprint
 
 def getRecursive(rootDir):
     f_list = []
@@ -92,9 +92,9 @@ if __name__=='__main__':
     with open("dedup_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        print("**** duplicate archiver properties****")
-        print(dict)
-        print("**************************************")
+        pprint.pprint("**** duplicate archiver properties****")
+        pprint.pprint(dict)
+        pprint.pprint("**************************************")
 
         input_image_path = dict["duplicate"]["input_image_path"]
         archive_dup_path = dict["duplicate"]["archive_dup_path"]
