@@ -172,10 +172,7 @@ with image:
             index=0,
             return_value="index",
         )
-
-        im = Image.fromarray(st.session_state["timgs"][index])
-        nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
-
+        #img, map = st.tabs(["Img", "Map"])
         c1, c2 = st.columns([9, 1])
 
         #c2.divider()
@@ -187,6 +184,9 @@ with image:
         with col23:
             flip = st.button(label="## &#x21C5;")
 
+        #with img:
+        im = Image.fromarray(st.session_state["timgs"][index])
+        nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
         imageLoc = c1.empty()
         display_im = imageLoc.image(nim, use_column_width="always")
         #st.button(st.image(nim, use_column_width="always"))
@@ -200,6 +200,12 @@ with image:
         if flip:
             nim = nim.rotate(180)
             imageLoc.image(nim, use_column_width="always")
+        #with map:
+        # st.write(
+        #     "<p class='big-font'>sorry, no map is implemented found in search criteria!</p>",
+        #     unsafe_allow_html=True,
+        # )    
+                
   
         #c2.divider()
         colt,cole = c2.columns([.7,.3])
