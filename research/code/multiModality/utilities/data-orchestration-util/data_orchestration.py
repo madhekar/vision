@@ -1,16 +1,26 @@
-
 import os
 import yaml
 import pprint
+import pandas as pd
 import streamlit as st
 
-def build_orch_structure():
+def build_orch_structure(raw_folders):
     """
     idx, user-folder-name, state,
     """
+    columns = ['duplicate', 'quality', 'missing', 'metadata', 'state']
+    data =[]
+    idx = []
+    for folder in raw_folders:
+        print(folder)
+        data.append([folder + "_dup",folder + "_qua",folder + "_mis", folder + "_met", "0"])
+        idx.append(folder)
+    df = pd.DataFrame(data=data, columns=columns, index=idx)
+    return df
+ 
 
 def extract_user_raw_data_folders(pth):
-   next(os.walk(pth))[1]
+   return next(os.walk(pth))[1]
 
 @st.cache_resource
 def config_load():
@@ -40,7 +50,12 @@ def config_load():
     )
 
 if __name__ == '__main__':
-    rwp, ddp, qdp, mdp, sfp, vdbp = config_load()
+    rwp, ddp, qdp, mdp,mfp, smfp, vdbp = config_load()
 
     raw_folders = extract_user_raw_data_folders(rwp)
+
+    dfo = build_orch_structure(raw_folders)
+
+    st.write(dfo)
+   
   
