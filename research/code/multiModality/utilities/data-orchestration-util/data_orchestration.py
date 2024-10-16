@@ -11,7 +11,6 @@ from streamlit_folium import st_folium
 import init_streamlit as sti
 
 
-
 # initialize streamlit container UI settings
 sti.initUI()
 
@@ -78,8 +77,6 @@ def config_load():
         static_metadata_file_path,
         vectordb_path
     )
-
-
 
 
 if __name__ == '__main__':

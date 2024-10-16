@@ -1,5 +1,6 @@
 import os
 import shutil
+import pandas as pd
 
 """ 
 
@@ -30,3 +31,11 @@ def replicate_folders_files(root_src_dir, root_dst_dir):
     memory_used.append(shutil.disk_usage(root_dst_dir))
 
     return (directories_added, files_added, memory_used)
+
+'''
+idx, state, total_memory, used, free
+'''
+def update_audit_records(audit_path, audit_file_name):
+
+    if (os.path.exists(os.path.join(audit_path, audit_file_name))):
+        df = pd.read.csv(os.path.join(audit_path, audit_file_name))
