@@ -1,26 +1,61 @@
 import streamlit as st
 
-data_orchestration = st.Page(
-    page='pages/data_orchestration.py',
-    title="Data orchistration Workflow",
+overview = st.Page(
+    page="pages/overview.py",
+    title="Overview",
     icon=":material/smart_toy:",
     default=True
 )
 
+storage_initialization = st.Page(
+    page="pages/data_storage.py",
+    title="Storage Initialization (new)",
+    icon=":material/smart_toy:",
+)
+
+data_orchestration = st.Page(
+    page='pages/data_orchestration.py',
+    title="Data Orchistration",
+    icon=":material/smart_toy:",
+)
+
 data_correction = st.Page(
-    page='pages/metadata_fix.py',
-    title="Data ofix Workflow",
+    page='pages/metadata_correction.py',
+    title="Metadata Correction",
     icon=":material/smart_toy:"
+)
+
+metadata_creator = st.Page(
+    page="pages/metadata_creator.py",
+    title="Metadata Creation",
+    icon=":material/smart_toy:",
+)
+
+metadata_loader = st.Page(
+    page="pages/metadata_loader.py",
+    title="Metadata Loader",
+    icon=":material/smart_toy:",
+)
+
+multimodal_search = st.Page(
+    page="pages/multimodal_search.py",
+    title="multimodal search",
+    icon=":material/smart_toy:",
 )
 
 pg = st.navigation(
     {
-    "workflow": [data_orchestration],
-    "correction": [data_correction]
+    "overview": [overview],
+    "storage initialization": [storage_initialization],
+    "data orchestration": [data_orchestration],
+    "data correction": [data_correction],
+    "metadata creator":[metadata_creator],
+    "metadata loader": [metadata_loader],
+    "multimodal search": [multimodal_search]
     }
     )
 
 st.logo("assets/zesha-high-resolution-logo.jpeg")
-st.sidebar.text("At Home Media Portal")
+#st.sidebar.text("Home Media Portal")
 
 pg.run()
