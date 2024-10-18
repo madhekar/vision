@@ -1,10 +1,17 @@
 import streamlit as st
+import streamlit_init as sti
+
+
+"""
+https://docs.streamlit.io/get-started/tutorials/create-a-multipage-app
+"""
+sti.initUI()
 
 overview = st.Page(
     page="pages/overview.py",
-    title="Overview",
+    title=st.markdown("""# Overview"""),
     icon=":material/house:",
-    default=True
+    default=True,
 )
 
 storage_initialization = st.Page(
