@@ -3,7 +3,7 @@ import streamlit as st
 overview = st.Page(
     page="pages/overview.py",
     title="Overview",
-    icon=":material/smart_toy:",
+    icon=":material/house:",
     default=True
 )
 
@@ -16,31 +16,31 @@ storage_initialization = st.Page(
 data_orchestration = st.Page(
     page='pages/data_orchestration.py',
     title="Data Orchistration",
-    icon=":material/smart_toy:",
+    icon=":material/group_work:",
 )
 
 data_correction = st.Page(
     page='pages/metadata_correction.py',
     title="Metadata Correction",
-    icon=":material/smart_toy:"
+    icon=":material/edit:"
 )
 
 metadata_creator = st.Page(
     page="pages/metadata_creator.py",
     title="Metadata Creation",
-    icon=":material/smart_toy:",
+    icon=":material/engineering:",
 )
 
 metadata_loader = st.Page(
     page="pages/metadata_loader.py",
     title="Metadata Loader",
-    icon=":material/smart_toy:",
+    icon=":material/published_with_changes:",
 )
 
 multimodal_search = st.Page(
     page="pages/multimodal_search.py",
     title="multimodal search",
-    icon=":material/smart_toy:",
+    icon=":material/search:",
 )
 
 pg = st.navigation(
