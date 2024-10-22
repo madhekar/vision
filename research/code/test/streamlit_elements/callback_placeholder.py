@@ -6,15 +6,15 @@ if 'options' not in st.session_state:
 def sidebar_callback():
     st.session_state['options'] = st.session_state['sidebar']
 def button1_callback():
-    st.session_state['options'] = "foo"
+    st.session_state['options'] = "san diego"
 def button2_callback():
-    st.session_state['options'] = "bar"
+    st.session_state['options'] = "san francisco"
 
 placeholder = st.empty()
 
 st.sidebar.selectbox(
      "Examples:",
-     ("tirsdag var travel for ukrainas president volodymyr zelenskyj på morgenen tok han imot polens statsminister mateusz morawiecki","tirsdagvartravelforukrainaspresidentvolodymyrzelenskyjpåkveldentokhanimotpolensstatsministermateuszmorawiecki","deterikkelettåholderedepåstoreogsmåbokstavermanmåforeksempelhuskestorforbokstavnårmanskriveromkrimhalvøyamenkunbrukelitenforbokstavnårmanhenvisertilenkrimroman","detteerenlitendemosomerlagetavperegilkummervoldhanerenforskersomtidligerejobbetvednasjonalbiblioteketimoirana", "sentpå60talletvardetfaktisknoensomkalteungensinperegilkummervoldidagerdetikkelengersåvanligåbrukedobbeltnavninorgehvasynesduomdet"),
+     ("Bhal","magic","house","de-google", "school"),
      key = 'sidebar', on_change = sidebar_callback)
 
 st.button('Run DeUnCaser', on_click = button1_callback)

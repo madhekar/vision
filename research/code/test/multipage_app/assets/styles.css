@@ -21,6 +21,7 @@
 .st-key-gray button:focus {background-color: #707070;/* Keep the same as hover */border: none;}
 /* Apply the same text color during focus states */
 .st-key-gray button:focus p {color: black;}
+.st-key-gray button:active pseudo {color: red;}
 /* end of gray button */
 
 

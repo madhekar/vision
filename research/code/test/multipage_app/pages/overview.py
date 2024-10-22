@@ -6,10 +6,11 @@ st.title("Overview")
 
 def do_work():
   st.write("do work")
-  return 1
+  st.button("Metadata Done", key="green")
+
 
 v = st.button("Metadata Orchestration", key="gray", on_click=do_work())
-if v == 1:
+
   
 
 #st.button("command", key="green")
