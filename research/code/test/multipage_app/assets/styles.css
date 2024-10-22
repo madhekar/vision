@@ -1,5 +1,26 @@
-.st-key-green button {
-    background-color: green;
+.st-key-green button {    
+    background-color: #4CAF50;
+    color: black;
+    font-size: 60px;
+    border-radius: 1px;
+    padding: 20px 60px;
+}
+
+.st-key-red button {
+    background-color: red;
+    color: black;
+    font-size: 60px;
+    border-radius: 10px;
+    padding: 20px 60px;
+    font-family: 'Comic Sans MS', sans-serif;
+}
+
+.st-key-orange button {
+    background-color: orange;
+    color: black;
+    font: bold 45px Harabara;
+    border-radius: 10px;
+    padding: 20px 60px;
 }
 
 /* Animated button with pulse effect */

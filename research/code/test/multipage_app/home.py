@@ -2,24 +2,25 @@ import streamlit as st
 import streamlit_init as sti
 import os
 
-"""
-https://docs.streamlit.io/get-started/tutorials/create-a-multipage-app
 
-https://www.youtube.com/watch?v=jbJpAdGlKVY
-"""
-sti.initUI()
+# https://docs.streamlit.io/get-started/tutorials/create-a-multipage-app
 
-def load_css(file_path):
-    with open(file=file_path) as f:
-      st.html(f'<style>{f.read()}</style>')
+# https://www.youtube.com/watch?v=jbJpAdGlKVY
 
-css_path = os.path.join('assets', 'styles.css')      
-overview = st.Page(
-    page="pages/overview.py",
-    title=st.markdown("""# Overview"""),
-    icon=":material/house:",
-    default=True,
-)
+#sti.initUI()
+
+def load_css(css_path):
+    with open(file=css_path) as f:
+        s = f"<style>{f.read()}</style>"
+        st.html(s)
+
+
+css_path = os.path.join("assets", "styles.css")
+
+load_css(css_path)
+
+
+overview = st.Page( page="pages/overview.py", title=" Overview", icon=":material/house:", default=True)
 
 storage_initialization = st.Page(
     page="pages/data_storage.py",
@@ -71,5 +72,6 @@ pg = st.navigation(
 
 st.logo("assets/zesha-high-resolution-logo.jpeg")
 #st.sidebar.text("Home Media Portal")
+
 
 pg.run()
