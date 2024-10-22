@@ -4,7 +4,13 @@ import streamlit as st
 
 st.title("Overview")
 
-st.button("Metadata Orchestration", key="green")
+def do_work():
+  st.write("do work")
+  return 1
+
+v = st.button("Metadata Orchestration", key="gray", on_click=do_work())
+if v == 1:
+  
 
 #st.button("command", key="green")
 
