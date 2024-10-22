@@ -2,26 +2,46 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 
-def ChangeButtonColour(wgt_txt, wch_hex_colour="12px"):
-    htmlstr = (
-        """<script>var elements = window.parent.document.querySelectorAll('*'), i;
-                for (i = 0; i < elements.length; ++i) 
-                    { if (elements[i].innerText == |wgt_txt|) 
-                        { elements[i].style.color ='"""
-        + wch_hex_colour
-        + """'; } }</script>  """
-    )
+mystate = st.session_state
+if "btn_prsd_status" not in mystate:
+    mystate.btn_prsd_status = [False] * 6
 
-    htmlstr = htmlstr.replace("|wgt_txt|", "'" + wgt_txt + "'")
+btn_labels = ["load data check", "de-duplication check", "quality check", "missing metadata check", "fix Metadata check", "metadata loader check" ]
+unpressed_colour = "#707070"
+pressed_colour = "#4CAF50"
+
+
+def ChangeButtonColour(widget_label, prsd_status):
+    btn_bg_colour = pressed_colour if prsd_status == True else unpressed_colour
+    htmlstr = f"""
+        <script>
+            var elements = window.parent.document.querySelectorAll('button');
+            for (var i = 0; i < elements.length; ++i) {{ 
+                if (elements[i].innerText == '{widget_label}') {{ 
+                    elements[i].style.background = '{btn_bg_colour}'
+                }}
+            }}
+        </script>
+        """
     components.html(f"{htmlstr}", height=0, width=0)
 
 
-if __name__=='__main__':
-    cols = st.columns(4)
-    cols[0].button("no colour", key="b1")
-    cols[1].button("green", key="b2")
-    cols[2].button("red", key="b3")
-    cols[3].button("no colour", key="b4")
+def ChkBtnStatusAndAssignColour():
+    for i in range(len(btn_labels)):
+        ChangeButtonColour(btn_labels[i], mystate.btn_prsd_status[i])
 
-    ChangeButtonColour("green", "#4E9F3D")  # button txt to find, colour to assign
-    ChangeButtonColour("red", "#FF0000")  # button txt to find, colour to assign  
+
+def btn_pressed_callback(i):
+    mystate.btn_prsd_status = [False] * 6
+    mystate.btn_prsd_status[i - 1] = True
+
+
+with st.container():
+    c1, c2, c3, c4, c5,c6 = st.columns((1, 1, 1, 1, 1, 1))
+    c1.button("load data check", key="b1", on_click=btn_pressed_callback, args=(1,))
+    c2.button("de-duplication check", key="b2", on_click=btn_pressed_callback, args=(2,))
+    c3.button("quality check", key="b3", on_click=btn_pressed_callback, args=(1,))
+    c4.button("missing metadata check", key="b4", on_click=btn_pressed_callback, args=(2,))
+    c5.button("fix Metadata check", key="b5", on_click=btn_pressed_callback, args=(1,))
+    c6.button("metadata loader check", key="b6", on_click=btn_pressed_callback, args=(2,))
+    ChkBtnStatusAndAssignColour() 
