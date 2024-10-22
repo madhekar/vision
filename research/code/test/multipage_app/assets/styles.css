@@ -1,10 +1,16 @@
-.st-key-green button {    
-    background-color: #4CAF50;
-    color: black;
-    font-size: 60px;
-    border-radius: 1px;
-    padding: 20px 60px;
-}
+
+/* green button */
+.st-key-green button { background-color: #4CAF50; border-radius: 10px; padding: 20px 60px;}
+.st-key-green button p {font-size: 24px; font-family: 'Comic Sans MS', sans-serif;}
+/* Hover effect for the button */
+.st-key-green button:hover { background-color: #45a049;/* Darker green */border: none;}
+.st-key-green button:hover p {color: #FFD700;/* Gold color */}
+/* Override the focus states to prevent default red border */
+.st-key-green button:focus {background-color: #45a049;/* Keep the same as hover */border: none;}
+/* Apply the same text color during focus states */
+.st-key-green button:focus p {color: #FFD700;}
+/* end of green button */
+
 
 .st-key-red button {
     background-color: red;
