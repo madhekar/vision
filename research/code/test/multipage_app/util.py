@@ -1,7 +1,8 @@
 import os
 import time
-import asyncio 
 import streamlit as st
+import pandas as pd
+import numpy as np
 import streamlit.components.v1 as components
 
 
@@ -44,6 +45,7 @@ def ChangeButtoncolor(widget_label, prsd_status):
         btn_bg_color = failure_color    
     else:
         btn_bg_color = wip_color
+
     htmlstr = f"""
         <script>
             var elements = window.parent.document.querySelectorAll('button');
@@ -93,12 +95,26 @@ def exec_task(iTask):
 
 with st.container():
     st.title("workflow")
-    st.subheader('execute individual tasks: ')
+    st.subheader('execute tasks: ')
+    st.divider()
     c1, c2, c3, c4, c5,c6 = st.columns ((1, 1, 1, 1, 1, 1), gap='small')
-    c1.button("load data check", key="g1", on_click=btn_pressed_callback, args=(1,))
-    c2.button("duplicate check", key="g2", on_click=btn_pressed_callback, args=(2,))
-    c3.button("quality check", key="g3", on_click=btn_pressed_callback, args=(3,))
-    c4.button("metadata check", key="g4", on_click=btn_pressed_callback, args=(4,))
-    c5.button("fix metadata", key="g5", on_click=btn_pressed_callback, args=(5,))
-    c6.button("data loader check", key="g6", on_click=btn_pressed_callback, args=(6,))
+    with c1:
+      c1.button("load data check", key="g1", on_click=btn_pressed_callback, args=(1,))
+      c1.divider()
+      chart_data = pd.DataFrame(abs(np.random.randn(1, 4)) , columns=["images", "text", "video", "audio"])
+      st.bar_chart(chart_data, horizontal=False)
+    with c2:  
+      c2.button("duplicate check", key="g2", on_click=btn_pressed_callback, args=(2,))
+      c2.divider()
+      chart_data = pd.DataFrame(abs(np.random.randn(2, 4))* 100, columns=["images", "text", "video","audio"])
+      st.line_chart(chart_data)
+    with c3:  
+       c3.button("quality check", key="g3", on_click=btn_pressed_callback, args=(3,))
+       c3.divider()
+    with c4:         
+       c4.button("metadata check", key="g4", on_click=btn_pressed_callback, args=(4,))
+    with c5:         
+       c5.button("fix metadata", key="g5", on_click=btn_pressed_callback, args=(5,))
+    with c6:     
+       c6.button("data loader check", key="g6", on_click=btn_pressed_callback, args=(6,))
     ChkBtnStatusAndAssigncolor() 
