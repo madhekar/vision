@@ -66,9 +66,10 @@ def ChkBtnStatusAndAssigncolor():
 
 def btn_pressed_callback(i):
     #mystate.btn_prsd_status = [False] * 6
-    if 
-    r = exec_task(i)
-    mystate.btn_prsd_status[i - 1] = r
+    print(i, mystate, mystate.btn_prsd_status[i - 2])
+    if mystate.btn_prsd_status[i -2] == 1 or i == 1:
+      r = exec_task(i)
+      mystate.btn_prsd_status[i - 1] = r
 
 
 def exec_task(iTask):
@@ -83,13 +84,13 @@ def exec_task(iTask):
             return 1
         case 3:
             time.sleep(1)
-            return 2
+            return 1
         case 4:
-            return 0
+            return 1
         case 5:
-            return 0
+            return 2
         case 6: 
-            return 0
+            return 1
         case _:
             return -1
 
