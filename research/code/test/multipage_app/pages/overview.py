@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-st.header("OVERVIEW", divider=True)
+st.header("OVERVIEW", divider="gray")
 c1, c2, c3, c4, c5 = st.columns([1,1,1,1,1])
 with c1:
   st.metric("RAW STORAGE", 20000, 50)

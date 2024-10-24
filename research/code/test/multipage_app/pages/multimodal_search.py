@@ -1,4 +1,3 @@
 import streamlit as st
 
-st.subheader("MULTI-MODAL: SEARCH")
-st.divider()
+st.subheader("MULTI-MODAL: SEARCH", divider="gray")

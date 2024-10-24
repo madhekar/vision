@@ -86,8 +86,7 @@ def exec_task(iTask):
 
 
 with st.container():
-    st.subheader("DATA: ADD/ VALIDATE")
-    st.divider()
+    st.subheader("DATA: ADD/ VALIDATE", divider="gray")
     c0, c1, c2, c3 = st.columns((1, 1, 1, 1), gap="small")
     with c0:
         st.button("Data Load Check", key="g0", on_click=btn_pressed_callback, args=(0,))
