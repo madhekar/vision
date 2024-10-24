@@ -28,7 +28,7 @@ mystate = st.session_state
 if "btn_prsd_status" not in mystate:
     mystate.btn_prsd_status = [False] * 6
 
-btn_labels = ["load data check", "duplicate check", "quality check", "metadata check", "fix metadata", "data loader check" ]
+btn_labels = ["Data Load Check", "Duplicate Data Check", "Data Quality Check", "Metadata Check", "Metadata Correction", "Data Loader Check" ]
 unpressed_color = "#707070"
 success_color = "#4CAF50"
 failure_color = "#FF7F50"
@@ -52,7 +52,6 @@ def ChangeButtoncolor(widget_label, prsd_status):
             for (var i = 0; i < elements.length; ++i) {{ 
                 if (elements[i].innerText == '{widget_label}') {{ 
                     elements[i].style.background = '{btn_bg_color}'
-                    elements[i].style.animation ='pulse 3s'
                 }}
             }}
         </script>
@@ -67,6 +66,7 @@ def ChkBtnStatusAndAssigncolor():
 
 def btn_pressed_callback(i):
     #mystate.btn_prsd_status = [False] * 6
+    if 
     r = exec_task(i)
     mystate.btn_prsd_status[i - 1] = r
 
