@@ -1,4 +1,4 @@
 import streamlit as st
 
-st.subheader("METADATA: Loader")
+st.subheader("METADATA: LOAD")
 st.divider()

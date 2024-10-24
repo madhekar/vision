@@ -1,4 +1,4 @@
 import streamlit as st
 
-st.subheader("METADATA: Correction")
+st.subheader("METADATA: CORRECT")
 st.divider()
