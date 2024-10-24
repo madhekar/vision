@@ -87,7 +87,6 @@ def exec_task(iTask):
 
 with st.container():
     st.subheader("DATA: ADD/ VALIDATE")
-    st.sidebar.selectbox("storage location", ('Email', 'mobile'))
     st.divider()
     c0, c1, c2, c3 = st.columns((1, 1, 1, 1), gap="small")
     with c0:
