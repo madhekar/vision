@@ -29,56 +29,47 @@ load_css(css_path)
 
 overview = st.Page( 
     page="pages/overview.py", 
-    title=" Overview", 
-    con=":material/house:", 
+    title="OVERVIEW", 
+    icon=":material/house:", 
     default=True
 )
 
-storage_initialization = st.Page(
-    page="pages/data_storage.py",
-    title="Storage Initialization (new)",
-    icon=":material/smart_toy:",
-)
-
-data_orchestration = st.Page(
-    page='pages/data_orchestration.py',
-    title="Data Orchestration",
+data_validation = st.Page(
+    page='pages/data_validation.py',
+    title="DATA VALIDATE",
     icon=":material/group_work:",
 )
 
 data_correction = st.Page(
     page='pages/metadata_correction.py',
-    title="Metadata Correction",
+    title="CORRECT",
     icon=":material/edit:"
 )
 
 metadata_creator = st.Page(
     page="pages/metadata_creator.py",
-    title="Metadata Creation",
+    title="GENERATE",
     icon=":material/engineering:",
 )
 
 metadata_loader = st.Page(
     page="pages/metadata_loader.py",
-    title="Metadata Loader",
+    title="LOAD",
     icon=":material/published_with_changes:",
 )
 
 multimodal_search = st.Page(
     page="pages/multimodal_search.py",
-    title="multimodal search",
+    title="SEARCH",
     icon=":material/search:",
 )
 
 pg = st.navigation(
     {
-    "overview": [overview],
-    "storage initialization": [storage_initialization],
-    "data orchestration": [data_orchestration],
-    "data correction": [data_correction],
-    "metadata creator":[metadata_creator],
-    "metadata loader": [metadata_loader],
-    "multimodal search": [multimodal_search]
+    "OVERVIEW": [overview],
+    "DATA: ADD/ VALIDATE": [data_validation],
+    "METADATA": [data_correction, metadata_creator, metadata_loader],
+    "SEARCH": [multimodal_search]
     }
     )
 
