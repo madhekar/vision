@@ -9,6 +9,13 @@ import os
 
 #sti.initUI()
 
+st.set_page_config(
+    page_title="zesha: Home Media Portal (HMP)",
+    page_icon="/home/madhekar/work/zsource/zesha-high-resolution-logo.jpeg",
+    initial_sidebar_state="auto",
+    layout="wide",
+)
+
 def load_css(css_path):
     with open(file=css_path) as f:
         s = f"<style>{f.read()}</style>"
@@ -20,7 +27,12 @@ css_path = os.path.join("assets", "styles.css")
 load_css(css_path)
 
 
-overview = st.Page( page="pages/overview.py", title=" Overview", icon=":material/house:", default=True)
+overview = st.Page( 
+    page="pages/overview.py", 
+    title=" Overview", 
+    con=":material/house:", 
+    default=True
+)
 
 storage_initialization = st.Page(
     page="pages/data_storage.py",
