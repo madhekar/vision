@@ -5,18 +5,18 @@ import numpy as np
 st.header("OVERVIEW", divider="gray")
 c1, c2, c3, c4, c5 = st.columns([1,1,1,1,1])
 with c1:
-  st.metric("RAW STORAGE", 20000, 50)
+  st.metric("RAW STORAGE", 20000, -50)
 with c2:
   st.metric("IMAGE STORAGE", 10000, 50)
 with c3:
-  st.metric("DUPICATE IMAGES", 10000, 50)  
+  st.metric("DUPICATE IMAGES", 700, 5)  
 with c4:
-  st.metric("BAD IMAGES", 10000, 50)
+  st.metric("BAD IMAGES", 8000, 120)
 with c5:
-  st.metric("MISSING MEADATA IMAGE", 10000, 50)    
+  st.metric("MISSING MEADATA IMAGE", 7000, 35)    
 
 
-st.subheader("SORAGE OVERVIEW", divider="gray")
+st.subheader("STORAGE OVERVIEW", divider="gray")
 c1,c2,c3,c4 = st.columns([1,1,1,1])
 with c1:
       chart_data = pd.DataFrame(abs(np.random.randn(1, 4)) *100 , columns=["images", "text", "video", "audio"])
