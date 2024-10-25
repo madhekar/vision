@@ -1,11 +1,10 @@
 import streamlit as st
 import os
 
-
+###########################################
 # https://docs.streamlit.io/get-started/tutorials/create-a-multipage-app
 # https://www.youtube.com/watch?v=jbJpAdGlKVY
-
-#sti.initUI()
+#####################################
 
 st.set_page_config(
     page_title="zesha: Home Media Portal (HMP)",
@@ -23,7 +22,6 @@ def load_css(css_path):
 css_path = os.path.join("assets", "styles.css")
 
 load_css(css_path)
-
 
 overview = st.Page( 
     page="pages/overview.py", 

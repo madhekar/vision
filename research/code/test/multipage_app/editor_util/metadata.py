@@ -12,9 +12,6 @@ from editor_util import util
 
 smp, smf, mmp, mmf = util.config_load()
 
-# st.markdown("<p class='big-font-title'>Metadata Editor - Home Media Portal</p>", unsafe_allow_html=True)
-# st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
-
 if "markers" not in st.session_state:
     st.session_state["markers"] = []
 
@@ -94,7 +91,7 @@ def save_metadata():
 
 
 def main():
-
+    
     st.sidebar.header("Display Images Criteria",divider="gray")
     cb,cr,cp = st.sidebar.columns([1,1,1])
     with cb:
@@ -110,52 +107,52 @@ def main():
     st.session_state.df_loc = st.sidebar.data_editor(st.session_state.df_loc, num_rows="dynamic", use_container_width=True, height=350)
     st.sidebar.button(label="Save Metadata", on_click=save_metadata(), use_container_width=True)
     #
-    m = fl.Map(location=[32.968700, -117.184200], zoom_start=7)
+    with st.container(border=True):
+        m = fl.Map(location=[32.968700, -117.184200], zoom_start=7)
 
-    fg = fl.FeatureGroup(name="zesha")
+        fg = fl.FeatureGroup(name="zesha")
 
-    for marker in st.session_state["markers"]:
-        fg.add_child(marker)
+        for marker in st.session_state["markers"]:
+            fg.add_child(marker)
 
-    m.add_child(fl.LatLngPopup())
+        m.add_child(fl.LatLngPopup())
 
-    map = st_folium(m, width="100%", feature_group_to_add=fg)
+        map = st_folium(m, width="100%", feature_group_to_add=fg)
 
-    data = None
-    if map.get("last_clicked"):
-        data = (map["last_clicked"]["lat"], map["last_clicked"]["lng"])
+        data = None
+        if map.get("last_clicked"):
+            data = (map["last_clicked"]["lat"], map["last_clicked"]["lng"])
 
-    if data is not None:
-        # st.write(data)
-        print(data)
+        if data is not None:
+            # st.write(data)
+            print(data)
 
-    #
-    #st.subheader("Images", divider="gray")
-    batch = files[(page - 1) * batch_size : page * batch_size]
-    grid = st.columns(row_size)
-    col = 0
-    st.cache_resource
-    for image in batch:
-        with grid[col]:
-            c1, c2, c3 = st.columns([1, 1, 1])
-            lat = st.session_state.df.at[image, "GPSLatitude"]
-            lon = st.session_state.df.at[image, "GPSLongitude"]
-            dt = st.session_state.df.at[image, "DateTimeOriginal"]
-            label = os.path.basename(image)
-            if lat != "-":
-                c1.text_input(value=lat, label=f"Lat_{image}", label_visibility="hidden")  # ,on_change=update_latitude(col, image))
-                c2.text_input(value=lon, label=f"Lon_{image}", label_visibility="hidden")  # , on_change=update_longitude(col, image))
-                c3.text_input(value=dt,label=f"dt_{image}", label_visibility="hidden", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
-            else:
-                r = c2.selectbox(label=f"location_{image}", label_visibility="hidden",  options=st.session_state.df_loc.index.values, index=None, on_change=update_all_latlon())
-                if r:
-                  st.session_state["updated_location_list"].append((image, col, r))
-                c3.text_input(value=dt,label=f"dt_{image}", label_visibility="hidden", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt')) 
-            st.image(image, caption=label, output_format="JPG")
-            if lat != "-":
-                add_marker(lat, lon, label, image)
+        #
+        batch = files[(page - 1) * batch_size : page * batch_size]
+        grid = st.columns(row_size)
+        col = 0
+        st.cache_resource
+        for image in batch:
+            with grid[col]:
+                c1, c2, c3 = st.columns([1, 1, 1])
+                lat = st.session_state.df.at[image, "GPSLatitude"]
+                lon = st.session_state.df.at[image, "GPSLongitude"]
+                dt = st.session_state.df.at[image, "DateTimeOriginal"]
+                label = os.path.basename(image)
+                if lat != "-":
+                    c1.text_input(value=lat, label=f"Lat_{image}", label_visibility="hidden")  # ,on_change=update_latitude(col, image))
+                    c2.text_input(value=lon, label=f"Lon_{image}", label_visibility="hidden")  # , on_change=update_longitude(col, image))
+                    c3.text_input(value=dt,label=f"dt_{image}", label_visibility="hidden", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
+                else:
+                    r = c2.selectbox(label=f"location_{image}", label_visibility="hidden",  options=st.session_state.df_loc.index.values, index=None, on_change=update_all_latlon())
+                    if r:
+                       st.session_state["updated_location_list"].append((image, col, r))
+                    c3.text_input(value=dt,label=f"dt_{image}", label_visibility="hidden", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt')) 
+                st.image(image, caption=label, output_format="JPG")
+                if lat != "-":
+                    add_marker(lat, lon, label, image)
 
-        col = (col + 1) % row_size
+            col = (col + 1) % row_size
 
 if __name__ == "__main__":
         main()
