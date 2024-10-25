@@ -81,7 +81,7 @@ with st.container():
     st.subheader("DATA: ADD/ VALIDATE", divider="gray")
     c0, c1, c2, c3 = st.columns((1, 1, 1, 1), gap="small")
     with c0:
-        st.button("DATA LOAD CHECK", key="g0", on_click=btn_pressed_callback, args=(0,))
+        st.button("DATA LOAD CHECK", key="g0", on_click=btn_pressed_callback, args=(0,),use_container_width=True)
         st.divider()
         chart_data = pd.DataFrame(
             abs(np.random.randn(1, 4)) * 100,
@@ -98,7 +98,7 @@ with st.container():
         st.text_area("data load msgs:")
     with c1:
         st.button(
-            "DUPLICATE DATA CHECK", key="g1", on_click=btn_pressed_callback, args=(1,)
+            "DUPLICATE DATA CHECK", key="g1", on_click=btn_pressed_callback, args=(1,), use_container_width=True
         )
         st.divider()
         chart_data = pd.DataFrame(
@@ -116,7 +116,7 @@ with st.container():
         st.text_area("duplicate data msgs:")
     with c2:
         st.button(
-            "DATA QUALITY CHECK", key="g2", on_click=btn_pressed_callback, args=(2,)
+            "DATA QUALITY CHECK", key="g2", on_click=btn_pressed_callback, args=(2,), use_container_width=True
         )
         st.divider()
         chart_data = pd.DataFrame(
@@ -133,7 +133,7 @@ with st.container():
         st.divider()
         st.text_area("quality check msgs:")
     with c3:
-        st.button("METADATA CHECK", key="g3", on_click=btn_pressed_callback, args=(3,))
+        st.button("METADATA CHECK", key="g3", on_click=btn_pressed_callback, args=(3,), use_container_width=True)
         st.divider()
         chart_data = pd.DataFrame(
             abs(np.random.randn(1, 4)) * 100,
