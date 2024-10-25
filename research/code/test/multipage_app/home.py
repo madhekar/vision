@@ -9,8 +9,13 @@ import os
 st.set_page_config(
     page_title="zesha: Home Media Portal (HMP)",
     page_icon="/home/madhekar/work/zsource/zesha-high-resolution-logo.jpeg",
-    initial_sidebar_state="auto",
+    initial_sidebar_state="expanded",
     layout="wide",
+    menu_items={
+        'About': 'Zesha PC is created by Bhalchandra Madhekar',
+        'Get Help':'https://www.linkedin.com/in/bmadhekar'
+    }
+
 )
 
 def load_css(css_path):
@@ -28,6 +33,7 @@ overview = st.Page(
     title="OVERVIEW", 
     icon=":material/house:", 
     default=True
+
 )
 
 data_validation = st.Page(
