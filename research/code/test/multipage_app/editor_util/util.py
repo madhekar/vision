@@ -33,6 +33,8 @@ import yaml
 import pyexiv2
 import streamlit as st
 from GPSPhoto import gpsphoto
+import streamlit_pydantic as sp
+from pydantic import BaseModel
 
 @st.cache_resource
 def config_load():
@@ -122,3 +124,9 @@ def setGpsInfo(fn, lat, lon):
     photo = gpsphoto.GPSPhoto(fn)
     info = gpsphoto.GPSInfo((lat, lon))
     photo.modGPSData(info, fn)
+
+class Location(BaseModel):
+  locId: str
+  desc: str
+  lat: float
+  lon: float
