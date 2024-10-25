@@ -94,44 +94,43 @@ def save_metadata():
 
 
 def main():
-    l1,l2 = st.columns([.12,.88])
-    with l1:
-        l1.subheader("Display Images", divider="gray")
-        cb,cr,cp = l1.columns([1,1,1])
-        with cb:
-           batch_size = cb.select_slider("Batch size:", range(10, 700, 10))
-        with cr:   
-           row_size = cr.select_slider("Row size:", range(1, 10), value=7)   
-           num_batches = ceil(len(files) / batch_size)
-        with cp:   
-           page = cp.selectbox("Page#:", range(1, num_batches + 1))
 
-        l1.subheader("Locations",divider="gray")
-        #st.button(label="Add/Update", on_click=add_location())
-        st.session_state.df_loc = st.data_editor(st.session_state.df_loc, num_rows="dynamic", use_container_width=True, height=350)
-        l1.button(label="Save Metadata", on_click=save_metadata(), use_container_width=True)
+    st.sidebar.header("Display Images Criteria",divider="gray")
+    cb,cr,cp = st.sidebar.columns([1,1,1])
+    with cb:
+        batch_size = st.sidebar.select_slider("Batch size:", range(10, 700, 10))
+    with cr:
+        row_size = st.sidebar.select_slider("Row size:", range(1, 10), value=7)
+        num_batches = ceil(len(files) / batch_size)
+    with cp:
+        page = st.sidebar.selectbox("Page#:", range(1, num_batches + 1))
 
-    with l2:
-        m = fl.Map(location=[32.968700, -117.184200], zoom_start=7)
+    st.sidebar.header("Locations",divider="gray")
+    #st.sidebar.button(label="Add/Update", on_click=add_location())
+    st.session_state.df_loc = st.sidebar.data_editor(st.session_state.df_loc, num_rows="dynamic", use_container_width=True, height=350)
+    st.sidebar.button(label="Save Metadata", on_click=save_metadata(), use_container_width=True)
+    #
+    m = fl.Map(location=[32.968700, -117.184200], zoom_start=7)
 
-        fg = fl.FeatureGroup(name="zesha")
+    fg = fl.FeatureGroup(name="zesha")
 
-        for marker in st.session_state["markers"]:
-            fg.add_child(marker)
+    for marker in st.session_state["markers"]:
+        fg.add_child(marker)
 
-        m.add_child(fl.LatLngPopup())
+    m.add_child(fl.LatLngPopup())
 
-        map = st_folium(m, width="100%", feature_group_to_add=fg)
+    map = st_folium(m, width="100%", feature_group_to_add=fg)
 
-        data = None
-        if map.get("last_clicked"):
-            data = (map["last_clicked"]["lat"], map["last_clicked"]["lng"])
+    data = None
+    if map.get("last_clicked"):
+        data = (map["last_clicked"]["lat"], map["last_clicked"]["lng"])
 
-        if data is not None:
-            # st.write(data)
-            print(data)
+    if data is not None:
+        # st.write(data)
+        print(data)
 
-    st.divider()
+    #
+    #st.subheader("Images", divider="gray")
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size)
     col = 0
