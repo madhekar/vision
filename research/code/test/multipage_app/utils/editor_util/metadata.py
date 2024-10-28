@@ -4,12 +4,8 @@ import pandas as pd
 import os
 import folium as fl
 from streamlit_folium import st_folium
-import streamlit_init as sti
 from utils.editor_util import util 
 from PIL import Image
-
-# initialize streamlit container UI settings
-#sti.initUI()
 
 @st.cache_resource
 def metadata_initialize(mmp,mmf):
@@ -35,6 +31,9 @@ def initialize():
 
     if "updated_datetime_list" not in st.session_state:
         st.session_state["updated_datetime_list"] = []   
+
+    if "editor_audit_msgs" not in st.session_state:
+        st.session_state["editor_audit_msgs"] = []   
         
     if "df" not in st.session_state:
         df = metadata_initialize(mmp, mmf)
@@ -134,9 +133,7 @@ def main():
         data = (map["last_clicked"]["lat"], map["last_clicked"]["lng"])
 
     if data is not None:
-        # st.write(data)
-        print(data)
-
+        st.session_state.editor_audit_msge.append(data)
 
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size)
