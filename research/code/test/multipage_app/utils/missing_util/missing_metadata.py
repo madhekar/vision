@@ -10,12 +10,13 @@ missing-metadata:
   missing_metadata_file: missing-metadata-wip.csv
 
 """
-def extract_missing_metadata(root_folder, output_path, output_file_name):
-   
-   args = shlex.split(f"exiftool -GPSLongitude -GPSLatitude -DateTimeOriginal -csv -T -r -n {root_folder}")
+def extract_missing_metadata():
+   imp, mmp, mmf = config_load()
+
+   args = shlex.split(f"exiftool -GPSLongitude -GPSLatitude -DateTimeOriginal -csv -T -r -n {imp}")
    proc = subprocess.run(args, capture_output=True)
    
-   output_file_path = os.path.join(output_path, output_file_name)
+   output_file_path = os.path.join(mmp, mmf)
    with open(output_file_path, "wb") as output:
       output.write(proc.stdout)
 
@@ -36,6 +37,4 @@ def config_load():
     )
 
 if __name__=='__main__':
-    imp, mmp, mmf = config_load()
-
-    extract_missing_metadata(imp, mmp, mmf)
+    extract_missing_metadata()
