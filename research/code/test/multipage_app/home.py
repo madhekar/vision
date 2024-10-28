@@ -1,5 +1,7 @@
 import streamlit as st
 import os
+import sys
+sys.path.append('../utils')
 
 ###########################################
 # https://docs.streamlit.io/get-started/tutorials/create-a-multipage-app

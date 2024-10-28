@@ -7,11 +7,11 @@ import os
 import folium as fl
 from streamlit_folium import st_folium
 import streamlit_init as sti
-import util 
-
+from editor_util import util 
+from PIL import Image
 
 # initialize streamlit container UI settings
-sti.initUI()
+#sti.initUI()
 
 smp, smf, mmp, mmf = util.config_load()
 
@@ -96,7 +96,7 @@ def save_metadata():
     st.session_state.df_loc.to_csv(os.path.join(smp, smf), sep=",")
 
 
-async def main():
+def main():
     l1,l2 = st.columns([.12,.88])
     with l1:
         l1.divider()
@@ -137,31 +137,38 @@ async def main():
             print(data)
 
     st.divider()
+
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size)
     col = 0
     st.cache_resource
     for image in batch:
         with grid[col]:
-            c1, c2, c3 = st.columns([1, 1, 1])
+            c1, c2 = st.columns([1.0, 1.0], gap="small")
             lat = st.session_state.df.at[image, "GPSLatitude"]
             lon = st.session_state.df.at[image, "GPSLongitude"]
             dt = st.session_state.df.at[image, "DateTimeOriginal"]
             label = os.path.basename(image)
             if lat != "-":
-                c1.text_input(value=lat, label=f"Lat_{image}", label_visibility="hidden")  # ,on_change=update_latitude(col, image))
-                c2.text_input(value=lon, label=f"Lon_{image}", label_visibility="hidden")  # , on_change=update_longitude(col, image))
-                c3.text_input(value=dt,label=f"dt_{image}", label_visibility="hidden", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
+                c2.empty()
+                c2.text_input(value=lat, label=f"Lat_{image}", label_visibility="collapsed")  # ,on_change=update_latitude(col, image))
+                c2.empty()
+                c2.text_input(value=lon, label=f"Lon_{image}", label_visibility="collapsed")  # , on_change=update_longitude(col, image))
+                c2.empty()
+                c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
             else:
-                r = c2.selectbox(label=f"location_{image}", label_visibility="hidden",  options=st.session_state.df_loc.index.values, index=None, on_change=update_all_latlon())
+                r = c2.selectbox(label=f"location_{image}", label_visibility="collapsed",  options=st.session_state.df_loc.index.values, index=None, on_change=update_all_latlon())
                 if r:
                   st.session_state["updated_location_list"].append((image, col, r))
-                c3.text_input(value=dt,label=f"dt_{image}", label_visibility="hidden", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt')) 
-            st.image(image, caption=label, output_format="JPG")
+                c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt')) 
+            image = Image.open(image)  
+            image.thumbnail((200,200), Image.Resampling.LANCZOS)
+            c1.image(image, caption=label, output_format="JPG")
             if lat != "-":
                 add_marker(lat, lon, label, image)
+            st.divider()    
 
         col = (col + 1) % row_size
 
 if __name__ == "__main__":
-        asyncio.run(main())
+        main()

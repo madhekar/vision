@@ -4,8 +4,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import streamlit.components.v1 as components
-sys.path.append('../utils')
-from missing_util import missing_metadata as mm
+from utils.missing_util import missing_metadata as mm
 
 mystate = st.session_state
 if "btn_prsd_status" not in mystate:
