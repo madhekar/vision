@@ -64,9 +64,9 @@ class DuplicateRemover:
 
                 print(f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")
             else:
-                print("Thank you for Using Duplicate Remover")
+                print("Using Duplicate Remover")
         else:
-            print("WOW!! No Duplicates Found :)")
+            print("No Duplicate images Found :)")
 
     def find_similar(self, location, similarity=80):
         fnames = os.listdir(self.dirname)

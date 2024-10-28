@@ -80,7 +80,11 @@ def exec_task(iTask):
 
 
 with st.container():
-    st.subheader("DATA: ADD/ VALIDATE", divider="gray")
+    st.header("DATA: ADD/ VALIDATE", divider="gray")
+    st.subheader("SELECT DATA SOURCE", divider="gray")
+    st.selectbox("data source folder", options="",label_visibility="collapsed")
+
+    st.subheader("EXECUTE TASKS", divider="gray")
     c0, c1, c2, c3 = st.columns((1, 1, 1, 1), gap="small")
     with c0:
         st.button("DATA LOAD CHECK", key="g0", on_click=btn_pressed_callback, args=(0,),use_container_width=True)
