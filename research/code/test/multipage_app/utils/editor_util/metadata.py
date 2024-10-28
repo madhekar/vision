@@ -5,25 +5,50 @@ import os
 import folium as fl
 from streamlit_folium import st_folium
 import streamlit_init as sti
-from editor_util import util 
+from utils.editor_util import util 
 from PIL import Image
 
 # initialize streamlit container UI settings
 #sti.initUI()
 
-smp, smf, mmp, mmf = util.config_load()
+@st.cache_resource
+def metadata_initialize(mmp,mmf):
+    df = pd.read_csv (os.path.join(mmp, mmf)) #('metadata.csv')
+    #df["idx"] = range(1, len(df) +1)
+    df.set_index("SourceFile", inplace=True)
+    return df
 
-st.markdown("<p class='big-font-title'>Metadata Editor - Home Media Portal</p>", unsafe_allow_html=True)
-st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
+@st.cache_resource
+def location_initialize(smp, smf):
+     df_loc = pd.read_csv (os.path.join(smp, smf)) #("locations.csv")
+     df_loc.set_index("name", inplace=True)
+     return df_loc
 
-if "markers" not in st.session_state:
-    st.session_state["markers"] = []
+def initialize():
+    smp, smf, mmp, mmf = util.config_load()
 
-if "updated_location_list" not in st.session_state:
-    st.session_state["updated_location_list"] = []
+    if "markers" not in st.session_state:
+        st.session_state["markers"] = []
 
-if "updated_datetime_list" not in st.session_state:
-    st.session_state["updated_datetime_list"] = []    
+    if "updated_location_list" not in st.session_state:
+        st.session_state["updated_location_list"] = []
+
+    if "updated_datetime_list" not in st.session_state:
+        st.session_state["updated_datetime_list"] = []   
+        
+    if "df" not in st.session_state:
+        df = metadata_initialize(mmp, mmf)
+        st.session_state.df = df
+    else:
+        df = st.session_state.df
+
+    if "df_loc" not in st.session_state:
+        df_loc = location_initialize(smp, smf)
+        st.session_state.df_loc = df_loc
+    else:
+        df_loc = st.session_state.df_loc     
+
+    return smp, smf, mmp, mmf
 
 def clear_markers():
     st.session_state["markers"].clear()
@@ -42,33 +67,10 @@ def add_marker(lat, lon, label, url):
     marker = fl.Marker([lat, lon], popup=url, tooltip=label)#, icon=iconurl)
     st.session_state["markers"].append(marker)
 
-@st.cache_data
-def metadata_initialize():
-    df = pd.read_csv (os.path.join(mmp, mmf)) #('metadata.csv')
-    #df["idx"] = range(1, len(df) +1)
-    df.set_index("SourceFile", inplace=True)
-    return df
 
-if "df" not in st.session_state:
-    df = metadata_initialize()
-    st.session_state.df = df
-else:
-    df = st.session_state.df
-
-@st.cache_data
-def location_initialize():
-     df_loc = pd.read_csv (os.path.join(smp, smf)) #("locations.csv")
-     df_loc.set_index("name", inplace=True)
-     return df_loc
-
-if "df_loc" not in st.session_state:
-     df_loc = location_initialize()
-     st.session_state.df_loc = df_loc
-else:
-     df_loc = st.session_state.df_loc
 
 # extract files
-files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
+#files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
 
 def update_all_latlon():
     if len(st.session_state.updated_location_list) > 0 :
@@ -87,12 +89,18 @@ def update_all_datetime_changes(image, col):
     util.setDateTimeOriginal(image, dt)
 
 
-def save_metadata():
+def save_metadata(smp, smf, mmp, mmf):
     st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",")
     st.session_state.df_loc.to_csv(os.path.join(smp, smf), sep=",")
 
 
 def main():
+
+    smp, smf, mmp, mmf = initialize()
+
+    # extract files
+    files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
+
     st.sidebar.header("Display Images Criteria",divider="gray")#l1.sidebar.markdown("### Display Images")
     cb,cr,cp = st.sidebar.columns([1,1,1])
     with cb:
@@ -106,8 +114,9 @@ def main():
 
     st.sidebar.header('Locations', divider="gray")
     #st.button(label="Add/Update", on_click=add_location())
-    st.session_state.df_loc = st.sidebar.data_editor(st.session_state.df_loc, num_rows="dynamic", use_container_width=True, height=350)
-    st.sidebar.button(label="Save Metadata", on_click=save_metadata(), use_container_width=True)
+    print(st.session_state)
+    st.session_state.df_loc = st.sidebar.data_editor(st.session_state.df_loc, num_rows="dynamic", use_container_width=True, height=350) #
+    st.sidebar.button(label="Save Metadata", on_click=save_metadata(smp, smf, mmp, mmf), use_container_width=True)
 
     m = fl.Map(location=[32.968700, -117.184200], zoom_start=7)
 

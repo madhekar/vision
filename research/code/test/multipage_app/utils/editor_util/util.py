@@ -36,7 +36,7 @@ from GPSPhoto import gpsphoto
 
 @st.cache_resource
 def config_load():
-    with open("metadata_conf.yaml") as prop:
+    with open("utils/editor_util/metadata_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         print("* * * * * * * * * * Metadata Generator Properties * * * * * * * * * * *")
