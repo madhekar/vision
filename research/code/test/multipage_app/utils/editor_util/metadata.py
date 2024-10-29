@@ -12,7 +12,6 @@ import streamlit_pydantic as sp
 @st.cache_resource
 def metadata_initialize(mmp,mmf):
     df = pd.read_csv (os.path.join(mmp, mmf)) #('metadata.csv')
-    #df["idx"] = range(1, len(df) +1)
     df.set_index("SourceFile", inplace=True)
     return df
 
@@ -102,7 +101,7 @@ def main():
     # extract files
     files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
 
-    st.sidebar.header("Display Images Criteria",divider="gray")#l1.sidebar.markdown("### Display Images")
+    st.sidebar.header("Display Criteria",divider="gray")
     cb,cr,cp = st.sidebar.columns([1,1,1])
     with cb:
         batch_size = st.select_slider("Batch size:", range(10, 700, 10))
