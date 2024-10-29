@@ -104,12 +104,12 @@ def main():
     st.sidebar.header("Display Criteria",divider="gray")
     cb,cr,cp = st.sidebar.columns([1,1,1])
     with cb:
-        batch_size = st.select_slider("Batch size:", range(10, 700, 10))
+        batch_size = st.select_slider("Batch Size:", range(10, 700, 10))
     with cr:   
-        row_size = st.select_slider("Row size:", range(1, 10), value=7)   
+        row_size = st.select_slider("Row Size:", range(1, 10), value=7)   
         num_batches = ceil(len(files) / batch_size)
     with cp:   
-        page = st.selectbox("Page#:", range(1, num_batches + 1))
+        page = st.selectbox("Page Number:", range(1, num_batches + 1))
 
 
     st.sidebar.header('Locations', divider="gray")
