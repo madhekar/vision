@@ -115,11 +115,11 @@ def main():
     st.sidebar.header('Locations', divider="gray")
     config = {
     'name' : st.column_config.TextColumn('Name', width='small', required=True),
-    'desc' : st.column_config.TextColumn('Description', width='small', required=False),
-    'lat' : st.column_config.NumberColumn('Latitude', required=True),
-    'lon' : st.column_config.NumberColumn('Logitude', required=True)
+    'desc' : st.column_config.TextColumn('Description', width='small', required=True),
+    'lat' : st.column_config.NumberColumn('Latitude', min_value=-90.0, max_value=90.0, required=True),
+    'lon' : st.column_config.NumberColumn('Logitude',min_value=-180.0, max_value= 180.0, required=True)
     }
-    st.session_state.df_loc = st.sidebar.data_editor(st.session_state.df_loc, column_config=config, num_rows="dynamic", use_container_width=True, height=350) #
+    st.session_state.df_loc = st.sidebar.data_editor(st.session_state.df_loc, column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
     st.sidebar.button(label="Save Metadata", on_click=save_metadata(smp, smf, mmp, mmf), use_container_width=True)
 
