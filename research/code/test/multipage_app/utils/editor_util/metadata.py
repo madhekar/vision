@@ -6,6 +6,8 @@ import folium as fl
 from streamlit_folium import st_folium
 from utils.editor_util import util 
 from PIL import Image
+import dataclasses
+import streamlit_pydantic as sp
 
 @st.cache_resource
 def metadata_initialize(mmp,mmf):
@@ -103,18 +105,23 @@ def main():
     st.sidebar.header("Display Images Criteria",divider="gray")#l1.sidebar.markdown("### Display Images")
     cb,cr,cp = st.sidebar.columns([1,1,1])
     with cb:
-        batch_size = st.sidebar.select_slider("Batch size:", range(10, 700, 10))
+        batch_size = st.select_slider("Batch size:", range(10, 700, 10))
     with cr:   
-        row_size = st.sidebar.select_slider("Row size:", range(1, 10), value=7)   
+        row_size = st.select_slider("Row size:", range(1, 10), value=7)   
         num_batches = ceil(len(files) / batch_size)
     with cp:   
-        page = st.sidebar.selectbox("Page#:", range(1, num_batches + 1))
+        page = st.selectbox("Page#:", range(1, num_batches + 1))
 
 
     st.sidebar.header('Locations', divider="gray")
-    #st.button(label="Add/Update", on_click=add_location())
-    print(st.session_state)
-    st.session_state.df_loc = st.sidebar.data_editor(st.session_state.df_loc, num_rows="dynamic", use_container_width=True, height=350) #
+    config = {
+    'name' : st.column_config.TextColumn('Name', width='small', required=True),
+    'desc' : st.column_config.TextColumn('Description', width='small', required=False),
+    'lat' : st.column_config.NumberColumn('Latitude', required=True),
+    'lon' : st.column_config.NumberColumn('Logitude', required=True)
+    }
+    st.session_state.df_loc = st.sidebar.data_editor(st.session_state.df_loc, column_config=config, num_rows="dynamic", use_container_width=True, height=350) #
+
     st.sidebar.button(label="Save Metadata", on_click=save_metadata(smp, smf, mmp, mmf), use_container_width=True)
 
     m = fl.Map(location=[32.968700, -117.184200], zoom_start=7)
