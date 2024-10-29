@@ -123,7 +123,7 @@ def main():
 
     st.sidebar.button(label="Save Metadata", on_click=save_metadata(smp, smf, mmp, mmf), use_container_width=True)
 
-    m = fl.Map(location=[32.968700, -117.184200], zoom_start=4)
+    m = fl.Map(location=[32.968700, -117.184200], zoom_start=4, min_zoom=3, max_zoom=10)
 
     fg = fl.FeatureGroup(name="zesha")
 
