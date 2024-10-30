@@ -46,11 +46,15 @@ def config_load():
         static_metadata_file = dict["metadata"]["static_metadata_file"]
         missing_metadata_path = dict["metadata"]["missing_metadata_path"]
         missing_metadata_file = dict["metadata"]["missing_metadata_file"]
+        sqlite_database_path = dict["metadata"]["sqlite_database_path"]
+        sqlite_database_name = dict["metadata"]["sqlite_database_name"]
     return (
         static_metadata_path,
         static_metadata_file,
         missing_metadata_path,
         missing_metadata_file,
+        sqlite_database_path,
+        sqlite_database_name
     )
 
 def to_deg(value, loc):

@@ -5,9 +5,10 @@ import os
 import folium as fl
 from streamlit_folium import st_folium
 from utils.editor_util import util 
+from utils.sqlite_util import location
 from PIL import Image
-import dataclasses
-import streamlit_pydantic as sp
+# import dataclasses
+# import streamlit_pydantic as sp
 
 @st.cache_resource
 def metadata_initialize(mmp,mmf):
@@ -16,13 +17,15 @@ def metadata_initialize(mmp,mmf):
     return df
 
 @st.cache_resource
-def location_initialize(smp, smf):
-     df_loc = pd.read_csv (os.path.join(smp, smf)) #("locations.csv")
-     df_loc.set_index("name", inplace=True)
+def location_initialize(sdp, sdn):
+    #  df_loc = pd.read_csv (os.path.join(smp, smf)) #("locations.csv")
+    #  df_loc.set_index("name", inplace=True)
+     con = location.create_or_connect_database(sdp, sdn)
+     con.
      return df_loc
 
 def initialize():
-    smp, smf, mmp, mmf = util.config_load()
+    smp, smf, mmp, mmf, sdp, sdn = util.config_load()
 
     if "markers" not in st.session_state:
         st.session_state["markers"] = []
@@ -48,7 +51,7 @@ def initialize():
     else:
         df_loc = st.session_state.df_loc     
 
-    return smp, smf, mmp, mmf
+    return smp, smf, mmp, mmf, sdp, sdn
 
 def clear_markers():
     st.session_state["markers"].clear()
@@ -92,11 +95,12 @@ def update_all_datetime_changes(image, col):
 def save_metadata(smp, smf, mmp, mmf):
     st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",")
     st.session_state.df_loc.to_csv(os.path.join(smp, smf), sep=",")
+    print(st.session_state.df_loc)
 
 
 def main():
 
-    smp, smf, mmp, mmf = initialize()
+    smp, smf, mmp, mmf, sdp, sdn = initialize()
 
     # extract files
     files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
