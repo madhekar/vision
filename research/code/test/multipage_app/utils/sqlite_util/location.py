@@ -14,7 +14,7 @@ class Location:
         self.con.commit()
 
     def insert_location(self, name, desc, lat, lon):
-        self.cur.execute("INSERT INTO Location VALUES(?, ?, ?, ?))",(name, desc, lat, lon, datetime.now().isoformat()))
+        self.cur.execute("INSERT INTO Location VALUES(?, ?, ?, ?))",(name, desc, lat, lon))
         self.con.commit()
 
     def bulk_insert(self, data):
