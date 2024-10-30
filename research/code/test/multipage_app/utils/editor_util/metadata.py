@@ -16,13 +16,20 @@ def metadata_initialize(mmp,mmf):
     df.set_index("SourceFile", inplace=True)
     return df
 
-@st.cache_resource
+#@st.cache_resource
 def location_initialize(sdp, sdn):
-    #  df_loc = pd.read_csv (os.path.join(smp, smf)) #("locations.csv")
-    #  df_loc.set_index("name", inplace=True)
-     con = location.create_or_connect_database(sdp, sdn)
-     con.
-     return df_loc
+    db_con = location.Location(dbpath=sdp, dbname=sdn)
+    db_con.create_location_tbl_if_not_exists()
+    n = db_con.get_number_of_rows()
+    if n[0][0] != 0:
+        t_arr = db_con.read_location()
+        df_loc = pd.DataFrame(t_arr)
+        df_loc.columns = ["name", "desc", "lat", "lon"]
+        #df_loc.set_index('name', inplace=True)
+    else:
+        df_loc = pd.DataFrame(columns=["name", "desc", "lat", "lon"])
+        #df_loc.set_index('name', inplace=True)
+    return df_loc
 
 def initialize():
     smp, smf, mmp, mmf, sdp, sdn = util.config_load()
@@ -46,7 +53,7 @@ def initialize():
         df = st.session_state.df
 
     if "df_loc" not in st.session_state:
-        df_loc = location_initialize(smp, smf)
+        df_loc = location_initialize(sdp, sdn)
         st.session_state.df_loc = df_loc
     else:
         df_loc = st.session_state.df_loc     
@@ -92,9 +99,19 @@ def update_all_datetime_changes(image, col):
     util.setDateTimeOriginal(image, dt)
 
 
-def save_metadata(smp, smf, mmp, mmf):
+def persist_static_locations(sdp, sdn):
+    data = st.session_state.df_loc.to_dict(orient='records')
+    print(st.session_state.df_loc, data)
+    db_con = location.Location(dbpath=sdp, dbname=sdn)
+    db_con.create_location_tbl_if_not_exists()
+    #columns = ["name TEXT PRIMARY KEY", "desc TEXT", "lat NUMERIC", "lon NUMERIC"]
+    db_con.bulk_insert(data=data)
+
+
+def save_metadata(sdp, sdn, mmp, mmf):
     st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",")
-    st.session_state.df_loc.to_csv(os.path.join(smp, smf), sep=",")
+    # st.session_state.df_loc.to_csv(os.path.join(smp, smf), sep=",")
+    persist_static_locations(sdp, sdn)
     print(st.session_state.df_loc)
 
 
@@ -125,7 +142,9 @@ def main():
     }
     st.session_state.df_loc = st.sidebar.data_editor(st.session_state.df_loc, column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
-    st.sidebar.button(label="Save Metadata", on_click=save_metadata(smp, smf, mmp, mmf), use_container_width=True)
+    save_btn = st.sidebar.button(label="Save Metadata",  use_container_width=True) #on_click=save_metadata(sdp, sdn, mmp, mmf)
+    if save_btn:
+        save_metadata(sdp, sdn, mmp, mmf)
 
     m = fl.Map(location=[32.968700, -117.184200], zoom_start=4, min_zoom=3, max_zoom=10)
 
