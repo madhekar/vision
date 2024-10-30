@@ -104,16 +104,13 @@ def persist_static_locations(sdp, sdn):
     print(st.session_state.df_loc, data)
     db_con = location.Location(dbpath=sdp, dbname=sdn)
     db_con.create_location_tbl_if_not_exists()
-    #columns = ["name TEXT PRIMARY KEY", "desc TEXT", "lat NUMERIC", "lon NUMERIC"]
     db_con.bulk_insert(data=data)
 
 
 def save_metadata(sdp, sdn, mmp, mmf):
     st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",")
-    # st.session_state.df_loc.to_csv(os.path.join(smp, smf), sep=",")
     persist_static_locations(sdp, sdn)
     print(st.session_state.df_loc)
-
 
 def main():
 
