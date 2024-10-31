@@ -125,23 +125,4 @@ def execute():
      
 # kick-off metadata generation 
 if __name__ == "__main__":
-    # with open("preprocess_conf.yaml") as prop:
-    #     dict = yaml.safe_load(prop)
-
-    #     pprint.pprint("* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *")
-    #     pprint.pprint(dict)
-    #     pprint.pprint("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
-
-    #     image_dir_path = dict["metadata"]["image_dir_path"]
-
-    #     metadata_path = dict["metadata"]["metadata_path"]
-    #     metadata_file = dict["metadata"]["metadata_file"]
-    #     chunk_size = dict["metadata"]["data_chunk_size"]
-    #     number_of_instances = dict["metadata"]["number_of_instances"]
-    #     openclip_finetuned = dict["models"]['openclip_finetuned']
-
-    #     img_iterator = util.getRecursive(image_dir_path, chunk_size=chunk_size)
-
-    #     for ilist in img_iterator:
-    #         asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))
     execute()

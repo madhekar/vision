@@ -47,7 +47,6 @@ def build_orch_structure(raw_folders):
     df = pd.DataFrame(data=data, columns=columns, index=idx)
     return df
  
-
 def extract_user_raw_data_folders(pth):
    return next(os.walk(pth))[1]
 
