@@ -9,6 +9,7 @@ import aiofiles
 import json
 import yaml
 import pprint
+from utils.config_util import config
 
 # init LLM modules
 m, t, p = LLM.setLLM()
@@ -110,25 +111,37 @@ async def amain(iList, metadata_path, metadata_file, chunk_size, openclip_finetu
 
 
 def execute():
+    (image_dir_path,
+    metadata_path,
+    metadata_file,
+    chunk_size,
+    number_of_instances,
+    openclip_finetuned) = config.preprocess_config_load()
+
+    img_iterator = util.getRecursive(image_dir_path, chunk_size=chunk_size)
+
+    for ilist in img_iterator:
+            asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))
      
 # kick-off metadata generation 
 if __name__ == "__main__":
-    with open("preprocess_conf.yaml") as prop:
-        dict = yaml.safe_load(prop)
+    # with open("preprocess_conf.yaml") as prop:
+    #     dict = yaml.safe_load(prop)
 
-        pprint.pprint("* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *")
-        pprint.pprint(dict)
-        pprint.pprint("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    #     pprint.pprint("* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *")
+    #     pprint.pprint(dict)
+    #     pprint.pprint("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
 
-        image_dir_path = dict["metadata"]["image_dir_path"]
+    #     image_dir_path = dict["metadata"]["image_dir_path"]
 
-        metadata_path = dict["metadata"]["metadata_path"]
-        metadata_file = dict["metadata"]["metadata_file"]
-        chunk_size = dict["metadata"]["data_chunk_size"]
-        number_of_instances = dict["metadata"]["number_of_instances"]
-        openclip_finetuned = dict["models"]['openclip_finetuned']
+    #     metadata_path = dict["metadata"]["metadata_path"]
+    #     metadata_file = dict["metadata"]["metadata_file"]
+    #     chunk_size = dict["metadata"]["data_chunk_size"]
+    #     number_of_instances = dict["metadata"]["number_of_instances"]
+    #     openclip_finetuned = dict["models"]['openclip_finetuned']
 
-        img_iterator = util.getRecursive(image_dir_path, chunk_size=chunk_size)
+    #     img_iterator = util.getRecursive(image_dir_path, chunk_size=chunk_size)
 
-        for ilist in img_iterator:
-            asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))
+    #     for ilist in img_iterator:
+    #         asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))
+    execute()
