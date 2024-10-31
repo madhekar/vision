@@ -132,10 +132,10 @@ def main():
 
     st.sidebar.header('Locations', divider="gray")
     config = {
-    'name' : st.column_config.TextColumn('Name', width='small', required=True),
-    'desc' : st.column_config.TextColumn('Description', width='small', required=True),
-    'lat' : st.column_config.NumberColumn('Latitude', min_value=-90.0, max_value=90.0, required=True),
-    'lon' : st.column_config.NumberColumn('Logitude',min_value=-180.0, max_value= 180.0, required=True)
+        'name' : st.column_config.TextColumn('Name', width='small', required=True),
+        'desc' : st.column_config.TextColumn('Description', width='small', required=True),
+        'lat' : st.column_config.NumberColumn('Latitude', min_value=-90.0, max_value=90.0, required=True),
+        'lon' : st.column_config.NumberColumn('Logitude',min_value=-180.0, max_value= 180.0, required=True)
     }
     st.session_state.df_loc = st.sidebar.data_editor(st.session_state.df_loc, column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
@@ -180,7 +180,7 @@ def main():
                 c2.empty()
                 c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
             else:
-                r = c2.selectbox(label=f"location_{image}", label_visibility="collapsed",  options=st.session_state.df_loc.index.values, index=None, on_change=update_all_latlon())
+                r = c2.selectbox(label=f"location_{image}", label_visibility="collapsed",  options=st.session_state.df_loc.name.values, index=None, on_change=update_all_latlon())
                 if r:
                   st.session_state["updated_location_list"].append((image, col, r))
                 c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt')) 
