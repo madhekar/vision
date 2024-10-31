@@ -34,28 +34,28 @@ import pyexiv2
 import streamlit as st
 from GPSPhoto import gpsphoto
 
-@st.cache_resource
-def config_load():
-    with open("utils/editor_util/metadata_conf.yaml") as prop:
-        dict = yaml.safe_load(prop)
+# @st.cache_resource
+# def config_load():
+#     with open("utils/editor_util/metadata_conf.yaml") as prop:
+#         dict = yaml.safe_load(prop)
 
-        print("* * * * * * * * * * Metadata Generator Properties * * * * * * * * * * *")
-        pprint.pprint(dict)
-        print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
-        static_metadata_path = dict["metadata"]["static_metadata_path"]
-        static_metadata_file = dict["metadata"]["static_metadata_file"]
-        missing_metadata_path = dict["metadata"]["missing_metadata_path"]
-        missing_metadata_file = dict["metadata"]["missing_metadata_file"]
-        sqlite_database_path = dict["metadata"]["sqlite_database_path"]
-        sqlite_database_name = dict["metadata"]["sqlite_database_name"]
-    return (
-        static_metadata_path,
-        static_metadata_file,
-        missing_metadata_path,
-        missing_metadata_file,
-        sqlite_database_path,
-        sqlite_database_name
-    )
+#         print("* * * * * * * * * * Metadata Generator Properties * * * * * * * * * * *")
+#         pprint.pprint(dict)
+#         print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+#         static_metadata_path = dict["metadata"]["static_metadata_path"]
+#         static_metadata_file = dict["metadata"]["static_metadata_file"]
+#         missing_metadata_path = dict["metadata"]["missing_metadata_path"]
+#         missing_metadata_file = dict["metadata"]["missing_metadata_file"]
+#         sqlite_database_path = dict["metadata"]["sqlite_database_path"]
+#         sqlite_database_name = dict["metadata"]["sqlite_database_name"]
+#     return (
+#         static_metadata_path,
+#         static_metadata_file,
+#         missing_metadata_path,
+#         missing_metadata_file,
+#         sqlite_database_path,
+#         sqlite_database_name
+#     )
 
 def to_deg(value, loc):
     if value < 0:
