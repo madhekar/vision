@@ -108,6 +108,9 @@ async def amain(iList, metadata_path, metadata_file, chunk_size, openclip_finetu
     for t in ts:
          t.cancel()     
 
+
+def execute():
+     
 # kick-off metadata generation 
 if __name__ == "__main__":
     with open("preprocess_conf.yaml") as prop:

@@ -1,6 +1,6 @@
 import streamlit as st
-from utils.editor_util import metadata as meu
+from utils.editor_util import editor as edt
 
 st.subheader("METADATA: EDITOR/ CORRECTION")
 
-meu.main()
+edt.execute()

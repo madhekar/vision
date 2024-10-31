@@ -5,10 +5,10 @@ import os
 import folium as fl
 from streamlit_folium import st_folium
 from utils.editor_util import util 
+from utils.config_util import config
 from utils.sqlite_util import location
 from PIL import Image
-# import dataclasses
-# import streamlit_pydantic as sp
+
 
 @st.cache_resource
 def metadata_initialize(mmp,mmf):
@@ -32,7 +32,7 @@ def location_initialize(sdp, sdn):
     return df_loc
 
 def initialize():
-    smp, smf, mmp, mmf, sdp, sdn = util.config_load()
+    smp, smf, mmp, mmf, sdp, sdn = config.editor_config_load()
 
     if "markers" not in st.session_state:
         st.session_state["markers"] = []
@@ -112,7 +112,7 @@ def save_metadata(sdp, sdn, mmp, mmf):
     persist_static_locations(sdp, sdn)
     print(st.session_state.df_loc)
 
-def main():
+def execute():
 
     smp, smf, mmp, mmf, sdp, sdn = initialize()
 
@@ -194,4 +194,4 @@ def main():
         col = (col + 1) % row_size
 
 if __name__ == "__main__":
-        main()
+    execute()

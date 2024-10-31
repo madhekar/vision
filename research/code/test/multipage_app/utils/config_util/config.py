@@ -5,7 +5,7 @@ import streamlit as st
 
 @st.cache_resource
 def editor_config_load():
-    with open("utils/util/metadata_conf.yaml") as prop:
+    with open("utils/config_util/editor_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         print("* * * * * * * * * * Metadata Generator Properties * * * * * * * * * * *")
@@ -28,7 +28,7 @@ def editor_config_load():
 
 @st.cache_resource
 def preprocess_config_load():
-    with open("preprocess_conf.yaml") as prop:
+    with open("utils/config_util/preprocess_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint(
@@ -57,7 +57,7 @@ def preprocess_config_load():
 
 @st.cache_resource
 def missing_metadata_config_load():
-    with open("missing_metadata_conf.yaml") as prop:
+    with open("utils/config_util/missing_metadata_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint(
@@ -78,7 +78,7 @@ def missing_metadata_config_load():
 
 @st.cache_resource
 def dedup_config_load():
-    with open("dedup_conf.yaml") as prop:
+    with open("utils/config_util/dedup_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("**** duplicate archiver properties****")
@@ -94,7 +94,7 @@ def dedup_config_load():
 
 @st.cache_resource
 def data_validation_config_load():
-    with open("data_validation_conf.yaml") as prop:
+    with open("utils/config_util/data_validation_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint(
