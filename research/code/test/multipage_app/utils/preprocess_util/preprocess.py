@@ -10,6 +10,8 @@ import json
 import yaml
 import pprint
 from utils.config_util import config
+from utils.util import location_util as lu
+from utils.util import model_util as mu
 
 # init LLM modules
 m, t, p = LLM.setLLM()
@@ -40,13 +42,13 @@ def generateId(self):
 
 # convert image date time to timestamp
 def timestamp( uri):
-        ts = util.getTimestamp(uri)
+        ts = lu.getTimestamp(uri)
         return ts   
 
 # get location details as: latitude, longitude and address    
 def locationDetails( uri):
-        lat_lon = util.gpsInfo(uri)
-        loc = util.getLocationDetails(lat_lon)
+        lat_lon = lu.gpsInfo(uri)
+        loc = lu.getLocationDetails(lat_lon)
         return lat_lon[0], lat_lon[1], loc 
     
 # get names of people in image    
@@ -118,7 +120,7 @@ def execute():
     number_of_instances,
     openclip_finetuned) = config.preprocess_config_load()
 
-    img_iterator = util.getRecursive(image_dir_path, chunk_size=chunk_size)
+    img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
     for ilist in img_iterator:
             asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))

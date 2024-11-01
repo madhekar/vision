@@ -6,7 +6,8 @@ import os
 import uuid
 import chromadb as cdb
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
-
+from utils.util import model_util as mu
+from utils.config_util import config
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
 
@@ -64,7 +65,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
   
         collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadatas), uris=df_urls.tolist())
 
-        print(f"id: \n {df_ids.head()} \n metadata: \n {df_metadata} \n url: \n {df_urls.head()} ")
+        print(f"id: \n {df_ids.head()} \n metadata: \n {df_metadatas} \n url: \n {df_urls.head()} ")
 
     """
        Text collection inside vector database 'chromadb'
@@ -114,27 +115,34 @@ def archive_metadata(metadata_path, arc_folder_name, metadata_file):
         os.rename(os.path.join(metadata_path, metadata_file), os.path.join(new_archive_folder, metadata_file))
 
 
-     
+def execute():
+    # with open("metadata_conf.yaml") as prop:
+    #     dict = yaml.safe_load(prop)
 
-if __name__=='__main__':
-    with open("metadata_conf.yaml") as prop:
-        dict = yaml.safe_load(prop)
+    #     print("* * * * * * * * * * * * Metadata Load Properties * * * * * * * * * * * * * *")
+    #     print(dict)
+    #     print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
 
-        print("* * * * * * * * * * * * Metadata Load Properties * * * * * * * * * * * * * *")
-        print(dict)
-        print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    #     metadata_path = dict["metadata"]["metadata_path"]
+    #     metadata_file = dict["metadata"]["metadata_file"]
 
-    metadata_path = dict["metadata"]["metadata_path"]
-    metadata_file = dict["metadata"]["metadata_file"]
+    #     vectordb_dir_path = dict["vectordb"]["vectordb_path"]   
+    #     image_collection_name = dict["vectordb"]["image_collection_name"]
+    #     text_collection_name = dict["vectordb"]["text_collection_name"]
+    #     text_folder_name = dict["vectordb"]["text_dir_path"]
 
-    vectordb_dir_path = dict["vectordb"]["vectordb_path"]   
-    image_collection_name = dict["vectordb"]["image_collection_name"]
-    text_collection_name = dict["vectordb"]["text_collection_name"]
-    text_folder_name = dict["vectordb"]["text_dir_path"]
+    #     image_initial_path = dict["metadata"]["image_dir_path"]
+    #     image_final_path = dict["prod"]["image_final_path"]
 
-    image_initial_path = dict["metadata"]["image_dir_path"]
-    image_final_path = dict["prod"]["image_final_path"]
-
+    (
+        image_dir_path,
+        metadata_path,
+        metadata_file,
+        chunk_size,
+        number_of_instances,
+        openclip_finetuned,
+    ) = 
+    config.preprocess_config_load()
     arc_folder_name = util.get_foldername_by_datetime()
 
     #copy images in input-data to final-data/datetime
@@ -147,4 +155,8 @@ if __name__=='__main__':
     archive_metadata(metadata_path, arc_folder_name, metadata_file)
 
     util.remove_files_folders(image_initial_path)
+     
+
+if __name__=='__main__':
+    execute()
 

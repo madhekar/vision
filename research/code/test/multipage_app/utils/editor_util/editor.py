@@ -4,7 +4,7 @@ import pandas as pd
 import os
 import folium as fl
 from streamlit_folium import st_folium
-from utils.editor_util import util 
+from utils.util import location_util as lu 
 from utils.config_util import config
 from utils.sqlite_util import location
 from PIL import Image
@@ -90,13 +90,13 @@ def update_all_latlon():
             lon = st.session_state.df_loc.at[loc[2], "lon"]
             st.session_state.df.at[loc[0], "GPSLatitude"] = lat
             st.session_state.df.at[loc[0], "GPSLongitude"] = lon
-            util.setGpsInfo(loc[0], lat=lat, lon=lon)
+            lu.setGpsInfo(loc[0], lat=lat, lon=lon)
         st.session_state["updated_location_list"].clear()  
 
 def update_all_datetime_changes(image, col):
     dt = st.session_state[f"{col}_{image}"]
     st.session_state.df.at[image, "DateTimeOriginal"] = dt
-    util.setDateTimeOriginal(image, dt)
+    lu.setDateTimeOriginal(image, dt)
 
 
 def persist_static_locations(sdp, sdn):
