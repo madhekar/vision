@@ -162,12 +162,12 @@ def execute():
         st.session_state.editor_audit_msg.append(data)
 
     batch = files[(page - 1) * batch_size : page * batch_size]
-    grid = st.columns(row_size)
+    grid = st.columns(row_size, gap="small", vertical_alignment="top")
     col = 0
     st.cache_resource
     for image in batch:
         with grid[col]:
-            c1, c2 = st.columns([1.0, 1.0], gap="small")
+            c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
             lat = st.session_state.df.at[image, "GPSLatitude"]
             lon = st.session_state.df.at[image, "GPSLongitude"]
             dt = st.session_state.df.at[image, "DateTimeOriginal"]
