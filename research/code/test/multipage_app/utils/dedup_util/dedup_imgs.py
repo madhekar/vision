@@ -3,9 +3,7 @@ import imagehash
 import util
 import os
 import numpy as np
-import yaml
 import glob
-import pprint
 from utils.config_util import config
 
 def getRecursive(rootDir):

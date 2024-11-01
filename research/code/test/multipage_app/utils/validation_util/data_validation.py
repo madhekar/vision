@@ -6,7 +6,7 @@ import pandas as pd
 import os
 import folium as fl
 from streamlit_folium import st_folium
-import init_streamlit as sti
+from utils.util import init_streamlit as sti
 
 from utils.config_util import config
 
