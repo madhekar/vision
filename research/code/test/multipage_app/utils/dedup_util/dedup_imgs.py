@@ -97,25 +97,4 @@ def execute():
        dr.find_duplicates()                
 
 if __name__=='__main__':
-    # with open("dedup_conf.yaml") as prop:
-    #     dict = yaml.safe_load(prop)
-
-    #     pprint.pprint("**** duplicate archiver properties****")
-    #     pprint.pprint(dict)
-    #     pprint.pprint("**************************************")
-
-    #     input_image_path = dict["duplicate"]["input_image_path"]
-    #     archive_dup_path = dict["duplicate"]["archive_dup_path"]
-    #     arc_folder_name = util.get_foldername_by_datetime()
-        
-    #     archive_dup_path = os.path.join(archive_dup_path, arc_folder_name)
-
-    # dr = DuplicateRemover(
-    #     dirname=input_image_path,
-    #     archivedir=archive_dup_path
-    # )
-
-    # dr.find_duplicates()
-
-    # main function
     execute()
