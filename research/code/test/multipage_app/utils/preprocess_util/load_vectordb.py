@@ -1,6 +1,5 @@
 import json
 import pandas as pd
-import yaml
 import util
 import os
 import uuid
@@ -116,24 +115,6 @@ def archive_metadata(metadata_path, arc_folder_name, metadata_file):
 
 
 def execute():
-    # with open("metadata_conf.yaml") as prop:
-    #     dict = yaml.safe_load(prop)
-
-    #     print("* * * * * * * * * * * * Metadata Load Properties * * * * * * * * * * * * * *")
-    #     print(dict)
-    #     print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
-
-    #     metadata_path = dict["metadata"]["metadata_path"]
-    #     metadata_file = dict["metadata"]["metadata_file"]
-
-    #     vectordb_dir_path = dict["vectordb"]["vectordb_path"]   
-    #     image_collection_name = dict["vectordb"]["image_collection_name"]
-    #     text_collection_name = dict["vectordb"]["text_collection_name"]
-    #     text_folder_name = dict["vectordb"]["text_dir_path"]
-
-    #     image_initial_path = dict["metadata"]["image_dir_path"]
-    #     image_final_path = dict["prod"]["image_final_path"]
-
     (
         image_initial_path,
         metadata_path,
