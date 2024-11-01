@@ -1,4 +1,4 @@
-import sys
+import os
 import time
 import streamlit as st
 import pandas as pd
@@ -12,7 +12,7 @@ if "btn_prsd_status" not in mystate:
 
 btn_labels = [
     "DATA LOAD CHECK",
-    "DUPLICATE DATA CHECK",
+    "DUP DATA CHECK",
     "DATA QUALITY CHECK",
     "METADATA CHECK",
 ]
@@ -77,17 +77,28 @@ def exec_task(iTask):
             return 1
         case _:
             return -1
-
+        
+# get immediate chield folders
+def extract_user_raw_data_folders(pth):
+    return next(os.walk(pth))[1]
 
 with st.container():
     st.header("DATA: ADD/ VALIDATE", divider="gray")
-    st.subheader("SELECT DATA SOURCE", divider="gray")
-    st.selectbox("data source folder", options="",label_visibility="collapsed")
+    st.sidebar.subheader("SELECT DATA SOURCE", divider="gray")
+
+    # todo???
+    st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders('/home/madhekar/work/home-media-app/data/input-data'),label_visibility="collapsed")
 
     st.subheader("EXECUTE TASKS", divider="gray")
     c0, c1, c2, c3 = st.columns((1, 1, 1, 1), gap="small")
     with c0:
-        st.button("DATA LOAD CHECK", key="g0", on_click=btn_pressed_callback, args=(0,),use_container_width=True)
+        st.button(
+            btn_labels[0],
+            key="g0",
+            on_click=btn_pressed_callback,
+            args=(0,),
+            use_container_width=True,
+        )
         st.divider()
         chart_data = pd.DataFrame(
             abs(np.random.randn(1, 4)) * 100,
@@ -104,7 +115,7 @@ with st.container():
         st.text_area("data load msgs:")
     with c1:
         st.button(
-            "DUPLICATE DATA CHECK", key="g1", on_click=btn_pressed_callback, args=(1,), use_container_width=True
+            btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,), use_container_width=True
         )
         st.divider()
         chart_data = pd.DataFrame(
@@ -122,7 +133,7 @@ with st.container():
         st.text_area("duplicate data msgs:")
     with c2:
         st.button(
-            "DATA QUALITY CHECK", key="g2", on_click=btn_pressed_callback, args=(2,), use_container_width=True
+            btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2,), use_container_width=True
         )
         st.divider()
         chart_data = pd.DataFrame(
@@ -139,7 +150,7 @@ with st.container():
         st.divider()
         st.text_area("quality check msgs:")
     with c3:
-        st.button("METADATA CHECK", key="g3", on_click=btn_pressed_callback, args=(3,), use_container_width=True)
+        st.button(btn_labels[3], key="g3", on_click=btn_pressed_callback, args=(3,), use_container_width=True)
         st.divider()
         chart_data = pd.DataFrame(
             abs(np.random.randn(1, 4)) * 100,

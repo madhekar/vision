@@ -6,13 +6,13 @@ import pandas as pd
 import os
 import folium as fl
 from streamlit_folium import st_folium
-from utils.util import init_streamlit as sti
+# from utils.util import init_streamlit as sti
 
 from utils.config_util import config
 
 
 # initialize streamlit container UI settings
-sti.initUI()
+# sti.initUI()
 
 def orchestrator(raw_folders):
    # define application sidebar
@@ -35,8 +35,8 @@ def orchestrator(raw_folders):
 
         return ms
 
-st.markdown("<p class='big-font-title'>Data Orchestrator - Home Media Portal</p>", unsafe_allow_html=True)
-st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
+# st.markdown("<p class='big-font-title'>Data Orchestrator - Home Media Portal</p>", unsafe_allow_html=True)
+# st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
 
 def build_orch_structure(raw_folders):
 
@@ -50,9 +50,9 @@ def build_orch_structure(raw_folders):
     df = pd.DataFrame(data=data, columns=columns, index=idx)
     return df
 
-# get immediate chield folders 
+# get immediate chield folders
 def extract_user_raw_data_folders(pth):
-   return next(os.walk(pth))[1]
+    return next(os.walk(pth))[1]
 
 def execute():
     rwp, ddp, qdp, mdp,mfp, smfp, vdbp = config.data_validation_config_load()

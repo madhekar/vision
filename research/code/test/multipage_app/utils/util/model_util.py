@@ -123,6 +123,8 @@ def update_audit_records(audit_path, audit_file_name):
         return df
     
 
-
+# get  array of immediate chield folders
+def extract_user_raw_data_folders(path):
+    return next(os.walk(path))[1]
 
        
