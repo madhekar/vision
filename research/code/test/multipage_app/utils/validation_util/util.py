@@ -39,3 +39,4 @@ def update_audit_records(audit_path, audit_file_name):
 
     if (os.path.exists(os.path.join(audit_path, audit_file_name))):
         df = pd.read.csv(os.path.join(audit_path, audit_file_name))
+        return df

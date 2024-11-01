@@ -28,8 +28,6 @@ pip install py3exiv2
 See Dependences on page Developers
 
 """
-import pprint
-import yaml
 import pyexiv2
 import streamlit as st
 from GPSPhoto import gpsphoto
