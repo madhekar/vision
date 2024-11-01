@@ -14,30 +14,33 @@ from utils.config_util import config
 # initialize streamlit container UI settings
 sti.initUI()
 
-def orchestrator():
+def orchestrator(raw_folders):
    # define application sidebar
    with st.sidebar:
         st.markdown("<p class='big-font-header'>@Home Media Portal</p>", unsafe_allow_html=True)
 
         st.divider()
 
-        s = st.selectbox(label="## Search Modality", options=("text", "image"), index=1, help='select search modality type')
+        s = st.sidebar.selectbox(label="## Search Modality", options=("text", "image"), index=1, help='select search modality type')
 
         st.divider()
 
-        ms = st.multiselect(
+        ms = st.sidebar.multiselect(
             label="## Result Modalities",
-            options=["image", "text", "video", "audio"],
-            default=["image", "text"],
+            options=raw_folders,
             help='select one or more search result modalities'
         )
 
         st.divider()
 
+        return ms
+
 st.markdown("<p class='big-font-title'>Data Orchestrator - Home Media Portal</p>", unsafe_allow_html=True)
 st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
 
 def build_orch_structure(raw_folders):
+
+    
     columns = ['duplicate', 'quality', 'missing', 'metadata', 'state']
     data =[]
     idx = []
@@ -46,7 +49,8 @@ def build_orch_structure(raw_folders):
         idx.append(folder)
     df = pd.DataFrame(data=data, columns=columns, index=idx)
     return df
- 
+
+# get immediate chield folders 
 def extract_user_raw_data_folders(pth):
    return next(os.walk(pth))[1]
 
@@ -57,7 +61,7 @@ def execute():
 
     dfo = build_orch_structure(raw_folders)
 
-    orchestrator()
+    orchestrator(raw_folders)
 
 if __name__ == '__main__':
     execute()
