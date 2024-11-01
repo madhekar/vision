@@ -71,14 +71,6 @@ def preprocess_config_load():
 
         openclip_finetuned = dict["models"]["openclip_finetuned"] 
         
-        vectordb_path = dict['vectordb']["vectordb_path"]
-        image_collection_name = dict['vectordb']["image_collection_name"]
-        text_collection_name = dict['vectordb']["text_collection_name"]
-        video_collection_name = dict['vectordb']["video_collection_name"]
-
-        image_final_path = dict["prod"]["image_final_path"]
-        text_final_path = dict["prod"]["text_final_path"]
-        video_final_path = dict["prod"]["video_final_path"]
     return(
         image_dir_path,
         metadata_path,
@@ -158,3 +150,41 @@ def data_validation_config_load():
 
 @st.cache_resource
 def vectordb_config_load():
+    with open("utils/config_util/preprocess_conf.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        pprint.pprint("* * * * Metadata Generator Properties * * * *")
+        pprint.pprint(dict)
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * * * *")
+
+        image_initial_path = dict["metadata"]["image_dir_path"]
+        metadata_path = dict["metadata"]["metadata_path"]
+        metadata_file = dict["metadata"]["metadata_file"]
+
+        vectordb_path = dict['vectordb']["vectordb_path"]
+        image_collection_name = dict['vectordb']["image_collection_name"]
+        text_collection_name = dict['vectordb']["text_collection_name"]
+        video_collection_name = dict['vectordb']["video_collection_name"]
+
+        text_dir_path = dict["vectordb"]["video_collection_name"]
+
+        image_final_path = dict["prod"]["image_final_path"]
+        text_final_path = dict["prod"]["text_final_path"]
+        video_final_path = dict["prod"]["video_final_path"]
+
+    return(
+        image_initial_path,
+        metadata_path,
+        metadata_file,
+
+        vectordb_path,
+        image_collection_name,
+        text_collection_name,
+        video_collection_name,
+
+        text_dir_path,
+
+        image_final_path,
+        text_final_path,
+        video_final_path
+    )    

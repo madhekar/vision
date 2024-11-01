@@ -135,14 +135,21 @@ def execute():
     #     image_final_path = dict["prod"]["image_final_path"]
 
     (
-        image_dir_path,
+        image_initial_path,
         metadata_path,
         metadata_file,
-        chunk_size,
-        number_of_instances,
-        openclip_finetuned,
-    ) = 
-    config.preprocess_config_load()
+
+        vectordb_path,
+        image_collection_name,
+        text_collection_name,
+        video_collection_name,
+        text_folder_name,
+
+        image_final_path,
+        text_final_path,
+        video_final_path
+    ) = config.vectordb_config_load()
+
     arc_folder_name = util.get_foldername_by_datetime()
 
     #copy images in input-data to final-data/datetime
@@ -150,7 +157,7 @@ def execute():
 
     df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file, image_final_path=image_final_path, image_final_folder=arc_folder_name)
 
-    createVectorDB(df_metadata, vectordb_dir_path, image_collection_name, text_folder_name, text_collection_name)
+    createVectorDB(df_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name)
 
     archive_metadata(metadata_path, arc_folder_name, metadata_file)
 
