@@ -87,7 +87,7 @@ with st.container():
     st.sidebar.subheader("SELECT DATA SOURCE", divider="gray")
 
     # todo???
-    st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders('/home/madhekar/work/home-media-app/data/input-data'),label_visibility="collapsed")
+    st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders('/home/madhekar/work/home-media-app/data/raw-data'),label_visibility="collapsed")
 
     st.subheader("EXECUTE TASKS", divider="gray")
     c0, c1, c2, c3 = st.columns((1, 1, 1, 1), gap="small")
