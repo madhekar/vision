@@ -3,19 +3,28 @@ import collections
 import pandas as pd
 
 image_types = ['.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG', '.gif', '.GIF', '.bmp', '.BMP', '.tiff', '.TIFF', '.heic','.HEIC']
-video_types = []
-audio_types = []
-document_types = []
+video_types = ['.mp4', '.avi', '.mkv', '.mov', '.wmv', '.flv']
+audio_types = [".mp3", ".wav", ".flac", ".ogg", ".m4a"]
+document_types = [".txt", ".doc", ".docx", ".pdf", ".xls", ".xlsx", ".ppt", ".pptx"]
 
 def get_size(size):
-    if size < 1024:
-        return f"{size} bytes"
-    elif size < pow(1024,2):
-        return f"{round(size/1024, 2)} KB"
-    elif size < pow(1024,3):
-        return f"{round(size/(pow(1024,2)), 2)} MB"
-    elif size < pow(1024,4):
-        return f"{round(size/(pow(1024,3)), 2)} GB"
+    # if size < 1024:
+    #     return f"{size} bytes"
+    # elif size < pow(1024,2):
+    #     return f"{round(size/1024, 2)} KB"
+    # elif size < pow(1024,3):
+    #     return f"{round(size/(pow(1024,2)), 2)} MB"
+    # elif size < pow(1024,4):
+    #     return f"{round(size/(pow(1024,3)), 2)} GB"
+    return round(size/(pow(1024,2)), 2)
+    
+def get_dataframe(cnt, size):
+    print(cnt, size)
+    df = pd.DataFrame.from_dict([cnt, size])
+    new_columns = {0: 'count', 1: 'size'}
+    df = df.T
+    df.rename(columns=new_columns, inplace=True)
+    return df
 
 def count_file_types(directory):
     file_counts = collections.defaultdict(int)
@@ -33,17 +42,29 @@ def get_all_image_types(file_counts, file_sizes):
     images_size = {key: get_size(file_sizes[key]) for key in image_types if file_sizes[key] > 0}
     return images_cnt, images_size   
 
-def get_all_video_types(file_counts):
-    videos = {key: file_counts[key] for key in video_types if file_counts[key] > 0}
-    return videos   
+def get_all_video_types(file_counts, file_sizes):
+    videos_cnt = {key: file_counts[key] for key in video_types if file_counts[key] > 0}
+    videos_size = {key: get_size(file_sizes[key]) for key in video_types if file_sizes[key] > 0}
+    return  videos_cnt, videos_size  
+
+def get_all_video_types(file_counts, file_sizes):
+    videos_cnt = {key: file_counts[key] for key in video_types if file_counts[key] > 0}
+    videos_size = {key: get_size(file_sizes[key]) for key in video_types if file_sizes[key] > 0}
+    return  videos_cnt, videos_size  
+
+def get_all_video_types(file_counts, file_sizes):
+    videos_cnt = {key: file_counts[key] for key in video_types if file_counts[key] > 0}
+    videos_size = {key: get_size(file_sizes[key]) for key in video_types if file_sizes[key] > 0}
+    return  videos_cnt, videos_size  
 
 def get_all_file_types(directory_path):        
-    file_sizes, file_counts = count_file_types(directory_path)    
-    image_cnt, image_sz = get_all_image_types(file_sizes, file_counts)
-    
-    return pd.DataFrame(image_cnt.items()), pd.DataFrame(image_sz.items())
+    file_counts, file_sizes = count_file_types(directory_path)
+    dfi = get_dataframe(*get_all_image_types(file_counts, file_sizes))
+    dfv = get_dataframe(*get_all_video_types(file_counts, file_sizes))
+    dfd = get_dataframe(*get_all_document_types(file_counts, file_sizes))
+    return dfi, dfv
 
 if __name__ == '__main__':
-   df,dfsz = get_all_file_types('/Users/bhal/Downloads')
-   print(df.head())
-   print(dfsz.head())
+   dfi, dfv = get_all_file_types('/Users/bhal/Downloads')
+   print(dfi.head())
+   print(dfv.head())
