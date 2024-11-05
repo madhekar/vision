@@ -67,23 +67,24 @@ def get_all_file_types(directory_path):
 def get_disk_usage():
     total, used, free = shutil.disk_usage("/")
     return (total, used, free)
+
 if __name__ == '__main__':
-   dfi, dfv,dfd,dfa = get_all_file_types('/Users/bhal/Downloads')
+   dfi, dfv,dfd,dfa = get_all_file_types('/Users/bhal/work/bhal/AI/')
    if not dfi.empty:
      print(dfi.head())
-     print('Total files:', dfi['count'].sum(), 'Total Size (MB): ', dfi['size'].sum())
+     print('Image - Total files:', dfi['count'].sum(), 'Total Size (MB): ', dfi['size'].sum())
 
    if not dfv.empty:  
      print(dfv.head())
-     print('Total files:', dfv['count'].sum(), 'Total Size (MB): ', dfv['size'].sum())
+     print('Video - Total files:', dfv['count'].sum(), 'Total Size (MB): ', dfv['size'].sum())
 
    if not dfd.empty:  
      print(dfd.head())
-     print('Total files:', dfd['count'].sum(), 'Total Size (MB): ', dfd['size'].sum())
+     print('Document - Total files:', dfd['count'].sum(), 'Total Size (MB): ', dfd['size'].sum())
 
    if not dfa.empty:  
      print(dfa.head())
-     print('Total files:', dfa['count'].sum(), 'Total Size (MB): ', dfa['size'].sum())
+     print('Audio - Total files:', dfa['count'].sum(), 'Total Size (MB): ', dfa['size'].sum())
 
 total, used, free = get_disk_usage()
 print("Total Size:", total // (2**30),"GB", "Used Size:",used // (2**30), "GB", "Free Size: ", free // (2**30), "GB")     
