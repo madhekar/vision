@@ -19,7 +19,7 @@ def count_file_types(directory):
 
 def get_all_image_types(file_counts, file_sizes):
     images_cnt = {key: file_counts[key] for key in image_types if file_counts[key] > 0}
-    images_size = {key: file_counts[key] for key in image_types if file_counts[key] > 0}
+    images_size = {key: file_sizes[key] for key in image_types if file_sizes[key] > 0}
     return images_cnt, images_size   
 
 def get_all_video_types(file_counts):
