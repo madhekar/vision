@@ -5,6 +5,6 @@ image1 = io.imread("/Users/bhal/Downloads/IMG_8646.HEIC")
 image2 = io.imread("/Users/bhal/Downloads/IMG_8646.HEIC")
 
 # Calculate Mean Squared Error (MSE)
-mse = measure.marching_cubes()
+mse = measure.marching_cubes() # compare_mse
 
 print("MSE:", mse)
