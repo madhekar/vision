@@ -1,5 +1,6 @@
 import os
 import collections
+import shutil
 import pandas as pd
 
 image_types = ['.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG', '.gif', '.GIF', '.bmp', '.BMP', '.tiff', '.TIFF', '.heic','.HEIC']
@@ -19,7 +20,6 @@ def get_size(size):
     return round(size/(pow(1024,2)), 2)
     
 def get_dataframe(cnt, size):
-    print(cnt, size)
     df = pd.DataFrame.from_dict([cnt, size])
     new_columns = {0: 'count', 1: 'size'}
     df = df.T
@@ -30,7 +30,6 @@ def count_file_types(directory):
     file_counts = collections.defaultdict(int)
     file_sizes = collections.defaultdict(int)
     for  root, _, files in os.walk(directory, topdown=True):
-        print (files)
         for file in files:
             _, ext = os.path.splitext(file) #os.stat(file).st_size
             file_counts[ext] += 1
@@ -65,9 +64,26 @@ def get_all_file_types(directory_path):
     dfa = get_dataframe(*get_all_audio_types(file_counts, file_sizes))
     return dfi, dfv, dfd, dfa
 
+def get_disk_usage():
+    total, used, free = shutil.disk_usage("/")
+    return (total, used, free)
 if __name__ == '__main__':
    dfi, dfv,dfd,dfa = get_all_file_types('/Users/bhal/Downloads')
-   print(dfi.head())
-   print(dfv.head())
-   print(dfd.head())
-   print(dfa.head())
+   if not dfi.empty:
+     print(dfi.head())
+     print('Total files:', dfi['count'].sum(), 'Total Size (MB): ', dfi['size'].sum())
+
+   if not dfv.empty:  
+     print(dfv.head())
+     print('Total files:', dfv['count'].sum(), 'Total Size (MB): ', dfv['size'].sum())
+
+   if not dfd.empty:  
+     print(dfd.head())
+     print('Total files:', dfd['count'].sum(), 'Total Size (MB): ', dfd['size'].sum())
+
+   if not dfa.empty:  
+     print(dfa.head())
+     print('Total files:', dfa['count'].sum(), 'Total Size (MB): ', dfa['size'].sum())
+
+total, used, free = get_disk_usage()
+print("Total Size:", total // (2**30),"GB", "Used Size:",used // (2**30), "GB", "Free Size: ", free // (2**30), "GB")     
