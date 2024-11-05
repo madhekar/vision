@@ -47,24 +47,27 @@ def get_all_video_types(file_counts, file_sizes):
     videos_size = {key: get_size(file_sizes[key]) for key in video_types if file_sizes[key] > 0}
     return  videos_cnt, videos_size  
 
-def get_all_video_types(file_counts, file_sizes):
-    videos_cnt = {key: file_counts[key] for key in video_types if file_counts[key] > 0}
-    videos_size = {key: get_size(file_sizes[key]) for key in video_types if file_sizes[key] > 0}
-    return  videos_cnt, videos_size  
+def get_all_document_types(file_counts, file_sizes):
+    documents_cnt = {key: file_counts[key] for key in document_types if file_counts[key] > 0}
+    documents_size = {key: get_size(file_sizes[key]) for key in document_types if file_sizes[key] > 0}
+    return  documents_cnt, documents_size  
 
-def get_all_video_types(file_counts, file_sizes):
-    videos_cnt = {key: file_counts[key] for key in video_types if file_counts[key] > 0}
-    videos_size = {key: get_size(file_sizes[key]) for key in video_types if file_sizes[key] > 0}
-    return  videos_cnt, videos_size  
+def get_all_audio_types(file_counts, file_sizes):
+    audios_cnt = {key: file_counts[key] for key in audio_types if file_counts[key] > 0}
+    audios_size = {key: get_size(file_sizes[key]) for key in audio_types if file_sizes[key] > 0}
+    return  audios_cnt, audios_size  
 
 def get_all_file_types(directory_path):        
     file_counts, file_sizes = count_file_types(directory_path)
     dfi = get_dataframe(*get_all_image_types(file_counts, file_sizes))
     dfv = get_dataframe(*get_all_video_types(file_counts, file_sizes))
     dfd = get_dataframe(*get_all_document_types(file_counts, file_sizes))
-    return dfi, dfv
+    dfa = get_dataframe(*get_all_audio_types(file_counts, file_sizes))
+    return dfi, dfv, dfd, dfa
 
 if __name__ == '__main__':
-   dfi, dfv = get_all_file_types('/Users/bhal/Downloads')
+   dfi, dfv,dfd,dfa = get_all_file_types('/Users/bhal/Downloads')
    print(dfi.head())
    print(dfv.head())
+   print(dfd.head())
+   print(dfa.head())
