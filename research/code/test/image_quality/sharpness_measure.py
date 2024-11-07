@@ -1,6 +1,7 @@
 
 from dom import DOM
 import numpy as np
+import pandas as pd
 import os
 import cv2
 
@@ -11,26 +12,26 @@ iqa = DOM()
 # DOM sharpness method
 def get_dom_sharpess(ipath):
     score = iqa.get_sharpness(ipath)
-    print( "Dom Sharpness:", score)
+    return score
 
 def get_laplacian_shapness_1(ipath):
     img = cv2.imread(ipath)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     score = np.max(cv2.convertScaleAbs(cv2.Laplacian(gray, 3)))
-    print( "Laplacian Sharpness (max):", score)    
+    return  score    
 
 def get_laplacian_sharpness_2(ipath):
     image = cv2.imread(ipath)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     laplacian = cv2.Laplacian(gray, cv2.CV_64F)
-    print("Laplacian Sharpness", np.var(laplacian))    
+    return  np.var(laplacian)
 
 def get_sobel_edge_sharpness(ipath):
     image = cv2.imread(ipath)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     sobelx = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=5)
     sobely = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=5)
-    print("Sobel Edge Sharpness",np.mean(np.sqrt(sobelx**2 + sobely**2)))
+    return np.mean(np.sqrt(sobelx**2 + sobely**2))
 
 def get_FFT_sharpness(ipath):
     image = cv2.imread(ipath)
@@ -38,19 +39,36 @@ def get_FFT_sharpness(ipath):
     f = np.fft.fft2(gray)
     fshift = np.fft.fftshift(f)
     magnitude_spectrum = 20*np.log(np.abs(fshift))
-    print("FFT Sharpness",np.mean(magnitude_spectrum))
+    return np.mean(magnitude_spectrum)
 
 if __name__=='__main__':
+  arr = []
   for r, _, p in os.walk(image_directory):
-    for pth in p:
+    for pth in p:  
+       dict = {}
        ipath = os.path.join(r, pth)
+       dict['ipath'] = pth
        print('***' + ipath + '***')
-       get_dom_sharpess(ipath)    
 
-       get_laplacian_shapness_1(ipath)
+       v_dom = get_dom_sharpess(ipath)    
+       dict['dom'] = v_dom
 
-       get_laplacian_sharpness_2(ipath)
+       v_lap1 = get_laplacian_shapness_1(ipath)
+       dict['lapcacian1'] = v_lap1
 
-       get_sobel_edge_sharpness(ipath)
+       v_lap2 = get_laplacian_sharpness_2(ipath)
+       dict['lapcacian2'] = v_lap2
 
-       get_FFT_sharpness(ipath)
+       v_sobel = get_sobel_edge_sharpness(ipath)
+       dict['sobel'] = v_sobel
+
+       v_fft = get_FFT_sharpness(ipath)
+       dict['fft'] = v_fft
+
+       arr.append(dict)   
+
+    df = pd.DataFrame(arr)
+
+  print(df)
+
+ 
