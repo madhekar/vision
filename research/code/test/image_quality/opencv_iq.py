@@ -14,4 +14,4 @@ def get_shapness(fpath):
        print( "Sharpness:", score)
        time.sleep(2)
 
-get_shapness('./images')       
+get_shapness('/Users/bhal/work/bhal/AI/Data/images')       

@@ -23,10 +23,10 @@ def get_shapness(fpath):
        #img = io.imread(fpth)
        score = iqa.get_sharpness(fpth)
        print( "Sharpness:", score)
-       time.sleep(10)
+       #time.sleep(10)
 
-get_shapness('/Users/bhal/work/bhal/AI/vision/research/code/test/image_quality/images')
+get_shapness('/Users/bhal/work/bhal/AI/Data/images')
 
-for r, _, p in os.walk('./images'):
+for r, _, p in os.walk('/Users/bhal/work/bhal/AI/Data/images'):
    for pth in p:
      print(os.path.join(r, pth))
