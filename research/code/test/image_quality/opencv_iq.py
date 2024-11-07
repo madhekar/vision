@@ -12,6 +12,6 @@ def get_shapness(fpath):
        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
        score = np.max(cv2.convertScaleAbs(cv2.Laplacian(gray, 3)))
        print( "Sharpness:", score)
-       time.sleep(2)
+       #time.sleep(2)
 
 get_shapness('/Users/bhal/work/bhal/AI/Data/images')       
