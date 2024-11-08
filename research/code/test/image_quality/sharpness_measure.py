@@ -17,31 +17,44 @@ def get_dom_sharpess(ipath):
     return score
 
 def get_laplacian_shapness_1(ipath):
-    img = cv2.imread(ipath)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    score = np.max(cv2.convertScaleAbs(cv2.Laplacian(gray, 3)))
-    return  score    
+    image = cv2.imread(ipath)
+    if image:
+       gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+       score = np.max(cv2.convertScaleAbs(cv2.Laplacian(gray, 3)))
+       return  score   
+    else:
+       return 0.0 
 
 def get_laplacian_sharpness_2(ipath):
     image = cv2.imread(ipath)
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    laplacian = cv2.Laplacian(gray, cv2.CV_64F)
-    return  np.var(laplacian)
+    if image:
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        laplacian = cv2.Laplacian(gray, cv2.CV_64F)
+        return  np.var(laplacian)
+    else:
+        return 0.0    
 
 def get_sobel_edge_sharpness(ipath):
     image = cv2.imread(ipath)
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    sobelx = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=5)
-    sobely = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=5)
-    return np.mean(np.sqrt(sobelx**2 + sobely**2))
+    if image:
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        sobelx = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=5)
+        sobely = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=5)
+        return np.mean(np.sqrt(sobelx**2 + sobely**2))
+    else:
+        return 0.0    
 
 def get_FFT_sharpness(ipath):
     image = cv2.imread(ipath)
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    f = np.fft.fft2(gray)
-    fshift = np.fft.fftshift(f)
-    magnitude_spectrum = 20*np.log(np.abs(fshift))
-    return np.mean(magnitude_spectrum)
+    if image:
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        f = np.fft.fft2(gray)
+        fshift = np.fft.fftshift(f)
+        magnitude_spectrum = 20*np.log(np.abs(fshift))
+        return np.mean(magnitude_spectrum)
+    else:
+        return 0.0
+
 
 if __name__=='__main__':
   arr = []
@@ -52,8 +65,8 @@ if __name__=='__main__':
        dict['ipath'] = pth
        print('***' + ipath + '***')
 
-       v_dom = get_dom_sharpess(ipath)    
-       dict['dom'] = v_dom
+       #v_dom = get_dom_sharpess(ipath)    
+       #dict['dom'] = v_dom
 
        v_lap1 = get_laplacian_shapness_1(ipath)
        dict['lapcacian1'] = v_lap1
@@ -72,7 +85,7 @@ if __name__=='__main__':
     df = pd.DataFrame(arr)
 
   #df.plot()
-
+  print(df)
   scaler = MinMaxScaler()
   df.drop('ipath', inplace=True, axis=1)
   df_normalized = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
