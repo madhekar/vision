@@ -3,6 +3,7 @@ from dom import DOM
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
 import os
 import cv2
 
@@ -70,7 +71,15 @@ if __name__=='__main__':
 
     df = pd.DataFrame(arr)
 
-  df.plot()
+  #df.plot()
+
+  scaler = MinMaxScaler()
+  df.drop('ipath', inplace=True, axis=1)
+  df_normalized = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+  df_normalized.plot()
+
   plt.show()
+
+
 
  
