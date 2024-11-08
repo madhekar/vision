@@ -12,6 +12,22 @@ image_directory = '/Users/bhal/work/bhal/AI/Data/images'
 iqa = DOM()
 
 # DOM sharpness method
+'''
+Generally, Image Quality Analysis(IQA) is divided broadly into two types,
+
+- Reference Based Evaluation,
+- No-Reference Evaluation.
+
+The main difference between these approaches is (1) uses a high quality image to evaluate the quality, 
+while (2) is purely based on image's inherent features(pixels)
+
+Most of the researchers earlier has focused on estimating the quality of natural or scenic images. 
+Document images, however, don't share the same characteristics with scenic images as documents are 
+primarily composed of texts like digitized historical texts, identity documents or bill/receipts etc. 
+Therefore, sharpness measures developed on scenic image might not extend to documents accurately.
+
+Note: 0 <= Sharpness Score <= sqrt(2)
+'''
 def get_dom_sharpess(ipath):
     score = iqa.get_sharpness(ipath)
     return score
