@@ -118,6 +118,20 @@ def dedup_config_load():
     )
 
 @st.cache_resource
+def image_quality_config_load():
+    with open("utils/config_util/image_quality_conf.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        pprint.pprint("**** duplicate archiver properties****")
+        pprint.pprint(dict)
+        pprint.pprint("**************************************")
+
+        input_image_path = dict["duplicate"]["input_image_path"]
+        archive_quality_path = dict["duplicate"]["archive_quality_path"]
+    return (input_image_path, archive_quality_path)
+
+
+@st.cache_resource
 def data_validation_config_load():
     with open("utils/config_util/data_validation_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
