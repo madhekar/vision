@@ -8,6 +8,15 @@ import shutil
 import streamlit as st
 import pandas as pd
 
+"""
+>>> print(os.listdir('/media/madhekar/'))
+['Madhekar']
+
+>>> import getpass
+>>> print(getpass.getuser())
+madhekar
+"""
+
 default_home_loc = (32.968699774829794, -117.18420145463236)
 default_date_time = ["2000","01","01","2000:01:01 01:01:01"] 
 # def_date_time = "2000:01:01 01:01:01"
@@ -123,7 +132,7 @@ def update_audit_records(audit_path, audit_file_name):
         return df
     
 
-# get  array of immediate chield folders
+# get  array of immediate child folders
 def extract_user_raw_data_folders(path):
     return next(os.walk(path))[1]
 
