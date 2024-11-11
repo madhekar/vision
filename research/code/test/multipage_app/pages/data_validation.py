@@ -5,6 +5,8 @@ import pandas as pd
 import numpy as np
 import streamlit.components.v1 as components
 from utils.missing_util import missing_metadata as mm
+from utils.quality_util import image_quality as iq
+from utils.dedup_util import dedup_imgs as di
 
 mystate = st.session_state
 if "btn_prsd_status" not in mystate:
@@ -60,18 +62,18 @@ def btn_pressed_callback(i):
 
 def exec_task(iTask):  
     match iTask:
-        case 0:
+        case 0: # load images check
             print("start")
             time.sleep(10)
             print("done")
             return 1
-        case 1:
-            time.sleep(1)
+        case 1: # duplicate images check
+            di.execute()
             return 1
-        case 2:
-            time.sleep(1)
+        case 2:  # image sharpness/ quality check
+            iq.execute()
             return 1
-        case 3:
+        case 3: # missing metadata check
             mm.execute()
             return 1
         case _:
