@@ -58,7 +58,7 @@ def btn_pressed_callback(i):
         mystate.btn_prsd_status[i] = r
 
 
-def exec_task(iTask):
+def exec_task(iTask):  
     match iTask:
         case 0:
             print("start")
@@ -72,8 +72,7 @@ def exec_task(iTask):
             time.sleep(1)
             return 1
         case 3:
-            imp, mmp, mmf = mm.config_load()
-            mm.extract_missing_metadata(imp, mmp, mmf)
+            mm.execute()
             return 1
         case _:
             return -1
