@@ -8,9 +8,9 @@ def editor_config_load():
     with open("utils/config_util/editor_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        print("* * * * * * * * * * Metadata Generator Properties * * * * * * * * * * *")
+        print("* * * Metadata Generator Properties * * *")
         pprint.pprint(dict)
-        print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+        print("* * * * * * * * * * * * * * * * * * * * *")
         static_metadata_path = dict["metadata"]["static_metadata_path"]
         static_metadata_file = dict["metadata"]["static_metadata_file"]
         missing_metadata_path = dict["metadata"]["missing_metadata_path"]
@@ -55,13 +55,9 @@ def preprocess_config_load():
     with open("utils/config_util/preprocess_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        pprint.pprint(
-            "* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *"
-        )
+        pprint.pprint("* * * Metadata Generator Properties * * *")
         pprint.pprint(dict)
-        pprint.pprint(
-            "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-        )
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
 
         image_dir_path = dict["metadata"]["image_dir_path"]
         metadata_path = dict["metadata"]["metadata_path"]
@@ -85,13 +81,9 @@ def missing_metadata_config_load():
     with open("utils/config_util/missing_metadata_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        pprint.pprint(
-            "* * * * * * * * * * * Missing Metadata Properties * * * * * * * * * * * *"
-        )
+        pprint.pprint("* * * Missing Metadata Properties * * *")
         pprint.pprint(dict)
-        pprint.pprint(
-            "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * "
-        )
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * *")
         input_image_path = dict["missing-metadata"]["input_image_path"]
         missing_metadata_path = dict["missing-metadata"]["missing_metadata_path"]
         missing_metadata_file = dict["missing-metadata"]["missing_metadata_file"]
@@ -106,9 +98,9 @@ def dedup_config_load():
     with open("utils/config_util/dedup_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        pprint.pprint("**** duplicate archiver properties****")
+        pprint.pprint("* * *  duplicate archiver properties * * *")
         pprint.pprint(dict)
-        pprint.pprint("**************************************")
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * * *")
 
         input_image_path = dict["duplicate"]["input_image_path"]
         archive_dup_path = dict["duplicate"]["archive_dup_path"]
@@ -122,9 +114,9 @@ def image_quality_config_load():
     with open("utils/config_util/image_quality_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        pprint.pprint("**** quality archiver properties****")
+        pprint.pprint("* * * quality archiver properties * * *")
         pprint.pprint(dict)
-        pprint.pprint("**************************************")
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * ")
 
         input_image_path = dict["quality"]["input_image_path"]
         archive_quality_path = dict["quality"]["archive_quality_path"]
@@ -137,13 +129,9 @@ def data_validation_config_load():
     with open("utils/config_util/data_validation_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        pprint.pprint(
-            "* * * * * * * * *  * Data Orchestration Properties * * * * * * * * * * *"
-        )
+        pprint.pprint("* * * Data Orchestration Properties * * *")
         pprint.pprint(dict)
-        pprint.pprint(
-            "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-        )
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
 
         raw_data_path = dict["raw-data"]["base_path"]
         duplicate_data_path = dict["duplicate"]["base_path"]
@@ -168,9 +156,9 @@ def vectordb_config_load():
     with open("utils/config_util/preprocess_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        pprint.pprint("* * * * Metadata Generator Properties * * * *")
+        pprint.pprint("* * * Metadata Generator Properties * * *")
         pprint.pprint(dict)
-        pprint.pprint("* * * * * * * * * * * * * * * * * * * * * * *")
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
 
         image_initial_path = dict["metadata"]["image_dir_path"]
         metadata_path = dict["metadata"]["metadata_path"]
