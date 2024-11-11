@@ -122,13 +122,14 @@ def image_quality_config_load():
     with open("utils/config_util/image_quality_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        pprint.pprint("**** duplicate archiver properties****")
+        pprint.pprint("**** quality archiver properties****")
         pprint.pprint(dict)
         pprint.pprint("**************************************")
 
-        input_image_path = dict["duplicate"]["input_image_path"]
-        archive_quality_path = dict["duplicate"]["archive_quality_path"]
-    return (input_image_path, archive_quality_path)
+        input_image_path = dict["quality"]["input_image_path"]
+        archive_quality_path = dict["quality"]["archive_quality_path"]
+        image_sharpness_threshold = dict["quality"]["image_sharpness_threshold"]
+    return (input_image_path, archive_quality_path, image_sharpness_threshold)
 
 
 @st.cache_resource
