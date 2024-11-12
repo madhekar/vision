@@ -10,12 +10,13 @@ st.subheader("A simple and elegant checkbox tree for Streamlit.")
 
 mset = set()
 d = {}
+@st.cache_resource
 def path_dict(path):
     # v = os.path.basename(path)
     # if v not in mset:
     #   d["value"] = v
     #   mset.add(v)
-    d = {"value": os.path.basename(path)}
+    d = {"id": os.path.basename(path), "value": str(uuid.uuid4())}
     print(path)
     if os.path.isdir(path):
         d["label"] = os.path.basename(path)  #'dir'
@@ -24,7 +25,7 @@ def path_dict(path):
         ]
     else:
         d["label"] = os.path.basename(path)  #"file"
-    print(d)
+    #print(d)
     return d      
 
 def dict_to_json(path):
@@ -63,7 +64,8 @@ def dict_to_json(path):
 nodes = []
 nodes.append(path_dict("/home/madhekar/work/home-media-app/data/raw-data"))
 
-print(nodes)
+#print(nodes)
+
 if nodes:
   return_select = tree_select(nodes)
   #stx.scrollableTextbox(return_select, border=True,height = 300)
