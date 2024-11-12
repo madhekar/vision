@@ -13,4 +13,4 @@ def display_tree(path, indent=''):
 
 if __name__ == "__main__":
     path = '.'  # Replace with the desired directory path
-    display_tree(path)
+    display_tree('/home/madhekar/work/home-media-app/data/raw-data/AnjaliBackup')
