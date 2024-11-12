@@ -50,6 +50,30 @@ prod:
   video_final_path:  /home/madhekar/work/home-media-app/data/final-data/video/
 '''
 
+"""
+dataload:
+  input_image_path: '/home/madhekar/work/home-media-app/data/input-data/img/'
+  input_video_path: '/home/madhekar/work/home-media-app/data/input-data/video/'
+  input_txt_path: '/home/madhekar/work/home-media-app/data/input-data/txt/'
+"""
+@st.cache_resource
+def dataload_config_load():
+    with open("utils/config_util/dataload_conf.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        pprint.pprint("* * *  dataload archiver properties * * *")
+        pprint.pprint(dict)
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * * *")
+
+        raw_data_path = dict["dataload"]["raw_data_path"]
+        input_image_path = dict["dataload"]["input_image_path"]
+        input_txt_path = dict["dataload"]["input_txt_path"]
+        input_video_path = dict["dataload"]["input_video_path"]
+
+    return (raw_data_path, input_image_path, input_txt_path, input_video_path)
+
+
+
 @st.cache_resource
 def preprocess_config_load():
     with open("utils/config_util/preprocess_conf.yaml") as prop:
