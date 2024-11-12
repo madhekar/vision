@@ -37,8 +37,13 @@ overview = st.Page(
     default=True
 
 )
+data_add = st.Page(
+    page="pages/data_add.py",
+    title="DATA ADD",
+    icon=":material/group_work:",
+)
 
-data_validation = st.Page(
+data_validate = st.Page(
     page='pages/data_validation.py',
     title="DATA VALIDATE",
     icon=":material/group_work:",
@@ -71,7 +76,7 @@ multimodal_search = st.Page(
 pg = st.navigation(
     {
     "OVERVIEW": [overview],
-    "DATA: ADD/ VALIDATE": [data_validation],
+    "DATA: ADD/ VALIDATE": [data_add, data_validate],
     "METADATA": [data_correction, metadata_creator, metadata_loader],
     "SEARCH": [multimodal_search]
     }
