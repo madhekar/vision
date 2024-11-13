@@ -8,16 +8,10 @@ import streamlit_scrollable_textbox as stx
 st.title("🐙 Streamlit-tree-select")
 st.subheader("A simple and elegant checkbox tree for Streamlit.")
 
-mset = set()
-d = {}
+
 @st.cache_resource
 def path_dict(path):
-    # v = os.path.basename(path)
-    # if v not in mset:
-    #   d["value"] = v
-    #   mset.add(v)
-    d = {"id": os.path.basename(path), "value": str(path)}
-    print(path)
+    d = {"label": os.path.basename(path), "value": str(path) + '@@' + str(uuid.uuid4())} #, 'id': str(uuid.uuid4())}
     if os.path.isdir(path):
         d["label"] = os.path.basename(path)  #'dir'
         d["children"] = [
@@ -29,6 +23,21 @@ def path_dict(path):
     #     d["label"] = os.path.basename(path)  #"file"
     #print(d)
     return d      
+
+def path_dict_file(path):
+    d1 = {"label": os.path.basename(path), "value": str(path) + '@@' + str(uuid.uuid4())} #, 'id': str(uuid.uuid4())}
+    print(path)
+    if os.path.isdir(path):
+        d1["label"] = os.path.basename(path)  #'dir'
+        d1["children"] = [
+            path_dict(os.path.join(path, x))
+            for x in os.listdir(path)
+        ]
+    else:
+         d1["label"] = os.path.basename(path)  #"file"
+    print(d1)
+    return d1
+
 
 def dict_to_json(path):
    return json.dumps(path_dict(path),0)
@@ -67,11 +76,20 @@ nodes = []
 nodes.append(path_dict("/home/madhekar/work/home-media-app/data/raw-data"))
 
 #print(nodes)
-c1,c2 = st.columns([1,1], gap='large', vertical_alignment='top')
-with c1:
-  if nodes:
-    return_select = tree_select(nodes, check_model='leaf')
-    #stx.scrollableTextbox(return_select, border=True,height = 300)
-    st.write(return_select)
+c1,c2 = st.columns([.5,1], gap='large', vertical_alignment='top')
 
-   
+with c1:
+    if nodes:
+        return_select = tree_select(nodes, no_cascade=True)
+        # stx.scrollableTextbox(return_select, border=True,height = 300)
+        #print(return_select['checked'])
+
+with c2:    
+    print(return_select['checked'])   
+    selected = []
+    for e in return_select['checked']:
+        e0 = e.split("@@")[0]
+        print('->',e)
+        selected.append(path_dict_file(e0))
+        tree_select(selected)
+    #st.write(selected)    
