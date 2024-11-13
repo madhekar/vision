@@ -16,15 +16,17 @@ def path_dict(path):
     # if v not in mset:
     #   d["value"] = v
     #   mset.add(v)
-    d = {"id": os.path.basename(path), "value": str(uuid.uuid4())}
+    d = {"id": os.path.basename(path), "value": str(path)}
     print(path)
     if os.path.isdir(path):
         d["label"] = os.path.basename(path)  #'dir'
         d["children"] = [
-            path_dict(os.path.join(path, x)) for x in os.listdir(path)
+            path_dict(os.path.join(path, x))
+            for x in os.listdir(path)
+            if os.path.isdir(os.path.join(path, x))
         ]
-    else:
-        d["label"] = os.path.basename(path)  #"file"
+    # else:
+    #     d["label"] = os.path.basename(path)  #"file"
     #print(d)
     return d      
 
@@ -65,10 +67,11 @@ nodes = []
 nodes.append(path_dict("/home/madhekar/work/home-media-app/data/raw-data"))
 
 #print(nodes)
+c1,c2 = st.columns([1,1], gap='large', vertical_alignment='top')
+with c1:
+  if nodes:
+    return_select = tree_select(nodes, check_model='leaf')
+    #stx.scrollableTextbox(return_select, border=True,height = 300)
+    st.write(return_select)
 
-if nodes:
-  return_select = tree_select(nodes)
-  #stx.scrollableTextbox(return_select, border=True,height = 300)
-  st.write(return_select)
-
-
+   
