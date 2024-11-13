@@ -76,7 +76,7 @@ nodes = []
 nodes.append(path_dict("/home/madhekar/work/home-media-app/data/raw-data"))
 
 #print(nodes)
-c1,c2 = st.columns([.5,1], gap='large', vertical_alignment='top')
+c1,c2 = st.columns([.5,1], gap='small', vertical_alignment='top')
 
 with c1:
     if nodes:
