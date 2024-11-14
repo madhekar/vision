@@ -26,7 +26,14 @@ def editor_config_load():
         sqlite_database_name,
     )
 
-'''
+"""
+
+datapaths:
+  raw_data_path: '/home/madhekar/work/home-media-app/data/raw-data'
+  input_data_path: '/home/madhekar/work/home-media-app/data/input-data'
+  app_data_path: '/home/madhekar/work/home-media-app/data/app-data'
+  final_data_path: '/home/madhekar/work/home-media-app/data/final-data'  
+
 metadata:
   image_dir_path: /home/madhekar/work/home-media-app/data/input-data/img/
   metadata_path: /home/madhekar/work/home-media-app/data/app-data/metadata/
@@ -48,7 +55,7 @@ prod:
   image_final_path:  /home/madhekar/work/home-media-app/data/final-data/img/
   text_final_path:  /home/madhekar/work/home-media-app/data/final-data/txt/
   video_final_path:  /home/madhekar/work/home-media-app/data/final-data/video/
-'''
+"""
 
 """
 dataload:
@@ -56,6 +63,24 @@ dataload:
   input_video_path: '/home/madhekar/work/home-media-app/data/input-data/video/'
   input_txt_path: '/home/madhekar/work/home-media-app/data/input-data/txt/'
 """
+
+@st.cache_resource
+def overview_config_load():
+    with open("utils/config_util/overview_conf.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        pprint.pprint("* * *  overview archiver properties * * *")
+        pprint.pprint(dict)
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * * *")
+
+        raw_data_path = dict["datapaths"]["raw_data_path"]
+        input_data_path = dict["datapaths"]["input_data_path"]
+        app_data_path = dict["datapaths"]["app_data_path"]
+        final_data_path = dict["datapaths"]["final_data_path"]
+
+
+    return (raw_data_path, input_data_path, app_data_path, final_data_path)
+
 @st.cache_resource
 def dataload_config_load():
     with open("utils/config_util/dataload_conf.yaml") as prop:
