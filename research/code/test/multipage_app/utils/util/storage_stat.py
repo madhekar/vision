@@ -9,6 +9,7 @@ image_types = ['.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG', '.gif', '.GIF',
 video_types = ['.mp4', '.avi', '.mkv', '.mov', '.wmv', '.flv']
 audio_types = [".mp3", ".wav", ".flac", ".ogg", ".m4a"]
 document_types = [".txt", ".doc", ".docx", ".pdf", ".xls", ".xlsx", ".ppt", ".pptx"]
+non_media_types = [".json", ".JSON", '.py', '.csv', '.sqllite3','SQLlite3']
 
 class FolderStats:
     def __init__(self, fpath):
@@ -63,6 +64,11 @@ class FolderStats:
         audios_cnt = {key: file_counts[key] for key in audio_types if file_counts[key] > 0}
         audios_size = {key: self.get_size_for_plot(file_sizes[key]) for key in audio_types if file_sizes[key] > 0}
         return  audios_cnt, audios_size  
+    
+    def get_all_non_media_types(self, file_counts, file_sizes):
+        non_medias_cnt = {key: file_counts[key] for key in non_media_types if file_counts[key] > 0}
+        non_medias_size = {key: self.get_size_for_plot(file_sizes[key]) for key in audio_types if file_sizes[key] > 0}
+        return  non_medias_cnt, non_medias_size  
 
     def get_all_file_types(self):        
         file_counts, file_sizes = self.count_file_types()
@@ -70,16 +76,17 @@ class FolderStats:
         dfv = self.get_dataframe(*self.get_all_video_types(file_counts, file_sizes))
         dfd = self.get_dataframe(*self.get_all_document_types(file_counts, file_sizes))
         dfa = self.get_dataframe(*self.get_all_audio_types(file_counts, file_sizes))
-        return dfi, dfv, dfd, dfa
+        dfn = self.get_dataframe(*self.get_all_non_media_types(file_counts, file_sizes))
+        return dfi, dfv, dfd, dfa, dfn
 
     def get_disk_usage(self):
         total, used, free = shutil.disk_usage("/")
-        return (total, used, free)
+        return (total // (2**30), used // (2**30), free // (2**30))
     
-def execute(folder_path):
+def extract_all_folder_stats(folder_path):
    fstat = FolderStats(folder_path)  
 
-   dfi, dfv,dfd,dfa = fstat.get_all_file_types()
+   dfi, dfv,dfd,dfa, dfn = fstat.get_all_file_types()
    if not dfi.empty:
      print(dfi.head())
      print('Image - Total files:', dfi['count'].sum(), 'Total Size (MB): ', dfi['size'].sum())
@@ -96,9 +103,20 @@ def execute(folder_path):
      print(dfa.head())
      print('Audio - Total files:', dfa['count'].sum(), 'Total Size (MB): ', dfa['size'].sum())
 
-   total, used, free = fstat.get_disk_usage()
-   print("Total Size:", total // (2**30),"GB", "Used Size:",used // (2**30), "GB", "Free Size: ", free // (2**30), "GB")   
+   if not dfn.empty:  
+     print(dfn.head())
+     print('Non Media - Total files:', dfn['count'].sum(), 'Total Size (MB): ', dfn['size'].sum())  
+
+   return (dfi, dfv,dfd,dfa, dfn)    
+
+def extract_server_stats():
+  fstat = FolderStats("")  
+  total, used, free = fstat.get_disk_usage()
+  print("Total Size:", total ,"GB", "Used Size:",used , "GB", "Free Size: ", free , "GB")  
+  return (total , used , free )
+
 
 if __name__ == '__main__':
    
-   execute('/home/madhekar/work/home-media-app/data/raw-data')
+   extract_all_folder_stats('/home/madhekar/work/home-media-app/data/raw-data')
+   extract_server_stats("")
