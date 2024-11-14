@@ -12,7 +12,9 @@ from utils.config_util import config
 
 
 # initialize streamlit container UI settings
-# sti.initUI()
+# pi3 -LLM model
+# https://www.promptingguide.ai/applications/function_calling
+# sti.initUI() 
 
 def orchestrator(raw_folders):
    # define application sidebar
