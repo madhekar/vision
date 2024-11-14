@@ -4,6 +4,7 @@ import os
 import collections
 import shutil
 import pandas as pd
+import streamlit as st
 
 image_types = ['.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG', '.gif', '.GIF', '.bmp', '.BMP', '.tiff', '.TIFF', '.heic','.HEIC']
 video_types = ['.mp4', '.avi', '.mkv', '.mov', '.wmv', '.flv']
@@ -11,6 +12,7 @@ audio_types = [".mp3", ".wav", ".flac", ".ogg", ".m4a"]
 document_types = [".txt", ".doc", ".docx", ".pdf", ".xls", ".xlsx", ".ppt", ".pptx"]
 non_media_types = [".json", ".JSON", '.py', '.csv', '.sqllite3','SQLlite3']
 
+@st.cache_resource
 class FolderStats:
     def __init__(self, fpath):
        self.folder_path = fpath
