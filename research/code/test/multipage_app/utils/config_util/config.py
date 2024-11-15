@@ -55,13 +55,14 @@ prod:
   image_final_path:  /home/madhekar/work/home-media-app/data/final-data/img/
   text_final_path:  /home/madhekar/work/home-media-app/data/final-data/txt/
   video_final_path:  /home/madhekar/work/home-media-app/data/final-data/video/
-"""
 
-"""
 dataload:
   input_image_path: '/home/madhekar/work/home-media-app/data/input-data/img/'
   input_video_path: '/home/madhekar/work/home-media-app/data/input-data/video/'
   input_txt_path: '/home/madhekar/work/home-media-app/data/input-data/txt/'
+
+addtrim:
+  raw_data_path: '/home/madhekar/work/home-media-app/data/raw-data/'
 """
 
 @st.cache_resource
