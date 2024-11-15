@@ -28,7 +28,6 @@ def path_dict(path):
 @st.cache_resource
 def path_dict_file(path):
     d1 = {"label": os.path.basename(path), "value": str(path) + '@@' + str(uuid.uuid4())}
-    print(path)
     if os.path.isdir(path):
         d1["label"] = os.path.basename(path)  #'dir'
         d1["children"] = [ path_dict_file(os.path.join(path, x)) for x in os.listdir(path)]
@@ -39,22 +38,23 @@ def path_dict_file(path):
 nodes = []
 nodes.append(path_dict("/home/madhekar/work/home-media-app/data/raw-data"))
 
-con = st.container(border=True, height=1000)
+con = st.sidebar.container(border=True, height=1000)
+with con:
+  return_select = tree_select(nodes, no_cascade=True)
+  st.write(return_select['checked'])
 #print(nodes)
-c1,c2 = con.columns([.5,1], gap='small', vertical_alignment='top')
+# c1,c2 = con.columns([.5,1], gap='small', vertical_alignment='top')
 
-with c1:
-    if nodes:
-        return_select = tree_select(nodes, no_cascade=True)
-        # stx.scrollableTextbox(return_select, border=True,height = 300)
-        #print(return_select['checked'])
+# with c1:
+#     if nodes:
+#         return_select = tree_select(nodes, no_cascade=True)
 
-with c2:    
-    print(return_select['checked'])   
-    selected = []
-    for e in return_select['checked']:
-        e0 = e.split("@@")[0]
-        print('->',e)
-        selected.append(path_dict_file(e0))
-        tree_select(selected)
-    #st.write(selected)    
+# with c2:    
+#     print(return_select['checked'])   
+#     selected = []
+#     for e in return_select['checked']:
+#         e0 = e.split("@@")[0]
+#         print('->',e)
+#         selected.append(path_dict_file(e0))
+#         tree_select(selected)
+#     #st.write(selected)    
