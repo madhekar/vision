@@ -38,10 +38,25 @@ def path_dict_file(path):
 nodes = []
 nodes.append(path_dict("/home/madhekar/work/home-media-app/data/raw-data"))
 
-con = st.sidebar.container(border=True, height=1000)
+con = st.sidebar.container(height=500)
 with con:
   return_select = tree_select(nodes, no_cascade=True)
-  st.write(return_select['checked'])
+
+
+con1 = st.sidebar.expander(label="checked folders")  #container(height=500)
+with con1:
+    selected = []
+    for e in return_select['checked']:
+        e0 = e.split("@@")[0]
+        print('->',e)
+        #selected.append(path_dict_file(e0))
+        selected.append(e0)
+        st.write(e0)
+    #     tree_select(selected)
+
+    #st.write(return_select['checked'][0])
+
+st.sidebar.button(label='Trim(Checked-Folders)')
 #print(nodes)
 # c1,c2 = con.columns([.5,1], gap='small', vertical_alignment='top')
 
