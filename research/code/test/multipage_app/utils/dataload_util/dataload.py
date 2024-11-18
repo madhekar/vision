@@ -5,6 +5,7 @@ import streamlit as st
 import util
 from utils.util import adddata_util as adu
 from streamlit_tree_select import tree_select
+from utils.util import model_util as mu
 
 
 def get_user():
@@ -18,6 +19,7 @@ def get_path_as_dict(path):
     nodes.append(adu.path_dict(path))
     return nodes
 
+@st.fragment
 def display_folder_tree(nodes):
     con = st.sidebar.container(height=500, border=False)
     with con:
@@ -45,14 +47,14 @@ def execute():
     select data source to trim data
     ''' 
     source_list = []
-    source_list = get_external_devices(get_user())
+    #source_list = get_external_devices(get_user())
+    source_list = mu.extract_user_raw_data_folders(raw_data_path)
     if len(source_list) > 0:
        ext = st.sidebar.selectbox(label="Select Source", options=source_list)
 
-
     st.sidebar.caption("CHECK FOLDERS TO TRIM",unsafe_allow_html=True)
     display_folder_tree(get_path_as_dict(os.path.join(raw_data_path, ext)))
-    st.sidebar.button(label="TRIM",use_container_width=True) 
+    st.sidebar.button(label="TRIM CHECKED FOLDERS",use_container_width=True) 
     # c1.text_area(label="External Source Structure", value= display_tree(os.path.join('/media/madhekar/' , ext)))
 
 if __name__ == "__main__":
