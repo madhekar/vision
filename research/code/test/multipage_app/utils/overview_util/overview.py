@@ -5,6 +5,7 @@ import numpy as np
 import util
 from utils.util import storage_stat as ss
 from utils.config_util import config
+from utils.util import model_util as mu
 
 def extract_folder_paths():
     raw_data_path, input_data_path, app_data_path, final_data_path = (
@@ -65,10 +66,19 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         )
 
 def execute():
-    rdp, idp, adp, fdp = extract_folder_paths()
-
+    rdp, idp, adp, fdp = extract_folder_paths() 
+    
     st.header("OVERVIEW", divider="gray")
-    display_syorage_metrics(*ss.extract_server_stats())
+    c1, c2 = st.columns([.25,.75])
+   
+    with c1:
+        efs = mu.extract_user_raw_data_folders(rdp)
+        st.caption('**AVAILABLE DATA SOURCES**')
+        for ds in efs:
+            st.write(f'**{ds}**')
+        #st.text_area(label="Data Sources", value=efs)
+    with c2:
+       display_syorage_metrics(*ss.extract_server_stats())
 
     st.subheader("STORAGE OVERVIEW", divider="gray")
 

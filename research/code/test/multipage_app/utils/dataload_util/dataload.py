@@ -32,8 +32,6 @@ def display_folder_tree(nodes):
             st.write(e0)
 
     
-
-
 def execute():
     (
         raw_data_path,
@@ -42,15 +40,19 @@ def execute():
         input_txt_path,
     ) = config.dataload_config_load()
 
-    st.sidebar.caption("CHECK FOLDERS TO TRIM",unsafe_allow_html=True)
-    display_folder_tree(get_path_as_dict(raw_data_path))
-    st.sidebar.button(label="TRIM",use_container_width=True)  
 
+    '''
+    select data source to trim data
+    ''' 
     source_list = []
     source_list = get_external_devices(get_user())
     if len(source_list) > 0:
        ext = st.sidebar.selectbox(label="Select Source", options=source_list)
 
+
+    st.sidebar.caption("CHECK FOLDERS TO TRIM",unsafe_allow_html=True)
+    display_folder_tree(get_path_as_dict(os.path.join(raw_data_path, ext)))
+    st.sidebar.button(label="TRIM",use_container_width=True) 
     # c1.text_area(label="External Source Structure", value= display_tree(os.path.join('/media/madhekar/' , ext)))
 
 if __name__ == "__main__":
