@@ -82,7 +82,7 @@ def execute():
 
     st.subheader("STORAGE OVERVIEW", divider="gray")
 
-    st.caption('RAW DATA FOLDER DETAILS')
+    st.caption(f'**RAW DATA** FOLDER DETAILS')
     display_folder_details(*ss.extract_all_folder_stats(rdp))
 
     st.caption("INPUT DATA FOLDER DETAILS")
