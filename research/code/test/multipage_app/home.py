@@ -71,7 +71,7 @@ multimodal_search = st.Page(
     icon=":material/search:",
 )
 
-#st.logo("assets/zesha-high-resolution-logo.jpeg")
+st.logo("assets/zesha-high-resolution-logo.jpeg")
 #st.sidebar.text("Home Media Portal")
 
 pg = st.navigation(
