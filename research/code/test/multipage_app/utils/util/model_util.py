@@ -129,4 +129,7 @@ def update_audit_records(audit_path, audit_file_name):
 def extract_user_raw_data_folders(path):
     return next(os.walk(path))[1]
 
+# check if file exists at the path
+def file_exists(fpath):
+    return os.path.exists(fpath)
        
