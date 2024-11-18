@@ -17,14 +17,12 @@ st.set_page_config(
         'About': 'Zesha PC is created by Bhalchandra Madhekar',
         'Get Help':'https://www.linkedin.com/in/bmadhekar'
     }
-
 )
 
 def load_css(css_path):
     with open(file=css_path) as f:
         s = f"<style>{f.read()}</style>"
         st.html(s)
-
 
 css_path = os.path.join("assets", "styles.css")
 
@@ -73,6 +71,9 @@ multimodal_search = st.Page(
     icon=":material/search:",
 )
 
+#st.logo("assets/zesha-high-resolution-logo.jpeg")
+#st.sidebar.text("Home Media Portal")
+
 pg = st.navigation(
     {
     "OVERVIEW": [overview],
@@ -81,9 +82,5 @@ pg = st.navigation(
     "SEARCH": [multimodal_search]
     }
     )
-
-st.logo("assets/zesha-high-resolution-logo.jpeg")
-#st.sidebar.text("Home Media Portal")
-
 
 pg.run()

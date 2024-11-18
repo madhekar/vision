@@ -179,3 +179,21 @@
     color: #DA70D6;
     font-size: 34px;
 }
+
+[data-testid="stSidebarNav"] {
+background-image: url(/assets/zesha-high-resolution-logo.jpeg);
+background-repeat: no-repeat;
+padding-top: 10px;
+background-position: 20px 20px;
+}
+
+[data-testid="stSidebarNav"]::before {
+content: "@HOME MEDIA PORTAL";
+margin-left: 20px;
+margin-top: 20px;
+font-size: 30px;
+position: relative;
+color: white;
+background-color: darkolivegreen;
+top: 0px;
+}
