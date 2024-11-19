@@ -180,19 +180,20 @@
     font-size: 34px;
 }
 
-[data-testid="stSidebarNav"] {
-background-image: url(/assets/zesha-high-resolution-logo.jpeg);
-background-repeat: no-repeat;
-padding-top: 1px;
-background-position: 20px 20px;
-size: 5em;
+
+[data-testid="stSidebarNav"]{
+    background-image: url(/assets/zesha-high-resolution-logo.jpeg);
+    background-repeat: no-repeat;
+    padding-top: 1px;
+    background-position: 20px 20px;
+    size: 5em;
 }
 
 [data-testid="stSidebarNav"]::before {
 content: "@HOME MEDIA PORTAL";
 margin-left: 20px;
 margin-top: 20px;
-font-size: 30px;
+font-size: 20px;
 position: relative;
 color: white;
 background-color: darkolivegreen;
