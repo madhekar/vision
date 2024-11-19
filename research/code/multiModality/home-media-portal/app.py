@@ -47,12 +47,12 @@ with st.sidebar:
 
     st.divider()
 
-    s = st.selectbox(label="## Search Modality", options=("text", "image"), index=1, help='select search modality type')
+    modality_selected = st.selectbox(label="## Search Modality", options=("text", "image"), index=1, help='select search modality type')
 
     st.divider()
 
-    ms = st.multiselect(
-        label="## Result Modalities",
+    multi_modality_select = st.multiselect(
+        label="## Show Modalities",
         options=["image", "text", "video", "audio"],
         default=["image", "text"],
         help='select one or more search result modalities'
@@ -60,20 +60,20 @@ with st.sidebar:
 
     st.divider()
 
-    if s == "image":
-        sim = st.file_uploader(
+    if modality_selected == "image":
+        similar_image = st.file_uploader(
             label="## Select Image",label_visibility="hidden", type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG"],
             help='select example image to search similar images'
         )
         im = st.empty()
-        if sim:
-            im = Image.open(sim)
-            name = sim.name
+        if similar_image:
+            im = Image.open(similar_image)
+            name = similar_image.name
             st.sidebar.image(im, caption="")
             # st.sidebar.write(st.session_state["llm_text"])
             with open(name, "wb") as f:
-                f.write(sim.getbuffer())
-    elif s == "text":
+                f.write(similar_image.getbuffer())
+    elif modality_selected == "text":
         modalityTxt = st.text_input(
             label="## Search text",
             placeholder="search modality types for...",
@@ -113,10 +113,10 @@ if search_btn:
     if "meta" in st.session_state:
         st.session_state["meta"] = []   
     
-    if s == "image":
+    if modality_selected == "image":
         # execute text collection query
         st.session_state["document"] = cTxts.query(
-            query_embeddings=embedding_function("./" + sim.name),
+            query_embeddings=embedding_function("./" + similar_image.name),
             n_results=1,
         )["documents"][0][0]
 
@@ -133,14 +133,14 @@ if search_btn:
         
         # execute image query with search criteria
         st.session_state["imgs"] = cImgs.query(
-            query_uris="./" + sim.name,
+            query_uris="./" + similar_image.name,
             include=["data", "metadatas"],
             n_results=36,
         )
 
         st.write(st.session_state["imgs"])
 
-    elif s == "text":
+    elif modality_selected == "text":
         # execute text collection query
         st.session_state["document"] = cTxts.query(
            query_texts=modalityTxt,
@@ -162,7 +162,6 @@ if search_btn:
 
 # Image TAB
 with image:
-    #st.subheader("Similar Images")
     if st.session_state["timgs"] and len(st.session_state["timgs"]) > 1:
         index = image_select(
             label="Similar Images",
@@ -206,7 +205,6 @@ with image:
         #     unsafe_allow_html=True,
         # )    
                 
-  
         #c2.divider()
         colt,cole = c2.columns([.7,.3])
         with colt:
@@ -243,12 +241,8 @@ with image:
         map_data = pd.DataFrame({'lat': [lat], 'lon': [lon]})
         c2.markdown("<p class='big-font-subh'>Map</p>",unsafe_allow_html=True)
         c2.map( map_data, zoom=12, size=100, color='#ff00ff')
-
-
     else:
-
         st.write("<p class='big-font'>sorry, no similar images found in search criteria!</p>", unsafe_allow_html=True)  
-
 
 #  Video TAB
 with video:
