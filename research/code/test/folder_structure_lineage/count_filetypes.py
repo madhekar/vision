@@ -41,6 +41,9 @@ class FolderStats:
                 file_counts[ext] += 1
                 file_sizes[ext] += os.stat(os.path.join(root, file)).st_size      
         return file_counts, file_sizes
+    
+    def get_all_file_ext_types(self, file_counts, file_sizes):
+        return file_counts, file_sizes 
 
     def get_all_image_types(self, file_counts, file_sizes):
         images_cnt = {key: file_counts[key] for key in image_types if file_counts[key] > 0}
@@ -64,11 +67,12 @@ class FolderStats:
 
     def get_all_file_types(self):        
         file_counts, file_sizes = self.count_file_types()
+        dfx = self.get_dataframe(*self.get_all_file_ext_types(file_counts, file_sizes))
         dfi = self.get_dataframe(*self.get_all_image_types(file_counts, file_sizes))
         dfv = self.get_dataframe(*self.get_all_video_types(file_counts, file_sizes))
         dfd = self.get_dataframe(*self.get_all_document_types(file_counts, file_sizes))
         dfa = self.get_dataframe(*self.get_all_audio_types(file_counts, file_sizes))
-        return dfi, dfv, dfd, dfa
+        return dfx,dfi, dfv, dfd, dfa
 
     def get_disk_usage(self):
         total, used, free = shutil.disk_usage("/")
@@ -77,7 +81,12 @@ class FolderStats:
 def execute(folder_path):
    fstat = FolderStats(folder_path)  
 
-   dfi, dfv,dfd,dfa = fstat.get_all_file_types()
+   dfx, dfi, dfv,dfd,dfa = fstat.get_all_file_types()
+
+   if not dfx.empty:
+     print(dfx.head(100))
+     print('Image - Total files:', dfx['count'].sum(), 'Total Size (MB): ', dfx['size'].sum())
+
    if not dfi.empty:
      print(dfi.head())
      print('Image - Total files:', dfi['count'].sum(), 'Total Size (MB): ', dfi['size'].sum())
