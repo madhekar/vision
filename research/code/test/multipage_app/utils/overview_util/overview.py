@@ -13,7 +13,7 @@ def extract_folder_paths():
     )
     return (raw_data_path, input_data_path, app_data_path, final_data_path)
 
-def display_syorage_metrics(tm, um, fm):
+def display_storage_metrics(tm, um, fm):
     c1, c2, c3 = st.columns([1, 1, 1])
     with c1:
         st.metric("TOTAL DISK SIZE (GB)", tm, 0.1)
@@ -78,11 +78,11 @@ def execute():
             st.write(f'**{ds}**')
         #st.text_area(label="Data Sources", value=efs)
     with c2:
-       display_syorage_metrics(*ss.extract_server_stats())
+       display_storage_metrics(*ss.extract_server_stats())
 
     st.subheader("STORAGE OVERVIEW", divider="gray")
 
-    st.caption(f'**RAW DATA** FOLDER DETAILS')
+    st.caption('**RAW DATA** FOLDER DETAILS')
     display_folder_details(*ss.extract_all_folder_stats(rdp))
 
     st.caption("INPUT DATA FOLDER DETAILS")

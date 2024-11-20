@@ -14,8 +14,6 @@ non_media_types = [".json", ".JSON", '.py', '.csv', '.sqllite3','SQLlite3']
 
 @st.cache_resource
 class FolderStats:
-    def __init__(self, fpath):
-       self.folder_path = fpath
 
     def get_size(self, size):
         if size < 1024:
@@ -37,14 +35,17 @@ class FolderStats:
         df.rename(columns=new_columns, inplace=True)
         return df
 
-    def count_file_types(self):
+    def count_file_types(self, folder_path):
         file_counts = collections.defaultdict(int)
         file_sizes = collections.defaultdict(int)
-        for  root, _, files in os.walk(self.folder_path, topdown=True):
+        for  root, _, files in os.walk(folder_path, topdown=True):
             for file in files:
                 _, ext = os.path.splitext(file) 
                 file_counts[ext] += 1
                 file_sizes[ext] += os.stat(os.path.join(root, file)).st_size      
+        return file_counts, file_sizes
+
+    def get_all_file_ext_types(self, file_counts, file_sizes):
         return file_counts, file_sizes
 
     def get_all_image_types(self, file_counts, file_sizes):
@@ -72,23 +73,29 @@ class FolderStats:
         non_medias_size = {key: self.get_size_for_plot(file_sizes[key]) for key in audio_types if file_sizes[key] > 0}
         return  non_medias_cnt, non_medias_size  
 
-    def get_all_file_types(self):        
-        file_counts, file_sizes = self.count_file_types()
+    def get_all_file_types(self, fpath):        
+        file_counts, file_sizes = self.count_file_types(fpath)
+        dfx = self.get_dataframe(*self.get_all_file_ext_types(file_counts, file_sizes))
         dfi = self.get_dataframe(*self.get_all_image_types(file_counts, file_sizes))
         dfv = self.get_dataframe(*self.get_all_video_types(file_counts, file_sizes))
         dfd = self.get_dataframe(*self.get_all_document_types(file_counts, file_sizes))
         dfa = self.get_dataframe(*self.get_all_audio_types(file_counts, file_sizes))
         dfn = self.get_dataframe(*self.get_all_non_media_types(file_counts, file_sizes))
-        return dfi, dfv, dfd, dfa, dfn
+        return dfx, dfi, dfv, dfd, dfa, dfn
 
+    def get_all_file_ext_types_by_folder(self, fpath):
+        return self.get_dataframe(*self.count_file_types(fpath))
+    
     def get_disk_usage(self):
         total, used, free = shutil.disk_usage("/")
         return (total // (2**30), used // (2**30), free // (2**30))
     
+   
 def extract_all_folder_stats(folder_path):
-   fstat = FolderStats(folder_path)  
+   fstat = FolderStats()  
 
-   dfi, dfv,dfd,dfa, dfn = fstat.get_all_file_types()
+   dfx, dfi, dfv, dfd, dfa, dfn = fstat.get_all_file_types(folder_path)
+
    if not dfi.empty:
      print(dfi.head())
      print('Image - Total files:', dfi['count'].sum(), 'Total Size (MB): ', dfi['size'].sum())
@@ -107,18 +114,28 @@ def extract_all_folder_stats(folder_path):
 
    if not dfn.empty:  
      print(dfn.head())
-     print('Non Media - Total files:', dfn['count'].sum(), 'Total Size (MB): ', dfn['size'].sum())  
+     print('Non Media - Total files:', dfn['count'].sum(), 'Total Size (MB): ', dfn['size'].sum())   
+     
+   if not dfx.empty:
+     print(dfx.head())
+     print('Image - Total files:', dfx['count'].sum(), 'Total Size (MB): ', dfx['size'].sum())
 
-   return (dfi, dfv,dfd,dfa, dfn)    
+   return (dfi, dfv, dfd, dfa, dfn)    
 
+def extract_folder_stats(folder):
+    fstat = FolderStats()
+
+    dfe = fstat.get_all_file_ext_types_by_folder(folder)
+    if not dfe.empty:
+        return dfe
 def extract_server_stats():
-  fstat = FolderStats("")  
+  fstat = FolderStats()  
   total, used, free = fstat.get_disk_usage()
   print("Total Size:", total ,"GB", "Used Size:",used , "GB", "Free Size: ", free , "GB")  
   return (total , used , free )
 
 
 if __name__ == '__main__':
-   
-   extract_all_folder_stats('/home/madhekar/work/home-media-app/data/raw-data')
-   extract_server_stats("")
+    extract_all_folder_stats("/home/madhekar/work/home-media-app/data/raw-data")
+    extract_server_stats()
+    #extract_folderlist_stats(["/home/madhekar/work/home-media-app/data/raw-data/AnjaliBackup", '/home/madhekar/work/home-media-app/data/raw-data/Madhekar'])
