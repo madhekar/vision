@@ -29,7 +29,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             dfi,
             horizontal=False,
             stack=True,
-            y_label="num/cnt of files",
+            y_label="total size/cnt of files",
             use_container_width=True,
         )
     with c2:
@@ -37,7 +37,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             dfv,
             horizontal=False,
             stack=True,
-            y_label="num/cnt of files",
+            y_label="total size/cnt of files",
             use_container_width=True,
         )
     with c3:
@@ -45,7 +45,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             dfd,
             horizontal=False,
             stack=True,
-            y_label="num/cnt of files",
+            y_label="total size/cnt of files",
             use_container_width=True,
         )
     with c4:
@@ -53,7 +53,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             dfa,
             horizontal=False,
             stack=True,
-            y_label="num/cnt of files",
+            y_label="total size/cnt of files",
             use_container_width=True,
         )
     with c5:
@@ -61,7 +61,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             dfn,
             horizontal=False,
             stack=True,
-            y_label="num/cnt of files",
+            y_label="total size/cnt of files",
             use_container_width=True,
         )
 
