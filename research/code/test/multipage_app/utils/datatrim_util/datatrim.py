@@ -52,7 +52,7 @@ def display_folder_stats(flist):
                 stack=True,
                 horizontal=False,
                 y_label="total size/ cnt files",
-                color=['#FF0000']
+                color=['#768A76']
                 #x_label="file types"
             )
             st.bar_chart(
@@ -61,7 +61,7 @@ def display_folder_stats(flist):
                 horizontal=False,
                 y_label="total size/ cnt files",
                 # x_label="file types"
-                color=["#0000FF"]
+                color=["#8CBD8C"]
             )
 
         col = (col + 1) % row_size

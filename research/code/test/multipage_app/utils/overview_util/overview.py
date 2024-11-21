@@ -31,6 +31,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             stack=True,
             y_label="total size/cnt of files",
             use_container_width=True,
+            color=["#768A76", "#8CBD8C"]
         )
     with c2:
         st.bar_chart(
@@ -39,6 +40,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             stack=True,
             y_label="total size/cnt of files",
             use_container_width=True,
+            color=["#768A76", "#8CBD8C"],
         )
     with c3:
         st.bar_chart(
@@ -47,6 +49,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             stack=True,
             y_label="total size/cnt of files",
             use_container_width=True,
+            color=["#768A76", "#8CBD8C"],
         )
     with c4:
         st.bar_chart(
@@ -55,6 +58,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             stack=True,
             y_label="total size/cnt of files",
             use_container_width=True,
+            color=["#768A76", "#8CBD8C"],
         )
     with c5:
         st.bar_chart(
@@ -63,6 +67,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             stack=True,
             y_label="total size/cnt of files",
             use_container_width=True,
+            color=["#768A76", "#8CBD8C"],
         )
 
 def execute():
