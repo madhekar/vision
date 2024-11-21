@@ -161,6 +161,8 @@ def execute():
     if data is not None:
         st.session_state.editor_audit_msg.append(data)
 
+    st.subheader("IMAGES", divider='gray')    
+
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
     col = 0

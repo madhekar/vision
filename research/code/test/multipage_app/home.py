@@ -49,7 +49,7 @@ data_validate = st.Page(
 
 data_correction = st.Page(
     page='pages/metadata_correction.py',
-    title="CORRECT",
+    title="EDITOR",
     icon=":material/edit:"
 )
 
