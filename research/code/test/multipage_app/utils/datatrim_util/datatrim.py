@@ -47,7 +47,7 @@ def display_folder_stats(flist):
         with grid[col]:
             folder = df.split("@@")[0]
             st.subheader(folder, divider='gray')
-            st.bar_chart(ss.extract_folder_stats(folder))
+            st.bar_chart(ss.extract_folder_stats(folder), stack=True)
 
         col = (col + 1) % row_size
     

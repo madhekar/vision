@@ -28,7 +28,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         st.bar_chart(
             dfi,
             horizontal=False,
-            stack=False,
+            stack=True,
             y_label="num/cnt of files",
             use_container_width=True,
         )
@@ -36,7 +36,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         st.bar_chart(
             dfv,
             horizontal=False,
-            stack=False,
+            stack=True,
             y_label="num/cnt of files",
             use_container_width=True,
         )
@@ -44,7 +44,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         st.bar_chart(
             dfd,
             horizontal=False,
-            stack=False,
+            stack=True,
             y_label="num/cnt of files",
             use_container_width=True,
         )
@@ -52,7 +52,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         st.bar_chart(
             dfa,
             horizontal=False,
-            stack=False,
+            stack=True,
             y_label="num/cnt of files",
             use_container_width=True,
         )
@@ -60,7 +60,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         st.bar_chart(
             dfn,
             horizontal=False,
-            stack=False,
+            stack=True,
             y_label="num/cnt of files",
             use_container_width=True,
         )
