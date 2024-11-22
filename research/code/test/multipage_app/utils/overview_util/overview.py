@@ -72,8 +72,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
 
 def execute():
     rdp, idp, adp, fdp = extract_folder_paths() 
-    
-    st.header("OVERVIEW", divider="gray")
+
     c1, c2 = st.columns([.25,.75])
    
     with c1:
@@ -90,13 +89,13 @@ def execute():
     st.caption('**RAW DATA** FOLDER DETAILS')
     display_folder_details(*ss.extract_all_folder_stats(rdp))
 
-    st.caption("INPUT DATA FOLDER DETAILS")
+    st.caption("**INPUT DATA** FOLDER DETAILS")
     display_folder_details(*ss.extract_all_folder_stats(idp))
 
-    st.caption("APP DATA FOLDER DETAILS")
+    st.caption("**APP DATA** FOLDER DETAILS")
     display_folder_details(*ss.extract_all_folder_stats(adp))
 
-    st.caption("FINAL DATA FOLDER DETAILS")
+    st.caption("**FINAL DATA** FOLDER DETAILS")
     display_folder_details(*ss.extract_all_folder_stats(fdp))
 
 

@@ -35,9 +35,9 @@ overview = st.Page(
     default=True
 
 )
-data_add = st.Page(
-    page="pages/data_add.py",
-    title="DATA ADD",
+data_trim = st.Page(
+    page="pages/data_trim.py",
+    title="DATA TRIM",
     icon=":material/group_work:",
 )
 
@@ -77,7 +77,7 @@ st.logo("assets/zesha-high-resolution-logo.jpeg")
 pg = st.navigation(
     {
     "OVERVIEW": [overview],
-    "DATA: ADD/ VALIDATE": [data_add, data_validate],
+    "DATA: ADD/ VALIDATE": [data_trim, data_validate],
     "METADATA": [data_correction, metadata_creator, metadata_loader],
     "SEARCH": [multimodal_search]
     }
