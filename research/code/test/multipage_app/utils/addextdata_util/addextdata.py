@@ -1,6 +1,6 @@
 
-import util
 import os
+import getpass
 import streamlit as st
 from utils.util import adddata_util as adu
 from streamlit_tree_select import tree_select
@@ -23,6 +23,12 @@ with con1:
 
 st.sidebar.button(label="Trim(Checked-Folders)")
 
+def get_user():
+    return getpass.getuser()
+
+
+def get_external_devices(user):
+    return os.listdir(f"/media/{user}")
 
 def execute():
         (

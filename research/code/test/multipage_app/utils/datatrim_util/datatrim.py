@@ -8,13 +8,6 @@ from streamlit_tree_select import tree_select
 from utils.util import model_util as mu
 from utils.util import storage_stat as ss
 
-
-def get_user():
-    return getpass.getuser()
-
-def get_external_devices(user):
-    return os.listdir(f'/media/{user}')
-
 def get_path_as_dict(path):
     nodes = []
     nodes.append(adu.path_dict(path))
