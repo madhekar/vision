@@ -46,21 +46,20 @@ def display_folder_stats(flist):
     for df in batch:
         with grid[col]:
             folder = df.split("@@")[0]
-            st.subheader(folder, divider='gray')
+            dfolder = folder.split("/")[-1]
+            st.subheader(dfolder, divider='gray')
             st.bar_chart(
                 ss.extract_folder_stats(folder)['count'],
                 stack=True,
                 horizontal=False,
-                y_label="total size/ cnt files",
+                y_label="total file count per filetype",
                 color=['#768A76']
-                #x_label="file types"
             )
             st.bar_chart(
                 ss.extract_folder_stats(folder)["size"],
                 stack=True,
                 horizontal=False,
-                y_label="total size/ cnt files",
-                # x_label="file types"
+                y_label="total file size per filetype",
                 color=["#8CBD8C"]
             )
 
