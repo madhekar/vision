@@ -13,15 +13,15 @@ if "btn_prsd_status" not in mystate:
     mystate.btn_prsd_status = [0] * 4
 
 btn_labels = [
-    "DATA LOAD CHECK",
-    "DUP DATA CHECK",
-    "DATA QUALITY CHECK",
-    "METADATA CHECK",
+    "DATA LOAD VALIDATE",
+    "IMG: PURGE DUPLICATES",
+    "IMG: PURGE BAD QUALITY",
+    "IMG: METADATA VALIDATE",
 ]
-unpressed_color = "#707070"
-success_color = "#4CAF50"
-failure_color = "#FF7F50"
-wip_color = "#FFD700"
+unpressed_color = "#636B2F"
+success_color = "#4F8524"
+failure_color = "#6B2F45"
+wip_color = "#998E1A"
 
 
 def ChangeButtoncolor(widget_label, prsd_status):
@@ -64,7 +64,7 @@ def exec_task(iTask):
     match iTask:
         case 0: # load images check
             print("start")
-            time.sleep(10)
+            time.sleep(1)
             print("done")
             return 1
         case 1: # duplicate images check
