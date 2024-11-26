@@ -59,7 +59,9 @@ class DuplicateRemover:
                     )
                     if not os.path.exists(self.archivedir):
                       os.makedirs(self.archivedir)
-                    uuid_path = mu.create_uuid_from_string(duplicate[0])  
+                    uuid_path = mu.create_uuid_from_string(duplicate[0]) 
+                    if not os.path.exists(os.path.join(self.archivedir, uuid_path)):
+                        os.makedirs(os.path.join(self.archivedir, uuid_path)) 
                     os.rename(os.path.join(duplicate[0], duplicate[1]), os.path.join(self.archivedir, uuid_path, duplicate[1]))
                     print("{} Moved Succesfully!".format(duplicate))
 
