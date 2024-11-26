@@ -4,6 +4,7 @@ import glob
 import numpy as np
 import cv2
 from utils.config_util import config
+from utils.util import model_util as mu
 import util
 
 quality_threshold = 100
@@ -49,10 +50,8 @@ class Quality:
                     )
                     if not os.path.exists(self.archivedir):
                         os.makedirs(self.archivedir)
-                    os.rename(
-                        os.path.join(quality[0], quality[1]),
-                        os.path.join(self.archivedir, quality[1]),
-                    )
+                    uuid_path = mu.create_uuid_from_string(quality[0])    
+                    os.rename( os.path.join(quality[0], quality[1]), os.path.join(self.archivedir, uuid_path, quality[1]))
                     print("{} Moved Succesfully!".format(quality))
 
                 print(f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")
