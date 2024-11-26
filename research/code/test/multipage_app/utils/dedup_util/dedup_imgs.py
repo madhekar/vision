@@ -5,6 +5,7 @@ import os
 import numpy as np
 import glob
 from utils.config_util import config
+from utils.util import model_util as mu
 
 def getRecursive(rootDir):
     f_list = []
@@ -58,7 +59,8 @@ class DuplicateRemover:
                     )
                     if not os.path.exists(self.archivedir):
                       os.makedirs(self.archivedir)
-                    os.rename(os.path.join(duplicate[0], duplicate[1]), os.path.join(self.archivedir, duplicate[1]))
+                    uuid_path = mu.create_uuid_from_string(duplicate[0])  
+                    os.rename(os.path.join(duplicate[0], duplicate[1]), os.path.join(self.archivedir, uuid_path, duplicate[1]))
                     print("{} Moved Succesfully!".format(duplicate))
 
                 print(f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")

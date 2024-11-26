@@ -2,6 +2,7 @@
 import os
 import base64
 import hashlib
+import uuid
 import glob
 import datetime
 import shutil
@@ -133,3 +134,6 @@ def extract_user_raw_data_folders(path):
 def file_exists(fpath):
     return os.path.exists(fpath)
        
+def create_uuid_from_string(val: str):
+    hex_string = hashlib.md5(val.encode("UTF-8")).hexdigest()
+    return uuid.UUID(hex=hex_string)       
