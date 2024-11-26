@@ -7,6 +7,7 @@ from utils.util import storage_stat as ss
 from utils.config_util import config
 from utils.util import model_util as mu
 
+colors = ["#BAC095", "#636B2F"]
 def extract_folder_paths():
     raw_data_path, input_data_path, app_data_path, final_data_path = (
         config.overview_config_load()
@@ -31,7 +32,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             stack=True,
             y_label="total size & count of images",
             use_container_width=True,
-            color=["#768A76", "#8CBD8C"]
+            color=colors
         )
     with c2:
         st.bar_chart(
@@ -40,7 +41,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             stack=True,
             y_label="total size & count of videos",
             use_container_width=True,
-            color=["#768A76", "#8CBD8C"],
+            color=colors
         )
     with c3:
         st.bar_chart(
@@ -49,7 +50,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             stack=True,
             y_label="total size & count of documents",
             use_container_width=True,
-            color=["#768A76", "#8CBD8C"],
+            color=colors
         )
     with c4:
         st.bar_chart(
@@ -58,7 +59,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             stack=True,
             y_label="total size & count of audios",
             use_container_width=True,
-            color=["#768A76", "#8CBD8C"],
+            color=colors
         )
     with c5:
         st.bar_chart(
@@ -67,7 +68,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             stack=True,
             y_label="total size & count of other files",
             use_container_width=True,
-            color=["#768A76", "#8CBD8C"],
+            color=colors
         )
 
 def execute():

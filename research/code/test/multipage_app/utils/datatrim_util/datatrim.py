@@ -8,6 +8,7 @@ from streamlit_tree_select import tree_select
 from utils.util import model_util as mu
 from utils.util import storage_stat as ss
 
+colors = ["#BAC095", "#636B2F"]
 def get_path_as_dict(path):
     nodes = []
     nodes.append(adu.path_dict(path))
@@ -46,14 +47,14 @@ def display_folder_stats(flist):
                 stack=True,
                 horizontal=False,
                 y_label="total file count per filetype",
-                color=['#768A76']
+                color=colors[0]
             )
             st.bar_chart(
                 ss.extract_folder_stats(folder)["size"],
                 stack=True,
                 horizontal=False,
                 y_label="total file size per filetype",
-                color=["#8CBD8C"]
+                color=colors[1]
             )
 
         col = (col + 1) % row_size
