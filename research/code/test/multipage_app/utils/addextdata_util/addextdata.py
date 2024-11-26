@@ -66,7 +66,7 @@ def execute():
 
     # create new path string by appending raw-data path with source-name from external device
     if ext_source in source_list:
-        ans = st.sidebar.toggle(f'DO YOU REALLY LIKE TO OVERRITE [**{ext_source}**] DATA SOURCE?')
+        ans = st.sidebar.toggle(f'DO YOU REALLY LIKE TO OVERWRITE ON [**{ext_source}**] DATA SOURCE?')
         if ans:   
             st.sidebar.button(label="IMPORT & OVERRIDE DATA", use_container_width=True)
     else:
