@@ -113,7 +113,7 @@ with st.container():
             use_container_width=True,
         )
         st.divider()
-        st.text_area("data load msgs:")
+        data_load_msgs=st.text_area("data load msgs:")
     with c1:
         st.button(
             btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,), use_container_width=True
@@ -131,7 +131,7 @@ with st.container():
             use_container_width=True,
         )
         st.divider()
-        st.text_area("duplicate data msgs:")
+        data_dup_msgs = st.text_area("duplicate data msgs:")
     with c2:
         st.button(
             btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2,), use_container_width=True
@@ -149,7 +149,7 @@ with st.container():
             use_container_width=True,
         )
         st.divider()
-        st.text_area("quality check msgs:")
+        data_quality_msgs = st.text_area("quality check msgs:")
     with c3:
         st.button(btn_labels[3], key="g3", on_click=btn_pressed_callback, args=(3,), use_container_width=True)
         st.divider()
@@ -165,5 +165,5 @@ with st.container():
             use_container_width=True,
         )
         st.divider()
-        st.text_area("METADATA CHECK msgs:")
+        metadata_verify_msgs = st.text_area("METADATA CHECK msgs:")
     ChkBtnStatusAndAssigncolor()

@@ -29,10 +29,16 @@ class FolderStats:
         return round(size / (pow(1024, 2)), 2)
         
     def get_dataframe(self, cnt, size):
+        # print(cnt)
+        # df1 = pd.DataFrame.from_dict([cnt]).columns(['type', 'cnt'])
+        # df2 = pd.DataFrame.from_dict([size]).columns(["type", "size"])
+        # print(df1)
+        # df = pd.merge(df1, df2, on='type')
         df = pd.DataFrame.from_dict([cnt, size])
         new_columns = {0: 'count', 1: 'size'}
         df = df.T
         df.rename(columns=new_columns, inplace=True)
+        #df['type'] = df.index
         return df
 
     def count_file_types(self, folder_path):

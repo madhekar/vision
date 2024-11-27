@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import util
+import altair as alt
 from utils.util import storage_stat as ss
 from utils.config_util import config
 from utils.util import model_util as mu
@@ -30,10 +31,14 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             dfi,
             horizontal=False,
             stack=True,
-            y_label="total size & count of images",
+            y_label='total size & count of images',
             use_container_width=True,
             color=colors
         )
+        # ch = alt.Chart(dfi).mark_bar(opacity=.8).encode(x="type", y="count")
+        # ch1 = alt.Chart(dfi).mark_bar(opacity=.5).encode(x="type", y="size")
+        # c = alt.layer(ch, ch1)
+        # st.altair_chart(c)
     with c2:
         st.bar_chart(
             dfv,
