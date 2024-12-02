@@ -1,6 +1,7 @@
 import uuid
 import os
 import hashlib
+import shutil
 
 def create_uuid_from_string(val: str):
    hex_string = hashlib.md5(val.encode("UTF-8")).hexdigest()
@@ -11,16 +12,17 @@ def path_encode(spath):
 
 def create_dirtree_without_files(src, dst):
    
-      # getting the absolute path of the source
+    # getting the absolute path of the source
     # directory
     src = os.path.abspath(src)
-     
+    print(dst) 
     # making a variable having the index till which
     # src string has directory and a path separator
     src_prefix = len(src) + len(os.path.sep)
+    #dst_path = os.path.join(dst, '/')
      
     if os.path.exists(dst):
-        os.removedirs(dst) 
+        shutil.rmtree(dst, ignore_errors=True) 
         # making the destination directory
         os.makedirs(dst)
 
@@ -39,7 +41,10 @@ def create_dirtree_without_files(src, dst):
             # making the path which we made by
             # joining all of the above three
             if len(files) > 0:
-              print(dirpath + " - " + path_encode(dirpath) + " - " + str(len(files)))
+                uuid_path = path_encode(dirpath)
+                print(dst)
+                f_dest = os.path.join(dst, uuid_path)
+                print(dirpath + " - " + f_dest +" - " + str(len(files)))
             #os.mkdir(dirpath)
  
 
