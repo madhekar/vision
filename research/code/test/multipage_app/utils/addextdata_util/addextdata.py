@@ -69,17 +69,23 @@ def execute():
         ans = st.sidebar.toggle(f'DO YOU REALLY LIKE TO OVERWRITE ON [**{ext_source}**] DATA SOURCE?')
         if ans:   
             st.sidebar.button(label="IMPORT & OVERRIDE DATA", use_container_width=True)
+            # remove folders and files
+            # import folders and files - generate file paths based on uuid.uuid5
+            # keep base same
+
     else:
         st.sidebar.button(label="IMPORT DATA", use_container_width=True)
+        # import folders and files - generate file paths based on uuid.uuid5
+        # keep base same
 
     # check new path raw-data/source-name exists on hard drive
-    
-    # check folders and files exists in raw-data/source-name folder   
+
+    # check folders and files exists in raw-data/source-name folder
 
     # remove all folders and files on raw-data/source-name  --- todo think about UNDO requirments
 
     # copy all folders and files to raw-data/source-name folder
-        
+
     # arc_folder_name = util.get_foldername_by_datetime()
     # archive_dup_path = os.path.join(archive_dup_path, arc_folder_name)
     # dr = DuplicateRemover(dirname=input_image_path, archivedir=archive_dup_path)
