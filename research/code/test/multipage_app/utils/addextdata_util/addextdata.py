@@ -62,7 +62,7 @@ def execute():
 
     if len(source_list) > 0:
        #st.sidebar.selectbox(label="Existing Imported Data Sources", options=source_list)
-       st.sidebar.text_area(label="EXISTING DATA SOURCES", value=s)
+       st.sidebar.text_area(label="EXISTING DATA SOURCES", value=s, height=100)
 
     # create new path string by appending raw-data path with source-name from external device
     if ext_source in source_list:
