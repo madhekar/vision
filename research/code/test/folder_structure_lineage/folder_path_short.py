@@ -16,66 +16,74 @@ def path_encode(spath):
 
 def copy_files_only(src_dir, dest_dir):
 
-    #files = [f for f in os.listdir(src_dir) if not os.path.basename(f).startswith('.')]
+    if os.path.exists(dest_dir):
+            shutil.rmtree(dest_dir, ignore_errors=True)
+            # making the destination directory
+            os.makedirs(dest_dir)
+
     for root, dirnames, items in os.walk(src_dir):
-      if not dirnames:
-        if len(items) > 0:
-            #print (root, "has 0 subdirectories and", len(items), "files")
-            print(root + ' - '  + str(dirnames) + ' - ' + str(items))
-            for item in items:
-                item_path = os.path.join(root, item)
-                print(item_path+ ' -> '+ dest_dir)
-                if os.path.isfile(item_path):
-                    print('**' + item_path + " - "+ dest_dir)
-                    try:
-                        shutil.copy(item_path, dest_dir)
-                    except FileNotFoundError:
-                        print("Source file not found.")
-                    except PermissionError:
-                        print("Permission denied.")
-                    except FileExistsError:
-                        print("Destination file already exists.")
-                    except Exception as e:
-                        print(f"An error occurred: {e}")
+        if not dirnames:
+            if len(items) > 0:
+                # print (root, "has 0 subdirectories and", len(items), "files")
+                print(root + " - " + str(dirnames) + " - " + str(items))
+                uuid_path = path_encode(root)
+                f_dest = os.path.join(dest_dir, uuid_path)
+                print(src_dir + " - " + f_dest +" - " + str(len(items)))
+                os.makedirs(f_dest)
+                for item in items:
+                    item_path = os.path.join(root, item)
+                    print(item_path+ ' -> '+ dest_dir)
+                    if os.path.isfile(item_path):
+                        print('**' + item_path + " - "+ dest_dir)
+                        try:
+                            shutil.copy(item_path, f_dest)
+                        except FileNotFoundError:
+                            print("Source file not found.")
+                        except PermissionError:
+                            print("Permission denied.")
+                        except FileExistsError:
+                            print("Destination file already exists.")
+                        except Exception as e:
+                            print(f"An error occurred: {e}")
                 
 
-def create_dirtree_without_files(src, dst):
+# def create_dirtree_without_files(src, dst):
    
-    # getting the absolute path of the source
-    # directory
-    src = os.path.abspath(src)
-    print(dst) 
-    # making a variable having the index till which
-    # src string has directory and a path separator
-    src_prefix = len(src) + len(os.path.sep)
-    #dst_path = os.path.join(dst, '/')
+#     # getting the absolute path of the source
+#     # directory
+#     src = os.path.abspath(src)
+#     #print(dst) 
+#     # making a variable having the index till which
+#     # src string has directory and a path separator
+#     src_prefix = len(src) + len(os.path.sep)
+#     #dst_path = os.path.join(dst, '/')
      
-    if os.path.exists(dst):
-        shutil.rmtree(dst, ignore_errors=True) 
-        # making the destination directory
-        os.makedirs(dst)
+#     if os.path.exists(dst):
+#         shutil.rmtree(dst, ignore_errors=True) 
+#         # making the destination directory
+#         os.makedirs(dst)
 
 
      
-    # doing os walk in source directory
-    for root, dirs, files in os.walk(src):
-        #for dirname in dirs:
-        if not dirs:   
-            # here dst has destination directory, 
-            # root[src_prefix:] gives us relative
-            # path from source directory 
-            # and dirname has folder names
-            dirpath = os.path.join(dst, root[src_prefix:], dirname)
-            srcpath = os.path.join(src, dirname)
-            #print(srcpath) 
-            # making the path which we made by
-            # joining all of the above three
-            if len(files) > 0:
-                uuid_path = path_encode(dirpath)
-                f_dest = os.path.join(dst, uuid_path)
-                print(srcpath + " - " + f_dest +" - " + str(len(files)))
-                os.mkdir(f_dest)
-                copy_files_only(srcpath, f_dest)
+#     # doing os walk in source directory
+#     for root, dirs, files in os.walk(src):
+#         #for dirname in dirs:
+#         if not dirs:   
+#             # here dst has destination directory, 
+#             # root[src_prefix:] gives us relative
+#             # path from source directory 
+#             # and dirname has folder names
+#             dirpath = os.path.join(dst, root[src_prefix:], dirname)
+#             srcpath = os.path.join(src, dirname)
+#             #print(srcpath) 
+#             # making the path which we made by
+#             # joining all of the above three
+#             if len(files) > 0:
+#                 uuid_path = path_encode(dirpath)
+#                 f_dest = os.path.join(dst, uuid_path)
+#                 print(srcpath + " - " + f_dest +" - " + str(len(files)))
+#                 os.mkdir(f_dest)
+#                 copy_files_only(srcpath, f_dest)
  
 
 # def path_encode_1(spath):
@@ -100,5 +108,5 @@ plist = [
 # print({x: str(create_uuid_from_string(x)) for x in plist})
 
 
-create_dirtree_without_files('/home/madhekar/work/home-media-app/data/raw-data/Madhekar/',
+copy_files_only('/home/madhekar/work/home-media-app/data/raw-data/Madhekar/',
                              '/home/madhekar/temp/img_backup/ex1')
