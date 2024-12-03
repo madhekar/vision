@@ -1,11 +1,15 @@
 
 import os
 import getpass
+import shutil
 import streamlit as st
 from utils.util import adddata_util as adu
 from utils.util import model_util as mu
 from streamlit_tree_select import tree_select
 from utils.config_util import config
+
+media_extensions = ['.mp3', '.mp4', '.avi', '.mov', '.jpg', '.jpeg', '.png', '.gif']  # Add more as needed
+document_extensions = ['.txt', '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.log']  # Add more as needed
 
 # nodes=[]
 # nodes.append(adu.path_dict("/home/madhekar/work/home-media-app/data/raw-data"))
@@ -38,6 +42,44 @@ def get_existing_data_sources(dpath):
 #     if st.button('Submit'):
 #         st.session_state.overrite = 
 
+
+def copy_files_only(src_dir, dest_dir):
+    if os.path.exists(dest_dir):
+        shutil.rmtree(dest_dir, ignore_errors=True)
+        # making the destination directory
+        os.makedirs(dest_dir)
+
+    for root, dirnames, items in os.walk(src_dir):
+        if not dirnames:
+            if len(items) > 0:
+                print(root + " - " + str(dirnames) + " - " + str(items))
+                items = [
+                    f
+                    for f in items
+                    if os.path.splitext(f)[1].lower() in media_extensions
+                    or os.path.splitext(f)[1].lower() in document_extensions
+                ]
+                if len(items) > 0:
+                    print(root + " - " + str(dirnames) + " - " + str(items))
+                    uuid_path = mu.create_uuid_from_string(root)
+                    f_dest = os.path.join(dest_dir, uuid_path)
+                    print(src_dir + " - " + f_dest + " - " + str(len(items)))
+                    os.makedirs(f_dest)
+                    for item in items:
+                        item_path = os.path.join(root, item)
+                        print(item_path + " -> " + dest_dir)
+                        if os.path.isfile(item_path):
+                            print("**" + item_path + " - " + dest_dir)
+                            try:
+                                shutil.copy(item_path, f_dest)
+                            except FileNotFoundError:
+                                print("Source file not found.")
+                            except PermissionError:
+                                print("Permission denied.")
+                            except FileExistsError:
+                                print("Destination file already exists.")
+                            except Exception as e:
+                                print(f"An error occurred: {e}")
 
 def execute():
     (
