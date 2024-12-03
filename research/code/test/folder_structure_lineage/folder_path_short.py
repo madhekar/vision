@@ -3,12 +3,41 @@ import os
 import hashlib
 import shutil
 
+
+media_extensions = ['.mp3', '.mp4', '.avi', '.mov', '.jpg', '.jpeg', '.png', '.gif']  # Add more as needed
+document_extensions = ['.txt', '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx']  # Add more as needed
+
 def create_uuid_from_string(val: str):
    hex_string = hashlib.md5(val.encode("UTF-8")).hexdigest()
    return uuid.UUID(hex=hex_string)
 
 def path_encode(spath):
     return str(uuid.uuid5(uuid.NAMESPACE_DNS, spath))
+
+def copy_files_only(src_dir, dest_dir):
+
+    #files = [f for f in os.listdir(src_dir) if not os.path.basename(f).startswith('.')]
+    for root, dirnames, items in os.walk(src_dir):
+      if not dirnames:
+        if len(items) > 0:
+            #print (root, "has 0 subdirectories and", len(items), "files")
+            print(root + ' - '  + str(dirnames) + ' - ' + str(items))
+            for item in items:
+                item_path = os.path.join(root, item)
+                print(item_path+ ' -> '+ dest_dir)
+                if os.path.isfile(item_path):
+                    print('**' + item_path + " - "+ dest_dir)
+                    try:
+                        shutil.copy(item_path, dest_dir)
+                    except FileNotFoundError:
+                        print("Source file not found.")
+                    except PermissionError:
+                        print("Permission denied.")
+                    except FileExistsError:
+                        print("Destination file already exists.")
+                    except Exception as e:
+                        print(f"An error occurred: {e}")
+                
 
 def create_dirtree_without_files(src, dst):
    
@@ -30,22 +59,23 @@ def create_dirtree_without_files(src, dst):
      
     # doing os walk in source directory
     for root, dirs, files in os.walk(src):
-        for dirname in dirs:
-           
+        #for dirname in dirs:
+        if not dirs:   
             # here dst has destination directory, 
             # root[src_prefix:] gives us relative
             # path from source directory 
             # and dirname has folder names
             dirpath = os.path.join(dst, root[src_prefix:], dirname)
-             
+            srcpath = os.path.join(src, dirname)
+            #print(srcpath) 
             # making the path which we made by
             # joining all of the above three
             if len(files) > 0:
                 uuid_path = path_encode(dirpath)
-                print(dst)
                 f_dest = os.path.join(dst, uuid_path)
-                print(dirpath + " - " + f_dest +" - " + str(len(files)))
-            #os.mkdir(dirpath)
+                print(srcpath + " - " + f_dest +" - " + str(len(files)))
+                os.mkdir(f_dest)
+                copy_files_only(srcpath, f_dest)
  
 
 # def path_encode_1(spath):
