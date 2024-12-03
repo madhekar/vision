@@ -37,13 +37,16 @@ def get_external_devices(user):
 def get_existing_data_sources(dpath):
      pass
      
+def create_external_data_path(user, selected_device):
+    return f"/media/{user}/{selected_device}"   
+  
 # def overrite(data_source):
 #     st.write(f'Are Sure, Overrite Existing {data_source} Data Source')
 #     if st.button('Submit'):
 #         st.session_state.overrite = 
 
 
-def copy_files_only(src_dir, dest_dir):
+def copy_folders_with_files(src_dir, dest_dir):
     if os.path.exists(dest_dir):
         shutil.rmtree(dest_dir, ignore_errors=True)
         # making the destination directory
@@ -91,6 +94,7 @@ def execute():
 
     # select load data from external data source such as USB device
     user = get_user()
+
     devices_list = get_external_devices(user=user)
 
     #show external devices in dropdown box
@@ -114,7 +118,7 @@ def execute():
             # remove folders and files
             # import folders and files - generate file paths based on uuid.uuid5
             # keep base same
-
+            copy_folders_with_files(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
     else:
         st.sidebar.button(label="IMPORT DATA", use_container_width=True)
         # import folders and files - generate file paths based on uuid.uuid5
