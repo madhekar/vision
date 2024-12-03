@@ -6,11 +6,81 @@ import shutil
 import pandas as pd
 import streamlit as st
 
-image_types = ['.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG', '.gif', '.GIF', '.bmp', '.BMP', '.tiff', '.TIFF', '.heic','.HEIC']
-video_types = ['.mp4', '.avi', '.mkv', '.mov', '.wmv', '.flv']
-audio_types = [".mp3", ".wav", ".flac", ".ogg", ".m4a"]
-document_types = [".txt", ".doc", ".docx", ".pdf", ".xls", ".xlsx", ".ppt", ".pptx"]
-non_media_types = [".json", ".JSON", '.py', '.csv', '.sqllite3','SQLlite3']
+
+image_types = [
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".bmp",
+    ".tiff",
+    ".heic",
+    ".heif",
+    ".tif",    
+    ".webp",
+]
+video_types = [
+    ".mp4",
+    ".avi",
+    ".mkv",
+    ".mov",
+    ".wmv",
+    ".flv",
+    ".mpeg",
+    ".mov",
+    ".eps",
+    ".sbd",
+    ".ra",
+    ".au",
+    ".wma",
+    ".wmv",
+    ".3gp",
+]
+audio_types = [
+    ".mp3",
+    ".wav",
+    ".flac",
+    ".ogg",
+    ".m4a",
+    ".aac",
+    ".amv",
+]
+document_types = [
+    ".txt",
+    ".doc",
+    ".docx",
+    ".pdf",
+    ".xls",
+    ".xlsx",
+    ".ppt",
+    ".pptx",
+    ".rtf",
+    ".csv",
+    ".wps",
+    ".msg",
+    ".dta"
+]
+non_media_types = [
+    ".json",
+    ".py",
+    ".csv",
+    ".sqllite3",
+    ".log",
+    ".java",
+    ".c",
+    ".py",
+    ".js",
+    ".html",
+    ".asp",
+    ".css",
+    ".xps",
+    ".swift",
+    ".pl",
+    ".sh",
+    ".bat",
+    ".ts",
+    ".cpp"
+]
 
 @st.cache_resource
 class FolderStats:
@@ -46,7 +116,7 @@ class FolderStats:
         file_sizes = collections.defaultdict(int)
         for  root, _, files in os.walk(folder_path, topdown=True):
             for file in files:
-                _, ext = os.path.splitext(file) 
+                ext = os.path.splitext(file)[1].lower() 
                 file_counts[ext] += 1
                 file_sizes[ext] += os.stat(os.path.join(root, file)).st_size      
         return file_counts, file_sizes
