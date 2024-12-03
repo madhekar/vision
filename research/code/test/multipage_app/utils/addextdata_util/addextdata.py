@@ -8,8 +8,62 @@ from utils.util import model_util as mu
 from streamlit_tree_select import tree_select
 from utils.config_util import config
 
-media_extensions = ['.mp3', '.mp4', '.avi', '.mov', '.jpg', '.jpeg', '.png', '.gif']  # Add more as needed
-document_extensions = ['.txt', '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.log']  # Add more as needed
+media_extensions = [
+    ".mp3",
+    ".mp4",
+    ".avi",
+    ".mov",
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".heif",
+    ".aac",
+    ".wav",
+    ".amv",
+    ".mpeg",
+    ".flv",
+    ".avi",
+    ".webp",
+    ".tif",
+    ".bmp",
+    ".eps",
+    '.sbd', 
+    '.ra', 
+    '.au', 
+    '.wma', 
+    '.wmv', 
+    '.3gp'
+]  # Add more as needed
+document_extensions = [
+    '.txt', 
+    '.pdf', 
+    '.doc', 
+    '.docx', 
+    '.xls', 
+    '.xlsx', 
+    '.ppt', 
+    '.pptx', 
+    '.log', 
+    '.java', 
+    '.c', 
+    '.py', 
+    '.js', 
+    '.html', 
+    '.asp', 
+    '.css', 
+    '.xps', 
+    '.rtf', 
+    '.csv', 
+    '.wps', 
+    '.msg' , 
+    '.dta', 
+    '.swift', 
+    '.pl', 
+    '.sh', 
+    '.bat', 
+    '.ts', 
+    '.cpp']  # Add more as needed
 
 # nodes=[]
 # nodes.append(adu.path_dict("/home/madhekar/work/home-media-app/data/raw-data"))
@@ -123,20 +177,7 @@ def execute():
         st.sidebar.button(label="IMPORT DATA", use_container_width=True)
         # import folders and files - generate file paths based on uuid.uuid5
         # keep base same
-
-    # check new path raw-data/source-name exists on hard drive
-
-    # check folders and files exists in raw-data/source-name folder
-
-    # remove all folders and files on raw-data/source-name  --- todo think about UNDO requirments
-
-    # copy all folders and files to raw-data/source-name folder
-
-    # arc_folder_name = util.get_foldername_by_datetime()
-    # archive_dup_path = os.path.join(archive_dup_path, arc_folder_name)
-    # dr = DuplicateRemover(dirname=input_image_path, archivedir=archive_dup_path)
-    # dr.find_duplicates()
-
+        copy_folders_with_files(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
 
 if __name__ == "__main__":
     execute()
