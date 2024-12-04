@@ -53,7 +53,7 @@ def display_folder_stats(flist):
                 ss.extract_folder_stats(folder)["size"],
                 stack=True,
                 horizontal=False,
-                y_label="total file size per filetype",
+                y_label="total file size per filetype (MB)",
                 color=colors[1]
             )
 
