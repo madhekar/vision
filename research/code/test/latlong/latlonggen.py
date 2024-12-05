@@ -3,7 +3,7 @@ import os
 import pandas as pd
 from geopy.geocoders import Nominatim
 
-geolocator = Nominatim(user_agent="Zesha-app")  # Replace "my-app" with a descriptive name
+geolocator = Nominatim(user_agent="abraapp")  # Replace "my-app" with a descriptive name
 
 
 def get_lat_long(address):
@@ -22,15 +22,16 @@ def get_lat_long_series(address):
         return pd.Series((0.0, 0.0))    
 
 def load_location_metadata():
-    adf = pd.read_csv("metadata_gen_latlon.csv")
+    adf = pd.read_csv("metadata_gen_latlon.csv", sep=';')
     return adf
 
 
 df = load_location_metadata()
 df.columns = ['name', 'address', 'desc']
 
+print(df)
 
-address = "1600 Amphitheatre Parkway, Mountain View, CA"
+#address = "1600 Amphitheatre Parkway, Mountain View, CA"
 #lat, lon = get_lat_long(address)
 #df['lat'], df['lon'] = zip(df.map(get_lat_long(address)))
 
@@ -42,8 +43,5 @@ df["lat"], df["lon"] = zip(*df["address"].map(get_lat_long))
 #df['address'].apply(get_lat_long).to_list()
 
 print(df)
-# if coordinates:
-#     latitude, longitude = coordinates
-#     print(f"Latitude: {latitude}, Longitude: {longitude}")
-# else:
-#     print("Could not find coordinates for the given address.")
+
+df.to_csv("static-metadata.txt", sep=';')
