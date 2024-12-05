@@ -23,7 +23,6 @@ def get_lat_long_series(address):
 
 def load_location_metadata():
     adf = pd.read_csv("metadata_gen_latlon.csv")
-    print(adf)
     return adf
 
 
@@ -39,7 +38,8 @@ address = "1600 Amphitheatre Parkway, Mountain View, CA"
 #df['lat'], df['lon'] = zip(*df['address'].map(get_lat_long), axis=1, result_type="expand")
 #df[["lat"]], df[["lon"]] = df[["address"]].apply(get_lat_long_series, axis=1, result_type="expand")
 
-df[['lat', 'lon']] = df['address'].apply(get_lat_long).to_list()
+df["lat"], df["lon"] = zip(*df["address"].map(get_lat_long)) 
+#df['address'].apply(get_lat_long).to_list()
 
 print(df)
 # if coordinates:
