@@ -16,6 +16,7 @@ if "msgs" not in mystate:
     mystate.msgs = {"load": [], "purge": [], "quality": [], "Metadata": []}
 
 def add_messages(msg_type, message):
+    print(msg_type, message)
     mystate.msgs[msg_type].append(message)    
 
 def get_message_by_type(tmsg):
@@ -27,8 +28,8 @@ btn_labels = [
     "IMG: PURGE BAD QUALITY",
     "IMG: METADATA VALIDATE",
 ]
-unpressed_color = "#636B2F"
-success_color = "#4F8524"
+unpressed_color = "#636B2F"  # colors = ["#BAC095", "#636B2F"]
+success_color = "#BAC095"
 failure_color = "#6B2F45"
 wip_color = "#998E1A"
 
@@ -95,20 +96,24 @@ def execute():
             chart_data = pd.DataFrame(
                 abs(np.random.randn(1, 4)) * 100,
                 columns=["images", "text", "video", "audio"],
+
             )
             st.bar_chart(
                 chart_data,
                 horizontal=False,
                 stack=False,
                 y_label="number of files",
-                use_container_width=True,
+                use_container_width=True,                
+                color=[ "#D4DE95","#BAC095", "#636B2F", "#3D4127"]
             )
             st.divider()
             status_con = st.status("load data task...", expanded=True)
             with status_con:
                 msgs = get_message_by_type("load")
                 if msgs:
-                  st.write(msgs)
+                  for m in msgs:
+                    print(m)
+                    st.write(str(m))
         with c1:
             st.button(
                 btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,), use_container_width=True
@@ -124,6 +129,7 @@ def execute():
                 stack=False,
                 y_label="number of files",
                 use_container_width=True,
+                color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"],
             )
             st.divider()
             #data_dup_msgs = st.text_area("duplicate data msgs:")
@@ -142,6 +148,7 @@ def execute():
                 stack=False,
                 y_label="number of files",
                 use_container_width=True,
+                color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"],
             )
             st.divider()
             #data_quality_msgs = st.text_area("quality check msgs:")
@@ -158,6 +165,7 @@ def execute():
                 stack=False,
                 y_label="number of files",
                 use_container_width=True,
+                color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"],
             )
             st.divider()
             #metadata_verify_msgs = st.text_area("METADATA CHECK msgs:")
