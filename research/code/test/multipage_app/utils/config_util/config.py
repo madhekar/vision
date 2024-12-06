@@ -179,7 +179,7 @@ def data_validation_config_load():
     with open("utils/config_util/data_validation_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        pprint.pprint("* * * Data Orchestration Properties * * *")
+        pprint.pprint("* * * Data Validation Properties * * *")
         pprint.pprint(dict)
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
 
