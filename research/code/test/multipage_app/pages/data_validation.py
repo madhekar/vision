@@ -12,6 +12,15 @@ mystate = st.session_state
 if "btn_prsd_status" not in mystate:
     mystate.btn_prsd_status = [0] * 4
 
+if "msgs" not in mystate:
+    mystate.msgs = {"load": [], "purge": [], "quality": [], "Metadata": []}
+
+def add_messages(msg_type, message):
+    mystate.msgs[msg_type].append(message)    
+
+def get_message_by_type(tmsg):
+    return [msg for msg_type, msg  in mystate.msgs.items() if msg_type == tmsg]    
+
 btn_labels = [
     "DATA LOAD VALIDATE",
     "IMG: PURGE DUPLICATES",
@@ -59,25 +68,6 @@ def btn_pressed_callback(i):
         r = exec_task(i)
         mystate.btn_prsd_status[i] = r
 
-
-def exec_task(iTask):  
-    match iTask:
-        case 0: # load images check
-            print("start")
-            time.sleep(1)
-            print("done")
-            return 1
-        case 1: # duplicate images check
-            di.execute()
-            return 1
-        case 2:  # image sharpness/ quality check
-            iq.execute()
-            return 1
-        case 3: # missing metadata check
-            mm.execute()
-            return 1
-        case _:
-            return -1
         
 # get immediate chield folders
 def extract_user_raw_data_folders(pth):
@@ -114,7 +104,11 @@ def execute():
                 use_container_width=True,
             )
             st.divider()
-            data_load_msgs=st.text_area("data load msgs:")
+            status_con = st.status("load data task...", expanded=True)
+            with status_con:
+                msgs = get_message_by_type("load")
+                if msgs:
+                  st.write(msgs)
         with c1:
             st.button(
                 btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,), use_container_width=True
@@ -132,7 +126,7 @@ def execute():
                 use_container_width=True,
             )
             st.divider()
-            data_dup_msgs = st.text_area("duplicate data msgs:")
+            #data_dup_msgs = st.text_area("duplicate data msgs:")
         with c2:
             st.button(
                 btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2,), use_container_width=True
@@ -150,7 +144,7 @@ def execute():
                 use_container_width=True,
             )
             st.divider()
-            data_quality_msgs = st.text_area("quality check msgs:")
+            #data_quality_msgs = st.text_area("quality check msgs:")
         with c3:
             st.button(btn_labels[3], key="g3", on_click=btn_pressed_callback, args=(3,), use_container_width=True)
             st.divider()
@@ -166,7 +160,27 @@ def execute():
                 use_container_width=True,
             )
             st.divider()
-            metadata_verify_msgs = st.text_area("METADATA CHECK msgs:")
+            #metadata_verify_msgs = st.text_area("METADATA CHECK msgs:")
         ChkBtnStatusAndAssigncolor()
+
+def exec_task(iTask):
+    match iTask:
+        case 0:  
+                # load images check
+                add_messages("load", "start")
+                time.sleep(1)
+                add_messages("load", "done")
+                return 1
+        case 1:  # duplicate images check
+            di.execute()
+            return 1
+        case 2:  # image sharpness/ quality check
+            iq.execute()
+            return 1
+        case 3:  # missing metadata check
+            mm.execute()
+            return 1
+        case _:
+            return -1        
 
 execute()
