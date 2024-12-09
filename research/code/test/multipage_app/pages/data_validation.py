@@ -174,19 +174,28 @@ def execute():
 def exec_task(iTask):
     match iTask:
         case 0:  
-                # load images check
-                add_messages("load", "start")
-                time.sleep(1)
-                add_messages("load", "done")
-                return 1
+            # load images check
+            add_messages("load", "start")
+            time.sleep(1)
+            add_messages("load", "done")
+            return 1
         case 1:  # duplicate images check
+            task_name = 'de-duplicate files'
+            add_messages(f"starting {task_name} prpcess", "start")
             di.execute()
+            add_messages(task_name, "done")
             return 1
         case 2:  # image sharpness/ quality check
+            task_name = 'quality check'
+            add_messages(task_name, 'start')
             iq.execute()
+            add_messages(task_name, "done")
             return 1
         case 3:  # missing metadata check
+            task_name = "missing metadata"
+            add_messages(task_name, 'start')
             mm.execute()
+            add_messages(task_name, "done")
             return 1
         case _:
             return -1        
