@@ -24,12 +24,11 @@ def copy_files_only(src_dir, dest_dir):
         if not dirnames:
             if len(items) > 0:
                 print(root + " - " + str(dirnames) + " - " + str(items))
-                items = [
-                    f
-                    for f in items
-                    if os.path.splitext(f)[1].lower() in fte.image_types
-                    or os.path.splitext(f)[1].lower() in fte.document_types
-                ]
+                img_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.image_types]
+                vid_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.video_types]
+                txt_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.document_types]
+                adu_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.audio_types]
+                nmd_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.non_media_types]
                 if len(items) > 0:
                     print(root + " - " + str(dirnames) + " - " + str(items))
                     uuid_path = path_encode(root)
