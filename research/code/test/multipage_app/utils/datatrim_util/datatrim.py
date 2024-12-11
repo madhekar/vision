@@ -62,7 +62,7 @@ def display_folder_stats(flist):
 
         col = (col + 1) % row_size
     
-def execute():
+def execute(source_data_folder):
     (
         raw_data_path,
         input_image_path,

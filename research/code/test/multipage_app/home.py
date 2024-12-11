@@ -84,7 +84,7 @@ pg = st.navigation(
     {
     "OVERVIEW": [overview],
     "DATA: ADD/ TRIM": [data_extadd, data_trim],
-    "Data: VALIDATE": [data_validate],
+    "DATA: VALIDATE": [data_validate],
     "METADATA": [data_correction, metadata_creator, metadata_loader],
     "SEARCH": [multimodal_search]
     }

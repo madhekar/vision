@@ -5,82 +5,83 @@ import collections
 import shutil
 import pandas as pd
 import streamlit as st
+from .file_type_ext import image_types, video_types, audio_types, document_types, non_media_types 
 
 
-image_types = [
-    ".jpg",
-    ".jpeg",
-    ".png",
-    ".gif",
-    ".bmp",
-    ".tiff",
-    ".heic",
-    ".heif",
-    ".tif",    
-    ".webp",
-]
-video_types = [
-    ".mp4",
-    ".avi",
-    ".mkv",
-    ".mov",
-    ".wmv",
-    ".flv",
-    ".mpeg",
-    ".mov",
-    ".eps",
-    ".sbd",
-    ".ra",
-    ".au",
-    ".wma",
-    ".wmv",
-    ".3gp",
-]
-audio_types = [
-    ".mp3",
-    ".wav",
-    ".flac",
-    ".ogg",
-    ".m4a",
-    ".aac",
-    ".amv",
-]
-document_types = [
-    ".txt",
-    ".doc",
-    ".docx",
-    ".pdf",
-    ".xls",
-    ".xlsx",
-    ".ppt",
-    ".pptx",
-    ".rtf",
-    ".csv",
-    ".wps",
-    ".msg",
-    ".dta"
-]
-non_media_types = [
-    ".json",
-    ".py",
-    ".csv",
-    ".sqllite3",
-    ".log",
-    ".java",
-    ".c",
-    ".py",
-    ".js",
-    ".html",
-    ".asp",
-    ".css",
-    ".xps",
-    ".swift",
-    ".pl",
-    ".sh",
-    ".bat",
-    ".ts",
-    ".cpp"
-]
+# image_types = [
+#     ".jpg",
+#     ".jpeg",
+#     ".png",
+#     ".gif",
+#     ".bmp",
+#     ".tiff",
+#     ".heic",
+#     ".heif",
+#     ".tif",    
+#     ".webp",
+# ]
+# video_types = [
+#     ".mp4",
+#     ".avi",
+#     ".mkv",
+#     ".mov",
+#     ".wmv",
+#     ".flv",
+#     ".mpeg",
+#     ".mov",
+#     ".eps",
+#     ".sbd",
+#     ".ra",
+#     ".au",
+#     ".wma",
+#     ".wmv",
+#     ".3gp",
+# ]
+# audio_types = [
+#     ".mp3",
+#     ".wav",
+#     ".flac",
+#     ".ogg",
+#     ".m4a",
+#     ".aac",
+#     ".amv",
+# ]
+# document_types = [
+#     ".txt",
+#     ".doc",
+#     ".docx",
+#     ".pdf",
+#     ".xls",
+#     ".xlsx",
+#     ".ppt",
+#     ".pptx",
+#     ".rtf",
+#     ".csv",
+#     ".wps",
+#     ".msg",
+#     ".dta"
+# ]
+# non_media_types = [
+#     ".json",
+#     ".py",
+#     ".csv",
+#     ".sqllite3",
+#     ".log",
+#     ".java",
+#     ".c",
+#     ".py",
+#     ".js",
+#     ".html",
+#     ".asp",
+#     ".css",
+#     ".xps",
+#     ".swift",
+#     ".pl",
+#     ".sh",
+#     ".bat",
+#     ".ts",
+#     ".cpp"
+# ]
 
 @st.cache_resource
 class FolderStats:
@@ -146,7 +147,7 @@ class FolderStats:
     
     def get_all_non_media_types(self, file_counts, file_sizes):
         non_medias_cnt = {key: file_counts[key] for key in non_media_types if file_counts[key] > 0}
-        non_medias_size = {key: self.get_size_for_plot(file_sizes[key]) for key in audio_types if file_sizes[key] > 0}
+        non_medias_size = {key: self.get_size_for_plot(file_sizes[key]) for key in non_media_types if file_sizes[key] > 0}
         return  non_medias_cnt, non_medias_size  
 
     def get_all_file_types(self, fpath):        
