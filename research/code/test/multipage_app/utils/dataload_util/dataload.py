@@ -14,6 +14,8 @@ from utils.util import file_type_ext as fte
 def path_encode(spath):
     return str(uuid.uuid5(uuid.NAMESPACE_DNS, spath))
 
+
+## possible performance issue 
 def copy_files_only(src_dir, dest_dir):
     if os.path.exists(dest_dir):
         shutil.rmtree(dest_dir, ignore_errors=True)
