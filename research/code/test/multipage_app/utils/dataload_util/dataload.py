@@ -20,6 +20,28 @@ def clean_media_folders(folder):
         shutil.rmtree(folder, ignore_errors=True)
         os.makedirs(folder)
 
+def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
+
+    #print(root + " - " + str(dirnames) + " - " + str(media_items))
+    f_dest = os.path.join(fdest_media, uuid_path)
+    #print(src_dir + " - " + f_dest + " - " + str(len(media_items)))
+    os.makedirs(f_dest)
+    for item in media_items:
+        item_path = os.path.join(root, item)
+        print(item_path + " -> " + f_dest)
+        if os.path.isfile(item_path):
+            print("**" + item_path + " - " + fdest_media)
+            try:
+                shutil.copy(item_path, f_dest)
+            except FileNotFoundError:
+                print("Source file not found.")
+            except PermissionError:
+                print("Permission denied.")
+            except FileExistsError:
+                print("Destination file already exists.")
+            except Exception as e:
+                print(f"An error occurred: {e}")
+
 ## possible performance issue 
 def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
 
@@ -40,28 +62,41 @@ def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
                 txt_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.document_types]
                 adu_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.audio_types]
 
+                #generate uuid path
+                uuid_path = path_encode(root)
+                
                 # handle image items
                 if len(img_items) > 0:
-                    print(root + " - " + str(dirnames) + " - " + str(img_items))
-                    uuid_path = path_encode(root)
-                    f_dest = os.path.join(fdest_image, uuid_path)
-                    print(src_dir + " - " + f_dest + " - " + str(len(img_items)))
-                    os.makedirs(f_dest)
-                    for item in img_items:
-                        item_path = os.path.join(root, item)
-                        print(item_path + " -> " + f_dest)
-                        if os.path.isfile(item_path):
-                            print("**" + item_path + " - " + fdest_image)
-                            try:
-                                shutil.copy(item_path, f_dest)
-                            except FileNotFoundError:
-                                print("Source file not found.")
-                            except PermissionError:
-                                print("Permission denied.")
-                            except FileExistsError:
-                                print("Destination file already exists.")
-                            except Exception as e:
-                                print(f"An error occurred: {e}")
+                    handle_copy_media_files(root, fdest_image, uuid_path, img_items)
+
+                if len(vid_items) > 0:
+                    handle_copy_media_files(root, fdest_video, uuid_path, vid_items)    
+
+                if len(img_items) > 0:
+                    handle_copy_media_files(root, fdest_txt, uuid_path, txt_items)
+
+                if len(adu_items) > 0:
+                    handle_copy_media_files(root, fdest_audio, uuid_path, adu_items)     
+                    
+                    # print(root + " - " + str(dirnames) + " - " + str(img_items))
+                    # f_dest = os.path.join(fdest_image, uuid_path)
+                    # print(src_dir + " - " + f_dest + " - " + str(len(img_items)))
+                    # os.makedirs(f_dest)
+                    # for item in img_items:
+                    #     item_path = os.path.join(root, item)
+                    #     print(item_path + " -> " + f_dest)
+                    #     if os.path.isfile(item_path):
+                    #         print("**" + item_path + " - " + fdest_image)
+                    #         try:
+                    #             shutil.copy(item_path, f_dest)
+                    #         except FileNotFoundError:
+                    #             print("Source file not found.")
+                    #         except PermissionError:
+                    #             print("Permission denied.")
+                    #         except FileExistsError:
+                    #             print("Destination file already exists.")
+                    #         except Exception as e:
+                    #             print(f"An error occurred: {e}")
 
 def execute(source_name):
     (
