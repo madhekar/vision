@@ -192,9 +192,9 @@ def exec_task(iTask, user_source):
         case 0:  
             # load images check
             task_name = 'data load'
-            add_messages(f"starting {task_name} prpcess", "start")
+            add_messages('load', f"starting {task_name} prpcess")
             dl.execute(user_source)
-            add_messages(task_name, "done")
+            add_messages("load", f"done {task_name} prpcess")
             return 1
         case 1:  # duplicate images check
             task_name = 'de-duplicate files'
