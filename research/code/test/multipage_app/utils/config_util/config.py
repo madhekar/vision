@@ -95,8 +95,9 @@ def dataload_config_load():
         input_image_path = dict["dataload"]["input_image_path"]
         input_txt_path = dict["dataload"]["input_txt_path"]
         input_video_path = dict["dataload"]["input_video_path"]
+        input_audio_path = dict["dataload"]["input_audio_path"]
 
-    return (raw_data_path, input_image_path, input_txt_path, input_video_path)
+    return (raw_data_path, input_image_path, input_txt_path, input_video_path, input_audio_path)
 
 
 

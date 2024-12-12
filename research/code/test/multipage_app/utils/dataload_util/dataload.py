@@ -14,13 +14,22 @@ from utils.util import file_type_ext as fte
 def path_encode(spath):
     return str(uuid.uuid5(uuid.NAMESPACE_DNS, spath))
 
+def clean_media_folders(folder):
+    # create clean destination folders
+    if os.path.exists(folder):
+        shutil.rmtree(folder, ignore_errors=True)
+        os.makedirs(folder)
 
 ## possible performance issue 
-def copy_files_only(src_dir, dest_dir):
-    if os.path.exists(dest_dir):
-        shutil.rmtree(dest_dir, ignore_errors=True)
-        # making the destination directory
-        os.makedirs(dest_dir)
+def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
+
+    img_items, txt_items, vid_items, adu_items = ([] for i in range(4))
+
+    #create clean destination folders
+    clean_media_folders(fdest_image)
+    clean_media_folders(fdest_txt)
+    clean_media_folders(fdest_video)
+    clean_media_folders(fdest_audio)
 
     for root, dirnames, items in os.walk(src_dir):
         if not dirnames:
@@ -30,18 +39,19 @@ def copy_files_only(src_dir, dest_dir):
                 vid_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.video_types]
                 txt_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.document_types]
                 adu_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.audio_types]
-                nmd_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.non_media_types]
-                if len(items) > 0:
-                    print(root + " - " + str(dirnames) + " - " + str(items))
+
+                # handle image items
+                if len(img_items) > 0:
+                    print(root + " - " + str(dirnames) + " - " + str(img_items))
                     uuid_path = path_encode(root)
-                    f_dest = os.path.join(dest_dir, uuid_path)
-                    print(src_dir + " - " + f_dest + " - " + str(len(items)))
+                    f_dest = os.path.join(fdest_image, uuid_path)
+                    print(src_dir + " - " + f_dest + " - " + str(len(img_items)))
                     os.makedirs(f_dest)
-                    for item in items:
+                    for item in img_items:
                         item_path = os.path.join(root, item)
-                        print(item_path + " -> " + dest_dir)
+                        print(item_path + " -> " + f_dest)
                         if os.path.isfile(item_path):
-                            print("**" + item_path + " - " + dest_dir)
+                            print("**" + item_path + " - " + fdest_image)
                             try:
                                 shutil.copy(item_path, f_dest)
                             except FileNotFoundError:
@@ -53,17 +63,24 @@ def copy_files_only(src_dir, dest_dir):
                             except Exception as e:
                                 print(f"An error occurred: {e}")
 
-def execute():
+def execute(source_name):
     (
         raw_data_path,
         input_image_path,
-        input_video_path,
         input_txt_path,
+        input_video_path,
+        input_audio_path
     ) = config.dataload_config_load()
 
     """
-    select data source to trim data
+      paths to import files
     """
+    ipath = os.path.join(input_image_path, source_name)
+    tpath = os.path.join(input_txt_path, source_name)
+    vpath = os.path.join(input_video_path, source_name)
+    apath = os.path.join(input_audio_path, source_name)
+
+    copy_files_only(raw_data_path, ipath, tpath, vpath, apath)
     # source_list = []
     # # source_list = get_external_devices(get_user())
     # source_list = mu.extract_user_raw_data_folders(raw_data_path)
