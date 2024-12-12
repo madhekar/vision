@@ -1,0 +1,6 @@
+;name;address;desc;lat;lon
+0;home;13580 sage mesa road ca 92130;;32.968689350000005;-117.18424253549674
+1;hickman_elementary;10850 Montongo St San Diego CA 92126;;32.914994;-117.153358
+2;qualcomm_lusk;6455 Lusk Blvd San Diego CA 92121;;32.9029663;-117.201045
+3;qualcomm_morehouse;5775 Morehouse Dr San Diego CA 92121;;32.8959414;-117.19581947763047
+4;kenai_fjords_tours;1304 4th Ave Seward AK 99664;;0.0;0.0
