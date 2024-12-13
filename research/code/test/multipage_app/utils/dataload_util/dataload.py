@@ -10,15 +10,20 @@ from utils.util import model_util as mu
 from utils.util import storage_stat as ss
 from utils.util import file_type_ext as fte
 
+def add_messages(msg_type, message):
+    print(msg_type, message)
+    st.session_state.msgs[msg_type].append(message)
 
 def path_encode(spath):
     return str(uuid.uuid5(uuid.NAMESPACE_DNS, spath))
 
 def clean_media_folders(folder):
     # create clean destination folders
+    add_messages('load', f'starting to clean {folder}')
     if os.path.exists(folder):
         shutil.rmtree(folder, ignore_errors=True)
         os.makedirs(folder)
+    add_messages("load", f"done to cleaning {folder}")    
 
 def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
 
