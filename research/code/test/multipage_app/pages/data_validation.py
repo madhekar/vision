@@ -9,6 +9,7 @@ from utils.missing_util import missing_metadata as mm
 from utils.quality_util import image_quality as iq
 from utils.dedup_util import dedup_imgs as di
 from utils.dataload_util import dataload as dl
+from utils.util import storage_stat as ss
 
 mystate = st.session_state
 if "btn_prsd_status" not in mystate:
@@ -109,11 +110,24 @@ def execute():
                 use_container_width=True,
             )
             st.divider()
+
+            #ss.extract_all_folder_stats()
             chart_data = pd.DataFrame(
                 abs(np.random.randn(1, 4)) * 100,
                 columns=["images", "text", "video", "audio"],
 
             )
+            '''
+            st.bar_chart(
+            dfi,
+            horizontal=False,
+            stack=True,
+            y_label='total size(MB) & count of images',
+            use_container_width=True,
+            color=colors
+            )
+            '''
+
             st.bar_chart(
                 chart_data,
                 horizontal=False,
