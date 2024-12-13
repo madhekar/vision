@@ -15,7 +15,7 @@ if "btn_prsd_status" not in mystate:
     mystate.btn_prsd_status = [0] * 4
 
 if "msgs" not in mystate:
-    mystate.msgs = {"load": [], "purge": [], "quality": [], "Metadata": []}
+    mystate.msgs = {"load": [], "duplicate": [], "quality": [], "metadata": []}
 
 def add_messages(msg_type, message):
     print(msg_type, message)
@@ -148,7 +148,13 @@ def execute():
                 color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"],
             )
             st.divider()
-            #data_dup_msgs = st.text_area("duplicate data msgs:")
+            status_con = st.status("de-duplicate data task...", expanded=True)
+            with status_con:
+                msgs = get_message_by_type("duplicate")
+                if msgs:
+                    for m in msgs:
+                        print(m)
+                        st.write(str(m))
         with c2:
             st.button(
                 btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2, user_source_selected), use_container_width=True
@@ -167,7 +173,13 @@ def execute():
                 color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"],
             )
             st.divider()
-            #data_quality_msgs = st.text_area("quality check msgs:")
+            status_con = st.status("data quality check task...", expanded=True)
+            with status_con:
+                msgs = get_message_by_type("quality")
+                if msgs:
+                    for m in msgs:
+                        print(m)
+                        st.write(str(m))
         with c3:
             st.button(btn_labels[3], key="g3", on_click=btn_pressed_callback, args=(3,user_source_selected), use_container_width=True)
             st.divider()
@@ -184,7 +196,13 @@ def execute():
                 color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"],
             )
             st.divider()
-            #metadata_verify_msgs = st.text_area("METADATA CHECK msgs:")
+            status_con = st.status("metadata check task...", expanded=True)
+            with status_con:
+                msgs = get_message_by_type("metadata")
+                if msgs:
+                    for m in msgs:
+                        print(m)
+                        st.write(str(m))
         ChkBtnStatusAndAssigncolor()
 
 def exec_task(iTask, user_source):
@@ -198,21 +216,21 @@ def exec_task(iTask, user_source):
             return 1
         case 1:  # duplicate images check
             task_name = 'de-duplicate files'
-            add_messages(f"starting {task_name} prpcess", "start")
-            di.execute()
-            add_messages(task_name, "done")
+            add_messages('duplicate', f"starting {task_name} prpcess")
+            di.execute(user_source)
+            add_messages("duplicate", f"done {task_name} prpcess")
             return 1
         case 2:  # image sharpness/ quality check
-            task_name = 'quality check'
-            add_messages(task_name, 'start')
+            task_name = 'file quality check'
+            add_messages("quality", f"starting {task_name} prpcess")
             iq.execute()
-            add_messages(task_name, "done")
+            add_messages('quality', f"done {task_name} prpcess")
             return 1
         case 3:  # missing metadata check
             task_name = "missing metadata"
-            add_messages(task_name, 'start')
+            add_messages("metadata", f"starting {task_name} prpcess")
             mm.execute()
-            add_messages(task_name, "done")
+            add_messages('metadata',f"done {task_name} prpcess")
             return 1
         case _:
             return -1        
