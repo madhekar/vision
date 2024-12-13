@@ -129,7 +129,8 @@ def execute():
                 if msgs:
                   for m in msgs:
                     print(m)
-                    st.write(str(m))
+                    st.info(str(m))
+                    st.error(str(m))
         with c1:
             st.button(
                 btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,user_source_selected), use_container_width=True

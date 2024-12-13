@@ -39,13 +39,17 @@ def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
             try:
                 shutil.copy(item_path, f_dest)
             except FileNotFoundError:
-                print("Source file not found.")
+                e1 = ReferenceError("Source file not found.")
+                st.exception(e1)
             except PermissionError:
-                print("Permission denied.")
+                e2 = RuntimeError("Permission denied.")
+                st.exception(e2)
             except FileExistsError:
-                print("Destination file already exists.")
+                e3 = RuntimeError("Destination file already exists.")
+                st.exception(e3)
             except Exception as e:
-                print(f"An error occurred: {e}")
+                e4 = RuntimeError(f"An Unknown error occurred in dataload: {e}")
+                st.exception(e4)
 
 ## possible performance issue 
 def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
