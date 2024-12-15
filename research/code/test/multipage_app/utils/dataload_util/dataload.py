@@ -10,17 +10,57 @@ from utils.util import model_util as mu
 from utils.util import storage_stat as ss
 from utils.util import file_type_ext as fte
 
+def add_messages(msg_type, message):
+    print(msg_type, message)
+    st.session_state.msgs[msg_type].append(message)
 
 def path_encode(spath):
     return str(uuid.uuid5(uuid.NAMESPACE_DNS, spath))
 
+def clean_media_folders(folder):
+    # create clean destination folders
+    add_messages('load', f'starting to clean {folder}')
+    if os.path.exists(folder):
+        shutil.rmtree(folder, ignore_errors=True)
+        os.makedirs(folder)
+    add_messages("load", f"done to cleaning {folder}")    
+
+def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
+
+    #print(root + " - " + str(dirnames) + " - " + str(media_items))
+    f_dest = os.path.join(fdest_media, uuid_path)
+    #print(src_dir + " - " + f_dest + " - " + str(len(media_items)))
+    os.makedirs(f_dest)
+    for item in media_items:
+        item_path = os.path.join(root, item)
+        print(item_path + " -> " + f_dest)
+        if os.path.isfile(item_path):
+            print("**" + item_path + " - " + fdest_media)
+            try:
+                shutil.copy(item_path, f_dest)
+            except FileNotFoundError:
+                e1 = ReferenceError("Source file not found.")
+                st.exception(e1)
+            except PermissionError:
+                e2 = RuntimeError("Permission denied.")
+                st.exception(e2)
+            except FileExistsError:
+                e3 = RuntimeError("Destination file already exists.")
+                st.exception(e3)
+            except Exception as e:
+                e4 = RuntimeError(f"An Unknown error occurred in dataload: {e}")
+                st.exception(e4)
 
 ## possible performance issue 
-def copy_files_only(src_dir, dest_dir):
-    if os.path.exists(dest_dir):
-        shutil.rmtree(dest_dir, ignore_errors=True)
-        # making the destination directory
-        os.makedirs(dest_dir)
+def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
+
+    img_items, txt_items, vid_items, adu_items = ([] for i in range(4))
+
+    #create clean destination folders
+    clean_media_folders(fdest_image)
+    clean_media_folders(fdest_txt)
+    clean_media_folders(fdest_video)
+    clean_media_folders(fdest_audio)
 
     for root, dirnames, items in os.walk(src_dir):
         if not dirnames:
@@ -30,40 +70,42 @@ def copy_files_only(src_dir, dest_dir):
                 vid_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.video_types]
                 txt_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.document_types]
                 adu_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.audio_types]
-                nmd_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.non_media_types]
-                if len(items) > 0:
-                    print(root + " - " + str(dirnames) + " - " + str(items))
-                    uuid_path = path_encode(root)
-                    f_dest = os.path.join(dest_dir, uuid_path)
-                    print(src_dir + " - " + f_dest + " - " + str(len(items)))
-                    os.makedirs(f_dest)
-                    for item in items:
-                        item_path = os.path.join(root, item)
-                        print(item_path + " -> " + dest_dir)
-                        if os.path.isfile(item_path):
-                            print("**" + item_path + " - " + dest_dir)
-                            try:
-                                shutil.copy(item_path, f_dest)
-                            except FileNotFoundError:
-                                print("Source file not found.")
-                            except PermissionError:
-                                print("Permission denied.")
-                            except FileExistsError:
-                                print("Destination file already exists.")
-                            except Exception as e:
-                                print(f"An error occurred: {e}")
 
-def execute():
+                #generate uuid path
+                uuid_path = path_encode(root)
+                
+                # handle image items
+                if len(img_items) > 0:
+                    handle_copy_media_files(root, fdest_image, uuid_path, img_items)
+
+                if len(vid_items) > 0:
+                    handle_copy_media_files(root, fdest_video, uuid_path, vid_items)    
+
+                if len(txt_items) > 0:
+                    handle_copy_media_files(root, fdest_txt, uuid_path, txt_items)
+
+                if len(adu_items) > 0:
+                    handle_copy_media_files(root, fdest_audio, uuid_path, adu_items)     
+
+
+def execute(source_name):
     (
         raw_data_path,
         input_image_path,
-        input_video_path,
         input_txt_path,
+        input_video_path,
+        input_audio_path
     ) = config.dataload_config_load()
 
     """
-    select data source to trim data
+      paths to import files
     """
+    ipath = os.path.join(input_image_path, source_name)
+    tpath = os.path.join(input_txt_path, source_name)
+    vpath = os.path.join(input_video_path, source_name)
+    apath = os.path.join(input_audio_path, source_name)
+
+    copy_files_only(raw_data_path, ipath, tpath, vpath, apath)
     # source_list = []
     # # source_list = get_external_devices(get_user())
     # source_list = mu.extract_user_raw_data_folders(raw_data_path)

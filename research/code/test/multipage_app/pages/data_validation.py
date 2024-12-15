@@ -4,16 +4,19 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import streamlit.components.v1 as components
+from utils.config_util import config
 from utils.missing_util import missing_metadata as mm
 from utils.quality_util import image_quality as iq
 from utils.dedup_util import dedup_imgs as di
+from utils.dataload_util import dataload as dl
+from utils.util import storage_stat as ss
 
 mystate = st.session_state
 if "btn_prsd_status" not in mystate:
     mystate.btn_prsd_status = [0] * 4
 
 if "msgs" not in mystate:
-    mystate.msgs = {"load": [], "purge": [], "quality": [], "Metadata": []}
+    mystate.msgs = {"load": [], "duplicate": [], "quality": [], "metadata": []}
 
 def add_messages(msg_type, message):
     print(msg_type, message)
@@ -63,10 +66,10 @@ def ChkBtnStatusAndAssigncolor():
         ChangeButtoncolor(btn_labels[i], mystate.btn_prsd_status[i])
 
 
-def btn_pressed_callback(i):
+def btn_pressed_callback(i, user_source):
     print(i, mystate, mystate.btn_prsd_status[i - 1])
     if mystate.btn_prsd_status[i - 1] == 1 or i == 0:
-        r = exec_task(i)
+        r = exec_task(i, user_source)
         mystate.btn_prsd_status[i] = r
 
         
@@ -74,13 +77,27 @@ def btn_pressed_callback(i):
 def extract_user_raw_data_folders(pth):
     return next(os.walk(pth))[1]
 
-def execute():
+def execute():        
+
+    # extract config settings  
+    (
+        raw_data_path,
+        duplicate_data_path,
+        quality_data_path,
+        missing_data_path,
+        metadata_file_path,
+        static_metadata_file_path,
+        vectordb_path,
+    ) = config.data_validation_config_load()
+
+    # get source source folder
+    user_source_selected = st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders(raw_data_path),label_visibility="collapsed")
+
     with st.container():
         st.header("DATA: ADD/ VALIDATE", divider="gray")
         st.sidebar.subheader("SELECT DATA SOURCE", divider="gray")
 
-        # todo???
-        st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders('/home/madhekar/work/home-media-app/data/raw-data'),label_visibility="collapsed")
+
 
         st.subheader("EXECUTE TASKS", divider="gray")
         c0, c1, c2, c3 = st.columns((1, 1, 1, 1), gap="small")
@@ -89,15 +106,28 @@ def execute():
                 btn_labels[0],
                 key="g0",
                 on_click=btn_pressed_callback,
-                args=(0,),
+                args=(0,user_source_selected),
                 use_container_width=True,
             )
             st.divider()
+
+            #ss.extract_all_folder_stats()
             chart_data = pd.DataFrame(
                 abs(np.random.randn(1, 4)) * 100,
                 columns=["images", "text", "video", "audio"],
 
             )
+            '''
+            st.bar_chart(
+            dfi,
+            horizontal=False,
+            stack=True,
+            y_label='total size(MB) & count of images',
+            use_container_width=True,
+            color=colors
+            )
+            '''
+
             st.bar_chart(
                 chart_data,
                 horizontal=False,
@@ -113,10 +143,11 @@ def execute():
                 if msgs:
                   for m in msgs:
                     print(m)
-                    st.write(str(m))
+                    st.info(str(m))
+                    st.error(str(m))
         with c1:
             st.button(
-                btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,), use_container_width=True
+                btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,user_source_selected), use_container_width=True
             )
             st.divider()
             chart_data = pd.DataFrame(
@@ -132,10 +163,16 @@ def execute():
                 color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"],
             )
             st.divider()
-            #data_dup_msgs = st.text_area("duplicate data msgs:")
+            status_con = st.status("de-duplicate data task...", expanded=True)
+            with status_con:
+                msgs = get_message_by_type("duplicate")
+                if msgs:
+                    for m in msgs:
+                        print(m)
+                        st.write(str(m))
         with c2:
             st.button(
-                btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2,), use_container_width=True
+                btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2, user_source_selected), use_container_width=True
             )
             st.divider()
             chart_data = pd.DataFrame(
@@ -151,9 +188,15 @@ def execute():
                 color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"],
             )
             st.divider()
-            #data_quality_msgs = st.text_area("quality check msgs:")
+            status_con = st.status("data quality check task...", expanded=True)
+            with status_con:
+                msgs = get_message_by_type("quality")
+                if msgs:
+                    for m in msgs:
+                        print(m)
+                        st.write(str(m))
         with c3:
-            st.button(btn_labels[3], key="g3", on_click=btn_pressed_callback, args=(3,), use_container_width=True)
+            st.button(btn_labels[3], key="g3", on_click=btn_pressed_callback, args=(3,user_source_selected), use_container_width=True)
             st.divider()
             chart_data = pd.DataFrame(
                 abs(np.random.randn(1, 4)) * 100,
@@ -168,34 +211,41 @@ def execute():
                 color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"],
             )
             st.divider()
-            #metadata_verify_msgs = st.text_area("METADATA CHECK msgs:")
+            status_con = st.status("metadata check task...", expanded=True)
+            with status_con:
+                msgs = get_message_by_type("metadata")
+                if msgs:
+                    for m in msgs:
+                        print(m)
+                        st.write(str(m))
         ChkBtnStatusAndAssigncolor()
 
-def exec_task(iTask):
+def exec_task(iTask, user_source):
     match iTask:
         case 0:  
             # load images check
-            add_messages("load", "start")
-            time.sleep(1)
-            add_messages("load", "done")
+            task_name = 'data load'
+            add_messages('load', f"starting {task_name} prpcess")
+            dl.execute(user_source)
+            add_messages("load", f"done {task_name} prpcess")
             return 1
         case 1:  # duplicate images check
             task_name = 'de-duplicate files'
-            add_messages(f"starting {task_name} prpcess", "start")
-            di.execute()
-            add_messages(task_name, "done")
+            add_messages('duplicate', f"starting {task_name} prpcess")
+            di.execute(user_source)
+            add_messages("duplicate", f"done {task_name} prpcess")
             return 1
         case 2:  # image sharpness/ quality check
-            task_name = 'quality check'
-            add_messages(task_name, 'start')
+            task_name = 'file quality check'
+            add_messages("quality", f"starting {task_name} prpcess")
             iq.execute()
-            add_messages(task_name, "done")
+            add_messages('quality', f"done {task_name} prpcess")
             return 1
         case 3:  # missing metadata check
             task_name = "missing metadata"
-            add_messages(task_name, 'start')
+            add_messages("metadata", f"starting {task_name} prpcess")
             mm.execute()
-            add_messages(task_name, "done")
+            add_messages('metadata',f"done {task_name} prpcess")
             return 1
         case _:
             return -1        

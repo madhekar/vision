@@ -91,10 +91,10 @@ class DuplicateRemover:
                         )
                     )
 
-def execute():
+def execute(source_name):
        input_image_path, archive_dup_path = config.dedup_config_load()
        arc_folder_name = util.get_foldername_by_datetime()
-       archive_dup_path = os.path.join(archive_dup_path, arc_folder_name)
+       archive_dup_path = os.path.join(archive_dup_path, source_name, arc_folder_name)
        dr = DuplicateRemover( dirname=input_image_path, archivedir=archive_dup_path)
        dr.find_duplicates()                
 

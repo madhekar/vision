@@ -8,10 +8,7 @@ from utils.util import storage_stat as ss
 from utils.config_util import config
 from utils.util import model_util as mu
 
-colors = colors = [
-    "#BAC095",
-    "#636B2F",
-]#["#9EB8A0", "#58855c"]#['#58855c','#0D3311']#["#BAC095", "#636B2F"]
+colors = colors = ["#636B2F","#BAC095"] #["#9EB8A0", "#58855c"]#['#58855c','#0D3311']#["#BAC095", "#636B2F"]
 def extract_folder_paths():
     raw_data_path, input_data_path, app_data_path, final_data_path = (
         config.overview_config_load()
@@ -34,7 +31,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             dfi,
             horizontal=False,
             stack=True,
-            y_label='total size & count of images',
+            y_label='total size(MB) & count of images',
             use_container_width=True,
             color=colors
         )
@@ -47,36 +44,36 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             dfv,
             horizontal=False,
             stack=True,
-            y_label="total size & count of videos",
+            y_label="total size(MB) & count of videos",
             use_container_width=True,
-            color=colors
+            color=colors,
         )
     with c3:
         st.bar_chart(
             dfd,
             horizontal=False,
             stack=True,
-            y_label="total size & count of documents",
+            y_label="total size(MB) & count of documents",
             use_container_width=True,
-            color=colors
+            color=colors,
         )
     with c4:
         st.bar_chart(
             dfa,
             horizontal=False,
             stack=True,
-            y_label="total size & count of audios",
+            y_label="total size(MB) & count of audios",
             use_container_width=True,
-            color=colors
+            color=colors,
         )
     with c5:
         st.bar_chart(
             dfn,
             horizontal=False,
             stack=True,
-            y_label="total size & count of other files",
+            y_label="total size(MB) & count of other files",
             use_container_width=True,
-            color=colors
+            color=colors,
         )
 
 def execute():
