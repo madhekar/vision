@@ -138,12 +138,18 @@ def copy_folders_with_files(src_dir, dest_dir):
                             except Exception as e:
                                 print(f"An error occurred: {e}")
 
+"""
+raw_data_path, input_image_path, input_txt_path, input_video_path, input_audio_path
+"""
+
 def execute():
     (
         raw_data_path,
         input_image_path,
-        input_video_path,
         input_txt_path,
+        input_video_path,
+        input_audio_path
+        
     ) = config.dataload_config_load()
 
     # select load data from external data source such as USB device
