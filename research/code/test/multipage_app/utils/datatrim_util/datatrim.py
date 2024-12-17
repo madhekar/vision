@@ -62,13 +62,8 @@ def display_folder_stats(flist):
 
         col = (col + 1) % row_size
     
-def execute(source_data_folder):
-    (
-        raw_data_path,
-        input_image_path,
-        input_video_path,
-        input_txt_path,
-    ) = config.dataload_config_load()
+def execute():
+    (raw_data_path, input_image_path, input_txt_path, input_video_path, input_audio_path) = config.dataload_config_load()
 
 
     '''
