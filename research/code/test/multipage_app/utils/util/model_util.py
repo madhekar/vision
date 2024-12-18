@@ -134,6 +134,7 @@ def extract_user_raw_data_folders(path):
 def file_exists(fpath):
     return os.path.exists(fpath)
        
+# file path to uuid string       
 def create_uuid_from_string(val: str):
     hex_string = hashlib.md5(val.encode("UTF-8")).hexdigest()
     return str(uuid.UUID(hex=hex_string))       
