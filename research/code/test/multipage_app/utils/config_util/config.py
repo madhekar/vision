@@ -185,10 +185,17 @@ def data_validation_config_load():
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
 
         raw_data_path = dict["raw-data"]["base_path"]
+
         duplicate_data_path = dict["duplicate"]["base_path"]
+
         quality_data_path = dict["quality"]["base_path"]
-        missing_data_path = dict["missing"]["base_path"]
+
+        missing_metadata_path = dict["missing"]["base_path"]        
+        missing_metadata_file = dict["metadata"]["missing_metadata_file"]
+
         metadata_file_path = dict["metadata"]["base_path"]
+
+  
         static_metadata_file_path = dict["static-metadata"]["base_path"]
         vectordb_path = dict["vectordb"]["base_path"]
 
@@ -196,10 +203,11 @@ def data_validation_config_load():
         raw_data_path,
         duplicate_data_path,
         quality_data_path,
-        missing_data_path,
+        missing_metadata_path,
+        missing_metadata_file,
         metadata_file_path,
         static_metadata_file_path,
-        vectordb_path,
+        vectordb_path
     )
 
 @st.cache_resource

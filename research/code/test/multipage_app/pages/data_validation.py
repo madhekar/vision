@@ -85,10 +85,11 @@ def execute():
         raw_data_path,
         duplicate_data_path,
         quality_data_path,
-        missing_data_path,
+        missing_metadata_path,
+        missing_metadata_file,
         metadata_file_path,
         static_metadata_file_path,
-        vectordb_path,
+        vectordb_path
     ) = config.data_validation_config_load()
 
     # get source source folder
@@ -211,7 +212,9 @@ def execute():
             st.button(btn_labels[3], key="g3", on_click=btn_pressed_callback, args=(3,user_source_selected), use_container_width=True)
             st.divider()
             st.caption("**Images Missing Metadata**")
-            dict = ss.extract_stats_of_metadata_file(missing_data_path)
+                   
+       
+            dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  missing_metadata_file))
             df = pd.DataFrame.from_dict(dict)
             st.bar_chart(
                 df,
