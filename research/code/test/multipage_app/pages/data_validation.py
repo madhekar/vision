@@ -168,12 +168,8 @@ def execute():
                 btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,user_source_selected), use_container_width=True
             )
             st.divider()
-            # chart_data = pd.DataFrame(
-            #     abs(np.random.randn(1, 4)) * 100,
-            #     columns=["images", "text", "video", "audio"],
-            # )
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(duplicate_data_path)
-            st.caption('**Images**')
+            st.caption('**Images Purged**')
             st.bar_chart(
                 dfi,
                 horizontal=False,
@@ -194,17 +190,14 @@ def execute():
                 btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2, user_source_selected), use_container_width=True
             )
             st.divider()
-            chart_data = pd.DataFrame(
-                abs(np.random.randn(1, 4)) * 100,
-                columns=["images", "text", "video", "audio"],
-            )
+            (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(quality_data_path)
+            st.caption('**Images Purged**')
             st.bar_chart(
-                chart_data,
+                dfi,
                 horizontal=False,
-                stack=False,
-                y_label="number of files",
+                stack=True,
                 use_container_width=True,
-                color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"],
+                color=colors,
             )
             st.divider()
             status_con = st.status("data quality check task...", expanded=True)
@@ -217,6 +210,7 @@ def execute():
         with c3:
             st.button(btn_labels[3], key="g3", on_click=btn_pressed_callback, args=(3,user_source_selected), use_container_width=True)
             st.divider()
+            st.caption("**Images Missing Metadata**")
             chart_data = pd.DataFrame(
                 abs(np.random.randn(1, 4)) * 100,
                 columns=["images", "text", "video", "audio"],
