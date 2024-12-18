@@ -112,39 +112,40 @@ def execute():
             st.divider()
 
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(raw_data_path, user_source_selected))
-            # chart_data = pd.DataFrame(
-            #     abs(np.random.randn(1, 4)) * 100,
-            #     columns=["images", "text", "video", "audio"],
-            # )
-            c01, c02, c03, c04 = st.columns([1,1,1,1])
+
+            c01, c02, c03, c04 = st.columns([1,1,1,1], gap="small")
             with c01:
+                st.caption("**Images**")
                 st.bar_chart(
                     dfi,
                     horizontal=False,
                     stack=True,
-                    y_label="total size(MB) & count of images",
+                    #y_label="total size(MB) & count of images",
                     use_container_width=True,
-                    color=["#D4DE95", "#BAC095"] #, "#636B2F", "#3D4127"] # colors
+                    color=["#D4DE95", "#BAC095"], #, "#636B2F", "#3D4127"] # colors
                     )
             with c02:
+                st.caption("**Videos**")
                 st.bar_chart(
                     dfv,
                     horizontal=False,
                     stack=True,
-                    y_label="total size(MB) & count of images",
+                    #y_label="total size(MB) & count of images",
                     use_container_width=True,
                     color=["#D4DE95", "#BAC095"] #, "#636B2F", "#3D4127"] # colors
                     )
             with c03:
+                st.caption("**Documents**")
                 st.bar_chart(
                     dfd,
                     horizontal=False,
                     stack=True,
-                    y_label="total size(MB) & count of images",
+                    #y_label="total size(MB) & count of images",
                     use_container_width=True,
                     color=["#D4DE95", "#BAC095"],  # , "#636B2F", "#3D4127"] # colors
                 )
             with c04:
+                st.caption("**Others**")
                 st.bar_chart(
                     dfn,
                     horizontal=False,
@@ -153,14 +154,6 @@ def execute():
                     use_container_width=True,
                     color=["#BAC095", "#3D4127"],  # colors=["#D4DE95", "#BAC095"],  # ,
                 )
-            # st.bar_chart(
-            #     chart_data,
-            #     horizontal=False,
-            #     stack=False,
-            #     y_label="number of files",
-            #     use_container_width=True,                
-            #     color=[ "#D4DE95","#BAC095", "#636B2F", "#3D4127"]
-            # )
             st.divider()
             status_con = st.status("load data task...", expanded=True)
             with status_con:
