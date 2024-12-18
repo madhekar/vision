@@ -99,7 +99,7 @@ def execute():
 
 
 
-        st.subheader("EXECUTE TASKS", divider="gray")
+        st.subheader("DATA VALIDATION TASKS", divider="gray")
         c0, c1, c2, c3 = st.columns((1, 1, 1, 1), gap="small")
         with c0:
             st.button(
@@ -125,7 +125,7 @@ def execute():
                     y_label="total size(MB) & count of images",
                     use_container_width=True,
                     color=["#D4DE95", "#BAC095"] #, "#636B2F", "#3D4127"] # colors
-                )
+                    )
             with c02:
                 st.bar_chart(
                     dfv,
@@ -134,7 +134,7 @@ def execute():
                     y_label="total size(MB) & count of images",
                     use_container_width=True,
                     color=["#D4DE95", "#BAC095"] #, "#636B2F", "#3D4127"] # colors
-                )
+                    )
             with c03:
                 st.bar_chart(
                     dfd,
@@ -166,10 +166,9 @@ def execute():
             with status_con:
                 msgs = get_message_by_type("load")
                 if msgs:
-                  for m in msgs:
-                    print(m)
-                    st.info(str(m))
-                    st.error(str(m))
+                    for m in msgs:
+                        st.info(str(m))
+                        st.error(str(m))
         with c1:
             st.button(
                 btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,user_source_selected), use_container_width=True
