@@ -211,17 +211,15 @@ def execute():
             st.button(btn_labels[3], key="g3", on_click=btn_pressed_callback, args=(3,user_source_selected), use_container_width=True)
             st.divider()
             st.caption("**Images Missing Metadata**")
-            chart_data = pd.DataFrame(
-                abs(np.random.randn(1, 4)) * 100,
-                columns=["images", "text", "video", "audio"],
-            )
+            dict = ss.extract_stats_of_metadata_file(missing_data_path)
+            df = pd.DataFrame.from_dict(dict)
             st.bar_chart(
-                chart_data,
+                df,
                 horizontal=False,
                 stack=False,
                 y_label="number of files",
                 use_container_width=True,
-                color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"],
+                # color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"],
             )
             st.divider()
             status_con = st.status("metadata check task...", expanded=True)

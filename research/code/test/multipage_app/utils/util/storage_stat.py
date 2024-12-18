@@ -136,6 +136,17 @@ def extract_server_stats():
   print("Total Size:", total ,"GB", "Used Size:",used , "GB", "Free Size: ", free , "GB")  
   return (total , used , free )
 
+def extract_stats_of_metadata_file(metadata_path):
+    mdf = pd.read_csv(metadata_path)
+    print(mdf.head(10))
+    count_missing_latlong = mdf.groupby(['GPSLatitude'], as_index=False)['-'].sum()
+    count_missing_datetime = mdf.groupby(['DateTimeOriginal'], as_index=False)['-'].sum()
+    count_missing_latlong_and_datetime = mdf.groupby(["DateTimeOriginal", 'GPSLatitude'], as_index=False)["-"].sum()
+    return {
+        "latlong": count_missing_latlong,
+        "datetime": count_missing_datetime,
+        "latlong_dt": count_missing_latlong_and_datetime
+    }
 
 if __name__ == '__main__':
     extract_all_folder_stats("/home/madhekar/work/home-media-app/data/raw-data")
