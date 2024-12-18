@@ -36,6 +36,7 @@ success_color = "#BAC095"
 failure_color = "#6B2F45"
 wip_color = "#998E1A"
 
+colors = ["#636B2F", "#BAC095"]
 
 def ChangeButtoncolor(widget_label, prsd_status):
     btn_bg_color = success_color if prsd_status == True else unpressed_color
@@ -122,7 +123,7 @@ def execute():
                     stack=True,
                     #y_label="total size(MB) & count of images",
                     use_container_width=True,
-                    color=["#D4DE95", "#BAC095"], #, "#636B2F", "#3D4127"] # colors
+                    color=colors, #, "#636B2F", "#3D4127"] # colors
                     )
             with c02:
                 st.caption("**Videos**")
@@ -130,19 +131,19 @@ def execute():
                     dfv,
                     horizontal=False,
                     stack=True,
-                    #y_label="total size(MB) & count of images",
+                    # y_label="total size(MB) & count of images",
                     use_container_width=True,
-                    color=["#D4DE95", "#BAC095"] #, "#636B2F", "#3D4127"] # colors
-                    )
+                    color=colors,  # , "#636B2F", "#3D4127"] # colors
+                )
             with c03:
                 st.caption("**Documents**")
                 st.bar_chart(
                     dfd,
                     horizontal=False,
                     stack=True,
-                    #y_label="total size(MB) & count of images",
+                    # y_label="total size(MB) & count of images",
                     use_container_width=True,
-                    color=["#D4DE95", "#BAC095"],  # , "#636B2F", "#3D4127"] # colors
+                    color=colors,  # , "#636B2F", "#3D4127"] # colors
                 )
             with c04:
                 st.caption("**Others**")
@@ -150,9 +151,9 @@ def execute():
                     dfn,
                     horizontal=False,
                     stack=True,
-                    y_label="total size(MB) & count of images",
+                    # y_label="total size(MB) & count of images",
                     use_container_width=True,
-                    color=["#BAC095", "#3D4127"],  # colors=["#D4DE95", "#BAC095"],  # ,
+                    color=colors,  # colors=["#D4DE95", "#BAC095"],  # ,
                 )
             st.divider()
             status_con = st.status("load data task...", expanded=True)
