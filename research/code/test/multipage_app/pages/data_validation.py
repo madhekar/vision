@@ -251,7 +251,7 @@ def exec_task(iTask, user_source):
             add_messages("duplicate", f"done {task_name} prpcess")
             return 1
         case 2:  # image sharpness/ quality check
-            task_name = 'file quality check'
+            task_name = 'image quality check'
             add_messages("quality", f"starting {task_name} prpcess")
             iq.execute()
             add_messages('quality', f"done {task_name} prpcess")

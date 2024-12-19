@@ -195,7 +195,6 @@ def data_validation_config_load():
 
         metadata_file_path = dict["metadata"]["base_path"]
 
-  
         static_metadata_file_path = dict["static-metadata"]["base_path"]
         vectordb_path = dict["vectordb"]["base_path"]
 
