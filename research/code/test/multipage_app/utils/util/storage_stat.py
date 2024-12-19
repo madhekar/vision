@@ -147,9 +147,9 @@ def extract_stats_of_metadata_file(metadata_path):
 
     return {
         "lat": clat,
-        "lon" : clon,
+       # "lon" : clon,
         "datetime": cdatetime,
-        "latlon_n_datetime": clatlong_n_datetime
+       # "latlon_n_datetime": clatlong_n_datetime
     }
 
 if __name__ == '__main__':

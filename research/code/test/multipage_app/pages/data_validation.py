@@ -2,6 +2,7 @@ import os
 import time
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 import numpy as np
 import streamlit.components.v1 as components
 from utils.config_util import config
@@ -215,14 +216,16 @@ def execute():
             dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  missing_metadata_file))
 
             df = pd.DataFrame.from_dict([dict])
-            st.bar_chart(
-                df,
-                horizontal=False,
-                stack=False,
-                y_label="number of files",
-                use_container_width=True,
-                color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"]
-            )
+            # st.bar_chart(
+            #     df,
+            #     horizontal=False,
+            #     stack=False,
+            #     y_label="number of files",
+            #     use_container_width=True,
+            #     color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"]
+            # )
+            fig = px.pie(df, names=df.columns, values=df.values[0],color_discrete_sequence=colors, height=355 )
+            st.plotly_chart(fig, use_container_width=False)
             st.divider()
             status_con = st.status("metadata check task...", expanded=True)
             with status_con:
