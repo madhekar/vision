@@ -3,21 +3,25 @@ import pandas as pd
 
 
 def extract_stats_of_metadata_file(metadata_path):
+    print(metadata_path)
     mdf = pd.read_csv(metadata_path)
     print(mdf.head(10))
-    count_missing_latlong = mdf.groupby(['GPSLatitude'], as_index=False)['-'].sum()
-    count_missing_datetime = mdf.groupby(['DateTimeOriginal'], as_index=False)['-'].sum()
-    count_missing_latlong_and_datetime = mdf.groupby(["DateTimeOriginal", 'GPSLatitude'], as_index=False)["-"].sum()
+    clat = mdf[mdf['GPSLatitude'] == "-"].shape[0]
+    clon = mdf[mdf['GPSLatitude'] == "-"].shape[0]
+    cdatetime = mdf[mdf['DateTimeOriginal'] == "-"].shape[0]
+    clatlong_n_datetime = mdf[(mdf['DateTimeOriginal'] == "-") & (mdf['GPSLatitude'] == "-")].shape[0]
+
     return {
-        "latlong": count_missing_latlong,
-        "datetime": count_missing_datetime,
-        "latlong_dt": count_missing_latlong_and_datetime
+        "lat": clat,
+        "lon" : clon,
+        "datetime": cdatetime,
+        "latlon_n_datetime": clatlong_n_datetime
     }
     '''
     /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/missing-metadata-wip.csv
     '''
 
-    if __init__=='__mail__':
+if __name__=='__main__':
        dict =  extract_stats_of_metadata_file('/home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/missing-metadata-wip.csv')
 
        print(dict)
