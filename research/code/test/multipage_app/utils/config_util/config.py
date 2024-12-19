@@ -191,7 +191,7 @@ def data_validation_config_load():
         quality_data_path = dict["quality"]["base_path"]
 
         missing_metadata_path = dict["missing"]["base_path"]        
-        missing_metadata_file = dict["metadata"]["missing_metadata_file"]
+        missing_metadata_file = dict["missing"]["missing_metadata_file"]
 
         metadata_file_path = dict["metadata"]["base_path"]
 
