@@ -96,12 +96,10 @@ def execute():
     user_source_selected = st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders(raw_data_path),label_visibility="collapsed")
 
     with st.container():
-        st.header("DATA: ADD/ VALIDATE", divider="gray")
+        st.header("DATA: VALIDATE", divider="gray")
         st.sidebar.subheader("SELECT DATA SOURCE", divider="gray")
 
-
-
-        st.subheader("DATA VALIDATION TASKS", divider="gray")
+        st.subheader("VALIDATION TASKS", divider="gray")
         c0, c1, c2, c3 = st.columns((1, 1, 1, 1), gap="small")
         with c0:
             st.button(
