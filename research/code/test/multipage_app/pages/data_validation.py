@@ -21,7 +21,9 @@ if "msgs" not in mystate:
 
 def add_messages(msg_type, message):
     print(msg_type, message)
-    mystate.msgs[msg_type].append(message)    
+    mystate.msgs[msg_type].append(message) 
+
+    print(mystate.msgs[msg_type])   
 
 def get_message_by_type(tmsg):
     return [msg for msg_type, msg  in mystate.msgs.items() if msg_type == tmsg]    
@@ -32,12 +34,12 @@ btn_labels = [
     "IMG: PURGE BAD QUALITY",
     "IMG: METADATA VALIDATE",
 ]
-unpressed_color = "#636B2F"  # colors = ["#BAC095", "#636B2F"]
-success_color = "#BAC095"
-failure_color = "#6B2F45"
-wip_color = "#998E1A"
+unpressed_color = "#5a5255"#"#636B2F"  # colors = ["#BAC095", "#636B2F"]
+success_color = '#559e83' #"#BAC095"
+failure_color = '#ae5a41' #"#6B2F45"
+wip_color = "#1b85b8"#"#998E1A"
 
-colors = ["#636B2F", "#BAC095"]
+colors = ["#ae5a41", "#1b85b8"]#["#636B2F", "#BAC095"]
 
 def ChangeButtoncolor(widget_label, prsd_status):
     btn_bg_color = success_color if prsd_status == True else unpressed_color
@@ -158,7 +160,8 @@ def execute():
             st.divider()
             status_con = st.status("load data task...", expanded=True)
             with status_con:
-                msgs = get_message_by_type("load")
+                msgs = get_message_by_type("load")  
+                print('--->', len(msgs))
                 if msgs:
                     for m in msgs:
                         st.info(str(m))
@@ -178,7 +181,7 @@ def execute():
                 color=colors,
             )
             st.divider()
-            status_con = st.status("de-duplicate data task...", expanded=True)
+            status_con = st.status('''de-duplicate data task...''', expanded=True)
             with status_con:
                 msgs = get_message_by_type("duplicate")
                 if msgs:
@@ -221,7 +224,7 @@ def execute():
                 stack=False,
                 y_label="number of files",
                 use_container_width=True,
-                color=["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
+                color= ['#ae5a41','#1b85b8','#559e83','#c3cb71']#['#c09b95','#bac095','#95bac0','#9b95c0']#["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
             )
             # fig = px.pie(df, names=df.columns, values=df.values[0],color_discrete_sequence=colors, height=355 )
             # fig.update_traces( textinfo="percent+value")
