@@ -12,21 +12,25 @@ from utils.dedup_util import dedup_imgs as di
 from utils.dataload_util import dataload as dl
 from utils.util import storage_stat as ss
 
-mystate = st.session_state
-if "btn_prsd_status" not in mystate:
-    mystate.btn_prsd_status = [0] * 4
+from utils.util import statusmsg_util as sm
 
-if "msgs" not in mystate:
-    mystate.msgs = {"load": [], "duplicate": [], "quality": [], "metadata": []}
+# mystate = st.session_state
+# if "btn_prsd_status" not in mystate:
+#     mystate.btn_prsd_status = [0] * 4
 
-def add_messages(msg_type, message):
-    print(msg_type, message)
-    mystate.msgs[msg_type].append(message) 
+# if "msgs" not in mystate:
+#     mystate.msgs = {"load": [], "duplicate": [], "quality": [], "metadata": []}
 
-    print(mystate.msgs[msg_type])   
+# def add_messages(msg_type, message):
+#     print(msg_type, message)
+#     mystate.msgs[msg_type].append(message) 
 
-def get_message_by_type(tmsg):
-    return mystate.msgs[tmsg] #[msg for msg_type, msg  in mystate.msgs.items() if msg_type == tmsg]    
+#     print(mystate.msgs[msg_type])   
+
+# def get_message_by_type(tmsg):
+#     return mystate.msgs[tmsg]    
+
+sm.init()
 
 btn_labels = [
     "DATA LOAD VALIDATE",
@@ -67,14 +71,14 @@ def ChangeButtoncolor(widget_label, prsd_status):
 
 def ChkBtnStatusAndAssigncolor():
     for i in range(len(btn_labels)):
-        ChangeButtoncolor(btn_labels[i], mystate.btn_prsd_status[i])
+        ChangeButtoncolor(btn_labels[i], st.session_state.btn_prsd_status[i])
 
 
 def btn_pressed_callback(i, user_source):
-    print(i, mystate, mystate.btn_prsd_status[i - 1])
-    if mystate.btn_prsd_status[i - 1] == 1 or i == 0:
+    print(i, st.session_state, st.session_state.btn_prsd_status[i - 1])
+    if st.session_state.btn_prsd_status[i - 1] == 1 or i == 0:
         r = exec_task(i, user_source)
-        mystate.btn_prsd_status[i] = r
+        st.session_state.btn_prsd_status[i] = r
 
         
 # get immediate chield folders
@@ -160,7 +164,7 @@ def execute():
             st.divider()
             status_con = st.status("**load data task msgs...**", expanded=True, state="running")
             with status_con:
-                msgs = get_message_by_type("load")  
+                msgs = sm.get_message_by_type("load")  
                 print('--->', len(msgs))
                 if msgs:
                     for m in msgs:
@@ -183,7 +187,7 @@ def execute():
             st.divider()
             status_con = st.status('**de-duplicate data task msgs...**', expanded=True)
             with status_con:
-                msgs = get_message_by_type("duplicate")
+                msgs = sm.get_message_by_type("duplicate")
                 if msgs:
                     for m in msgs:
                         print(m)
@@ -205,7 +209,7 @@ def execute():
             st.divider()
             status_con = st.status("**data quality check task msgs...**", expanded=True, state="running")
             with status_con:
-                msgs = get_message_by_type("quality")
+                msgs = sm.get_message_by_type("quality")
                 if msgs:
                     for m in msgs:
                         print(m)
@@ -232,7 +236,7 @@ def execute():
             st.divider()
             status_con = st.status("**metadata check task msgs...**", expanded=True)
             with status_con:
-                msgs = get_message_by_type("metadata")
+                msgs = sm.get_message_by_type("metadata")
                 if msgs:
                     for m in msgs:
                         print(m)
@@ -244,27 +248,27 @@ def exec_task(iTask, user_source):
         case 0:  
             # load images check
             task_name = 'data load'
-            add_messages('load', f"starting {task_name} prpcess")
+            sm.add_messages('load', f"starting {task_name} prpcess")
             dl.execute(user_source)
-            add_messages("load", f"done {task_name} prpcess")
+            sm.add_messages("load", f"done {task_name} prpcess")
             return 1
         case 1:  # duplicate images check
             task_name = 'de-duplicate files'
-            add_messages('duplicate', f"starting {task_name} prpcess")
+            sm.add_messages("duplicate", f"starting {task_name} prpcess")
             di.execute(user_source)
-            add_messages("duplicate", f"done {task_name} prpcess")
+            sm.add_messages("duplicate", f"done {task_name} prpcess")
             return 1
         case 2:  # image sharpness/ quality check
             task_name = 'image quality check'
-            add_messages("quality", f"starting {task_name} prpcess")
+            sm.add_messages("quality", f"starting {task_name} prpcess")
             iq.execute()
-            add_messages('quality', f"done {task_name} prpcess")
+            sm.add_messages("quality", f"done {task_name} prpcess")
             return 1
         case 3:  # missing metadata check
             task_name = "missing metadata"
-            add_messages("metadata", f"starting {task_name} prpcess")
+            sm.add_messages("metadata", f"starting {task_name} prpcess")
             mm.execute()
-            add_messages('metadata',f"done {task_name} prpcess")
+            sm.add_messages("metadata", f"done {task_name} prpcess")
             return 1
         case _:
             return -1        

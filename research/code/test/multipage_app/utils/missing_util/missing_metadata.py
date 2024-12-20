@@ -11,7 +11,7 @@ missing-metadata:
 """
 def execute():
    imp, mmp, mmf = config.missing_metadata_config_load()
-
+   
    args = shlex.split(f"exiftool -GPSLongitude -GPSLatitude -DateTimeOriginal -csv -T -r -n {imp}")
    proc = subprocess.run(args, capture_output=True)
    

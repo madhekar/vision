@@ -143,13 +143,14 @@ def extract_stats_of_metadata_file(metadata_path):
     tot = mdf.shape[0]
     clat = mdf[mdf['GPSLatitude'] == "-"].shape[0]
     clon = mdf[mdf['GPSLatitude'] == "-"].shape[0]
+    lat_lon = clat if clat > clon else clon
     cdatetime = mdf[mdf['DateTimeOriginal'] == "-"].shape[0]
     correct = mdf[(mdf['DateTimeOriginal'] != "-") & (mdf['GPSLatitude'] != "-")].shape[0]
 
     return {
         "total": tot,
         "no-miss": correct,
-        "lat-lon": clat,
+        "lat-lon": lat_lon,
        # "lon" : clon,
         "datetime": cdatetime,
        # "latlon_n_datetime": clatlong_n_datetime
