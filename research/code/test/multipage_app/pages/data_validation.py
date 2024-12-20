@@ -214,19 +214,19 @@ def execute():
                    
        
             dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  missing_metadata_file))
-
+            print(dict)
             df = pd.DataFrame.from_dict([dict])
-            # st.bar_chart(
-            #     df,
-            #     horizontal=False,
-            #     stack=False,
-            #     y_label="number of files",
-            #     use_container_width=True,
-            #     color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"]
-            # )
-            fig = px.pie(df, names=df.columns, values=df.values[0],color_discrete_sequence=colors, height=355 )
-            fig.update_traces( textinfo="percent+value")
-            st.plotly_chart(fig, use_container_width=False)
+            st.bar_chart(
+                df,
+                horizontal=False,
+                stack=False,
+                y_label="number of files",
+                use_container_width=True,
+                color=["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
+            )
+            # fig = px.pie(df, names=df.columns, values=df.values[0],color_discrete_sequence=colors, height=355 )
+            # fig.update_traces( textinfo="percent+value")
+            # st.plotly_chart(fig, use_container_width=False)
             st.divider()
             status_con = st.status("metadata check task...", expanded=True)
             with status_con:

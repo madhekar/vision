@@ -140,12 +140,15 @@ def extract_stats_of_metadata_file(metadata_path):
     print(metadata_path)
     mdf = pd.read_csv(metadata_path)
     print(mdf.head(10))
+    tot = mdf.shape[0]
     clat = mdf[mdf['GPSLatitude'] == "-"].shape[0]
     clon = mdf[mdf['GPSLatitude'] == "-"].shape[0]
     cdatetime = mdf[mdf['DateTimeOriginal'] == "-"].shape[0]
-    clatlong_n_datetime = mdf[(mdf['DateTimeOriginal'] == "-") & (mdf['GPSLatitude'] == "-")].shape[0]
+    correct = mdf[(mdf['DateTimeOriginal'] != "-") & (mdf['GPSLatitude'] != "-")].shape[0]
 
     return {
+        "total": tot,
+        "no-miss": correct,
         "lat-lon": clat,
        # "lon" : clon,
         "datetime": cdatetime,
