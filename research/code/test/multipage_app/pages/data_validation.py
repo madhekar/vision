@@ -26,7 +26,7 @@ def add_messages(msg_type, message):
     print(mystate.msgs[msg_type])   
 
 def get_message_by_type(tmsg):
-    return [msg for msg_type, msg  in mystate.msgs.items() if msg_type == tmsg]    
+    return mystate.msgs[tmsg] #[msg for msg_type, msg  in mystate.msgs.items() if msg_type == tmsg]    
 
 btn_labels = [
     "DATA LOAD VALIDATE",
@@ -158,14 +158,14 @@ def execute():
                     color=colors,  # colors=["#D4DE95", "#BAC095"],  # ,
                 )
             st.divider()
-            status_con = st.status("load data task...", expanded=True)
+            status_con = st.status("**load data task msgs...**", expanded=True, state="running")
             with status_con:
                 msgs = get_message_by_type("load")  
                 print('--->', len(msgs))
                 if msgs:
                     for m in msgs:
                         st.info(str(m))
-                        st.error(str(m))
+    
         with c1:
             st.button(
                 btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,user_source_selected), use_container_width=True
@@ -181,7 +181,7 @@ def execute():
                 color=colors,
             )
             st.divider()
-            status_con = st.status('''de-duplicate data task...''', expanded=True)
+            status_con = st.status('**de-duplicate data task msgs...**', expanded=True)
             with status_con:
                 msgs = get_message_by_type("duplicate")
                 if msgs:
@@ -203,7 +203,7 @@ def execute():
                 color=colors,
             )
             st.divider()
-            status_con = st.status("data quality check task...", expanded=True)
+            status_con = st.status("**data quality check task msgs...**", expanded=True, state="running")
             with status_con:
                 msgs = get_message_by_type("quality")
                 if msgs:
@@ -230,7 +230,7 @@ def execute():
             # fig.update_traces( textinfo="percent+value")
             # st.plotly_chart(fig, use_container_width=False)
             st.divider()
-            status_con = st.status("metadata check task...", expanded=True)
+            status_con = st.status("**metadata check task msgs...**", expanded=True)
             with status_con:
                 msgs = get_message_by_type("metadata")
                 if msgs:
