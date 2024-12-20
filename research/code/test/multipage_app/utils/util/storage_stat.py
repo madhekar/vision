@@ -146,7 +146,7 @@ def extract_stats_of_metadata_file(metadata_path):
     clatlong_n_datetime = mdf[(mdf['DateTimeOriginal'] == "-") & (mdf['GPSLatitude'] == "-")].shape[0]
 
     return {
-        "lat": clat,
+        "lat-lon": clat,
        # "lon" : clon,
         "datetime": cdatetime,
        # "latlon_n_datetime": clatlong_n_datetime

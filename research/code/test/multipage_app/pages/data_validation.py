@@ -225,6 +225,7 @@ def execute():
             #     color=["#D4DE95", "#BAC095", "#636B2F", "#3D4127"]
             # )
             fig = px.pie(df, names=df.columns, values=df.values[0],color_discrete_sequence=colors, height=355 )
+            fig.update_traces( textinfo="percent+value")
             st.plotly_chart(fig, use_container_width=False)
             st.divider()
             status_con = st.status("metadata check task...", expanded=True)
