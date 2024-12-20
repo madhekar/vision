@@ -116,7 +116,7 @@ def execute():
 
             c01, c02, c03, c04 = st.columns([1,1,1,1], gap="small")
             with c01:
-                st.caption("**Images**")
+                st.caption("**Images Loaded**")
                 st.bar_chart(
                     dfi,
                     horizontal=False,
@@ -126,7 +126,7 @@ def execute():
                     color=colors, #, "#636B2F", "#3D4127"] # colors
                     )
             with c02:
-                st.caption("**Videos**")
+                st.caption("**Videos Loaded**")
                 st.bar_chart(
                     dfv,
                     horizontal=False,
@@ -136,7 +136,7 @@ def execute():
                     color=colors,  # , "#636B2F", "#3D4127"] # colors
                 )
             with c03:
-                st.caption("**Documents**")
+                st.caption("**Documents Loaded**")
                 st.bar_chart(
                     dfd,
                     horizontal=False,
@@ -146,7 +146,7 @@ def execute():
                     color=colors,  # , "#636B2F", "#3D4127"] # colors
                 )
             with c04:
-                st.caption("**Others**")
+                st.caption("**Others Loaded**")
                 st.bar_chart(
                     dfn,
                     horizontal=False,
@@ -169,7 +169,7 @@ def execute():
             )
             st.divider()
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(duplicate_data_path)
-            st.caption('**Images Purged**')
+            st.caption('**Duplicate Images Archived**')
             st.bar_chart(
                 dfi,
                 horizontal=False,
@@ -191,7 +191,7 @@ def execute():
             )
             st.divider()
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(quality_data_path)
-            st.caption('**Images Purged**')
+            st.caption('**Bad Quality Images Archived**')
             st.bar_chart(
                 dfi,
                 horizontal=False,
@@ -210,9 +210,8 @@ def execute():
         with c3:
             st.button(btn_labels[3], key="g3", on_click=btn_pressed_callback, args=(3,user_source_selected), use_container_width=True)
             st.divider()
-            st.caption("**Images Missing Metadata**")
+            st.caption("**Images With Missing Metadata**")
                    
-       
             dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  missing_metadata_file))
             print(dict)
             df = pd.DataFrame.from_dict([dict])
