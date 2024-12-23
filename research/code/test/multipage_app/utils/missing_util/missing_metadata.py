@@ -2,6 +2,7 @@ import subprocess
 import shlex
 import os
 from utils.config_util import config
+from utils.util import statusmsg_util as sm
 """
 missing-metadata:
   input_image_path: '/home/madhekar/work/home-media-app/data/input-data/img'
@@ -10,6 +11,8 @@ missing-metadata:
 
 """
 def execute():
+   sm.add_messages("metadata", "starting to analyze missing metadata files...")
+
    imp, mmp, mmf = config.missing_metadata_config_load()
    
    args = shlex.split(f"exiftool -GPSLongitude -GPSLatitude -DateTimeOriginal -csv -T -r -n {imp}")
@@ -19,5 +22,6 @@ def execute():
    with open(output_file_path, "wb") as output:
       output.write(proc.stdout)
       
+   sm.add_messages("metadata", f"finized to analyze missing metadata files created {output_file_path}...")    
 if __name__=='__main__':
     execute()

@@ -13,23 +13,7 @@ from utils.dataload_util import dataload as dl
 from utils.util import storage_stat as ss
 
 from utils.util import statusmsg_util as sm
-
-# mystate = st.session_state
-# if "btn_prsd_status" not in mystate:
-#     mystate.btn_prsd_status = [0] * 4
-
-# if "msgs" not in mystate:
-#     mystate.msgs = {"load": [], "duplicate": [], "quality": [], "metadata": []}
-
-# def add_messages(msg_type, message):
-#     print(msg_type, message)
-#     mystate.msgs[msg_type].append(message) 
-
-#     print(mystate.msgs[msg_type])   
-
-# def get_message_by_type(tmsg):
-#     return mystate.msgs[tmsg]    
-
+   
 sm.init()
 
 btn_labels = [
@@ -106,7 +90,7 @@ def execute():
         st.header("DATA: VALIDATE", divider="gray")
         st.sidebar.subheader("SELECT DATA SOURCE", divider="gray")
 
-        st.subheader("VALIDATION TASKS", divider="gray")
+        #st.subheader("VALIDATE TASKS", divider="gray")
         c0, c1, c2, c3 = st.columns((1, 1, 1, 1), gap="small")
         with c0:
             st.button(
@@ -162,14 +146,13 @@ def execute():
                     color=colors,  # colors=["#D4DE95", "#BAC095"],  # ,
                 )
             st.divider()
-            status_con = st.status("**load data task msgs...**", expanded=True, state="running")
-            with status_con:
+            status_load = st.status("**load data task msgs...**", expanded=True, state="running")
+            with status_load:
                 msgs = sm.get_message_by_type("load")  
                 print('--->', len(msgs))
                 if msgs:
                     for m in msgs:
                         st.info(str(m))
-    
         with c1:
             st.button(
                 btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,user_source_selected), use_container_width=True
@@ -185,13 +168,12 @@ def execute():
                 color=colors,
             )
             st.divider()
-            status_con = st.status('**de-duplicate data task msgs...**', expanded=True)
-            with status_con:
+            status_duplicate = st.status('**de-duplicate data task msgs...**', expanded=True)
+            with status_duplicate:
                 msgs = sm.get_message_by_type("duplicate")
                 if msgs:
                     for m in msgs:
-                        print(m)
-                        st.write(str(m))
+                        st.info(str(m))
         with c2:
             st.button(
                 btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2, user_source_selected), use_container_width=True
@@ -207,13 +189,12 @@ def execute():
                 color=colors,
             )
             st.divider()
-            status_con = st.status("**data quality check task msgs...**", expanded=True, state="running")
-            with status_con:
+            status_quality = st.status("**data quality check task msgs...**", expanded=True, state="running")
+            with status_quality:
                 msgs = sm.get_message_by_type("quality")
                 if msgs:
                     for m in msgs:
-                        print(m)
-                        st.write(str(m))
+                        st.info(str(m))
         with c3:
             st.button(btn_labels[3], key="g3", on_click=btn_pressed_callback, args=(3,user_source_selected), use_container_width=True)
             st.divider()
@@ -234,13 +215,12 @@ def execute():
             # fig.update_traces( textinfo="percent+value")
             # st.plotly_chart(fig, use_container_width=False)
             st.divider()
-            status_con = st.status("**metadata check task msgs...**", expanded=True)
-            with status_con:
+            status_metadata = st.status("**metadata check task msgs...**", expanded=True)
+            with status_metadata:
                 msgs = sm.get_message_by_type("metadata")
                 if msgs:
                     for m in msgs:
-                        print(m)
-                        st.write(str(m))
+                        st.info(str(m))
         ChkBtnStatusAndAssigncolor()
 
 def exec_task(iTask, user_source):
