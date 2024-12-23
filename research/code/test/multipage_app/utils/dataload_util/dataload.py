@@ -30,9 +30,9 @@ def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
     os.makedirs(f_dest)
     for item in media_items:
         item_path = os.path.join(root, item)
-        print(item_path + " -> " + f_dest)
+        #print(item_path + " -> " + f_dest)
         if os.path.isfile(item_path):
-            print("**" + item_path + " - " + fdest_media)
+            #print("**" + item_path + " - " + fdest_media)
             try:
                 shutil.copy(item_path, f_dest)
             except FileNotFoundError:
