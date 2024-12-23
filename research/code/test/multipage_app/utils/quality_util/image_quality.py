@@ -5,6 +5,7 @@ import numpy as np
 import cv2
 from utils.config_util import config
 from utils.util import model_util as mu
+from utils.util import statusmsg_util as sm
 import util
 
 quality_threshold = 100
@@ -33,6 +34,7 @@ class Quality:
         fnames = getRecursive(self.dirname)
         quality_list = []
         print("Finding quality Images Now!\n")
+        sm.add_messages("Finding quality Images Now!\n")
         for image in fnames:
             with cv2.imread(os.path.join(image[0], image[1])) as image:
                 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -45,9 +47,7 @@ class Quality:
             space_saved = 0
             if a.strip().lower() == "y":
                 for quality in quality_list:
-                    space_saved += os.path.getsize(
-                        os.path.join(quality[0], quality[1])
-                    )
+                    space_saved += os.path.getsize(os.path.join(quality[0], quality[1]))
                     if not os.path.exists(self.archivedir):
                         os.makedirs(self.archivedir)
                     uuid_path = mu.create_uuid_from_string(quality[0])    
@@ -55,10 +55,13 @@ class Quality:
                     print("{} Moved Succesfully!".format(quality))
 
                 print(f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")
+                sm.add_messages("quality",f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")
             else:
                 print("Using quality Remover")
+                sm.add_messages("Using quality Remover")
         else:
             print("No quality images Found :)")
+            sm.add_messages("No quality images Found :)")
    
     
 def execute():
