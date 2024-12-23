@@ -6,6 +6,7 @@ import numpy as np
 import glob
 from utils.config_util import config
 from utils.util import model_util as mu
+from utils.util import statusmsg_util as sm
 
 def getRecursive(rootDir):
     f_list = []
@@ -41,11 +42,13 @@ class DuplicateRemover:
         hashes = {}
         duplicates = []
         print("Finding Duplicate Images Now!\n")
+        sm.add_messages("duplicate","Finding Duplicate Images Now!\n")
         for image in fnames:
             with Image.open(os.path.join(image[0], image[1])) as img:
                 temp_hash = imagehash.average_hash(img, self.hash_size)
                 if temp_hash in hashes:
                     print("Duplicate {} \nfound for Image {}!\n".format(image, hashes[temp_hash]))
+                    sm.add_messages("duplicate", f"Duplicate {image} \nfound for Image {hashes[temp_hash]}!\n")
                     duplicates.append(image)
                 else:
                     hashes[temp_hash] = image
@@ -64,13 +67,15 @@ class DuplicateRemover:
                         os.makedirs(os.path.join(self.archivedir, uuid_path)) 
                     os.rename(os.path.join(duplicate[0], duplicate[1]), os.path.join(self.archivedir, uuid_path, duplicate[1]))
                     print("{} Moved Succesfully!".format(duplicate))
-
+                    sm.add_messages("duplicate",f"{duplicate} Moved Succesfully!" )
                 print(f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")
+                sm.add_messages("duplicate", f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")
             else:
                 print("Using Duplicate Remover")
+                sm.add_messages("duplicate","Using Duplicate Remover")
         else:
             print("No Duplicate images Found :)")
-
+            sm.add_messages("duplicate", "No Duplicate images Found!")
     def find_similar(self, location, similarity=80):
         fnames = os.listdir(self.dirname)
         threshold = 1 - similarity / 100
@@ -85,11 +90,8 @@ class DuplicateRemover:
                 hash2 = imagehash.average_hash(img, self.hash_size).hash
 
                 if np.count_nonzero(hash1 != hash2) <= diff_limit:
-                    print(
-                        "{} image found {}% similar to {}".format(
-                            image, similarity, location
-                        )
-                    )
+                    print("{} image found {}% similar to {}".format(image, similarity, location))
+                    sm.add_messages("duplicate", f"{image} image found {similarity}% similar to {location}")
 
 def execute(source_name):
        input_image_path, archive_dup_path = config.dedup_config_load()
