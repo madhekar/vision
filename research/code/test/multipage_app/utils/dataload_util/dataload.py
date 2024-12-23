@@ -9,21 +9,18 @@ from streamlit_tree_select import tree_select
 from utils.util import model_util as mu
 from utils.util import storage_stat as ss
 from utils.util import file_type_ext as fte
-
-def add_messages(msg_type, message):
-    print(msg_type, message)
-    st.session_state.msgs[msg_type].append(message)
+from utils.util import statusmsg_util as sm
 
 def path_encode(spath):
     return str(uuid.uuid5(uuid.NAMESPACE_DNS, spath))
 
 def clean_media_folders(folder):
     # create clean destination folders
-    add_messages('load', f'starting to clean {folder}')
+    sm.add_messages('load', f'starting to clean {folder}')
     if os.path.exists(folder):
         shutil.rmtree(folder, ignore_errors=True)
         os.makedirs(folder)
-    add_messages("load", f"done to cleaning {folder}")    
+    sm.add_messages("load", f"done to cleaning {folder}")    
 
 def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
 
@@ -40,16 +37,20 @@ def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
                 shutil.copy(item_path, f_dest)
             except FileNotFoundError:
                 e1 = ReferenceError("Source file not found.")
-                st.exception(e1)
+                sm.add_messages("load",f"exception: {e1} Source file not found {item_path}")
+                continue
             except PermissionError:
                 e2 = RuntimeError("Permission denied.")
-                st.exception(e2)
+                sm.add_messages("load",f"exception: {e2} file permissing denied {item_path}")
+                continue
             except FileExistsError:
                 e3 = RuntimeError("Destination file already exists.")
-                st.exception(e3)
+                sm.add_messages("load", f"exception: {e3} destination file: {f_dest} already exists.")
+                continue
             except Exception as e:
                 e4 = RuntimeError(f"An Unknown error occurred in dataload: {e}")
-                st.exception(e4)
+                sm.add_messages("load", f"exception: {e4} unknown file exception: {f_dest}.")
+                continue
 
 ## possible performance issue 
 def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):

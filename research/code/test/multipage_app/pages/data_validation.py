@@ -65,7 +65,7 @@ def btn_pressed_callback(i, user_source):
         st.session_state.btn_prsd_status[i] = r
 
         
-# get immediate chield folders
+# get immediate child folders
 def extract_user_raw_data_folders(pth):
     return next(os.walk(pth))[1]
 
