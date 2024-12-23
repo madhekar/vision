@@ -44,7 +44,8 @@ class DuplicateRemover:
         print("Finding Duplicate Images Now!\n")
         sm.add_messages("duplicate","Finding Duplicate Images Now!\n")
         for image in fnames:
-            with Image.open(os.path.join(image[0], image[1])) as img:
+            try:
+              with Image.open(os.path.join(image[0], image[1])) as img:
                 temp_hash = imagehash.average_hash(img, self.hash_size)
                 if temp_hash in hashes:
                     print("Duplicate {} \nfound for Image {}!\n".format(image, hashes[temp_hash]))
@@ -52,6 +53,10 @@ class DuplicateRemover:
                     duplicates.append(image)
                 else:
                     hashes[temp_hash] = image
+            except(IOError) as e:
+                sm.add_messages("duplicate", f"error: {e} ocurred while opening the image: {os.path.join(image[0], image[1])}")
+                os.remove(os.path.join(image[0], image[1]))
+                continue
 
         if len(duplicates) != 0:
             a = input("Do you want to move/ archive these {} Images? Press Y or N:  ".format(len(duplicates)))
@@ -76,6 +81,7 @@ class DuplicateRemover:
         else:
             print("No Duplicate images Found :)")
             sm.add_messages("duplicate", "No Duplicate images Found!")
+
     def find_similar(self, location, similarity=80):
         fnames = os.listdir(self.dirname)
         threshold = 1 - similarity / 100
