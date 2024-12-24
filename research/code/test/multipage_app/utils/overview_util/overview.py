@@ -9,7 +9,7 @@ from utils.config_util import config
 from utils.util import model_util as mu
 
 # https://www.color-hex.com/color-palette/164
-colors = colors = ["#ae5a41", "#1b85b8"]#["#636B2F","#BAC095"] #["#9EB8A0", "#58855c"]#['#58855c','#0D3311']#["#BAC095", "#636B2F"]
+colors = ["#ae5a41", "#1b85b8"]#["#636B2F","#BAC095"] #["#9EB8A0", "#58855c"]#['#58855c','#0D3311']#["#BAC095", "#636B2F"]
 def extract_folder_paths():
     raw_data_path, input_data_path, app_data_path, final_data_path = (
         config.overview_config_load()
@@ -36,10 +36,14 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             use_container_width=True,
             color=colors
         )
-        # ch = alt.Chart(dfi).mark_bar(opacity=.8).encode(x="type", y="count")
-        # ch1 = alt.Chart(dfi).mark_bar(opacity=.5).encode(x="type", y="size")
+        # dfi['type'] = dfi.index
+        # dfi.reset_index(inplace=True)
+        # #alt.scheme('my', ["#ae5a41", "#1b85b8"])
+        # ch = alt.Chart(dfi).mark_bar(opacity=1).encode(x="type", y="size", color="type")
+        # ch1 = alt.Chart(dfi).mark_bar(opacity=.3).encode( x="type", y="count", color="type")
         # c = alt.layer(ch, ch1)
         # st.altair_chart(c)
+
     with c2:
         st.bar_chart(
             dfv,
