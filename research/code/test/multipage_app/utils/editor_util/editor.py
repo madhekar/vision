@@ -115,7 +115,7 @@ def save_metadata(sdp, sdn, mmp, mmf):
 def execute():
 
     smp, smf, mmp, mmf, sdp, sdn = initialize()
-
+    reload_bug = True
     # extract files
     files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
 
@@ -194,6 +194,9 @@ def execute():
             st.divider()    
 
         col = (col + 1) % row_size
+    if reload_bug:
+        reload_bug = False
+        st.rerun()
 
 if __name__ == "__main__":
     execute()
