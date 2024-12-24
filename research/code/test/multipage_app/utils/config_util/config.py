@@ -17,6 +17,8 @@ def editor_config_load():
         missing_metadata_file = dict["metadata"]["missing_metadata_file"]
         sqlite_database_path = dict["metadata"]["sqlite_database_path"]
         sqlite_database_name = dict["metadata"]["sqlite_database_name"]
+        home_latitude = dict['metadata']['home_latitude']
+        home_longitude = dict["metadata"]["home_longitude"]
     return (
         static_metadata_path,
         static_metadata_file,
@@ -24,6 +26,8 @@ def editor_config_load():
         missing_metadata_file,
         sqlite_database_path,
         sqlite_database_name,
+        home_latitude,
+        home_longitude
     )
 
 """

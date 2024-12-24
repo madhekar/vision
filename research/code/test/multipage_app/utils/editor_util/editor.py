@@ -31,8 +31,12 @@ def location_initialize(sdp, sdn):
         #df_loc.set_index('name', inplace=True)
     return df_loc
 
+@st.cache_resource
 def initialize():
-    smp, smf, mmp, mmf, sdp, sdn = config.editor_config_load()
+    
+    smp, smf, mmp, mmf, sdp, sdn, hlat, hlon = config.editor_config_load()
+
+    reload_bug = True
 
     if "markers" not in st.session_state:
         st.session_state["markers"] = []
@@ -58,7 +62,7 @@ def initialize():
     else:
         df_loc = st.session_state.df_loc     
 
-    return smp, smf, mmp, mmf, sdp, sdn
+    return smp, smf, mmp, mmf, sdp, sdn, hlat, hlon, reload_bug
 
 def clear_markers():
     st.session_state["markers"].clear()
@@ -114,8 +118,8 @@ def save_metadata(sdp, sdn, mmp, mmf):
 
 def execute():
 
-    smp, smf, mmp, mmf, sdp, sdn = initialize()
-    reload_bug = True
+    smp, smf, mmp, mmf, sdp, sdn, hlat, hlon, reload_bug = initialize()
+    
     # extract files
     files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
 
@@ -143,7 +147,7 @@ def execute():
     if save_btn:
         save_metadata(sdp, sdn, mmp, mmf)
 
-    m = fl.Map(location=[32.968700, -117.184200], zoom_start=4, min_zoom=3, max_zoom=10)
+    m = fl.Map(location=[hlat, hlon], zoom_start=4, min_zoom=3, max_zoom=10)
 
     fg = fl.FeatureGroup(name="zesha")
 
@@ -166,7 +170,7 @@ def execute():
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
     col = 0
-    st.cache_resource
+
     for image in batch:
         with grid[col]:
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
@@ -194,9 +198,9 @@ def execute():
             st.divider()    
 
         col = (col + 1) % row_size
-    if reload_bug:
-        reload_bug = False
-        st.rerun()
+    # if reload_bug:
+    #     reload_bug = False
+    #     st.rerun()
 
 if __name__ == "__main__":
     execute()
