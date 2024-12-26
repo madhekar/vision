@@ -22,7 +22,7 @@ def getRecursive(rootDir):
             )
     return f_list
 
-class Quality:
+class Quality():
     def __init__(self, dirname, archivedir):
         self.dirname = dirname
         self.archivedir = archivedir
@@ -35,13 +35,15 @@ class Quality:
         quality_list = []
         print("Finding quality Images Now!\n")
         sm.add_messages("quality", "Finding quality Images Now.")
-        for image in fnames:
-            with cv2.imread(os.path.join(image[0], image[1])) as image:
-                gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-                laplacian = cv2.Laplacian(gray, cv2.CV_64F)
-                lval = np.var(laplacian)
-                if lval < image_sharpness_threshold:
-                    quality_list.append(image)
+        for im in fnames:
+            #print(im)
+            #with cv2.imread(os.path.join(im[0], im[1])) as img:
+            img = cv2.imread(os.path.join(im[0], im[1]))
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            laplacian = cv2.Laplacian(gray, cv2.CV_64F)
+            lval = np.var(laplacian)
+            if lval < image_sharpness_threshold:
+                quality_list.append(img)
         if len(quality_list) != 0:
             a = input("Do you want to move/ archive these {} Images? Press Y or N:  ".format(len(quality_list)))
             space_saved = 0

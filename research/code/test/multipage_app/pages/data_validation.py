@@ -60,9 +60,9 @@ def ChkBtnStatusAndAssigncolor():
 
 def btn_pressed_callback(i, user_source):
     print(i, st.session_state, st.session_state.btn_prsd_status[i - 1])
-    if st.session_state.btn_prsd_status[i - 1] == 1 or i == 0:
-        r = exec_task(i, user_source)
-        st.session_state.btn_prsd_status[i] = r
+    #if st.session_state.btn_prsd_status[i - 1] == 1 or i == 0:
+    r = exec_task(i, user_source)
+    st.session_state.btn_prsd_status[i] = r
 
         
 # get immediate child folders
@@ -179,7 +179,7 @@ def execute():
             st.button(btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2, user_source_selected), use_container_width=True)
             print('++++here')
             st.divider()
-            iq.execute()
+            #iq.execute()
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(quality_data_path)
             st.caption('**Bad Quality Images Archived**')
             st.bar_chart(
