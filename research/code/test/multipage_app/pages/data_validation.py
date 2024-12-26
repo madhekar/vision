@@ -84,11 +84,12 @@ def execute():
     ) = config.data_validation_config_load()
 
     # get source source folder
-    user_source_selected = st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders(raw_data_path),label_visibility="collapsed")
+    user_source_selected = st.empty() #st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders(raw_data_path),label_visibility="collapsed")
 
     with st.container():
         st.header("DATA: VALIDATE", divider="gray")
         st.sidebar.subheader("SELECT DATA SOURCE", divider="gray")
+        user_source_selected = st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders(raw_data_path),label_visibility="collapsed")
 
         #st.subheader("VALIDATE TASKS", divider="gray")
         c0, c1, c2, c3 = st.columns((1, 1, 1, 1), gap="small")
