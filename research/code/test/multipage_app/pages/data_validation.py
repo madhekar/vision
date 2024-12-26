@@ -179,7 +179,6 @@ def execute():
             st.button(btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2, user_source_selected), use_container_width=True)
             print('++++here')
             st.divider()
-            #iq.execute()
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(quality_data_path)
             st.caption('**Bad Quality Images Archived**')
             st.bar_chart(
