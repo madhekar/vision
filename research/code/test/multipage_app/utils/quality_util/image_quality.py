@@ -37,13 +37,15 @@ class Quality():
         sm.add_messages("quality", "Finding quality Images Now.")
         for im in fnames:
             #print(im)
-            with cv2.imread(os.path.join(im[0], im[1])) as img:
-                #img = cv2.imread(os.path.join(im[0], im[1]))
-                gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-                laplacian = cv2.Laplacian(gray, cv2.CV_64F)
-                lval = np.var(laplacian)
-                if lval < image_sharpness_threshold:
-                    quality_list.append(img)
+            #with cv2.imread(os.path.join(im[0], im[1])) as img:
+            img = cv2.imread(os.path.join(im[0], im[1]))
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            laplacian = cv2.Laplacian(gray, cv2.CV_64F)
+            lval = np.var(laplacian)
+            if lval < image_sharpness_threshold:
+                quality_list.append(img)
+            del img    
+            cv2.destroyAllWindows()
                 
         if len(quality_list) != 0:
             a = input("Do you want to move/ archive these {} Images? Press Y or N:  ".format(len(quality_list)))
