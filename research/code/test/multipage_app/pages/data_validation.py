@@ -150,7 +150,7 @@ def execute():
             status_load = st.status("**load data task msgs...**", expanded=True, state="running")
             with status_load:
                 msgs = sm.get_message_by_type("load")  
-                print('--->', len(msgs))
+                print('number of messages avaliable ===>', len(msgs))
                 if msgs:
                     for m in msgs:
                         st.info(str(m))
@@ -176,10 +176,10 @@ def execute():
                     for m in msgs:
                         st.info(str(m))
         with c2:
-            st.button(
-                btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2, user_source_selected), use_container_width=True
-            )
+            st.button(btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2, user_source_selected), use_container_width=True)
+            print('++++here')
             st.divider()
+            iq.execute()
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(quality_data_path)
             st.caption('**Bad Quality Images Archived**')
             st.bar_chart(
@@ -225,6 +225,7 @@ def execute():
         ChkBtnStatusAndAssigncolor()
 
 def exec_task(iTask, user_source):
+    print(iTask, user_source)
     match iTask:
         case 0:  
             # load images check
@@ -240,6 +241,7 @@ def exec_task(iTask, user_source):
             sm.add_messages("duplicate", f"done {task_name} prpcess")
             return 1
         case 2:  # image sharpness/ quality check
+            print('--->here')
             task_name = 'image quality check'
             sm.add_messages("quality", f"starting {task_name} prpcess")
             iq.execute()
