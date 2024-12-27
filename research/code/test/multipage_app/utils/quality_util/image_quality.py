@@ -27,25 +27,44 @@ class Quality():
         self.dirname = dirname
         self.archivedir = archivedir
 
+    def is_blurry(self, image, threshold=25.0):
+        
+        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+
+        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+        lap_var = cv2.Laplacian(gray_image, cv2.CV_64F).var()
+
+        return lap_var < threshold    
+
     def find_quality_sharpness(self, image_sharpness_threshold):
         """
         Find and Archive quality images
         """
         fnames = getRecursive(self.dirname)
+        total_images = len(fnames)
         quality_list = []
         print("Finding quality Images Now!\n")
         sm.add_messages("quality", "Finding quality Images Now.")
         for im in fnames:
-            #print(im)
-            #with cv2.imread(os.path.join(im[0], im[1])) as img:
             img = cv2.imread(os.path.join(im[0], im[1]))
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            laplacian = cv2.Laplacian(gray, cv2.CV_64F)
-            lval = np.var(laplacian)
-            if lval < image_sharpness_threshold:
-                quality_list.append(img)
-            del img    
-            cv2.destroyAllWindows()
+            is_b = self.is_blurry(img, image_sharpness_threshold)
+
+            if is_b:
+                quality_list.append(im)
+        blurry_count = len(quality_list)
+        sm.add_messages('quality', f'{blurry_count} blurry images found. Total images: {total_images} percentage of blurry images: {(blurry_count/ total_images) * 100}'%)        
+            # #print(im)
+            # #with cv2.imread(os.path.join(im[0], im[1])) as img:
+            # img = cv2.imread(os.path.join(im[0], im[1]))
+            # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            # laplacian = cv2.Laplacian(gray, cv2.CV_64F)
+            # lval = np.var(laplacian)
+            # if lval < image_sharpness_threshold:
+            #     print(im)
+            #     quality_list.append(im)
+            # del img    
+            # cv2.destroyAllWindows()
                 
         if len(quality_list) != 0:
             a = input("Do you want to move/ archive these {} Images? Press Y or N:  ".format(len(quality_list)))
