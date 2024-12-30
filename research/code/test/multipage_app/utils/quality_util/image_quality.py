@@ -91,6 +91,7 @@ class Quality():
     
 def execute():
     input_image_path, archive_quality_path, image_sharpness_threshold = config.image_quality_config_load()
+    
     arc_folder_name = util.get_foldername_by_datetime()  
     
     archive_quality_path = os.path.join(archive_quality_path, arc_folder_name)
