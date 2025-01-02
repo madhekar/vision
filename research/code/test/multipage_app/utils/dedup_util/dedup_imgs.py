@@ -42,7 +42,7 @@ class DuplicateRemover:
         hashes = {}
         duplicates = []
         print("Finding Duplicate Images Now!\n")
-        sm.add_messages("duplicate","Finding Duplicate Images Now.")
+        sm.add_messages("s|duplicate","Finding Duplicate Images Now.")
         for image in fnames:
             try:
               with Image.open(os.path.join(image[0], image[1])) as img:

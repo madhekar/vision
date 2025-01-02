@@ -149,16 +149,16 @@ def execute():
             st.divider()
             status_load = st.status("**load data task msgs...**", expanded=True, state="running")
             with status_load:
-                print(st.session_state['load'])
-                # msgs = sm.get_message_by_type("load")  
-                # if msgs:
-                #     for k,v in msgs.items():
-                #         if k == 's':
-                #           st.info(str(v))
-                #         elif k == 'w':
-                #           st.warning(str(v))   
-                #         else:
-                #           st.error(str(v))     
+                #print(st.session_state.msgs['load'])
+                msgs = sm.get_message_by_type("load")  
+                if msgs:
+                    for k,v in msgs.items():
+                        if k == 's':
+                          st.info(str(v))
+                        elif k == 'w':
+                          st.warning(str(v))   
+                        else:
+                          st.error(str(v))     
         with c1:
             st.button(
                 btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,user_source_selected), use_container_width=True

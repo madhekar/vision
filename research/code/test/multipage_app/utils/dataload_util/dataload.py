@@ -28,29 +28,29 @@ def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
     f_dest = os.path.join(fdest_media, uuid_path)
     #print(src_dir + " - " + f_dest + " - " + str(len(media_items)))
     os.makedirs(f_dest)
+    sm.add_messages('load', f's|source: {root} destination: {fdest_media} coping {len(media_items)} number of files.')
     for item in media_items:
         item_path = os.path.join(root, item)
         #print(item_path + " -> " + f_dest)
         if os.path.isfile(item_path):
             #print("**" + item_path + " - " + fdest_media)
-            sm.add_messages('load', f's|source path: {item_path} destination path: {fdest_media}')
             try:
                 shutil.copy(item_path, f_dest)
             except FileNotFoundError:
                 e1 = ReferenceError("Source file not found.")
-                sm.add_messages("load",f"e| exception: {e1} Source file not found {item_path}")
+                sm.add_messages("load",f"e|exception: {e1} Source file not found {item_path}")
                 continue
             except PermissionError:
                 e2 = RuntimeError("Permission denied.")
-                sm.add_messages("load",f"e| exception: {e2} file permissing denied {item_path}")
+                sm.add_messages("load",f"e|exception: {e2} file permissing denied {item_path}")
                 continue
             except FileExistsError:
                 e3 = RuntimeError("Destination file already exists.")
-                sm.add_messages("load", f"e| exception: {e3} destination file: {f_dest} already exists.")
+                sm.add_messages("load", f"e|exception: {e3} destination file: {f_dest} already exists.")
                 continue
             except Exception as e:
                 e4 = RuntimeError(f"An Unknown error occurred in dataload: {e}")
-                sm.add_messages("load", f"e| exception: {e4} unknown file exception: {f_dest}.")
+                sm.add_messages("load", f"e|exception: {e4} unknown file exception: {f_dest}.")
                 continue
 
 ## possible performance issue 
