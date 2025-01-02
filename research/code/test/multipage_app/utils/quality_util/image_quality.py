@@ -45,7 +45,7 @@ class Quality():
         total_images = len(fnames)
         quality_list = []
         print("Finding quality Images Now!\n")
-        sm.add_messages("quality", "Finding quality Images Now.")
+        sm.add_messages("quality", "s| Finding quality Images Now.")
         for im in fnames:
             img = cv2.imread(os.path.join(im[0], im[1]))
             is_b = self.is_blurry(img, image_sharpness_threshold)
@@ -53,7 +53,7 @@ class Quality():
             if is_b:
                 quality_list.append(im)
         blurry_count = len(quality_list)
-        sm.add_messages('quality', f'{blurry_count} blurry images found. Total images: {total_images} percentage of blurry images: {(blurry_count/ total_images) * 100}'%)        
+        sm.add_messages('quality', f'w| {blurry_count} blurry images found. Total images: {total_images} percentage of blurry images: {(blurry_count/ total_images) * 100}%')        
             # #print(im)
             # #with cv2.imread(os.path.join(im[0], im[1])) as img:
             # img = cv2.imread(os.path.join(im[0], im[1]))

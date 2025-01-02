@@ -42,24 +42,24 @@ class DuplicateRemover:
         hashes = {}
         duplicates = []
         print("Finding Duplicate Images Now!\n")
-        sm.add_messages("duplicate","Finding Duplicate Images Now!\n")
+        sm.add_messages("duplicate","Finding Duplicate Images Now.")
         for image in fnames:
             try:
               with Image.open(os.path.join(image[0], image[1])) as img:
                 temp_hash = imagehash.average_hash(img, self.hash_size)
                 if temp_hash in hashes:
                     print("Duplicate {} \nfound for Image {}!\n".format(image, hashes[temp_hash]))
-                    sm.add_messages("duplicate", f"Duplicate {image} \nfound for Image {hashes[temp_hash]}!\n")
+                    sm.add_messages("duplicate", f"w|Duplicate {image} found for Image {hashes[temp_hash]}")
                     duplicates.append(image)
                 else:
                     hashes[temp_hash] = image
             except(IOError) as e:
-                sm.add_messages("duplicate", f"error: {e} ocurred while opening the image: {os.path.join(image[0], image[1])}")
+                sm.add_messages("duplicate", f"e| error: {e} ocurred while opening the image: {os.path.join(image[0], image[1])}")
                 os.remove(os.path.join(image[0], image[1]))
                 continue
 
         if len(duplicates) != 0:
-            a = input("Do you want to move/ archive these {} Images? Press Y or N:  ".format(len(duplicates)))
+            a = input("w| Do you want to move/ archive these {} Images? Press Y or N:  ".format(len(duplicates)))
             space_saved = 0
             if a.strip().lower() == "y":
                 for duplicate in duplicates:
@@ -72,15 +72,15 @@ class DuplicateRemover:
                         os.makedirs(os.path.join(self.archivedir, uuid_path)) 
                     os.rename(os.path.join(duplicate[0], duplicate[1]), os.path.join(self.archivedir, uuid_path, duplicate[1]))
                     print("{} Moved Succesfully!".format(duplicate))
-                    sm.add_messages("duplicate",f"{duplicate} Moved Succesfully!" )
+                    sm.add_messages("duplicate", f"s| {duplicate} Moved Succesfully!")
                 print(f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")
-                sm.add_messages("duplicate", f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")
+                sm.add_messages("duplicate", f"s| saved {round(space_saved / 1000000)} mb of Space!")
             else:
                 print("Using Duplicate Remover")
-                sm.add_messages("duplicate","Using Duplicate Remover")
+                sm.add_messages("s| duplicate", "Using Duplicate Remover.")
         else:
             print("No Duplicate images Found :)")
-            sm.add_messages("duplicate", "No Duplicate images Found!")
+            sm.add_messages("w| duplicate", "No Duplicate images Found.")
 
     def find_similar(self, location, similarity=80):
         fnames = os.listdir(self.dirname)
@@ -90,14 +90,14 @@ class DuplicateRemover:
         with Image.open(location) as img:
             hash1 = imagehash.average_hash(img, self.hash_size).hash
 
-        print("Finding Similar Images to {} Now!\n".format(location))
+        sm.add_messages("duplicate", "s| Finding Similar Images to {location} Now.")
         for image in fnames:
             with Image.open(os.path.join(self.dirname, image)) as img:
                 hash2 = imagehash.average_hash(img, self.hash_size).hash
 
                 if np.count_nonzero(hash1 != hash2) <= diff_limit:
                     print("{} image found {}% similar to {}".format(image, similarity, location))
-                    sm.add_messages("duplicate", f"{image} image found {similarity}% similar to {location}")
+                    sm.add_messages("duplicate", f"w| {image} image found {similarity}% similar to {location}")
 
 def execute(source_name):
        input_image_path, archive_dup_path = config.dedup_config_load()

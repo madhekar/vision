@@ -229,28 +229,27 @@ def exec_task(iTask, user_source):
         case 0:  
             # load images check
             task_name = 'data load'
-            sm.add_messages('load', f"starting {task_name} prpcess")
+            sm.add_messages('load', f"s|starting {task_name} prpcess")
             dl.execute(user_source)
-            sm.add_messages("load", f"done {task_name} prpcess")
+            sm.add_messages("load", f"s|done {task_name} prpcess")
             return 1
         case 1:  # duplicate images check
             task_name = 'de-duplicate files'
-            sm.add_messages("duplicate", f"starting {task_name} prpcess")
+            sm.add_messages("duplicate", f"s|starting {task_name} prpcess")
             di.execute(user_source)
-            sm.add_messages("duplicate", f"done {task_name} prpcess")
+            sm.add_messages("duplicate", f"s|done {task_name} prpcess")
             return 1
         case 2:  # image sharpness/ quality check
-            print('--->here')
             task_name = 'image quality check'
-            sm.add_messages("quality", f"starting {task_name} prpcess")
+            sm.add_messages("quality", f"s|starting {task_name} prpcess")
             iq.execute()
-            sm.add_messages("quality", f"done {task_name} prpcess")
+            sm.add_messages("quality", f"s|done {task_name} prpcess")
             return 1
         case 3:  # missing metadata check
             task_name = "missing metadata"
-            sm.add_messages("metadata", f"starting {task_name} prpcess")
+            sm.add_messages("metadata", f"s|starting {task_name} prpcess")
             mm.execute()
-            sm.add_messages("metadata", f"done {task_name} prpcess")
+            sm.add_messages("metadata", f"s|done {task_name} prpcess")
             return 1
         case _:
             return -1        
