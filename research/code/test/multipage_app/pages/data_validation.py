@@ -150,10 +150,14 @@ def execute():
             status_load = st.status("**load data task msgs...**", expanded=True, state="running")
             with status_load:
                 msgs = sm.get_message_by_type("load")  
-                print('number of messages avaliable ===>', len(msgs))
                 if msgs:
-                    for m in msgs:
-                        st.info(str(m))
+                    for k,v in msgs.items():
+                        if k == 's':
+                          st.info(str(v))
+                        elif k == 'w':
+                          st.warning(str(v))   
+                        else:
+                          st.error(str(v))     
         with c1:
             st.button(
                 btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,user_source_selected), use_container_width=True
@@ -173,8 +177,13 @@ def execute():
             with status_duplicate:
                 msgs = sm.get_message_by_type("duplicate")
                 if msgs:
-                    for m in msgs:
-                        st.info(str(m))
+                    for k,v in msgs.items():
+                        if k == 's':
+                          st.info(str(v))
+                        elif k == 'w':
+                          st.warning(str(v))   
+                        else:
+                          st.error(str(v)) 
         with c2:
             st.button(btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2, user_source_selected), use_container_width=True)
             print('++++here')
@@ -193,8 +202,13 @@ def execute():
             with status_quality:
                 msgs = sm.get_message_by_type("quality")
                 if msgs:
-                    for m in msgs:
-                        st.info(str(m))
+                    for k, v in msgs.items():
+                        if k == "s":
+                            st.info(str(v))
+                        elif k == "w":
+                            st.warning(str(v))
+                        else:
+                            st.error(str(v))
         with c3:
             st.button(btn_labels[3], key="g3", on_click=btn_pressed_callback, args=(3,user_source_selected), use_container_width=True)
             st.divider()
@@ -219,8 +233,13 @@ def execute():
             with status_metadata:
                 msgs = sm.get_message_by_type("metadata")
                 if msgs:
-                    for m in msgs:
-                        st.info(str(m))
+                    for k, v in msgs.items():
+                        if k == "s":
+                            st.info(str(v))
+                        elif k == "w":
+                            st.warning(str(v))
+                        else:
+                            st.error(str(v))
         ChkBtnStatusAndAssigncolor()
 
 def exec_task(iTask, user_source):

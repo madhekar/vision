@@ -12,4 +12,5 @@ def add_messages(msg_type, message):
     st.session_state.msgs[msg_type].append(message)
 
 def get_message_by_type(tmsg):
-    return st.session_state.msgs[tmsg]
+    return {ele.split("|")[0]: ele.split("|")[1] for ele in st.session_state.msgs[tmsg]}
+

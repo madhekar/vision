@@ -77,16 +77,16 @@ class Quality():
                     uuid_path = mu.create_uuid_from_string(quality[0])    
                     os.rename( os.path.join(quality[0], quality[1]), os.path.join(self.archivedir, uuid_path, quality[1]))
                     print("{} Moved Succesfully!".format(quality))
-                    sm.add_messages("quality", f"file {quality} moved succesfully.")
+                    sm.add_messages("quality", f"s| file {quality} moved succesfully.")
 
                 print(f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")
-                sm.add_messages("quality",f"\n\nYou saved {round(space_saved / 1000000)} mb of Space.")
+                sm.add_messages("quality",f"w| you saved {round(space_saved / 1000000)} mb of Space.")
             else:
                 print("Using quality Remover")
-                sm.add_messages("quality", "Using quality remover")
+                sm.add_messages("quality", "s| using quality remover")
         else:
             print("No quality images Found :)")
-            sm.add_messages("quality", "No quality images Found.")
+            sm.add_messages("quality", "w| no quality images Found.")
    
     
 def execute():
