@@ -13,7 +13,6 @@ def add_messages(msg_type, message):
     st.session_state.msgs[msg_type].append(message)
 
 def get_message_by_type(tmsg):
-    print(st.session_state.msgs[tmsg])
     d = defaultdict(set)
     for ele in st.session_state.msgs[tmsg]:
         print(ele)
