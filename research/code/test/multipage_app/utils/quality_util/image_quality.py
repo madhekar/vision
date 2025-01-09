@@ -72,11 +72,11 @@ class Quality():
             if a.strip().lower() == "y":
                 for quality in quality_list:
                     space_saved += os.path.getsize(os.path.join(quality[0], quality[1]))
-                    if not os.path.exists(self.archivedir):
-                        os.makedirs(self.archivedir)
-                    uuid_path = mu.create_uuid_from_string(quality[0])    
+                    uuid_path = mu.create_uuid_from_string(quality[0]) 
+                    if not os.path.exists(os.path.join(self.archivedir, uuid_path)):
+                        os.makedirs(os.path.join(self.archivedir, uuid_path))
                     os.rename( os.path.join(quality[0], quality[1]), os.path.join(self.archivedir, uuid_path, quality[1]))
-                    print("{} Moved Succesfully!".format(quality))
+                    print(f"{quality} Moved Succesfully!")
                     sm.add_messages("quality", f"s| file {quality} moved succesfully.")
 
                 print(f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")
