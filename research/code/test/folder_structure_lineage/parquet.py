@@ -19,7 +19,7 @@ def create_default_location(schema):
     #create default table
     table = pa.Table.from_pandas(df, schema=schema) 
     try:
-      pq.write_table(table, 'pqt/static_locations.parquet')
+      pq.write_table(table, 'pqt/static_locations.parquet')#, partition_cols=['country','state'])
     except Exception as e:
        print(f'failed with exception: {e}')
 
