@@ -16,7 +16,7 @@ def metadata_initialize(mmp,mmf):
     df.set_index("SourceFile", inplace=True)
     return df
 
-#@st.cache_resource
+@st.cache_resource
 def location_initialize(sdp, sdn):
     db_con = location.Location(dbpath=sdp, dbname=sdn)
     db_con.create_location_tbl_if_not_exists()
@@ -114,7 +114,7 @@ def persist_static_locations(sdp, sdn):
 def save_metadata(sdp, sdn, mmp, mmf):
     st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",")
     persist_static_locations(sdp, sdn)
-    print(st.session_state.df_loc)
+    print(st.session_state.df)
 
 def execute():
 
