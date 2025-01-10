@@ -14,6 +14,7 @@ from PIL import Image
 def metadata_initialize(mmp,mmf):
     df = pd.read_csv (os.path.join(mmp, mmf)) #('metadata.csv')
     df.set_index("SourceFile", inplace=True)
+    print(df.head(10))
     return df
 
 @st.cache_resource
@@ -21,6 +22,7 @@ def location_initialize(sdp, sdn):
     db_con = location.Location(dbpath=sdp, dbname=sdn)
     db_con.create_location_tbl_if_not_exists()
     n = db_con.get_number_of_rows()
+    print(n)
     if n[0][0] != 0:
         t_arr = db_con.read_location()
         df_loc = pd.DataFrame(t_arr)
@@ -33,6 +35,17 @@ def location_initialize(sdp, sdn):
 
 @st.cache_resource
 def initialize():
+    """
+    metadata:
+        static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/
+        static_metadata_file: static-metadata.csv
+        missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
+        missing_metadata_file: missing-metadata-wip.csv
+        sqlite_database_path: /home/madhekar/work/home-media-app/data/app-data/db/
+        sqlite_database_name: zesha_sqlite
+        home_latitude: 32.968700
+        home_longitude: -117.184200
+    """
     
     smp, smf, mmp, mmf, sdp, sdn, hlat, hlon = config.editor_config_load()
 
