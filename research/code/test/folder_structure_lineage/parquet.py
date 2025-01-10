@@ -6,7 +6,7 @@ def define_schema():
     static_location_schema = pa.schema([
     ('country', pa.string()),
     ('state', pa.string()),
-    ('name', pa.int()),
+    ('name', pa.string()),
     ('description', pa.string()),
     ('latitude', pa.float32()),
     ('longitude', pa.float32())
@@ -14,8 +14,10 @@ def define_schema():
 
     df = pd.read_csv("default-locations.csv")
     #create default table
-    table = pa.Table.from_dataframe(df, schema=static_location_schema) 
+    table = pa.Table.from_pandas(df, schema=static_location_schema) 
     try:
       pq.write_table(table, 'pqt/static_locations.parquet')
     except Exception as e:
        print(f'failed with exception: {e}')
+
+define_schema()       
