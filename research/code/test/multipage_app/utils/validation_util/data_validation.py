@@ -42,7 +42,6 @@ def orchestrator(raw_folders):
 
 def build_orch_structure(raw_folders):
 
-    
     columns = ['duplicate', 'quality', 'missing', 'metadata', 'state']
     data =[]
     idx = []
