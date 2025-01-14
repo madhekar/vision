@@ -63,34 +63,27 @@ def simple_with_error_chk_details():
     i = 1
     for row in df.itertuples():
         d = {}
-        pprint(row)
-        loc = geolocator.geocode(row.address, exactly_one=True, timeout=60, addressdetails=True)
-        data = loc.raw
-        data = data['address']
-
-        state = country = "" 
-        state = str(data['state']).lower()
-        country = str(data['country_code']).lower()
-        pprint(state)
-        d['id'] = str(i)
-        d['desc'] = row.name
-        d['state'] = state
-        d['country'] = country
         try:
-            d["lat"] = loc.latitude
+         loc = geolocator.geocode(row.address, exactly_one=True, timeout=60, addressdetails=True)
+         data = loc.raw
+         data = data['address']
+         state = country = "" 
+         state = str(data['state']).lower()
+         country = str(data['country_code']).lower()
+         d['id'] = i
+         d['desc'] = row.name
+         d['state'] = state
+         d['country'] = country
+         d["lat"] = loc.latitude
+         d["lon"] = loc.longitude
+         locs.append(d)
+         i+=1
         except Exception as e:
-            pass
-        try:
-            d["lon"] = loc.longitude
-        except Exception as e:
-            pass
-
+           pprint(f'error: geocode failed with {row.adress} with exception {e.message}')
         time.sleep(2)
-        locs.append(d)
 
-        i+=1
-
-    pprint(locs)
+    dfr = pd.DataFrame(locs, columns=['id', 'country', 'state', 'desc','lat', 'lon']).set_index('id', drop=True)    
+    pprint(dfr.head())
 
 
 simple_with_error_chk_details()
