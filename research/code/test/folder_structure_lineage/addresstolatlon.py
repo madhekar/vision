@@ -42,19 +42,55 @@ def simple_with_error_chk():
      for row in df.itertuples():
          d = {}
          pprint(row)
-         l = geolocator.geocode(row.address, exactly_one=True, timeout=60)
+         loc = geolocator.geocode(row.address, exactly_one=True, timeout=60)
          try:
-           d['lat'] = l.latitude
-         except: 
+           d['lat'] = loc.latitude
+         except Exception as e: 
             pass
          try:
-            d['lon'] = l.longitude
-         except:
+            d['lon'] = loc.longitude
+         except Exception as e:
             pass
 
          time.sleep(2)
          locs.append(d)
 
-     pprint(locs)              
+     pprint(locs)       
 
-simple_with_error_chk()
+def simple_with_error_chk_details():
+    df = pd.read_csv("default-addresses.csv")
+    locs = []
+    i = 1
+    for row in df.itertuples():
+        d = {}
+        pprint(row)
+        loc = geolocator.geocode(row.address, exactly_one=True, timeout=60, addressdetails=True)
+        data = loc.raw
+        data = data['address']
+
+        state = country = "" 
+        state = str(data['state']).lower()
+        country = str(data['country_code']).lower()
+        pprint(state)
+        d['id'] = str(i)
+        d['desc'] = row.name
+        d['state'] = state
+        d['country'] = country
+        try:
+            d["lat"] = loc.latitude
+        except Exception as e:
+            pass
+        try:
+            d["lon"] = loc.longitude
+        except Exception as e:
+            pass
+
+        time.sleep(2)
+        locs.append(d)
+
+        i+=1
+
+    pprint(locs)
+
+
+simple_with_error_chk_details()
