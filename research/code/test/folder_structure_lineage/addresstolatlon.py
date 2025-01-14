@@ -58,7 +58,7 @@ def simple_with_error_chk():
      pprint(locs)       
 
 def simple_with_error_chk_details():
-    df = pd.read_csv("default-addresses.csv")
+    df = pd.read_csv("default-addresses.csv", delimiter=',')
     locs = []
     i = 1
     for row in df.itertuples():

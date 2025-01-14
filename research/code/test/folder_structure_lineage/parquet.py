@@ -4,18 +4,18 @@ import pandas as pd
 
 def define_schema():
     static_location_schema = pa.schema([
+    ('id', pa.int8()),
     ('country', pa.string()),
     ('state', pa.string()),
-    ('name', pa.string()),
-    ('description', pa.string()),
-    ('latitude', pa.float32()),
-    ('longitude', pa.float32())
+    ('desc', pa.string()),
+    ('lat', pa.float64()),
+    ('lon', pa.float64())
     ])
     return static_location_schema
 
 def create_default_location(schema):
 
-    df = pd.read_csv("default-locations.csv")
+    df = pd.read_csv("default-locations.csv", delimiter=',')
     #create default table
     table = pa.Table.from_pandas(df, schema=schema) 
     try:
@@ -39,6 +39,6 @@ create_default_location(define_schema())
 
 #read_parquet_file()
 
-get_all_loc_by_country('usa')
+get_all_loc_by_country('us')
 
-get_all_loc_by_country_and_state('usa', 'ca')
+get_all_loc_by_country_and_state('us', 'california')

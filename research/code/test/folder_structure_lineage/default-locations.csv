@@ -1,3 +1,6 @@
-country,state,name,description,latitude,longitude
-usa,ca,sage-mesa,"home in san diego, ca",-115.34,92.09
-
+id,country,state,desc,lat,lon
+1,'us','california','home at san diego',32.968689,-117.184243
+2,us,california,'esha - 3 to 5th grade elementry school',32.914994,-117.153358
+3,us,california,'esha - 9 to 12th grade high school',32.958440,-117.224907
+4,us,washington,'esha - first half year of second grade elementry',47.635425,-122.144208
+5,us,washington,'lamplighter park apartments',47.618261,-122.133136
