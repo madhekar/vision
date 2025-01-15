@@ -39,9 +39,13 @@ def extract_location_details_with_error_chk(geolocator, df):
         try:
             loc = geolocator.geocode(row.address, exactly_one=True, timeout=60, addressdetails=True)
             data = loc.raw
+            print(data)
             data = data["address"]
             state = country = ""
-            state = str(data["state"]).lower()
+            if "state" in data:
+              state = str(data["state"]).lower()
+            else:
+              state = 'unknown'  
             country = str(data["country_code"]).lower()
             d["id"] = i
             d["desc"] = row.name
@@ -52,11 +56,11 @@ def extract_location_details_with_error_chk(geolocator, df):
             loc_list.append(d)
             i += 1
         except Exception as e:
-            pprint(f"error: geocode failed with {row.adress} with exception {e.message}")
+            pprint(f"error: geocode failed with {row.address} with exception {e.message}")
         time.sleep(2)
 
     # create dataframe to return
-    dfr = pd.DataFrame(loc_list, columns=["id", "country", "state", "desc", "lat", "lon"]).set_index("id", drop=True)
+    dfr = pd.DataFrame(loc_list, columns=["id", "country","state", "desc", "lat", "lon"]).set_index("id", drop=True)
     return dfr
 
 def prepare_static_metadata_locations(
@@ -109,6 +113,6 @@ if __name__=='__main__':
 
     pprint(get_all_loc_by_country_and_state("us", "washington"))
 
-    pprint(get_all_loc_by_country_and_state("in", "maharashtra"))
+    pprint(get_all_loc_by_country_and_state("in", "unknown"))
 
     pprint(get_all_loc_by_country('in'))
