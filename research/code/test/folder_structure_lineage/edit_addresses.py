@@ -3,8 +3,9 @@ import pandas as pd
 import streamlit as st
 
 
-def update(edit_df):
-   edit_df.to_csv('my.csv', index=False)
+def update(sap, saf, edit_df):
+   print(sap + ':' + saf)
+   edit_df.to_csv(os.path.join(sap, saf), index=False)
 
 
 def read_addresses_file(sap, saf):
@@ -18,10 +19,10 @@ def show_current_addresses(df):
     show_df = st.table(df)
     return show_df
 
-def show_edit_addresses(df):
+def show_edit_addresses(sap, saf, df):
     edit_df = st.data_editor(df, key="editor", num_rows="dynamic")
     if edit_df is not None and not edit_df.equals(st.session_state["df_val"]):
-        update(edit_df)
+        update(sap, saf, edit_df)
         st.session_state["df_val"] = edit_df
     return edit_df
 
@@ -34,7 +35,7 @@ if __name__=='__main__':
     df = read_addresses_file(zapp_static_locaton_prep_data_path, zapp_static_locaton_prep_file)
     c1, c2 =st.columns([1,2], gap="small")
     with c1:
-        show_edit_addresses(df)
+        show_edit_addresses(zapp_static_locaton_prep_data_path, zapp_static_locaton_prep_file, df)
 
     with c2:
        show_current_addresses(df)
