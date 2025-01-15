@@ -71,6 +71,18 @@ metadata_loader = st.Page(
     icon=":material/published_with_changes:",
 )
 
+location_metadata_creator = st.Page(
+    page="pages/location_metadata_creator.py",
+    title="GENERATE",
+    icon=":material/engineering:",
+)
+
+loacation_metadata_loader = st.Page(
+    page="pages/metadata_loader.py",
+    title="LOAD",
+    icon=":material/published_with_changes:",
+)
+
 multimodal_search = st.Page(
     page="pages/multimodal_search.py",
     title="SEARCH",
@@ -82,12 +94,13 @@ st.logo("assets/zesha-high-resolution-logo.jpeg")
 
 pg = st.navigation(
     {
-    "OVERVIEW": [overview],
-    "DATA: ADD/ TRIM": [data_extadd, data_trim],
-    "DATA: VALIDATE": [data_validate],
-    "METADATA": [data_correction, metadata_creator, metadata_loader],
-    "SEARCH": [multimodal_search]
+        "OVERVIEW": [overview],
+        "DATA: ADD/ TRIM": [data_extadd, data_trim],
+        "DATA: VALIDATE": [data_validate],
+        "METADATA": [data_correction, metadata_creator, metadata_loader],
+        "LOCATION": [location_metadata_creator, loacation_metadata_loader],
+        "SEARCH": [multimodal_search],
     }
-    )
+)
 
 pg.run()
