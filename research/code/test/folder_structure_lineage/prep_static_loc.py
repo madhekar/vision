@@ -6,15 +6,16 @@ import time
 import pandas as pd
 from pprint import pprint
 
-static_location_data_path = 'pqt/'
-zapp_static_location_path = "/home/madhekar/work/home-media-app/data/app-data/static-metadata/"
-zapp_static_location_file = "static_locations.parquet"
-zapp_static_locaton_prep_data_path = "/home/madhekar/work/home-media-app/data/input-data/prep/"
-zapp_static_locaton_prep_file = "default-addresses.csv"
+# static_location_data_path = 'pqt/'
+# zapp_static_location_path = "/home/madhekar/work/home-media-app/data/app-data/static-metadata/"
+# zapp_static_location_file = "static_locations.parquet"
+# zapp_static_locaton_prep_data_path = "/home/madhekar/work/home-media-app/data/input-data/prep/"
+# zapp_static_locaton_prep_file = "default-addresses.csv"
 
 def init(static_locaton_prep_data_path, static_locaton_prep_file):
   geolocator = Nominatim(user_agent="name_ofgent")
   df = pd.read_csv(os.path.join(static_locaton_prep_data_path, static_locaton_prep_file), delimiter=",")
+  pprint(df)
   return geolocator, df
 
 def define_schema():
@@ -70,7 +71,7 @@ def prepare_static_metadata_locations(
         dfr = extract_location_details_with_error_chk(geolocator=geo_locator, df=dfi)
         create_default_location(static_location_path, static_location_file, parquet_schema, dfr)
     except Exception as e:
-        pprint(f'error: exception in preparing static metadata {e.message}')
+        pprint(f'error: exception in preparing static metadata {e.message()}')
 
 def create_default_location(static_location_path, static_location_file,schema, df):
     table = pa.Table.from_pandas(df, schema=schema)
@@ -95,7 +96,7 @@ if __name__=='__main__':
     zapp_static_location_path = "/home/madhekar/work/home-media-app/data/app-data/static-metadata/"
     zapp_static_location_file = "static_locations.parquet"
     zapp_static_locaton_prep_data_path = "/home/madhekar/work/home-media-app/data/input-data/prep/"
-    zapp_static_locaton_prep_file = "default-addresses.csv"
+    zapp_static_locaton_prep_file = "static_addresses.csv"
 
     prepare_static_metadata_locations(zapp_static_locaton_prep_data_path, zapp_static_locaton_prep_file, zapp_static_location_path, zapp_static_location_file)
 
