@@ -6,12 +6,6 @@ import time
 import pandas as pd
 from pprint import pprint
 
-# static_location_data_path = 'pqt/'
-# zapp_static_location_path = "/home/madhekar/work/home-media-app/data/app-data/static-metadata/"
-# zapp_static_location_file = "static_locations.parquet"
-# zapp_static_locaton_prep_data_path = "/home/madhekar/work/home-media-app/data/input-data/prep/"
-# zapp_static_locaton_prep_file = "default-addresses.csv"
-
 def init(static_locaton_prep_data_path, static_locaton_prep_file):
   geolocator = Nominatim(user_agent="name_ofgent")
   df = pd.read_csv(os.path.join(static_locaton_prep_data_path, static_locaton_prep_file), delimiter=",")
@@ -97,6 +91,7 @@ def get_all_loc_by_country_and_state(country, state):
     return df[(df["country"] == country) & (df["state"] == state)]       
 
 if __name__=='__main__':
+    
     zapp_static_location_path = "/home/madhekar/work/home-media-app/data/app-data/static-metadata/"
     zapp_static_location_file = "static_locations.parquet"
     zapp_static_locaton_prep_data_path = "/home/madhekar/work/home-media-app/data/input-data/prep/"

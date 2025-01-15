@@ -65,7 +65,6 @@ def display_folder_stats(flist):
 def execute():
     (raw_data_path, input_image_path, input_txt_path, input_video_path, input_audio_path) = config.dataload_config_load()
 
-
     '''
     select data source to trim data
     ''' 
