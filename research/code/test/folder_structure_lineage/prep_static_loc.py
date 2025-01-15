@@ -56,7 +56,7 @@ def extract_location_details_with_error_chk(geolocator, df):
             loc_list.append(d)
             i += 1
         except Exception as e:
-            pprint(f"error: geocode failed with {row.address} with exception {e.message}")
+            pprint(f"error: geocode failed with {row.address} with exception {e}")
         time.sleep(2)
 
     # create dataframe to return
@@ -75,14 +75,14 @@ def prepare_static_metadata_locations(
         dfr = extract_location_details_with_error_chk(geolocator=geo_locator, df=dfi)
         create_default_location(static_location_path, static_location_file, parquet_schema, dfr)
     except Exception as e:
-        pprint(f'error: exception in preparing static metadata {e.message()}')
+        pprint(f'error: exception in preparing static metadata: {e}')
 
 def create_default_location(static_location_path, static_location_file,schema, df):
     table = pa.Table.from_pandas(df, schema=schema)
     try:
         pq.write_table(table, os.path.join(static_location_path, static_location_file))  # , partition_cols=['country','state'])
     except Exception as e:
-        print(f"failed with exception: {e}")
+        print(f"error: failed with exception: {e}")
 
 def read_parquet_file():
     df = pd.read_parquet(zapp_static_location_path)
