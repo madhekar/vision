@@ -59,8 +59,8 @@ data_correction = st.Page(
     icon=":material/edit:"
 )
 
-metadata_creator = st.Page(
-    page="pages/metadata_creator.py",
+metadata_creater = st.Page(
+    page="pages/metadata_creater.py",
     title="GENERATE",
     icon=":material/engineering:",
 )
@@ -71,14 +71,14 @@ metadata_loader = st.Page(
     icon=":material/published_with_changes:",
 )
 
-location_metadata_creator = st.Page(
-    page="pages/location_metadata_creator.py",
+location_metadata_creater = st.Page(
+    page="pages/location_metadata_creater.py",
     title="GENERATE",
     icon=":material/engineering:",
 )
 
 loacation_metadata_loader = st.Page(
-    page="pages/metadata_loader.py",
+    page="pages/location_metadata_loader.py",
     title="LOAD",
     icon=":material/published_with_changes:",
 )
@@ -97,8 +97,8 @@ pg = st.navigation(
         "OVERVIEW": [overview],
         "DATA: ADD/ TRIM": [data_extadd, data_trim],
         "DATA: VALIDATE": [data_validate],
-        "METADATA": [data_correction, metadata_creator, metadata_loader],
-        "LOCATION": [location_metadata_creator, loacation_metadata_loader],
+        "METADATA": [data_correction, metadata_creater, metadata_loader],
+        "LOCATION": [location_metadata_creater, loacation_metadata_loader],
         "SEARCH": [multimodal_search],
     }
 )
