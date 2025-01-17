@@ -44,8 +44,10 @@ def edit_data():
         st.session_state["df_value"] = edited_df
 
 if __name__=='__main__':
-    
+
     if "df_value" not in st.session_state:
        st.session_state.df_value = None
 
     load_csv()
+
+    edit_data()
