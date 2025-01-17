@@ -37,5 +37,5 @@ if __name__ == "__main__":
         d['address'] = addess_value
         df.loc[len(df)] = d
         print(df)
-        save_df(df)
-        st.rerun()
+        # save_df(df)
+        # st.rerun()
