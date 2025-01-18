@@ -1,18 +1,22 @@
 import streamlit as st
 
-@st.dialog("Cast your vote")
-def vote(item):
-    st.write(f"Why is {item} your favorite?")
-    reason = st.text_input("Because...")
+@st.dialog("Enter your location")
+def add_location():
+    name = st.text_input('Enter name or description of location')
+    street = st.text_input("Enter street address of location")
+    city = st.text_input("Enter city/ town/ village of location")
+    state = st.text_input("Enter state/ province name of location")
+    country = st.text_input("Enter country name of location")
+    pincode = st.text_input("Enter pin/ zip code of location")
+
     if st.button("Submit"):
-        st.session_state.vote = {"item": item, "reason": reason}
+        st.session_state.location = {"name": name, "street": street, 'city': city, 'state': state, 'country': country, 'zip code': pincode}
         st.rerun()
 
-if "vote" not in st.session_state:
-    st.write("Vote for your favorite")
-    if st.button("A"):
-        vote("A")
-    if st.button("B"):
-        vote("B")
+if "location" not in st.session_state:
+    st.write("Add your Location details")
+    if st.button("Add Location"):
+        add_location()
+
 else:
-    f"You voted for {st.session_state.vote['item']} because {st.session_state.vote['reason']}"
+    f"Entered Location for {st.session_state.location['name']} with street address {st.session_state.location['street']}"
