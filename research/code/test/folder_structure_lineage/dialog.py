@@ -52,8 +52,10 @@ def location_details(name, query = {}):
     return dfr
 
 def parse_address(full_add):
-    parsed_address = ap.parse(full_add)[0]
+    parsed_address = ap.parse(full_add)
+    print(parsed_address)
     return parsed_address
+    
 
 @st.dialog("Enter your location")
 def add_location():
@@ -64,7 +66,7 @@ def add_location():
 
     st.subheader("location address")
     full_address = st.text_input('full_address', placeholder='Enter Address of location', label_visibility="collapsed")
-
+    print(full_address)
     if st.button('parse'):
         apa = parse_address(full_address)
         d={}
