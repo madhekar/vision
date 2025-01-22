@@ -16,6 +16,9 @@ if "latlon" not in st.session_state:
 if 'submit' not in st.session_state:
     st.session_state['submit'] = False 
 
+if 'p_location' not in st.session_state:
+    st.session_state['p_location'] = {}
+
 # if 'location' not in st.session_state:
 #     st.session_state.location = {}    
 
@@ -52,10 +55,10 @@ def location_details(name, query = {}):
     return dfr
 
 def parse_address(full_add):
-    parsed_address = ap.parse(full_add)
-    print(parsed_address)
-    return parsed_address
-    
+    par_address = ap.parse(full_add, country="US")
+    return par_address[0].as_dict()
+    # for add in par_address:
+    #     print(add.as_dict())
 
 @st.dialog("Enter your location")
 def add_location():
@@ -65,28 +68,37 @@ def add_location():
 
 
     st.subheader("location address")
-    full_address = st.text_input('full_address', placeholder='Enter Address of location', label_visibility="collapsed")
-    print(full_address)
+    full_add = st.text_input('full address', placeholder='Enter Address of location', label_visibility="collapsed").strip()
+    print(full_add)
+    d={}
     if st.button('parse'):
-        apa = parse_address(full_address)
-        d={}
-        street = st.text_input("Enter street address of location")
-        d['street'] = apa.street_number + ' ' + apa.street_name
-        city = st.text_input("Enter city/ town/ village of location")
-        d['city'] = apa.city
-        state = st.text_input("Enter state/ province name of location")
-        d['state'] = apa.region
-        country = st.text_input("Enter country name of location")
-        d['country'] = apa.country
-        pincode = st.text_input("Enter pin/ zip code of location")
-        d['postalcode'] = apa.zipcode
-        st.session_state['parse'] = not st.session_state['parse']
-
+        apa = parse_address(full_add)            
+        print("-->", apa)
+        if apa:
+            d['street'] =  apa['full_street'] 
+            street = st.text_input("street name", value=d['street'], placeholder=d['street'])
+            
+            d['city'] = apa['city']
+            city = st.text_input("city/ town/ village", value=d['city'], placeholder=d['city'])
+            
+            d['state'] = apa['region1']
+            state = st.text_input("state/ province", value=d['state'], placeholder=d['state'])
+            
+            d['country'] = apa['country_id']
+            country = st.text_input("country code/ name", value=d['country'], placeholder=d['country'])
+            
+            d['postalcode'] = apa['postal_code']
+            pincode = st.text_input("pin/ zip code", value=d['postalcode'], placeholder=d['postalcode'])
+            
+            st.session_state['p_location'] = d
+            st.session_state['parse'] = not st.session_state['parse']
+   
     if st.session_state['parse']:
-        if st.button('latlon'):
-            fs = d
-            st.text_area(label="query", value=fs)
-            ld= location_details(name=name, query=d)
+        if st.button('latlon'): 
+            print("+++", st.session_state["p_location"])
+            fs = st.session_state["p_location"]
+            st.text_area(label="query", value=fs, placeholder=fs)
+            ld= location_details(name=name, query=fs)
             st.text_area(label='location details', value=ld.to_string())
             st.session_state['latlon'] = not st.session_state['latlon']
 
