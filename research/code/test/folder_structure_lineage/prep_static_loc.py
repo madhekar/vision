@@ -88,7 +88,10 @@ def get_all_loc_by_country(country):
 
 def get_all_loc_by_country_and_state(country, state):
     df = pd.read_parquet(zapp_static_location_path)
-    return df[(df["country"] == country) & (df["state"] == state)]       
+    return df[(df["country"] == country) & (df["state"] == state)]  
+
+def add_new_loc(d):
+    pass     
 
 if __name__=='__main__':
     

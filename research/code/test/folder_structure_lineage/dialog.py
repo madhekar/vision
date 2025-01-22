@@ -19,10 +19,10 @@ if 'submit' not in st.session_state:
 if 'p_location' not in st.session_state:
     st.session_state['p_location'] = {}
 
-# if 'location' not in st.session_state:
-#     st.session_state.location = {}    
+if 'location' not in st.session_state:
+     st.session_state.location = {}    
 
-d = []
+
 geolocator = Nominatim(user_agent="name_ofgent")
 
 def location_details(name, query = {}):
@@ -47,12 +47,12 @@ def location_details(name, query = {}):
             f"error: geocode failed with {query} with exception {e}"
         )
 
-    dfr = pd.DataFrame(
-        locs, columns=["id", "country", "state", "desc", "lat", "lon"]
-    ).set_index("id", drop=True)
-    pprint(dfr.head())
+    # dfr = pd.DataFrame(
+    #     locs, columns=["id", "country", "state", "desc", "lat", "lon"]
+    # ).set_index("id", drop=True)
+    # pprint(dfr.head())
 
-    return dfr
+    return d
 
 def parse_address(full_add):
     par_address = ap.parse(full_add, country="US")
@@ -62,53 +62,64 @@ def parse_address(full_add):
 
 @st.dialog("Enter your location")
 def add_location():
+    c1,c2 = st.columns([.25, 1])
+    with c1:
+       st.subheader("name")
+    with c2:   
+       name = st.text_input('name', placeholder='Enter name or description of location', label_visibility="collapsed")
 
-    st.subheader("location name or desc")
-    name = st.text_input('name', placeholder='Enter name or description of location', label_visibility="collapsed")
+    c11, c21 = st.columns([0.25, 1])
+    with c11:
+       st.subheader("address")
+    with c21:   
+       full_add = st.text_input('full address', placeholder='Enter Address of location', label_visibility="collapsed").strip()
 
-
-    st.subheader("location address")
-    full_add = st.text_input('full address', placeholder='Enter Address of location', label_visibility="collapsed").strip()
-    print(full_add)
-    d={}
-    if st.button('parse'):
+    if st.button('Parse'):
         apa = parse_address(full_add)            
-        print("-->", apa)
-        if apa:
-            d['street'] =  apa['full_street'] 
-            street = st.text_input("street name", value=d['street'], placeholder=d['street'])
+        st.subheader("parsed location address")
+        if apa:  
+            c1, c2, c3 , c4, c5 = st.columns([.7,.5,.3,.3,.5], gap="small")
+            d={}  
+            with c1:
+               d['street'] =  apa['full_street'] 
+               street = st.text_input("street name", value=d['street'], placeholder=d['street'],label_visibility="collapsed")
+
+            with c2:
+                d['city'] = apa['city']
+                city = st.text_input("city/ town/ village", value=d['city'], placeholder=d['city'],label_visibility="collapsed")
+      
+            with c3:    
+                d['state'] = apa['region1']
+                state = st.text_input("state/ province", value=d['state'], placeholder=d['state'],label_visibility="collapsed")
             
-            d['city'] = apa['city']
-            city = st.text_input("city/ town/ village", value=d['city'], placeholder=d['city'])
-            
-            d['state'] = apa['region1']
-            state = st.text_input("state/ province", value=d['state'], placeholder=d['state'])
-            
-            d['country'] = apa['country_id']
-            country = st.text_input("country code/ name", value=d['country'], placeholder=d['country'])
-            
-            d['postalcode'] = apa['postal_code']
-            pincode = st.text_input("pin/ zip code", value=d['postalcode'], placeholder=d['postalcode'])
+            with c4:
+                d['country'] = apa['country_id']
+                country = st.text_input("country code/ name", value=d['country'], placeholder=d['country'], label_visibility="collapsed")
+            with c5:    
+                d['postalcode'] = apa['postal_code']
+                pincode = st.text_input("pin/ zip code", value=d['postalcode'], placeholder=d['postalcode'], label_visibility="collapsed")
             
             st.session_state['p_location'] = d
             st.session_state['parse'] = not st.session_state['parse']
    
     if st.session_state['parse']:
-        if st.button('latlon'): 
+        if st.button('GetLatLon'): 
             print("+++", st.session_state["p_location"])
             fs = st.session_state["p_location"]
-            st.text_area(label="query", value=fs, placeholder=fs)
+            st.text_input(label="query", value=fs, placeholder=fs)
             ld= location_details(name=name, query=fs)
-            st.text_area(label='location details', value=ld.to_string())
+            st.text_input(label='location details', value=str(ld), placeholder=str(ld))
+            st.session_state['location'] = ld
             st.session_state['latlon'] = not st.session_state['latlon']
 
     if st.session_state['parse']:
         if st.session_state['latlon']:
             if st.button("Submit"):
-                st.session_state.location = {"nam": name, "street": street, 'city': city, 'state': state, 'country': country, 'zip code': pincode}
                 st.session_state["submit"] = not st.session_state["submit"]
                 #st.rerun()
-
+                st.session_state["parse"] = False
+                st.session_state["latlon"] = False
+                st.session_state["submit"] = False
 
 if "location" not in st.session_state:
     st.write("Add your Location details")

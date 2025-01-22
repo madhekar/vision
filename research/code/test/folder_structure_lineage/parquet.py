@@ -7,7 +7,7 @@ def define_schema():
     ('id', pa.int8()),
     ('country', pa.string()),
     ('state', pa.string()),
-    ('desc', pa.string()),
+    ('name', pa.string()),
     ('lat', pa.float64()),
     ('lon', pa.float64())
     ])
