@@ -19,8 +19,8 @@ if 'submit' not in st.session_state:
 if 'p_location' not in st.session_state:
     st.session_state['p_location'] = {}
 
-if 'location' not in st.session_state:
-     st.session_state.location = {}    
+# if 'location' not in st.session_state:
+#      st.session_state.location = {}    
 
 
 geolocator = Nominatim(user_agent="name_ofgent")
@@ -76,7 +76,7 @@ def add_location():
 
     if st.button('Parse'):
         apa = parse_address(full_add)            
-        st.subheader("parsed location address")
+        st.subheader("location")
         if apa:  
             c1, c2, c3 , c4, c5 = st.columns([.7,.5,.3,.3,.5], gap="small")
             d={}  
@@ -127,4 +127,4 @@ if "location" not in st.session_state:
         add_location()
 
 else:
-    f"Entered Location for {st.session_state.location['nam']} with street address {st.session_state.location['street']}"
+    f"Entered Location for {st.session_state.location} with street address {st.session_state.location}"
