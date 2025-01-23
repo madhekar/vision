@@ -39,29 +39,27 @@ def location_details(name, query={}):
     except Exception as e:
         pprint(f"error: geocode failed with {query} with exception {e}")
     return d
-def display_parsed_address(apa):
-    c1, c2, c3 , c4, c5 = st.columns([.8,.5,.3,.3,.4], gap="small")
-    d={}  
-    with c1:
-        d['street'] =  apa['full_street'] 
-        street = st.text_input("street", value=d['street'], placeholder=d['street'],label_visibility="collapsed")
+def display_parsed_address(apa): 
+    d={} 
+    d['street'] =  apa['full_street']
+    d['city'] = apa['city']       
+    d['state'] = apa['region1']
+    d['country'] = apa['country_id']
+    d['postalcode'] = apa['postal_code']
+    st.info(f"{d['street']} {d['city']} {d['state']} {d['country']} {d['postalcode']}")
 
-    with c2:
-        d['city'] = apa['city']
-        city = st.text_input("city", value=d['city'], placeholder=d['city'],label_visibility="collapsed")
-
-    with c3:    
-        d['state'] = apa['region1']
-        state = st.text_input("state", value=d['state'], placeholder=d['state'],label_visibility="collapsed")
-    
-    with c4:
-        d['country'] = apa['country_id']
-        country = st.text_input("country", value=d['country'], placeholder=d['country'], label_visibility="collapsed")
-    with c5:    
-        d['postalcode'] = apa['postal_code']
-        pincode = st.text_input("zipcode", value=d['postalcode'], placeholder=d['postalcode'], label_visibility="collapsed")
-    
-    st.session_state['p_location'] = d
+    # c1, c2, c3 , c4, c5 = st.columns([.8,.5,.3,.3,.4], gap="small")
+    # with c1:
+    #     #street = st.text_input("street", value=d['street'], placeholder=d['street'],label_visibility="collapsed")
+    #     st.write(f"{d['street']}")
+    # with c2:
+    #     city = st.text_input("city", value=d['city'], placeholder=d['city'],label_visibility="collapsed")
+    # with c3:    
+    #     state = st.text_input("state", value=d['state'], placeholder=d['state'],label_visibility="collapsed")
+    # with c4:
+    #     country = st.text_input("country", value=d['country'], placeholder=d['country'], label_visibility="collapsed")
+    # with c5:    
+    #     pincode = st.text_input("zipcode", value=d['postalcode'], placeholder=d['postalcode'], label_visibility="collapsed")
     return d
 
 @st.dialog("Enter location details: ")
