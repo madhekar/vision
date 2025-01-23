@@ -44,29 +44,29 @@ def parse_address(full_add):
 def set_state(i):
     st.session_state.stage = i
 
-if st.session_state.stage == 0:
-    st.button('Begin', on_click=set_state, args=[1])
+# if st.session_state.stage == 0:
+#     st.button('Begin', on_click=set_state, args=[1])
+
+if st.session_state.stage >= 0:
+    name = st.text_input('Name')
+    address = st.text_input('Address', on_change=set_state, args=[1])
 
 if st.session_state.stage >= 1:
-    name = st.text_input('Name')
-    address = st.text_input('Address', on_change=set_state, args=[2])
-
-if st.session_state.stage >= 2:
-    st.write(f'Hello {name} {address}!')
+    st.write(f'Hello {name} :: {address}!')
     pa = parse_address(address)
     st.write(pa)
     bchecked = st.checkbox(label='is correct?')
     if bchecked:
-        set_state(3)
+        set_state(1)
     # color = st.selectbox(
     #     'Pick a Color',
     #     [None, 'red', 'orange', 'green', 'blue', 'violet'],
-    #     on_change=set_state, args=[3]
+    #     on_change=set_state, args=[2]
     # )
     if pa is None:
-        set_state(2)
+        set_state(1)
 
-if st.session_state.stage >= 3:
+if st.session_state.stage >= 2:
     ld = location_details(name=name, query=pa)
     st.write(ld)
     st.write(f'Thank you!')
