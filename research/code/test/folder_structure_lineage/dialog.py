@@ -78,7 +78,7 @@ def add_location():
         apa = parse_address(full_add)            
         st.subheader("location")
         if apa:  
-            c1, c2, c3 , c4, c5 = st.columns([.7,.5,.3,.3,.5], gap="small")
+            c1, c2, c3 , c4, c5 = st.columns([9,2,1,1,2], gap="small")
             d={}  
             with c1:
                d['street'] =  apa['full_street'] 
