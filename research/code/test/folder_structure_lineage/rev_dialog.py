@@ -37,7 +37,7 @@ def location_details(name, query={}):
         d["lon"] = loc.longitude
         locs.append(d)
     except Exception as e:
-        pprint(f"error: geocode failed with {query} with exception {e}")
+        st.error(f"error: geocode failed with {query} with exception {e}", icon=":material/error:")
     return d
 def display_parsed_address(apa): 
     d={} 
@@ -46,20 +46,7 @@ def display_parsed_address(apa):
     d['state'] = apa['region1']
     d['country'] = apa['country_id']
     d['postalcode'] = apa['postal_code']
-    st.info(f"{d['street']} {d['city']} {d['state']} {d['country']} {d['postalcode']}")
-
-    # c1, c2, c3 , c4, c5 = st.columns([.8,.5,.3,.3,.4], gap="small")
-    # with c1:
-    #     #street = st.text_input("street", value=d['street'], placeholder=d['street'],label_visibility="collapsed")
-    #     st.write(f"{d['street']}")
-    # with c2:
-    #     city = st.text_input("city", value=d['city'], placeholder=d['city'],label_visibility="collapsed")
-    # with c3:    
-    #     state = st.text_input("state", value=d['state'], placeholder=d['state'],label_visibility="collapsed")
-    # with c4:
-    #     country = st.text_input("country", value=d['country'], placeholder=d['country'], label_visibility="collapsed")
-    # with c5:    
-    #     pincode = st.text_input("zipcode", value=d['postalcode'], placeholder=d['postalcode'], label_visibility="collapsed")
+    st.info(f"{d['street']} {d['city']} {d['state']} {d['country']} {d['postalcode']}", icon=":material/check:")
     return d
 
 @st.dialog("Enter location details: ")
@@ -70,17 +57,24 @@ def add_location():
         address = st.text_input('Address', on_change=set_state, args=[1])
 
     if st.session_state.stage >= 1:
-        pa = parse_address(address)
-        if pa is None:
-            set_state(1)
-        else:
-            d = display_parsed_address(pa)
-            st.text_input(label="query", value=d, placeholder=d)
-            set_state(2)
+        try:
+            pa = parse_address(address)
+            if pa is None:
+                set_state(1)
+            else:
+                d = display_parsed_address(pa)
+                st.info(f'Search Latitude and Longitude for : {name}', icon=":material/search:")
+                set_state(2)
+        except Exception as e:
+                st.error(f'Failed {e} to validate address for location: {name}', icon=":material/error:")  
 
     if st.session_state.stage >= 2:
-        ld= location_details(name=name, query=d)
-        st.text_input(label='location details', value=str(ld), placeholder=str(ld))
+        try:
+            ld= location_details(name=name, query=d)
+            st.info(f'Latitude: {str(ld["lat"])} and Longitude: {str(ld["lon"])} found for : {name}', icon=":material/done_all:")
+        except Exception as e:
+            st.error(f'Failed {e} to search latitude and longitude for location: {name}', icon=":material/error:") 
+
         c1, c2 = st.columns([1,1],gap="small")
         with c1:
             st.button('submit')
