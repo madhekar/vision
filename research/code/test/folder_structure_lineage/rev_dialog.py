@@ -39,6 +39,8 @@ def location_details(name, query={}):
     except Exception as e:
         st.error(f"error: geocode failed with {query} with exception {e}", icon=":material/error:")
     return d
+
+
 def display_parsed_address(apa): 
     d={} 
     d['street'] =  apa['full_street']
