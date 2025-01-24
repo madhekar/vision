@@ -14,7 +14,6 @@ def set_state(i):
 
 def parse_address(full_add):
     par_address = ap.parse(full_add, country="US")
-    print(par_address)
     return par_address[0].as_dict()
 
 def location_details(name, query={}):
@@ -73,7 +72,8 @@ def add_location():
     if st.session_state.stage >= 2:
         try:
             ld= location_details(name=name, query=d)
-            st.info(f'Latitude: {str(ld["lat"])} and Longitude: {str(ld["lon"])} found for : {name}', icon=":material/done_all:")
+
+            st.info(f'Latitude: {ld["lat"]:.3f} and Longitude: {ld["lon"]:.3f} found for : {name}', icon=":material/done_all:")
         except Exception as e:
             st.error(f'Failed {e} to search latitude and longitude for location: {name}', icon=":material/error:") 
 
