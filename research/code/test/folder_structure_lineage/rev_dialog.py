@@ -79,8 +79,8 @@ def add_location():
 
     else:    
         if st.session_state.stage >= 0:
-            name = st.text_input('Name')
-            address = st.text_input('Address', on_change=set_state, args=[1])
+            name = st.text_input("Name", placeholder="location name or description")
+            address = st.text_input('Address', on_change=set_state, args=[1], placeholder='100, main st, ')
 
         if st.session_state.stage >= 1:
             try:
