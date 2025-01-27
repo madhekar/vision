@@ -1,0 +1,17 @@
+name, address, country_code, state_code
+home, "13580 sage mesa road, ca, 92130", usa, ca
+hickman_elementry, "", usa, ca
+qualcomm_lusk, "6455 Lusk Blvd, San Diego, CA 92121", usa, ca
+qualcomm_morehouse, "5775 Morehouse Dr, San Diego, CA 92121", usa, ca
+kenai_fjords_tours, "1304 4th Ave, Seward, AK 99664", usa, ak
+torry_pines_sp, "", usa, ca
+torrypineshs, "", usa, ca
+torrypinessp, "", usa, ca
+
+
+shpfiles = [os.path.join(d, x)
+            for d, dirs, files in os.walk(path)
+            for x in files if x.endswith(".shp")]
+
+https://www.latlong.net/country/united-states-236.html
+
