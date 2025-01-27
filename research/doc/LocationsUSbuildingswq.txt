@@ -1,0 +1,42 @@
+Vessel, NY, USA	40.753826	-74.002228
+United States Supreme Court Building, USA	38.890591	-77.004745
+Circuit Court of Fairfax County, where Depp v. Heard Defamation Trial was held	38.844112	-77.309181
+The One Bel Air, Los Angeles, CA, USA	34.088570	-118.451790
+875 North Michigan Avenue, IL, USA	41.898773	-87.622925
+Rockefeller Center, NY, USA	40.758678	-73.978798
+United States Capitol, Washington DC, USA	38.889805	-77.009056
+Legend Valley, Thornville, Ohio, the USA	39.937778	-82.406670
+McKinley Tower, Anchorage, AK, USA	61.218887	-149.877502
+Flatiron Building, New York City, NY, USA	40.741112	-73.989723
+Fallingwater, Mill Run, Pennsylvania, US	39.906113	-79.468056
+Grand Central Terminal, New York City, NY, USA	40.752655	-73.977295
+Pier 39, San Francisco, CA, USA	37.809326	-122.409981
+Austin Public Building, Austin, TX, USA	30.269501	-97.715942
+Plaza Las Americas, Linburn, GA, USA	33.917942	-84.115555
+432 Park Ave, New York, NY, USA	40.761635	-73.971802
+One World Trade Center, NY, USA	40.712742	-74.013382
+Naval Observatory Flagstaff, AZ, USA	35.184017	-111.740417
+Botanical Research Institute of Texas, Fort Worth, TX, USA	32.742027	-97.362564
+Solero at Plantation, Plantation, FL, USA	26.122557	-80.329819
+The White House, Washington DC, USA	38.897957	-77.036560
+Madison Square Garden, NY, USA	40.750298	-73.993324
+Grandfather's House (Paul Curtis House), Medford, MS, USA	42.417587	-71.116570
+Worksource Everett, Everett, WA, USA	47.975243	-122.197578
+Chrysler Building, New York, NY, USA	40.751652	-73.975311
+Rice Shopping Center, Līhuʻe, HI, USA	21.972664	-159.366257
+Lincoln Hall, Morgantown, WV, USA	39.649422	-79.965622
+Sprint Festival Plaza, Kansas City, MO, USA	39.085587	-94.585297
+Charles/MGH, Boston, MA, USA	42.361164	-71.070625
+American Legion Huntington Post 360, Halesite, Huntington, NY, USA	40.884514	-73.419167
+Old City Hall, Sierra Madre, CA, USA	34.162239	-118.054062
+Galt House, Louisville, KY, USA	38.257908	-85.756683
+Copano Bay Fishing Pier, Fulton, TX, USA	28.113272	-97.025635
+Eagle Lake Observatory, Norwood Young America, MN, USA	44.810299	-93.939697
+Marion County Courthouse, Marion, OH, USA	40.589138	-83.128265
+Moscone Center, San Francisco, CA, USA	37.784172	-122.401558
+4-H/FFA Building, Grand Island, NE, USA	40.908585	-98.331810
+Empire State Building, New York, USA	40.748817	-73.985428
+Georgia State Capitol, GA, USA	33.748783	-84.388168
+G. C. Murphy Building, IN, USA	39.752834	-86.141190
+Indiana Statehouse, IN, USA	39.768597	-86.162682
+
