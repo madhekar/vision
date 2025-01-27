@@ -1060,6 +1060,7 @@ Dharmabad, Maharashtra, India	18.899151	77.842445
 Nandura, Maharashtra, India	20.830732	76.450523
 Amarpatan, Madhya Pradesh, India	24.317583	80.973289
 Kakrala, Uttar Pradesh, India	27.893330	79.195625
+
 Nalkheda, Madhya Pradesh, India	23.834866	76.235703
 Kangra, Himachal Pradesh, India	32.099804	76.269104
 Tikkaballi, Odisha, India	20.248075	84.352036
@@ -1698,4 +1699,571 @@ Kemri, Uttar Pradesh, India	28.800758	79.204216
 Dimili, Andhra Pradesh, India	17.512041	82.872269
 Bhikangaon, Madhya Pradesh, India	21.861500	75.941620
 Arasalu, Karnataka, India	13.998363	75.309151
-
+Malliakarai, Tamil Nadu, India	11.568932	78.499344
+Peppeganj, Uttar Pradesh, India	26.931253	83.298943
+Kala, Punjab, India	31.153849	75.825066
+Kappatralla, Andhra Pradesh, India	15.593608	77.631668
+Khirpai, West Bengal, India	22.700001	87.620003
+Pudhukulam, Tamil Nadu, India	11.439298	79.163322
+Kauria Jairam, Uttar Pradesh, India	26.276632	83.944801
+Tafazalpura, Punjab, India	31.414162	75.445404
+Tirora, Maharashtra, India	21.406832	79.930908
+Kaliyapuram, Tamil Nadu, India	10.539817	76.918831
+Milak, Uttar Pradesh, India	28.612368	79.166367
+Mirganj, Bihar, India	26.366571	84.344444
+Kauriram, Uttar Pradesh, India	26.532175	83.405373
+Badapur, Maharashtra, India	19.749256	75.717720
+Dhoki Town, Maharashtr, India	18.371246	76.104454
+Pallam, Tamil Nadu, India	8.099403	77.434181
+Chilakaluripet, Andhra Pradesh, India	16.089170	80.167221
+Mandrup, Maharashtra, India	17.494804	75.821434
+Prantij, Gujarat, India	23.436584	72.848595
+Bijapur, Chhattisgarh, India	18.791668	80.816666
+Jaleswar, Odisha, India	21.803888	87.226997
+Awan, Madhya Pradesh, India	24.408623	77.137802
+Kond, Maharashtra, India	17.043465	73.356133
+Bagalkote, Karnataka, India	16.181700	75.695801
+Seloo, Maharashtra, India	20.834999	78.709167
+Pal, Gujarat, India	22.214027	70.758972
+Puraopur, Uttar Pradesh, India	25.634541	82.164566
+Sheragada, Odisha, India	19.513845	84.605797
+Aklera, Rajasthan, India	24.420000	76.570000
+Thanipadi, Tamil Nadu, India	12.107423	78.834099
+Ropale, Maharashtra, India	17.785583	75.416992
+Melchhamunda, Odisha, India	21.089674	83.241905
+Kandabahal, Odisha, India	22.069613	84.036179
+Tumsar, Maharashtra, India	21.380840	79.745598
+Belpahar, Odisha, India	21.823406	83.850990
+Goaljan, Berhampore, West Bengal, India	24.111559	88.240036
+Kalimpong, West Bengal, India	27.066668	88.466667
+Paravalur, Tamil Nadu, India	11.529566	79.269531
+Chitlapakkam, Chennai, Tamil Nadu, India	12.932450	80.142677
+Panchbaga, West Bengal, India	23.251905	87.041191
+Mandleshwar, Madhya Pradesh, India	22.186132	75.586624
+Sillod, Maharashtra, India	20.299999	75.650002
+Khizrabad, Punjab, India	30.880478	76.657150
+Velim, Goa, India	15.157283	73.965370
+Badami Bagh Cantonment, Srinagar, Jammu and Kashmir, India	34.063259	74.859482
+Rengali Project Town, Odisha, India	21.271341	85.017319
+New Colony, Keonjhar, Odisha, India	21.638655	85.616180
+Naduvakurichi, Tamil Nadu, India	8.740818	77.795265
+Chitri, Odisha, India	21.105305	86.018532
+Nunna, Andhra Pradesh, India	16.576286	80.685402
+Bale, Maharashtra, India	17.699858	75.878082
+Bilsi, Uttar Pradesh, India	28.130129	78.910500
+Saifai, Uttar Pradesh, India	26.956867	78.968414
+Kasara Budruk, Maharashtra, India	19.644302	73.474976
+Kottakkal, Kerala, India	11.000112	75.998833
+Kalwa, Thane, Maharashtra, India	19.194386	72.999199
+Fagane, Dhule, Maharashtra, India	20.889898	74.837555
+Chinnaganjam, Andhra Pradesh, India	15.698071	80.237709
+Koorikuzhi, Kerala, India	10.341602	76.128174
+Methala, Kerala, India	10.204638	76.195763
+Jayant, Madhya Pradesh, India	24.145815	82.636971
+Galag, Karnataka, India	16.267908	76.837540
+Gogipeth, Karnataka, India	16.735277	76.744164
+Pamidi, Andhra Pradesh, India	14.952117	77.594795
+Sankha Nagar, Chak Bansberia, West Bengal, India	22.973715	88.390694
+Mahud, Maharashtra, India	17.609299	75.097794
+Mendhapur, Maharashtra, India	17.794052	75.357246
+Sadgaon, Maharashtra, India	20.816778	74.653656
+Hebri, Karnataka, India	13.458760	74.992470
+Niphad, Maharashtra, India	20.079966	74.109314
+Gurram Konda, Andhra Pradesh, India	13.779373	78.587379
+Biswan, Uttar Pradesh, India	27.493757	80.996483
+Thol, Haryana, India	30.166519	76.709602
+Mehli, Punjab, India	31.211040	75.814377
+Kolakaluru, Andhra Pradesh, India	16.303612	80.617226
+Amboli, Maharashtra, India	15.962500	73.997780
+Tikri, Gurgaon, Haryana, India	28.420000	77.036110
+Madathukulam, Tamil Nadu, India	10.559584	77.365463
+Ajeetgarh, Rajasthan, India	27.420864	75.818214
+Chhajli, Punjab, India	30.032778	75.828888
+Ojhar, Maharashtra, India	20.093288	73.926414
+Guduvancherry, Tamil Nadu, India	12.844101	80.064995
+Thammampatti, Tamil Nadu, India	11.444725	78.485847
+Aoras, Uttar Pradesh, India	26.917870	80.504944
+Shambunipet, Warangal, Telangana, India	17.949709	79.599442
+Bhildi, Gujarat, India	24.195410	72.027145
+Vavdi, Rajkot, Gujarat, India	22.230988	70.797127
+Sembanarkoil, Tamil Nadu, India	11.107746	79.742790
+Thirumudivakkam, Tamil Nadu, India	12.969946	80.089806
+Nakodar, Punjab, India	31.127020	75.481773
+Uppalapadu, Andhra Pradesh, India	16.076809	80.233528
+Bandikui, Rajasthan, India	27.044718	76.569054
+Palus, Maharashtra, India	17.098709	74.449753
+Ganwadi, Uttar Pradesh, India	28.886766	77.593346
+Shahzadpur, Haryana, India	30.446484	77.033943
+Jiaganj, West Bengal, India	24.244104	88.268021
+Varca, Goa, India	15.232366	73.943115
+Benaulim, Goa, India	15.250526	73.920891
+Alappuzha, Kerala, India	9.498067	76.338844
+Mandraud, Chhattisgarh, India	20.810740	81.773712
+Goindwal Sahib, Punjab, India	31.365051	75.136154
+Balachaur, Punjab, India	31.057878	76.300041
+Bulandpur, Jalandhar, Punjab, India	31.376244	75.593163
+Nahal, Punjab, India	31.452112	75.709892
+Deoband, Uttar Pradesh, India	29.700001	77.680000
+Samrala, Punjab, India	30.835669	76.191025
+Petlawad, Madhya Pradesh, India	23.012297	74.796608
+Ponkh, Rajasthan, India	27.836967	75.614990
+Peth, Maharashtra, India	18.930258	73.925163
+Lohegaon, Pune, Maharashtra, India	18.596024	73.924698
+Ormaura, Uttar Pradesh, India	24.663956	83.060303
+Khair, Uttar Pradesh, India	27.939196	77.842445
+Sahnewal, Ludhiana, Punjab, India	30.844801	75.975800
+Sonipat, Haryana, India	28.928774	77.091278
+Gopiganj, Uttar Pradesh, India	25.285719	82.432869
+Vengola, Kerala, India	10.082000	76.467003
+Sugauli, Bihar, India	26.764004	84.738235
+Todabhim, Rajasthan, India	26.916700	76.816704
+Tupran, Telangana, India	17.844292	78.478035
+Chhokarwara Kalan, Rajasthan, India	27.099476	77.064972
+Marriguda, Nalgonda, Telangana, India	17.090834	79.249619
+Shinoli, Maharashtra, India	15.862899	74.396866
+Rasra, Uttar Pradesh, India	25.859106	83.855469
+Fulchur Tola, Maharashtra, India	21.435078	80.215469
+Doraha, Punjab, India	30.803919	76.033386
+Ter, Maharashtra, India	18.321800	76.142143
+Sakharkherda, Maharashtra, India	20.202019	76.398643
+Peravali, Andhra Pradesh, India	16.752501	81.741669
+Kheda, Gujarat, India	22.750650	72.684669
+Choma, Haryana, India	28.516537	77.030540
+Rayappanur, Tamil Nadu, India	11.605662	78.813667
+Manki, Karnataka, India	14.188768	74.484802
+Kaman, Rajasthan, India	27.656761	77.269005
+Deeg, Rajasthan, India	27.472399	77.324974
+Turkapally, Telangana, India	17.670841	78.602989
+Makkapeta, Andhra Pradesh, India	16.925962	80.189598
+Behror, Rajasthan, India	27.879993	76.279999
+Aluva, Kerala, India	10.107796	76.350693
+Paonta Sahib, Himachal Pradesh, India	30.450001	77.620003
+Kotwa Kala, Uttar Pradesh, India	27.072098	83.860558
+Annaram, Telangana, India	17.632570	78.378868
+Turbhe, Maharashtra, India	19.108110	73.090698
+Lutukurru, Andhra Pradesh, India	16.491888	81.935066
+Yanam, Puducherry, India	16.733334	82.216667
+Sariya, Jharkhand, India	24.174795	85.887634
+Alakkad, Kerala, India	12.154406	75.250824
+Aranthangi, Tamil Nadu, India	10.163100	78.996201
+Susner, Madhya Pradesh, India	23.942810	76.100098
+Jairampur, Arunachal Pradesh, India	27.351110	96.015831
+Karimpur, West Bengal, India	23.966667	88.616669
+Wakad, Maharashtra, India	20.046255	76.693497
+Amod, Gujarat, India	22.000000	72.870003
+Ukarda, Gujarat, India	22.477962	70.649193
+Rehli, Madhya Pradesh, India	23.639891	79.065498
+Sagwara, Rajasthan, India	23.680000	74.019997
+Chandauli, Uttar Pradesh, India	25.260456	83.266266
+Malkangiri, Odisha, India	18.343586	81.882530
+Belan Baraudha, Uttar Pradesh, India	24.955267	82.258736
+Mulkalapally, Telangana, India	17.506903	80.835014
+Ajivali, Maharashtra, India	18.955776	73.168884
+Alsisar, Rajasthan, India	28.306725	75.287277
+Gorantla, Andhra Pradesh, India	13.983799	77.772324
+Ikauna, Uttar Pradesh, India	27.531500	81.967117
+Mehgaon, Madhya Pradesh, India	26.496389	78.613609
+Parvathipuram, Andhra Pradesh, India	18.781715	83.426750
+Kakarwal, Punjab, India	30.369202	75.834511
+Kedar, Tamil Nadu, India	12.008346	79.404274
+Farakka, West Bengal, India	24.797600	87.914299
+Yellareddy, Telangana, India	18.185894	78.021202
+Belur, Tamil Nadu, India	11.708082	78.411240
+Bolbolla, Assam, India	26.081493	90.606209
+Srisailam, Andhra Pradesh, India	16.073275	78.868729
+Natham, Tamil Nadu, India	10.224932	78.231796
+Deola, Maharashtra, India	20.460423	74.182892
+Budanpur, Panchkula Urban Estate, Haryana, India	30.690777	76.828529
+Madhavnagar, Sangli, Maharashtra, India	16.892214	74.588058
+Harot Kot, Jammu and Kshmir, India	33.084305	74.879951
+Gulwanch, Maharashtra, India	19.885828	74.090225
+Baner, Pune, Maharashtra, India	18.559658	73.779938
+Bikrampur, West Bengal, India	23.641472	88.348221
+Bhabaniprasad, West Bengal, India	26.047953	89.510826
+Kukana, Maharashtra, India	19.434975	75.070602
+Chobari, Gujarat, India	22.268288	71.210114
+Leh, Ladakh, India	34.152588	77.577049
+Gaadhi, Uttar Pradesh, India	28.997332	77.279305
+Jaitaran, Rajasthan, India	26.201229	73.939491
+Eriyodu, Tamil Nadu, India	10.510865	78.059486
+Pargi, Telangana, India	17.176582	77.876747
+Ramkola, Uttar Pradesh, India	26.900000	83.839996
+Laxmipuram, Telangana, India	17.172268	80.121223
+Yellapura, Karnataka, India	14.964311	74.712074
+Pandavapura, Karnataka, India	12.492862	76.664284
+Pasara, Telangana, India	18.193851	80.166580
+Rangapur, Telangana, India	16.171949	77.966728
+Panoor, Kerala, India	11.759342	75.578522
+Majholi, Madhya Pradesh, India	23.500000	79.919998
+Mahendragarh, Haryana, India	28.268347	76.150932
+Daaur Nagar, Maharashtra, India	18.871811	72.939415
+Mammigatti, Karnataka, India	15.507638	74.944992
+Anjugramam, Tamil Nadu, India	8.157288	77.577377
+Kattuvilai, Tamil Nadu, India	8.158933	77.336746
+Kalpakkam, Tamil Nadu, India	12.523812	80.156815
+Piparcity, Rajasthan, India	26.385599	73.537804
+Vadgam, Gujarat, India	24.073397	72.492378
+Cherpoli, Maharashtra, India	19.470055	73.326653
+Risod, Maharashtra, India	19.974680	76.783058
+Neem Ka Thana, Rajasthan, India	27.738001	75.782997
+Vaniputhur, Tamil Nadu, India	11.507423	77.363083
+Aralehalli, Karnataka, India	13.894048	75.748055
+Seloo, Maharashtra, India	20.834999	78.709167
+Jasra, Uttar Pradesh, India	25.281691	81.776649
+Palghar, Maharashtra, India	19.697107	72.763725
+Bhachau, Gujarat, India	23.293039	70.339043
+Vontimitta, Andhra Pradesh, India	14.394819	79.026367
+Pirangut, Maharashtra, India	18.511477	73.680107
+Thirunageswaram, Tamil Nadu, India	10.965292	79.428749
+Nirtoo, Chhattisgarh, India	22.160702	82.111511
+Belmundi, Chhattisgarh, India	22.049376	82.059097
+Mandapakala, Andhra Pradesh, India	15.980925	80.998161
+Dindori, Madhya Pradesh, India	22.941793	81.076843
+Deoria, Uttar Pradesh, India	26.500000	83.779999
+Kongadai, Tamil Nadu, India	11.699917	77.461594
+Kovur, Andhra Pradesh, India	14.501208	79.988129
+Gunderdehi, Chhattisgarh, India	20.946711	81.291512
+Jangaon, Telangana, India	17.721872	79.172287
+Singaram, Telangana, India	17.892527	79.588440
+Charai, Thane West, Thane, Maharashtra, India	19.198542	72.974846
+Perumalpattu, Tamil Nadu, India	13.096199	79.985275
+Kulithalai, Tamil Nadu, India	10.937347	78.421188
+Niphan, Maharashtra, India	18.800913	73.298653
+Neemrana, Rajasthan, India	27.988890	76.388336
+Kaikaluru, Andhra Pradesh, India	16.552723	81.212936
+Narmetta, Telangana, India	17.886110	79.161110
+Panamanna, Kerala, India	10.807178	76.349258
+Perambalur, Tamil Nadu, India	11.230000	78.879997
+Mominpet, Telangana, India	17.516390	77.898056
+Sadashivpet, Telangana, India	17.616699	77.949997
+Phulera, Rajasthan, India	26.870001	75.230003
+Gandhidham, Gujarat, India	23.079100	70.140152
+Nathdwara, Rajasthan, India	24.929140	73.821320
+Kajupada, Sakinaka, Mumbai, Maharashtra, India	19.089664	72.886375
+Sindri, Jharkhand, India	22.806580	85.993019
+Paravadi, Gujarat, India	21.570572	71.630127
+Gariyadhar, Gujarat, India	21.540594	71.571121
+Kilmuttukur, Tamil Nadu, India	13.002720	79.002342
+Thirukoilure, Tamil Nadu, India	11.968712	79.208664
+Mannur, Kerala, India	10.803616	76.469254
+Sethupet, Puducherry, India	12.844775	79.899612
+Gyanpur, Uttar Pradesh, India	25.343454	82.477982
+Bansi, Uttar Pradesh, India	24.861198	78.479454
+Hooghly, West Bengal, India	22.900000	88.389999
+Indora, Himachal Pradesh, India	32.134632	75.689171
+Nuzividu, Andhra Pradesh, India	16.780001	80.849998
+Lormi, Chhattisgarh, India	22.275379	81.701759
+Bhadal, Maharashtra, India	22.003302	74.434975
+Bajaura, Himachal Pradesh, India	31.848402	77.164337
+Lohardaga, Jharkhand, India	23.430000	84.680000
+Powayan, Uttar Pradesh, India	28.066668	80.099998
+Chapar, Assam, India	26.274075	90.443161
+Jaykaypur, Odisha, India	19.250996	83.413651
+Bhor, Maharashtra, India	18.145821	73.842987
+Sultanpur Lodhi, Punjab, India	31.213179	75.198502
+Badlapur, Maharashtra, India	19.166784	73.236794
+Sarsehri, Haryana, India	30.346159	76.881187
+Mau Ranipur, Uttar Pradesh, India	25.243217	79.137917
+Parasurampura, Karnataka, India	14.259382	76.882187
+Tala, Maharashtra, India	18.439386	73.132011
+Kudligi, Karnataka, India	14.905008	76.383987
+Kotturu, Karnataka, India	14.817000	76.217003
+Tharike, Punjab, India	30.877619	75.774223
+Garhbeta, West Bengal, India	22.860001	87.360001
+Wankaner, Gujarat, India	22.623518	70.969620
+Ojhar, Maharashtra, India	20.091940	73.931915
+Kanker, Chhattisgarh, India	20.270000	81.489998
+Kondagaon, Chhattisgarh, India	19.600000	81.669998
+Simga, Chhattisgarh, India	21.629999	81.699997
+Dantewada, Chhattisgarh, India	18.900764	81.345177
+Geedam, Chhattisgarh, India	18.973896	81.399094
+Takhatpur, Chhattisgarh, India	22.137691	81.869820
+Koonimedu, Tamil Nadu, India	12.085485	79.892403
+Gulothi, Uttar Pradesh, India	28.593189	77.792557
+Khedbrahma, Gujarat, India	24.028334	73.041389
+Lunawada, Gujarat, India	23.133257	73.616074
+Edneer, Kerala, India	12.523333	75.073891
+Tarapur, Maharashtra, India	19.865877	72.684647
+Uran, Maharashtra, India	18.877235	72.928337
+Nabapally, Kolkata, West Bengal, India	22.727411	88.466660
+Meenambakkam, Chennai, Tamil Nadu, India	12.988166	80.176506
+Ettaiyapuram, Tamil Nadu, India	9.147088	77.999557
+Vilathikulam, Tamil Nadu, India	9.131585	78.164581
+Deulgaon Raja, Maharashtra, India	20.016666	76.033333
+Kushalnagar, Karnataka, India	12.467000	75.967003
+Jogiabari, Uttar Pradesh, India	27.343966	83.369591
+Gadra Road, Rajasthan, India	25.743795	70.641296
+Sullurupeta, Andhra Pradesh, India	13.702150	80.018074
+Hindoli, Rajasthan, India	25.574915	75.501465
+Nogama Rajasthan, India	25.013222	73.903648
+Sonwada, Gujarat, India	20.695265	72.976173
+Tarbhon, Gujarat, India	21.020115	73.059715
+Astgam, Gujarat, India	20.901695	73.030197
+Abrama, Gujarat, India	20.597246	72.943108
+Boriyach, Gujarat, India	20.882872	73.050499
+Gandevi, Gujarat, India	20.807676	72.999199
+Dhamdachha, Gujarat, India	20.821787	72.974846
+Kachholi, Gujarat, India	20.839472	72.976028
+Salekasa, Maharashtra, India	21.307926	80.486526
+Lalru, Punjab, India	30.493650	76.800613
+Ambasamudram, Tamil Nadu, India	8.700000	77.470001
+Keonjhar, Odisha, India	21.628933	85.581688
+Peth Vadgaon, Vadgaon Kasba, Maharashtra, India	16.837532	74.314018
+Dattawadi, Nagpur, Maharashtra, India	21.158640	78.988091
+Amer, Jaipur, Rajasthan, India	26.996471	75.876472
+Tarabganj, Uttar Pradesh, India	26.947475	81.994057
+Koregaon, Maharashtra, India	17.696634	74.160721
+Ruksin, Arunachal Pradesh, India	27.845148	95.247345
+Barang, Odisha, India	20.394987	85.853745
+Hupari, Maharashtra, India	16.619398	74.400925
+Hirehal, Karnataka, India	15.798352	75.763313
+Ayyur, Tamil Nadu, India	10.072212	78.080879
+Pipili, Odisha, India	20.120001	85.830002
+Kodumur, Andhra Pradesh, India	15.686007	77.770958
+Champawat, Uttarakhand, India	29.336098	80.091026
+Chikka Tirupathi, Karnataka, India	12.896745	77.866745
+Olarikkara, Thrissur, Kerala, India	10.525576	76.171127
+Arimbur, Kerala, India	10.487563	76.149391
+Belapur, Maharashtra, India	19.574869	74.645897
+Telsang, Karnataka, India	16.790951	75.338303
+Punnainallur, Tamil Nadu, India	10.783909	79.201408
+Kichha, Uttarakhand, India	28.920000	79.500000
+Vallioor, Tamil Nadu, India	8.385437	77.607224
+Mandsaur, Madhya Pradesh, India	24.076836	75.069298
+Ghatkopar East, Mumbai, Maharashtra, India	19.078505	72.907166
+Khirkiya, Madhya Pradesh, India	22.166668	76.861664
+Hadgaon, Maharashtra, India	19.500000	77.669998
+Purana Bazar, Dimapur, Nagaland, India	25.913431	93.749596
+Hadapsar, Pune, Maharashtra, India	18.496668	73.941666
+Kakandi, Maharashtra, India	19.070814	77.369049
+Rahuri, Maharashtra, India	19.392677	74.648827
+Dharur, Maharashtra, India	18.819164	76.109657
+Mulund East, Mumbai, Maharashtra, India	19.175547	72.972099
+Harsh Hagar, Nanded, Maharashtra, India	19.164721	77.323830
+Lakhala, Washim, Maharashtra, India	20.107927	77.116875
+Nagaram, Andhra Pradesh, India	16.002256	80.717926
+Bagayam, Vellore, Tamil Nadu, India	12.871807	79.126633
+Ramban, Jammu and Kashmir, India	33.242134	75.233688
+Kada, Maharashtra, India	18.896109	75.081558
+Mahabaleshwar, Maharashtra, India	17.921721	73.655602
+Mirpur, West Bengal, India	22.709332	88.311783
+Ekangar Sarai, Bihar, India	25.216667	85.233330
+Rangpar, Gujarat, India	22.915964	70.901176
+Anuppur, Madhya Pradesh, India	23.113655	81.697632
+Gulabpura, Rajasthan, India	25.906300	74.657997
+Machalgaon, Madhya Pradesh, India	21.920547	75.750961
+Mathurawala, Rajasthan, India	26.740929	75.875183
+Jwalapur, Uttarakhand, India	29.927059	78.107979
+Jagatpura, Jaipur, Rajasthan, India	26.835251	75.824341
+Uttar Mohammadpur, West Bengal, India	24.644688	87.976357
+Kharora, Chhattisgarh, India	21.405842	81.926201
+Hiwara, Maharashtra, India	21.491049	80.160072
+Yelburga, Karnataka, India	15.614151	76.013077
+Duggirala, Andhra Pradesh, India	16.327999	80.624298
+Nebua Naurangia, Uttar Pradesh, India	27.039949	83.896332
+Ambivali, Maharashtra, India	18.849728	73.231194
+Malad West, Mumbai, Maharashtra, India	19.182755	72.840157
+Bhankrota, Jaipur, Rajasthan, India	26.871458	75.695869
+Nerul, Goa, India	15.504928	73.791908
+Warvandi, Maharashtra, India	20.078505	73.829842
+Morinda, Punjab, India	30.804373	76.497116
+Sattur, Tamil Nadu, India	9.364420	77.911034
+Ashiana, Lucknow, Uttar Pradesh, India	26.784594	80.918007
+Howly, Assam, India	26.423220	90.980072
+Heerawala, Jaipur, Rajasthan, India	26.889006	75.732536
+Jhotwara, Jaipur, Rajasthan, India	26.958302	75.743347
+Yelahanka, Bangalore, Karnataka, India	13.107568	77.571198
+Rajgarh, Madhya Pradesh, India	24.007881	76.727882
+Nahur, Mumbai, Maharashtra, India	19.154659	72.946655
+Surnana, Rajasthan, India	28.448343	73.697769
+Mahlan, Punjab, India	30.154301	75.896965
+Odhav, Ahmedabad, Gujarat, India	23.021582	72.668335
+Mogra Khurd, Rajasthan, India	26.142004	73.052338
+Kherado, Alwar, Rajasthan, India	27.542675	76.649033
+Alibag, Maharashtra, India	18.656654	72.879868
+Bandala, Punjab, India	31.533333	74.983330
+Bommanahalli, Bengaluru, Karnataka, India	12.899162	77.616859
+Manihari, Bihar, India	25.346062	87.622681
+Nagina, Uttar Pradesh, India	29.442640	78.432663
+Kolluru, Andhra Pradesh, India	16.184816	80.796249
+Chhauchh, Uttar Pradesh, India	27.933754	80.756210
+Shivajinagar, Maharashtra, India	20.117840	79.029121
+Tonk, Jaipur, Rajasthan, India	26.229376	75.780945
+Kalwara, Rajasthan, India	26.801395	75.629539
+Tingachiya, Katihar, Bihar, India	25.527443	87.576660
+Kadwa, Katihar, Bihar, India	25.537802	87.571083
+Sunkadakatte, Bangalore, Karnataka, India	12.987730	77.503304
+Jamb, Maharashtra, India	20.618647	78.923721
+Pandaul, Bihar, India	26.256634	86.083565
+Hukkeri, Karnataka, India	16.230000	74.599998
+Talera, Rajasthan, India	25.314676	75.735832
+Kerakat, Uttar Pradesh, India	25.637812	82.911415
+Lasudia Mori, Madhya Pradesh, India	22.790840	75.894058
+Sarwadi, Maharashtra, India	21.149836	78.281364
+Vazhapadi, Tamil Nadu, India	11.656012	78.404129
+Surmi, Haryana, India	30.010485	76.678810
+Khalghat, Madhya Pradesh, India	22.157339	75.446053
+Tikamgarh, Madhya Pradesh, India	24.756807	78.839264
+Datia, Madhya Pradesh, India	25.665674	78.458366
+Adada, Gujarat, India	20.905323	72.966728
+Bhanpuri, Chhattisgarh, India	21.295771	81.635017
+Paipad, Kerala, India	9.426032	76.584579
+Ombare, Maharashtra, India	17.875526	75.182938
+Dhamane, Karnataka, India	15.797209	74.545502
+Pargaon, Maharashtra, India	18.559761	74.373405
+Bapatla, Andhra Pradesh, India	15.896622	80.460434
+Kambarasampettai, Tamil Nadu, India	10.854418	78.666916
+Deolali, Maharashtra, India	19.906166	73.824265
+Mauda, Maharashtra, India	21.149345	79.400337
+Umred, Maharashtra, India	20.861378	79.317856
+Palakollu, Andhra Pradesh, India	16.517454	81.725342
+Shirur, Maharashtra, India	18.825888	74.379272
+Tamia, Madhya Pradesh, India	22.346266	78.666916
+Parasia, Madhya Pradesh, India	22.196306	78.754807
+Shakti Nagar, Uttar Pradesh, India	26.880123	80.968040
+Shajapur, Madhya Pradesh, India	23.433300	76.266701
+Naidupeta, Andhra Pradesh, India	13.909954	79.894081
+Sunel, Rajasthan, India	24.371576	75.958229
+Lawspet, Tamil Nadu, India	11.953014	79.809669
+Manglaya Sadak, Madhya Pradesh, India	22.814795	75.935097
+Mundra, Gujarat, India	22.839520	69.721329
+Sarthebari, Assam, India	26.374645	91.228065
+Jamkhed, Maharashtra, India	18.738010	75.312065
+Modavalasa, Andhra Pradesh, India	17.994177	83.417656
+Diwon, Meghalaya, India	25.960135	92.019363
+Umsning, Meghalaya, India	25.752899	91.894455
+Nongpoh, Meghalaya, India	25.871471	91.828011
+Karamadai, Tamil Nadu, India	11.238106	76.961426
+Kavandapadi, Tamil Nadu, India	11.427423	77.558159
+Malab, Haryana, India	28.038652	77.011581
+Nedumkandam, Kerala, India	9.832214	77.148056
+Maharajganj, Uttar Pradesh, India	27.144604	83.562172
+Kunariya, Gujarat, India	23.404024	69.711685
+Madikeri, Karnataka, India	12.427189	75.747643
+Siwani, Haryana, India	28.909611	75.607224
+Epuru, Telangana, India	17.200855	78.988914
+Sri Vijaynagar, Rajasthan, India	29.241426	73.517815
+Manapparai, Tamil Nadu, India	10.622817	78.447189
+Belonia, Tripura, India	23.248976	91.463005
+Nagrota, Jammu and Kashmir, India	32.786697	74.896889
+Parakkai, Tamil Nadu, India	8.136897	77.452156
+Raja Sansi, Punjab, India	31.724501	74.786003
+Omalur, Tamil Nadu, India	11.743666	78.047585
+Cumbum, Tamil Nadu, India	9.734426	77.280739
+Bellampalli, Telangana, India	19.071556	79.491173
+Sangli, Maharashtra, India	16.867634	74.570389
+Bherunda, Rajasthan, India	26.648897	74.415924
+Kalayanthani, Kerala, India	9.872240	76.784142
+Tadkeshwar, Gujarat, India	21.370310	73.055283
+Chandwad, Maharashtra, India	20.327127	74.247276
+Dighi, Maharashtra, India	18.612291	73.877190
+Ner Chowk, Himachal Pradesh, India	31.608522	76.915329
+Samaguri, Assam, India	26.416374	92.841507
+Kalayarkoil, Tamil Nadu, India	9.847098	78.644943
+Kundam, Madhya Pradesh, India	23.223679	80.357437
+Tankara, Gujarat, India	22.655312	70.748070
+Badagaon, Madhya Pradesh, India	24.560053	79.007996
+Badagaon, Madhya Pradesh, India	24.560053	79.007996
+Ghatampur, Uttar Pradesh, India	26.147612	80.170769
+Malvan, Maharashtra, India	16.066700	73.466698
+Alamathi, Tamil Nadu, India	13.204456	80.115791
+Annur, Tamil Nadu, India	11.232017	77.106804
+Masrakh, Bihar, India	26.170807	84.757957
+Mohra, Haryana, India	30.271942	76.851913
+Belaganj, Bihar, India	24.969500	84.972191
+Samudrapur, Maharashtra, India	20.638462	78.961349
+Dabra, Madhya Pradesh, India	25.890745	78.332451
+Uttar Kamakhyaguri, West Bengal, India	26.481636	89.732895
+Sithio, Jharkhand, India	23.397568	84.718498
+Mall Colony, Hisar, Haryana, India	29.124165	75.724068
+Chandipur, Odisha, India	21.439861	87.014946
+Chowk, Uttar Pradesh, India	26.863905	80.902802
+Digod, Rajasthan, India	25.217220	76.079803
+Majhauli, Madhya Pradesh, India	24.132593	81.625786
+Tirur, Kerala, India	10.914627	75.922096
+Neelankarai, Tamil Nadu, India	12.949282	80.255013
+Hamirpur, Himachal Pradesh, India	31.690783	76.517715
+Vadalur, Tamil Nadu, India	11.560762	79.556976
+Vasudevanallur, Tamil Nadu, India	9.241568	77.411812
+Lehragaga, Punjab, India	29.940655	75.817337
+Jagatdal, West Bengal, India	22.858776	88.406120
+Chandbali, Odisha, India	20.772806	86.748734
+Veppambaattu, Tamil Nadu, India	13.123146	80.003181
+Sathyamangalam, Tamil Nadu, India	11.504776	77.238396
+Nambiyur, Tamil Nadu, India	11.359291	77.318085
+Ghatampur, Uttar Pradesh, India	26.164066	80.170670
+Udayamperoor, Kerala, India	9.900539	76.367851
+Shri Dungargarh, Rajasthan, India	28.095087	73.994835
+Rajgarh, Rajasthan, India	28.664082	75.380630
+Ettaiyapuram, Tamil Nadu, India	9.144130	78.000870
+Nagar, Rajasthan, India	26.463915	75.202690
+Udumalaipettai, Tamil Nadu, India	10.583300	77.250000
+Sriperumbudur, Tamil Nadu, India	12.973780	79.941330
+Barrackpore, West Bengal, India	22.760195	88.371101
+Harda, Madhya Pradesh, India	22.356426	77.102737
+Raghunatpur, Bihar, India	25.562750	84.303596
+Madambakkam, Tamil Nadu, India	12.903286	80.154846
+Yeola, Maharashtra, India	20.049480	74.486618
+Uniara, Rajasthan, India	25.915607	76.026749
+Sirhind, Punjab, India	30.643820	76.394119
+Degana, Rajasthan, India	26.891455	74.324570
+Manwath, Maharashtra, India	19.299999	76.500000
+Gargoti, Maharashtra, India	16.317434	74.138680
+Kabbur, Karnataka, India	16.348751	74.726395
+Partur, Maharashtra, India	19.595484	76.211067
+Thopramkudy, Kerala, India	9.881454	77.053566
+Mohol, Maharashtra, India	17.807533	75.642410
+Ahmadpur, Maharashtra, India	18.706741	76.934166
+Sarangpur, Madhya Pradesh, India	23.570280	76.476173
+Mandi Gobindgarh, Punjab, India	30.682802	76.294212
+Bijeypur, Madhya Pradesh, India	26.053829	77.369049
+Aron, Madhya Pradesh, India	24.381914	77.417145
+Khodad, Maharashtra, India	19.082964	74.047638
+Indapur, Maharashtra, India	18.117140	75.023918
+Ambegaon, Maharashtra, India	19.112316	73.730133
+Pimpri, Maharashtra, India	18.626076	73.812157
+Gargoti, Maharashtra, India	16.318493	74.139343
+Neknoor, Maharashtra, India	18.808493	75.781464
+Kuppam, Andhra Pradesh, India	12.748186	78.346085
+Nangal, Punjab, India	31.385296	76.374893
+Behat, Uttar Pradesh, India	30.177185	77.620468
+Chilkana Sultanpur, Uttar Pradesh, India	30.080978	77.511978
+Zamania, Uttar Pradesh, India	25.420465	83.557487
+Anchuthengu, Kerala, India	8.675045	76.758644
+Sivakasi, Tamil Nadu, India	9.453126	77.807236
+Jaikheda, Maharashtra, India	20.794874	74.210030
+Athani, Karnataka, India	16.724083	75.063843
+Tadepalli, Andhra Pradesh, India	16.481112	80.617958
+Arachalur, Tamil Nadu, India	11.173687	77.698059
+Sidhauli, Uttar Pradesh, India	27.285755	80.837402
+Domjur, West Bengal, India	22.636511	88.224335
+Jaipatna, Odisha, India	19.482777	82.806702
+Andul, West Bengal, India	22.583170	88.237656
+Argari, West Bengal, India	22.587601	88.226173
+Andul, West Bengal, India	22.594397	88.242661
+Augustmuni, Uttarakhand, India	30.396349	79.028946
+Thoppur, Tamil Nadu, India	11.941996	78.054291
+Bethuadahari, West Bengal, India	23.611435	88.383362
+Raipur, Uttarakhand, India	30.316700	78.099998
+Sahaspur, Uttarakhand, India	30.391933	77.808746
+Srikalahasti, Andhra Pradesh, India	13.752690	79.703758
+Kumbalgodu, Karnataka, India	12.879166	77.446449
+Tarapur, Bihar, India	25.095316	86.664940
+Dabgram, West Bengal, India	26.691944	88.451271
+Khushal Garh, Uttar Pradesh, India.	25.761093	82.071259
+Partur, Maharashtra, India	19.598930	76.215424
+Gannavaram, Andhra Pradesh, India	16.538591	80.798218
+Domjur, West Bengal, India	22.638571	88.220474
+Nibra, West Bengal, India	22.600521	88.269539
+Sohagpur, Madhya Pradesh, India	22.700979	78.197548
+Okha, Gujarat, India	22.468702	69.069824
+Alibag, Maharashtra, India	18.651125	72.868279
+Sukdal, India	23.398539	87.542648
+Julana, Haryana, India	29.121574	76.397720
+Khalapur, Maharashtra, India	18.834003	73.288712
+Sedam, Karnataka, India	17.179991	77.275368
+Egra, West Bengal, India	21.900526	87.538078
+Thirunallar, India	10.930677	79.787643
+Unjha, India	23.804337	72.393677
+Nala Sopara, Maharashtra, India	19.432278	72.774300
+Urmar Tanda, Punjab, India	31.678074	75.638641
