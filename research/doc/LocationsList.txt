@@ -4,5 +4,8 @@ Kenai Fjords National Park  1304 W. Fourth Ave Seward AK US 99664
 Anchorage International Airport 5000 W International Airport Rd, Anchorage, AK 99502
 
 India
-sadashiv gad Hajarmachi, Karad,Maharashtra 415105
-sighgad fort Sinhagad Ghat Rd, Khadakwasala, Pune 411025
+sadashiv gad Hajarmachi, Karad,Maharashtra 415105 (17.305214, 74.236286)
+sadashiv vidya mandir, Karad,Maharashtra 415105 (17.248482, 74.216045)
+759/64-65, Prabhat road, Deccan Gymkhana, Pune, Maharashtra - 411004 
+sighgad fort Sinhagad Ghat Rd, Khadakwasala, Pune 411025 (18.406413, 73.768134)
+
