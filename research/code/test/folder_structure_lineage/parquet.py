@@ -1,6 +1,7 @@
 import pyarrow as pa
 import pyarrow.parquet as pq
 import pandas as pd
+import os
 
 def define_schema():
     static_location_schema = pa.schema([
@@ -23,10 +24,16 @@ def create_default_location(schema):
     except Exception as e:
        print(f'failed with exception: {e}')
 
+   
 def read_parquet_file():
    df = pd.read_parquet('pqt/')
-   print(df.head())
+   return df
 
+def append_locations(path='pqt', file_name='default-locations.parquet', df):
+   df.to_parquet(os.path.join(path, file_name), engine="pyarrow", mode="append")
+
+   
+   
 def get_all_loc_by_country(country):
    df = pd.read_parquet('pqt/')   
    print(df[df['country'] == country])
