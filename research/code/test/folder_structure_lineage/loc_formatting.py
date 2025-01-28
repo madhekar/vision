@@ -1,4 +1,5 @@
 import pandas as pd
+import country_converter as coco
 
 # df = pd.read_csv('locations-US-buildings.csv', header=None, sep=",", names=range(7))
 # print(df)
@@ -14,5 +15,7 @@ with open("locations-US-buildings.csv", 'r') as temp_f:
         f_arr.append(arr_)    
         print(arr_)  
     df = pd.DataFrame(f_arr, columns=['name', 'state', 'country', 'latitude', 'longitude'])    
+    cc = coco.CountryConverter()
+    df["iso2"] = cc.pandas_convert(series=df["country"], to="ISO2")
     print(df)
         #col_count = [ l if len(l.split(",")) == 5 else  for l in temp_f.readlines() ]
