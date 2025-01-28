@@ -1,21 +1,20 @@
 import pandas as pd
 import country_converter as coco
+import us_states as ust
 
-# df = pd.read_csv('locations-US-buildings.csv', header=None, sep=",", names=range(7))
-# print(df)
+cc = coco.CountryConverter()
 
 with open("locations-US-buildings.csv", 'r') as temp_f:
-    # get No of columns in each line
     f_arr = []
     for line in temp_f.readlines():
         arr_ = line.split(',')
         arr_ = [s.strip() for s in arr_]
         if len(arr_) > 5:
-            arr_[0:len(arr_) - 4] = [''.join(arr_[0:len(arr_)-4])]
+            arr_[0:len(arr_) - 4] = ['-'.join(arr_[0:len(arr_)-4])]
         f_arr.append(arr_)    
-        print(arr_)  
     df = pd.DataFrame(f_arr, columns=['name', 'state', 'country', 'latitude', 'longitude'])    
-    cc = coco.CountryConverter()
-    df["iso2"] = cc.pandas_convert(series=df["country"], to="ISO2")
+    
+    df["country"] = cc.pandas_convert(series=df["country"], to="ISO2")
+    df['state'] = df['state'].apply(lambda x: ust.multiple_replace(ust.statename_to_abbr, x))
     print(df)
-        #col_count = [ l if len(l.split(",")) == 5 else  for l in temp_f.readlines() ]
+
