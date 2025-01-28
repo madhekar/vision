@@ -1,4 +1,4 @@
-id,country,state,desc,lat,lon
+id,country,state,name,latitude,longitude
 1,'us','california','home at san diego',32.968689,-117.184243
 2,us,california,'esha - 3 to 5th grade elementry school',32.914994,-117.153358
 3,us,california,'esha - 9 to 12th grade high school',32.958440,-117.224907

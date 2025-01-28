@@ -5,11 +5,11 @@ import pandas as pd
 def define_schema():
     static_location_schema = pa.schema([
     ('id', pa.int8()),
+    ('name', pa.string()),
     ('country', pa.string()),
     ('state', pa.string()),
-    ('name', pa.string()),
-    ('lat', pa.float64()),
-    ('lon', pa.float64())
+    ('latitude', pa.float64()),
+    ('longitude', pa.float64())
     ])
     return static_location_schema
 
@@ -37,7 +37,7 @@ def get_all_loc_by_country_and_state(country, state):
 
 create_default_location(define_schema())   
 
-#read_parquet_file()
+read_parquet_file()
 
 get_all_loc_by_country('us')
 
