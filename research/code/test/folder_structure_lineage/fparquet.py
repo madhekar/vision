@@ -26,13 +26,11 @@ def transform_raw_locations(fpath):
         df["state"] = df["state"].apply(
             lambda x: ust.multiple_replace(ust.statename_to_abbr, x)
         )
+        df.to_csv(fpath, sep=',')
         return df
 
 def create_append_locations(raw_file, pfile_path):
     try:
-        # df = pd.read_csv(raw_file, delimiter=",")
-        # df.columns = ['name','country','state','latitude','longitude']
-
         df = transform_raw_locations(raw_file)
 
         if not os.path.isfile(pfile_path):
@@ -80,7 +78,7 @@ def add_all_locations(location_root, parquet_file_path):
       locations_file_list = glob.glob(os.path.join(location_root, '*.csv'))
       for f in locations_file_list:
          print(f)
-         create_append_locations(f)
+         create_append_locations(f, parquet_file_path)
     except Exception as e:
         print(f"create append locations parquet for file: {f} failed with exception: {e}")
 
@@ -89,11 +87,11 @@ if __name__=='__main__':
  
     add_all_locations('locations/', parquet_file_path=parquet_file_path)
 
-    rdf = read_parquet_file(file_path=parquet_file_path)
-    print(rdf.head())
+    # rdf = read_parquet_file(file_path=parquet_file_path)
+    # print(rdf.head())
 
-    rdf = get_all_loc_by_country(parquet_file_path, "us")
-    print(rdf.head())
+    # rdf = get_all_loc_by_country(parquet_file_path, "us")
+    # print(rdf.head())
 
     rdf = get_all_loc_by_country_and_state(parquet_file_path, "us", "California")
     print(rdf.head())
