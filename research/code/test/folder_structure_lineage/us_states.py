@@ -1,6 +1,5 @@
 import re
 
-
 statename_to_abbr = {
     # Other
     "District Of Columbia": "DC",
@@ -72,6 +71,6 @@ Division 1: New England (Connecticut, Maine, Massachusetts, New Hampshire, Rhode
 Division 2: Mid-Atlantic (New Jersey, New York, and Pennsylvania)
 Region 2: Midwest (Prior to June 1984, the Midwest Region was designated as the North Central Region.)[7]
 Division 3: East North Central (Illinois, Indiana, Michigan, Ohio, and Wisconsin)
-Division 4: West North Central (Iowa, Kansas, Minnesota, Missouri, Nebraska, North Dakota, and South Dakota)"""
+Division 4: West North Central (California, Washington, Iowa, Kansas, Minnesota, Missouri, Nebraska, North Dakota, and South Dakota)"""
 
     print(multiple_replace(statename_to_abbr, text))
