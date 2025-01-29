@@ -12,6 +12,7 @@
 import os.path
 import pandas as pd
 from fastparquet import write
+import fastparquet as fp
 
 df = pd.DataFrame(data={'col1': [1, 2,], 'col2': [3, 4]})
 file_path = "parquet/write_parq_row_group.parquet"
@@ -19,6 +20,10 @@ if not os.path.isfile(file_path):
   write(file_path, df)
 else:
   write(file_path, df, append=True)
+
+df = fp.ParquetFile(file_path).to_pandas(filters=[('col1','==',1)], row_filter=True)
+
+print(df)
 
 # import pyarrow as pa
 # import pyarrow.parquet as pq
