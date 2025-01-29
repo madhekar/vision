@@ -28,17 +28,17 @@ def transform_raw_locations(fpath):
         )
         return df
 
-def create_append_locations(raw_file):
+def create_append_locations(raw_file, pfile_path):
     try:
         # df = pd.read_csv(raw_file, delimiter=",")
         # df.columns = ['name','country','state','latitude','longitude']
 
         df = transform_raw_locations(raw_file)
 
-        if not os.path.isfile(file_path):
-           write(file_path, df)
+        if not os.path.isfile(pfile_path):
+           write(pfile_path, df)
         else:
-           write(file_path, df, append=True) 
+           write(pfile_path, df, append=True) 
     except Exception as e:
         print(f"create append locations parquet failed with exception: {e}")
 
@@ -75,26 +75,25 @@ def get_all_loc_by_country_and_state(file_path, country, state):
         )
     return rdf
 
-def add_all_locations(location_root):
+def add_all_locations(location_root, parquet_file_path):
     try:
       locations_file_list = glob.glob(os.path.join(location_root, '*.csv'))
       for f in locations_file_list:
-        create_append_locations(f)
+         print(f)
+         create_append_locations(f)
     except Exception as e:
         print(f"create append locations parquet for file: {f} failed with exception: {e}")
 
 if __name__=='__main__':
-    file_path = 'parquet/static_locations.parquet'
-    raw_csv_path = "locations/default.csv"
+    parquet_file_path = 'parquet/static_locations.parquet'
+ 
+    add_all_locations('locations/', parquet_file_path=parquet_file_path)
 
-    #create_append_locations(raw_file=raw_csv_path)
-    add_all_locations('locations/')
-
-    rdf = read_parquet_file(file_path=file_path)
+    rdf = read_parquet_file(file_path=parquet_file_path)
     print(rdf.head())
 
-    rdf = get_all_loc_by_country(file_path, "us")
+    rdf = get_all_loc_by_country(parquet_file_path, "us")
     print(rdf.head())
 
-    rdf = get_all_loc_by_country_and_state(file_path, "us", "California")
+    rdf = get_all_loc_by_country_and_state(parquet_file_path, "us", "California")
     print(rdf.head())
