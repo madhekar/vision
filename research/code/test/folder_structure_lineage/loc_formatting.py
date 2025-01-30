@@ -9,6 +9,7 @@ def transform_raw_locations(fpath):
     with open(fpath, "r") as temp_f:
         f_arr = []
         for line in temp_f.readlines():
+            print(line)
             a_ = line.split(',')
             a_ = [s.strip() for s in a_]
             if len(a_) > 5:
@@ -24,5 +25,4 @@ def transform_raw_locations(fpath):
         print(df)
 
 if __name__=='__main__':
-    cvs_files = glob.glob('locations/*.csv')
-    print(cvs_files)
+   transform_raw_locations('locations/in-locations-states.csv')    
