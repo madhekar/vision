@@ -18,17 +18,17 @@ statename_to_abbr = {
     "Maharashtra": "MH", 
     "Manipur": "MN", 
     "Meghalaya": "ML", 
-    Mizoram: MZ 
-    Nagaland: NL 
-    Odisha: OD 
-    Punjab: PB 
-    Rajasthan: RJ 
-    Sikkim: SK 
-    Tamil Nadu: TN 
-    Telangana: TG 
-    Tripura: TR 
-    Uttarakhand: UK 
-    Uttar Pradesh: UP 
+    "Mizoram": "MZ", 
+    "Nagaland": "NL", 
+    "Odisha": "OD", 
+    "Punjab": "PB", 
+    "Rajasthan": "RJ", 
+    "Sikkim": "SK", 
+    "Tamil Nadu": "TN", 
+    "Telangana": "TG", 
+    "Tripura": "TR", 
+    "Uttarakhand": "UK", 
+    "Uttar Pradesh": "UP", 
     "West Bengal": "WB", 
     # Other
     "District Of Columbia": "DC",

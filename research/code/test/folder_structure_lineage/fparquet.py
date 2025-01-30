@@ -26,7 +26,7 @@ def transform_raw_locations(fpath):
         df["state"] = df["state"].apply(
             lambda x: ust.multiple_replace(ust.statename_to_abbr, x)
         )
-        df.to_csv('rev' + fpath, sep=',', index=False)
+        df.to_csv(fpath, sep=',', header=False, index=False)
         return df
 
 def create_append_locations(raw_file, pfile_path):
