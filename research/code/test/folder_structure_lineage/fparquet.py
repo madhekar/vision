@@ -31,9 +31,11 @@ def transform_raw_locations(fpath):
 
 def create_append_locations(raw_file, pfile_path):
     try:
-        df = transform_raw_locations(raw_file)
+        print(f"adding file: {raw_file} to parquat store: {pfile_path}")
+        df = transform_raw_locations(raw_file) 
 
         if not os.path.isfile(pfile_path):
+           print(pfile_path)
            write(pfile_path, df)
         else:
            write(pfile_path, df, append=True) 
@@ -77,7 +79,6 @@ def add_all_locations(location_root, parquet_file_path):
     try:
       locations_file_list = glob.glob(os.path.join(location_root, '*.csv'))
       for f in locations_file_list:
-         print(f)
          create_append_locations(f, parquet_file_path)
     except Exception as e:
         print(f"create append locations parquet for file: {f} failed with exception: {e}")
@@ -85,7 +86,7 @@ def add_all_locations(location_root, parquet_file_path):
 if __name__=='__main__':
     parquet_file_path = 'parquet/static_locations.parquet'
  
-    add_all_locations('locations/', parquet_file_path=parquet_file_path)
+    #add_all_locations('locations/', parquet_file_path=parquet_file_path)
 
     # rdf = read_parquet_file(file_path=parquet_file_path)
     # print(rdf.head())
@@ -93,5 +94,5 @@ if __name__=='__main__':
     # rdf = get_all_loc_by_country(parquet_file_path, "us")
     # print(rdf.head())
 
-    rdf = get_all_loc_by_country_and_state(parquet_file_path, "us", "California")
-    print(rdf.head())
+    rdf = get_all_loc_by_country_and_state(parquet_file_path, "US", "CA")
+    print(rdf)

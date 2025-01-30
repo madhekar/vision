@@ -21,8 +21,9 @@ def transform_raw_locations(fpath):
         # format country codes
         df["country"] = cc.pandas_convert(series=df["country"], to="ISO2")
         # standardize us state codes
+        #print(df.columns[df.isnull().any(axis=1)])
         df['state'] = df['state'].apply(lambda x: ust.multiple_replace(ust.statename_to_abbr, x))
-        print(df)
+        
 
 if __name__=='__main__':
    transform_raw_locations('locations/in-locations-states.csv')    

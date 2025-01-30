@@ -88,10 +88,10 @@ statename_to_abbr = {
 
 
 def multiple_replace(lookup, text):
-    print(text)
+    
     regex = re.compile(r"\b(" + "|".join(lookup.keys()) + r")\b", re.IGNORECASE)
-
-    return regex.sub(lambda mo: lookup[mo.string.title()[mo.start() : mo.end()]], text)
+    scode = regex.sub(lambda mo: lookup[mo.string.title()[mo.start() : mo.end()]], text)
+    return scode
 
 
 if __name__ == "__main__":

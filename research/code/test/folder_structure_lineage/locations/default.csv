@@ -1,7 +1,5 @@
-name,state,not found,latitude,longitude
--name,state,not found,latitude,longitude
-0-Home in San Diego,us,not found,32.968689,-117.184243
-1-Esha - 3 to 5th grade elementary school,us,not found,32.914994,-117.153358
-2-Esha - 9 to 12th grade high school,us,not found,32.95844,-117.224907
-3-Esha - first half year of second grade elementary,us,not found,47.635425,-122.144208
-4-Lamplighter park apartments in Bellevue,us,not found,47.618261,-122.133136
+Home in San Diego,CA,US,32.968689,-117.184243
+Esha - 3 to 5th grade elementary school,CA,US,32.914994,-117.153358
+Esha - 9 to 12th grade high school,CA,US,32.95844,-117.224907
+Esha - first half year of second grade elementary,CA,US,47.635425,-122.144208
+Lamplighter park apartments in Bellevue,WA,US,47.618261,-122.133136
