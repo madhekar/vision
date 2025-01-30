@@ -95,4 +95,4 @@ if __name__=='__main__':
     # print(rdf.head())
 
     rdf = get_all_loc_by_country_and_state(parquet_file_path, "US", "CA")
-    print(rdf)
+    print(f"results with {rdf.shape[0]} rows and  {rdf}")
