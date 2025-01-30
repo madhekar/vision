@@ -4,8 +4,8 @@ from PIL import Image
 def main():
     st.title("Image Grid Example")
     
-    static_locations = [["san",22.0,-110.9], ["sfo",56.99, -89.87]]
-    image_metadata = [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
+    static_locations = (["san",(22.0,-110.9)], ["sfo",(56.99, -89.87)])
+    image_metadata = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0)]
     # Load images
     image_paths = [
         "/home/madhekar/work/home-media-app/data/input-data/img/Collage1.jpg",
@@ -13,8 +13,8 @@ def main():
         "/home/madhekar/work/home-media-app/data/input-data/img/Collage3.jpg",
         "/home/madhekar/work/home-media-app/data/input-data/img/Collage4.jpg",
     ]
-    sel = st.selectbox(label='select static location', options=[i[0] for i in static_locations])
-    print(sel)
+    index = st.selectbox("select location" ,range(len(static_locations)), format_func=lambda x: static_locations[x][0])
+    st.write(index)
     images = [Image.open(path) for path in image_paths]
     
     # Create image grid
@@ -26,7 +26,7 @@ def main():
             checkbox = st.checkbox("", key=f"checkbox_{i}")
             if checkbox:
                 selected_images.append(image)
-                image_metadata[i] = sel
+                image_metadata[i] = static_locations[index][1]
             st.image(image, use_column_width=True)
 
     # Display selected images
@@ -35,5 +35,6 @@ def main():
         for image in selected_images:
             st.image(image)
 
+    st.write(image_metadata)
 if __name__ == "__main__":
     main()
