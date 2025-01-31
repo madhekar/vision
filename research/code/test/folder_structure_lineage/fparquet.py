@@ -5,6 +5,7 @@ from fastparquet import write
 import fastparquet as fp
 import country_converter as coco
 import us_states as ust
+import streamlit as st
 
 cc = coco.CountryConverter()
 
@@ -88,11 +89,26 @@ if __name__=='__main__':
  
     #add_all_locations('locations/', parquet_file_path=parquet_file_path)
 
-    # rdf = read_parquet_file(file_path=parquet_file_path)
+    rdf = read_parquet_file(file_path=parquet_file_path)
     # print(rdf.head())
 
     # rdf = get_all_loc_by_country(parquet_file_path, "us")
     # print(rdf.head())
 
-    rdf = get_all_loc_by_country_and_state(parquet_file_path, "IN", "MH")
-    print(f"results with {rdf.shape[0]} rows and  {rdf}")
+    # rdf = get_all_loc_by_country_and_state(parquet_file_path, "IN", "MH")
+    # print(f"results with {rdf.shape[0]} rows and  {rdf}")
+
+    c_country, c_state, c_location = st.columns([.2,.2,1])
+    
+    with c_country:
+      selected_country = st.selectbox('select country', rdf['country'].unique())
+
+    with c_state:
+      frdf = rdf[rdf["country"] == selected_country]
+
+      selected_state = st.selectbox('select state', frdf['state'].unique())
+
+    with c_location:
+       ffrdf = frdf[frdf['state'] == selected_state]
+
+       selected_location = st.selectbox('select location name/ description', ffrdf['name'])
