@@ -7,6 +7,3 @@ metadata:
   sqlite_database_name: zesha_sqlite
   home_latitude: 32.968700
   home_longitude: -117.184200
-static-location-prep:
-  location_metadata_path: /home/madhekar/work/home-media-app/data/input-data/prep/locations
-  address_metadata_path: /home/madhekar/work/home-media-app/data/input-data/prep/addresses

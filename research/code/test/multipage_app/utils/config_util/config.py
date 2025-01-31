@@ -103,7 +103,21 @@ def dataload_config_load():
 
     return (raw_data_path, input_image_path, input_txt_path, input_video_path, input_audio_path)
 
+@st.cache_resource
+def static_metadata_config_load():
+    with open("utils/config_util/static_metadata_conf.yaml") as prop:
+        dict = yaml.safe_load(prop)
 
+        pprint.pprint("* * *  dataload archiver properties * * *")
+        pprint.pprint(dict)
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * * *")
+
+        location_metadata_path = dict["static-locations-prep"]["location_metadata_path"]
+        address_metadata_path = dict["static-locations-prep"]["addess_metadata_path"]
+        static_metadata_path = dict["static-locations-prep"]["static_metadata_path"]
+        static_metadata_file = dict["static-locations-prep"]["static_metadata_file"]
+
+    return (location_metadata_path, address_metadata_path, static_metadata_path, static_metadata_file)    
 
 @st.cache_resource
 def preprocess_config_load():
