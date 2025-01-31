@@ -94,5 +94,5 @@ if __name__=='__main__':
     # rdf = get_all_loc_by_country(parquet_file_path, "us")
     # print(rdf.head())
 
-    rdf = get_all_loc_by_country_and_state(parquet_file_path, "US", "CA")
+    rdf = get_all_loc_by_country_and_state(parquet_file_path, "IN", "MH")
     print(f"results with {rdf.shape[0]} rows and  {rdf}")
