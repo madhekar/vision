@@ -30,6 +30,10 @@ statename_to_abbr = {
     "Uttarakhand":"UK", 
     "Uttar Pradesh":"UP", 
     "West Bengal":"WB", 
+    # "Jammu and Kashmit": "JK",
+    # "Ladakh":"LA",
+    # "New Delhi":"Delhi",
+    # "Dadra and Nagar Haveli": "DIU",
     # Other
     "District Of Columbia": "DC",
     "Washington Dc": "DC",

@@ -105,10 +105,12 @@ if __name__=='__main__':
 
     with c_state:
       frdf = rdf[rdf["country"] == selected_country]
-
-      selected_state = st.selectbox('select state', frdf['state'].unique())
+      s_frdf = frdf.sort_values(by='state')
+      selected_state = st.selectbox('select state', s_frdf['state'].unique())
 
     with c_location:
        ffrdf = frdf[frdf['state'] == selected_state]
+       s_ffrdf = ffrdf.sort_values(by='name')
+       selected_location = st.selectbox('select location name/ description', s_ffrdf['name'].unique())
 
-       selected_location = st.selectbox('select location name/ description', ffrdf['name'])
+       st.write(s_ffrdf[s_ffrdf['name'] == selected_location].iloc[0])
