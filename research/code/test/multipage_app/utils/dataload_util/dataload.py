@@ -92,12 +92,9 @@ def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
 
 def execute(source_name):
     (
-        raw_data_path,
-        input_image_path,
-        input_txt_path,
-        input_video_path,
-        input_audio_path
-    ) = config.dataload_config_load()
+        static_metadata_path,
+        static_metadata_file,
+    ) = config.static_metadata_config_load()
 
     """
       paths to import files
