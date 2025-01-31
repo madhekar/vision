@@ -71,6 +71,12 @@ metadata_loader = st.Page(
     icon=":material/published_with_changes:",
 )
 
+static_metadata_loader = st.Page(
+    page="pages/static_metadata_loader.py",
+    title="STATIC LOAD",
+    icon=":material/published_with_changes:",
+)
+
 location_metadata_creater = st.Page(
     page="pages/location_metadata_creater.py",
     title="GENERATE",
@@ -97,7 +103,7 @@ pg = st.navigation(
         "OVERVIEW": [overview],
         "DATA: ADD/ TRIM": [data_extadd, data_trim],
         "DATA: VALIDATE": [data_validate],
-        "METADATA": [data_correction, metadata_creater, metadata_loader],
+        "METADATA": [data_correction, metadata_creater, metadata_loader, static_metadata_loader],
         "LOCATION": [location_metadata_creater, loacation_metadata_loader],
         "SEARCH": [multimodal_search],
     }
