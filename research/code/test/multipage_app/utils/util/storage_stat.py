@@ -124,6 +124,13 @@ def extract_all_folder_stats(folder_path):
 
    return (dfi, dfv, dfd, dfa, dfn)    
 
+def extract_all_file_stats_in_folder(folder_path):
+    fstat = FolderStats()
+
+    df = fstat.count_file_types(folder_path=folder_path)
+
+    return df
+
 def extract_folder_stats(folder):
     fstat = FolderStats()
 
