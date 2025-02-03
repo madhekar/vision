@@ -101,9 +101,9 @@ st.logo("assets/zesha-high-resolution-logo.jpeg")
 pg = st.navigation(
     {
         "OVERVIEW": [overview],
-        "DATA: ADD/ TRIM": [data_extadd, data_trim],
+        "DATA: ADD/ TRIM": [data_extadd, data_trim, static_metadata_loader],
         "DATA: VALIDATE": [data_validate],
-        "METADATA": [data_correction, metadata_creater, metadata_loader, static_metadata_loader],
+        "METADATA": [data_correction, metadata_creater, metadata_loader],
         "LOCATION": [location_metadata_creater, loacation_metadata_loader],
         "SEARCH": [multimodal_search],
     }
