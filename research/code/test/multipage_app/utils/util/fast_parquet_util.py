@@ -4,7 +4,7 @@ import pandas as pd
 from fastparquet import write
 import fastparquet as fp
 import country_converter as coco
-import us_states as ust
+from utils.util import us_states as ust
 
 cc = coco.CountryConverter()
 

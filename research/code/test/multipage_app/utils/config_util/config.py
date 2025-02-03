@@ -113,7 +113,7 @@ def static_metadata_config_load():
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * * *")
 
         location_metadata_path = dict["static-locations-prep"]["location_metadata_path"]
-        address_metadata_path = dict["static-locations-prep"]["addess_metadata_path"]
+        address_metadata_path = dict["static-locations-prep"]["address_metadata_path"]
         static_metadata_path = dict["static-locations-prep"]["static_metadata_path"]
         static_metadata_file = dict["static-locations-prep"]["static_metadata_file"]
 
