@@ -127,7 +127,7 @@ def extract_all_folder_stats(folder_path):
 def extract_all_file_stats_in_folder(folder_path):
     fstat = FolderStats()
 
-    df = fstat.count_file_types(folder_path=folder_path)
+    df = fstat.get_all_file_ext_types_by_folder(folder_path)
 
     return df
 
