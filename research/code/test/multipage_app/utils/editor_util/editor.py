@@ -8,6 +8,7 @@ from utils.util import location_util as lu
 from utils.config_util import config
 from utils.sqlite_util import location
 from PIL import Image
+from utils.util import fast_parquet_util as fpu
 
 
 @st.cache_resource
@@ -37,14 +38,12 @@ def location_initialize(sdp, sdn):
 def initialize():
     """
     metadata:
-        static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/
-        static_metadata_file: static-metadata.csv
-        missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
-        missing_metadata_file: missing-metadata-wip.csv
-        sqlite_database_path: /home/madhekar/work/home-media-app/data/app-data/db/
-        sqlite_database_name: zesha_sqlite
-        home_latitude: 32.968700
-        home_longitude: -117.184200
+      static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/
+      static_metadata_file: static_locations.parquet
+      missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
+      missing_metadata_file: missing-metadata-wip.csv
+      home_latitude: 32.968700
+      home_longitude: -117.184200
     """
     
     smp, smf, mmp, mmf, sdp, sdn, hlat, hlon = config.editor_config_load()
@@ -116,17 +115,37 @@ def update_all_datetime_changes(image, col):
     lu.setDateTimeOriginal(image, dt)
 
 
-def persist_static_locations(sdp, sdn):
-    data = st.session_state.df_loc.to_dict(orient='records')
-    print(st.session_state.df_loc, data)
-    db_con = location.Location(dbpath=sdp, dbname=sdn)
-    db_con.create_location_tbl_if_not_exists()
-    db_con.bulk_insert(data=data)
+# def persist_static_locations(sdp, sdn):
+#     data = st.session_state.df_loc.to_dict(orient='records')
+#     print(st.session_state.df_loc, data)
+#     db_con = location.Location(dbpath=sdp, dbname=sdn)
+#     db_con.create_location_tbl_if_not_exists()
+#     db_con.bulk_insert(data=data)
 
+def select_location_by_country_and_state(parquet_file_path):
+
+    rdf = fpu.read_parquet_file(file_path=parquet_file_path)
+
+    c_country, c_state, c_location = st.columns([.2,.2,1])
+    
+    with c_country:
+      selected_country = st.selectbox('select country', rdf['country'].unique())
+
+    with c_state:
+      frdf = rdf[rdf["country"] == selected_country]
+      s_frdf = frdf.sort_values(by='state')
+      selected_state = st.selectbox('select state', s_frdf['state'].unique())
+
+    with c_location:
+       ffrdf = frdf[frdf['state'] == selected_state]
+       s_ffrdf = ffrdf.sort_values(by='name')
+       selected_location = st.selectbox('select location name/ description', s_ffrdf['name'].unique())
+
+       st.write(s_ffrdf[s_ffrdf['name'] == selected_location].iloc[0])
 
 def save_metadata(sdp, sdn, mmp, mmf):
     st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",")
-    persist_static_locations(sdp, sdn)
+    # persist_static_locations(sdp, sdn)
     print(st.session_state.df)
 
 def execute():
@@ -177,7 +196,7 @@ def execute():
 
     if data is not None:
         st.session_state.editor_audit_msg.append(data)
-
+    #...
     st.subheader("IMAGES", divider='gray')    
 
     batch = files[(page - 1) * batch_size : page * batch_size]
