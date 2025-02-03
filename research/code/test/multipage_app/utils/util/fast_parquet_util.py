@@ -5,7 +5,7 @@ from fastparquet import write
 import fastparquet as fp
 import country_converter as coco
 from utils.util import us_states as ust
-
+import streamlit as st
 cc = coco.CountryConverter()
 
 def transform_raw_locations(fpath):
@@ -34,12 +34,12 @@ def transform_raw_locations(fpath):
 
         rdf = df
   except Exception as e:
-        print(f"failed to transform raw locations with exception: {e}")
+        st.error(f"failed to transform raw locations with exception: {e}")
   return rdf
 
 def create_or_append_locations(raw_file, pfile_path):
     try:
-        print(f"adding file: {raw_file} to parquat store: {pfile_path}")
+        st.info(f"adding file: {raw_file} to parquat store: {pfile_path}")
         df = transform_raw_locations(raw_file)
 
         if not os.path.isfile(pfile_path):
@@ -48,7 +48,7 @@ def create_or_append_locations(raw_file, pfile_path):
         else:
             write(pfile_path, df, append=True)
     except Exception as e:
-        print(f"create append locations parquet failed with exception: {e}")
+        st.error(f"create append locations parquet failed with exception: {e}")
 
 
 def read_parquet_file(file_path):
@@ -57,7 +57,7 @@ def read_parquet_file(file_path):
         pf = fp.ParquetFile(file_path)
         rdf = pf.to_pandas()
     except Exception as e:
-        print(f"get all locations failed with exception: {e}")
+        st.error(f"get all locations failed with exception: {e}")
     return rdf
 
 def get_all_loc_by_country(file_path, country):
@@ -66,7 +66,7 @@ def get_all_loc_by_country(file_path, country):
         pf = fp.ParquetFile(file_path)
         rdf = pf.to_pandas(filters=[("country", "==", country)], row_filter=True)
     except Exception as e:
-        print(f"get all locations by contry: {country} failed with exception: {e}")
+        st.error(f"get all locations by contry: {country} failed with exception: {e}")
     return rdf
 
 def get_all_loc_by_country_and_state(file_path, country, state):
@@ -76,9 +76,7 @@ def get_all_loc_by_country_and_state(file_path, country, state):
         df_ = pf.to_pandas(filters=[("country", "=", country)], row_filter=True)
         rdf = df_[df_["state"] == state]
     except Exception as e:
-        print(
-            f"get all locations by country: {country} and state: {state} failed with exception: {e}"
-        )
+        st.error(f"get all locations by country: {country} and state: {state} failed with exception: {e}")
     return rdf
 
 def add_all_locations(location_root, parquet_file_path):
@@ -87,9 +85,7 @@ def add_all_locations(location_root, parquet_file_path):
         for f in locations_file_list:
             create_or_append_locations(f, parquet_file_path)
     except Exception as e:
-        print(
-            f"create append locations parquet for file: {f} failed with exception: {e}"
-        )
+        st.error(f"create append locations parquet for file: {f} failed with exception: {e}")
 
 
 if __name__ == "__main__":
