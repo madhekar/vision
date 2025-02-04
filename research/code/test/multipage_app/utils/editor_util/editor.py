@@ -6,7 +6,6 @@ import folium as fl
 from streamlit_folium import st_folium
 from utils.util import location_util as lu 
 from utils.config_util import config
-from utils.sqlite_util import location
 from PIL import Image
 from utils.util import fast_parquet_util as fpu
 
@@ -20,7 +19,7 @@ def metadata_initialize(mmp,mmf):
 
 @st.cache_resource
 def location_initialize(smp, smf):
-    df = None
+
     try:
         df = fpu.read_parquet_file(os.path.join(smp, smf))
         print(df)
@@ -43,7 +42,6 @@ def location_initialize(smp, smf):
     #     #df_loc.set_index('name', inplace=True)
     # return df_loc
 
-@st.cache_resource
 def initialize():
     """
     metadata:
@@ -54,36 +52,41 @@ def initialize():
       home_latitude: 32.968700
       home_longitude: -117.184200
     """
-    
-    smp, smf, mmp, mmf, hlat, hlon = config.editor_config_load()
+    print('-->init')
+    smp, smf, mmp, mmf, hlat, hlon = None, None, None, None, None, None
+ 
+    try:
+        smp, smf, mmp, mmf, hlat, hlon = config.editor_config_load()
 
-    reload_bug = True
+        if "markers" not in st.session_state:
+            st.session_state["markers"] = []
 
-    if "markers" not in st.session_state:
-        st.session_state["markers"] = []
+        if "updated_location_list" not in st.session_state:
+            st.session_state["updated_location_list"] = []
 
-    if "updated_location_list" not in st.session_state:
-        st.session_state["updated_location_list"] = []
+        if "updated_datetime_list" not in st.session_state:
+            st.session_state["updated_datetime_list"] = []   
 
-    if "updated_datetime_list" not in st.session_state:
-        st.session_state["updated_datetime_list"] = []   
+        if "editor_audit_msg" not in st.session_state:
+            st.session_state["editor_audit_msg"] = []   
+            
+        if "df" not in st.session_state:
+            df = metadata_initialize(mmp, mmf)
+            st.session_state.df = df
+        else:
+            df = st.session_state.df
 
-    if "editor_audit_msg" not in st.session_state:
-        st.session_state["editor_audit_msg"] = []   
-        
-    if "df" not in st.session_state:
-        df = metadata_initialize(mmp, mmf)
-        st.session_state.df = df
-    else:
-        df = st.session_state.df
+        if "df_loc" not in st.session_state:
+            df = location_initialize(smp, smf)
+            df.rein
+            st.session_state.df_loc = df
+        else:
+            df_loc = st.session_state.df_loc   
 
-    if "df_loc" not in st.session_state:
-        df_loc = location_initialize(smp, smf)
-        st.session_state.df_loc = df_loc
-    else:
-        df_loc = st.session_state.df_loc     
+    except Exception as e:      
+        print(f"Exception occurred in initializing Medata Editor: {e}")
 
-    return smp, smf, mmp, mmf, hlat, hlon, reload_bug
+    return smp, smf, mmp, mmf, hlat, hlon
 
 def clear_markers():
     st.session_state["markers"].clear()
@@ -109,13 +112,15 @@ def add_marker(lat, lon, label, url):
 
 def update_all_latlon():
     if len(st.session_state.updated_location_list) > 0 :
-        print(st.session_state["updated_location_list"])
+        
         for loc in st.session_state["updated_location_list"]:
-            lat = st.session_state.df_loc.at[loc[2], "lat"]
-            lon = st.session_state.df_loc.at[loc[2], "lon"]
-            st.session_state.df.at[loc[0], "GPSLatitude"] = lat
-            st.session_state.df.at[loc[0], "GPSLongitude"] = lon
-            lu.setGpsInfo(loc[0], lat=lat, lon=lon)
+            print(loc)
+            print(st.session_state.df_loc.at[34, "latitude"])
+            latitude = st.session_state.df_loc.at[loc[2], "latitude"]
+            longitude = st.session_state.df_loc.at[loc[2], "longitude"]
+            st.session_state.df.at[loc[0], "GPSLatitude"] = latitude
+            st.session_state.df.at[loc[0], "GPSLongitude"] = longitude
+            lu.setGpsInfo(loc[0], latitude=latitude, longitude=longitude)
         st.session_state["updated_location_list"].clear()  
 
 def update_all_datetime_changes(image, col):
@@ -151,7 +156,7 @@ def save_metadata(sdp, sdn, mmp, mmf):
 
 def execute():
 
-    smp, smf, mmp, mmf, hlat, hlon, reload_bug = initialize()
+    smp, smf, mmp, mmf, hlat, hlon = initialize()
     
     # extract files
     files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
@@ -168,17 +173,17 @@ def execute():
 
 
     st.sidebar.header('Locations', divider="gray")
-    config = {
-        'name' : st.column_config.TextColumn('Name', width='small', required=True),
-        'desc' : st.column_config.TextColumn('Description', width='small', required=True),
-        'lat' : st.column_config.NumberColumn('Latitude', min_value=-90.0, max_value=90.0, required=True),
-        'lon' : st.column_config.NumberColumn('Logitude',min_value=-180.0, max_value= 180.0, required=True)
-    }
-    st.session_state.df_loc = st.sidebar.data_editor(st.session_state.df_loc, column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
+    # config = {
+    #     'Name' : st.column_config.TextColumn('Name', width='small', required=True),
+    #     'desc' : st.column_config.TextColumn('Description', width='small', required=True),
+    #     'lat' : st.column_config.NumberColumn('Latitude', min_value=-90.0, max_value=90.0, required=True),
+    #     'lon' : st.column_config.NumberColumn('Logitude',min_value=-180.0, max_value= 180.0, required=True)
+    # }
+    # st.session_state.df_loc = st.sidebar.data_editor(st.session_state.df_loc, column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
-    save_btn = st.sidebar.button(label="Save Metadata",  use_container_width=True) #on_click=save_metadata(sdp, sdn, mmp, mmf)
-    if save_btn:
-        save_metadata(smp, smf, mmp, mmf)
+    # save_btn = st.sidebar.button(label="Save Metadata",  use_container_width=True) #on_click=save_metadata(sdp, sdn, mmp, mmf)
+    # if save_btn:
+    #     save_metadata(smp, smf, mmp, mmf)
 
     m = fl.Map(location=[hlat, hlon], zoom_start=4, min_zoom=3, max_zoom=10)
 
@@ -193,7 +198,7 @@ def execute():
 
     data = None
     if map.get("last_clicked"):
-        data = (map["last_clicked"]["lat"], map["last_clicked"]["lng"])
+        data = (map["last_clicked"]["latitude"], map["last_clicked"]["longitude"])
 
     if data is not None:
         st.session_state.editor_audit_msg.append(data)
@@ -219,9 +224,11 @@ def execute():
                 c2.empty()
                 c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
             else:
+                #print(st.session_state.df_loc.name.values)
                 r = c2.selectbox(label=f"location_{image}", label_visibility="collapsed",  options=st.session_state.df_loc.name.values, index=None, on_change=update_all_latlon())
                 if r:
-                  st.session_state["updated_location_list"].append((image, col, r))
+                    print(st.session_state.df_loc.loc[st.session_state.df_loc['name'] == r].index)
+                    st.session_state["updated_location_list"].append((image, col, st.session_state.df_loc.loc[st.session_state.df_loc['name'] == r].index))
                 c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt')) 
             image = Image.open(image)  
             image.thumbnail((200,200), Image.Resampling.LANCZOS)
