@@ -20,30 +20,20 @@ def execute():
         st.subheader("Static Metadata")
         dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
         st.metric("Number of location files", dfs['count'])
-        st.metric("Total size of location files", dfs["size"])
-        # st.bar_chart(
-        #     dfs,
-        #     horizontal=False,
-        #     stack=True,
-        #     y_label='total size(MB) & count of files',
-        #     use_container_width=True,
-        #     #color=colors
-        # )
+        st.metric("Total size of location files (MB)", round(dfs["size"]/(pow(1024,2)), 2), delta=.7)
     with c2:
-        st.subheader("Raw Static Metadata")
-
         dfl = ss.extract_all_file_stats_in_folder(location_metadata_path)
         dfa = ss.extract_all_file_stats_in_folder(address_metadata_path)        
         print(dfl['count'], dfa)
         c2a, c2b = st.columns([1,1], gap="small")
         with c2a:
-            st.subheader('locations')
+            st.subheader("Locations")
             st.metric("Number of location files", dfl['count'])
-            st.metric("Total size of location files", dfl["size"])
+            st.metric("Total size of location files (MB)", round(dfl["size"]/(pow(1024,2)), 2),delta=.23)
         with c2b:
-            st.subheader('addresses')
+            st.subheader("Addresses")
             st.metric("Number of address files", dfa['count'])
-            st.metric("Total size of address files", dfa["size"]) 
+            st.metric("Total size of address files (MB)",  round(dfa["size"]/(pow(1024,2)), 2), delta=-.1) 
     st.divider()
     ld = st.button("clean & load static metadata")
     if ld:

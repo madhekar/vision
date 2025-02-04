@@ -19,20 +19,29 @@ def metadata_initialize(mmp,mmf):
     return df
 
 @st.cache_resource
-def location_initialize(sdp, sdn):
-    db_con = location.Location(dbpath=sdp, dbname=sdn)
-    db_con.create_location_tbl_if_not_exists()
-    n = db_con.get_number_of_rows()
-    print(n)
-    if n[0][0] != 0:
-        t_arr = db_con.read_location()
-        df_loc = pd.DataFrame(t_arr)
-        df_loc.columns = ["name", "desc", "lat", "lon"]
-        #df_loc.set_index('name', inplace=True)
-    else:
-        df_loc = pd.DataFrame(columns=["name", "desc", "lat", "lon"])
-        #df_loc.set_index('name', inplace=True)
-    return df_loc
+def location_initialize(smp, smf):
+    df = None
+    try:
+        df = fpu.read_parquet_file(os.path.join(smp, smf))
+        print(df)
+    except Exception as e:
+        print(
+            f"exception occured in loading location metadata: {smf} with exception: {e}"
+        )  
+    return df    
+    # db_con = location.Location(dbpath=sdp, dbname=sdn)
+    # db_con.create_location_tbl_if_not_exists()
+    # n = db_con.get_number_of_rows()
+    # print(n)
+    # if n[0][0] != 0:
+    #     t_arr = db_con.read_location()
+    #     df_loc = pd.DataFrame(t_arr)
+    #     df_loc.columns = ["name", "desc", "lat", "lon"]
+    #     #df_loc.set_index('name', inplace=True)
+    # else:
+    #     df_loc = pd.DataFrame(columns=["name", "desc", "lat", "lon"])
+    #     #df_loc.set_index('name', inplace=True)
+    # return df_loc
 
 @st.cache_resource
 def initialize():
@@ -46,7 +55,7 @@ def initialize():
       home_longitude: -117.184200
     """
     
-    smp, smf, mmp, mmf, sdp, sdn, hlat, hlon = config.editor_config_load()
+    smp, smf, mmp, mmf, hlat, hlon = config.editor_config_load()
 
     reload_bug = True
 
@@ -69,12 +78,12 @@ def initialize():
         df = st.session_state.df
 
     if "df_loc" not in st.session_state:
-        df_loc = location_initialize(sdp, sdn)
+        df_loc = location_initialize(smp, smf)
         st.session_state.df_loc = df_loc
     else:
         df_loc = st.session_state.df_loc     
 
-    return smp, smf, mmp, mmf, sdp, sdn, hlat, hlon, reload_bug
+    return smp, smf, mmp, mmf, hlat, hlon, reload_bug
 
 def clear_markers():
     st.session_state["markers"].clear()
@@ -114,14 +123,6 @@ def update_all_datetime_changes(image, col):
     st.session_state.df.at[image, "DateTimeOriginal"] = dt
     lu.setDateTimeOriginal(image, dt)
 
-
-# def persist_static_locations(sdp, sdn):
-#     data = st.session_state.df_loc.to_dict(orient='records')
-#     print(st.session_state.df_loc, data)
-#     db_con = location.Location(dbpath=sdp, dbname=sdn)
-#     db_con.create_location_tbl_if_not_exists()
-#     db_con.bulk_insert(data=data)
-
 def select_location_by_country_and_state(parquet_file_path):
 
     rdf = fpu.read_parquet_file(file_path=parquet_file_path)
@@ -150,7 +151,7 @@ def save_metadata(sdp, sdn, mmp, mmf):
 
 def execute():
 
-    smp, smf, mmp, mmf, sdp, sdn, hlat, hlon, reload_bug = initialize()
+    smp, smf, mmp, mmf, hlat, hlon, reload_bug = initialize()
     
     # extract files
     files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
@@ -177,7 +178,7 @@ def execute():
 
     save_btn = st.sidebar.button(label="Save Metadata",  use_container_width=True) #on_click=save_metadata(sdp, sdn, mmp, mmf)
     if save_btn:
-        save_metadata(sdp, sdn, mmp, mmf)
+        save_metadata(smp, smf, mmp, mmf)
 
     m = fl.Map(location=[hlat, hlon], zoom_start=4, min_zoom=3, max_zoom=10)
 

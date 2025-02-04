@@ -15,8 +15,6 @@ def editor_config_load():
         static_metadata_file = dict["metadata"]["static_metadata_file"]
         missing_metadata_path = dict["metadata"]["missing_metadata_path"]
         missing_metadata_file = dict["metadata"]["missing_metadata_file"]
-        sqlite_database_path = dict["metadata"]["sqlite_database_path"]
-        sqlite_database_name = dict["metadata"]["sqlite_database_name"]
         home_latitude = dict['metadata']['home_latitude']
         home_longitude = dict["metadata"]["home_longitude"]
     return (
@@ -24,13 +22,16 @@ def editor_config_load():
         static_metadata_file,
         missing_metadata_path,
         missing_metadata_file,
-        sqlite_database_path,
-        sqlite_database_name,
         home_latitude,
         home_longitude
     )
 
 """
+metadata:
+  static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/
+  static_metadata_file: static_locations.parquet
+  missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
+  missing_metadata_file: missing-metadata-wip.csv
 
 datapaths:
   raw_data_path: '/home/madhekar/work/home-media-app/data/raw-data'
