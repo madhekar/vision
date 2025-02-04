@@ -19,41 +19,31 @@ def execute():
     with c1:
         st.subheader("Static Metadata")
         dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
-        st.bar_chart(
-            dfs,
-            horizontal=False,
-            stack=True,
-            y_label='total size(MB) & count of files',
-            use_container_width=True,
-            color=colors
-        )
+        st.metric("Number of location files", dfs['count'])
+        st.metric("Total size of location files", dfs["size"])
+        # st.bar_chart(
+        #     dfs,
+        #     horizontal=False,
+        #     stack=True,
+        #     y_label='total size(MB) & count of files',
+        #     use_container_width=True,
+        #     #color=colors
+        # )
     with c2:
         st.subheader("Raw Static Metadata")
 
         dfl = ss.extract_all_file_stats_in_folder(location_metadata_path)
         dfa = ss.extract_all_file_stats_in_folder(address_metadata_path)        
-        print(dfl, dfa)
+        print(dfl['count'], dfa)
         c2a, c2b = st.columns([1,1], gap="small")
         with c2a:
             st.subheader('locations')
-            st.bar_chart(
-                dfl,
-                horizontal=False,
-                stack=True,
-                y_label="total size(MB) & count of files",
-                use_container_width=True,
-                color=colors,
-            )
+            st.metric("Number of location files", dfl['count'])
+            st.metric("Total size of location files", dfl["size"])
         with c2b:
             st.subheader('addresses')
-            st.bar_chart(
-                dfa,
-                horizontal=False,
-                stack=True,
-                y_label="total size(MB) & count of files",
-                use_container_width=True,
-                color=colors,
-            )  
+            st.metric("Number of address files", dfa['count'])
+            st.metric("Total size of address files", dfa["size"]) 
     st.divider()
     ld = st.button("clean & load static metadata")
     if ld:
