@@ -15,6 +15,8 @@ def editor_config_load():
         static_metadata_file = dict["metadata"]["static_metadata_file"]
         missing_metadata_path = dict["metadata"]["missing_metadata_path"]
         missing_metadata_file = dict["metadata"]["missing_metadata_file"]
+        missing_metadata_edit_path = dict["metadata"]["missing_metadata_edit_path"]
+        missing_metadata_edit_file = dict["metadata"]["missing_metadata_edit_file"]
         home_latitude = dict['metadata']['home_latitude']
         home_longitude = dict["metadata"]["home_longitude"]
     return (
@@ -22,8 +24,10 @@ def editor_config_load():
         static_metadata_file,
         missing_metadata_path,
         missing_metadata_file,
+        missing_metadata_edit_path,
+        missing_metadata_edit_file,
         home_latitude,
-        home_longitude
+        home_longitude,
     )
 
 """

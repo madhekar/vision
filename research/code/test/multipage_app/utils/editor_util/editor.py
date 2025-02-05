@@ -18,48 +18,34 @@ def metadata_initialize(mmp,mmf):
 
 @st.cache_resource
 def location_initialize(smp, smf):
-
     try:
         df = fpu.read_parquet_file(os.path.join(smp, smf))
     except Exception as e:
-        print(
-            f"exception occured in loading location metadata: {smf} with exception: {e}"
-        )  
+        print(f"exception occured in loading location metadata: {smf} with exception: {e}")  
     return df    
-    # db_con = location.Location(dbpath=sdp, dbname=sdn)
-    # db_con.create_location_tbl_if_not_exists()
-    # n = db_con.get_number_of_rows()
-    # print(n)
-    # if n[0][0] != 0:
-    #     t_arr = db_con.read_location()
-    #     df_loc = pd.DataFrame(t_arr)
-    #     df_loc.columns = ["name", "desc", "lat", "lon"]
-    #     #df_loc.set_index('name', inplace=True)
-    # else:
-    #     df_loc = pd.DataFrame(columns=["name", "desc", "lat", "lon"])
-    #     #df_loc.set_index('name', inplace=True)
-    # return df_loc
 
 def initialize():
     """
-    metadata:
-      static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/
-      static_metadata_file: static_locations.parquet
-      missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
-      missing_metadata_file: missing-metadata-wip.csv
-      home_latitude: 32.968700
-      home_longitude: -117.184200
+      metadata:
+          static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/
+          static_metadata_file: static_locations.parquet
+          missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
+          missing_metadata_file: missing-metadata-wip.csv
+          missing_metadata_edit_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/edit/
+          missing_metadata_edit_file: matadata-edits.csv
+          home_latitude: 32.968700
+          home_longitude: -117.184200
     """
-    smp, smf, mmp, mmf, hlat, hlon = None, None, None, None, None, None
+    smp, smf, mmp, mmf, mmep, mmef, hlat, hlon = None, None, None, None, None, None, None, None
  
     try:
-        smp, smf, mmp, mmf, hlat, hlon = config.editor_config_load()
+        smp, smf, mmp, mmf, mmep,mmef, hlat, hlon = config.editor_config_load()
 
         if "markers" not in st.session_state:
             st.session_state["markers"] = []
 
-        if "updated_location_list" not in st.session_state:
-            st.session_state["updated_location_list"] = []
+        # if "updated_location_list" not in st.session_state:
+        #     st.session_state["updated_location_list"] = []
 
         if "updated_datetime_list" not in st.session_state:
             st.session_state["updated_datetime_list"] = []   
@@ -85,7 +71,7 @@ def initialize():
     except Exception as e:      
         print(f"Exception occurred in initializing Medata Editor: {e}")
 
-    return smp, smf, mmp, mmf, hlat, hlon
+    return smp, smf, mmp, mmf, mmep, mmef, hlat, hlon
 
 def clear_markers():
     st.session_state["markers"].clear()
@@ -109,18 +95,18 @@ def add_marker(lat, lon, label, url):
 # extract files
 #files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
 
-def update_all_latlon():
-    if len(st.session_state.updated_location_list) > 0 :
+# def update_all_latlon():
+#     if len(st.session_state.updated_location_list) > 0 :
         
-        for loc in st.session_state["updated_location_list"]:
-            print(loc)
-            print(st.session_state.df_loc.at[34, "latitude"])
-            latitude = st.session_state.df_loc.at[loc[2], "latitude"]
-            longitude = st.session_state.df_loc.at[loc[2], "longitude"]
-            st.session_state.df.at[loc[0], "GPSLatitude"] = latitude
-            st.session_state.df.at[loc[0], "GPSLongitude"] = longitude
-            lu.setGpsInfo(loc[0], latitude=latitude, longitude=longitude)
-        st.session_state["updated_location_list"].clear()  
+#         for loc in st.session_state["updated_location_list"]:
+#             latitude = st.session_state.df_loc.at[loc[2], "latitude"]
+#             longitude = st.session_state.df_loc.at[loc[2], "longitude"]
+#             st.session_state.df.at[loc[0], "GPSLatitude"] = latitude
+#             st.session_state.df.at[loc[0], "GPSLongitude"] = longitude
+#             lu.setGpsInfo(loc[0], latitude=latitude, longitude=longitude)
+#         st.session_state["updated_location_list"].clear()  
+def update_latitude_longitude(image, latitude, longitude):
+    lu.setGpsInfo(image, latitude, longitude)
 
 def update_all_datetime_changes(image, col):
     dt = st.session_state[f"{col}_{image}"]
@@ -147,14 +133,23 @@ def select_location_by_country_and_state(rdf):
     return (s_ffrdf[s_ffrdf['name'] == selected_location].iloc[0])
 
 
-def save_metadata(sdp, sdn, mmp, mmf):
-    st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",")
+def save_metadata( mmp, mmf, mmep, mmef):
+    for index, row in st.session_state.edited_image_attributes.iterrows():
+        
+
+    st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",",index=False)
+
+    if os.path.join(mmep, mmef):
+        st.session_state.edited_image_attributes.to_csv(os.path.join(mmep, mmef), mode='a', index=False, header=False)
+    else:
+        st.session_state.edited_image_attributes.to_csv(os.path.join(mmep, mmef), index=False, header=False)   
+
     # persist_static_locations(sdp, sdn)
     print(st.session_state.df)
 
 def execute():
 
-    smp, smf, mmp, mmf, hlat, hlon = initialize()
+    smp, smf, mmp, mmf, mmep, mmef, hlat, hlon = initialize()
     
     # extract files
     files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
@@ -178,11 +173,12 @@ def execute():
         'GPSLatitude' : st.column_config.NumberColumn('latitude', min_value=-90.0, max_value=90.0, required=True),
         'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
         'DateTimeOriginal' : st.column_config.TextColumn('datetime', width="small", required=False)}
+    
     st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
-    save_btn = st.sidebar.button(label="Save Image Metadata",  use_container_width=True) #on_click=save_metadata(sdp, sdn, mmp, mmf)
+    save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) #on_click=save_metadata(sdp, sdn, mmp, mmf)
     if save_btn:
-        save_metadata(smp, smf, mmp, mmf)
+        save_metadata(mmp, mmf, mmep, mmef)
 
     m = fl.Map(location=[hlat, hlon], zoom_start=4, min_zoom=3, max_zoom=10)
 
@@ -235,8 +231,9 @@ def execute():
                 if clk:
                     st.session_state.df.at[image, "GPSLatitude"] = sindex['latitude']
                     st.session_state.df.at[image, "GPSLongitude"] = sindex['longitude']
+                    update_latitude_longitude(image, sindex['latitude'], sindex['longitude'])
                     n_row = pd.Series({"SourceFile": image, "GPSLatitude": sindex["latitude"], "GPSLongitude": sindex['longitude'], "DateTimeOriginal": dt})
-                    print(n_row)
+                    #print(n_row)
                     st.session_state.edited_image_attributes = pd.concat([st.session_state.edited_image_attributes, pd.DataFrame([n_row], columns=n_row.index)]).reset_index(drop=True)
                 c2.text("")
                 c2.text("")

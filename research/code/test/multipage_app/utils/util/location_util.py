@@ -121,7 +121,7 @@ def gpsInfo(img):
 
 def setGpsInfo(fn, lat, lon):
     photo = gpsphoto.GPSPhoto(fn)
-    info = gpsphoto.GPSInfo((lat, lon))
+    info = gpsphoto.GPSInfo((float(lat), float(lon)))
     photo.modGPSData(info, fn)
 
 # get timestamp from image file
