@@ -52,7 +52,6 @@ def initialize():
       home_latitude: 32.968700
       home_longitude: -117.184200
     """
-    print('-->init')
     smp, smf, mmp, mmf, hlat, hlon = None, None, None, None, None, None
  
     try:
@@ -127,9 +126,7 @@ def update_all_datetime_changes(image, col):
     st.session_state.df.at[image, "DateTimeOriginal"] = dt
     lu.setDateTimeOriginal(image, dt)
 
-def select_location_by_country_and_state(parquet_file_path):
-
-    rdf = fpu.read_parquet_file(file_path=parquet_file_path)
+def select_location_by_country_and_state(rdf):
 
     c_country, c_state, c_location = st.columns([.2,.2,1])
     
@@ -146,7 +143,8 @@ def select_location_by_country_and_state(parquet_file_path):
        s_ffrdf = ffrdf.sort_values(by='name')
        selected_location = st.selectbox('select location name/ description', s_ffrdf['name'].unique())
 
-       st.write(s_ffrdf[s_ffrdf['name'] == selected_location].iloc[0])
+    return (s_ffrdf[s_ffrdf['name'] == selected_location].iloc[0])
+
 
 def save_metadata(sdp, sdn, mmp, mmf):
     st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",")
@@ -160,7 +158,7 @@ def execute():
     # extract files
     files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
 
-    st.sidebar.header("Display Criteria",divider="gray")
+    st.sidebar.subheader("Display Criteria",divider="gray")
     cb,cr,cp = st.sidebar.columns([1,1,1])
     with cb:
         batch_size = st.select_slider("Batch Size:", range(10, 700, 10))
@@ -170,8 +168,8 @@ def execute():
     with cp:   
         page = st.selectbox("Page Number:", range(1, num_batches + 1))
 
-
-    st.sidebar.header('Locations', divider="gray")
+    
+    st.sidebar.subheader('Edited Locations', divider="gray")
     config = {
         'name' : st.column_config.TextColumn('name', width='small', required=True),
         'desc' : st.column_config.TextColumn('Description', width='small', required=True),
@@ -202,6 +200,10 @@ def execute():
     if data is not None:
         st.session_state.editor_audit_msg.append(data)
     #...
+
+    st.subheader("Location to Apply", divider='gray') 
+    sindex = select_location_by_country_and_state(st.session_state.df_loc)
+    st.write(sindex['latitude'])
     st.subheader("IMAGES", divider='gray')    
 
     batch = files[(page - 1) * batch_size : page * batch_size]
@@ -224,10 +226,10 @@ def execute():
                 c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
             else:
                 #print(st.session_state.df_loc.name.values)
-                r = c2.selectbox(label=f"location_{image}", label_visibility="collapsed",  options=st.session_state.df_loc.name.values, index=None, on_change=update_all_latlon())
-                if r:
-                    print(st.session_state.df_loc.loc[st.session_state.df_loc['name'] == r].index)
-                    st.session_state["updated_location_list"].append((image, col, st.session_state.df_loc.loc[st.session_state.df_loc['name'] == r].index))
+                c2.checkbox(label=f"location_{image}", label_visibility="collapsed")
+                # r = c2.selectbox(label=f"location_{image}", label_visibility="collapsed",  options=st.session_state.df_loc.name.values, index=None, on_change=update_all_latlon())
+                # if r:
+                #     st.session_state["updated_location_list"].append((image, col, r))
                 c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt')) 
             image = Image.open(image)  
             image.thumbnail((200,200), Image.Resampling.LANCZOS)
