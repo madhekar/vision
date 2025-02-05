@@ -81,6 +81,9 @@ def initialize():
         else:
             df_loc = st.session_state.df_loc   
 
+        if "edited_image_attributes" not in st.session_state:
+            st.session_state["edited_image_attributes"] = []    
+
     except Exception as e:      
         print(f"Exception occurred in initializing Medata Editor: {e}")
 
@@ -172,13 +175,15 @@ def execute():
     st.sidebar.subheader('Edited Locations', divider="gray")
     config = {
         'name' : st.column_config.TextColumn('name', width='small', required=True),
-        'desc' : st.column_config.TextColumn('Description', width='small', required=True),
-        'lat' : st.column_config.NumberColumn('Latitude', min_value=-90.0, max_value=90.0, required=True),
-        'lon' : st.column_config.NumberColumn('Logitude',min_value=-180.0, max_value= 180.0, required=True)
+        'state' : st.column_config.TextColumn('state', width='small', required=True),
+        'country' : st.column_config.TextColumn('country', width='small', required=True),        
+        'latitude' : st.column_config.NumberColumn('latitude', min_value=-90.0, max_value=90.0, required=True),
+        'longitude' : st.column_config.NumberColumn('logitude',min_value=-180.0, max_value= 180.0, required=True),
+        'datetime' : st.column_config.DatetimeColumn('originaldatetime', width="small", required=False)
     }
-    st.session_state.df_loc = st.sidebar.data_editor(st.session_state.df_loc, column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
+    st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
-    save_btn = st.sidebar.button(label="Save Metadata",  use_container_width=True) #on_click=save_metadata(sdp, sdn, mmp, mmf)
+    save_btn = st.sidebar.button(label="Save Image Metadata",  use_container_width=True) #on_click=save_metadata(sdp, sdn, mmp, mmf)
     if save_btn:
         save_metadata(smp, smf, mmp, mmf)
 
@@ -203,7 +208,7 @@ def execute():
 
     st.subheader("Location to Apply", divider='gray') 
     sindex = select_location_by_country_and_state(st.session_state.df_loc)
-    st.write(sindex['latitude'])
+    # st.write(sindex['latitude'])
     st.subheader("IMAGES", divider='gray')    
 
     batch = files[(page - 1) * batch_size : page * batch_size]
@@ -227,6 +232,11 @@ def execute():
             else:
                 #print(st.session_state.df_loc.name.values)
                 c2.checkbox(label=f"location_{image}", label_visibility="collapsed")
+                c2.text("")
+                c2.text("")
+                c2.text("")
+                c2.text("")
+                c2.text("")
                 # r = c2.selectbox(label=f"location_{image}", label_visibility="collapsed",  options=st.session_state.df_loc.name.values, index=None, on_change=update_all_latlon())
                 # if r:
                 #     st.session_state["updated_location_list"].append((image, col, r))
