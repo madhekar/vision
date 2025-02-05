@@ -231,7 +231,10 @@ def execute():
                 c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
             else:
                 #print(st.session_state.df_loc.name.values)
-                c2.checkbox(label=f"location_{image}", label_visibility="collapsed")
+                clk = c2.checkbox(label=f"location_{image}", label_visibility="collapsed")
+                if clk:
+                    st.session_state.df.at[image, "GPSLatitude"] = sindex['latitude']
+                    st.session_state.df.at[image, "GPSLongitude"] = sindex['longitude']
                 c2.text("")
                 c2.text("")
                 c2.text("")
