@@ -90,28 +90,16 @@ def add_marker(lat, lon, label, url):
     marker = fl.Marker([lat, lon], popup=url, tooltip=label)#, icon=iconurl)
     st.session_state["markers"].append(marker)
 
-
-
-# extract files
-#files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
-
-# def update_all_latlon():
-#     if len(st.session_state.updated_location_list) > 0 :
-        
-#         for loc in st.session_state["updated_location_list"]:
-#             latitude = st.session_state.df_loc.at[loc[2], "latitude"]
-#             longitude = st.session_state.df_loc.at[loc[2], "longitude"]
-#             st.session_state.df.at[loc[0], "GPSLatitude"] = latitude
-#             st.session_state.df.at[loc[0], "GPSLongitude"] = longitude
-#             lu.setGpsInfo(loc[0], latitude=latitude, longitude=longitude)
-#         st.session_state["updated_location_list"].clear()  
+ 
 def update_latitude_longitude(image, latitude, longitude):
-    lu.setGpsInfo(image, latitude, longitude)
+    st.session_state.df.at[image, "GPSLatitude"] =latitude
+    st.session_state.df.at[image, "GPSLongitude"] = longitude
+    #lu.setGpsInfo(image, latitude, longitude)
 
 def update_all_datetime_changes(image, col):
     dt = st.session_state[f"{col}_{image}"]
     st.session_state.df.at[image, "DateTimeOriginal"] = dt
-    lu.setDateTimeOriginal(image, dt)
+    #lu.setDateTimeOriginal(image, dt)
 
 def select_location_by_country_and_state(rdf):
 
@@ -135,7 +123,11 @@ def select_location_by_country_and_state(rdf):
 
 def save_metadata( mmp, mmf, mmep, mmef):
     for index, row in st.session_state.edited_image_attributes.iterrows():
-        
+        lat = st.session_state.df.at[row["image"], 'GPSLatitude']
+        lon = st.session_state.df.at[row["image"], "GPSLongitude"]
+        dt = st.session_state.df.at[row["image"], "DateTimeOriginal"]
+        lu.setGpsInfo(row['image'], lat, lon)
+        lu.setDateTimeOriginal(dt)
 
     st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",",index=False)
 
@@ -229,8 +221,6 @@ def execute():
                 #print(st.session_state.df_loc.name.values)
                 clk = c2.checkbox(label=f"location_{image}", label_visibility="collapsed")
                 if clk:
-                    st.session_state.df.at[image, "GPSLatitude"] = sindex['latitude']
-                    st.session_state.df.at[image, "GPSLongitude"] = sindex['longitude']
                     update_latitude_longitude(image, sindex['latitude'], sindex['longitude'])
                     n_row = pd.Series({"SourceFile": image, "GPSLatitude": sindex["latitude"], "GPSLongitude": sindex['longitude'], "DateTimeOriginal": dt})
                     #print(n_row)
