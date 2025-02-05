@@ -123,11 +123,11 @@ def select_location_by_country_and_state(rdf):
 
 def save_metadata( mmp, mmf, mmep, mmef):
     for index, row in st.session_state.edited_image_attributes.iterrows():
-        lat = st.session_state.df.at[row["image"], 'GPSLatitude']
-        lon = st.session_state.df.at[row["image"], "GPSLongitude"]
-        dt = st.session_state.df.at[row["image"], "DateTimeOriginal"]
-        lu.setGpsInfo(row['image'], lat, lon)
-        lu.setDateTimeOriginal(dt)
+        lat = st.session_state.df.at[row["SourceFile"], "GPSLatitude"]
+        lon = st.session_state.df.at[row["SourceFile"], "GPSLongitude"]
+        dt = st.session_state.df.at[row["SourceFile"], "DateTimeOriginal"]
+        lu.setGpsInfo(row["SourceFile"], lat, lon)
+        lu.setDateTimeOriginal(row["SourceFile"], dt)
 
     st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",",index=False)
 
