@@ -14,7 +14,6 @@ from utils.util import fast_parquet_util as fpu
 def metadata_initialize(mmp,mmf):
     df = pd.read_csv (os.path.join(mmp, mmf)) #('metadata.csv')
     df.set_index("SourceFile", inplace=True)
-    print(df.head(10))
     return df
 
 @st.cache_resource
@@ -22,7 +21,6 @@ def location_initialize(smp, smf):
 
     try:
         df = fpu.read_parquet_file(os.path.join(smp, smf))
-        print(df)
     except Exception as e:
         print(
             f"exception occured in loading location metadata: {smf} with exception: {e}"
@@ -82,7 +80,7 @@ def initialize():
             df_loc = st.session_state.df_loc   
 
         if "edited_image_attributes" not in st.session_state:
-            st.session_state["edited_image_attributes"] = []    
+            st.session_state["edited_image_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'DateTimeOriginal'))  
 
     except Exception as e:      
         print(f"Exception occurred in initializing Medata Editor: {e}")
@@ -162,6 +160,7 @@ def execute():
     files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
 
     st.sidebar.subheader("Display Criteria",divider="gray")
+
     cb,cr,cp = st.sidebar.columns([1,1,1])
     with cb:
         batch_size = st.select_slider("Batch Size:", range(10, 700, 10))
@@ -172,15 +171,13 @@ def execute():
         page = st.selectbox("Page Number:", range(1, num_batches + 1))
 
     
-    st.sidebar.subheader('Edited Locations', divider="gray")
+    st.sidebar.subheader('Edited Images', divider="gray")
+
     config = {
-        'name' : st.column_config.TextColumn('name', width='small', required=True),
-        'state' : st.column_config.TextColumn('state', width='small', required=True),
-        'country' : st.column_config.TextColumn('country', width='small', required=True),        
-        'latitude' : st.column_config.NumberColumn('latitude', min_value=-90.0, max_value=90.0, required=True),
-        'longitude' : st.column_config.NumberColumn('logitude',min_value=-180.0, max_value= 180.0, required=True),
-        'datetime' : st.column_config.DatetimeColumn('originaldatetime', width="small", required=False)
-    }
+        'SourceFile' : st.column_config.TextColumn('image', width='small', required=True),       
+        'GPSLatitude' : st.column_config.NumberColumn('latitude', min_value=-90.0, max_value=90.0, required=True),
+        'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
+        'DateTimeOriginal' : st.column_config.TextColumn('datetime', width="small", required=False)}
     st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
     save_btn = st.sidebar.button(label="Save Image Metadata",  use_container_width=True) #on_click=save_metadata(sdp, sdn, mmp, mmf)
@@ -206,9 +203,12 @@ def execute():
         st.session_state.editor_audit_msg.append(data)
     #...
 
+    # Location to Apply to many images
     st.subheader("Location to Apply", divider='gray') 
+
     sindex = select_location_by_country_and_state(st.session_state.df_loc)
-    # st.write(sindex['latitude'])
+
+    # Display images to correct
     st.subheader("IMAGES", divider='gray')    
 
     batch = files[(page - 1) * batch_size : page * batch_size]
@@ -235,6 +235,9 @@ def execute():
                 if clk:
                     st.session_state.df.at[image, "GPSLatitude"] = sindex['latitude']
                     st.session_state.df.at[image, "GPSLongitude"] = sindex['longitude']
+                    n_row = pd.Series({"SourceFile": image, "GPSLatitude": sindex["latitude"], "GPSLongitude": sindex['longitude'], "DateTimeOriginal": dt})
+                    print(n_row)
+                    st.session_state.edited_image_attributes = pd.concat([st.session_state.edited_image_attributes, pd.DataFrame([n_row], columns=n_row.index)]).reset_index(drop=True)
                 c2.text("")
                 c2.text("")
                 c2.text("")
