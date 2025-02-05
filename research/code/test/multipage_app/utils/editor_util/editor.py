@@ -78,7 +78,6 @@ def initialize():
 
         if "df_loc" not in st.session_state:
             df = location_initialize(smp, smf)
-            df.rein
             st.session_state.df_loc = df
         else:
             df_loc = st.session_state.df_loc   
@@ -173,17 +172,17 @@ def execute():
 
 
     st.sidebar.header('Locations', divider="gray")
-    # config = {
-    #     'Name' : st.column_config.TextColumn('Name', width='small', required=True),
-    #     'desc' : st.column_config.TextColumn('Description', width='small', required=True),
-    #     'lat' : st.column_config.NumberColumn('Latitude', min_value=-90.0, max_value=90.0, required=True),
-    #     'lon' : st.column_config.NumberColumn('Logitude',min_value=-180.0, max_value= 180.0, required=True)
-    # }
-    # st.session_state.df_loc = st.sidebar.data_editor(st.session_state.df_loc, column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
+    config = {
+        'name' : st.column_config.TextColumn('name', width='small', required=True),
+        'desc' : st.column_config.TextColumn('Description', width='small', required=True),
+        'lat' : st.column_config.NumberColumn('Latitude', min_value=-90.0, max_value=90.0, required=True),
+        'lon' : st.column_config.NumberColumn('Logitude',min_value=-180.0, max_value= 180.0, required=True)
+    }
+    st.session_state.df_loc = st.sidebar.data_editor(st.session_state.df_loc, column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
-    # save_btn = st.sidebar.button(label="Save Metadata",  use_container_width=True) #on_click=save_metadata(sdp, sdn, mmp, mmf)
-    # if save_btn:
-    #     save_metadata(smp, smf, mmp, mmf)
+    save_btn = st.sidebar.button(label="Save Metadata",  use_container_width=True) #on_click=save_metadata(sdp, sdn, mmp, mmf)
+    if save_btn:
+        save_metadata(smp, smf, mmp, mmf)
 
     m = fl.Map(location=[hlat, hlon], zoom_start=4, min_zoom=3, max_zoom=10)
 
