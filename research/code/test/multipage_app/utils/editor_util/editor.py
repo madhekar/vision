@@ -130,15 +130,16 @@ def select_location_by_country_and_state(rdf):
     
     with c_selected:
         st.header(f"**{selected_country} :: {selected_state} :: {selected_location}**")
-
+        st.sidebar.subheader(f"**{selected_country} :: {selected_state} :: {selected_location}**")
     return (s_ffrdf[s_ffrdf['name'] == selected_location].iloc[0])
 
 
 def save_metadata( mmp, mmf, mmep, mmef):
     for index, row in st.session_state.edited_image_attributes.iterrows():
-        lat = st.session_state.df.at[row["SourceFile"], "GPSLatitude"]
-        lon = st.session_state.df.at[row["SourceFile"], "GPSLongitude"]
-        dt = st.session_state.df.at[row["SourceFile"], "DateTimeOriginal"]
+        print(f'-->{row}')
+        # lat = st.session_state.df.at[row["SourceFile"], "GPSLatitude"]
+        # lon = st.session_state.df.at[row["SourceFile"], "GPSLongitude"]
+        # dt = st.session_state.df.at[row["SourceFile"], "DateTimeOriginal"]
         #lu.setGpsInfo(row["SourceFile"], lat, lon)
         #lu.setDateTimeOriginal(row["SourceFile"], dt)
 
@@ -149,8 +150,8 @@ def save_metadata( mmp, mmf, mmep, mmef):
     else:
         st.session_state.edited_image_attributes.to_csv(os.path.join(mmep, mmef), index=False, header=False)   
 
-    # persist_static_locations(sdp, sdn)
-    print(st.session_state.df)
+    st.session_state.edited_image_attributes.clear()
+
 
 def execute():
 
