@@ -30,7 +30,7 @@ wip_color = "#1b85b8"#"#998E1A"
 colors = ["#ae5a41", "#1b85b8"]#["#636B2F", "#BAC095"]
 
 def ChangeButtoncolor(widget_label, prsd_status):
-    btn_bg_color = success_color if prsd_status == True else unpressed_color
+    btn_bg_color = success_color if prsd_status else unpressed_color
     if prsd_status == 0:
         btn_bg_color = unpressed_color
     elif prsd_status == 1:
@@ -221,7 +221,7 @@ def execute():
             st.bar_chart(
                 df,
                 horizontal=False,
-                stack=False,
+                stack=True,
                 y_label="number of files",
                 use_container_width=True,
                 color= ['#ae5a41','#1b85b8','#559e83','#c3cb71']#['#c09b95','#bac095','#95bac0','#9b95c0']#["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
