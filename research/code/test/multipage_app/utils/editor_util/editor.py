@@ -94,12 +94,12 @@ def add_marker(lat, lon, label, url):
 def update_latitude_longitude(image, latitude, longitude):
     st.session_state.df.at[image, "GPSLatitude"] =latitude
     st.session_state.df.at[image, "GPSLongitude"] = longitude
-    #lu.setGpsInfo(image, latitude, longitude)
+    lu.setGpsInfo(image, latitude, longitude)
 
 def update_all_datetime_changes(image, col):
     dt = st.session_state[f"{col}_{image}"]
     st.session_state.df.at[image, "DateTimeOriginal"] = dt
-    #lu.setDateTimeOriginal(image, dt)
+    lu.setDateTimeOriginal(image, dt)
 
 def select_location_by_country_and_state(rdf):
 
@@ -126,8 +126,8 @@ def save_metadata( mmp, mmf, mmep, mmef):
         lat = st.session_state.df.at[row["SourceFile"], "GPSLatitude"]
         lon = st.session_state.df.at[row["SourceFile"], "GPSLongitude"]
         dt = st.session_state.df.at[row["SourceFile"], "DateTimeOriginal"]
-        lu.setGpsInfo(row["SourceFile"], lat, lon)
-        lu.setDateTimeOriginal(row["SourceFile"], dt)
+        #lu.setGpsInfo(row["SourceFile"], lat, lon)
+        #lu.setDateTimeOriginal(row["SourceFile"], dt)
 
     st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",",index=False)
 

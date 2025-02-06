@@ -103,8 +103,9 @@ def getLocationDetails(strLnL):
     return address
 
 def setDateTimeOriginal(fname, dt):
-    exiv_image = pyexiv2.Image(filename=fname)
-    exiv_image["Exif"][pyexiv2.ExifIFD.DateTimeOriginal] = dt
+    print(fname)
+    exiv_image = pyexiv2.Image(fname)
+    exiv_image["Exif"]['Exif.Image.DateTimeOriginal'] = dt
     exiv_image.writeMetaDate()
 
 
