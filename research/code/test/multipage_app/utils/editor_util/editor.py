@@ -105,8 +105,16 @@ def update_all_datetime_changes(image, col):
 
 def select_location_by_country_and_state(rdf):
 
-    c_country, c_state, c_location = st.columns([.2,.2,1])
+    c_location_type, c_country, c_state, c_location, c_selected = st.columns([.1,.1,.1,.3,.6], gap="medium")
     
+    with c_location_type:
+        is_public_location = st.selectbox('select location type', options=('personal','public',  'both'), placeholder="select type of locations to display...")
+        if is_public_location == 'personal':
+            rdf = rdf[rdf['name'].str.len() >  20]
+        elif is_public_location == 'public':
+            rdf = rdf[rdf["name"].str.len() <= 20]   
+        else:
+            pass     
     with c_country:
       selected_country = st.selectbox('select country', rdf['country'].unique())
 
@@ -119,6 +127,9 @@ def select_location_by_country_and_state(rdf):
        ffrdf = frdf[frdf['state'] == selected_state]
        s_ffrdf = ffrdf.sort_values(by='name')
        selected_location = st.selectbox('select location name/ description', s_ffrdf['name'].unique())
+    
+    with c_selected:
+        st.header(f"**{selected_country} :: {selected_state} :: {selected_location}**")
 
     return (s_ffrdf[s_ffrdf['name'] == selected_location].iloc[0])
 
