@@ -4,6 +4,7 @@ import pandas as pd
 import os
 import folium as fl
 from streamlit_folium import st_folium
+from streamlit_folium import folium_static
 from utils.util import location_util as lu 
 from utils.config_util import config
 from PIL import Image
