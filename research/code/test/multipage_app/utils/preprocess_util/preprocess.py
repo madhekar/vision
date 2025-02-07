@@ -46,6 +46,7 @@ def timestamp( uri):
 def locationDetails( uri):
         lat_lon = lu.gpsInfo(uri)
         loc = lu.getLocationDetails(lat_lon)
+        print(lat_lon, loc)
         return lat_lon[0], lat_lon[1], loc 
     
 # get names of people in image    

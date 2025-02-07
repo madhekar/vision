@@ -3,4 +3,6 @@ from utils.preprocess_util import preprocess as pp
 
 st.subheader("METADATA: GENERATE", divider="gray")
 
-pp.execute()
+bcreate_metadata = st.button('create image metadata')
+if bcreate_metadata:
+   pp.execute()
