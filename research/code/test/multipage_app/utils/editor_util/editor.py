@@ -151,7 +151,7 @@ def save_metadata( mmp, mmf, mmep, mmef):
     else:
         st.session_state.edited_image_attributes.to_csv(os.path.join(mmep, mmef), index=False, header=False)   
 
-    st.session_state.edited_image_attributes.clear()
+    st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0)
 
 
 def execute():

@@ -6,9 +6,13 @@ import entities
 import LLM
 import aiofiles
 import json
+import streamlit as st
 from utils.config_util import config
 from utils.util import location_util as lu
 from utils.util import model_util as mu
+
+d_latitude, d_longitude = 32.96887205555556, -117.18414305555557
+
 
 # init LLM modules
 m, t, p = LLM.setLLM()
@@ -45,6 +49,8 @@ def timestamp( uri):
 # get location details as: latitude, longitude and address    
 def locationDetails( uri):
         lat_lon = lu.gpsInfo(uri)
+        if lat_lon == ():
+            lat_lon = (d_latitude, d_longitude)
         loc = lu.getLocationDetails(lat_lon)
         print(lat_lon, loc)
         return lat_lon[0], lat_lon[1], loc 
@@ -70,6 +76,7 @@ def describeImage( dict):
 
 # collect metadata for all images
 async def make_request(url: str, openclip_finetuned: str, semaphore: asyncio.Semaphore):
+    print(url)
     async with semaphore:
         s1 = await awaitUtil.force_awaitable(generateId)(url)
 
@@ -86,12 +93,14 @@ async def make_request(url: str, openclip_finetuned: str, semaphore: asyncio.Sem
 
 # main asynchronous function 
 async def amain(iList, metadata_path, metadata_file, chunk_size, openclip_finetuned):
+
     queue = asyncio.Queue()  
-    
     semaphore = asyncio.Semaphore(10)    
 
     tasks = [make_request(img_path , openclip_finetuned, semaphore) for img_path in iList]
-    
+
+    print(tasks)
+
     for co in asyncio.as_completed(tasks):
         res = await co
         await asyncio.sleep(1)
@@ -99,16 +108,13 @@ async def amain(iList, metadata_path, metadata_file, chunk_size, openclip_finetu
         
     ts = []
     for i in range(chunk_size):
-        t = asyncio.create_task(
-            worker(f"worker-{i}", metadata_path, metadata_file, queue=queue)
-        )
+        t = asyncio.create_task(worker(f"worker-{i}", metadata_path, metadata_file, queue=queue))
         ts.append(t)
-    
+
     await queue.join()
 
     for t in ts:
          t.cancel()     
-
 
 def execute():
     (image_dir_path,
@@ -117,12 +123,16 @@ def execute():
     chunk_size,
     number_of_instances,
     openclip_finetuned) = config.preprocess_config_load()
+    with st.status("Generating LLM responses...", extended=True) as status:
 
-    img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
+        st.info(f'processing images in {image_dir_path} in chunks of: {chunk_size}')
 
-    for ilist in img_iterator:
-            asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))
-     
+        img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
+
+        for ilist in img_iterator:
+                st.info(f'now creating async with {number_of_instances} to process metadata in {metadata_path} for LLM ')
+                asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))
+        status.update("process completed!", status="complete", extended = False)
 # kick-off metadata generation 
 if __name__ == "__main__":
     execute()
