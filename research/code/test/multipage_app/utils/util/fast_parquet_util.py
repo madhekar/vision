@@ -56,7 +56,7 @@ def read_parquet_file(file_path):
     try:
         pf = fp.ParquetFile(file_path)
         rdf = pf.to_pandas()
-        rdf['Name'].str.strip()
+        rdf['name'].str.strip()
     except Exception as e:
         st.error(f"get all locations failed with exception: {e}")
     return rdf
