@@ -68,10 +68,11 @@ def describeImage( dict):
                 processor=p,
                 top=0.9,
                 temperature=0.9,
-                question="Answer with organized thoughts: Please describe the picture, ",
+                question="Answer with organized thoughts, please describe the picture with insights, ",
                 people=dict.get("nam"),
                 location=dict.get("loc")
             )
+        st.info(d)
         return d 
 
 # collect metadata for all images
@@ -93,14 +94,15 @@ async def make_request(url: str, openclip_finetuned: str, semaphore: asyncio.Sem
 
 # main asynchronous function 
 async def amain(iList, metadata_path, metadata_file, chunk_size, openclip_finetuned):
+    
+    st.info(f'now processing batch of {chunk_size}')
+    st.info(iList)
 
     queue = asyncio.Queue()  
     semaphore = asyncio.Semaphore(10)    
 
     tasks = [make_request(img_path , openclip_finetuned, semaphore) for img_path in iList]
-
-    print(tasks)
-
+    
     for co in asyncio.as_completed(tasks):
         res = await co
         await asyncio.sleep(1)
@@ -123,7 +125,7 @@ def execute():
     chunk_size,
     number_of_instances,
     openclip_finetuned) = config.preprocess_config_load()
-    with st.status("Generating LLM responses...", extended=True) as status:
+    with st.status("Generating LLM responses...", expanded=True) as status:
 
         st.info(f'processing images in {image_dir_path} in chunks of: {chunk_size}')
 
