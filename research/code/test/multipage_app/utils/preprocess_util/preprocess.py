@@ -61,18 +61,19 @@ def namesOfPeople(uri, openclip_finetuned):
         return names
 
 # get image description from LLM
-def describeImage( dict):
+def describeImage(dict):
         d = LLM.fetch_llm_text(
                 imUrl=dict.get("url"),
                 model=m,
                 processor=p,
                 top=0.9,
                 temperature=0.9,
-                question="Answer with organized thoughts, please describe the picture with insights, ",
+                question="Answer with well organized thoughts, please describe the picture with insights.",
                 people=dict.get("nam"),
                 location=dict.get("loc")
             )
-        st.info(d)
+        st.info(f"describe Image: LLM text for: {dict.get('url')} is: {d}")
+       
         return d 
 
 # collect metadata for all images
@@ -88,6 +89,8 @@ async def make_request(url: str, openclip_finetuned: str, semaphore: asyncio.Sem
         s3 = await awaitUtil.force_awaitable(locationDetails)(url)
 
         r4 = await awaitUtil.force_awaitable(namesOfPeople)(url, openclip_finetuned)
+
+        st.info(f"make_request: {url} dt: {s2} lat: {s3[0]} lon:  {s3[1]} loc: {s3[2]} nam: {r4}")
 
         return {"url" : url, "id": s1, "timestamp": s2, "lat": s3[0], "lon" : s3[1], "loc": s3[2], "nam": r4}
 
