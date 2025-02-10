@@ -47,7 +47,7 @@ def getEntityNames(image, openclip_finetuned):
     model_ft = CLIPFineTuner(model, num_classes).to(device)
 
     # Load the saved model weights
-    model_ft.load_state_dict(torch.load( openclip_finetuned))  # "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"))
+    model_ft.load_state_dict(torch.load( openclip_finetuned))  # "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
     model_ft.eval()  # Set the model to evaluation mode
     # Transform the image
     image_tensor = (
