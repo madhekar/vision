@@ -138,7 +138,6 @@ def preprocess_config_load():
         metadata_file = dict["metadata"]["metadata_file"]
         chunk_size = dict["metadata"]["data_chunk_size"]
         number_of_instances = dict["metadata"]["number_of_instances"]
-
         openclip_finetuned = dict["models"]["openclip_finetuned"] 
         
     return(

@@ -32,11 +32,13 @@ def getEntityNames(image, openclip_finetuned):
     # Preprocess the image
     transform = transforms.Compose(
     [
+        transforms.ToPILImage(),
         transforms.Resize((224, 224)),
         transforms.ToTensor(),
         transforms.Normalize(
-            (0.48145466, 0.4578275, 0.40821073),
-            (0.26862954, 0.26130258, 0.27577711),
+            (.5,.5,.5),(.5,.5,.5)
+            # (0.48145466, 0.4578275, 0.40821073),
+            # (0.26862954, 0.26130258, 0.27577711),
         ),
     ]
     )
@@ -45,7 +47,7 @@ def getEntityNames(image, openclip_finetuned):
     model_ft = CLIPFineTuner(model, num_classes).to(device)
 
     # Load the saved model weights
-    model_ft.load_state_dict(torch.load( openclip_finetuned))#"../zeshaOpenClip/clip_finetuned.pth"))
+    model_ft.load_state_dict(torch.load( openclip_finetuned))  # "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"))
     model_ft.eval()  # Set the model to evaluation mode
     # Transform the image
     image_tensor = (

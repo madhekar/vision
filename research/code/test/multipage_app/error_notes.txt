@@ -1,4 +1,8 @@
-['/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_4776.jpeg', '/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_7552.jpeg', '/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_8264.jpeg', '/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_5881.jpeg', '/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_6883.jpeg', '/home/madhekar/work/home-media-app/data/input-data/img/IMG_20210305_184739.jpg', '/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_5376.jpeg', '/home/madhekar/work/home-media-app/data/input-data/img/IMG-20200104-WA0012.jpg', '/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_7836.jpeg', '/home/madhekar/work/home-media-app/data/input-data/img/Coach Eval Sem2 002.png']
+['/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_4776.jpeg', '/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_7552.jpeg', 
+'/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_8264.jpeg', '/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_5881.jpeg', 
+'/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_6883.jpeg', '/home/madhekar/work/home-media-app/data/input-data/img/IMG_20210305_184739.jpg', 
+'/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_5376.jpeg', '/home/madhekar/work/home-media-app/data/input-data/img/IMG-20200104-WA0012.jpg', 
+'/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_7836.jpeg', '/home/madhekar/work/home-media-app/data/input-data/img/Coach Eval Sem2 002.png']
 RuntimeError: output with shape [1, 224, 224] doesn't match the broadcast shape [3, 224, 224]
 Traceback:
 
