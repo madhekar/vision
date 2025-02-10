@@ -3,6 +3,7 @@ import torch
 import torch.nn as nn
 import clip
 from torchvision import transforms
+import torchvision.transforms.functional as F
 from PIL import Image
 import util
 
@@ -29,19 +30,33 @@ def getEntityNames(image, openclip_finetuned):
 
     model, preprocess = clip.load("ViT-B/32", device=device, jit=False)
 
-    # Preprocess the image
-    transform = transforms.Compose(
-    [
-        transforms.ToPILImage(),
-        transforms.Resize((224, 224)),
-        transforms.ToTensor(),
-        transforms.Normalize(
-            (.5,.5,.5),(.5,.5,.5)
-            # (0.48145466, 0.4578275, 0.40821073),
-            # (0.26862954, 0.26130258, 0.27577711),
-        ),
-    ]
-    )
+    num_channels = F.get_image_num_channels(img=image)
+    transform=None
+    if num_channels == 3:
+        # Preprocess the image
+        transform = transforms.Compose(
+        [
+            transforms.ToPILImage(),
+            transforms.Resize((224, 224)),
+            transforms.ToTensor(),
+            transforms.Normalize(
+            mean=[0.48145466, 0.4578275, 0.40821073],
+            std=[0.26862954, 0.26130258, 0.27577711],
+            ),
+        ]
+        )
+    else:
+        transform = transforms.Compose(
+            [
+                transforms.ToPILImage(),
+                transforms.Resize((224, 224)),
+                transforms.ToTensor(),
+                transforms.Normalize(
+                    [0.5],
+                    [0.5],
+                ),
+            ]
+        )
 
     num_classes = len(subclasses)
     model_ft = CLIPFineTuner(model, num_classes).to(device)
