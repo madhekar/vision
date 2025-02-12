@@ -14,7 +14,6 @@ def execute():
     # paths to import static location files
     metadata_storage_path = os.path.join(static_metadata_path, static_metadata_file)
 
-
     c1, c2 = st.columns([0.5, 1], gap="medium")
     with c1:
         st.subheader("Static Metadata")
