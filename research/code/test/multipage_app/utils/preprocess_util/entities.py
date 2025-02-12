@@ -30,11 +30,9 @@ def getEntityNames(image, openclip_finetuned):
 
     model, preprocess = clip.load("ViT-B/32", device=device, jit=False)
 
-    num_channels = F.get_image_num_channels(img=image)
-    transform=None
-    if num_channels == 3:
+
         # Preprocess the image
-        transform = transforms.Compose(
+    transform = transforms.Compose(
         [
             transforms.ToPILImage(),
             transforms.Resize((224, 224)),
@@ -45,18 +43,6 @@ def getEntityNames(image, openclip_finetuned):
             ),
         ]
         )
-    else:
-        transform = transforms.Compose(
-            [
-                transforms.ToPILImage(),
-                transforms.Resize((224, 224)),
-                transforms.ToTensor(),
-                transforms.Normalize(
-                    [0.5],
-                    [0.5],
-                ),
-            ]
-        )
 
     num_classes = len(subclasses)
     model_ft = CLIPFineTuner(model, num_classes).to(device)
@@ -66,7 +52,7 @@ def getEntityNames(image, openclip_finetuned):
     model_ft.eval()  # Set the model to evaluation mode
     # Transform the image
     image_tensor = (
-        transform(Image.open(image)).unsqueeze(0).to(device)
+        transform(Image.open(image).convert('RGB')).unsqueeze(0).to(device)
     )  # Add batch dimension and move to device
 
     # Perform inference

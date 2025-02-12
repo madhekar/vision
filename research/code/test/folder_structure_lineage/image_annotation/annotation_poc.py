@@ -2,17 +2,23 @@ import streamlit as st
 from glob import glob
 import pandas as pd
 from streamlit_image_annotation import detection, classification, pointdet
+import torchvision.transforms.functional as F
 
 mode = st.tabs(["Detection", "Classification", "Point"])
-label_list = ["Esha","Anjali","Bhalchandra","Asha","Kumar","Shibangi","Sham","Advait","Chandrakant","Puja","Sagar","Young kid","Shoma","Bhiman" ]
-image_path_list = glob("/home/madhekar/work/home-media-app/data/input-data/img/*.*")
+label_list = ["Esha","Anjali","Bhalchandra","Asha","Kumar","Shibangi","Sham","Advait","Chandrakant","Puja","Sagar","Shoma","Bhiman","friend","relative","kid","man","woman" ]
+image_path_list = glob("/home/madhekar/work/home-media-app/data/train-data/img/*.*")
 # label_list = ['deer', 'human', 'dog', 'penguin', 'framingo', 'teddy bear']
 # image_path_list = glob('image/*.jpg')
+
+
 
 with mode[0]:
     if 'result_dict_det' not in st.session_state:
         result_dict = {}
         for img in image_path_list:
+
+            num_channels = F.get_image_num_channels(img)
+            st.write(img)
             result_dict[img] = {'bboxes': [[0,0,100,100],[10,20,50,150]],'labels':[0,3]}
         st.session_state['result_dict_det'] = result_dict.copy()
 
