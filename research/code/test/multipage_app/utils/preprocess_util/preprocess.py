@@ -1,10 +1,9 @@
 import os
 import uuid
 import asyncio
-import awaitUtil
-import entities as en
+from utils.preprocess_util import awaitUtil
 from utils.preprocess_util import entities as en
-import LLM
+from utils.preprocess_util import  LLM
 import aiofiles
 import json
 import streamlit as st
@@ -58,7 +57,6 @@ def locationDetails( uri):
     
 # get names of people in image    
 def namesOfPeople(uri, openclip_finetuned):
-        st.write(f'namesOfPeople {uri}')
         names = en.getEntityNames(uri, openclip_finetuned)
         return names
 
@@ -92,7 +90,7 @@ async def make_request(url: str, openclip_finetuned: str, semaphore: asyncio.Sem
 
         r4 = await awaitUtil.force_awaitable(namesOfPeople)(url, openclip_finetuned)
 
-        st.info(f"make_request: {url} dt: {s2} lat: {s3[0]} lon:  {s3[1]} loc: {s3[2]} nam: {r4}")
+        st.info(f"make_request image uri: {url} datetime: {s2} latitude: {s3[0]} longitude:  {s3[1]} location: {s3[2]} names: {r4}")
 
         return {"url" : url, "id": s1, "timestamp": s2, "lat": s3[0], "lon" : s3[1], "loc": s3[2], "nam": r4}
 
