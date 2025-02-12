@@ -2,7 +2,8 @@ import os
 import uuid
 import asyncio
 import awaitUtil
-import entities
+import entities as en
+from utils.preprocess_util import entities as en
 import LLM
 import aiofiles
 import json
@@ -57,7 +58,8 @@ def locationDetails( uri):
     
 # get names of people in image    
 def namesOfPeople(uri, openclip_finetuned):
-        names = entities.getEntityNames(uri, openclip_finetuned)
+        st.write(f'namesOfPeople {uri}')
+        names = en.getEntityNames(uri, openclip_finetuned)
         return names
 
 # get image description from LLM
