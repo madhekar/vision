@@ -46,6 +46,15 @@ def getRecursive(rootDir, chunk_size=10):
     for i in range(0, len(f_list), chunk_size):
         yield f_list[i:i+chunk_size]        
       
+# keep track of processed files in loop
+def is_processed_batch(ilist, processed_df):
+  rlist = []
+  for file_name in ilist:  
+    if file_name in processed_df.url.values:
+        rlist.append(file_name)
+  return rlist
+
+
 def img_to_base64bytes(img_path):
     with open(img_path, "rb") as f:
         data = f.read()

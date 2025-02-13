@@ -1,11 +1,14 @@
 import os
 import uuid
+import glob
 import asyncio
 from utils.preprocess_util import awaitUtil
 from utils.preprocess_util import entities as en
 from utils.preprocess_util import  LLM
 import aiofiles
 import json
+import pandas as pd
+from pandas import json_normalize
 import streamlit as st
 from utils.config_util import config
 from utils.util import location_util as lu
@@ -77,7 +80,7 @@ def describeImage(dict):
 
 # collect metadata for all images
 async def make_request(url: str, openclip_finetuned: str, semaphore: asyncio.Semaphore):
-    print(url)
+
     async with semaphore:
         s1 = await awaitUtil.force_awaitable(generateId)(url)
 
@@ -127,6 +130,21 @@ def execute():
     number_of_instances,
     openclip_finetuned) = config.preprocess_config_load()
 
+    #total_file = len(glob.glob(os.path.join(image_dir_path, '*/*')))
+    df =None
+    try:
+      if os.path.exists(os.path.join(metadata_path, metadata_file)):
+        data = []
+        with open(os.path.join(metadata_path, metadata_file), mode="r") as f:
+          for line in f:
+            data.append(json.loads(line))
+            df = pd.DataFrame(data)
+            selected_columns = ['url']
+            df = pd.DataFrame(data, selected_columns)
+            print(df.head(10))
+    except Exception as e:
+         st.error(f'exception: {e} occured in loading metadata file')       
+
     with st.status("Generating LLM responses...", expanded=True) as status:
 
         #st.info(f'processing images in {image_dir_path} in chunks of: {chunk_size}')
@@ -134,8 +152,10 @@ def execute():
         img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
         for ilist in img_iterator:
-                st.info(f'now creating async with {number_of_instances} to process metadata in {metadata_path} for LLM ')
-                asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))
+                rlist = mu.is_processed_batch(ilist, df)
+                if len(rlist) > 0:
+                   asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))
+
         status.update("process completed!", status="complete", extended = False)
 # kick-off metadata generation 
 if __name__ == "__main__":
