@@ -20,7 +20,6 @@ m, t, p = LLM.setLLM()
 # queue processing rutine
 async def worker( name, mp, mf, queue):
     async with aiofiles.open(mp + mf, mode="a") as f:
-        print(f"{name}!")
         while True:
             # Get a "work item" out of the queue.
             dict = await queue.get()
@@ -99,7 +98,6 @@ async def make_request(url: str, openclip_finetuned: str, semaphore: asyncio.Sem
 async def amain(iList, metadata_path, metadata_file, chunk_size, openclip_finetuned):
     
     st.info(f'now processing batch of {chunk_size}')
-    st.info(iList)
 
     queue = asyncio.Queue()  
     semaphore = asyncio.Semaphore(10)    
@@ -128,9 +126,10 @@ def execute():
     chunk_size,
     number_of_instances,
     openclip_finetuned) = config.preprocess_config_load()
+
     with st.status("Generating LLM responses...", expanded=True) as status:
 
-        st.info(f'processing images in {image_dir_path} in chunks of: {chunk_size}')
+        #st.info(f'processing images in {image_dir_path} in chunks of: {chunk_size}')
 
         img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 

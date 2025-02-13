@@ -34,7 +34,7 @@ with open(train_json_path, "r") as file:
 #print(input_data[:2])
 
 
-train_image_path = "/home/madhekar/work/zsource/family/img_train/"
+train_image_path = "/home/madhekar/work/home-media-app/data/train-data/img/"
 
 list_image_path = []
 list_txt = []
