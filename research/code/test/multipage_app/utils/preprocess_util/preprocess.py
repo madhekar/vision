@@ -129,7 +129,10 @@ def execute():
     number_of_instances,
     openclip_finetuned) = config.preprocess_config_load()
 
-    #total_file = len(glob.glob(os.path.join(image_dir_path, '*/*')))
+    progress_generation = st.sidebar.empty()
+    bar = st.sidebar.progress(0)
+    num = 100
+
     df =None
     try:
       if os.path.exists(os.path.join(metadata_path, metadata_file)):
@@ -147,17 +150,17 @@ def execute():
          st.error(f'exception: {e} occured in loading metadata file')       
 
     with st.status("Generating LLM responses...", expanded=True) as status:
-
-        #st.info(f'processing images in {image_dir_path} in chunks of: {chunk_size}')
-
         img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
-
+        count=0
         for ilist in img_iterator:
-                rlist = mu.is_processed_batch(ilist, df)
-                if len(rlist) > 0:
-                   asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))  
-
+            progress_generation.text(f'{10 * count} files processed')
+            bar.progress((1290//num )* count)
+            rlist = mu.is_processed_batch(ilist, df)
+            if len(rlist) > 0:
+                asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))  
+            count = count + 1
         status.update("process completed!", status="complete", extended = False)
+
 # kick-off metadata generation 
 if __name__ == "__main__":
     execute()
