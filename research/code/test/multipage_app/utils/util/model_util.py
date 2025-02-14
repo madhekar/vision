@@ -74,8 +74,8 @@ def is_processed_batch(ilist, processed_df):
   for file_name in ilist: 
     if file_name not in processed_df['url'].values:
         rlist.append(file_name)
-    else:
-        st.warning(f'already processed file: {file_name} encouned.')    
+    #else:
+        #st.warning(f'already processed file: {file_name}')    
   return rlist
 
 

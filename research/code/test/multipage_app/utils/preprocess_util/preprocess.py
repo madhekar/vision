@@ -130,7 +130,7 @@ def execute():
     openclip_finetuned) = config.preprocess_config_load()
 
     st.sidebar.subheader('Metadata Grneration')
-    st.divider()
+    st.sidebar.divider()
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
     num = 0
@@ -148,7 +148,6 @@ def execute():
                 df = pd.DataFrame(data)
                 df = mu.drop_except(df, ["url"])
                 num = df.shape[0]
-                st.sidebar.subheader(f'Total Images to Process:{num}')
     except Exception as e:
         st.error(f"exception: {e} occured in loading metadata file")       
 
@@ -161,8 +160,8 @@ def execute():
             if len(rlist) > 0:
                 asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))  
             count = count + len(ilist)
-            progress_generation.text(f'{count} files processed')
-            bar.progress((100//num )* count)
+            progress_generation.text(f'{count} files processed out-of {num} => {int((100 / num) * count)}% processed')
+            bar.progress(int((100 / num) * count))
         status.update("process completed!", status="complete", extended = False)
 
 # kick-off metadata generation 
