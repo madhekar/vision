@@ -8,7 +8,6 @@ from utils.preprocess_util import  LLM
 import aiofiles
 import json
 import pandas as pd
-from pandas import json_normalize
 import streamlit as st
 from utils.config_util import config
 from utils.util import location_util as lu
@@ -141,10 +140,9 @@ def execute():
             res = res.replace('}{','},{')
             res = '[' + res + ']'
             data = json.loads(res)
-        #   for line in f:
-        #      data.append(json.loads(line.strip()))
             df = pd.DataFrame(data)
-            print(df.head(10))
+            df = mu.drop_except(df, ['url'])
+            print(df.shape)
     except Exception as e:
          st.error(f'exception: {e} occured in loading metadata file')       
 
@@ -157,7 +155,7 @@ def execute():
         for ilist in img_iterator:
                 rlist = mu.is_processed_batch(ilist, df)
                 if len(rlist) > 0:
-                   asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))
+                   asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))  
 
         status.update("process completed!", status="complete", extended = False)
 # kick-off metadata generation 

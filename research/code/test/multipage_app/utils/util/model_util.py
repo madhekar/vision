@@ -46,12 +46,19 @@ def getRecursive(rootDir, chunk_size=10):
     for i in range(0, len(f_list), chunk_size):
         yield f_list[i:i+chunk_size]        
       
+def drop_except(df, columns_to_keep):
+    columns_to_drop = [col for col in df.columns if col not in columns_to_keep] 
+    return df.drop(columns=columns_to_drop)     
+
 # keep track of processed files in loop
 def is_processed_batch(ilist, processed_df):
   rlist = []
-  for file_name in ilist:  
-    if file_name in processed_df.url.values:
+  print(processed_df.head())
+  for file_name in ilist: 
+    if file_name not in processed_df['url'].values:
         rlist.append(file_name)
+    else:
+        st.warning(f'already processed file: {file_name} encouned.')    
   return rlist
 
 
