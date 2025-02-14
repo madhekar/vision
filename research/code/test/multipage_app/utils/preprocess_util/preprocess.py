@@ -129,6 +129,8 @@ def execute():
     number_of_instances,
     openclip_finetuned) = config.preprocess_config_load()
 
+    st.sidebar.subheader('Metadata Grneration')
+    st.divider()
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
     num = 1300
