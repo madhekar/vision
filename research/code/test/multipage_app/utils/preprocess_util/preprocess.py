@@ -73,7 +73,7 @@ def describeImage(dict):
                 people=dict.get("nam"),
                 location=dict.get("loc")
             )
-        st.info(f"describe Image: LLM text for: {dict.get('url')} is: {d}")
+        #st.info(f"describe Image: LLM text for: {dict.get('url')} is: {d}")
        
         return d 
 
@@ -91,7 +91,7 @@ async def make_request(url: str, openclip_finetuned: str, semaphore: asyncio.Sem
 
         r4 = await awaitUtil.force_awaitable(namesOfPeople)(url, openclip_finetuned)
 
-        st.info(f"make_request image uri: {url} datetime: {s2} latitude: {s3[0]} longitude:  {s3[1]} location: {s3[2]} names: {r4}")
+        #st.info(f"make_request image uri: {url} datetime: {s2} latitude: {s3[0]} longitude:  {s3[1]} location: {s3[2]} names: {r4}")
 
         return {"url" : url, "id": s1, "timestamp": s2, "lat": s3[0], "lon" : s3[1], "loc": s3[2], "nam": r4}
 
@@ -99,7 +99,7 @@ async def make_request(url: str, openclip_finetuned: str, semaphore: asyncio.Sem
 # main asynchronous function 
 async def amain(iList, metadata_path, metadata_file, chunk_size, openclip_finetuned):
     
-    st.info(f'now processing batch of {chunk_size}')
+    #st.info(f'now processing batch of {chunk_size}')
 
     queue = asyncio.Queue()  
     semaphore = asyncio.Semaphore(10)    
@@ -133,34 +133,36 @@ def execute():
     st.divider()
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
-    num = 1300
+    num = 0
 
     df =None
     try:
-      if os.path.exists(os.path.join(metadata_path, metadata_file)):
-        data = []
-        with open(os.path.join(metadata_path, metadata_file), mode="r") as f:
-            res = f.read()
-            res = res.replace('\n','')
-            res = res.replace('}{','},{')
-            res = '[' + res + ']'
-            data = json.loads(res)
-            df = pd.DataFrame(data)
-            df = mu.drop_except(df, ['url'])
-            print(df.shape)
+        if os.path.exists(os.path.join(metadata_path, metadata_file)):
+            data = []
+            with open(os.path.join(metadata_path, metadata_file), mode="r") as f:
+                res = f.read()
+                res = res.replace("\n", "")
+                res = res.replace("}{", "},{")
+                res = "[" + res + "]"
+                data = json.loads(res)
+                df = pd.DataFrame(data)
+                df = mu.drop_except(df, ["url"])
+                num = df.shape[0]
+                st.sidebar.subheader(f'Total Images to Process:{num}')
     except Exception as e:
-         st.error(f'exception: {e} occured in loading metadata file')       
+        st.error(f"exception: {e} occured in loading metadata file")       
 
     with st.status("Generating LLM responses...", expanded=True) as status:
         img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
         count=0
         for ilist in img_iterator:
-            progress_generation.text(f'{10 * count} files processed')
-            bar.progress((100//num )* count)
+
             rlist = mu.is_processed_batch(ilist, df)
             if len(rlist) > 0:
                 asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))  
-            count = count + 1
+            count = count + len(ilist)
+            progress_generation.text(f'{count} files processed')
+            bar.progress((100//num )* count)
         status.update("process completed!", status="complete", extended = False)
 
 # kick-off metadata generation 
