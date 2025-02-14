@@ -21,7 +21,7 @@ m, t, p = LLM.setLLM()
 
 # queue processing rutine
 async def worker( name, mp, mf, queue):
-    async with aiofiles.open(mp + mf, mode="a") as f:
+    async with aiofiles.open(os.path.join(mp, mf), mode="a") as f:
         while True:
             # Get a "work item" out of the queue.
             dict = await queue.get()
@@ -131,7 +131,7 @@ def execute():
 
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
-    num = 100
+    num = 1300
 
     df =None
     try:
@@ -154,7 +154,7 @@ def execute():
         count=0
         for ilist in img_iterator:
             progress_generation.text(f'{10 * count} files processed')
-            bar.progress((1290//num )* count)
+            bar.progress((100//num )* count)
             rlist = mu.is_processed_batch(ilist, df)
             if len(rlist) > 0:
                 asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))  
