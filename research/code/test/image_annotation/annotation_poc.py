@@ -8,10 +8,6 @@ import torchvision.transforms.functional as F
 mode = st.tabs(["Detection", "Classification", "Point"])
 label_list = ["Esha","Anjali","Bhalchandra","Asha","Kumar","Shibangi","Sham","Advait","Chandrakant","Puja","Sagar","Shoma","Bhiman","friend","relative","kid","man","woman" ]
 image_path_list = glob("/Users/emadhekar/Desktop/images/*.*")
-# label_list = ['deer', 'human', 'dog', 'penguin', 'framingo', 'teddy bear']
-# image_path_list = glob('image/*.jpg')
-
-
 
 with mode[0]:
     if 'result_dict_det' not in st.session_state:
