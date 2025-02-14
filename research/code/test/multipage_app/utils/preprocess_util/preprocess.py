@@ -136,11 +136,14 @@ def execute():
       if os.path.exists(os.path.join(metadata_path, metadata_file)):
         data = []
         with open(os.path.join(metadata_path, metadata_file), mode="r") as f:
-          for line in f:
-            data.append(json.loads(line))
+            res = f.read()
+            res = res.replace('\n','')
+            res = res.replace('}{','},{')
+            res = '[' + res + ']'
+            data = json.loads(res)
+        #   for line in f:
+        #      data.append(json.loads(line.strip()))
             df = pd.DataFrame(data)
-            selected_columns = ['url']
-            df = pd.DataFrame(data, selected_columns)
             print(df.head(10))
     except Exception as e:
          st.error(f'exception: {e} occured in loading metadata file')       
