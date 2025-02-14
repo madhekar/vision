@@ -48,7 +48,24 @@ def getRecursive(rootDir, chunk_size=10):
       
 def drop_except(df, columns_to_keep):
     columns_to_drop = [col for col in df.columns if col not in columns_to_keep] 
-    return df.drop(columns=columns_to_drop)     
+    return df.drop(columns=columns_to_drop)    
+
+def createProgressBar(pg_caption, pg_int_percentage, pg_colour, pg_bgcolour):
+    pg_int_percentage = str(pg_int_percentage).zfill(2)
+    pg_html = f"""<table style="width:50%; border-style: none;">
+                        <tr style='font-weight:bold;'>
+                            <td style='background-color:{pg_bgcolour};'>{pg_caption}: <span style='accent-color: {pg_colour}; bgcolor: transparent;'>
+                                <progress value='{pg_int_percentage}' max='100'>{pg_int_percentage}%</progress> </span>{pg_int_percentage}% 
+                            </td>
+                        </tr>
+                    </table><br>"""
+    return pg_html
+
+# st.markdown(createProgressBar("Positive", 62, "#A5D6A7", "#B2EBF2"), True)
+# st.markdown(createProgressBar("Neutral", 40, "#FFD54F", "#B2EBF2"), True)
+# st.markdown(createProgressBar("Negative", 65, "red", "#B2EBF2"), True)
+
+
 
 # keep track of processed files in loop
 def is_processed_batch(ilist, processed_df):
