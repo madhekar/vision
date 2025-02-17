@@ -1,6 +1,9 @@
 import pandas as pd
 from pathos.multiprocessing import ProcessingPool as Pool
 
+"""
+https://edbennett.github.io/high-performance-python/01-getting-started/index.html
+"""
 def process_csv(file):
     print(file)
     df = pd.read_csv(file)

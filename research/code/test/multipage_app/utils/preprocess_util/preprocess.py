@@ -23,6 +23,7 @@ m, t, p = LLM.setLLM()
 async def worker( name, mp, mf, queue):
     async with aiofiles.open(os.path.join(mp, mf), mode="a") as f:
         while True:
+            print(os.path.join(mp, mf))
             # Get a "work item" out of the queue.
             dict = await queue.get()
 
@@ -34,7 +35,8 @@ async def worker( name, mp, mf, queue):
             st = json.dumps(dict)
             await f.write(st)
             await f.write(os.linesep)
-
+            await f.close()
+            #print(st)
             # Notify the queue that the "work item" has been processed.
             queue.task_done()
 
@@ -151,18 +153,18 @@ def execute():
     except Exception as e:
         st.error(f"exception: {e} occured in loading metadata file")       
 
-    with st.status("Generating LLM responses...", expanded=True) as status:
-        img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
-        count=0
-        for ilist in img_iterator:
+    #with st.status("Generating LLM responses...", expanded=True) as status:
+    img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
+    count=0
+    for ilist in img_iterator:
 
-            rlist = mu.is_processed_batch(ilist, df)
-            if len(rlist) > 0:
-                asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))  
-            count = count + len(ilist)
-            progress_generation.text(f'{count} files processed out-of {num} => {int((100 / num) * count)}% processed')
-            bar.progress(int((100 / num) * count))
-        status.update("process completed!", status="complete", extended = False)
+        rlist = mu.is_processed_batch(ilist, df)
+        if len(rlist) > 0:
+            asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))  
+        count = count + len(ilist)
+        progress_generation.text(f'{count} files processed out-of {num} => {int((100 / num) * count)}% processed')
+        bar.progress(int((100 / num) * count))
+        #status.update("process completed!", status="complete", extended = False)
 
 # kick-off metadata generation 
 if __name__ == "__main__":
