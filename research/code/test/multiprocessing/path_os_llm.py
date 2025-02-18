@@ -1,7 +1,9 @@
 import pathos.multiprocessing as mp
 import time
 from itertools import islice
-
+'''
+https://github.com/Hannibal046/Awesome-LLM/tree/main/paper_list
+'''
 # Hypothetical LLM inference function
 def llm_inference(text):
     time.sleep(0.1)  # Simulate LLM processing time
