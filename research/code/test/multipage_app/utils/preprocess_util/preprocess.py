@@ -153,18 +153,20 @@ def execute():
     except Exception as e:
         st.error(f"exception: {e} occured in loading metadata file")       
 
-    #with st.status("Generating LLM responses...", expanded=True) as status:
-    img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
-    count=0
-    for ilist in img_iterator:
+    with st.status("Generating LLM responses...", expanded=True) as status:
+        img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
+        count=0
+        for ilist in img_iterator:
 
-        rlist = mu.is_processed_batch(ilist, df)
-        if len(rlist) > 0:
-            asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))  
-        count = count + len(ilist)
-        progress_generation.text(f'{count} files processed out-of {num} => {int((100 / num) * count)}% processed')
-        bar.progress(int((100 / num) * count))
-        #status.update("process completed!", status="complete", extended = False)
+            rlist = mu.is_processed_batch(ilist, df)
+            if len(rlist) > 0:
+                asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))  
+                print(rlist)
+            count = count + len(ilist)
+            count = num if count > num else count
+            progress_generation.text(f'{count} files processed out-of {num} => {int((100 / num) * count)}% processed')
+            bar.progress(int((100 / num) * count))
+    status.update("process completed!", status="complete", extended = False)
 
 # kick-off metadata generation 
 if __name__ == "__main__":
