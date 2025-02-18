@@ -1,23 +1,28 @@
 import pathos.multiprocessing as mp
 import time
+from itertools import islice
 
 # Hypothetical LLM inference function
 def llm_inference(text):
     time.sleep(0.1)  # Simulate LLM processing time
     return f"LLM processed: {text}"
 
+def getChunks(c_size =10):
+    t_list = [f"Text {i}" for i in range(2000)]  # Example list of text
+    for i in range(0, len(t_list), 10):
+        yield t_list[i:i+10] 
+
 if __name__ == '__main__':
-    texts = [f"Text {i}" for i in range(20)]  # Example list of texts
 
     # Sequential processing
     start_time = time.time()
-    sequential_results = [llm_inference(text) for text in texts]
+    sequential_results = [llm_inference(text) for text in getChunks(10)]
     sequential_time = time.time() - start_time
 
     # Parallel processing using pathos
     pool = mp.ProcessPool(4)  # Create a pool with 4 processes
     start_time = time.time()
-    parallel_results = pool.map(llm_inference, texts)
+    parallel_results = pool.map(llm_inference, getChunks(10))
     parallel_time = time.time() - start_time
     pool.close()
     pool.join()
