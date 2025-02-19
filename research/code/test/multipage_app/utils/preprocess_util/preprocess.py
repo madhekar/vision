@@ -160,7 +160,7 @@ def execute():
 
             rlist = mu.is_processed_batch(ilist, df)
             if len(rlist) > 0:
-                asyncio.run(amain(ilist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))  
+                asyncio.run(amain(rlist, metadata_path, metadata_file, number_of_instances, openclip_finetuned))  
                 print(rlist)
             count = count + len(ilist)
             count = num if count > num else count

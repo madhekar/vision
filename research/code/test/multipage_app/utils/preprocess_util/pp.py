@@ -13,63 +13,58 @@ from utils.config_util import config
 from utils.util import location_util as lu
 from utils.util import model_util as mu
 
+from pathos import multiprocessing as mp
+from functools import partial
+
 d_latitude, d_longitude = 32.96887205555556, -117.18414305555557
 
 
 # init LLM modules
 
+# uuid4 id for vector database
+def generateId():
+    return str(uuid.uuid4())
 
-class MultiProcessBatch:
-    def __init__(self, uri, openclip_finetuned, llm_model, llm_processor, temperature):
-        self.uri = uri
-        self.openclip_finetuned = openclip_finetuned
-        self.llm_model = llm_model
-        self.llm_processor = llm_processor
-        self.temperature = temperature
-        self.names = None
-        self.locationDetails = None
-    # uuid4 id for vector database
-    def generateId(self):
-        return str(uuid.uuid4())
+# convert image date time to timestamp
+def timestamp(uri):
+    ts = lu.getTimestamp(uri)
+    return ts
 
-    # convert image date time to timestamp
-    def timestamp(self, uri):
-        ts = lu.getTimestamp(uri)
-        return ts
+# get location details as: latitude, longitude and address
+def locationDetails(uri):
+    lat_lon = lu.gpsInfo(uri)
+    if lat_lon == ():
+        lat_lon = (d_latitude, d_longitude)
+    loc = lu.getLocationDetails(lat_lon)
+    print(lat_lon, loc)
+    return lat_lon[0], lat_lon[1], loc
 
-    # get location details as: latitude, longitude and address
-    def locationDetails(self, uri):
-        lat_lon = lu.gpsInfo(uri)
-        if lat_lon == ():
-            lat_lon = (d_latitude, d_longitude)
-        loc = lu.getLocationDetails(lat_lon)
-        print(lat_lon, loc)
-        return lat_lon[0], lat_lon[1], loc
+# get names of people in image
+def namesOfPeople(uri, openclip_finetuned):
+    names = en.getEntityNames(uri, openclip_finetuned)
+    return names
 
-    # get names of people in image
-    def namesOfPeople(self, uri, openclip_finetuned):
-        names = en.getEntityNames(uri, openclip_finetuned)
-        return names
+# get image description from LLM
+def describeImage(uri, llm_model, llm_processor, names, location):
+    d = LLM.fetch_llm_text(
+        imUrl=uri,
+        model=llm_model,
+        processor=llm_processor,
+        top=0.9,
+        temperature=0.9,
+        question="Answer with well organized thoughts, please describe the picture with insights.",
+        people=names,
+        location=location
+    )
+    return d
 
-    # get image description from LLM
-    def describeImage(self):
-        d = LLM.fetch_llm_text(
-            imUrl=self.uri,
-            model=self.llm_model,
-            processor=self.llm_processor,
-            top=0.9,
-            temperature=0.9,
-            question="Answer with well organized thoughts, please describe the picture with insights.",
-            people=self.names,
-            location=dict.get("loc"))
-        return d
-
-    def llm_workflow(self):
-        str_uuid = self.generateId()
-        ts = self.timestamp(uri=self.uri) 
-        self.location_details = self.locationDetails(uri=self.uri)
-        self.names = self.namesOfPeople(self.uri, self.openclip_finetuned)
-        text = self.describeImage()
+def llm_workflow(uri, lm, lp, openclip_finetuned):
+    suuid = generateId()
+    ts = timestamp(uri) 
+    location_details = locationDetails(uri)
+    names = namesOfPeople(uri, openclip_finetuned)
+    text = describeImage(uri, lm, lp, names, location_details)
+    return (suuid, ts, location_details, names, text)
 
 def run_workflow(
     df,
@@ -86,22 +81,17 @@ def run_workflow(
     bar = st.sidebar.progress(0)
 
     num = df.shape[0]
+    pool = mp.ProcessPool(100)  # Create a pool with 4 processes
     with st.status("Generating LLM responses...", expanded=True) as status:
         img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
         count = 0
+
+        func = partial(llm_workflow, m, p, openclip_finetuned)
         for ilist in img_iterator:
             rlist = mu.is_processed_batch(ilist, df)
             if len(rlist) > 0:
-                # asyncio.run(
-                #     amain(
-                #         ilist,
-                #         metadata_path,
-                #         metadata_file,
-                #         number_of_instances,
-                #         openclip_finetuned,
-                #     )
-                # )
-                print(rlist)
+                u,t,l, n, t = pool.map(func, img_iterator)
+                print(f"ret:  {u} : {t} : {l} : {n} : {t}")
             count = count + len(ilist)
             count = num if count > num else count
             progress_generation.text(
