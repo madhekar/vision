@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.preprocess_util import preprocess as pp
+from utils.preprocess_util import pp #preprocess as pp
 
 st.subheader("METADATA: GENERATE", divider="gray")
 

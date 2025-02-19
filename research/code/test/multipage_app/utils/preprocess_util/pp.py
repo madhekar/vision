@@ -1,12 +1,10 @@
 import os
 import uuid
-import glob
-import asyncio
 from utils.preprocess_util import awaitUtil
 from utils.preprocess_util import entities as en
 from utils.preprocess_util import LLM
-import aiofiles
 import json
+import glob
 import pandas as pd
 import streamlit as st
 from utils.config_util import config
@@ -58,13 +56,23 @@ def describeImage(uri, llm_model, llm_processor, names, location):
     )
     return d
 
-def llm_workflow(uri, lm, lp, openclip_finetuned):
+def llm_workflow(lm, lp, openclip_finetuned, uri):
     suuid = generateId()
     ts = timestamp(uri) 
     location_details = locationDetails(uri)
     names = namesOfPeople(uri, openclip_finetuned)
     text = describeImage(uri, lm, lp, names, location_details)
+    print(f'debug: {suuid} : {ts} : {location_details} : {names} : {text}')
     return (suuid, ts, location_details, names, text)
+
+# recursive call to get all image filenames
+def getRecursive(rootDir, chunk_size=10):
+    f_list = []
+    for fn in glob.iglob(rootDir + "/**/*", recursive=True):
+        if not os.path.isdir(os.path.abspath(fn)):
+            f_list.append(os.path.abspath(fn))
+    for i in range(0, len(f_list), chunk_size):
+        yield f_list[i : i + chunk_size]
 
 def run_workflow(
     df,
@@ -81,24 +89,32 @@ def run_workflow(
     bar = st.sidebar.progress(0)
 
     num = df.shape[0]
-    pool = mp.ProcessPool(100)  # Create a pool with 4 processes
+    pool = mp.ProcessPool(10)  # Create a pool with 4 processes
     with st.status("Generating LLM responses...", expanded=True) as status:
-        img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
+        img_iterator = mu.getRecursive(
+            "/home/madhekar/work/home-media-app/data/train-data/img",
+            chunk_size=chunk_size,
+        )
         count = 0
 
-        func = partial(llm_workflow, m, p, openclip_finetuned)
         for ilist in img_iterator:
             rlist = mu.is_processed_batch(ilist, df)
             if len(rlist) > 0:
-                u,t,l, n, t = pool.map(func, img_iterator)
-                print(f"ret:  {u} : {t} : {l} : {n} : {t}")
+                status.info(rlist)
+                func = partial(llm_workflow, m, p, openclip_finetuned)
+                u, t, l, n, t = pool.map(func, rlist)
+                #pool.map(llm_workflow, rlist)
+                print(f"ret:  {u}  : {t} : {l} : {n} : {t}")
             count = count + len(ilist)
             count = num if count > num else count
             progress_generation.text(
                 f"{count} files processed out-of {num} => {int((100 / num) * count)}% processed"
             )
             bar.progress(int((100 / num) * count))
-    status.update("process completed!", status="complete", extended=False)
+        pool.close()
+        pool.join()
+
+    status.update("process completed!", state="complete", extended=False)
 
 def execute():
 
