@@ -1,6 +1,9 @@
-import pathos.multiprocessing as mp
+import os
 import time
-from itertools import islice
+import glob
+import pathos.multiprocessing as mp
+
+
 '''
 https://github.com/Hannibal046/Awesome-LLM/tree/main/paper_list
 '''
@@ -24,6 +27,16 @@ def llm_inference(text):
     t2 = getImageDescription(text)
     return f"LLM processed: {text} : {t} : {t1} : {t2}"
 
+# recursive call to get all image filenames
+def getRecursive(rootDir, chunk_size=10):
+    f_list = []
+    for fn in glob.iglob(rootDir + "/**/*", recursive=True):
+        if not os.path.isdir(os.path.abspath(fn)):
+            f_list.append(os.path.abspath(fn))
+    for i in range(0, len(f_list), chunk_size):
+        yield f_list[i : i + chunk_size]
+
+
 def getChunks(c_size =10):
     t_list = [f"Text {i}" for i in range(2000)]  # Example list of text
     for i in range(0, len(t_list), c_size):
@@ -37,9 +50,9 @@ if __name__ == '__main__':
     # sequential_time = time.time() - start_time
 
     # Parallel processing using pathos
-    pool = mp.ProcessPool(10)  # Create a pool with 4 processes
+    pool = mp.ProcessPool(100)  # Create a pool with 4 processes
     start_time = time.time()
-    parallel_results = pool.map(llm_inference, getChunks(10))
+    parallel_results = pool.map(llm_inference, getRecursive("/home/madhekar/work/home-media-app/data/input-data/img", 10)) #getChunks(10))
     parallel_time = time.time() - start_time    
     print( parallel_time)
     pool.close()

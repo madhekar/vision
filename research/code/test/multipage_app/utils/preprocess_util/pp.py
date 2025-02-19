@@ -111,10 +111,12 @@ def run_workflow(
     status.update("process completed!", status="complete", extended=False)
 
 def execute():
+
     (image_dir_path, metadata_path, metadata_file, chunk_size, number_of_instances, openclip_finetuned) = config.preprocess_config_load()
 
     st.sidebar.subheader("Metadata Grneration")
     st.sidebar.divider()
+    
     df = None
     try:
         if os.path.exists(os.path.join(metadata_path, metadata_file)):
