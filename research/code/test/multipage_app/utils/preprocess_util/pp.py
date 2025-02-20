@@ -12,7 +12,7 @@ from utils.util import location_util as lu
 from utils.util import model_util as mu
 
 from multiprocessing import Pool, freeze_support
-from functools import partial
+from itertools import repeat
 
 d_latitude, d_longitude = 32.96887205555556, -117.18414305555557
 
@@ -56,14 +56,14 @@ def describeImage(uri, llm_model, llm_processor, names, location):
     )
     return d
 
-def llm_workflow(uri): #lm, lp, openclip_finetuned, uri)
+def llm_workflow(uri, lm, lp, openclip_finetuned):
     suuid = generateId()
     ts = timestamp(uri) 
-    # location_details = locationDetails(uri)
-    # names = namesOfPeople(uri, openclip_finetuned)
-    # text = describeImage(uri, lm, lp, names, location_details)
+    location_details = locationDetails(uri)
+    names = namesOfPeople(uri, openclip_finetuned)
+    text = describeImage(uri, lm, lp, names, location_details)
     #st.info(f'debug: {suuid} : {ts}' ) # : {location_details} : {names} : {text}')
-    return (suuid, ts) #, location_details, names, text)
+    return (suuid, ts, location_details, names, text)
 
 # recursive call to get all image filenames
 def getRecursive(rootDir, chunk_size=10):
@@ -106,15 +106,11 @@ def run_workflow(
                 rlist = mu.is_processed_batch(ilist, df)
                 if len(rlist) > 0:
                     status.info(rlist)
-                    #func = partial(llm_workflow, m, p, openclip_finetuned)
-                    # u, t, l, n, t = pool.map(func, rlist)
-                    ret = pool.map(llm_workflow, rlist)
-                    print(f"{ret}:")#  {u}  : {t} : {l} : {n} : {t}")
+                    ret = pool.starmap(llm_workflow, zip(rlist, repeat(m), repeat(p), repeat(openclip_finetuned)))
+                    print(f":->{ret}:")
                 count = count + len(ilist)
                 count = num if count > num else count
-                progress_generation.text(
-                    f"{count} files processed out-of {num} => {int((100 / num) * count)}% processed"
-                )
+                progress_generation.text(f"{count} files processed out-of {num} => {int((100 / num) * count)}% processed")
                 bar.progress(int((100 / num) * count))
         #pool.close()
         #pool.join()

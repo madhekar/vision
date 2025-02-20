@@ -95,7 +95,7 @@ def getLocationDetails(strLnL):
 
     geolocator = Nominatim(user_agent="zs")
 
-    rev = RateLimiter(geolocator.reverse, min_delay_seconds=1)
+    rev = RateLimiter(geolocator.reverse, min_delay_seconds=10)
 
     location = rev(strLnL, language="en", exactly_one=True)
     if location:
