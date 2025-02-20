@@ -11,11 +11,13 @@ from utils.config_util import config
 from utils.util import location_util as lu
 from utils.util import model_util as mu
 
+import multiprocessing
 from multiprocessing import Pool, freeze_support
-from itertools import repeat
+from itertools import repeat, product
 
 d_latitude, d_longitude = 32.96887205555556, -117.18414305555557
-
+#m, t, p = LLM.setLLM()
+ocfine = '/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth'
 
 # init LLM modules
 
@@ -55,15 +57,17 @@ def describeImage(uri, llm_model, llm_processor, names, location):
         location=location
     )
     return d
-
-def llm_workflow(uri, lm, lp, openclip_finetuned):
+"""
+/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth
+"""
+def llm_workflow(uri):
+    m, t, p = LLM.setLLM()
     suuid = generateId()
     ts = timestamp(uri) 
     location_details = locationDetails(uri)
-    names = namesOfPeople(uri, openclip_finetuned)
-    text = describeImage(uri, lm, lp, names, location_details)
-    #st.info(f'debug: {suuid} : {ts}' ) # : {location_details} : {names} : {text}')
-    return (suuid, ts, location_details, names, text)
+    names = namesOfPeople(uri, ocfine)
+    text = describeImage(uri, m, p, names, location_details)
+    return (suuid, ts, location_details, names,text )
 
 # recursive call to get all image filenames
 def getRecursive(rootDir, chunk_size=10):
@@ -84,7 +88,7 @@ def run_workflow(
     openclip_finetuned,
 ):
     freeze_support()
-    m, t, p = LLM.setLLM()    
+    # m, t, p = LLM.setLLM()    
     
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
@@ -99,21 +103,22 @@ def run_workflow(
     
     with st.status("Generating LLM responses...", expanded=True) as status:
 
-        with Pool() as pool:
+        with Pool(2) as pool:
             count = 0
 
             for ilist in img_iterator:
                 rlist = mu.is_processed_batch(ilist, df)
                 if len(rlist) > 0:
                     status.info(rlist)
-                    ret = pool.starmap(llm_workflow, zip(rlist, repeat(m), repeat(p), repeat(openclip_finetuned)))
-                    print(f":->{ret}:")
+                    #args = (m,p, openclip_finetuned)
+                    # ret = pool.starmap(llm_workflow, zip(rlist, repeat(args)))
+                    #aargs = ((arg, m, p, openclip_finetuned ) for arg in product(rlist))
+                    ret = pool.map(llm_workflow, rlist)
+                    st.info(ret)
                 count = count + len(ilist)
                 count = num if count > num else count
                 progress_generation.text(f"{count} files processed out-of {num} => {int((100 / num) * count)}% processed")
                 bar.progress(int((100 / num) * count))
-        #pool.close()
-        #pool.join()
 
     status.update(label="process completed!", state="complete", expanded=False)
 
@@ -123,7 +128,7 @@ def execute():
 
     st.sidebar.subheader("Metadata Grneration")
     st.sidebar.divider()
-    
+    #multiprocessing.set_start_method('fork')
     df = None
     try:
         if os.path.exists(os.path.join(metadata_path, metadata_file)):
