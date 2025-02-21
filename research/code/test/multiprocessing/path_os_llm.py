@@ -5,6 +5,7 @@ import pathos.multiprocessing as mp
 
 
 '''
+https://pyimagesearch.com/2024/08/26/llama-cpp-the-ultimate-guide-to-efficient-llm-inference-and-applications/
 https://github.com/Hannibal046/Awesome-LLM/tree/main/paper_list
 '''
 def getLatLong(fpath):
