@@ -1,5 +1,6 @@
 
 import streamlit as st
+import numpy as np
 import torch
 from PIL import Image
 from transformers import AutoTokenizer, AutoProcessor, AutoModel
@@ -47,11 +48,13 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, 
     <|im_end|> 
     <|im_start|>assistant
     """.format(question=question, people=people, location=location) #, article=st.session_state["document"])
-
+    image = Image.open(imUrl).convert('RGB')
+    #image = np.array(image)
+    #image = image[:, :, :3]
     # generate propcssor using image and associated prompt query, and generate LLM response
     with torch.inference_mode():
         inputs = processor(
-            prompt, [Image.open(imUrl)], model, max_crops=10, num_tokens=100        #100, 728
+            prompt, [image], model, max_crops=10, num_tokens=100        #100, 728
             )
         
     # streamer 

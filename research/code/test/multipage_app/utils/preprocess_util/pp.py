@@ -11,12 +11,12 @@ from utils.config_util import config
 from utils.util import location_util as lu
 from utils.util import model_util as mu
 
-import multiprocessing
+import multiprocessing as mp
 from multiprocessing import Pool, freeze_support
 from itertools import repeat, product
 
 d_latitude, d_longitude = 32.96887205555556, -117.18414305555557
-#m, t, p = LLM.setLLM()
+m, t, p = LLM.setLLM()
 ocfine = '/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth'
 
 # init LLM modules
@@ -37,7 +37,7 @@ def locationDetails(uri):
         lat_lon = (d_latitude, d_longitude)
     loc = lu.getLocationDetails(lat_lon)
     print(lat_lon, loc)
-    return lat_lon[0], lat_lon[1], loc
+    return loc
 
 # get names of people in image
 def namesOfPeople(uri, openclip_finetuned):
@@ -61,7 +61,7 @@ def describeImage(uri, llm_model, llm_processor, names, location):
 /home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth
 """
 def llm_workflow(uri):
-    m, t, p = LLM.setLLM()
+    #m, t, p = LLM.setLLM()
     suuid = generateId()
     ts = timestamp(uri) 
     location_details = locationDetails(uri)
@@ -87,48 +87,47 @@ def run_workflow(
     number_of_instances,
     openclip_finetuned,
 ):
-    freeze_support()
-    # m, t, p = LLM.setLLM()    
     
+  
+    st.info(f'CPU COUNT: {chunk_size}')
+
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
-
     num = df.shape[0]
-    #pool = mp.ProcessPool(4)  # Create a pool with 4 processes
 
-    img_iterator = mu.getRecursive(
-                "/home/madhekar/work/home-media-app/data/train-data/img",
-                chunk_size=chunk_size,
-            )
+    img_iterator = mu.getRecursive( "/home/madhekar/work/home-media-app/data/train-data/img", chunk_size=chunk_size)
     
     with st.status("Generating LLM responses...", expanded=True) as status:
 
-        with Pool(2) as pool:
+        with Pool(processes=chunk_size) as pool:
             count = 0
-
             for ilist in img_iterator:
                 rlist = mu.is_processed_batch(ilist, df)
                 if len(rlist) > 0:
-                    status.info(rlist)
-                    #args = (m,p, openclip_finetuned)
-                    # ret = pool.starmap(llm_workflow, zip(rlist, repeat(args)))
-                    #aargs = ((arg, m, p, openclip_finetuned ) for arg in product(rlist))
-                    ret = pool.map(llm_workflow, rlist)
-                    st.info(ret)
+                    # for fn in rlist:
+                        status.info(rlist)
+                        ret = pool.map(llm_workflow, rlist)
+                        #ret = llm_workflow(fn)
+                        st.info(ret)
                 count = count + len(ilist)
                 count = num if count > num else count
                 progress_generation.text(f"{count} files processed out-of {num} => {int((100 / num) * count)}% processed")
                 bar.progress(int((100 / num) * count))
 
+            pool.close()
+            pool.join()
+
     status.update(label="process completed!", state="complete", expanded=False)
 
 def execute():
+    mp.freeze_support()
+    mp.set_start_method('fork', force=True)
 
     (image_dir_path, metadata_path, metadata_file, chunk_size, number_of_instances, openclip_finetuned) = config.preprocess_config_load()
-
+    chunk_size = int(mp.cpu_count() // 4)
     st.sidebar.subheader("Metadata Grneration")
     st.sidebar.divider()
-    #multiprocessing.set_start_method('fork')
+
     df = None
     try:
         if os.path.exists(os.path.join(metadata_path, metadata_file)):

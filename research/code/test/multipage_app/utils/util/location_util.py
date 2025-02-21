@@ -35,6 +35,7 @@ from GPSPhoto import gpsphoto
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 import datetime
+import random
 
 # define constants
 default_home_loc = (32.968699774829794, -117.18420145463236)
@@ -93,14 +94,18 @@ def setGpsLocation(fname, lat, lon):
 def getLocationDetails(strLnL):
     address = "n/a"
 
-    geolocator = Nominatim(user_agent="zs")
+    geolocator = Nominatim(user_agent=random_user_agent())
 
-    rev = RateLimiter(geolocator.reverse, min_delay_seconds=8)
+    rev = RateLimiter(geolocator.reverse, min_delay_seconds=4)
 
     location = rev(strLnL, language="en", exactly_one=True)
     if location:
         address = location.address
     return address
+
+def random_user_agent():
+    user_agent_names= [ 'zs_ref', 'zs_loc_ref', 'zs_global_ref', 'zs_usa_ref' ]
+    return random.choice(user_agent_names)
 
 def setDateTimeOriginal(fname, dt):
     print(fname)
@@ -127,6 +132,7 @@ def setGpsInfo(fn, lat, lon):
 
 # get timestamp from image file
 def getTimestamp(img):
+    print(f"-> {img}")
     value = ""
     image = Image.open(img)
     # extracting the exif metadata
