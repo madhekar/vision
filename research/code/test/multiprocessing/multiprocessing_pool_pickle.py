@@ -8,7 +8,8 @@ def run(args):
 if __name__=='__main__':
     queries = ["foo", "bar", "blob"]
     cursor = "whatever"
-    multiprocessing.freeze_support()    
+    #multiprocessing.freeze_support()    
     with multiprocessing.Pool(processes=10) as pool:
         args = ((args, cursor) for args in itertools.product(queries))
+        print(f'-> {next(args)}')
         results = pool.map(run, args)
