@@ -1,4 +1,3 @@
-import pathos.pools as pp
 import multiprocessing as m
 import queue
 import threading
@@ -36,7 +35,6 @@ if __name__ == '__main__':
         for line in f:
             data_queue.put(line)
 
-    #pool = pp.ProcessPool(nodes=num_processes)
     pool = m.Pool(10)
     
     for _ in range(num_processes):
