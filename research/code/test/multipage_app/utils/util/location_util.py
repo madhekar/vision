@@ -34,8 +34,11 @@ import streamlit as st
 from GPSPhoto import gpsphoto
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
+from geopy.exc import GeocoderTimedOut, GeocoderUnavailable
 import datetime
 import random
+import string
+import time
 
 # define constants
 default_home_loc = (32.968699774829794, -117.18420145463236)
@@ -90,22 +93,35 @@ def setGpsLocation(fname, lat, lon):
 
     exiv_image.writeMetadata()
 
+cache = {}
 # get location address information from latitude and longitude
-def getLocationDetails(strLnL):
+def getLocationDetails(strLnL, max_retires):
     address = "n/a"
-
-    geolocator = Nominatim(user_agent=random_user_agent())
-
-    rev = RateLimiter(geolocator.reverse, min_delay_seconds=4)
-
-    location = rev(strLnL, language="en", exactly_one=True)
-    if location:
-        address = location.address
+    
+    if strLnL in cache:
+        return cache(strLnL)
+    else:
+        geolocator = Nominatim(user_agent=random_user_agent())
+        retries= 1
+        while retries < max_retires:
+          try:
+            delay = 2 ** retries
+            time.sleep(delay)
+            rev = RateLimiter(geolocator.reverse, min_delay_seconds=1)
+            location = rev(strLnL, language="en", exactly_one=True)
+            if location:
+                address = location.address
+                cache[strLnL] = location
+                return address
+          except (GeocoderTimedOut, GeocoderUnavailable) as e:
+              st.warning(f'Get address failed with {e}')
+              retries += 1       
     return address
 
-def random_user_agent():
-    user_agent_names= [ 'zs_ref', 'zs_loc_ref', 'zs_global_ref', 'zs_usa_ref' ]
-    return random.choice(user_agent_names)
+def random_user_agent(num_chars = 8):
+    # user_agent_names= [ 'zs_ref', 'zs_loc_ref', 'zs_global_ref', 'zs_usa_ref' ]
+    # return random.choice(user_agent_names)
+    return ''.join(random.choices(string.ascii_letters + string.digits, k=8))
 
 def setDateTimeOriginal(fname, dt):
     print(fname)
