@@ -93,7 +93,11 @@ def getRecursive(rootDir, chunk_size=10):
 
 def setup_logging(level=logging.WARNING):
     logging.basicConfig(level=level)
-
+"""
+ps -ef | grep -w streamlit
+pgrep --count streamlit
+killall -9 streamlit
+"""
 async def run_workflow(
     df,
     image_dir_path,
