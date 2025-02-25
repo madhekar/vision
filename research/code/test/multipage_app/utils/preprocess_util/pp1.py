@@ -38,7 +38,7 @@ def locationDetails(uri):
     lat_lon = lu.gpsInfo(uri)
     if lat_lon == ():
         lat_lon = (d_latitude, d_longitude)
-    loc = lu.getLocationDetails(lat_lon)
+    loc = lu.getLocationDetails(lat_lon, max_retires=3)
     print(lat_lon, loc)
     return loc
 
@@ -104,9 +104,7 @@ def run_workflow(
     bar = st.sidebar.progress(0)
     num = df.shape[0]
 
-    img_iterator = mu.getRecursive(
-        "/home/madhekar/work/home-media-app/data/train-data/img", chunk_size=chunk_size
-    )
+    img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
     with st.status("Generating LLM responses...", expanded=True) as status:
         with Pool(processes=chunk_size) as pool:
@@ -165,7 +163,7 @@ def execute():
 
     run_workflow(
         df,
-        image_dir_path,
+        "/home/madhekar/work/home-media-app/data/train-data/img",
         chunk_size,
         metadata_path,
         metadata_file,
