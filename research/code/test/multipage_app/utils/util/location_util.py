@@ -99,7 +99,7 @@ def getLocationDetails(strLnL, max_retires):
     address = "n/a"
     
     if strLnL in cache:
-        return cache(strLnL)
+        return cache[strLnL]
     else:
         geolocator = Nominatim(user_agent=random_user_agent())
         retries= 1

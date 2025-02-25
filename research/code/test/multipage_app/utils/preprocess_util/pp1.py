@@ -1,5 +1,6 @@
 import os
 import uuid
+import logging
 from utils.preprocess_util import awaitUtil
 from utils.preprocess_util import entities as en
 from utils.preprocess_util import LLM
@@ -11,9 +12,11 @@ from utils.config_util import config
 from utils.util import location_util as lu
 from utils.util import model_util as mu
 
+import asyncio
 import multiprocessing as mp
-from multiprocessing import Pool, freeze_support
-from itertools import repeat, product
+import aiomultiprocess as aiomp
+from aiomultiprocess import Pool
+
 
 d_latitude, d_longitude = 32.96887205555556, -117.18414305555557
 m, t, p = LLM.setLLM()
@@ -34,24 +37,24 @@ def timestamp(uri):
 
 
 # get location details as: latitude, longitude and address
-def locationDetails(uri):
+async def locationDetails(uri):
     lat_lon = lu.gpsInfo(uri)
     if lat_lon == ():
         lat_lon = (d_latitude, d_longitude)
-    loc = lu.getLocationDetails(lat_lon, max_retires=3)
+    loc =  lu.getLocationDetails(lat_lon, max_retires=3)
     print(lat_lon, loc)
     return loc
 
 
 # get names of people in image
-def namesOfPeople(uri, openclip_finetuned):
-    names = en.getEntityNames(uri, openclip_finetuned)
+async def namesOfPeople(uri, openclip_finetuned):
+    names =  en.getEntityNames(uri, openclip_finetuned)
     return names
 
 
 # get image description from LLM
-def describeImage(uri, llm_model, llm_processor, names, location):
-    d = LLM.fetch_llm_text(
+async def describeImage(uri, llm_model, llm_processor, names, location):
+    d =  LLM.fetch_llm_text(
         imUrl=uri,
         model=llm_model,
         processor=llm_processor,
@@ -69,13 +72,13 @@ def describeImage(uri, llm_model, llm_processor, names, location):
 """
 
 
-def llm_workflow(uri):
+async def llm_workflow(uri):
     # m, t, p = LLM.setLLM()
     suuid = generateId()
     ts = timestamp(uri)
-    location_details = locationDetails(uri)
-    names = namesOfPeople(uri, ocfine)
-    text = describeImage(uri, m, p, names, location_details)
+    location_details =  await locationDetails(uri)
+    names =  await namesOfPeople(uri, ocfine)
+    text =  await describeImage(uri, m, p, names, location_details)
     return (suuid, ts, location_details, names, text)
 
 
@@ -88,8 +91,10 @@ def getRecursive(rootDir, chunk_size=10):
     for i in range(0, len(f_list), chunk_size):
         yield f_list[i : i + chunk_size]
 
+def setup_logging(level=logging.WARNING):
+    logging.basicConfig(level=level)
 
-def run_workflow(
+async def run_workflow(
     df,
     image_dir_path,
     chunk_size,
@@ -106,33 +111,37 @@ def run_workflow(
 
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
-    with st.status("Generating LLM responses...", expanded=True) as status:
-        with Pool(processes=chunk_size) as pool:
-            count = 0
-            for ilist in img_iterator:
-                rlist = mu.is_processed_batch(ilist, df)
-                if len(rlist) > 0:
-                    # for fn in rlist:
-                    status.info(rlist)
-                    ret = pool.map(llm_workflow, rlist)
-                    # ret = llm_workflow(fn)
-                    st.info(ret)
-                count = count + len(ilist)
-                count = num if count > num else count
-                progress_generation.text(
-                    f"{count} files processed out-of {num} => {int((100 / num) * count)}% processed"
-                )
-                bar.progress(int((100 / num) * count))
+    # with st.status("Generating LLM responses...", expanded=True) as status:
+    async with Pool(processes=chunk_size, initializer=setup_logging, initargs=(logging.WARNING,), maxtasksperchild=1) as pool:
+        count = 0
+        res = []
+        for ilist in img_iterator:
+            rlist = mu.is_processed_batch(ilist, df)
+            if len(rlist) > 0:
+                # res=[]
+                # fetch_result = [asyncio.create_task(llm_workflow(uri=u)) for u in rlist ]
+                # for ul in asyncio.as_completed(fetch_result):
+                #     res.extend(await(ul))
+                async for ur in pool.map(llm_workflow, rlist):
+                    res.extend(ur)
+                    st.info(ur)
 
-            pool.close()
-            pool.join()
+            count = count + len(ilist)
+            count = num if count > num else count
+            progress_generation.text(
+                f"{count} files processed out-of {num} => {int((100 / num) * count)}% processed"
+            )
+            bar.progress(int((100 / num) * count))
+    st.info(res)
+    pool.close()
+            # pool.join()
 
-    status.update(label="process completed!", state="complete", expanded=False)
+   # status.update(label="process completed!", state="complete", expanded=False)
 
 
 def execute():
-    mp.freeze_support()
-    mp.set_start_method("fork", force=True)
+    #mp.freeze_support()
+    aiomp.set_start_method("fork")
 
     (
         image_dir_path,
@@ -161,7 +170,7 @@ def execute():
     except Exception as e:
         st.error(f"exception: {e} occured in loading metadata file")
 
-    run_workflow(
+    asyncio.run(run_workflow(
         df,
         "/home/madhekar/work/home-media-app/data/train-data/img",
         chunk_size,
@@ -169,7 +178,7 @@ def execute():
         metadata_file,
         number_of_instances,
         openclip_finetuned,
-    )
+    ))
 
 
 # kick-off metadata generation
