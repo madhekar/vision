@@ -86,7 +86,7 @@ async def aiomultiprocess_main():
     async with Pool() as pool:
         detail_urls = []
         async for urls in pool.map(fetch_list,
-                                   [list_url_t.substitute(page=i + 1) for i in range(5)]):
+                                   [list_url_t.substitute(page=i + 1) for i in range(50)]):
             detail_urls.extend(urls)
 
         async for detail in pool.map(fetch_detail, detail_urls):
