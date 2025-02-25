@@ -58,20 +58,43 @@ def write_to_csv(all_books: list):
         writer.writerows(all_books)
 
 
-async def asyncio_main():
-    """ Implementing web scraping by using asyncio alone """
-    start = time.monotonic()
-    all_books, detail_urls = [], []
-    fetch_list_tasks = [asyncio.create_task(fetch_list(list_url_t.substitute(page=i + 1))) for i in range(5)]
-    for urls in asyncio.as_completed(fetch_list_tasks):
-        detail_urls.extend(await urls)
+# async def asyncio_main():
+#     """ Implementing web scraping by using asyncio alone """
+#     start = time.monotonic()
+#     all_books, detail_urls = [], []
+#     fetch_list_tasks = [asyncio.create_task(fetch_list(list_url_t.substitute(page=i + 1))) for i in range(5)]
+#     for urls in asyncio.as_completed(fetch_list_tasks):
+#         detail_urls.extend(await urls)
 
-    fetch_detail_tasks = [asyncio.create_task(fetch_detail(detail_url)) for detail_url in detail_urls]
-    for detail in asyncio.as_completed(fetch_detail_tasks):
-        all_books.append(await detail)
+#     fetch_detail_tasks = [asyncio.create_task(fetch_detail(detail_url)) for detail_url in detail_urls]
+#     for detail in asyncio.as_completed(fetch_detail_tasks):
+#         all_books.append(await detail)
+#     write_to_csv(all_books)
+#     print(f"All done in {time.monotonic() - start} seconds")
+
+
+# if __name__ == "__main__":
+#     asyncio.run(asyncio_main())
+
+async def aiomultiprocess_main():
+    """
+    Integrating multiprocessing and asyncio with the help of aiomultiprocess,
+    requires only a simple rewriting of the main function
+    """
+    start = time.monotonic()
+    all_books = []
+    async with Pool() as pool:
+        detail_urls = []
+        async for urls in pool.map(fetch_list,
+                                   [list_url_t.substitute(page=i + 1) for i in range(5)]):
+            detail_urls.extend(urls)
+
+        async for detail in pool.map(fetch_detail, detail_urls):
+            all_books.append(detail)
+
     write_to_csv(all_books)
     print(f"All done in {time.monotonic() - start} seconds")
 
 
 if __name__ == "__main__":
-    asyncio.run(asyncio_main())
+    asyncio.run(aiomultiprocess_main())
