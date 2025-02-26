@@ -28,6 +28,8 @@ css_path = os.path.join("assets", "styles.css")
 
 load_css(css_path)
 
+sys.dont_write_bytecode = True
+
 overview = st.Page( 
     page="pages/overview.py", 
     title="OVERVIEW", 

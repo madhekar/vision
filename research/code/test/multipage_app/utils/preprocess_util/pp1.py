@@ -34,6 +34,7 @@ def location_initialize(smp, smf):
 
 def get_loc_name_by_latlon(latlan):
     row = st.session_state.df_loc.loc[st.session_state.df_loc.LatLon == latlan].values.flatten().tolist()
+    print(row)
     return row[0]
 
 # uuid4 id for vector database
@@ -54,8 +55,9 @@ async def locationDetails(uri):
         lat_lon = lu.gpsInfo(uri)
         if lat_lon == ():
             lat_lon = (d_latitude, d_longitude)
-        loc =  get_loc_name_by_latlon(latlan=lat_lon)
-        if loc:
+
+        loc = get_loc_name_by_latlon(latlan=lat_lon)
+        if loc != None & loc != "":
             return loc 
         else:
             loc =  lu.getLocationDetails(lat_lon, max_retires=3)
@@ -63,7 +65,7 @@ async def locationDetails(uri):
             return loc
     except Exception as e:
         st.error(f'error occurred {e}')
-    return loc    
+        return loc    
 
 # get names of people in image
 async def namesOfPeople(uri):
@@ -90,7 +92,7 @@ async def describeImage(uri, llm_model, llm_processor, names, location):
 """
 async def llm_workflow(uri):
     #m, t, p = LLM.setLLM()
-    suuid = generateId()
+    suuid = generateId(uri)
     ts = timestamp(uri)
     location_details =  await locationDetails(uri)
     names =  await namesOfPeople(uri)
@@ -144,16 +146,16 @@ async def run_workflow(
                     # for ul in asyncio.as_completed(fetch_result):
                     #     res.extend(await(ul))
 
-                    # async for ur in pool.map(llm_workflow, rlist):
-                    #     res.extend(json.dumps(ur))
-                    #     st.info(ur)
+                    async for ur in pool.map(llm_workflow, rlist):
+                        res.extend(json.dumps(ur))
+                        st.info(ur)
 
-                    res = await asyncio.gather(
-                        pool.map(generateId, rlist),
-                        pool.map(timestamp, rlist),
-                        pool.map(namesOfPeople, rlist)
-                    )
-                    st.info(res)
+                    # res = await asyncio.gather(
+                    #     pool.map(generateId, rlist),
+                    #     pool.map(timestamp, rlist),
+                    #     pool.map(namesOfPeople, rlist)
+                    # )
+                    #st.info(res)
 
                 count = count + len(ilist)
                 count = num if count > num else count
