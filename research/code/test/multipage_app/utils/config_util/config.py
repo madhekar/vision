@@ -139,6 +139,9 @@ def preprocess_config_load():
         chunk_size = dict["metadata"]["data_chunk_size"]
         number_of_instances = dict["metadata"]["number_of_instances"]
         openclip_finetuned = dict["models"]["openclip_finetuned"] 
+
+        static_metadata_path = dict["static-metadata"]['static_metadata_path']
+        static_metadata_file = dict['static-metadata'] ['static_metadata_file']
         
     return(
         image_dir_path,
@@ -146,7 +149,9 @@ def preprocess_config_load():
         metadata_file,
         chunk_size,
         number_of_instances,
-        openclip_finetuned
+        openclip_finetuned, 
+        static_metadata_path,
+        static_metadata_file
     )    
 
 @st.cache_resource

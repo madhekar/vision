@@ -11,6 +11,7 @@ import streamlit as st
 from utils.config_util import config
 from utils.util import location_util as lu
 from utils.util import model_util as mu
+from utils.util import fast_parquet_util as fpu
 
 import asyncio
 import multiprocessing as mp
@@ -23,32 +24,50 @@ m, t, p = LLM.setLLM()
 ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
 
 # init LLM modules
+@st.cache_resource
+def location_initialize(smp, smf):
+    try:
+        df = fpu.read_parquet_file(os.path.join(smp, smf))
+    except Exception as e:
+        print(f"exception occured in loading location metadata: {smf} with exception: {e}")  
+    return df 
 
+def get_loc_name_by_latlon(latlan):
+    row = st.session_state.df_loc.loc[st.session_state.df_loc.LatLon == latlan].values.flatten().tolist()
+    return row[0]
 
 # uuid4 id for vector database
-def generateId():
-    return str(uuid.uuid4())
+async def generateId(uri):
+    return (uri, str(uuid.uuid4()))
 
 
 # convert image date time to timestamp
-def timestamp(uri):
+async def timestamp(uri):
     ts = lu.getTimestamp(uri)
     return ts
 
 
 # get location details as: latitude, longitude and address
 async def locationDetails(uri):
-    lat_lon = lu.gpsInfo(uri)
-    if lat_lon == ():
-        lat_lon = (d_latitude, d_longitude)
-    loc =  lu.getLocationDetails(lat_lon, max_retires=3)
-    print(lat_lon, loc)
-    return loc
-
+    loc = ""
+    try:
+        lat_lon = lu.gpsInfo(uri)
+        if lat_lon == ():
+            lat_lon = (d_latitude, d_longitude)
+        loc =  get_loc_name_by_latlon(latlan=lat_lon)
+        if loc:
+            return loc 
+        else:
+            loc =  lu.getLocationDetails(lat_lon, max_retires=3)
+            print(lat_lon, loc)
+            return loc
+    except Exception as e:
+        st.error(f'error occurred {e}')
+    return loc    
 
 # get names of people in image
-async def namesOfPeople(uri, openclip_finetuned):
-    names =  en.getEntityNames(uri, openclip_finetuned)
+async def namesOfPeople(uri):
+    names =  en.getEntityNames(uri, ocfine)
     return names
 
 
@@ -74,7 +93,7 @@ async def llm_workflow(uri):
     suuid = generateId()
     ts = timestamp(uri)
     location_details =  await locationDetails(uri)
-    names =  await namesOfPeople(uri, ocfine)
+    names =  await namesOfPeople(uri)
     text =  await describeImage(uri, m, p, names, location_details)
     return (uri, suuid, ts, location_details, names, text)
 
@@ -113,19 +132,29 @@ async def run_workflow(
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
     with st.status("Generating LLM responses...", expanded=True) as status:
-        async with Pool(initializer=setup_logging, initargs=(logging.WARNING,), maxtasksperchild=1) as pool:
+        async with Pool(processes=chunk_size, initializer=setup_logging, initargs=(logging.WARNING,), maxtasksperchild=1) as pool:
             count = 0
             res = []
             for ilist in img_iterator:
                 rlist = mu.is_processed_batch(ilist, df)
                 if len(rlist) > 0:
+
                     # res=[]
                     # fetch_result = [asyncio.create_task(llm_workflow(uri=u)) for u in rlist ]
                     # for ul in asyncio.as_completed(fetch_result):
                     #     res.extend(await(ul))
-                    async for ur in pool.map(llm_workflow, rlist):
-                        res.extend(json.dumps(ur))
-                        st.info(ur)
+
+                    # async for ur in pool.map(llm_workflow, rlist):
+                    #     res.extend(json.dumps(ur))
+                    #     st.info(ur)
+
+                    res = await asyncio.gather(
+                        pool.map(generateId, rlist),
+                        pool.map(timestamp, rlist),
+                        pool.map(namesOfPeople, rlist)
+                    )
+                    st.info(res)
+
                 count = count + len(ilist)
                 count = num if count > num else count
                 progress_generation.text(f"{count} files processed out-of {num} => {int((100 / num) * count)}% processed")
@@ -148,7 +177,16 @@ def execute():
         chunk_size,
         number_of_instances,
         openclip_finetuned,
+        static_metadata_path,
+        static_metadata_file
     ) = config.preprocess_config_load()
+
+    if "df_loc" not in st.session_state:
+        df = location_initialize(static_metadata_path, static_metadata_file)
+        st.session_state.df_loc = df
+    else:
+        df_loc = st.session_state.df_loc   
+
     chunk_size = int(mp.cpu_count() // 4)
     st.sidebar.subheader("Metadata Grneration")
     st.sidebar.divider()

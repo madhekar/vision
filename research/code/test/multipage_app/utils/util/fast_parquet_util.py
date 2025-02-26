@@ -88,6 +88,16 @@ def add_all_locations(location_root, parquet_file_path):
     except Exception as e:
         st.error(f"create append locations parquet for file: {f} failed with exception: {e}")
 
+def init_location_cache(parquet_file_path):
+    
+    df = read_parquet_file(parquet_file_path)   
+
+    df["LatLon"] = df[["latitude", "longitude"]].apply(tuple, axis=1)
+
+    df.drop(columns=["latitude", "longitude"], inplace=True)
+
+    return df     
+
 
 if __name__ == "__main__":
     parquet_file_path = "parquet/static_locations.parquet"
