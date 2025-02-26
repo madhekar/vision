@@ -66,20 +66,17 @@ async def describeImage(uri, llm_model, llm_processor, names, location):
     )
     return d
 
-
 """
 /home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth
 """
-
-
 async def llm_workflow(uri):
-    # m, t, p = LLM.setLLM()
+    #m, t, p = LLM.setLLM()
     suuid = generateId()
     ts = timestamp(uri)
     location_details =  await locationDetails(uri)
     names =  await namesOfPeople(uri, ocfine)
     text =  await describeImage(uri, m, p, names, location_details)
-    return (suuid, ts, location_details, names, text)
+    return (uri, suuid, ts, location_details, names, text)
 
 
 # recursive call to get all image filenames
@@ -115,32 +112,29 @@ async def run_workflow(
 
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
-    # with st.status("Generating LLM responses...", expanded=True) as status:
-    async with Pool(processes=chunk_size, initializer=setup_logging, initargs=(logging.WARNING,), maxtasksperchild=1) as pool:
-        count = 0
-        res = []
-        for ilist in img_iterator:
-            rlist = mu.is_processed_batch(ilist, df)
-            if len(rlist) > 0:
-                # res=[]
-                # fetch_result = [asyncio.create_task(llm_workflow(uri=u)) for u in rlist ]
-                # for ul in asyncio.as_completed(fetch_result):
-                #     res.extend(await(ul))
-                async for ur in pool.map(llm_workflow, rlist):
-                    res.extend(ur)
-                    st.info(ur)
+    with st.status("Generating LLM responses...", expanded=True) as status:
+        async with Pool(processes=chunk_size, initializer=setup_logging, initargs=(logging.WARNING,), maxtasksperchild=1) as pool:
+            count = 0
+            res = []
+            for ilist in img_iterator:
+                rlist = mu.is_processed_batch(ilist, df)
+                if len(rlist) > 0:
+                    # res=[]
+                    # fetch_result = [asyncio.create_task(llm_workflow(uri=u)) for u in rlist ]
+                    # for ul in asyncio.as_completed(fetch_result):
+                    #     res.extend(await(ul))
+                    async for ur in pool.map(llm_workflow, rlist):
+                        res.extend(json.dumps(ur))
+                        st.info(ur)
+                count = count + len(ilist)
+                count = num if count > num else count
+                progress_generation.text(f"{count} files processed out-of {num} => {int((100 / num) * count)}% processed")
+                bar.progress(int((100 / num) * count))
+        st.info(res)
+        pool.close()
+        # pool.join()
 
-            count = count + len(ilist)
-            count = num if count > num else count
-            progress_generation.text(
-                f"{count} files processed out-of {num} => {int((100 / num) * count)}% processed"
-            )
-            bar.progress(int((100 / num) * count))
-    st.info(res)
-    pool.close()
-            # pool.join()
-
-   # status.update(label="process completed!", state="complete", expanded=False)
+    status.update(label="process completed!", state="complete", expanded=False)
 
 
 def execute():
