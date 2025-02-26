@@ -113,7 +113,7 @@ async def run_workflow(
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
     with st.status("Generating LLM responses...", expanded=True) as status:
-        async with Pool(processes=chunk_size, initializer=setup_logging, initargs=(logging.WARNING,), maxtasksperchild=1) as pool:
+        async with Pool(initializer=setup_logging, initargs=(logging.WARNING,), maxtasksperchild=1) as pool:
             count = 0
             res = []
             for ilist in img_iterator:

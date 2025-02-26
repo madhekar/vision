@@ -111,7 +111,7 @@ def getLocationDetails(strLnL, max_retires):
             location = rev(strLnL, language="en", exactly_one=True)
             if location:
                 address = location.address
-                cache[strLnL] = location
+                cache[strLnL] = address
                 return address
           except (GeocoderTimedOut, GeocoderUnavailable) as e:
               st.warning(f'Get address failed with {e}')
