@@ -17,7 +17,7 @@ import asyncio
 import multiprocessing as mp
 import aiomultiprocess as aiomp
 from aiomultiprocess import Pool
-
+from functools import partial
 
 d_latitude, d_longitude = 32.96887205555556, -117.18414305555557
 m, t, p = LLM.setLLM()
@@ -37,8 +37,11 @@ def get_loc_name_by_latlon(latlon):
     print(latlon)
     if latlon:
         row = st.session_state.df_loc.loc[st.session_state.df_loc.LatLon == latlon].values.flatten().tolist()
-        print(row)
-        return row[0]
+        if len(row) > 0:
+           print(row)
+           return row[0]
+        else:
+           return None
 
 # uuid4 id for vector database
 async def generateId(uri):
@@ -52,7 +55,8 @@ async def timestamp(uri):
 
 
 # get location details as: latitude, longitude and address
-async def locationDetails(uri):
+async def locationDetails(uri, semaphore):
+  async with semaphore:
     loc=""
     lat_lon = ()
     lat_lon = lu.gpsInfo(uri)
@@ -68,9 +72,7 @@ async def locationDetails(uri):
         loc =  lu.getLocationDetails(lat_lon, max_retires=3)
         print(lat_lon, loc)
         return loc
-    
-  
-
+     
 # get names of people in image
 async def namesOfPeople(uri):
     names =  en.getEntityNames(uri, ocfine)
@@ -96,9 +98,10 @@ async def describeImage(uri, llm_model, llm_processor, names, location):
 """
 async def llm_workflow(uri):
     #m, t, p = LLM.setLLM()
-    suuid = generateId(uri)
-    ts = timestamp(uri)
-    location_details =  await locationDetails(uri)
+    semaphore = asyncio.Semaphore(1)
+    suuid = await generateId(uri)
+    ts = await timestamp(uri)
+    location_details =  await locationDetails(uri, semaphore)
     names =  await namesOfPeople(uri)
     text =  await describeImage(uri, m, p, names, location_details)
     return (uri, suuid, ts, location_details, names, text)
@@ -112,6 +115,14 @@ def getRecursive(rootDir, chunk_size=10):
             f_list.append(os.path.abspath(fn))
     for i in range(0, len(f_list), chunk_size):
         yield f_list[i : i + chunk_size]
+
+
+def xform(res):
+    df = pd.DataFrame(res, columns=['url', 'ts', 'names', 'location'])   
+    df[['uri', 'id']] = pd.DataFrame(df['url'].tolist(), index=df.index)
+    df.drop(columns=['url', 'ts', 'id'])
+    print(df.head())  
+    return df.to_numpy().tolist()   
 
 def setup_logging(level=logging.WARNING):
     logging.basicConfig(level=level)
@@ -135,6 +146,8 @@ async def run_workflow(
     bar = st.sidebar.progress(0)
     num = df.shape[0]
 
+    semaphore = asyncio.Semaphore(1)
+
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
     with st.status("Generating LLM responses...", expanded=True) as status:
@@ -150,16 +163,26 @@ async def run_workflow(
                     # for ul in asyncio.as_completed(fetch_result):
                     #     res.extend(await(ul))
 
-                    async for ur in pool.map(llm_workflow, rlist):
-                        res.extend(json.dumps(ur))
-                        st.info(ur)
+                    # async for ur in pool.map(llm_workflow, rlist): 
+                    #     st.info(ur)
+                    #     res.extend(ur)
+                       
+                    res = await asyncio.gather(
+                        pool.map(generateId, rlist),
+                        pool.map(timestamp, rlist),
+                        pool.map(namesOfPeople, rlist),
+                        pool.map(partial(locationDetails, semaphore=semaphore), rlist)
+                    )
 
-                    # res = await asyncio.gather(
-                    #     pool.map(generateId, rlist),
-                    #     pool.map(timestamp, rlist),
-                    #     pool.map(namesOfPeople, rlist)
-                    # )
-                    #st.info(res)
+                    st.info(res)
+
+                    rflist = xform(res)
+
+                    st.info(rflist)
+
+                    res1 = await asyncio.gather(
+                        pool.starmap(partial(describeImage, llm_model=m, llm_processor=p), rflist)
+                    )
 
                 count = count + len(ilist)
                 count = num if count > num else count
@@ -193,7 +216,7 @@ def execute():
     else:
         df_loc = st.session_state.df_loc   
 
-    chunk_size = int(mp.cpu_count() // 4)
+    chunk_size = int(mp.cpu_count() )#// 4)
     st.sidebar.subheader("Metadata Grneration")
     st.sidebar.divider()
 
