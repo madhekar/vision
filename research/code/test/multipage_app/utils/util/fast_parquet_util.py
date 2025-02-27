@@ -95,7 +95,7 @@ def init_location_cache(parquet_file_path):
     df["LatLon"] = df[["latitude", "longitude"]].apply(tuple, axis=1)
 
     df.drop(columns=["latitude", "longitude"], inplace=True)
-
+    df.head(10)
     return df     
 
 

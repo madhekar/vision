@@ -27,15 +27,18 @@ ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned
 @st.cache_resource
 def location_initialize(smp, smf):
     try:
-        df = fpu.read_parquet_file(os.path.join(smp, smf))
+        df = fpu.init_location_cache(os.path.join(smp, smf))
+        #print(df.head())
     except Exception as e:
         print(f"exception occured in loading location metadata: {smf} with exception: {e}")  
     return df 
 
-def get_loc_name_by_latlon(latlan):
-    row = st.session_state.df_loc.loc[st.session_state.df_loc.LatLon == latlan].values.flatten().tolist()
-    print(row)
-    return row[0]
+def get_loc_name_by_latlon(latlon):
+    print(latlon)
+    if latlon:
+        row = st.session_state.df_loc.loc[st.session_state.df_loc.LatLon == latlon].values.flatten().tolist()
+        print(row)
+        return row[0]
 
 # uuid4 id for vector database
 async def generateId(uri):
@@ -50,22 +53,23 @@ async def timestamp(uri):
 
 # get location details as: latitude, longitude and address
 async def locationDetails(uri):
-    loc = ""
-    try:
-        lat_lon = lu.gpsInfo(uri)
-        if lat_lon == ():
-            lat_lon = (d_latitude, d_longitude)
-
-        loc = get_loc_name_by_latlon(latlan=lat_lon)
-        if loc != None & loc != "":
-            return loc 
-        else:
-            loc =  lu.getLocationDetails(lat_lon, max_retires=3)
-            print(lat_lon, loc)
-            return loc
-    except Exception as e:
-        st.error(f'error occurred {e}')
-        return loc    
+    loc=""
+    lat_lon = ()
+    lat_lon = lu.gpsInfo(uri)
+    print(f'-> {lat_lon}')
+    if lat_lon == ():
+        lat_lon = (d_latitude, d_longitude)
+        print(lat_lon)  
+    loc = get_loc_name_by_latlon(lat_lon)
+    print(loc)
+    if loc:
+        return loc
+    else:
+        loc =  lu.getLocationDetails(lat_lon, max_retires=3)
+        print(lat_lon, loc)
+        return loc
+    
+  
 
 # get names of people in image
 async def namesOfPeople(uri):
