@@ -55,8 +55,8 @@ async def timestamp(uri):
 
 
 # get location details as: latitude, longitude and address
-async def locationDetails(uri, semaphore):
-  async with semaphore:
+async def locationDetails(uri, lock):
+  async with lock:
     loc=""
     lat_lon = ()
     lat_lon = lu.gpsInfo(uri)
@@ -80,7 +80,7 @@ async def namesOfPeople(uri):
 
 
 # get image description from LLM
-async def describeImage(uri, llm_model, llm_processor, names, location):
+async def describeImage(uri, names, location, llm_model=m, llm_processor=p):
     d =  LLM.fetch_llm_text(
         imUrl=uri,
         model=llm_model,
@@ -129,6 +129,9 @@ def xform(res):
     print(df.head())  
     return df.to_numpy().tolist()   
 
+async def wrapper_llm(args):
+    return await describeImage(*args)
+
 def setup_logging(level=logging.WARNING):
     logging.basicConfig(level=level)
 """
@@ -151,7 +154,9 @@ async def run_workflow(
     bar = st.sidebar.progress(0)
     num = df.shape[0]
 
-    semaphore = asyncio.Semaphore(1)
+    #semaphore = asyncio.Semaphore(1)
+
+    lock = aiomp.Lock()
 
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
@@ -176,7 +181,7 @@ async def run_workflow(
                         pool.map(generateId, rlist),
                         pool.map(timestamp, rlist),
                         pool.map(namesOfPeople, rlist),
-                        pool.map(partial(locationDetails, semaphore=semaphore), rlist)
+                        pool.map(partial(locationDetails, lock=lock), rlist)
                     )
 
                     st.info(res)
@@ -186,9 +191,10 @@ async def run_workflow(
                     st.info(rflist)
 
                     res1 = await asyncio.gather(
-                        pool.starmap(partial(describeImage, llm_model=m, llm_processor=p), rflist)
+                        pool.map(wrapper_llm,  rflist)
                     )
 
+                    st.info(res1)
                 count = count + len(ilist)
                 count = num if count > num else count
                 progress_generation.text(f"{count} files processed out-of {num} => {int((100 / num) * count)}% processed")
