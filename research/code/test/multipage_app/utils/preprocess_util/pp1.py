@@ -118,7 +118,12 @@ def getRecursive(rootDir, chunk_size=10):
 
 
 def xform(res):
-    df = pd.DataFrame(res, columns=['url', 'ts', 'names', 'location'])   
+    fr=[]
+    for k in range(len(res[0])):
+      lr = [i[k] for i in res]
+      fr.append(lr)
+
+    df = pd.DataFrame(fr, columns=['url', 'ts', 'names', 'location'])   
     df[['uri', 'id']] = pd.DataFrame(df['url'].tolist(), index=df.index)
     df.drop(columns=['url', 'ts', 'id'])
     print(df.head())  
