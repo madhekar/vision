@@ -80,11 +80,12 @@ async def namesOfPeople(uri):
 
 
 # get image description from LLM
-async def describeImage(uri, names, location, llm_model=m, llm_processor=p):
+async def describeImage(args):
+    names, location,uri = args
     d =  LLM.fetch_llm_text(
         imUrl=uri,
-        model=llm_model,
-        processor=llm_processor,
+        model=m,
+        processor=p,
         top=0.9,
         temperature=0.9,
         question="Answer with well organized thoughts, please describe the picture with insights.",
@@ -125,12 +126,14 @@ def xform(res):
 
     df = pd.DataFrame(fr, columns=['url', 'ts', 'names', 'location'])   
     df[['uri', 'id']] = pd.DataFrame(df['url'].tolist(), index=df.index)
-    df.drop(columns=['url', 'ts', 'id'])
+    df.drop(columns=['url', 'ts', 'id'], inplace=True)
     print(df.head())  
-    return df.to_numpy().tolist()   
+    lst = df.to_numpy().tolist() 
+    print(lst)  
+    return [tuple(e) for e in lst]
 
-async def wrapper_llm(args):
-    return await describeImage(*args)
+# async def wrapper_llm(args):
+#     return await describeImage(*args)
 
 def setup_logging(level=logging.WARNING):
     logging.basicConfig(level=level)
@@ -156,7 +159,7 @@ async def run_workflow(
 
     #semaphore = asyncio.Semaphore(1)
 
-    lock = aiomp.Lock()
+    lock = asyncio.Lock()
 
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
@@ -191,7 +194,7 @@ async def run_workflow(
                     st.info(rflist)
 
                     res1 = await asyncio.gather(
-                        pool.map(wrapper_llm,  rflist)
+                        pool.map(describeImage,  rflist)
                     )
 
                     st.info(res1)
@@ -227,7 +230,7 @@ def execute():
     else:
         df_loc = st.session_state.df_loc   
 
-    chunk_size = int(mp.cpu_count() )#// 4)
+    chunk_size = int(mp.cpu_count() // 4)
     st.sidebar.subheader("Metadata Grneration")
     st.sidebar.divider()
 
