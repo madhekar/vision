@@ -51,10 +51,10 @@ async def generateId(uri):
 # convert image date time to timestamp
 async def timestamp(uri):
     ts = lu.getTimestamp(uri)
-    return ts
+    return str(ts)
 
 
-# get location details as: latitude, longitude and address
+# get location details as: (latitude, longitude) and address
 async def locationDetails(uri, lock):
   async with lock:
     loc=""
@@ -71,7 +71,7 @@ async def locationDetails(uri, lock):
     else:
         loc =  lu.getLocationDetails(lat_lon, max_retires=3)
         print(lat_lon, loc)
-        return loc
+        return str(lat_lon), loc
      
 # get names of people in image
 async def namesOfPeople(uri):
@@ -81,7 +81,7 @@ async def namesOfPeople(uri):
 
 # get image description from LLM
 async def describeImage(args):
-    names, location,uri = args
+    names, uri, location = args
     d =  LLM.fetch_llm_text(
         imUrl=uri,
         model=m,
@@ -126,15 +126,23 @@ def xform(res):
 
     df = pd.DataFrame(fr, columns=['url', 'ts', 'names', 'location'])   
     df[['uri', 'id']] = pd.DataFrame(df['url'].tolist(), index=df.index)
-    df.drop(columns=['url', 'ts', 'id'], inplace=True)
-    print(df.head())  
+    df[['latlon','loc']] = pd.DataFrame(df['location'].tolist(), index=df.index)
+    dfo= df.drop(columns=['url', 'location'])
+    df.drop(columns=['url', 'ts', 'id', 'latlon', 'location'], inplace=True)
+    #print(df.head())  
     lst = df.to_numpy().tolist() 
     print(lst)  
-    return [tuple(e) for e in lst]
+    return [tuple(e) for e in lst], dfo.to_numpy().tolist()
 
-async def append_file(data, filename, mode):
+def final_xform(alist):
+    keys = ['ts', 'names', 'uri', 'id', 'latlon', 'loc', 'text']
+    return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
+
+async def append_file(filename, dict_data_list, mode):
     async with aiomp.AioFile(filename, mode) as f:
-        await f.write(data.encode())
+        for dict_element in dict_data_list:
+           await f.write(dict_element.encode())
+    f.close()       
 
 def setup_logging(level=logging.WARNING):
     logging.basicConfig(level=level)
@@ -153,7 +161,7 @@ async def run_workflow(
     openclip_finetuned,
 ):
     st.info(f"CPU COUNT: {chunk_size}")
-
+    
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
     num = df.shape[0]
@@ -190,15 +198,24 @@ async def run_workflow(
 
                     st.info(res)
 
-                    rflist = xform(res)
+                    rflist, oflist = xform(res)
 
-                    st.info(rflist)
+                    st.info(oflist)
 
                     res1 = await asyncio.gather(
                         pool.map(describeImage,  rflist)
                     )
 
                     st.info(res1)
+
+                    zlist = [oflist[i] + [res1[0][i]]  for i in range(len(oflist))]
+
+                    fdictlist = final_xform(zlist)
+
+                    st.info(fdictlist)
+
+                    append_file(os.path.join(metadata_path, metadata_file), fdictlist, 'a+')
+
                 count = count + len(ilist)
                 count = num if count > num else count
                 progress_generation.text(f"{count} files processed out-of {num} => {int((100 / num) * count)}% processed")
