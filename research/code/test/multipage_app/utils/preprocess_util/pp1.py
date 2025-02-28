@@ -132,8 +132,9 @@ def xform(res):
     print(lst)  
     return [tuple(e) for e in lst]
 
-# async def wrapper_llm(args):
-#     return await describeImage(*args)
+async def append_file(data, filename, mode):
+    async with aiomp.AioFile(filename, mode) as f:
+        await f.write(data.encode())
 
 def setup_logging(level=logging.WARNING):
     logging.basicConfig(level=level)
