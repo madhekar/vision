@@ -15,6 +15,7 @@ from utils.util import fast_parquet_util as fpu
 
 import asyncio
 import multiprocessing as mp
+import aiofiles
 import aiomultiprocess as aiomp
 from aiomultiprocess import Pool
 from functools import partial
@@ -138,11 +139,34 @@ def final_xform(alist):
     keys = ['ts', 'names', 'uri', 'id', 'latlon', 'loc', 'text']
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
+"""
+async with aiofiles.open(os.path.join(mp, mf), mode="a") as f:
+        while True:
+            print(os.path.join(mp, mf))
+            # Get a "work item" out of the queue.
+            dict = await queue.get()
+
+            # Sleep for the "sleep_for" seconds.
+            llmStr = await awaitUtil.force_awaitable(describeImage)(dict)
+
+            dict["txt"] = llmStr
+
+            st = json.dumps(dict)
+            await f.write(st)
+            await f.write(os.linesep)
+            await f.close()
+
+
+"""
+
+
 async def append_file(filename, dict_data_list, mode):
-    async with aiomp.AioFile(filename, mode) as f:
+    async with aiofiles.open(filename, mode) as f:
         for dict_element in dict_data_list:
-           await f.write(dict_element.encode())
-    f.close()       
+           st = json.dumps(dict_element)
+           await f.write(st)
+           await f.write(os.linesep)
+        await f.close()       
 
 def setup_logging(level=logging.WARNING):
     logging.basicConfig(level=level)
