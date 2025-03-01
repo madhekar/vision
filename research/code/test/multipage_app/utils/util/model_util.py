@@ -70,12 +70,12 @@ def createProgressBar(pg_caption, pg_int_percentage, pg_colour, pg_bgcolour):
 # keep track of processed files in loop
 def is_processed_batch(ilist, processed_df):
   rlist = []
-  print(processed_df.head())
-  for file_name in ilist: 
-    if file_name not in processed_df['url'].values:
-        rlist.append(file_name)
-    #else:
-        #st.warning(f'already processed file: {file_name}')    
+  if processed_df:
+    for file_name in ilist: 
+        if file_name not in processed_df['url'].values:
+            rlist.append(file_name)   
+  else:
+      return ilist          
   return rlist
 
 

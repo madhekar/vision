@@ -139,32 +139,13 @@ def final_xform(alist):
     keys = ['ts', 'names', 'uri', 'id', 'latlon', 'loc', 'text']
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
-"""
-async with aiofiles.open(os.path.join(mp, mf), mode="a") as f:
-        while True:
-            print(os.path.join(mp, mf))
-            # Get a "work item" out of the queue.
-            dict = await queue.get()
-
-            # Sleep for the "sleep_for" seconds.
-            llmStr = await awaitUtil.force_awaitable(describeImage)(dict)
-
-            dict["txt"] = llmStr
-
-            st = json.dumps(dict)
-            await f.write(st)
-            await f.write(os.linesep)
-            await f.close()
-
-
-"""
-
 
 async def append_file(filename, dict_data_list, mode):
     async with aiofiles.open(filename, mode) as f:
         for dict_element in dict_data_list:
-           st = json.dumps(dict_element)
-           await f.write(st)
+           stv = json.dumps(dict_element)
+           st.info(stv)
+           await f.write(stv)
            await f.write(os.linesep)
         await f.close()       
 
@@ -188,8 +169,12 @@ async def run_workflow(
     
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
-    num = df.shape[0]
-
+    if df:
+      num = df.shape[0]
+    else:
+      num = 0
+    num_files = len(glob.glob(os.path.join(image_dir_path,'*')))
+    num = num_files - num
     #semaphore = asyncio.Semaphore(1)
 
     lock = asyncio.Lock()
@@ -220,17 +205,17 @@ async def run_workflow(
                         pool.map(partial(locationDetails, lock=lock), rlist)
                     )
 
-                    st.info(res)
+                    #st.info(res)
 
                     rflist, oflist = xform(res)
 
-                    st.info(oflist)
+                    #st.info(oflist)
 
                     res1 = await asyncio.gather(
                         pool.map(describeImage,  rflist)
                     )
 
-                    st.info(res1)
+                    #st.info(res1)
 
                     zlist = [oflist[i] + [res1[0][i]]  for i in range(len(oflist))]
 
@@ -238,12 +223,13 @@ async def run_workflow(
 
                     st.info(fdictlist)
 
-                    append_file(os.path.join(metadata_path, metadata_file), fdictlist, 'a+')
+                    await append_file(os.path.join(metadata_path, metadata_file), fdictlist, 'a+')
 
                 count = count + len(ilist)
                 count = num if count > num else count
-                progress_generation.text(f"{count} files processed out-of {num} => {int((100 / num) * count)}% processed")
-                bar.progress(int((100 / num) * count))
+                if num > 0:
+                    progress_generation.text(f"{count} files processed out-of {num} => {int((100 / num) * count)}% processed")
+                    bar.progress(int((100 / num) * count))
         st.info(res)
         pool.close()
         # pool.join()
@@ -266,13 +252,15 @@ def execute():
         static_metadata_file
     ) = config.preprocess_config_load()
 
+    image_dir_path = "/home/madhekar/work/home-media-app/data/train-data/img"
+
     if "df_loc" not in st.session_state:
         df = location_initialize(static_metadata_path, static_metadata_file)
         st.session_state.df_loc = df
     else:
         df_loc = st.session_state.df_loc   
 
-    chunk_size = int(mp.cpu_count() // 4)
+    chunk_size = int(mp.cpu_count() // 2)
     st.sidebar.subheader("Metadata Grneration")
     st.sidebar.divider()
 
@@ -293,7 +281,7 @@ def execute():
 
     asyncio.run(run_workflow(
         df,
-        "/home/madhekar/work/home-media-app/data/train-data/img",
+        image_dir_path,
         chunk_size,
         metadata_path,
         metadata_file,
