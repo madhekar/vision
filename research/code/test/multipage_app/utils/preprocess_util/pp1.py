@@ -230,6 +230,9 @@ async def run_workflow(
                 if num > 0:
                     progress_generation.text(f"{count} files processed out-of {num} => {int((100 / num) * count)}% processed")
                     bar.progress(int((100 / num) * count))
+                else:
+                    progress_generation.text(f"{count} files processed out-of {num} => {int((100 / 1) * count)}% processed (all done!)")
+                    bar.progress(int((100 / 1) * count))    
         st.info(res)
         pool.close()
         # pool.join()
