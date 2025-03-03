@@ -72,7 +72,7 @@ def is_processed_batch(ilist, processed_df):
   rlist = []
   if not processed_df.empty:
     for file_name in ilist: 
-        if file_name not in processed_df['url'].values:
+        if file_name not in processed_df['uri'].values:
             rlist.append(file_name)   
   else:
       return ilist          
