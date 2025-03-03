@@ -275,7 +275,7 @@ def execute():
                 res = "[" + res + "]"
                 data = json.loads(res)
                 df = pd.DataFrame(data)
-                df = mu.drop_except(df, ["url"])
+                df = mu.drop_except(df, ["uri"])
     except Exception as e:
         st.error(f"exception: {e} occured in loading metadata file")
 
