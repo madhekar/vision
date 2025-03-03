@@ -169,7 +169,7 @@ async def run_workflow(
     
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
-    if df:
+    if not df.empty:
       num = df.shape[0]
     else:
       num = 0
