@@ -29,17 +29,14 @@ ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned
 def location_initialize(smp, smf):
     try:
         df = fpu.init_location_cache(os.path.join(smp, smf))
-        #print(df.head())
     except Exception as e:
-        print(f"exception occured in loading location metadata: {smf} with exception: {e}")  
+        st.error(f"exception occured in loading location metadata: {smf} with exception: {e}")  
     return df 
 
 def get_loc_name_by_latlon(latlon):
-    print(latlon)
     if latlon:
         row = st.session_state.df_loc.loc[st.session_state.df_loc.LatLon == latlon].values.flatten().tolist()
         if len(row) > 0:
-           print(row)
            return row[0]
         else:
            return None
@@ -61,17 +58,14 @@ async def locationDetails(uri, lock):
     loc=""
     lat_lon = ()
     lat_lon = lu.gpsInfo(uri)
-    print(f'-> {lat_lon}')
     if lat_lon == ():
         lat_lon = (d_latitude, d_longitude)
-        print(lat_lon)  
     loc = get_loc_name_by_latlon(lat_lon)
     print(loc)
     if loc:
         return loc
     else:
         loc =  lu.getLocationDetails(lat_lon, max_retires=3)
-        print(lat_lon, loc)
         return str(lat_lon), loc
      
 # get names of people in image
