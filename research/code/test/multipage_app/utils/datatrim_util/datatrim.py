@@ -21,13 +21,12 @@ def display_folder_tree(nodes):
         return_select = tree_select(nodes, no_cascade=True) 
     display_folder_stats(return_select["checked"])
 
-    exp = st.sidebar.expander(label="CHECKED FOLDERS TO TRIM")  # container(height=500)
+    exp = st.sidebar.expander(label="Review List of Folders To Trim")  # container(height=500)
     with exp:
-
         for e in return_select["checked"]:
             e0 = e.split("@@")[0]
             st.write(e0)
-
+        return return_select['checked']
 
 def display_folder_stats(flist):
     row_size = 4
@@ -36,7 +35,7 @@ def display_folder_stats(flist):
     batch = flist[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
     col = 0
-    st.cache_resource
+    #st.cache_resource
     for df in batch:
         with grid[col]:
             folder = df.split("@@")[0]
@@ -76,9 +75,13 @@ def execute():
 
 
     st.sidebar.caption("CHECK FOLDERS TO TRIM",unsafe_allow_html=True)
-    display_folder_tree(get_path_as_dict(os.path.join(raw_data_path, ext)))
-    st.sidebar.button(label="TRIM CHECKED FOLDERS",use_container_width=True) 
+    checked= display_folder_tree(get_path_as_dict(os.path.join(raw_data_path, ext)))
+    btrim = st.sidebar.button(label="TRIM CHECKED FOLDERS",use_container_width=True) 
     # c1.text_area(label="External Source Structure", value= display_tree(os.path.join('/media/madhekar/' , ext)))
+    if btrim:
+            for rs in checked:
+                mu.remove_files_folders(rs.split("@@")[0])
+                st.info(f'trimmed folder: {rs}')
 
 
 
