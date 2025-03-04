@@ -163,6 +163,12 @@ def extract_stats_of_metadata_file(metadata_path):
        # "latlon_n_datetime": clatlong_n_datetime
     }
 
+def remove_empty_folders(path_absolute):
+    walk = list(os.walk(path_absolute))
+    for path, _, _ in walk[::-1]:
+        if len(os.listdir(path)) == 0:
+            os.remove(path)
+
 if __name__ == '__main__':
     extract_all_folder_stats("/home/madhekar/work/home-media-app/data/raw-data")
     extract_server_stats()
