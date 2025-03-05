@@ -5,6 +5,7 @@ import shutil
 import streamlit as st
 from utils.util import adddata_util as adu
 from utils.util import model_util as mu
+from utils.util import storage_stat as ss
 from streamlit_tree_select import tree_select
 from utils.config_util import config
 
@@ -99,6 +100,21 @@ def create_external_data_path(user, selected_device):
 #     if st.button('Submit'):
 #         st.session_state.overrite = 
 
+def deep_copy_external_drive_to_raw(src, dest):
+    st.info(f'starting to deep copy folders and files from: {src} to: {dest}')
+    if os.path.exists(dest):
+        shutil.rmtree(dest, ignore_errors=True)
+        # making the destination directory
+    #     os.makedirs(dest)
+    # else:
+    #     os.makedire(dest)
+    try:
+        shutil.copytree(src, dest, ignore_dangling_symlinks=True, dirs_exist_ok=True)
+    except FileNotFoundError as e:
+        st.error(f'error: folder {src} not found occured {e}')    
+    except Exception as e:
+        st.error(f'An error occured: {e}')    
+    st.info('done deep copy!')    
 
 def copy_folders_with_files(src_dir, dest_dir):
     if os.path.exists(dest_dir):
@@ -170,20 +186,31 @@ def execute():
        #st.sidebar.selectbox(label="Existing Imported Data Sources", options=source_list)
        st.sidebar.text_area(label="EXISTING DATA SOURCES", value=s, height=100)
 
-    # create new path string by appending raw-data path with source-name from external device
-    if ext_source in source_list:
-        ans = st.sidebar.toggle(f'DO YOU REALLY LIKE TO OVERWRITE ON [**{ext_source}**] DATA SOURCE?')
-        if ans:   
-            st.sidebar.button(label="IMPORT & OVERRIDE DATA", use_container_width=True)
-            # remove folders and files
-            # import folders and files - generate file paths based on uuid.uuid5
-            # keep base same
-            copy_folders_with_files(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
-    else:
-        st.sidebar.button(label="IMPORT DATA", use_container_width=True)
-        # import folders and files - generate file paths based on uuid.uuid5
-        # keep base same
-        copy_folders_with_files(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
+    with st.status("Generating LLM responses...", expanded=True) as status:
+        # create new path string by appending raw-data path with source-name from external device
+        if ext_source in source_list:
+            ans = st.sidebar.toggle(f'DO YOU REALLY LIKE TO OVERWRITE ON [**{ext_source}**] DATA SOURCE?')
+            if ans:   
+                bimp = st.sidebar.button(label="IMPORT & OVERWRIDE DATA", use_container_width=True)
+                if bimp:
+                    # remove folders and files
+                    # import folders and files - generate file paths based on uuid.uuid5
+                    # keep base same
+                    deep_copy_external_drive_to_raw(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
+                    #copy_folders_with_files(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
+        else:
+            bimp = st.sidebar.button(label="IMPORT DATA", use_container_width=True)
+            if bimp:
+                # import folders and files - generate file paths based on uuid.uuid5
+                # keep base same
+                #copy_folders_with_files(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
+                deep_copy_external_drive_to_raw(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
+
+        # bempty_images = st.sidebar.button(label="Clean Empty Folders", use_container_width=True)
+        # if bempty_images:
+        #     ss.remove_empty_folders(os.path.join(raw_data_path, ext_source))       
+        
+    status.update(label="process completed!", state="complete", expanded=False) 
 
 if __name__ == "__main__":
     execute()

@@ -9,7 +9,7 @@ def path_dict(path):
         d["label"] = os.path.basename(path)  #'dir'
         d["children"] = [ path_dict(os.path.join(path, x)) for x in os.listdir(path) if os.path.isdir(os.path.join(path, x))]
     else:
-         d["label"] = os.path.basename(path)  #"file"
+         d["label"] = os.path.basename(path)  #"file"    
     return d      
 
 @st.cache_resource
