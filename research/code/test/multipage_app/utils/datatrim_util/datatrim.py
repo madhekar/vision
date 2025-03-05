@@ -75,16 +75,18 @@ def execute():
 
 
     st.sidebar.caption("CHECK FOLDERS TO TRIM",unsafe_allow_html=True)
-    checked= display_folder_tree(get_path_as_dict(os.path.join(raw_data_path, ext)))
+    placeholder = st.empty()
+    placeholder = get_path_as_dict(os.path.join(raw_data_path, ext))
+    checked= display_folder_tree(placeholder)
     btrim = st.sidebar.button(label="TRIM CHECKED FOLDERS",use_container_width=True) 
     # c1.text_area(label="External Source Structure", value= display_tree(os.path.join('/media/madhekar/' , ext)))
     if btrim:
-            for rs in checked:
-                fo = rs.split("@@")[0]
-                st.info(fo)
-                mu.remove_files_folders(fo)
-                st.info(f'trimmed folder: {rs}')
-
+        for rs in checked:
+            fo = rs.split("@@")[0]
+            st.info(fo)
+            mu.remove_files_folders(fo)
+            st.info(f'trimmed folder: {rs}')
+            placeholder = get_path_as_dict(os.path.join(raw_data_path, ext))    
 
 
 if __name__ == "__main__":
