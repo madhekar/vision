@@ -5,6 +5,7 @@ import shutil
 import streamlit as st
 from utils.util import adddata_util as adu
 from utils.util import model_util as mu
+from utils.util import storage_stat as ss
 from streamlit_tree_select import tree_select
 from utils.config_util import config
 
@@ -187,18 +188,25 @@ def execute():
     if ext_source in source_list:
         ans = st.sidebar.toggle(f'DO YOU REALLY LIKE TO OVERWRITE ON [**{ext_source}**] DATA SOURCE?')
         if ans:   
-            st.sidebar.button(label="IMPORT & OVERWRIDE DATA", use_container_width=True)
-            # remove folders and files
+            bimp = st.sidebar.button(label="IMPORT & OVERWRIDE DATA", use_container_width=True)
+            if bimp:
+                # remove folders and files
+                # import folders and files - generate file paths based on uuid.uuid5
+                # keep base same
+                #deep_copy_external_drive_to_raw(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
+
+                copy_folders_with_files(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
+    else:
+        bimp = st.sidebar.button(label="IMPORT DATA", use_container_width=True)
+        if bimp:
             # import folders and files - generate file paths based on uuid.uuid5
             # keep base same
-            #deep_copy_external_drive_to_raw(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
             copy_folders_with_files(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
-    else:
-        st.sidebar.button(label="IMPORT DATA", use_container_width=True)
-        # import folders and files - generate file paths based on uuid.uuid5
-        # keep base same
-        copy_folders_with_files(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
-        #deep_copy_external_drive_to_raw(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
+            #deep_copy_external_drive_to_raw(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
+
+    bempty_images = st.sidebar.button(label="Clean Empty Folders", use_container_width=True)
+    if bempty_images:
+        ss.remove_empty_folders(os.path.join(raw_data_path, ext_source))        
 
 if __name__ == "__main__":
     execute()
