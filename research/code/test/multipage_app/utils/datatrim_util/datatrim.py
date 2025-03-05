@@ -80,7 +80,9 @@ def execute():
     # c1.text_area(label="External Source Structure", value= display_tree(os.path.join('/media/madhekar/' , ext)))
     if btrim:
             for rs in checked:
-                mu.remove_files_folders(rs.split("@@")[0])
+                fo = rs.split("@@")[0]
+                st.info(fo)
+                mu.remove_files_folders(fo)
                 st.info(f'trimmed folder: {rs}')
 
 
