@@ -92,6 +92,15 @@ class FolderStats:
         total, used, free = shutil.disk_usage("/")
         return (total // (2**30), used // (2**30), free // (2**30))
     
+
+def check_folder(folder_path):
+    if not os.path.exists(folder_path):
+        return True
+    if not os.path.isdir(folder_path):
+        return False
+    if not os.listdir(folder_path):
+        return False
+    return False    
    
 def extract_all_folder_stats(folder_path):
    fstat = FolderStats()  
@@ -133,10 +142,13 @@ def extract_all_file_stats_in_folder(folder_path):
 
 def extract_folder_stats(folder):
     fstat = FolderStats()
-
-    dfe = fstat.get_all_file_ext_types_by_folder(folder)
-    if not dfe.empty:
-        return dfe
+    dfe = None
+    if not check_folder(folder):
+        dfe = fstat.get_all_file_ext_types_by_folder(folder)
+        if not dfe.empty:
+            return dfe
+    return dfe
+    
 def extract_server_stats():
   fstat = FolderStats()  
   total, used, free = fstat.get_disk_usage()

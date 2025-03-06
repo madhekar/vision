@@ -19,7 +19,7 @@ def display_folder_tree(nodes):
     con = st.sidebar.container(height=500, border=False)
     with con:
         return_select = tree_select(nodes, no_cascade=True) 
-    display_folder_stats(return_select["checked"])
+    display_folder_stats(return_select["checked"])    
 
     exp = st.sidebar.expander(label="Review List of Folders To Trim")  # container(height=500)
     with exp:
@@ -40,24 +40,28 @@ def display_folder_stats(flist):
         with grid[col]:
             folder = df.split("@@")[0]
             dfolder = folder.split("/")[-1]
-            if not ss.extract_folder_stats(folder)['count'].empty:
+            df = ss.extract_folder_stats(folder)
+            print(df.head())
+            if not df.empty:
                 # folder = df.split("@@")[0]
                 # dfolder = folder.split("/")[-1]
                 st.subheader(dfolder, divider='gray')
                 st.bar_chart(
-                    ss.extract_folder_stats(folder)['count'],
+                    df['count'],
                     stack=True,
                     horizontal=False,
                     y_label="total file count per filetype",
                     color=colors[0]
                 )
                 st.bar_chart(
-                    ss.extract_folder_stats(folder)["size"],
+                    df["size"],
                     stack=True,
                     horizontal=False,
                     y_label="total file size per filetype (MB)",
                     color=colors[1]
                 )
+            # else:
+            #     st.error(f'Non Existant or Empty folder {folder}')    
 
         col = (col + 1) % row_size
     
