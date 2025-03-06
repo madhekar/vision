@@ -60,7 +60,7 @@ class DuplicateRemover:
                 continue
 
         if len(duplicates) != 0:
-            a = input(f"w| Do you want to move/ archive these {str(len(duplicates))} Images? Press Y or N:  ")
+            a = input(f"w| Do you want to move/ archive these {str(len(duplicates))} Images? Press Y or N:")
             space_saved = 0
             if a.strip().lower() == "y":
                 for duplicate in duplicates:
