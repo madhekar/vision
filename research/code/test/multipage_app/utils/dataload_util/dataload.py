@@ -26,7 +26,7 @@ def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
     f_dest = os.path.join(fdest_media, uuid_path)
     #print(src_dir + " - " + f_dest + " - " + str(len(media_items)))
     os.makedirs(f_dest)
-    sm.add_messages('load', f's|source: {root} destination: {fdest_media} coping {len(media_items)} number of files.')
+    sm.add_messages('load', f's| {root} -> {fdest_media} coping {len(media_items)}# files.\n')
     for item in media_items:
         item_path = os.path.join(root, item)
         #print(item_path + " -> " + f_dest)

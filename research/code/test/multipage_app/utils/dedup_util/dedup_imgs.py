@@ -42,13 +42,13 @@ class DuplicateRemover:
         hashes = {}
         duplicates = []
         print("Finding Duplicate Images Now!\n")
-        sm.add_messages("s|duplicate","Finding Duplicate Images Now.")
+        sm.add_messages("s|duplicate","Searching... Duplicate Images Now.")
         for image in fnames:
             try:
               with Image.open(os.path.join(image[0], image[1])) as img:
                 temp_hash = imagehash.average_hash(img, self.hash_size)
                 if temp_hash in hashes:
-                    print("Duplicate {} \nfound for Image {}!\n".format(image, hashes[temp_hash]))
+                    print(f"Duplicate {image} \nfound for Image {hashes[temp_hash]}!\n")
                     sm.add_messages("duplicate", f"w|Duplicate {image} found for Image {hashes[temp_hash]}")
                     duplicates.append(image)
                 else:
@@ -90,14 +90,14 @@ class DuplicateRemover:
         with Image.open(location) as img:
             hash1 = imagehash.average_hash(img, self.hash_size).hash
 
-        sm.add_messages("duplicate", "s| Finding Similar Images to {location} Now.")
+        sm.add_messages("duplicate", "s| Searching... Similar Images in {location}.")
         for image in fnames:
             with Image.open(os.path.join(self.dirname, image)) as img:
                 hash2 = imagehash.average_hash(img, self.hash_size).hash
 
                 if np.count_nonzero(hash1 != hash2) <= diff_limit:
                     print("{} image found {}% similar to {}".format(image, similarity, location))
-                    sm.add_messages("duplicate", f"w| {image} image found {similarity}% similar to {location}")
+                    sm.add_messages("duplicate", f"w| {image} image /w similarity score: {similarity}% found in: {location}")
 
 def execute(source_name):
        input_image_path, archive_dup_path = config.dedup_config_load()
