@@ -29,9 +29,10 @@ def getRecursive_by_type(rootDir, types):
     return f_list
 
 class DuplicateRemover:
-    def __init__(self, dirname, archivedir,  hash_size=8):
+    def __init__(self, dirname, archivedir, ext_source_name,  hash_size=8):
         self.dirname = dirname
         self.archivedir = archivedir
+        self.ext_source_name = ext_source_name
         self.hash_size = hash_size
 
     def find_duplicates(self):
@@ -42,7 +43,7 @@ class DuplicateRemover:
         hashes = {}
         duplicates = []
         print("Finding Duplicate Images Now!\n")
-        sm.add_messages("s|duplicate","Searching... Duplicate Images Now.")
+        sm.add_messages("duplicate","s| Searching... Duplicate Images Now.")
         for image in fnames:
             try:
               with Image.open(os.path.join(image[0], image[1])) as img:
@@ -59,14 +60,15 @@ class DuplicateRemover:
                 continue
 
         if len(duplicates) != 0:
-            a = input(f"w| Do you want to move/ archive these {len(duplicates)} Images? Press Y or N:  ")
+            a = input(f"w| Do you want to move/ archive these {str(len(duplicates))} Images? Press Y or N:  ")
             space_saved = 0
             if a.strip().lower() == "y":
                 for duplicate in duplicates:
                     space_saved += os.path.getsize( os.path.join(duplicate[0], duplicate[1]))
                     if not os.path.exists(self.archivedir):
-                      os.makedirs(self.archivedir)
-                    uuid_path = mu.create_uuid_from_string(duplicate[0]) # ?
+                        os.makedirs(self.archivedir)
+                    #uuid_path = mu.create_uuid_from_string(duplicate[0]) # ? use old uuid already generated
+                    uuid_path = mu.extract_subpath(self.dirname, duplicate[0])
                     if not os.path.exists(os.path.join(self.archivedir, uuid_path)):
                         os.makedirs(os.path.join(self.archivedir, uuid_path)) 
                     os.rename(os.path.join(duplicate[0], duplicate[1]), os.path.join(self.archivedir, uuid_path, duplicate[1]))
@@ -102,7 +104,7 @@ def execute(source_name):
        input_image_path, archive_dup_path = config.dedup_config_load()
        arc_folder_name = util.get_foldername_by_datetime()
        archive_dup_path = os.path.join(archive_dup_path, source_name, arc_folder_name)
-       dr = DuplicateRemover( dirname=input_image_path, archivedir=archive_dup_path)
+       dr = DuplicateRemover( dirname=input_image_path, ext_source_name=source_name, archivedir=archive_dup_path)
        dr.find_duplicates()                
 
 if __name__=='__main__':
