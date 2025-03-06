@@ -59,12 +59,11 @@ class DuplicateRemover:
                 continue
 
         if len(duplicates) != 0:
-            a = input("w| Do you want to move/ archive these {} Images? Press Y or N:  ".format(len(duplicates)))
+            a = input(f"w| Do you want to move/ archive these {len(duplicates)} Images? Press Y or N:  ")
             space_saved = 0
             if a.strip().lower() == "y":
                 for duplicate in duplicates:
-                    space_saved += os.path.getsize( os.path.join(duplicate[0], duplicate[1])
-                    )
+                    space_saved += os.path.getsize( os.path.join(duplicate[0], duplicate[1]))
                     if not os.path.exists(self.archivedir):
                       os.makedirs(self.archivedir)
                     uuid_path = mu.create_uuid_from_string(duplicate[0]) 
