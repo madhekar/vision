@@ -8,6 +8,9 @@ from utils.util import statusmsg_util as sm
 def path_encode(spath):
     return str(uuid.uuid5(uuid.NAMESPACE_DNS, spath))
 
+'''
+restore clean target media folders
+'''
 def clean_media_folders(folder):
     # create clean destination folders
     sm.add_messages("load", f"s|starting to clean {folder}")
@@ -15,6 +18,7 @@ def clean_media_folders(folder):
         shutil.rmtree(folder, ignore_errors=True)
         os.makedirs(folder)
     sm.add_messages("load", f"s|done to cleaning {folder}")    
+
 
 def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
 
