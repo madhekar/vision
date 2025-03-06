@@ -6,6 +6,7 @@ import uuid
 import glob
 import datetime
 import shutil
+from pathlib import Path
 import streamlit as st
 import pandas as pd
 
@@ -171,3 +172,13 @@ def file_exists(fpath):
 def create_uuid_from_string(val: str):
     hex_string = hashlib.md5(val.encode("UTF-8")).hexdigest()
     return str(uuid.UUID(hex=hex_string))       
+
+def extract_subpath(base_path_str, full_path_str):
+    base_path = Path(base_path_str)
+    full_path = Path(full_path_str)
+    try:
+        subpath = full_path.relative_to(base_path)
+        return str(subpath)
+    except ValueError as e:
+        st.error(f'Value Error occred {e} in extact_subpath')
+        return None    

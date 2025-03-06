@@ -66,11 +66,11 @@ class DuplicateRemover:
                     space_saved += os.path.getsize( os.path.join(duplicate[0], duplicate[1]))
                     if not os.path.exists(self.archivedir):
                       os.makedirs(self.archivedir)
-                    uuid_path = mu.create_uuid_from_string(duplicate[0]) 
+                    uuid_path = mu.create_uuid_from_string(duplicate[0]) # ?
                     if not os.path.exists(os.path.join(self.archivedir, uuid_path)):
                         os.makedirs(os.path.join(self.archivedir, uuid_path)) 
                     os.rename(os.path.join(duplicate[0], duplicate[1]), os.path.join(self.archivedir, uuid_path, duplicate[1]))
-                    print("{} Moved Succesfully!".format(duplicate))
+                    print(f"{duplicate} Moved Succesfully!")
                     sm.add_messages("duplicate", f"s| {duplicate} Moved Succesfully!")
                 print(f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")
                 sm.add_messages("duplicate", f"s| saved {round(space_saved / 1000000)} mb of Space!")
@@ -89,7 +89,7 @@ class DuplicateRemover:
         with Image.open(location) as img:
             hash1 = imagehash.average_hash(img, self.hash_size).hash
 
-        sm.add_messages("duplicate", "s| Searching... Similar Images in {location}.")
+        sm.add_messages("duplicate", f"s| Searching... Similar Images in {location}.")
         for image in fnames:
             with Image.open(os.path.join(self.dirname, image)) as img:
                 hash2 = imagehash.average_hash(img, self.hash_size).hash
