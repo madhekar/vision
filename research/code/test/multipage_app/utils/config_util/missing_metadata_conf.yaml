@@ -1,4 +1,4 @@
 missing-metadata:
   input_image_path: /home/madhekar/work/home-media-app/data/input-data/img
-  missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
+  missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data/
   missing_metadata_file: missing-metadata-wip.csv
