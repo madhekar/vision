@@ -1,14 +1,9 @@
-
 import os
 import glob
-import numpy as np
 import cv2
 from utils.config_util import config
 from utils.util import model_util as mu
 from utils.util import statusmsg_util as sm
-#import util
-
-quality_threshold = 100
 
 def getRecursive(rootDir):
     f_list = []
@@ -28,14 +23,17 @@ class Quality():
         self.archivedir = archivedir
 
     def is_blurry(self, image, threshold=25.0):
-        
-        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        if image is not None:
+            _image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-        lap_var = cv2.Laplacian(gray_image, cv2.CV_64F).var()
+            gray_image = cv2.cvtColor(_image, cv2.COLOR_BGR2GRAY)
 
-        return lap_var < threshold    
+            lap_var = cv2.Laplacian(gray_image, cv2.CV_64F).var()
+
+            return lap_var < threshold  
+        else:
+            sm.add_messages('quality', 'e| Null image')  
 
     def find_quality_sharpness(self, image_sharpness_threshold):
         """
@@ -43,32 +41,30 @@ class Quality():
         """
         fnames = getRecursive(self.image_path)
         total_images = len(fnames)
+
         quality_list = []
-        print("Finding quality Images Now!\n")
-        sm.add_messages("quality", "s| Searching Quality Images...")
+
+        print("Finding Good Quality Images ...!\n")
+
+        sm.add_messages("quality", "s| Searching Good Quality Images...")
+
         for im in fnames:
+            print(im[0], im[1])
             img = cv2.imread(os.path.join(im[0], im[1]))
             is_b = self.is_blurry(img, image_sharpness_threshold)
 
             if is_b:
                 quality_list.append(im)
+
         blurry_count = len(quality_list)
-        sm.add_messages('quality', f'w| {blurry_count} bad quality images found. Total images: {total_images} percentage of bad quality images: {(blurry_count/ total_images) * 100}%')        
-            # #print(im)
-            # #with cv2.imread(os.path.join(im[0], im[1])) as img:
-            # img = cv2.imread(os.path.join(im[0], im[1]))
-            # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            # laplacian = cv2.Laplacian(gray, cv2.CV_64F)
-            # lval = np.var(laplacian)
-            # if lval < image_sharpness_threshold:
-            #     print(im)
-            #     quality_list.append(im)
-            # del img    
-            # cv2.destroyAllWindows()
+
+        sm.add_messages('quality', f'w| {blurry_count} bad quality images found out off: {total_images}, percentage: {(blurry_count/ total_images) * 100}%')
                 
         if len(quality_list) != 0:
-            a = input("Do you want to move/ archive these {} Images? Press Y or N:  ".format(len(quality_list)))
+            a = input(f"Do you want to move/ archive these {len(quality_list)} Images? Press Y or N:  ")
+
             space_saved = 0
+
             if a.strip().lower() == "y":
                 for quality in quality_list:
                     space_saved += os.path.getsize(os.path.join(quality[0], quality[1]))
@@ -78,13 +74,13 @@ class Quality():
                         os.makedirs(os.path.join(self.archivedir, uuid_path))
                     os.rename( os.path.join(quality[0], quality[1]), os.path.join(self.archivedir, uuid_path, quality[1]))
                     print(f"{quality} Moved Succesfully!")
-                    sm.add_messages("quality", f"s| file {quality} moved succesfully.")
+                    #sm.add_messages("quality", f"s| file {quality} moved succesfully.")
 
                 print(f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")
-                sm.add_messages("quality",f"w| you saved {round(space_saved / 1000000)} mb of Space.")
+                sm.add_messages("quality",f"w| saved {round(space_saved / 1000000)} mb of Space.")
             else:
                 print("Using quality Remover")
-                sm.add_messages("quality", "s| using quality remover")
+                sm.add_messages("quality", "s| No images are archived")
         else:
             print("No quality images Found :)")
             sm.add_messages("quality", "w| no quality images Found.")

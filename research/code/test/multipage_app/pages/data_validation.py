@@ -262,13 +262,13 @@ def exec_task(iTask, user_source):
         case 2:  # image sharpness/ quality check
             task_name = 'image quality check'
             sm.add_messages("quality", f"s|starting {task_name} prpcess")
-            iq.execute()
+            iq.execute(user_source)
             sm.add_messages("quality", f"s|done {task_name} prpcess")
             return 1
         case 3:  # missing metadata check
             task_name = "missing metadata"
             sm.add_messages("metadata", f"s|starting {task_name} prpcess")
-            mm.execute()
+            mm.execute(user_source)
             sm.add_messages("metadata", f"s|done {task_name} prpcess")
             return 1
         case _:
