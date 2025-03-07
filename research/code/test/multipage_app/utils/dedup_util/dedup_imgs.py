@@ -49,7 +49,7 @@ class DuplicateRemover:
                 temp_hash = imagehash.average_hash(img, self.hash_size)
                 if temp_hash in hashes:
                     print(f"Duplicate {image} \nfound for Image {hashes[temp_hash]}!\n")
-                    sm.add_messages("duplicate", f"w|Duplicate {image} found for Image {hashes[temp_hash]}")
+                    #sm.add_messages("duplicate", f"w|Duplicate {image} found for Image {hashes[temp_hash]}")
                     duplicates.append(image)
                 else:
                     hashes[temp_hash] = image
@@ -72,7 +72,7 @@ class DuplicateRemover:
                     if not os.path.exists(os.path.join(self.archivedir, uuid_path)):
                         os.makedirs(os.path.join(self.archivedir, uuid_path)) 
                     os.rename(os.path.join(duplicate[0], duplicate[1]), os.path.join(self.archivedir, uuid_path, duplicate[1]))
-                    print(f"{duplicate} Moved Succesfully!")
+                    #print(f"{duplicate} Moved Succesfully!")
                     #sm.add_messages("duplicate", f"s| {duplicate} Moved Succesfully!")
                 print(f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")
                 sm.add_messages("duplicate", f"s| saved {round(space_saved / 1000000)} mb of Space!")
@@ -97,13 +97,15 @@ class DuplicateRemover:
                 hash2 = imagehash.average_hash(img, self.hash_size).hash
 
                 if np.count_nonzero(hash1 != hash2) <= diff_limit:
-                    print("{} image found {}% similar to {}".format(image, similarity, location))
+                    print(f"{image} image found {similarity}% similar to {location}")
                     sm.add_messages("duplicate", f"w| {image} image /w similarity score: {similarity}% found in: {location}")
 
 def execute(source_name):
        input_image_path, archive_dup_path = config.dedup_config_load()
        arc_folder_name_dt = mu.get_foldername_by_datetime()
        archive_dup_path_update = os.path.join(archive_dup_path, source_name, arc_folder_name_dt)
+       sm.add_messages("duplicate", f"w| Images input Folder Path: {input_image_path} \n")
+       sm.add_messages("duplicate", f"w| Images archive folder path: {archive_dup_path_update} \n")
        dr = DuplicateRemover( image_path=input_image_path,  archivedir=archive_dup_path_update)
        dr.find_duplicates()                
 
