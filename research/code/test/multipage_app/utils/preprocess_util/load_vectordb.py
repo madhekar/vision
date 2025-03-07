@@ -1,6 +1,6 @@
 import json
 import pandas as pd
-import util
+#import util
 import os
 import uuid
 import chromadb as cdb
@@ -131,10 +131,10 @@ def execute():
         video_final_path
     ) = config.vectordb_config_load()
 
-    arc_folder_name = util.get_foldername_by_datetime()
+    arc_folder_name = mu.get_foldername_by_datetime()
 
     #copy images in input-data to final-data/datetime
-    util.copy_folder_tree(image_initial_path, os.path.join(image_final_path, arc_folder_name) )
+    mu.copy_folder_tree(image_initial_path, os.path.join(image_final_path, arc_folder_name) )
 
     df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file, image_final_path=image_final_path, image_final_folder=arc_folder_name)
 
@@ -142,7 +142,7 @@ def execute():
 
     archive_metadata(metadata_path, arc_folder_name, metadata_file)
 
-    util.remove_files_folders(image_initial_path)
+    mu.remove_files_folders(image_initial_path)
      
 
 if __name__=='__main__':

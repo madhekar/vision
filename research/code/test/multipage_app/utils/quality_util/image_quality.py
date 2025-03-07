@@ -6,7 +6,7 @@ import cv2
 from utils.config_util import config
 from utils.util import model_util as mu
 from utils.util import statusmsg_util as sm
-import util
+#import util
 
 quality_threshold = 100
 
@@ -92,7 +92,7 @@ class Quality():
 def execute():
     input_image_path, archive_quality_path, image_sharpness_threshold = config.image_quality_config_load()
     
-    arc_folder_name = util.get_foldername_by_datetime()  
+    arc_folder_name = mu.get_foldername_by_datetime()  
     
     archive_quality_path = os.path.join(archive_quality_path, arc_folder_name)
   
