@@ -19,7 +19,8 @@ def execute(source_name):
     input_image_path = os.path.join(imp, source_name)
 
     args = shlex.split(
-        f"exiftool -GPSLongitude -GPSLatitude -DateTimeOriginal -csv -T -r -n {input_image_path}"
+        #f"exiftool -GPSLongitude -GPSLatitude -DateTimeOriginal -csv -T -r -n {input_image_path}"
+        f"find {input_image_path} -name '*' -print0 | xargs -0 exiftool -GPSLongitude -GPSLatitude -DateTimeOriginal -csv -T -r -n"
     )
     proc = subprocess.run(args, capture_output=True)
 
