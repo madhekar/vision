@@ -23,8 +23,8 @@ def getRecursive(rootDir):
     return f_list
 
 class Quality():
-    def __init__(self, dirname, archivedir):
-        self.dirname = dirname
+    def __init__(self, image_path, archivedir):
+        self.image_path = image_path
         self.archivedir = archivedir
 
     def is_blurry(self, image, threshold=25.0):
@@ -41,11 +41,11 @@ class Quality():
         """
         Find and Archive quality images
         """
-        fnames = getRecursive(self.dirname)
+        fnames = getRecursive(self.image_path)
         total_images = len(fnames)
         quality_list = []
         print("Finding quality Images Now!\n")
-        sm.add_messages("quality", "s| Finding quality Images Now.")
+        sm.add_messages("quality", "s| Searching Quality Images...")
         for im in fnames:
             img = cv2.imread(os.path.join(im[0], im[1]))
             is_b = self.is_blurry(img, image_sharpness_threshold)
@@ -53,7 +53,7 @@ class Quality():
             if is_b:
                 quality_list.append(im)
         blurry_count = len(quality_list)
-        sm.add_messages('quality', f'w| {blurry_count} blurry images found. Total images: {total_images} percentage of blurry images: {(blurry_count/ total_images) * 100}%')        
+        sm.add_messages('quality', f'w| {blurry_count} bad quality images found. Total images: {total_images} percentage of bad quality images: {(blurry_count/ total_images) * 100}%')        
             # #print(im)
             # #with cv2.imread(os.path.join(im[0], im[1])) as img:
             # img = cv2.imread(os.path.join(im[0], im[1]))
@@ -72,7 +72,8 @@ class Quality():
             if a.strip().lower() == "y":
                 for quality in quality_list:
                     space_saved += os.path.getsize(os.path.join(quality[0], quality[1]))
-                    uuid_path = mu.create_uuid_from_string(quality[0]) 
+                    #uuid_path = mu.create_uuid_from_string(quality[0]) 
+                    uuid_path = mu.extract_subpath(self.image_path, quality[0])
                     if not os.path.exists(os.path.join(self.archivedir, uuid_path)):
                         os.makedirs(os.path.join(self.archivedir, uuid_path))
                     os.rename( os.path.join(quality[0], quality[1]), os.path.join(self.archivedir, uuid_path, quality[1]))
@@ -89,17 +90,19 @@ class Quality():
             sm.add_messages("quality", "w| no quality images Found.")
    
     
-def execute():
+def execute(source_name):
     input_image_path, archive_quality_path, image_sharpness_threshold = config.image_quality_config_load()
+
+    input_image_path_updated = os.path.join(input_image_path,source_name)
     
     arc_folder_name = mu.get_foldername_by_datetime()  
     
-    archive_quality_path = os.path.join(archive_quality_path, arc_folder_name)
+    archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
   
-    dr = Quality(dirname=input_image_path, archivedir=archive_quality_path)
+    dr = Quality(image_path=input_image_path_updated, archivedir=archive_quality_path)
 
     dr.find_quality_sharpness(image_sharpness_threshold)
 
 
 if __name__ == "__main__":
-    execute()
+    execute(source_name="")
