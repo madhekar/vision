@@ -15,18 +15,18 @@ def getRecursive(rootDir):
             f_list.append((str(os.path.abspath(fn)).replace(str(os.path.basename(fn)),''), os.path.basename(fn)))
     return f_list
 
-def getRecursive_by_type(rootDir, types):
-    f_list = []
-    for t in types:
-        for fn in glob.iglob(rootDir + "/**/" + t, recursive=True):
-            if not os.path.isdir(os.path.abspath(fn)):
-                f_list.append(
-                    (
-                        str(os.path.abspath(fn)).replace(str(os.path.basename(fn)), ""),
-                        os.path.basename(fn),
-                    )
-                )
-    return f_list
+# def getRecursive_by_type(rootDir, types):
+#     f_list = []
+#     for t in types:
+#         for fn in glob.iglob(rootDir + "/**/" + t, recursive=True):
+#             if not os.path.isdir(os.path.abspath(fn)):
+#                 f_list.append(
+#                     (
+#                         str(os.path.abspath(fn)).replace(str(os.path.basename(fn)), ""),
+#                         os.path.basename(fn),
+#                     )
+#                 )
+#     return f_list
 
 class DuplicateRemover:
     def __init__(self, image_path, archivedir,   hash_size=8):
@@ -59,7 +59,7 @@ class DuplicateRemover:
                 continue
 
         if len(duplicates) != 0:
-            a = input(f"w| Do you want to move/ archive these {str(len(duplicates))} Images? Press Y or N:")
+            a = input(f"w| Do you want to move/ archive these {str(len(duplicates))} Images? Press Y or N: ")
             space_saved = 0
             if not os.path.exists(self.archivedir):
                 os.makedirs(self.archivedir)
