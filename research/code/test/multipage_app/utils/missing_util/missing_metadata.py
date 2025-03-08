@@ -1,6 +1,7 @@
 import subprocess
 import shlex
 import os
+import pandas as pd
 from utils.util import model_util as mu
 from utils.config_util import config
 from utils.util import statusmsg_util as sm
@@ -24,8 +25,8 @@ def execute(source_name):
     except Exception as e:
         print(f'error {e}')
 
-    print(proc.stderr)
-    print(proc.stdout)
+    # print(proc.stderr)
+    # print(proc.stdout)
 
     arc_folder_name_dt = mu.get_foldername_by_datetime()
 
@@ -34,7 +35,13 @@ def execute(source_name):
     if not os.path.exists(output_file_path):
         os.makedirs(output_file_path)
     
-
+    df = pd.DataFrame(proc.stdout)
+    n_total = len(df)
+    n_lon = len(df[df['GPSLongitude'] == '-'])
+    n_lat = len(df[df["GPSLatitude"] == "-"])
+    n_dt = len(df[df["DateTimeOriginal"] == "-"])
+    
+    sm.add_messages("metadata", f"w| missing data Longitudes: {n_lon} Latitude: {n_lat} DataTime: {n_dt} of: {n_total} rows")
 
     with open(os.path.join(output_file_path, mmf), "wb") as output:
         output.write(proc.stdout)
