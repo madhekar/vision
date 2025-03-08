@@ -13,6 +13,15 @@ missing-metadata:
   find /home/madhekar/work/home-media-app/data/input-data-1/img -name '*' -print0 | xargs -0 exiftool -gps:GPSLongitude -gps:GPSLatitude -DateTimeOriginal -csv -T -r -n
   f"find '{input_image_path}' -name '*' -print0 | xargs -0 exiftool -GPSLongitude -GPSLatitude -DateTimeOriginal -csv -T -r -n"
 """
+def create_missing_report(missing_file_path):
+    df = pd.read_csv(missing_file_path)
+    n_total = len(df)
+    n_lon = len(df[df["GPSLongitude"] == "-"])
+    n_lat = len(df[df["GPSLatitude"] == "-"])
+    n_dt = len(df[df["DateTimeOriginal"] == "-"])
+
+    sm.add_messages( "metadata", f"w| missing data Longitudes: {n_lon} Latitude: {n_lat} DataTime: {n_dt} of: {n_total} rows")
+
 def execute(source_name):
     sm.add_messages("metadata", "s| starting to analyze missing metadata files...")
 
@@ -35,16 +44,10 @@ def execute(source_name):
     if not os.path.exists(output_file_path):
         os.makedirs(output_file_path)
     
-    df = pd.DataFrame(proc.stdout)
-    n_total = len(df)
-    n_lon = len(df[df['GPSLongitude'] == '-'])
-    n_lat = len(df[df["GPSLatitude"] == "-"])
-    n_dt = len(df[df["DateTimeOriginal"] == "-"])
-    
-    sm.add_messages("metadata", f"w| missing data Longitudes: {n_lon} Latitude: {n_lat} DataTime: {n_dt} of: {n_total} rows")
-
     with open(os.path.join(output_file_path, mmf), "wb") as output:
         output.write(proc.stdout)
+
+    create_missing_report(os.path.join(output_file_path, mmf))
 
     sm.add_messages("metadata",f"w| finized to analyze missing metadata files created {output_file_path}.",)    
 if __name__=='__main__':
