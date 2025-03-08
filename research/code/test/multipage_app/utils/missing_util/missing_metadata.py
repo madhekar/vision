@@ -9,7 +9,8 @@ missing-metadata:
   input_image_path: '/home/madhekar/work/home-media-app/data/input-data/img'
   missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
   missing_metadata_file: missing-metadata-wip.csv
-
+  find /home/madhekar/work/home-media-app/data/input-data-1/img -name '*' -print0 | xargs -0 exiftool -gps:GPSLongitude -gps:GPSLatitude -DateTimeOriginal -csv -T -r -n
+  f"find '{input_image_path}' -name '*' -print0 | xargs -0 exiftool -GPSLongitude -GPSLatitude -DateTimeOriginal -csv -T -r -n"
 """
 def execute(source_name):
     sm.add_messages("metadata", "s| starting to analyze missing metadata files...")
@@ -17,17 +18,24 @@ def execute(source_name):
     imp, mmp, mmf = config.missing_metadata_config_load()
 
     input_image_path = os.path.join(imp, source_name)
+    try:            
+        args = shlex.split( f"exiftool -gps:GPSLongitude -gps:GPSLatitude -DateTimeOriginal -csv -T -r -n {input_image_path}")
+        proc = subprocess.run(args, capture_output=True)
+    except Exception as e:
+        print(f'error {e}')
 
-    args = shlex.split(
-        #f"exiftool -GPSLongitude -GPSLatitude -DateTimeOriginal -csv -T -r -n {input_image_path}"
-        f"find {input_image_path} -name '*' -print0 | xargs -0 exiftool -GPSLongitude -GPSLatitude -DateTimeOriginal -csv -T -r -n"
-    )
-    proc = subprocess.run(args, capture_output=True)
+    print(proc.stderr)
+    print(proc.stdout)
 
     arc_folder_name_dt = mu.get_foldername_by_datetime()
+
     output_file_path = os.path.join(mmp, source_name, arc_folder_name_dt)
+
     if not os.path.exists(output_file_path):
         os.makedirs(output_file_path)
+    
+
+
     with open(os.path.join(output_file_path, mmf), "wb") as output:
         output.write(proc.stdout)
 
