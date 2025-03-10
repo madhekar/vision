@@ -40,7 +40,7 @@ def initialize():
     smp, smf, mmp, mmf, mmep, mmef, hlat, hlon = None, None, None, None, None, None, None, None
  
     try:
-        smp, smf, mmp, mmf, mmep,mmef, hlat, hlon = config.editor_config_load()
+        rdp, smp, smf, mmp, mmf, mmep,mmef, hlat, hlon = config.editor_config_load()
 
         if "markers" not in st.session_state:
             st.session_state["markers"] = []
@@ -72,7 +72,7 @@ def initialize():
     except Exception as e:      
         print(f"Exception occurred in initializing Medata Editor: {e}")
 
-    return smp, smf, mmp, mmf, mmep, mmef, hlat, hlon
+    return rdp, smp, smf, mmp, mmf, mmep, mmef, hlat, hlon
 
 def clear_markers():
     st.session_state["markers"].clear()
@@ -153,13 +153,36 @@ def save_metadata( mmp, mmf, mmep, mmef):
 
     st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0)
 
+# get immediate child folders
+def extract_user_raw_data_folders(pth):
+    return next(os.walk(pth))[1]
 
+"""
+metadata:
+  raw_data_path: /home/madhekar/work/home-media-app/data/raw-data/
+  static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/
+  static_metadata_file: static_locations.parquet
+  missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
+  missing_metadata_file: missing-metadata-wip.csv
+  missing_metadata_edit_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/edit/
+  missing_metadata_edit_file: matadata-edits.csv
+  home_latitude: 32.968700
+  home_longitude: -117.184200
+"""
 def execute():
 
-    smp, smf, mmp, mmf, mmep, mmef, hlat, hlon = initialize()
+    rdp, smp, smf, mmp, mmf, mmep, mmef, hlat, hlon = initialize()
     
+    #user_source_selected = st.sidebar.empty()
+
+    user_source_selected = st.sidebar.selectbox(
+        "data source folder",
+        options=extract_user_raw_data_folders(rdp),
+        label_visibility="collapsed",
+    )
+
     # extract files
-    files = pd.read_csv(os.path.join(mmp, mmf))["SourceFile"]
+    files = pd.read_csv(os.path.join(mmp, user_source_selected, mmf))["SourceFile"]
 
     st.sidebar.subheader("Display Criteria",divider="gray")
 

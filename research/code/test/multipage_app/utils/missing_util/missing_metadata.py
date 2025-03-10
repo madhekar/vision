@@ -37,9 +37,9 @@ def execute(source_name):
     # print(proc.stderr)
     # print(proc.stdout)
 
-    arc_folder_name_dt = mu.get_foldername_by_datetime()
+    #arc_folder_name_dt = mu.get_foldername_by_datetime()
 
-    output_file_path = os.path.join(mmp, source_name, arc_folder_name_dt)
+    output_file_path = os.path.join(mmp, source_name) #, arc_folder_name_dt)
 
     if not os.path.exists(output_file_path):
         os.makedirs(output_file_path)

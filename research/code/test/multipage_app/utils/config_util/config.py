@@ -11,6 +11,7 @@ def editor_config_load():
         print("* * * Metadata Generator Properties * * *")
         pprint.pprint(dict)
         print("* * * * * * * * * * * * * * * * * * * * *")
+        raw_data_path = dict["metadata"]["raw_data_path"]
         static_metadata_path = dict["metadata"]["static_metadata_path"]
         static_metadata_file = dict["metadata"]["static_metadata_file"]
         missing_metadata_path = dict["metadata"]["missing_metadata_path"]
@@ -20,6 +21,7 @@ def editor_config_load():
         home_latitude = dict['metadata']['home_latitude']
         home_longitude = dict["metadata"]["home_longitude"]
     return (
+        raw_data_path,
         static_metadata_path,
         static_metadata_file,
         missing_metadata_path,
