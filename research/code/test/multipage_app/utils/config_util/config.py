@@ -3,34 +3,7 @@ import pprint
 import yaml
 import streamlit as st
 
-@st.cache_resource
-def editor_config_load():
-    with open("utils/config_util/editor_conf.yaml") as prop:
-        dict = yaml.safe_load(prop)
 
-        print("* * * Metadata Generator Properties * * *")
-        pprint.pprint(dict)
-        print("* * * * * * * * * * * * * * * * * * * * *")
-        raw_data_path = dict["metadata"]["raw_data_path"]
-        static_metadata_path = dict["metadata"]["static_metadata_path"]
-        static_metadata_file = dict["metadata"]["static_metadata_file"]
-        missing_metadata_path = dict["metadata"]["missing_metadata_path"]
-        missing_metadata_file = dict["metadata"]["missing_metadata_file"]
-        missing_metadata_edit_path = dict["metadata"]["missing_metadata_edit_path"]
-        missing_metadata_edit_file = dict["metadata"]["missing_metadata_edit_file"]
-        home_latitude = dict['metadata']['home_latitude']
-        home_longitude = dict["metadata"]["home_longitude"]
-    return (
-        raw_data_path,
-        static_metadata_path,
-        static_metadata_file,
-        missing_metadata_path,
-        missing_metadata_file,
-        missing_metadata_edit_path,
-        missing_metadata_edit_file,
-        home_latitude,
-        home_longitude,
-    )
 
 """
 metadata:
@@ -279,3 +252,32 @@ def vectordb_config_load():
         text_final_path,
         video_final_path
     )    
+
+@st.cache_resource
+def editor_config_load():
+    with open("utils/config_util/editor_conf.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        print("* * * Metadata Generator Properties * * *")
+        pprint.pprint(dict)
+        print("* * * * * * * * * * * * * * * * * * * * *")
+        raw_data_path = dict["metadata"]["raw_data_path"]
+        static_metadata_path = dict["metadata"]["static_metadata_path"]
+        static_metadata_file = dict["metadata"]["static_metadata_file"]
+        missing_metadata_path = dict["metadata"]["missing_metadata_path"]
+        missing_metadata_file = dict["metadata"]["missing_metadata_file"]
+        missing_metadata_edit_path = dict["metadata"]["missing_metadata_edit_path"]
+        missing_metadata_edit_file = dict["metadata"]["missing_metadata_edit_file"]
+        home_latitude = dict["metadata"]["home_latitude"]
+        home_longitude = dict["metadata"]["home_longitude"]
+    return (
+        raw_data_path,
+        static_metadata_path,
+        static_metadata_file,
+        missing_metadata_path,
+        missing_metadata_file,
+        missing_metadata_edit_path,
+        missing_metadata_edit_file,
+        home_latitude,
+        home_longitude,
+    )

@@ -5,15 +5,19 @@ import os
 import folium as fl
 from streamlit_folium import st_folium
 from streamlit_folium import folium_static
-from utils.util import location_util as lu 
 from utils.config_util import config
+from utils.util import location_util as lu 
+
 from PIL import Image
 from utils.util import fast_parquet_util as fpu
 
+def get_env():
+    (rdp, smp, smf, mmp, mmf, mmep, mmef, hlat, hlon) = config.editor_config_load()
+    return (rdp, smp, smf, mmp, mmf, mmep, mmef, hlat, hlon)
 
 @st.cache_resource
-def metadata_initialize(mmp,mmf):
-    df = pd.read_csv (os.path.join(mmp, mmf)) #('metadata.csv')
+def metadata_initialize(mmp,us,mmf):
+    df = pd.read_csv (os.path.join(mmp, us, mmf)) #('metadata.csv')
     df.set_index("SourceFile", inplace=True)
     return df
 
@@ -25,7 +29,7 @@ def location_initialize(smp, smf):
         print(f"exception occured in loading location metadata: {smf} with exception: {e}")  
     return df    
 
-def initialize():
+def initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source):
     """
       metadata:
           static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/
@@ -37,11 +41,8 @@ def initialize():
           home_latitude: 32.968700
           home_longitude: -117.184200
     """
-    smp, smf, mmp, mmf, mmep, mmef, hlat, hlon = None, None, None, None, None, None, None, None
  
     try:
-        rdp, smp, smf, mmp, mmf, mmep,mmef, hlat, hlon = config.editor_config_load()
-
         if "markers" not in st.session_state:
             st.session_state["markers"] = []
 
@@ -55,7 +56,7 @@ def initialize():
             st.session_state["editor_audit_msg"] = []   
             
         if "df" not in st.session_state:
-            df = metadata_initialize(mmp, mmf)
+            df = metadata_initialize(mmp, user_source, mmf)
             st.session_state.df = df
         else:
             df = st.session_state.df
@@ -71,8 +72,6 @@ def initialize():
 
     except Exception as e:      
         print(f"Exception occurred in initializing Medata Editor: {e}")
-
-    return rdp, smp, smf, mmp, mmf, mmep, mmef, hlat, hlon
 
 def clear_markers():
     st.session_state["markers"].clear()
@@ -171,7 +170,9 @@ metadata:
 """
 def execute():
 
-    rdp, smp, smf, mmp, mmf, mmep, mmef, hlat, hlon = initialize()
+    (rdp, smp, smf, mmp, mmf, mmep, mmef, hlat, hlon) = get_env()
+
+   
     
     #user_source_selected = st.sidebar.empty()
 
@@ -181,6 +182,7 @@ def execute():
         label_visibility="collapsed",
     )
 
+    initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source_selected)
     # extract files
     files = pd.read_csv(os.path.join(mmp, user_source_selected, mmf))["SourceFile"]
 
@@ -204,7 +206,7 @@ def execute():
         'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
         'DateTimeOriginal' : st.column_config.TextColumn('datetime', width="small", required=False)}
     
-    #st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
+    # st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
     save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) #on_click=save_metadata(sdp, sdn, mmp, mmf)
     if save_btn:
