@@ -204,7 +204,7 @@ def execute():
         'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
         'DateTimeOriginal' : st.column_config.TextColumn('datetime', width="small", required=False)}
     
-    st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
+    #st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
     save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) #on_click=save_metadata(sdp, sdn, mmp, mmf)
     if save_btn:
