@@ -145,9 +145,10 @@ def save_metadata( mmp, mmf, mmep, mmef):
 
     st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",",index=True)
 
-    if os.path.join(mmep, mmef):
+    if os.path.exists(mmep):
         st.session_state.edited_image_attributes.to_csv(os.path.join(mmep, mmef), mode='a', index=False, header=False)
     else:
+        os.makedirs(mmep)
         st.session_state.edited_image_attributes.to_csv(os.path.join(mmep, mmef), index=False, header=False)   
 
     st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0)
