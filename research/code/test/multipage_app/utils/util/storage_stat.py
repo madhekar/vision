@@ -175,11 +175,38 @@ def extract_stats_of_metadata_file(metadata_path):
        # "latlon_n_datetime": clatlong_n_datetime
     }
 
+"""
+this module could be expanded as we discover 
+other unknown files
+"""
+def trim_unknown_files(image_path):
+    cnt = 0
+    mac_file_pattern = "._"
+    for root, dirs, files in os.walk(image_path):
+        for file in files:
+            if file.startswith(mac_file_pattern):
+                try:
+                    # os.rmdir(dir_path)
+                    print(f"{root} : {dirs} : {file}")
+                    cnt += 1
+                except OSError as e:
+                    print(f"exception: {e} removing empty file {file}.")
+    return cnt
+
+
 def remove_empty_folders(path_absolute):
+    cnt = 0
     walk = list(os.walk(path_absolute))
     for path, _, _ in walk[::-1]:
         if len(os.listdir(path)) == 0:
-            os.remove(path)
+            try:
+                print(path)
+                cnt += 1
+                # os.remove(path)
+            except OSError as e:
+                print(f"exception: {e} removing empty folder {path}")
+    return cnt
+
 
 if __name__ == '__main__':
     extract_all_folder_stats("/home/madhekar/work/home-media-app/data/raw-data")
