@@ -85,18 +85,6 @@ class Quality():
             print("No quality images Found :)")
             sm.add_messages("quality", "w| no quality images Found.")
 
-    def trim_empty_folders(self):
-        removed_cnt=0
-        for root, dirs, files in os.walk(self.image_path, topdown=False):
-            for dir in dirs:
-                dir_path = os.path.join(root, dir)
-                if not os.listdir(dir_path):
-                    try:
-                        os.rmdir(dir_path)
-                        removed_cnt += 1
-                    except OSError as e:
-                        sm.add_messages("quality", "w| exception: {e} removing empty folder {dir_path}.")
-
     
 def execute(source_name):
     input_image_path, archive_quality_path, image_sharpness_threshold = config.image_quality_config_load()
@@ -111,7 +99,5 @@ def execute(source_name):
 
     dr.find_quality_sharpness(image_sharpness_threshold)
     
-    dr.trim_empty_folders()
-
 if __name__ == "__main__":
     execute(source_name="")
