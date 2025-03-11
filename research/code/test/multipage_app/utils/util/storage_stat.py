@@ -186,8 +186,7 @@ def trim_unknown_files(image_path):
         for file in files:
             if file.startswith(mac_file_pattern):
                 try:
-                    # os.rmdir(dir_path)
-                    print(f"{root} : {dirs} : {file}")
+                    os.remove(os.path.join(root, file))
                     cnt += 1
                 except OSError as e:
                     print(f"exception: {e} removing empty file {file}.")
@@ -200,9 +199,8 @@ def remove_empty_folders(path_absolute):
     for path, _, _ in walk[::-1]:
         if len(os.listdir(path)) == 0:
             try:
-                print(path)
                 cnt += 1
-                # os.remove(path)
+                os.rmdir(path)
             except OSError as e:
                 print(f"exception: {e} removing empty folder {path}")
     return cnt

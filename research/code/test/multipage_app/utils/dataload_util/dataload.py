@@ -4,6 +4,7 @@ import uuid
 from utils.config_util import config
 from utils.util import file_type_ext as fte
 from utils.util import statusmsg_util as sm
+from utils.util import storage_stat as ss
 
 def path_encode(spath):
     return str(uuid.uuid5(uuid.NAMESPACE_DNS, spath))
@@ -22,16 +23,13 @@ def clean_media_folders(folder):
 
 def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
 
-    #print(root + " - " + str(dirnames) + " - " + str(media_items))
     f_dest = os.path.join(fdest_media, uuid_path)
-    #print(src_dir + " - " + f_dest + " - " + str(len(media_items)))
     os.makedirs(f_dest)
-    sm.add_messages('load', f's| {root} -> {fdest_media} coping {len(media_items)}# files.\n')
+    #sm.add_messages('load', f's| {root} -> {fdest_media} coping {len(media_items)}# files.\n')
     for item in media_items:
         item_path = os.path.join(root, item)
-        #print(item_path + " -> " + f_dest)
+
         if os.path.isfile(item_path):
-            #print("**" + item_path + " - " + fdest_media)
             try:
                 shutil.copy(item_path, f_dest)
             except FileNotFoundError:
@@ -87,6 +85,25 @@ def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
                 if len(adu_items) > 0:
                     handle_copy_media_files(root, fdest_audio, uuid_path, adu_items)     
 
+'''
+  input_image_path: '/home/madhekar/work/home-media-app/data/input-data-1/img/'
+  input_video_path: '/home/madhekar/work/home-media-app/data/input-data-1/video/'
+  input_txt_path: '/home/madhekar/work/home-media-app/data/input-data-1/txt/'
+  input_audio_path: '/home/madhekar/work/home-media-app/data/input-data-1/audio/'
+'''
+def clean_unknown_files_folders(fdest_image, fdest_txt, fdest_video, fdest_audio):
+    
+    ifcnt = ss.trim_unknown_files(fdest_image)        
+    tfcnt = ss.trim_unknown_files(fdest_txt)
+    vfcnt = ss.trim_unknown_files(fdest_video)
+    afcnt = ss.trim_unknown_files(fdest_audio)
+   
+    idcnt = ss.remove_empty_folders(fdest_image)
+    tdcnt = ss.remove_empty_folders(fdest_txt)
+    vdcnt = ss.remove_empty_folders(fdest_video)
+    adcnt = ss.remove_empty_folders(fdest_audio)
+
+    sm.add_messages("load", f"s| file:folder cleanup- image:{ifcnt}:{idcnt} text: {tfcnt}:{tdcnt} video: {vfcnt}:{vdcnt} audio: {afcnt}:{adcnt}")
 
 def execute(source_name):
     (
@@ -106,6 +123,8 @@ def execute(source_name):
     apath = os.path.join(input_audio_path, source_name)
 
     copy_files_only(raw_data_path, ipath, tpath, vpath, apath)
+
+    clean_unknown_files_folders(ipath, tpath, vpath, apath)
     # source_list = []
     # # source_list = get_external_devices(get_user())
     # source_list = mu.extract_user_raw_data_folders(raw_data_path)
