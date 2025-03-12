@@ -96,25 +96,30 @@ def select_location_by_country_and_state(rdf):
     c_location_type, c_country, c_state, c_location, c_selected = st.columns([.1,.1,.1,.3,.6], gap="medium")
     
     with c_location_type:
-        is_public_location = st.selectbox('select location type', options=('personal','public',  'both'), placeholder="select type of locations to display...")
+        is_public_location = st.selectbox('select location type', options=('personal','public','both'), placeholder="select type of locations to display...")
         if is_public_location == 'personal':
             rdf = rdf[rdf['name'].str.len() >  20]
         elif is_public_location == 'public':
             rdf = rdf[rdf["name"].str.len() <= 20]   
         else:
-            pass     
+            pass 
+
     with c_country:
       selected_country = st.selectbox('select country', rdf['country'].unique())
 
     with c_state:
-      frdf = rdf[rdf["country"] == selected_country]
-      s_frdf = frdf.sort_values(by='state')
-      selected_state = st.selectbox('select state', s_frdf['state'].unique())
+        frdf = rdf[rdf["country"] == selected_country]
+        s_frdf = frdf.sort_values(by="state")
+        state_values = list(s_frdf["state"].unique())
+        default_state = state_values.index('CA')
+        selected_state = st.selectbox("select state", state_values, index=default_state)
 
     with c_location:
        ffrdf = frdf[frdf['state'] == selected_state]
        s_ffrdf = ffrdf.sort_values(by='name')
-       selected_location = st.selectbox('select location name/ description', s_ffrdf['name'].unique())
+       loc_values = list(s_ffrdf['name'].unique())
+       default_loc = loc_values.index('Madhekar Residence Home in San Diego')
+       selected_location = st.selectbox('select location name/ description', s_ffrdf['name'].unique(), index=default_loc)
     
     with c_selected:
         st.header(f"**{selected_country} :: {selected_state} :: {selected_location}**")
@@ -161,6 +166,7 @@ def execute():
 
     (rdp, smp, smf, mmp, mmf, mmep, mmef, hlat, hlon) = get_env()
 
+    st.sidebar.subheader("Storage Source", divider="gray")
     user_source_selected = st.sidebar.selectbox(
         "data source folder",
         options=extract_user_raw_data_folders(rdp),
@@ -268,9 +274,6 @@ def execute():
             st.divider()    
 
         col = (col + 1) % row_size
-    # if reload_bug:
-    #     reload_bug = False
-    #     st.rerun()
 
 if __name__ == "__main__":
     execute()
