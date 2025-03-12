@@ -10,6 +10,22 @@ from utils.config_util import config
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
 
+"""
+UPDATE METADATA STRUCTURE:
+{
+"ts": "1345295504.0", 
+"names": "Esha", 
+"uri": "/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/f623049e-bf89-5dcc-8628-3d310d6d4f96/vcm_s_kf_repr_832x624.jpg", 
+"id": "dd90b7bd-9ae9-4c90-8e37-41c41cc5af69", 
+"latlon": "(32.96887205555556, -117.18414305555557)", 
+"loc": "13582, Sage Mesa Road, San Diego, San Diego County, California, 92130, United States", 
+"text": "The image shows a modern building with a black exterior and glass windows. There is a sign on the front of the building that says \"CABS\" in white letters. 
+There are four people in front of the building. Two of them are on the left side of the image, one is in the middle, and one is on the right side."
+}
+
+"""
+
+
 def load_metadata(metadata_path, metadata_file, image_final_path, image_final_folder):
     data = []
     with open(os.path.join(metadata_path, metadata_file), mode="r") as f:
