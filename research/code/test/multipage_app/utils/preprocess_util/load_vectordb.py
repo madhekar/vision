@@ -4,8 +4,11 @@ import pandas as pd
 import os
 import uuid
 import chromadb as cdb
+import streamlit as st
+
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from utils.util import model_util as mu
+from utils.util import storage_stat as ss
 from utils.config_util import config
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
@@ -148,6 +151,16 @@ def execute():
     ) = config.vectordb_config_load()
 
     arc_folder_name = mu.get_foldername_by_datetime()
+
+    st.sidebar.subheader("Storage Source", divider="gray")
+
+    user_source_selected = st.sidebar.selectbox(
+        "data source folder",
+        options=ss.extract_user_raw_data_folders(image_initial_path),
+        label_visibility="collapsed",
+    )
+
+    image_initial_path = os.path.join(image_initial_path, user_source_selected)
 
     #copy images in input-data to final-data/datetime
     mu.copy_folder_tree(image_initial_path, os.path.join(image_final_path, arc_folder_name) )
