@@ -173,10 +173,6 @@ def execute():
 
     (rdp, smp, smf, mmp, mmf, mmep, mmef, hlat, hlon) = get_env()
 
-   
-    
-    #user_source_selected = st.sidebar.empty()
-
     user_source_selected = st.sidebar.selectbox(
         "data source folder",
         options=extract_user_raw_data_folders(rdp),
@@ -184,6 +180,7 @@ def execute():
     )
 
     initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source_selected)
+
     # extract files
     files = pd.read_csv(os.path.join(mmp, user_source_selected, mmf))["SourceFile"]
 
@@ -207,11 +204,11 @@ def execute():
         'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
         'DateTimeOriginal' : st.column_config.TextColumn('datetime', width="small", required=False)}
     
-    # st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
+    st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
     save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) #on_click=save_metadata(sdp, sdn, mmp, mmf)
     if save_btn:
-        save_metadata(mmp, mmf, mmep, mmef)
+        save_metadata(os.path.join(mmp, user_source_selected), mmf, os.path.join(mmep,user_source_selected), mmef)
 
     m = fl.Map(location=[hlat, hlon], zoom_start=4, min_zoom=3, max_zoom=10)
 
