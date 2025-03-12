@@ -7,7 +7,7 @@ from streamlit_folium import st_folium
 from streamlit_folium import folium_static
 from utils.config_util import config
 from utils.util import location_util as lu 
-
+from utils.util import storage_stat as ss
 from PIL import Image
 from utils.util import fast_parquet_util as fpu
 
@@ -147,8 +147,8 @@ def save_metadata( mmp, mmf, mmep, mmef):
     st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0)
 
 # get immediate child folders
-def extract_user_raw_data_folders(pth):
-    return next(os.walk(pth))[1]
+# def extract_user_raw_data_folders(pth):
+#     return next(os.walk(pth))[1]
 
 """
 metadata:
@@ -169,7 +169,7 @@ def execute():
     st.sidebar.subheader("Storage Source", divider="gray")
     user_source_selected = st.sidebar.selectbox(
         "data source folder",
-        options=extract_user_raw_data_folders(rdp),
+        options=ss.extract_user_raw_data_folders(rdp),
         label_visibility="collapsed",
     )
 

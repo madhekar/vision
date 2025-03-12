@@ -12,6 +12,7 @@ from utils.config_util import config
 from utils.util import location_util as lu
 from utils.util import model_util as mu
 from utils.util import fast_parquet_util as fpu
+from utils.util import storage_stat as ss
 
 import asyncio
 import multiprocessing as mp
@@ -250,7 +251,19 @@ def execute():
         static_metadata_file
     ) = config.preprocess_config_load()
 
-    image_dir_path = "/home/madhekar/work/home-media-app/data/train-data/img"
+    image_dir_path = "/home/madhekar/work/home-media-app/data/train-data/img"    
+    
+    st.sidebar.subheader("Storage Source", divider="gray")
+
+    user_source_selected = st.sidebar.selectbox(
+        "data source folder",
+        options=ss.extract_user_raw_data_folders(image_dir_path),
+        label_visibility="collapsed",
+    )
+
+    # add user data source to image input and metadata output paths
+    image_dir_path = os.path.join(image_dir_path, user_source_selected)
+    metadata_path = os.path.join(metadata_path, user_source_selected)
 
     if "df_loc" not in st.session_state:
         df = location_initialize(static_metadata_path, static_metadata_file)

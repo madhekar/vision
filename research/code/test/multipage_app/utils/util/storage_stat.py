@@ -205,6 +205,10 @@ def remove_empty_folders(path_absolute):
                 print(f"exception: {e} removing empty folder {path}")
     return cnt
 
+# get immediate child folders
+def extract_user_raw_data_folders(pth):
+    return next(os.walk(pth))[1]
+
 
 if __name__ == '__main__':
     extract_all_folder_stats("/home/madhekar/work/home-media-app/data/raw-data")
