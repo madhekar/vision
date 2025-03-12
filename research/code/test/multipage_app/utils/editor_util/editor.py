@@ -30,18 +30,6 @@ def location_initialize(smp, smf):
     return df    
 
 def initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source):
-    """
-      metadata:
-          static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/
-          static_metadata_file: static_locations.parquet
-          missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
-          missing_metadata_file: missing-metadata-wip.csv
-          missing_metadata_edit_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/edit/
-          missing_metadata_edit_file: matadata-edits.csv
-          home_latitude: 32.968700
-          home_longitude: -117.184200
-    """
- 
     try:
         if "markers" not in st.session_state:
             st.session_state["markers"] = []
@@ -164,8 +152,8 @@ metadata:
   static_metadata_file: static_locations.parquet
   missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
   missing_metadata_file: missing-metadata-wip.csv
-  missing_metadata_edit_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/edit/
-  missing_metadata_edit_file: matadata-edits.csv
+  missing_metadata_edit_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
+  missing_metadata_edit_file: missing-matadata-edits.csv
   home_latitude: 32.968700
   home_longitude: -117.184200
 """
