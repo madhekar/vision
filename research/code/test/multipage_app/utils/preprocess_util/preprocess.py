@@ -251,7 +251,7 @@ def execute():
         static_metadata_file
     ) = config.preprocess_config_load()
 
-    image_dir_path = "/home/madhekar/work/home-media-app/data/train-data/img"    
+    #image_dir_path = "/home/madhekar/work/home-media-app/data/train-data/img"    
     
     st.sidebar.subheader("Storage Source", divider="gray")
 
@@ -263,7 +263,11 @@ def execute():
 
     # add user data source to image input and metadata output paths
     image_dir_path = os.path.join(image_dir_path, user_source_selected)
+    if not os.path.exists(image_dir_path):
+        st.error(f'excetion: image data path for {user_source_selected} does not exixts!')
     metadata_path = os.path.join(metadata_path, user_source_selected)
+    if not os.path.exists(metadata_path):
+        os.makedirs(metadata_path)
 
     if "df_loc" not in st.session_state:
         df = location_initialize(static_metadata_path, static_metadata_file)

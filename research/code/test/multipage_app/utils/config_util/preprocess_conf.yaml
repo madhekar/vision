@@ -1,5 +1,5 @@
 metadata:
-  image_dir_path: /home/madhekar/work/home-media-app/data/input-data/img/
+  image_dir_path: /home/madhekar/work/home-media-app/data/input-data-1/img/
   metadata_path: /home/madhekar/work/home-media-app/data/app-data/metadata/
   metadata_file: metadata.json
   vectordb_path: /home/madhekar/work/home-media-app/data/app-data/vectordb/
