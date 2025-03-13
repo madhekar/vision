@@ -143,11 +143,13 @@ def execute():
         image_collection_name,
         text_collection_name,
         video_collection_name,
+        audio_collection_name,
         text_folder_name,
 
         image_final_path,
         text_final_path,
-        video_final_path
+        video_final_path,
+        audeo_final_path
     ) = config.vectordb_config_load()
 
     arc_folder_name = mu.get_foldername_by_datetime()

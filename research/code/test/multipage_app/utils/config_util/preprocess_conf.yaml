@@ -14,12 +14,14 @@ vectordb:
   image_collection_name: multimodal_collection_images
   text_collection_name: multimodal_collection_texts
   video_collection_name: multimodal_collection_videos
+  audio_collection_name: multimedia_collection_audios
   text_dir_path: /home/madhekar/work/home-media-app/data/input-data/txt/
 
 prod:
   image_final_path:  /home/madhekar/work/home-media-app/data/final-data/img/
   text_final_path:  /home/madhekar/work/home-media-app/data/final-data/txt/
   video_final_path:  /home/madhekar/work/home-media-app/data/final-data/video/
+  audio_final_path: /home/madhekar/work/home-media-app/data/final-data/audio/
 
 static-metadata:
   static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
