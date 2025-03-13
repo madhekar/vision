@@ -165,8 +165,11 @@ async def run_workflow(
     
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
-    if df and not df.empty:
-      num = df.shape[0]
+    if df is None:
+      if not df.empty:
+        num = df.shape[0]
+      else:
+          num=0
     else:
       num = 0
     num_files = len(glob.glob(os.path.join(image_dir_path,'*')))
@@ -252,8 +255,7 @@ def execute():
     ) = config.preprocess_config_load()
 
     #image_dir_path = "/home/madhekar/work/home-media-app/data/train-data/img"    
-    
-    st.sidebar.subheader("Storage Source", divider="gray")
+    st.sidebar.subheader("User Storage Source", divider="gray")
 
     user_source_selected = st.sidebar.selectbox(
         "data source folder",
@@ -276,7 +278,7 @@ def execute():
         df_loc = st.session_state.df_loc   
 
     chunk_size = int(mp.cpu_count() // 2)
-    st.sidebar.subheader("Metadata Grneration")
+    st.sidebar.subheader("Metadata Generation")
     st.sidebar.divider()
 
     df = None
@@ -294,15 +296,18 @@ def execute():
     except Exception as e:
         st.error(f"exception: {e} occured in loading metadata file")
 
-    asyncio.run(run_workflow(
-        df,
-        image_dir_path,
-        chunk_size,
-        metadata_path,
-        metadata_file,
-        number_of_instances,
-        openclip_finetuned,
-    ))
+    bcreate_metadata = st.button("start metadata creation -")
+    if bcreate_metadata:
+
+        asyncio.run(run_workflow(
+            df,
+            image_dir_path,
+            chunk_size,
+            metadata_path,
+            metadata_file,
+            number_of_instances,
+            openclip_finetuned,
+        ))
 
 
 # kick-off metadata generation
