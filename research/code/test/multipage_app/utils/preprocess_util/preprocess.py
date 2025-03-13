@@ -22,7 +22,7 @@ from aiomultiprocess import Pool
 from functools import partial
 import dill as pickle
 
-d_latitude, d_longitude = 32.96887205555556, -117.18414305555557
+d_latitude, d_longitude = 32.968700, -117.184196
 m, t, p = LLM.setLLM()
 ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
 
@@ -56,19 +56,22 @@ async def timestamp(uri):
 
 # get location details as: (latitude, longitude) and address
 async def locationDetails(uri, lock):
-  async with lock:
-    loc=""
-    lat_lon = ()
-    lat_lon = lu.gpsInfo(uri)
-    if lat_lon == ():
-        lat_lon = (d_latitude, d_longitude)
-    loc = get_loc_name_by_latlon(lat_lon)
-    print(loc)
-    if loc:
-        return loc
-    else:
-        loc =  lu.getLocationDetails(lat_lon, max_retires=3)
-        return str(lat_lon), loc
+    async with lock:
+        print(f"-->> {uri}")
+        loc = ""
+        lat_lon = ()
+        lat_lon = lu.gpsInfo(uri)
+        print(f"->> {lat_lon}")
+        if lat_lon == ():
+            lat_lon = (d_latitude, d_longitude)
+        print(f"--->> {lat_lon}")
+        loc = get_loc_name_by_latlon(lat_lon)
+        print(loc)
+        if loc:
+            return loc
+        else:
+            loc = lu.getLocationDetails(lat_lon, max_retires=3)
+            return str(lat_lon), loc
      
 # get names of people in image
 async def namesOfPeople(uri):
