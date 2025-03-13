@@ -133,11 +133,15 @@ def setDateTimeOriginal(fname, dt):
 # get GPS information from image file
 def gpsInfo(img):
     gps = ()
-    # Get the data from image file and return a dictionary
-    data = gpsphoto.getGPSData(img)
-    # print(data)
-    if "Latitude" in data and "Longitude" in data:
-        gps = (data["Latitude"], data["Longitude"])
+    try:
+        # Get the data from image file and return a dictionary
+        data = gpsphoto.getGPSData(img)
+        # print(data)
+        if "Latitude" in data and "Longitude" in data:
+            gps = (data["Latitude"], data["Longitude"])
+    except Exception as e:
+        st.error(f'exception occured in extracting lat/ lon data: {e}')
+        
     return gps
 
 
