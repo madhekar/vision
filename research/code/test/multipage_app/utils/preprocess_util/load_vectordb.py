@@ -31,10 +31,13 @@ There are four people in front of the building. Two of them are on the left side
 def recur_listdir(path):
     for entry in os.listdir(path):
         f_path = os.path.join(path, entry)
+        print(f'==>{path} :: {f_path}')
         if os.path.isdir(f_path):
-            recur_listdir(f_path)
+            if f_path:
+              recur_listdir(f_path)
+            else:
+                continue
         else:
-            print(f_path)
             return f_path    
 
 
@@ -113,7 +116,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
             [
                 os.path.join(text_folder, document_name)
                 for document_name in recur_listdir(text_folder)
-                if document_name.endswith(".txt")
+                if document_name.endswith(".*")
             ]
         )
 
