@@ -135,6 +135,7 @@ def archive_metadata(metadata_path, arc_folder_name, metadata_file):
 
 def execute():
     (
+        raw_data_path,
         image_initial_path,
         metadata_path,
         metadata_file,
@@ -158,7 +159,7 @@ def execute():
 
     user_source_selected = st.sidebar.selectbox(
         "data source folder",
-        options=ss.extract_user_raw_data_folders(image_initial_path),
+        options=ss.extract_user_raw_data_folders(raw_data_path),
         label_visibility="collapsed",
     )
 
@@ -169,13 +170,16 @@ def execute():
 
     metadata_path = os.path.join(metadata_path, user_source_selected)
 
-    df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file, image_final_path=image_final_path, image_final_folder=arc_folder_name)
+    bload_metadata = st.button("load image metadata")
+    if bload_metadata:
 
-    createVectorDB(df_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name)
+        df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file, image_final_path=image_final_path, image_final_folder=arc_folder_name)
 
-    archive_metadata(metadata_path, arc_folder_name, metadata_file)
+        createVectorDB(df_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name)
 
-    mu.remove_files_folders(image_initial_path)
+        archive_metadata(metadata_path, arc_folder_name, metadata_file)
+
+        mu.remove_files_folders(image_initial_path)
      
 
 if __name__=='__main__':

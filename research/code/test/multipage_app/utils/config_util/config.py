@@ -222,6 +222,7 @@ def vectordb_config_load():
         pprint.pprint(dict)
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
 
+        raw_data_path = dict["metadata"]["raw_data_path"]
         image_initial_path = dict["metadata"]["image_dir_path"]
         metadata_path = dict["metadata"]["metadata_path"]
         metadata_file = dict["metadata"]["metadata_file"]
@@ -240,6 +241,7 @@ def vectordb_config_load():
         audio_final_path = dict["prod"]["audio_final_path"]
 
     return(
+        raw_data_path,
         image_initial_path,
         metadata_path,
         metadata_file,
