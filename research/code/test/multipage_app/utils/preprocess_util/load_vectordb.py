@@ -122,12 +122,11 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
 
     return collection_images, collection_text
 
-
+'''
+ok for now!
+'''
 def archive_metadata(metadata_path, arc_folder_name, metadata_file):
-    new_archive_folder = os.path.join(
-        metadata_path,
-        arc_folder_name,
-    )
+    new_archive_folder = os.path.join( metadata_path, arc_folder_name)
     if not os.path.exists(new_archive_folder):
         os.mkdir(new_archive_folder)
         os.rename(os.path.join(metadata_path, metadata_file), os.path.join(new_archive_folder, metadata_file))
@@ -164,6 +163,9 @@ def execute():
     )
 
     image_initial_path = os.path.join(image_initial_path, user_source_selected)
+    image_final_path = os.path.join(image_final_path, user_source_selected)
+    if not os.path.exists(image_final_path):
+        os.makedirs(image_final_path)
 
     #copy images in input-data to final-data/datetime
     mu.copy_folder_tree(image_initial_path, os.path.join(image_final_path, arc_folder_name) )
