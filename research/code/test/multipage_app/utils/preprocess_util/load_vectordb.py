@@ -34,6 +34,7 @@ def recur_listdir(path):
         if os.path.isdir(f_path):
             recur_listdir(f_path)
         else:
+            print(f_path)
             return f_path    
 
 
