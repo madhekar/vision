@@ -263,11 +263,12 @@ def execute():
     user_source_selected = st.sidebar.selectbox(
         "data source folder",
         options=ss.extract_user_raw_data_folders(image_dir_path),
-        label_visibility="collapsed",
+        label_visibility="collapsed"
     )
 
     # add user data source to image input and metadata output paths
     image_dir_path = os.path.join(image_dir_path, user_source_selected)
+    
     if not os.path.exists(image_dir_path):
         st.error(f'excetion: image data path for {user_source_selected} does not exixts!')
     metadata_path = os.path.join(metadata_path, user_source_selected)

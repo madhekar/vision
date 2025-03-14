@@ -167,6 +167,8 @@ def execute():
     #copy images in input-data to final-data/datetime
     mu.copy_folder_tree(image_initial_path, os.path.join(image_final_path, arc_folder_name) )
 
+    metadata_path = os.path.join(metadata_path, user_source_selected)
+
     df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file, image_final_path=image_final_path, image_final_folder=arc_folder_name)
 
     createVectorDB(df_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name)

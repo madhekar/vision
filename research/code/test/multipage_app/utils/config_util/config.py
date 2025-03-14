@@ -212,36 +212,6 @@ def data_validation_config_load():
         vectordb_path
     )
 
-"""
-metadata:
-  image_dir_path: /home/madhekar/work/home-media-app/data/input-data-1/img/
-  metadata_path: /home/madhekar/work/home-media-app/data/app-data/metadata/
-  metadata_file: metadata.json
-  vectordb_path: /home/madhekar/work/home-media-app/data/app-data/vectordb/
-  data_chunk_size: 10
-  number_of_instances: 10
-
-models:
-  openclip_finetuned: /home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth  
-
-vectordb:
-  vectordb_path: /home/madhekar/work/home-media-app/data/app-data/vectordb/
-  image_collection_name: multimodal_collection_images
-  text_collection_name: multimodal_collection_texts
-  video_collection_name: multimodal_collection_videos
-  audio_collection_name: multimedia_collection_audios
-  text_dir_path: /home/madhekar/work/home-media-app/data/input-data/txt/
-
-prod:
-  image_final_path:  /home/madhekar/work/home-media-app/data/final-data/img/
-  text_final_path:  /home/madhekar/work/home-media-app/data/final-data/txt/
-  video_final_path:  /home/madhekar/work/home-media-app/data/final-data/video/
-  audio_final_path: /home/madhekar/work/home-media-app/data/final-data/audio/
-
-static-metadata:
-  static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
-  static_metadata_file: static_locations.parquet
-"""
 
 @st.cache_resource
 def vectordb_config_load():
