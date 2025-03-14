@@ -233,7 +233,7 @@ def vectordb_config_load():
         video_collection_name = dict['vectordb']["video_collection_name"]
         audio_collection_name = dict["vectordb"]["audio_collection_name"]
 
-        text_dir_path = dict["vectordb"]["video_collection_name"]
+        text_dir_path = dict["vectordb"]["text_dir_path"]
 
         image_final_path = dict["prod"]["image_final_path"]
         text_final_path = dict["prod"]["text_final_path"]

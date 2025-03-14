@@ -16,7 +16,7 @@ vectordb:
   text_collection_name: multimodal_collection_texts
   video_collection_name: multimodal_collection_videos
   audio_collection_name: multimedia_collection_audios
-  text_dir_path: /home/madhekar/work/home-media-app/data/input-data/txt/
+  text_dir_path: /home/madhekar/work/home-media-app/data/input-data-1/txt/
 
 prod:
   image_final_path:  /home/madhekar/work/home-media-app/data/final-data/img/

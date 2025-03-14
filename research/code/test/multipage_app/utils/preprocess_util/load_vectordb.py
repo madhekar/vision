@@ -28,6 +28,14 @@ There are four people in front of the building. Two of them are on the left side
 
 """
 
+def recur_listdir(path):
+    for entry in os.listdir(path):
+        f_path = os.path.join(path, entry)
+        if os.path.isdir(f_path):
+            recur_listdir(f_path)
+        else:
+            return f_path    
+
 
 def load_metadata(metadata_path, metadata_file, image_final_path, image_final_folder):
     data = []
@@ -56,7 +64,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
     # list of collections
     collections_list = [c.name for c in client.list_collections()]
 
-    print(collections_list)
+    print(f'->>{collections_list}')
     # openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
 
@@ -95,6 +103,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
         embedding_function=embedding_function,
     )
 
+    print(f'-->{text_folder}')
     """
       TEXT Embeddings on vector database
     """
@@ -102,7 +111,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
         text_pth = sorted(
             [
                 os.path.join(text_folder, document_name)
-                for document_name in os.listdir(text_folder)
+                for document_name in recur_listdir(text_folder)
                 if document_name.endswith(".txt")
             ]
         )
@@ -173,6 +182,7 @@ def execute():
     # mu.copy_folder_tree(image_initial_path, os.path.join(image_final_path, arc_folder_name) )
 
     metadata_path = os.path.join(metadata_path, user_source_selected)
+    text_folder_name = os.path.join(text_folder_name, user_source_selected)
 
     b_load_metadata = st.button("load image metadata")
     if b_load_metadata:
