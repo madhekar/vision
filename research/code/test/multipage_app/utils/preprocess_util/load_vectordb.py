@@ -37,7 +37,7 @@ def load_metadata(metadata_path, metadata_file, image_final_path, image_final_fo
 
         df = pd.DataFrame(data)
 
-        df["url"] = df["url"].str.replace(
+        df["uri"] = df["uri"].str.replace(
             "input-data/img",
             "final-data/img/" + image_final_folder,
         )
@@ -74,12 +74,12 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
     if image_collection_name not in collections_list:
         # create list of image urls to embedded in vector db
 
-        df_urls = df_data["url"]
+        df_urls = df_data["uri"]
 
         # create unique uuids for each image
         df_ids = df_data["id"]
 
-        df_metadatas = df_data[["timestamp", "lat", "lon", "loc", "nam", "txt"]].T.to_dict().values()
+        df_metadatas = df_data[["ts", "latlon", "loc", "names", "text"]].T.to_dict().values()
   
         collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadatas), uris=df_urls.tolist())
 
