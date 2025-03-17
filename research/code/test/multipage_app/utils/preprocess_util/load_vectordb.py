@@ -8,6 +8,7 @@ import chromadb as cdb
 import streamlit as st
 
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
+from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction as stef
 from utils.util import model_util as mu
 from utils.util import storage_stat as ss
 from utils.config_util import config
@@ -111,41 +112,41 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
     """
        Text collection inside vector database 'chromadb'
     """
-    # collection_text = client.get_or_create_collection(
-    #     name=text_collection_name,
-    #     embedding_function=embedding_function,
-    # )
+    collection_text = client.get_or_create_collection(
+        name=text_collection_name,
+        embedding_function=stef,
+    )
 
     print(f'-->{text_folder}')
     """
       TEXT Embeddings on vector database
     """
-    # if text_collection_name not in collections_list:
-    #     # text_pth = sorted(
-    #     #     [
-    #     #         document_name  # os.path.join(text_folder, document_name)
-    #     #         for document_name in recur_listdir(text_folder)
-    #     #         if document_name.endswith(".txt")
-    #     #     ]
-    #     # )
+    if text_collection_name not in collections_list:
+        # text_pth = sorted(
+        #     [
+        #         document_name  # os.path.join(text_folder, document_name)
+        #         for document_name in recur_listdir(text_folder)
+        #         if document_name.endswith(".txt")
+        #     ]
+        # )
 
-    #     text_pth = fileList(text_folder)
-    #     print("=> text paths: \n", "\n".join(text_pth))
+        text_pth = fileList(text_folder)
+        print("=> text paths: \n", "\n".join(text_pth))
 
-    #     list_of_text = []
+        list_of_text = []
 
-    #     for text in text_pth:
-    #         if os.path.isfile(text):
-    #             with open(text, "rb") as f:
-    #                 text = f.read()
-    #                 list_of_text.append(text.strip())
+        for text in text_pth:
+            if os.path.isfile(text):
+                with open(text, "rb") as f:
+                    text = f.read()
+                    list_of_text.append(text.strip())
 
-    #     ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
+        ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
 
-    #     print("=> text generate ids:\n", len(ids_txt_list))
-    #     print('-> ', len(list_of_text))
+        print("=> text generate ids:\n", len(ids_txt_list))
+        print('-> ', len(list_of_text))
 
-    #     collection_text.add(documents=list_of_text, ids=ids_txt_list)
+        collection_text.add(documents=list_of_text, ids=ids_txt_list)
 
     return collection_images#, collection_text
 
