@@ -4,6 +4,7 @@ import pandas as pd
 #import util
 import os
 import uuid
+import chardet
 import chromadb as cdb
 import streamlit as st
 
@@ -114,7 +115,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
     """
     collection_text = client.get_or_create_collection(
         name=text_collection_name,
-        embedding_function=stef,
+        embedding_function=embedding_function,
     )
 
     print(f'-->{text_folder}')
@@ -135,11 +136,11 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
 
         list_of_text = []
 
-        for text in text_pth:
-            if os.path.isfile(text):
-                with open(text, "rb") as f:
-                    text = f.read()
-                    list_of_text.append(text.strip())
+        for text_f in text_pth:
+            if os.path.isfile(text_f):
+                with open(text_f, "rb") as f:
+                    content = f.read()
+                    list_of_text.append(content)       
 
         ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
 
