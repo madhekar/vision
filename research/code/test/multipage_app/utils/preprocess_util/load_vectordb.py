@@ -1,4 +1,5 @@
 import json
+import glob
 import pandas as pd
 #import util
 import os
@@ -29,17 +30,25 @@ There are four people in front of the building. Two of them are on the left side
 """
 
 def recur_listdir(path):
-    for entry in os.listdir(path):
-        f_path = os.path.join(path, entry)
-        print(f'==>{path} :: {f_path}')
-        if os.path.isdir(f_path):
-            if f_path:
-              recur_listdir(f_path)
+    print(f'----> {path}')
+    try:
+        for entry in os.listdir(path):
+            f_path = os.path.join(path, entry)
+            print(f'==>{path} :: {f_path}')
+            if os.path.isdir(f_path):
+                if f_path:
+                   recur_listdir(f_path)
+                else:
+                    break   
             else:
-                continue
-        else:
-            return f_path    
+                return f_path    
+    except Exception as e:
+        print(f'exception {e}')
 
+
+def fileList(path, pattern='**/*', recursive=True):
+    files = glob.glob(os.path.join(path, pattern), recursive=recursive)  
+    return files      
 
 def load_metadata(metadata_path, metadata_file, image_final_path, image_final_folder):
     data = []
@@ -112,22 +121,24 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
       TEXT Embeddings on vector database
     """
     if text_collection_name not in collections_list:
-        text_pth = sorted(
-            [
-                os.path.join(text_folder, document_name)
-                for document_name in recur_listdir(text_folder)
-                if document_name.endswith(".*")
-            ]
-        )
+        # text_pth = sorted(
+        #     [
+        #         document_name  # os.path.join(text_folder, document_name)
+        #         for document_name in recur_listdir(text_folder)
+        #         if document_name.endswith(".txt")
+        #     ]
+        # )
 
+        text_pth = fileList(text_folder)
         print("=> text paths: \n", "\n".join(text_pth))
 
         list_of_text = []
 
         for text in text_pth:
-            with open(text, "r") as f:
-                text = f.read()
-                list_of_text.append(text)
+            if os.path.isfile(text):
+                with open(text, "r", encoding="utf8") as f:
+                    text = f.read()
+                    list_of_text.append(text.strip())
 
         ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
 
