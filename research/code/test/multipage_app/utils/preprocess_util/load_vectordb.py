@@ -136,7 +136,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
 
         for text in text_pth:
             if os.path.isfile(text):
-                with open(text, "r", encoding="utf8") as f:
+                with open(text, "rb") as f:
                     text = f.read()
                     list_of_text.append(text.strip())
 
