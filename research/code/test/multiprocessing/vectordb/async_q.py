@@ -14,7 +14,7 @@ from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction as stef
 from aiomultiprocess import Pool
 
-client = cdb.PersistentClient(path='./', settings=Settings(allow_reset=True))
+client = cdb.PersistentClient(path='./', settings=Settings(chroma_db_impl="duckdb+parquet", allow_reset=True))
 
 def fileList(path, pattern="**/*", recursive=True):
     files = glob.glob(os.path.join(path, pattern), recursive=recursive)
@@ -51,7 +51,7 @@ async def main():
 
     file_list= fileList()
     create_chromadb(vdb_path, text_conllection_name )
-    
+
     async with Pool(4) as pool:
         results = await pool.map(populate_vdb, range(10))
         print(results)
