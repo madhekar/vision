@@ -1,21 +1,14 @@
-# not working
-
-from multiprocessing import Manager, freeze_support, cpu_count, Process
+from multiprocessing import *
 from time import sleep
 
-#tasks = None
-
-def addTask(i, j):
-    return i * j
-
-tasks = [addTask(0, 0), addTask(0, 1), addTask(0, 2), addTask(0, 3)]
+tasks = None
 
 def chunks(tasks, cores):
-    return [[tasks for j in range(8)] for i in range(cores)]
+    return [[i for _ in range(8)] for i in range(cores)]
 
 def workerFunction(w, sublist, returns):
     print('starting workerFunction:', w)
-    result = [i+j+100 for i,j in sublist]
+    result = [value+100 for value in sublist]
     returns.append(result)
     sleep(3)
     print('exiting workerFunction:', w)
@@ -32,8 +25,7 @@ if __name__ == '__main__':
 
     for i in range(cores):
         w = i
-        j=i
-        p = Process(target=workerFunction, args=(w, sublistList[i,j], returns))
+        p = Process(target=workerFunction, args=(w, sublistList[i], returns))
         jobs.append(p)
         p.start()
 
