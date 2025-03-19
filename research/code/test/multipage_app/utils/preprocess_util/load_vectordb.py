@@ -86,7 +86,8 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
     collections_list = client.list_collections()
     #collections_list = [c.name for c in client.list_collections()]
 
-    print(f'->>{collections_list}')
+    st.info(f'existing collections: {collections_list}')
+
     # openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
 
@@ -115,7 +116,9 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
   
         collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadatas), uris=df_urls.tolist())
 
-        print(f"id: \n {df_ids.head()} \n metadata: \n {df_metadatas} \n url: \n {df_urls.head()} ")
+        #st.info(f"id: \n {df_ids.head()} \n metadata: \n {df_metadatas} \n url: \n {df_urls.head()} ")
+
+        st.info(f"done adding number of images: {len(df_urls)}")
 
     """
        Text collection inside vector database 'chromadb'
@@ -125,21 +128,14 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
         embedding_function=embedding_function,
     )
 
-    print(f'-->{text_folder}')
+    st.info(f'text folder: {text_folder}')
     """
       TEXT Embeddings on vector database
     """
     if text_collection_name not in collections_list:
-        # text_pth = sorted(
-        #     [
-        #         document_name  # os.path.join(text_folder, document_name)
-        #         for document_name in recur_listdir(text_folder)
-        #         if document_name.endswith(".txt")
-        #     ]
-        # )
 
         text_pth = fileList(text_folder)
-        print("=> text paths: \n", "\n".join(text_pth))
+        #st.info("text paths: \n", "\n".join(text_pth))
 
         list_of_text = []
 
@@ -156,14 +152,14 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
 
         batches = create_batches(api=client,ids=ids_txt_list, documents=list_of_text)
 
-        print("=> text generate ids:\n", len(ids_txt_list))
-        print('-> ', len(list_of_text))
-        for batch in batches:
-            print(batch)
-            collection_text.add(ids=batch[0], documents=batch[3])
-     
-        #collection_text.add(documents=list_of_text, ids=ids_txt_list)
+        st.info(f"number of ids: {len(ids_txt_list)}")
+        st.info(f'number of documents: {len(list_of_text)}')
+        st.info(f"starting to add documents in number of batches: {len(batches)}")
 
+        for batch in batches:
+            collection_text.add(ids=batch[0], documents=batch[3])
+
+        st.info(f"done adding documents: {len(list_of_text)}")
     return collection_images, collection_text
 
 '''
