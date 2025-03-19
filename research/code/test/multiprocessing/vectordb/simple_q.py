@@ -19,6 +19,7 @@ def process_data(data_queue, collection_name):
 
     while True:
         item = data_queue.get()
+        print(f'--> data {item}')
         if item is None:
             break
         collection.add(documents=[item['document']], ids=[item['id']])
@@ -60,7 +61,7 @@ def main():
         ]
 
         # Initialize and start worker processes
-        num_processes = 2 #multiprocessing.cpu_count()
+        num_processes = multiprocessing.cpu_count()
         processes = []
         for _ in range(num_processes):
             process = Process(target=process_data, args=(data_queue, collection_name))
@@ -81,10 +82,12 @@ def main():
         data_queue.join()
         print("-->> joined in q")
 
+        #time.sleep(2)
         # Wait for all worker processes to finish
-        # for process in processes:
-        #     process.close()
-        #     process.join()
+        for process in processes:
+            process.join(timeout=.1)
+            if process.is_alive():
+                process.terminate()
 
         print("All workers finished")
 

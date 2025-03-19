@@ -27,6 +27,7 @@ def producer(filename, batch_size, queue):
             # Construct document usings csv values
             document = f'In season "{line[3]}", episode "{line[2]}", '
 
+            print(document)
             if len(line[1]) > 0:
                 document += f'{line[1]} said, "{line[0]}"'
             else:
@@ -72,6 +73,7 @@ def consumer(use_cuda, queue):
     while True:
         # Check for items in queue, this process blocks until queue has items to process.
         batch = queue.get()
+        print(batch)
         if batch is None:
             break
 
@@ -111,13 +113,14 @@ if __name__ == "__main__":
     consumer_process = mp.Process(
         target=consumer,
         args=(
-            True,
+            False,
             queue,
         ),
     )
     # Do not create multiple consumer processes, because ChromaDB is not multiprocess safe.
 
     start_time = time.time()
+    print(start_time)
 
     # Start processes
     producer_process.start()
