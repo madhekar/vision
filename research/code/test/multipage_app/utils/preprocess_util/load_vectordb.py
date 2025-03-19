@@ -83,7 +83,8 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
     # client.reset()
 
     # list of collections
-    collections_list = [c.name for c in client.list_collections()]
+    collections_list = client.list_collections()
+    #collections_list = [c.name for c in client.list_collections()]
 
     print(f'->>{collections_list}')
     # openclip embedding function!
