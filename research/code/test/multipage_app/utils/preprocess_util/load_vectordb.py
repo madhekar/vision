@@ -10,6 +10,7 @@ import streamlit as st
 
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction as stef
+from chromadb.utils.batch_utils import create_batches
 from utils.util import model_util as mu
 from utils.util import storage_stat as ss
 from utils.config_util import config
@@ -67,6 +68,11 @@ def load_metadata(metadata_path, metadata_file, image_final_path, image_final_fo
         print(df.head(10))
     return df
 
+def detect_encoding(fp):
+    with open(fp, 'rb') as f:
+        raw_data = f.read()
+    res = chardet.detect(raw_data)
+    return res['encoding']
 
 def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folder, text_collection_name):
     
@@ -138,18 +144,26 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
 
         for text_f in text_pth:
             if os.path.isfile(text_f):
-                with open(text_f, "rb") as f:
+              try:  
+                with open(text_f, encoding="ascii", errors='ignore') as f:
                     content = f.read()
-                    list_of_text.append(content)       
+                    list_of_text.append(content)   
+              except FileNotFoundError:
+                  st.error(f'file not found: {text_f}')          
 
         ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
 
+        batches = create_batches(api=client,ids=ids_txt_list, documents=list_of_text)
+
         print("=> text generate ids:\n", len(ids_txt_list))
         print('-> ', len(list_of_text))
+        for batch in batches:
+            print(batch)
+            collection_text.add(ids=batch[0], documents=batch[3])
+     
+        #collection_text.add(documents=list_of_text, ids=ids_txt_list)
 
-        collection_text.add(documents=list_of_text, ids=ids_txt_list)
-
-    return collection_images#, collection_text
+    return collection_images, collection_text
 
 '''
 ok for now!
