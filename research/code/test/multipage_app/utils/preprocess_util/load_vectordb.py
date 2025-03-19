@@ -11,6 +11,7 @@ import streamlit as st
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction as stef
 from chromadb.utils.batch_utils import create_batches
+from chromadb.config import DEFAULT_TENANT, Settings
 from utils.util import model_util as mu
 from utils.util import storage_stat as ss
 from utils.config_util import config
@@ -65,7 +66,7 @@ def load_metadata(metadata_path, metadata_file, image_final_path, image_final_fo
             "input-data/img",
             "final-data/img/" + image_final_folder,
         )
-        print(df.head(10))
+        #print(df.head(10))
     return df
 
 def detect_encoding(fp):
@@ -76,90 +77,118 @@ def detect_encoding(fp):
 
 def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folder, text_collection_name):
     
+    
     # vector database persistance
-    client = cdb.PersistentClient( path=vectordb_dir_path, settings=Settings(allow_reset=True))
-
-    # reset chromadb persistant store
-    # client.reset()
+    client = cdb.PersistentClient( path=vectordb_dir_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=True))
 
     # list of collections
     collections_list = client.list_collections()
-    #collections_list = [c.name for c in client.list_collections()]
 
-    st.info(f'existing collections: {collections_list}')
+    st.info(f'Info: Existing collections: {collections_list}')
 
-    # openclip embedding function!
-    embedding_function = OpenCLIPEmbeddingFunction()
+    if len(collections_list) == 0:    
 
-    # Image collection inside vector database 'chromadb'
-    image_loader = ImageLoader()
+        # openclip embedding function!
+        embedding_function = OpenCLIPEmbeddingFunction()
 
-    # collection images defined
-    collection_images = client.get_or_create_collection(
-        name=image_collection_name,
-        embedding_function=embedding_function,
-        data_loader=image_loader,
-    )
+        # Image collection inside vector database 'chromadb'
+        image_loader = ImageLoader()
+
+        # collection images defined
+        collection_images = client.get_or_create_collection(
+            name=image_collection_name,
+            embedding_function=embedding_function,
+            data_loader=image_loader,
+        )    
+
+        """
+          Text collection inside vector database 'chromadb'
+        """
+        collection_text = client.get_or_create_collection(
+            name=text_collection_name,
+            embedding_function=embedding_function,
+        )
+    else:
+        for collection in collections_list:
+          client.delete_collection(collection)
+
+        # reset chromadb persistant store
+        #client.reset()
+
+        # openclip embedding function!
+        # embedding_function = OpenCLIPEmbeddingFunction()
+
+        # # Image collection inside vector database 'chromadb'
+        # image_loader = ImageLoader()
+
+        # # collection images defined
+        # collection_images = client.get_or_create_collection(
+        #     name=image_collection_name,
+        #     embedding_function=embedding_function,
+        #     data_loader=image_loader,
+        # )
+
+        # """
+        #   Text collection inside vector database 'chromadb'
+        # """
+        # collection_text = client.get_or_create_collection(
+        #     name=text_collection_name,
+        #     embedding_function=embedding_function,
+        # )
 
     """
     IMAGE embeddings in vector database
     """
-    if image_collection_name not in collections_list:
-        # create list of image urls to embedded in vector db
+    #if image_collection_name not in collections_list:
+    # create list of image urls to embedded in vector db
 
-        df_urls = df_data["uri"]
+    df_urls = df_data["uri"]
 
-        # create unique uuids for each image
-        df_ids = df_data["id"]
+    # create unique uuids for each image
+    df_ids = df_data["id"]
 
-        df_metadatas = df_data[["ts", "latlon", "loc", "names", "text"]].T.to_dict().values()
-  
-        collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadatas), uris=df_urls.tolist())
+    df_metadatas = df_data[["ts", "latlon", "loc", "names", "text"]].T.to_dict().values()
 
-        #st.info(f"id: \n {df_ids.head()} \n metadata: \n {df_metadatas} \n url: \n {df_urls.head()} ")
+    collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadatas), uris=df_urls.tolist())
 
-        st.info(f"done adding number of images: {len(df_urls)}")
+    #st.info(f"id: \n {df_ids.head()} \n metadata: \n {df_metadatas} \n url: \n {df_urls.head()} ")
 
-    """
-       Text collection inside vector database 'chromadb'
-    """
-    collection_text = client.get_or_create_collection(
-        name=text_collection_name,
-        embedding_function=embedding_function,
-    )
+    st.info(f"Info: Done adding number of images: {len(df_urls)}")
 
-    st.info(f'text folder: {text_folder}')
+
     """
       TEXT Embeddings on vector database
     """
-    if text_collection_name not in collections_list:
+    #if text_collection_name not in collections_list:
 
-        text_pth = fileList(text_folder)
-        #st.info("text paths: \n", "\n".join(text_pth))
+    text_pth = fileList(text_folder)
+    #st.info("text paths: \n", "\n".join(text_pth))
 
-        list_of_text = []
+    list_of_text = []
 
-        for text_f in text_pth:
-            if os.path.isfile(text_f):
-              try:  
-                with open(text_f, encoding="ascii", errors='ignore') as f:
-                    content = f.read()
-                    list_of_text.append(content)   
-              except FileNotFoundError:
-                  st.error(f'file not found: {text_f}')          
+    for text_f in text_pth:
+        if os.path.isfile(text_f):
+            try:  
+              with open(text_f, 'r', encoding="ascii") as f:
+                content = f.read()
+                list_of_text.append(content)   
+            except UnicodeDecodeError as e:
+                st.error(f'error: ignoring the file, could not decode file as ascii: {e}')      
+            except FileNotFoundError:
+                st.error(f'error: file not found: {text_f}')          
 
-        ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
+    ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
 
-        batches = create_batches(api=client,ids=ids_txt_list, documents=list_of_text)
+    batches = create_batches(api=client,ids=ids_txt_list, documents=list_of_text)
 
-        st.info(f"number of ids: {len(ids_txt_list)}")
-        st.info(f'number of documents: {len(list_of_text)}')
-        st.info(f"starting to add documents in number of batches: {len(batches)}")
+    st.info(f"number of ids: {len(ids_txt_list)}")
+    st.info(f'number of documents: {len(list_of_text)}')
+    st.info(f"starting to add documents in number of batches: {len(batches)}")
 
-        for batch in batches:
-            collection_text.add(ids=batch[0], documents=batch[3])
+    for batch in batches:
+        collection_text.add(ids=batch[0], documents=batch[3])
 
-        st.info(f"done adding documents: {len(list_of_text)}")
+    st.info(f"done adding documents: {len(list_of_text)}")
     return collection_images, collection_text
 
 '''
@@ -208,7 +237,7 @@ def execute():
         os.makedirs(image_final_path)
 
     #copy images in input-data to final-data/datetime
-    # mu.copy_folder_tree(image_initial_path, os.path.join(image_final_path, arc_folder_name) )
+    mu.copy_folder_tree(image_initial_path, os.path.join(image_final_path, arc_folder_name) )
 
     metadata_path = os.path.join(metadata_path, user_source_selected)
     text_folder_name = os.path.join(text_folder_name, user_source_selected)
@@ -220,10 +249,10 @@ def execute():
 
         createVectorDB(df_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name)
 
-        # archive_metadata(metadata_path, arc_folder_name, metadata_file)
+        archive_metadata(metadata_path, arc_folder_name, metadata_file)
 
-        # mu.remove_files_folders(image_initial_path)
-     
+        mu.remove_files_folders(image_initial_path)
+        
 
 if __name__=='__main__':
     execute()
