@@ -14,11 +14,11 @@ restore clean target media folders
 '''
 def clean_media_folders(folder):
     # create clean destination folders
-    sm.add_messages("load", f"s|starting to clean {folder}")
+    sm.add_messages("load", f"s|starting to clean {folder}\n\n")
     if os.path.exists(folder):
         shutil.rmtree(folder, ignore_errors=True)
         os.makedirs(folder)
-    sm.add_messages("load", f"s|done to cleaning {folder}")    
+    sm.add_messages("load", f"s|done to cleaning {folder}\n\n")    
 
 
 def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
@@ -34,7 +34,7 @@ def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
                 shutil.copy(item_path, f_dest)
             except FileNotFoundError:
                 e1 = ReferenceError("Source file not found.")
-                sm.add_messages("load",f"e|exception: {e1} Source file not found {item_path}")
+                sm.add_messages("load",f"e|exception: {e1} Source file not found {item_path}\n\n")
                 continue
             except PermissionError:
                 e2 = RuntimeError("Permission denied.")
@@ -42,11 +42,11 @@ def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
                 continue
             except FileExistsError:
                 e3 = RuntimeError("Destination file already exists.")
-                sm.add_messages("load", f"e|exception: {e3} destination file: {f_dest} already exists.")
+                sm.add_messages("load", f"e|exception: {e3} destination file: {f_dest} already exists.\n\n")
                 continue
             except Exception as e:
                 e4 = RuntimeError(f"An Unknown error occurred in dataload: {e}")
-                sm.add_messages("load", f"e|exception: {e4} unknown file exception: {f_dest}.")
+                sm.add_messages("load", f"e|exception: {e4} unknown file exception: {f_dest}.\n\n")
                 continue
 
 ## possible performance issue 
@@ -103,7 +103,7 @@ def clean_unknown_files_folders(fdest_image, fdest_txt, fdest_video, fdest_audio
     vdcnt = ss.remove_empty_folders(fdest_video)
     adcnt = ss.remove_empty_folders(fdest_audio)
 
-    sm.add_messages("load", f"s| file:folder cleanup- image:{ifcnt}:{idcnt} text: {tfcnt}:{tdcnt} video: {vfcnt}:{vdcnt} audio: {afcnt}:{adcnt}")
+    sm.add_messages("load", f"s| file:folder cleanup- image:{ifcnt}:{idcnt} text: {tfcnt}:{tdcnt} video: {vfcnt}:{vdcnt} audio: {afcnt}:{adcnt} \n\n")
 
 def execute(source_name):
     (
