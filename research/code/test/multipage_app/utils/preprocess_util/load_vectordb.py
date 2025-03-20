@@ -200,6 +200,14 @@ def archive_metadata(metadata_path, arc_folder_name, metadata_file):
         os.mkdir(new_archive_folder)
         os.rename(os.path.join(metadata_path, metadata_file), os.path.join(new_archive_folder, metadata_file))
 
+def final_multimedia_path(f_path, user_selection):
+    f_path = os.path.join(f_path, user_selection)
+    if not os.path.exists(f_path):
+        os.makedirs(f_path)
+    else:
+        mu.remove_files_folders(f_path)   
+        os.makedirs(f_path)
+    return f_path    
 
 def execute():
     (
@@ -232,12 +240,11 @@ def execute():
     )
 
     image_initial_path = os.path.join(image_initial_path, user_source_selected)
-    image_final_path = os.path.join(image_final_path, user_source_selected)
-    if not os.path.exists(image_final_path):
-        os.makedirs(image_final_path)
+    image_final_path = final_multimedia_path(image_final_path, user_source_selected)
+    text_final_path = final_multimedia_path(text_final_path, user_source_selected)
 
     #copy images in input-data to final-data/datetime
-    mu.copy_folder_tree(image_initial_path, os.path.join(image_final_path, arc_folder_name) )
+    mu.copy_folder_tree(image_initial_path, image_final_path)
 
     metadata_path = os.path.join(metadata_path, user_source_selected)
     text_folder_name = os.path.join(text_folder_name, user_source_selected)
@@ -252,7 +259,7 @@ def execute():
         archive_metadata(metadata_path, arc_folder_name, metadata_file)
 
         mu.remove_files_folders(image_initial_path)
-        
+        mu.remove_files_folders(text_folder_name)
 
 if __name__=='__main__':
     execute()
