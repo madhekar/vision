@@ -4,6 +4,7 @@ import pandas as pd
 
 # from streamlit_option_menu import option_menu
 from streamlit_image_select import image_select
+from utils.config_util import config
 from PIL import Image, ImageOps
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 import datetime
@@ -13,21 +14,7 @@ MAX_DT = datetime.datetime.now()
 
 
 def config_load():
-    with open("app_conf.yaml") as prop:
-        dict = yaml.safe_load(prop)
-
-        print(
-            "* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *"
-        )
-        for k in dict.keys():
-            print(f"{k} :  {dict[k]}  \n")
-
-        print(
-            "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-        )
-        vectordb_dir_path = dict["vectordb"]["vectordb_path"]
-        image_collection_name = dict["vectordb"]["image_collection_name"]
-        text_collection_name = dict["vectordb"]["text_collection_name"]
+    config.se
 
     return (vectordb_dir_path, image_collection_name, text_collection_name)
 
@@ -123,6 +110,9 @@ def search_fn():
 
 
 def execute():
+
+    vdb, icn, tcn, vcn, acn = config.search_config_load()
+    
     search_fn()
 
     
