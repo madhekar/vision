@@ -11,8 +11,28 @@ import datetime
 MIN_DT = datetime.datetime(1998, 1, 1)
 MAX_DT = datetime.datetime.now()
 
-def search_fn():
 
+def config_load():
+    with open("app_conf.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        print(
+            "* * * * * * * * * * * Metadata Generator Properties * * * * * * * * * * * *"
+        )
+        for k in dict.keys():
+            print(f"{k} :  {dict[k]}  \n")
+
+        print(
+            "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+        )
+        vectordb_dir_path = dict["vectordb"]["vectordb_path"]
+        image_collection_name = dict["vectordb"]["image_collection_name"]
+        text_collection_name = dict["vectordb"]["text_collection_name"]
+
+    return (vectordb_dir_path, image_collection_name, text_collection_name)
+
+
+def search_fn():
     # create default application Tabs
     # image, video, text = st.tabs(["Image", "Video", "Text"])
 

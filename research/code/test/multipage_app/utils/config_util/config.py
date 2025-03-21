@@ -288,3 +288,26 @@ def editor_config_load():
         home_latitude,
         home_longitude,
     )
+
+@st.cache_resource
+def search_config_load():
+    with open("utils/config_util/search_conf.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        pprint.pprint("* * * Metadata Generator Properties * * *")
+        pprint.pprint(dict)
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
+
+        vectordb_path = dict["vectordb"]["vectordb_path"]
+        image_collection_name = dict["vectordb"]["image_collection_name"]
+        text_collection_name = dict["vectordb"]["text_collection_name"]
+        video_collection_name = dict["vectordb"]["video_collection_name"]
+        audio_collection_name = dict["vectordb"]["audio_collection_name"]
+
+    return (
+        vectordb_path,
+        image_collection_name,
+        text_collection_name,
+        video_collection_name,
+        audio_collection_name,
+    )
