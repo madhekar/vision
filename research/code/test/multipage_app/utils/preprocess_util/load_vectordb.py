@@ -81,6 +81,8 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
     # vector database persistance
     client = cdb.PersistentClient( path=vectordb_dir_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=True))
 
+    client.clear_system_cache()
+
     # list of collections
     collections_list = client.list_collections()
 
@@ -113,28 +115,28 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
           client.delete_collection(collection)
 
         # reset chromadb persistant store
-        #client.reset()
+        client.reset()
 
-        # openclip embedding function!
-        # embedding_function = OpenCLIPEmbeddingFunction()
+        #openclip embedding function!
+        embedding_function = OpenCLIPEmbeddingFunction()
 
-        # # Image collection inside vector database 'chromadb'
-        # image_loader = ImageLoader()
+        # Image collection inside vector database 'chromadb'
+        image_loader = ImageLoader()
 
-        # # collection images defined
-        # collection_images = client.get_or_create_collection(
-        #     name=image_collection_name,
-        #     embedding_function=embedding_function,
-        #     data_loader=image_loader,
-        # )
+        # collection images defined
+        collection_images = client.get_or_create_collection(
+            name=image_collection_name,
+            embedding_function=embedding_function,
+            data_loader=image_loader,
+        )
 
-        # """
-        #   Text collection inside vector database 'chromadb'
-        # """
-        # collection_text = client.get_or_create_collection(
-        #     name=text_collection_name,
-        #     embedding_function=embedding_function,
-        # )
+        """
+          Text collection inside vector database 'chromadb'
+        """
+        collection_text = client.get_or_create_collection(
+            name=text_collection_name,
+            embedding_function=embedding_function,
+        )
 
     """
     IMAGE embeddings in vector database
@@ -189,6 +191,9 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
         collection_text.add(ids=batch[0], documents=batch[3])
 
     st.info(f"done adding documents: {len(list_of_text)}")
+
+    client.clear_system_cache()
+
     return collection_images, collection_text
 
 '''
@@ -205,6 +210,7 @@ def final_multimedia_path(f_path, user_selection):
     if not os.path.exists(f_path):
         os.makedirs(f_path)
     else:
+        print(f'---->{f_path}')
         mu.remove_files_folders(f_path)   
         os.makedirs(f_path)
     return f_path    
@@ -229,6 +235,8 @@ def execute():
         audeo_final_path
     ) = config.vectordb_config_load()
 
+    
+
     arc_folder_name = mu.get_foldername_by_datetime()
 
     st.sidebar.subheader("Storage Source", divider="gray")
@@ -240,8 +248,11 @@ def execute():
     )
 
     image_initial_path = os.path.join(image_initial_path, user_source_selected)
+
     image_final_path = final_multimedia_path(image_final_path, user_source_selected)
     text_final_path = final_multimedia_path(text_final_path, user_source_selected)
+
+    print(f'final paths: {image_final_path} : { text_final_path}')
 
     #copy images in input-data to final-data/datetime
     mu.copy_folder_tree(image_initial_path, image_final_path)
@@ -258,8 +269,8 @@ def execute():
 
         archive_metadata(metadata_path, arc_folder_name, metadata_file)
 
-        mu.remove_files_folders(image_initial_path)
-        mu.remove_files_folders(text_folder_name)
+        #mu.remove_files_folders(image_initial_path)
+        #mu.remove_files_folders(text_folder_name)
 
 if __name__=='__main__':
     execute()
