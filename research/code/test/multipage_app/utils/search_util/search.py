@@ -11,18 +11,10 @@ import datetime
 MIN_DT = datetime.datetime(1998, 1, 1)
 MAX_DT = datetime.datetime.now()
 
-# # initialize streamlit container UI settings
-# streamlit_init.initUI()
-
-# # load data
-# cImgs, cTxts = init()
-
-# # st.markdown("<p class='big-font-title'>Home Media Portal</p>", unsafe_allow_html=True)
-# st.logo("/home/madhekar/work/home-media-app/app/zesha-high-resolution-logo.jpeg")
 def search_fn():
 
     # create default application Tabs
-    image, video, text = st.tabs(["Image", "Video", "Text"])
+    # image, video, text = st.tabs(["Image", "Video", "Text"])
 
     # init session variables
     if "document" not in st.session_state:
@@ -48,11 +40,6 @@ def search_fn():
 
     # define application sidebar
     with st.sidebar:
-        # st.markdown(
-        #     "<p class='big-font-header'>@Home Media Portal</p>", unsafe_allow_html=True
-        # )
-
-        # st.divider()
 
         modality_selected = st.selectbox(
             label="## Search Modality",
