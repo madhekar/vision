@@ -9,14 +9,40 @@ from PIL import Image, ImageOps
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 import datetime
 
+import chromadb as cdb
+from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
+from chromadb.utils.data_loaders import ImageLoader
+from chromadb.config import Settings
+
 MIN_DT = datetime.datetime(1998, 1, 1)
 MAX_DT = datetime.datetime.now()
 
 
-def config_load():
-    config.se
+@st.cache_resource(show_spinner=True)
+def init_vdb(vdp, icn, tcn):
+    # vector database persistance
+    client = cdb.PersistentClient( path=vdp, settings=Settings(allow_reset=True))
+    
+    # openclip embedding function!
+    embedding_function = OpenCLIPEmbeddingFunction()
 
-    return (vectordb_dir_path, image_collection_name, text_collection_name)
+    # Image collection inside vector database 'chromadb'
+    image_loader = ImageLoader()
+
+    # collection images defined
+    collection_images = client.get_or_create_collection(
+      name=icn, 
+      embedding_function=embedding_function, 
+      data_loader=image_loader
+      )
+    
+    #Text collection inside vector database 'chromadb'
+    collection_text = client.get_or_create_collection(
+      name=tcn,
+      embedding_function=embedding_function,
+    )
+
+    return collection_images, collection_text
 
 
 def search_fn():
@@ -112,7 +138,9 @@ def search_fn():
 def execute():
 
     vdb, icn, tcn, vcn, acn = config.search_config_load()
-    
+
+    img_collection, txt_collection  = init_vdb(vdb, icn, tcn)
+
     search_fn()
 
     
