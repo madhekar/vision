@@ -28,20 +28,20 @@ class DuplicateRemover:
         fnames =  getRecursive(self.image_path)
         hashes = {}
         duplicates = []
-        print("Finding Duplicate Images Now!\n")
+        print("Finding Duplicate Images Now!")
         sm.add_messages("duplicate","s| Searching... Duplicate Images Now.")
         for image in fnames:
             try:
               with Image.open(os.path.join(image[0], image[1])) as img:
                 temp_hash = imagehash.average_hash(img, self.hash_size)
                 if temp_hash in hashes:
-                    print(f"Duplicate {image} found for Image {hashes[temp_hash]}!\n")
+                    print(f"Duplicate {image} found for Image {hashes[temp_hash]}!")
                     #sm.add_messages("duplicate", f"w|Duplicate {image} found for Image {hashes[temp_hash]}")
                     duplicates.append(image)
                 else:
                     hashes[temp_hash] = image
             except(IOError) as e:
-                sm.add_messages("duplicate", f"e| error: {e} ocurred while opening the image: {os.path.join(image[0], image[1])}\n\n")
+                sm.add_messages("duplicate", f"e| error: {e} ocurred while opening the image: {os.path.join(image[0], image[1])}")
                 os.remove(os.path.join(image[0], image[1]))
                 continue
 
@@ -62,13 +62,13 @@ class DuplicateRemover:
                     #print(f"{duplicate} Moved Succesfully!")
                     #sm.add_messages("duplicate", f"s| {duplicate} Moved Succesfully!")
                 #print(f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")
-                sm.add_messages("duplicate", f"s| saved {round(space_saved / 1000000)} mb of Space! \n\n")
+                sm.add_messages("duplicate", f"s| saved {round(space_saved / 1000000)} mb of Space!")
             else:
                 #print("Using Duplicate Remover")
-                sm.add_messages("s| duplicate", "Using Duplicate Remover.\n\n")
+                sm.add_messages("duplicate", "s| Using Duplicate Remover.")
         else:
             #print("No Duplicate images Found :)")
-            sm.add_messages("w| duplicate", "No Duplicate images Found.\n\n")
+            sm.add_messages("duplicate", "w| No Duplicate images Found.")
 
     def find_similar(self, location, similarity=80):
         fnames = os.listdir(self.image_path)
@@ -78,22 +78,22 @@ class DuplicateRemover:
         with Image.open(location) as img:
             hash1 = imagehash.average_hash(img, self.hash_size).hash
 
-        sm.add_messages("duplicate", f"s| Searching... Similar Images in {location}.\n\n")
+        sm.add_messages("duplicate", f"s| Searching... Similar Images in {location}.")
         for image in fnames:
             with Image.open(os.path.join(self.image_path, image)) as img:
                 hash2 = imagehash.average_hash(img, self.hash_size).hash
 
                 if np.count_nonzero(hash1 != hash2) <= diff_limit:
                     print(f"{image} image found {similarity}% similar to {location}")
-                    sm.add_messages("duplicate", f"w| {image} image /w similarity score: {similarity}% found in: {location}\n\n")
+                    sm.add_messages("duplicate", f"w| {image} image /w similarity score: {similarity}% found in: {location}")
 
 def execute(source_name):
        input_image_path, archive_dup_path = config.dedup_config_load()
        input_image_path = os.path.join(input_image_path, source_name)
        arc_folder_name_dt = mu.get_foldername_by_datetime()
        archive_dup_path_update = os.path.join(archive_dup_path, source_name, arc_folder_name_dt)
-       sm.add_messages("duplicate", f"w| Images input Folder Path: {input_image_path} \n\n")
-       sm.add_messages("duplicate", f"w| Images archive folder path: {archive_dup_path_update} \n\n")
+       sm.add_messages("duplicate", f"w| Images input Folder Path: {input_image_path}")
+       sm.add_messages("duplicate", f"w| Images archive folder path: {archive_dup_path_update}")
        dr = DuplicateRemover( image_path=input_image_path,  archivedir=archive_dup_path_update)
        dr.find_duplicates()                
 
