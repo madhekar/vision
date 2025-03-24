@@ -44,10 +44,18 @@ def init_vdb(vdp, icn, tcn):
 
     return collection_images, collection_text
 
+def updateMetadata(id, desc, names, dt, loc):
+    # vector database persistance
+    client = cdb.PersistentClient(path=storage_path, settings=Settings(allow_reset=True))
+    col = client.get_collection(image_collection)
+    col.update(
+        ids=id,
+        metadatas={"description": desc, "names": names, "datetime" : dt, "location": loc}
+    )
 
-def search_fn():
+def search_fn(cImgs, cTxts):
     # create default application Tabs
-    # image, video, text = st.tabs(["Image", "Video", "Text"])
+    image, video, text = st.tabs(["Image", "Video", "Text"])
 
     # init session variables
     if "document" not in st.session_state:
@@ -134,6 +142,178 @@ def search_fn():
 
         search_btn = st.button(label="## Search")
 
+    # seach button pressed
+    if search_btn:
+        # create query on image, also shows similar document in vector database (not using LLM)  -- openclip embedding function!
+        embedding_function = OpenCLIPEmbeddingFunction()
+
+        # reset session_state for temperory images for view
+        if "timgs" in st.session_state:
+            st.session_state["timgs"] = []
+
+        # reset session_state for metadata
+        if "meta" in st.session_state:
+            st.session_state["meta"] = []
+
+        if modality_selected == "image":
+            # execute text collection query
+            st.session_state["document"] = cTxts.query(
+                query_embeddings=embedding_function("./" + similar_image.name),
+                n_results=1,
+            )["documents"][0][0]
+
+            # get location and datetime metadata for an image
+            # qmdata = util.getMetadata(sim.name)
+            # dt_format = "%Y-%m-%d %H:%M:%S"
+            # st.write(qmdata[3])
+            # d = parser.parse(qmdata[3]).timestamp()
+            # st.write(
+            #    d,
+            #    st.session_state["dt_range"][0].timestamp(),
+            #    st.session_state["dt_range"][1].timestamp(),
+            # )
+
+            # execute image query with search criteria
+            st.session_state["imgs"] = cImgs.query(
+                query_uris="./" + similar_image.name,
+                include=["data", "metadatas"],
+                n_results=36,
+            )
+
+            st.write(st.session_state["imgs"])
+
+        elif modality_selected == "text":
+            # execute text collection query
+            st.session_state["document"] = cTxts.query(
+                query_texts=modalityTxt,
+                n_results=1,
+            )["documents"][0][0]
+
+            # execute image query with search criteria
+            st.session_state["imgs"] = cImgs.query(
+                query_texts=modalityTxt, include=["data", "metadatas"], n_results=36
+            )
+
+        for img in st.session_state["imgs"]["data"][0][1:]:
+            st.session_state["timgs"].append(img)
+        for mdata in st.session_state["imgs"]["metadatas"][0][1:]:
+            st.session_state["meta"].append(
+                "Desc:["
+                + mdata.get("txt")
+                + "] ) People: ["
+                + mdata.get("nam")
+                + "] Location: ["
+                + mdata.get("loc")
+                + "] Date: ["
+                + str(datetime.datetime.fromtimestamp(mdata.get("timestamp")))
+                + "]"
+            )
+    # Image TAB
+    with image:
+        if st.session_state["timgs"] and len(st.session_state["timgs"]) > 1:
+            index = image_select(
+                label="Similar Images",
+                images=st.session_state["timgs"],
+                use_container_width=True,
+                # captions=st.session_state["meta"],
+                index=0,
+                return_value="index",
+            )
+            # img, map = st.tabs(["Img", "Map"])
+            c1, c2 = st.columns([9, 1])
+
+            # c2.divider()
+            col21, col22, col23 = c2.columns([1, 1, 1], gap="small")
+            with col21:
+                right = st.button(label="## &#x21B7;")
+            with col22:
+                left = st.button(label="## &#x21B6;")
+            with col23:
+                flip = st.button(label="## &#x21C5;")
+
+            # with img:
+            im = Image.fromarray(st.session_state["timgs"][index])
+            nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
+            imageLoc = c1.empty()
+            display_im = imageLoc.image(nim, use_column_width="always")
+            # st.button(st.image(nim, use_column_width="always"))
+
+            if right:
+                nim = nim.rotate(-90)
+                imageLoc.image(nim, use_column_width="always")
+            if left:
+                nim = nim.rotate(90)
+                imageLoc.image(nim, use_column_width="always")
+            if flip:
+                nim = nim.rotate(180)
+                imageLoc.image(nim, use_column_width="always")
+            # with map:
+            # st.write(
+            #     "<p class='big-font'>sorry, no map is implemented found in search criteria!</p>",
+            #     unsafe_allow_html=True,
+            # )
+
+            # c2.divider()
+            colt, cole = c2.columns([0.7, 0.3])
+            with colt:
+                st.markdown(
+                    "<p class='big-font-subh'>Gleeful Desc</p>", unsafe_allow_html=True
+                )
+            with cole:
+                edit = st.button(label="## &#x270D;")
+
+            if edit:
+                util.update_metadata(
+                    id=st.session_state["imgs"]["ids"][0][index],
+                    desc=st.session_state["imgs"]["metadatas"][0][1:][index]["txt"],
+                    names=st.session_state["imgs"]["metadatas"][0][1:][index]["nam"],
+                    dt=st.session_state["imgs"]["metadatas"][0][1:][index]["timestamp"],
+                    loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"],
+                )
+            o_desc = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["txt"]}</p>'
+            c2.markdown(o_desc, unsafe_allow_html=True)
+
+            c2.write("<p class='big-font-subh'>People</p>", unsafe_allow_html=True)
+            o_names = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["nam"]}</p>'
+            c2.markdown(o_names, unsafe_allow_html=True)
+
+            c2.write("<p class='big-font-subh'>Date Time</p>", unsafe_allow_html=True)
+            o_datetime = f'<p class="big-font">{str(datetime.datetime.fromtimestamp(st.session_state["imgs"]["metadatas"][0][1:][index]["timestamp"]))}</p>'
+            c2.markdown(o_datetime, unsafe_allow_html=True)
+
+            c2.write("<p class='big-font-subh'>Location</p>", unsafe_allow_html=True)
+            o_location = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["loc"]}</p>'
+            c2.markdown(o_location, unsafe_allow_html=True)
+
+            lat = st.session_state["imgs"]["metadatas"][0][1:][index]["lat"]
+            lon = st.session_state["imgs"]["metadatas"][0][1:][index]["lon"]
+
+            map_data = pd.DataFrame({"lat": [lat], "lon": [lon]})
+            c2.markdown("<p class='big-font-subh'>Map</p>", unsafe_allow_html=True)
+            c2.map(map_data, zoom=12, size=100, color="#ff00ff")
+        else:
+            st.write(
+                "<p class='big-font'>sorry, no similar images found in search criteria!</p>",
+                unsafe_allow_html=True,
+            )
+
+    #  Video TAB
+    with video:
+        # st.header("Similar Videos")
+        st.write(
+            "<p class='big-font'>sorry, no similar videos found in search criteria!</p>",
+            unsafe_allow_html=True,
+        )
+
+    #  Documents Tab
+    with text:
+        if st.session_state["document"] and len(st.session_state["document"]) > 1:
+            st.text_area(label="Related text", value=st.session_state["document"])
+        else:
+            st.write(
+                "<p class='big-font'>sorry, no similar documents found in search criteria!</p>",
+                unsafe_allow_html=True,
+            )
 
 def execute():
 
@@ -141,6 +321,6 @@ def execute():
 
     img_collection, txt_collection  = init_vdb(vdb, icn, tcn)
 
-    search_fn()
+    search_fn(img_collection, txt_collection)
 
     
