@@ -1,5 +1,6 @@
 from PIL import Image
 import imagehash
+import hashlib
 #from utils import util
 import os
 import numpy as np
@@ -31,9 +32,12 @@ class DuplicateRemover:
         print("Finding Duplicate Images Now!")
         sm.add_messages("duplicate","s| Searching... Duplicate Images Now.")
         for image in fnames:
+            print(f'---> {image}')
             try:
-              with Image.open(os.path.join(image[0], image[1])) as img:
-                temp_hash = imagehash.average_hash(img, self.hash_size)
+              with open(os.path.join(image[0], image[1]), 'rb') as img:
+                img_data = img.read()
+                # temp_hash = imagehash.average_hash(img, self.hash_size)
+                temp_hash = hashlib.md5(img_data).hexdigest()
                 if temp_hash in hashes:
                     print(f"Duplicate {image} found for Image {hashes[temp_hash]}!")
                     #sm.add_messages("duplicate", f"w|Duplicate {image} found for Image {hashes[temp_hash]}")
