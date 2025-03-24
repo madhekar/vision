@@ -1,6 +1,7 @@
 import streamlit as st
 import datetime
 import pandas as pd
+import ast
 
 # from streamlit_option_menu import option_menu
 from streamlit_image_select import image_select
@@ -177,7 +178,7 @@ def search_fn(client, cImgs, cTxts):
             st.session_state["imgs"] = cImgs.query(
                 query_uris="./" + similar_image.name,
                 include=["data", "metadatas"],
-                n_results=36,
+                n_results=12,
             )
 
             st.write(st.session_state["imgs"])
@@ -268,28 +269,29 @@ def search_fn(client, cImgs, cTxts):
                     client,
                     cImgs,
                     id=st.session_state["imgs"]["ids"][0][index],
-                    desc=st.session_state["imgs"]["metadatas"][0][1:][index]["txt"],
-                    names=st.session_state["imgs"]["metadatas"][0][1:][index]["nam"],
-                    dt=st.session_state["imgs"]["metadatas"][0][1:][index]["timestamp"],
+                    desc=st.session_state["imgs"]["metadatas"][0][1:][index]["text"],
+                    names=st.session_state["imgs"]["metadatas"][0][1:][index]["names"],
+                    dt=st.session_state["imgs"]["metadatas"][0][1:][index]["ts"],
                     loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"],
                 )
-            o_desc = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["txt"]}</p>'
+            o_desc = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["text"]}</p>'
             c2.markdown(o_desc, unsafe_allow_html=True)
 
             c2.write("<p class='big-font-subh'>People</p>", unsafe_allow_html=True)
-            o_names = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["nam"]}</p>'
+            o_names = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
             c2.markdown(o_names, unsafe_allow_html=True)
 
             c2.write("<p class='big-font-subh'>Date Time</p>", unsafe_allow_html=True)
-            o_datetime = f'<p class="big-font">{str(datetime.datetime.fromtimestamp(st.session_state["imgs"]["metadatas"][0][1:][index]["timestamp"]))}</p>'
+            o_datetime = f'<p class="big-font">{str(datetime.datetime.fromtimestamp(float(st.session_state["imgs"]["metadatas"][0][1:][index]["ts"])))}</p>'
             c2.markdown(o_datetime, unsafe_allow_html=True)
 
             c2.write("<p class='big-font-subh'>Location</p>", unsafe_allow_html=True)
             o_location = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["loc"]}</p>'
             c2.markdown(o_location, unsafe_allow_html=True)
 
-            lat = st.session_state["imgs"]["metadatas"][0][1:][index]["lat"]
-            lon = st.session_state["imgs"]["metadatas"][0][1:][index]["lon"]
+            ll = ast.literal_eval(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"])     
+            lat = ll[0] #float(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"][0])
+            lon = ll[1] # float(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"][1])
 
             map_data = pd.DataFrame({"lat": [lat], "lon": [lon]})
             c2.markdown("<p class='big-font-subh'>Map</p>", unsafe_allow_html=True)
