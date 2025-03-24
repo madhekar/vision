@@ -42,18 +42,18 @@ def init_vdb(vdp, icn, tcn):
       embedding_function=embedding_function,
     )
 
-    return collection_images, collection_text
+    return client, collection_images, collection_text
 
-def updateMetadata(id, desc, names, dt, loc):
+def updateMetadata(client, image_collection,  id, desc, names, dt, loc):
     # vector database persistance
-    client = cdb.PersistentClient(path=storage_path, settings=Settings(allow_reset=True))
+    #client = cdb.PersistentClient(path=storage_path, settings=Settings(allow_reset=True))
     col = client.get_collection(image_collection)
     col.update(
         ids=id,
         metadatas={"description": desc, "names": names, "datetime" : dt, "location": loc}
     )
 
-def search_fn(cImgs, cTxts):
+def search_fn(client, cImgs, cTxts):
     # create default application Tabs
     image, video, text = st.tabs(["Image", "Video", "Text"])
 
@@ -263,7 +263,9 @@ def search_fn(cImgs, cTxts):
                 edit = st.button(label="## &#x270D;")
 
             if edit:
-                util.update_metadata(
+                updateMetadata(
+                    client,
+                    cImgs,
                     id=st.session_state["imgs"]["ids"][0][index],
                     desc=st.session_state["imgs"]["metadatas"][0][1:][index]["txt"],
                     names=st.session_state["imgs"]["metadatas"][0][1:][index]["nam"],
@@ -319,8 +321,8 @@ def execute():
 
     vdb, icn, tcn, vcn, acn = config.search_config_load()
 
-    img_collection, txt_collection  = init_vdb(vdb, icn, tcn)
+    client, img_collection, txt_collection  = init_vdb(vdb, icn, tcn)
 
-    search_fn(img_collection, txt_collection)
+    search_fn(client, img_collection, txt_collection)
 
     
