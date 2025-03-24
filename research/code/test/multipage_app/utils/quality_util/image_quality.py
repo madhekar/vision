@@ -82,8 +82,8 @@ class Quality():
                 print("Using quality Remover")
                 sm.add_messages("quality", "s| No images are archived")
         else:
-            print("No quality images Found :)")
-            sm.add_messages("quality", "w| no quality images Found.")
+            print("No bad quality images Found :)")
+            sm.add_messages("quality", "w| no bad quality images Found.")
 
     
 def execute(source_name):
