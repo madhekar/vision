@@ -197,15 +197,16 @@ def search_fn(client, cImgs, cTxts):
         for img in st.session_state["imgs"]["data"][0][1:]:
             st.session_state["timgs"].append(img)
         for mdata in st.session_state["imgs"]["metadatas"][0][1:]:
+            st.write(mdata)
             st.session_state["meta"].append(
                 "Desc:["
-                + mdata.get("txt")
+                + mdata.get("text")
                 + "] ) People: ["
-                + mdata.get("nam")
+                + mdata.get("names")
                 + "] Location: ["
                 + mdata.get("loc")
                 + "] Date: ["
-                + str(datetime.datetime.fromtimestamp(mdata.get("timestamp")))
+                + str(datetime.datetime.fromtimestamp(float(mdata.get("ts"))))
                 + "]"
             )
     # Image TAB
