@@ -1,9 +1,12 @@
+import nima
 import torch
 import torchvision.transforms as transforms
 from PIL import Image
-import nima
 
-model = nima.NIMA(base_model_name='vgg16')
+
+print(dir(nima))
+
+model = nima(base_model_name='vgg16')
 model.load_state_dict(torch.load('nima_vgg16.pth'))
 model.eval()
 
