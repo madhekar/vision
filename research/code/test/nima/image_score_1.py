@@ -9,13 +9,14 @@ nima_metric = pyiqa.create_metric('nima', device=device)
 # image preprocessing
 preprocess = transforms.Compose(
     [
-        transforms.Resize((224,224)),
+        transforms.Resize((224, 224)),
         transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ]
 )
 
 sample_img = (
-    "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/Untitled.jpeg"
+    "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/images.jpeg"
 )
 
 image = Image.open(sample_img)
