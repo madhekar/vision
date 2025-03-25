@@ -1,0 +1,8 @@
+
+
+vectordb:
+  vectordb_path: /home/madhekar/work/home-media-app/data/app-data/vectordb/
+  image_collection_name: multimodal_collection_images
+  text_collection_name: multimodal_collection_texts
+  video_collection_name: multimodal_collection_videos
+  audio_collection_name: multimedia_collection_audios
