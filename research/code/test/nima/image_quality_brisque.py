@@ -1,9 +1,9 @@
 from PIL import Image, ImageOps
 import imquality.brisque as b
-from skimage import io, img_as_float
+#from skimage import io, img_as_float
 import os
-from skimage.transform import rescale
-from skimage.transform import resize
+#from skimage.transform import rescale
+#from skimage.transform import resize
     
 
 
@@ -16,7 +16,7 @@ for rt, _, files in os.walk(sample_path, topdown=True):
         
         
 
-        image = Image.open(os.path.join(rt, file)).convert('L')
+        image = Image.open(os.path.join(rt, file)) #.convert('L')
         
         #image_rescaled = image.resize((224, 224))
         #image_rescaled = ImageOps.grayscale(image)
