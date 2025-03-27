@@ -35,14 +35,32 @@ class Quality():
         else:
             sm.add_messages('quality', 'e| Null image')  
 
-    def find_quality_sharpness(self, image_sharpness_threshold):
+    def is_valid_brisque_score(self, image, threshold = 50.0):
+
+        if image:
+            _image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+            gray = cv2.cvtColor(_image, cv2.COLOR_BGR2GRAY)
+            
+            brisque_score = cv2.quality.QualityBRISQUE_compute(
+                gray,
+                "/home/madhekar/work/home-media-app/models/brisque/brisque_model_live.yml",
+                "/home/madhekar/work/home-media-app/models/brisque/brisque_range_live.yml",
+            )    
+
+            return brisque_score[0] > threshold
+        else:
+            sm.add_messages('quality', 'e| unable to load - NULL image') 
+
+        return False   
+
+    def find_quality_sharpness(self, image_sharpness_threshold, image_quality_threshold):
         """
         Find and Archive quality images
         """
         fnames = getRecursive(self.image_path)
         total_images = len(fnames)
 
-        quality_list = []
+        bad_quality_list = []
 
         print("Finding Good Quality Images ...!\n")
 
@@ -51,22 +69,26 @@ class Quality():
         for im in fnames:
             print(im[0], im[1])
             img = cv2.imread(os.path.join(im[0], im[1]))
-            is_b = self.is_blurry(img, image_sharpness_threshold)
+            #is_b = self.is_blurry(img, image_sharpness_threshold)
+            is_valid_brisque = self.is_valid_brisque_score(img, image_quality_threshold)
 
-            if is_b:
-                quality_list.append(im)
+            # if is_b:
+            #     quality_list.append(im)
 
-        blurry_count = len(quality_list)
+            if is_valid_brisque:
+                bad_quality_list.append(im)
+
+        blurry_count = len(bad_quality_list)
 
         sm.add_messages('quality', f'w| {blurry_count} bad quality images found out off: {total_images}, percentage: {(blurry_count/ total_images) * 100}%')
                 
-        if len(quality_list) != 0:
-            a = input(f"Do you want to move/ archive these {len(quality_list)} Images? Press Y or N:  ")
+        if len(bad_quality_list) != 0:
+            a = input(f"Do you want to move/ archive these {len(bad_quality_list)} Images? Press Y or N:  ")
 
             space_saved = 0
 
             if a.strip().lower() == "y":
-                for quality in quality_list:
+                for quality in bad_quality_list:
                     space_saved += os.path.getsize(os.path.join(quality[0], quality[1]))
                     #uuid_path = mu.create_uuid_from_string(quality[0]) 
                     uuid_path = mu.extract_subpath(self.image_path, quality[0])
@@ -87,7 +109,12 @@ class Quality():
 
     
 def execute(source_name):
-    input_image_path, archive_quality_path, image_sharpness_threshold = config.image_quality_config_load()
+    (
+        input_image_path,
+        archive_quality_path,
+        image_sharpness_threshold,
+        image_quality_threshold
+    ) = config.image_quality_config_load()
 
     input_image_path_updated = os.path.join(input_image_path,source_name)
     
@@ -97,7 +124,7 @@ def execute(source_name):
   
     dr = Quality(image_path=input_image_path_updated, archivedir=archive_quality_path)
 
-    dr.find_quality_sharpness(image_sharpness_threshold)
+    dr.find_quality_sharpness(image_sharpness_threshold, image_quality_threshold)
     
 if __name__ == "__main__":
     execute(source_name="")

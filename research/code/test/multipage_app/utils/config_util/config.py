@@ -174,8 +174,14 @@ def image_quality_config_load():
         input_image_path = dict["quality"]["input_image_path"]
         archive_quality_path = dict["quality"]["archive_quality_path"]
         image_sharpness_threshold = dict["quality"]["image_sharpness_threshold"]
+        image_quality_threshold = dict["quality"]["image_quality_threshold"]
 
-    return (input_image_path, archive_quality_path, image_sharpness_threshold)
+    return (
+        input_image_path,
+        archive_quality_path,
+        image_sharpness_threshold,
+        image_quality_threshold
+    )
 
 
 @st.cache_resource

@@ -57,11 +57,11 @@ for rt, _, files in os.walk(sample_path, topdown=True):
 
         #
         img = cv2.imread(os.path.join(rt, file))
-        grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        blurScore = cv2.Laplacian(grey, cv2.CV_64F).var()
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        blurScore = cv2.Laplacian(gray, cv2.CV_64F).var()
 
         brisque_score = cv2.quality.QualityBRISQUE_compute(
-            img,
+            gray,
             "/home/madhekar/work/home-media-app/models/brisque/brisque_model_live.yml",
             "/home/madhekar/work/home-media-app/models/brisque/brisque_range_live.yml",
         )
@@ -75,5 +75,5 @@ for rt, _, files in os.walk(sample_path, topdown=True):
             #score_brisque = brisque_metric(normalized_tensor)
 
         print(
-            f"file name nima/ blur/ brisque: {file} :-> {score_nima.item():.4f} : {blurScore:.4f} : {brisque_score}"
+            f"file name nima/ blur/ brisque: {file} :-> {score_nima.item():.4f} : {blurScore:.4f} : {brisque_score[0]:.4f}"
         )
