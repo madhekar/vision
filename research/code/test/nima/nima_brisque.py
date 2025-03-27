@@ -1,5 +1,5 @@
 import os
-
+import cv2
 import torch
 import pyiqa
 from PIL import Image
@@ -28,6 +28,12 @@ for rt, _, files in os.walk(sample_path, topdown=True):
         image = Image.open(os.path.join(rt, file))
         image_tensor = preprocess(image).unsqueeze(0)
 
+        #
+        img = cv2.imread(os.path.join(rt, file))
+        grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        blurScore = cv2.Laplacian(grey, cv2.CV_64F).var()
+        #
+
         normalized_tensor = (image_tensor - image_tensor.min()) / (
             image_tensor.max() - image_tensor.min()
         )
@@ -35,4 +41,4 @@ for rt, _, files in os.walk(sample_path, topdown=True):
             score_nima = nima_metric(normalized_tensor)
             #score_brisque = brisque_metric(normalized_tensor)
 
-        print(f"file name: {file} nima score: {score_nima.item():.4f}") #brisque score: {score_brisque.item():.4f}")
+        print(f"file name: {file} nima score: {score_nima.item():.4f} blur score: {blurScore:.4f}") #brisque score: {score_brisque.item():.4f}")
