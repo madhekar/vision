@@ -8,7 +8,11 @@ for rt, _, files in os.walk(sample_path, topdown=True):
         img = cv.imread(os.path.join(rt, file))
         grey = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
         blurScore = cv.Laplacian(grey, cv.CV_64F).var()
-        #score = cv.quality.QualityBRISQUE_compute(img, "brisque_model_live.yml", "brisque_range_live.yml")
+        score = cv.quality.QualityBRISQUE_compute(
+            img,
+            "/home/madhekar/work/home-media-app/models/brisque/brisque_model_live.yml",
+            "/home/madhekar/work/home-media-app/models/brisque/brisque_range_live.yml",
+        )
 
         print(f' >>file: {file} Blur Score: {blurScore}')
-        #print(f' >> BRISQUE Score: {score}')
+        print(f' >> BRISQUE Score: {score}')
