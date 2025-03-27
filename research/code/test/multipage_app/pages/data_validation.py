@@ -17,9 +17,9 @@ from utils.util import statusmsg_util as sm
 sm.init()
 
 btn_labels = [
-    "DATA LOAD VALIDATE",
-    "IMG: PURGE DUPLICATES",
+    "DATA LOAD VALIDATE",   
     "IMG: PURGE BAD QUALITY",
+    "IMG: PURGE DUPLICATES",
     "IMG: METADATA VALIDATE",
 ]
 unpressed_color = "#5a5255"#"#636B2F"  # colors = ["#BAC095", "#636B2F"]
@@ -158,10 +158,36 @@ def execute():
                         elif k == 'w':
                           st.warning(str(v))   
                         else:
-                          st.error(str(v))     
+                          st.error(str(v))   
+
         with c1:
+            st.button(btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1, user_source_selected), use_container_width=True)
+            print('++++here')
+            st.divider()
+            (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(quality_data_path)
+            st.caption('**Bad Quality Images Archived**')
+            st.bar_chart(
+                dfi,
+                horizontal=False,
+                stack=True,
+                use_container_width=True,
+                color=colors,
+            )
+            st.divider()
+            status_quality = st.status("**data quality check task msgs...**", expanded=True, state="running")
+            with status_quality:
+                msgs = sm.get_message_by_type("quality")
+                if msgs:
+                    for k, v in msgs.items():
+                        if k == "s":
+                            st.info(str(v))
+                        elif k == "w":
+                            st.warning(str(v))
+                        else:
+                            st.error(str(v))                  
+        with c2:
             st.button(
-                btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,user_source_selected), use_container_width=True
+                btn_labels[2], key="g1", on_click=btn_pressed_callback, args=(2,user_source_selected), use_container_width=True
             )
             st.divider()
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(duplicate_data_path)
@@ -185,31 +211,7 @@ def execute():
                           st.warning(str(v))   
                         else:
                           st.error(str(v)) 
-        with c2:
-            st.button(btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2, user_source_selected), use_container_width=True)
-            print('++++here')
-            st.divider()
-            (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(quality_data_path)
-            st.caption('**Bad Quality Images Archived**')
-            st.bar_chart(
-                dfi,
-                horizontal=False,
-                stack=True,
-                use_container_width=True,
-                color=colors,
-            )
-            st.divider()
-            status_quality = st.status("**data quality check task msgs...**", expanded=True, state="running")
-            with status_quality:
-                msgs = sm.get_message_by_type("quality")
-                if msgs:
-                    for k, v in msgs.items():
-                        if k == "s":
-                            st.info(str(v))
-                        elif k == "w":
-                            st.warning(str(v))
-                        else:
-                            st.error(str(v))
+
         with c3:
             st.button(btn_labels[3], key="g3", on_click=btn_pressed_callback, args=(3,user_source_selected), use_container_width=True)
             st.divider()
