@@ -4,6 +4,7 @@ import cv2
 from utils.config_util import config
 from utils.util import model_util as mu
 from utils.util import statusmsg_util as sm
+from utils.util import storage_stat as ss
 
 def getRecursive(rootDir):
     f_list = []
@@ -129,6 +130,8 @@ def execute(source_name):
     dr = Quality(image_path=input_image_path_updated, archivedir=archive_quality_path)
 
     dr.find_quality_sharpness(image_sharpness_threshold, image_quality_threshold)
+
+    ss.remove_empty_folders(input_image_path_updated)
     
 if __name__ == "__main__":
     execute(source_name="")
