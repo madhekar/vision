@@ -37,7 +37,11 @@ class Quality():
 
     def is_valid_brisque_score(self, image, threshold = 50.0):
 
-        if image:
+        if image is not None:
+            h, w, _ = image.shape
+            if w < 100 or h < 100:
+                return True
+
             _image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
             gray = cv2.cvtColor(_image, cv2.COLOR_BGR2GRAY)
             

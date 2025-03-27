@@ -187,7 +187,7 @@ def execute():
                             st.error(str(v))                  
         with c2:
             st.button(
-                btn_labels[2], key="g1", on_click=btn_pressed_callback, args=(2,user_source_selected), use_container_width=True
+                btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2,user_source_selected), use_container_width=True
             )
             st.divider()
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(duplicate_data_path)
@@ -255,17 +255,17 @@ def exec_task(iTask, user_source):
             dl.execute(user_source)
             sm.add_messages("load", f"s|done {task_name} prpcess")
             return 1
-        case 1:  # duplicate images check
-            task_name = 'de-duplicate files'
-            sm.add_messages("duplicate", f"s|starting {task_name} prpcess")
-            di.execute(user_source)
-            sm.add_messages("duplicate", f"s|done {task_name} prpcess")
-            return 1
-        case 2:  # image sharpness/ quality check
+        case 1:  # image sharpness/ quality check
             task_name = 'image quality check'
             sm.add_messages("quality", f"s|starting {task_name} prpcess")
             iq.execute(user_source)
             sm.add_messages("quality", f"s|done {task_name} prpcess")
+            return 1
+        case 2:  # duplicate images check
+            task_name = 'de-duplicate files'
+            sm.add_messages("duplicate", f"s|starting {task_name} prpcess")
+            di.execute(user_source)
+            sm.add_messages("duplicate", f"s|done {task_name} prpcess")
             return 1
         case 3:  # missing metadata check
             task_name = "missing metadata"
