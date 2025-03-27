@@ -1,6 +1,10 @@
 import cv2 as cv
 import os
 
+"""
+https://pyimagesearch.com/2020/04/06/blur-and-anonymize-faces-with-opencv-and-python/
+"""
+
 sample_path = "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup"
 
 for rt, _, files in os.walk(sample_path, topdown=True):
