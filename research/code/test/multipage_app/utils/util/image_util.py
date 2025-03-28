@@ -1,4 +1,6 @@
 import base64
+import os
+import file_type_ext as fte
 
 st_img = """ 
 width: auto;
@@ -22,3 +24,10 @@ def img_to_html(img_path):
         img_to_bytes(img_path)
     )
     return img_html
+
+def clean_image_files(folder):
+    for file in os.listdir(folder):
+        ext = os.path.splitext(file)[1].lower()
+        if ext in fte.image_types:
+            print(f'file: {file} extension: {ext}')
+            ##os.remove(file)
