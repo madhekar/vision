@@ -40,7 +40,7 @@ class Quality():
 
         if image is not None:
             h, w, _ = image.shape
-            if w < 100 or h < 100:
+            if w < 512 or h < 512:
                 return True
 
             _image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)

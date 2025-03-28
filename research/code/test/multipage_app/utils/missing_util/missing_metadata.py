@@ -35,7 +35,7 @@ def execute(source_name):
         print(f'error {e}')
 
     # print(proc.stderr)
-    # print(proc.stdout)
+    print(proc.stdout)
 
     #arc_folder_name_dt = mu.get_foldername_by_datetime()
 

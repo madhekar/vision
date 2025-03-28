@@ -4,7 +4,7 @@ image_types = [
     ".jpg",
     ".jpeg",
     ".png",
-    ".gif",
+    # ".gif",
     ".bmp",
     ".tiff",
     ".heic",
