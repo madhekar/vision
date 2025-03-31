@@ -5,6 +5,7 @@ import pandas as pd
 from utils.util import model_util as mu
 from utils.config_util import config
 from utils.util import statusmsg_util as sm
+from utils.util import storage_stat as ss
 """
 missing-metadata:
   input_image_path: '/home/madhekar/work/home-media-app/data/input-data/img'
@@ -28,6 +29,9 @@ def execute(source_name):
     imp, mmp, mmf = config.missing_metadata_config_load()
 
     input_image_path = os.path.join(imp, source_name)
+    #clean empty folders if any
+    ss.remove_empty_folders(input_image_path)
+    
     try:            
         args = shlex.split( f"exiftool -gps:GPSLongitude -gps:GPSLatitude -DateTimeOriginal -csv -T -r -n {input_image_path}")
         proc = subprocess.run(args, capture_output=True)
