@@ -160,7 +160,7 @@ def search_fn(client, cImgs, cTxts):
             # execute text collection query
             st.session_state["document"] = cTxts.query(
                 query_embeddings=embedding_function("./" + similar_image.name),
-                n_results=1,
+                n_results=5,
             )["documents"][0][0]
 
             # get location and datetime metadata for an image
@@ -178,7 +178,7 @@ def search_fn(client, cImgs, cTxts):
             st.session_state["imgs"] = cImgs.query(
                 query_uris="./" + similar_image.name,
                 include=["data", "metadatas"],
-                n_results=12,
+                n_results=8,
             )
 
             st.write(st.session_state["imgs"])
@@ -187,7 +187,7 @@ def search_fn(client, cImgs, cTxts):
             # execute text collection query
             st.session_state["document"] = cTxts.query(
                 query_texts=modalityTxt,
-                n_results=1,
+                n_results=5,
             )["documents"][0][0]
 
             # execute image query with search criteria

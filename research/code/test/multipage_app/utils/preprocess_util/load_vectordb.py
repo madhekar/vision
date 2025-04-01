@@ -241,7 +241,6 @@ def execute():
     arc_folder_name = mu.get_foldername_by_datetime()
 
     st.sidebar.subheader("Storage Source", divider="gray")
-
     user_source_selected = st.sidebar.selectbox(
         "data source folder",
         options=ss.extract_user_raw_data_folders(raw_data_path),
