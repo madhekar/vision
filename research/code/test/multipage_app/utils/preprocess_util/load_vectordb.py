@@ -54,6 +54,7 @@ def fileList(path, pattern='**/*', recursive=True):
     files = glob.glob(os.path.join(path, pattern), recursive=recursive)  
     return files      
 
+# handle new creation on metadata file from scratch
 def load_metadata(metadata_path, metadata_file, image_final_path, image_final_folder):
     data = []
     with open(os.path.join(metadata_path, metadata_file), mode="r") as f:
