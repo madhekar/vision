@@ -20,5 +20,5 @@ for rt, _, files in os.walk(sample_path, topdown=True):
             lat, lon = top_pred_gps[i]
             #print(f"{file}, Prediction {i+1}: ({lat:.6f}, {lon:.6f}): Prob: {top_pred_prob[i]:.6f}")
             # print(f"Probability: {top_pred_prob[i]:.6f}")
-            print(f"{file},{lat:.6f},{lon:.6f},{top_pred_prob[i]:.6f}")
+            print(f"{file}-{top_pred_prob[i]:.6f},{lat:.6f},{lon:.6f}")
             #print("* * *")
