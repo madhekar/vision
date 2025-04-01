@@ -116,7 +116,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
           client.delete_collection(collection)
 
         # reset chromadb persistant store
-        client.reset()
+        #client.reset()
 
         #openclip embedding function!
         embedding_function = OpenCLIPEmbeddingFunction()
@@ -176,9 +176,9 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
                 content = f.read()
                 list_of_text.append(content)   
             except UnicodeDecodeError as e:
-                st.error(f'error: ignoring the file, could not decode file as ascii: {e}')      
+                st.error(f'error: ignoring the text file, could not decode file as ascii: {e}')      
             except FileNotFoundError:
-                st.error(f'error: file not found: {text_f}')          
+                st.error(f'error: text file not found: {text_f}')          
 
     ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
 
