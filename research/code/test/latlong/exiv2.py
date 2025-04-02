@@ -1,4 +1,18 @@
 import pyexiv2
+'''
+>>> metadata.exif_keys ['Exif.Image.ImageDescription',
+ 'Exif.Image.XResolution',
+ 'Exif.Image.YResolution',
+ 'Exif.Image.ResolutionUnit',
+ 'Exif.Image.Software',
+ 'Exif.Image.DateTime',
+ 'Exif.Image.Artist',
+ 'Exif.Image.Copyright',
+ 'Exif.Image.ExifTag',
+ 'Exif.Photo.Flash',
+ 'Exif.Photo.PixelXDimension',
+ 'Exif.Photo.PixelYDimension']
+'''
 
 # Open an image file
 image_path = "image.jpg"
