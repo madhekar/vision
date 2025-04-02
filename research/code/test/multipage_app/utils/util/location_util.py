@@ -60,7 +60,7 @@ def to_deg(value, loc):
     return (deg, min, sec, loc_value)
 
 
-def setGpsLocation(fname, lat, lon):
+def setGpsLocation(fname, lat, lon, desc=""):
     lat_deg = to_deg(lat, ["S", "N"])
     lon_deg = to_deg(lon, ["W", "E"])
 
@@ -90,6 +90,7 @@ def setGpsLocation(fname, lat, lon):
     exiv_image["Exif.Image.GPSTag"] = 654
     exiv_image["Exif.GPSInfo.GPSMapDatum"] = "WGS-84"
     exiv_image["Exif.GPSInfo.GPSVersionID"] = "2 0 0 0"
+    exiv_image["Exif.ImageDescription"] = desc
 
     exiv_image.writeMetadata()
 
