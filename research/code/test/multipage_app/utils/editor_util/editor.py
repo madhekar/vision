@@ -25,6 +25,7 @@ def metadata_initialize(mmp,us,mmf):
 def location_initialize(smp, smf):
     try:
         df = fpu.read_parquet_file(os.path.join(smp, smf))
+        print(df.head())
     except Exception as e:
         print(f"exception occured in loading location metadata: {smf} with exception: {e}")  
     return df    
@@ -79,11 +80,12 @@ def add_marker(lat, lon, label, url):
     st.session_state["markers"].append(marker)
 
  
-def update_latitude_longitude(image, latitude, longitude):
+def update_latitude_longitude(image, latitude, longitude, name):
     print(st.session_state.df)
     st.session_state.df.at[image, "GPSLatitude"] =latitude
     st.session_state.df.at[image, "GPSLongitude"] = longitude
-    lu.setGpsInfo(image, latitude, longitude)
+    #lu.setGpsInfo(image, latitude, longitude, name)
+    lu.setGpsLocation(image, latitude, longitude, name)
 
 def update_all_datetime_changes(image, col):
     print(st.session_state.df)
@@ -266,8 +268,8 @@ def execute():
                 #print(st.session_state.df_loc.name.values)
                 clk = c2.checkbox(label=f"location_{image}", label_visibility="collapsed")
                 if clk:
-                    update_latitude_longitude(image, sindex['latitude'], sindex['longitude'])
-                    n_row = pd.Series({"SourceFile": image, "GPSLatitude": sindex["latitude"], "GPSLongitude": sindex['longitude'], "DateTimeOriginal": dt})
+                    update_latitude_longitude(image, sindex['latitude'], sindex['longitude'], sindex['name'])
+                    n_row = pd.Series({"SourceFile": image, "GPSLatitude": sindex["latitude"], "GPSLongitude": sindex['longitude'], "DateTimeOriginal": dt, 'name': sindex['name']})
                     #print(n_row)
                     st.session_state.edited_image_attributes = pd.concat([st.session_state.edited_image_attributes, pd.DataFrame([n_row], columns=n_row.index)]).reset_index(drop=True)
                 c2.text("")

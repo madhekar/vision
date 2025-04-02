@@ -46,6 +46,7 @@ default_date_time = ["2000", "01", "01", "2000:01:01 01:01:01"]
 def_date_time = "2000:01:01 01:01:01"
 
 def to_deg(value, loc):
+    value = float(value)
     if value < 0:
         loc_value = loc[0]
     elif value > 0:
@@ -68,14 +69,14 @@ def setGpsLocation(fname, lat, lon, desc=""):
 
     # convert decimal coordinates into degrees, minutes and seconds
     exiv_lat = (
-        pyexiv2.make_fraction(lat_deg[0] * 60 + lat_deg[1], 60),
-        pyexiv2.make_fraction(lat_deg[2] * 100, 6000),
-        pyexiv2.make_fraction(0, 1),
+        pyexiv2.utils.make_fraction(lat_deg[0] * 60 + lat_deg[1], 60),
+        pyexiv2.utils.make_fraction(lat_deg[2] * 100, 6000),
+        pyexiv2.utils.make_fraction(0, 1),
     )
     exiv_lon = (
-        pyexiv2.make_fraction(lon_deg[0] * 60 + lon_deg[1], 60),
-        pyexiv2.make_fraction(lon_deg[2] * 100, 6000),
-        pyexiv2.make_fraction(0, 1),
+        pyexiv2.utils.make_fraction(lon_deg[0] * 60 + lon_deg[1], 60),
+        pyexiv2.utils.make_fraction(lon_deg[2] * 100, 6000),
+        pyexiv2.utils.make_fraction(0, 1),
     )
 
     exiv_image = pyexiv2.Image(fname)
@@ -146,7 +147,7 @@ def gpsInfo(img):
     return gps
 
 
-def setGpsInfo(fn, lat, lon):
+def setGpsInfo(fn, lat, lon, desc=""):
     photo = gpsphoto.GPSPhoto(fn)
     info = gpsphoto.GPSInfo((float(lat), float(lon)))
     photo.modGPSData(info, fn)

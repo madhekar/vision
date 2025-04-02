@@ -1,7 +1,11 @@
 from GPSPhoto import gpsphoto
 # Get the data from image file and return a dictionary
-data = gpsphoto.getGPSData('/path/to/image.jpg')
-rawData = gpsphoto.getRawData('/path/to/image.jpg')
+data = gpsphoto.getGPSData(
+    "/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/bf98198d-fcc6-51fe-a36a-275c06005669/IMAG0191.jpg"
+)
+rawData = gpsphoto.getRawData(
+    "/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/bf98198d-fcc6-51fe-a36a-275c06005669/IMAG0191.jpg"
+)
 
 # Print out just GPS Data of interest
 for tag in data.keys():
