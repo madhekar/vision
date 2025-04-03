@@ -1,5 +1,6 @@
 import math
 from PIL import Image
+import pyexiv2 as pe
 from PIL.ExifTags import TAGS, GPSTAGS
 
 """
@@ -18,13 +19,36 @@ def deg_to_dms(deg, type='lat'):
             'lon': ('E','W')
         }
         compass_str = compass[type][0 if d >= 0 else 1]
-        return '{}º{}\'{:.2f}"{}'.format(abs(d), abs(m), abs(s), compass_str)
+        return (abs(d), abs(m), abs(s), compass_str)
 
 def get_decimal_from_dms(dms, ref):
     dec_degrees = dms[0] + dms[1] / 60.0 + dms[2] / 3600.0
     if ref in ['S','W']:
         dec_degrees *= -1
     return dec_degrees   
+
+
+
+def update_gps_coordinates(img_file, lat, lat_ref, lon, lon_ref):
+    with open(img_file, 'rb') as img:
+        image = Image(img)
+
+    exif_data = image._getexif()
+
+    gps_info = {}
+
+    for key in exif_data[34853].keys():
+        decode = GPSTAGS.get(key, key)
+        gps_info[decode] = exif_data[34853][key]
+
+    gps_info["GPSLatitude"] = (lat[0],lat[1],lat[2]) 
+    gps_info["GPSLatitudeRef"] = lat_ref
+    gps_info["GPSLongitude"] = (lon[0],lon[1],lon[2]) 
+    gps_info["GPSLongitudeRef"] = lon_ref
+
+    with open(img_file, 'wb') as up_img:
+        up_img.write(image.to_bytes())
+    print('gps coordinates updated {img_file}')    
 
 def get_gps_coordinates(file):
 
@@ -61,6 +85,7 @@ print(f'{lt} : {lo}')
 
 dms_lat = deg_to_dms(lt, type='lat')
 print(dms_lat)
+print(dms_lat[0], dms_lat[1], dms_lat[2], dms_lat[3])
 
 dms_lon = deg_to_dms(lo, type='lon')
 print(dms_lon)
