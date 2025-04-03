@@ -1,3 +1,4 @@
+import math
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 
@@ -6,6 +7,18 @@ https://exiv2.org/tags.html
 """
 
 image = "/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/bf98198d-fcc6-51fe-a36a-275c06005669/IMAG0191.jpg"
+
+def deg_to_dms(deg, type='lat'):
+        decimals, number = math.modf(deg)
+        d = int(number)
+        m = int(decimals * 60)
+        s = (deg - d - m / 60) * 3600.00
+        compass = {
+            'lat': ('N','S'),
+            'lon': ('E','W')
+        }
+        compass_str = compass[type][0 if d >= 0 else 1]
+        return '{}º{}\'{:.2f}"{}'.format(abs(d), abs(m), abs(s), compass_str)
 
 def get_decimal_from_dms(dms, ref):
     dec_degrees = dms[0] + dms[1] / 60.0 + dms[2] / 3600.0
@@ -43,4 +56,11 @@ def get_gps_coordinates(file):
         return lat, lon
     return None, None
 
-print(get_gps_coordinates(image))
+lt,lo = get_gps_coordinates(image)
+print(f'{lt} : {lo}')
+
+dms_lat = deg_to_dms(lt, type='lat')
+print(dms_lat)
+
+dms_lon = deg_to_dms(lo, type='lon')
+print(dms_lon)
