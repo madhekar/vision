@@ -25,12 +25,12 @@ print(metadata.exif_keys)
 
 # # Print all EXIF tags and their values
 print("Original EXIF data:")
-for tag, entry in metadata.exif_keys:
-    print(f"{tag}: {entry.value}")
+for tag in metadata.exif_keys:
+    print(f"{tag}: {metadata[tag]}")
 
 # # Modify a specific EXIF tag
-# key = 'Exif.Image.Make'
-# metadata[key] = 'NewCameraMake'
+# key = 'Exif.Image.ImageDescription'
+# metadata[key] = 'San diego school 6th grade'
 
 # # Write the modified metadata back to the image
 # metadata.write()
