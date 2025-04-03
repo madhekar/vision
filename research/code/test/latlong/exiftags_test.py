@@ -19,13 +19,19 @@ def get_exif(image_file_path):
 
     info = image.getexif()
 
+    date_time = info.get(306)
+    print(date_time)
+
+    desc = info.get(1502)
+    print(desc)
+
     for tag, value in info.items():
 
         #print(tag, value)
         decoded = TAGS.get(tag, tag)
 
         exif_table[decoded] = value
-        print(exif_table)
+        #print(exif_table)
 
     gps_info = {}
     print(exif_table['GPSInfo'])
@@ -37,4 +43,4 @@ def get_exif(image_file_path):
 
     return gps_info
 
-print(get_exif(image))
+get_exif(image)
