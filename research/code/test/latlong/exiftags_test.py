@@ -21,19 +21,19 @@ def get_exif(image_file_path):
 
     for tag, value in info.items():
 
+        #print(tag, value)
         decoded = TAGS.get(tag, tag)
 
         exif_table[decoded] = value
-
+        print(exif_table)
 
     gps_info = {}
-
-    for key in exif_table['GPSInfo'].keys():
+    print(exif_table['GPSInfo'])
+    for key in exif_table.keys():
 
         decode = GPSTAGS.get(key,key)
 
-        gps_info[decode] = exif_table['GPSInfo'][key]
-
+        gps_info[decode] = exif_table[key]
 
     return gps_info
 
