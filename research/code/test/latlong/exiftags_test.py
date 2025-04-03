@@ -2,7 +2,7 @@
 import os
 import sys
 from PIL import Image
-from PIL.ExifTags import TAGS
+from PIL.ExifTags import TAGS, GPSTAGS
 
 '''
 https://exiv2.org/tags.html
@@ -10,5 +10,31 @@ https://exiv2.org/tags.html
 
 image = '/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/bf98198d-fcc6-51fe-a36a-275c06005669/IMAG0191.jpg'
 
-for (tag,value) in Image.open(image)._getexif().items():
-        print (TAGS.get(tag), value)
+
+def get_exif(image_file_path):
+
+    exif_table = {}
+
+    image = Image.open(image_file_path)
+
+    info = image.getexif()
+
+    for tag, value in info.items():
+
+        decoded = TAGS.get(tag, tag)
+
+        exif_table[decoded] = value
+
+
+    gps_info = {}
+
+    for key in exif_table['GPSInfo'].keys():
+
+        decode = GPSTAGS.get(key,key)
+
+        gps_info[decode] = exif_table['GPSInfo'][key]
+
+
+    return gps_info
+
+print(get_exif(image))
