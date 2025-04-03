@@ -1,4 +1,4 @@
-import pyexiv2
+import pyexiv2 as pe
 '''
 >>> metadata.exif_keys ['Exif.Image.ImageDescription',
  'Exif.Image.XResolution',
@@ -15,29 +15,31 @@ import pyexiv2
 '''
 
 # Open an image file
-image_path = "image.jpg"
-metadata = pyexiv2.ImageMetadata(image_path)
+image_path = "/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/bf98198d-fcc6-51fe-a36a-275c06005669/IMAG0191.jpg"
+metadata = pe.ImageMetadata(image_path)
 
 # Read existing EXIF data
 metadata.read()
 
-# Print all EXIF tags and their values
+print(metadata.exif_keys)
+
+# # Print all EXIF tags and their values
 print("Original EXIF data:")
-for tag, entry in metadata.exif_items:
+for tag, entry in metadata.exif_keys:
     print(f"{tag}: {entry.value}")
 
-# Modify a specific EXIF tag
-key = 'Exif.Image.Make'
-metadata[key] = 'NewCameraMake'
+# # Modify a specific EXIF tag
+# key = 'Exif.Image.Make'
+# metadata[key] = 'NewCameraMake'
 
-# Write the modified metadata back to the image
-metadata.write()
+# # Write the modified metadata back to the image
+# metadata.write()
 
-# Re-read the metadata to verify changes
-metadata = pyexiv2.ImageMetadata(image_path)
-metadata.read()
+# # Re-read the metadata to verify changes
+# metadata = pe.ImageMetadata(image_path)
+# metadata.read()
 
-# Print the modified EXIF data
-print("\nModified EXIF data:")
-for tag, entry in metadata.exif_items:
-    print(f"{tag}: {entry.value}")
+# # Print the modified EXIF data
+# print("\nModified EXIF data:")
+# for tag, entry in metadata.exif_keys:
+#     print(f"{tag}: {entry.value}")
