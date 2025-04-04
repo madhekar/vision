@@ -84,8 +84,9 @@ def update_latitude_longitude(image, latitude, longitude, name):
     print(st.session_state.df)
     st.session_state.df.at[image, "GPSLatitude"] =latitude
     st.session_state.df.at[image, "GPSLongitude"] = longitude
-    #lu.setGpsInfo(image, latitude, longitude, name)
-    lu.setGpsLocation(image, latitude, longitude, name)
+    lu.setGpsInfo(image, latitude, longitude)
+    lu.setImageDescription(image, name)
+
 
 def update_all_datetime_changes(image, col):
     print(st.session_state.df)

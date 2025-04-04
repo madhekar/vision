@@ -45,55 +45,55 @@ default_home_loc = (32.968699774829794, -117.18420145463236)
 default_date_time = ["2000", "01", "01", "2000:01:01 01:01:01"]
 def_date_time = "2000:01:01 01:01:01"
 
-def to_deg(value, loc):
-    value = float(value)
-    if value < 0:
-        loc_value = loc[0]
-    elif value > 0:
-        loc_value = loc[1]
-    else:
-        loc_value = ""
-    abs_value = abs(value)
-    deg = int(abs_value)
-    t1 = (abs_value - deg) * 60
-    min = int(t1)
-    sec = round((t1 - min) * 60, 5)
-    return (deg, min, sec, loc_value)
+# def to_deg(value, loc):
+#     value = float(value)
+#     if value < 0:
+#         loc_value = loc[0]
+#     elif value > 0:
+#         loc_value = loc[1]
+#     else:
+#         loc_value = ""
+#     abs_value = abs(value)
+#     deg = int(abs_value)
+#     t1 = (abs_value - deg) * 60
+#     min = int(t1)
+#     sec = round((t1 - min) * 60, 5)
+#     return (deg, min, sec, loc_value)
 
 
-def setGpsLocation(fname, lat, lon, desc=""):
-    lat_deg = to_deg(lat, ["S", "N"])
-    lon_deg = to_deg(lon, ["W", "E"])
+# def setGpsLocation(fname, lat, lon, desc=""):
+#     lat_deg = to_deg(lat, ["S", "N"])
+#     lon_deg = to_deg(lon, ["W", "E"])
 
-    print("lat:", lat_deg, " lon:", lon_deg)
+#     print("lat:", lat_deg, " lon:", lon_deg)
 
-    # convert decimal coordinates into degrees, minutes and seconds
-    exiv_lat = (
-        pyexiv2.utils.make_fraction(lat_deg[0] * 60 + lat_deg[1], 60),
-        pyexiv2.utils.make_fraction(lat_deg[2] * 100, 6000),
-        pyexiv2.utils.make_fraction(0, 1),
-    )
-    exiv_lon = (
-        pyexiv2.utils.make_fraction(lon_deg[0] * 60 + lon_deg[1], 60),
-        pyexiv2.utils.make_fraction(lon_deg[2] * 100, 6000),
-        pyexiv2.utils.make_fraction(0, 1),
-    )
+#     # convert decimal coordinates into degrees, minutes and seconds
+#     exiv_lat = (
+#         pyexiv2.utils.make_fraction(lat_deg[0] * 60 + lat_deg[1], 60),
+#         pyexiv2.utils.make_fraction(lat_deg[2] * 100, 6000),
+#         pyexiv2.utils.make_fraction(0, 1),
+#     )
+#     exiv_lon = (
+#         pyexiv2.utils.make_fraction(lon_deg[0] * 60 + lon_deg[1], 60),
+#         pyexiv2.utils.make_fraction(lon_deg[2] * 100, 6000),
+#         pyexiv2.utils.make_fraction(0, 1),
+#     )
 
-    exiv_image = pyexiv2.Image(fname)
-    exiv_image.readMetadata()
-    exif_keys = exiv_image.exifKeys()
-    print("exif keys: ", exif_keys)
+#     exiv_image = pyexiv2.Image(fname)
+#     exiv_image.readMetadata()
+#     exif_keys = exiv_image.exifKeys()
+#     print("exif keys: ", exif_keys)
 
-    exiv_image["Exif.GPSInfo.GPSLatitude"] = exiv_lat
-    exiv_image["Exif.GPSInfo.GPSLatitudeRef"] = lat_deg[3]
-    exiv_image["Exif.GPSInfo.GPSLongitude"] = exiv_lon
-    exiv_image["Exif.GPSInfo.GPSLongitudeRef"] = lon_deg[3]
-    exiv_image["Exif.Image.GPSTag"] = 654
-    exiv_image["Exif.GPSInfo.GPSMapDatum"] = "WGS-84"
-    exiv_image["Exif.GPSInfo.GPSVersionID"] = "2 0 0 0"
-    exiv_image["Exif.ImageDescription"] = desc
+#     exiv_image["Exif.GPSInfo.GPSLatitude"] = exiv_lat
+#     exiv_image["Exif.GPSInfo.GPSLatitudeRef"] = lat_deg[3]
+#     exiv_image["Exif.GPSInfo.GPSLongitude"] = exiv_lon
+#     exiv_image["Exif.GPSInfo.GPSLongitudeRef"] = lon_deg[3]
+#     exiv_image["Exif.Image.GPSTag"] = 654
+#     exiv_image["Exif.GPSInfo.GPSMapDatum"] = "WGS-84"
+#     exiv_image["Exif.GPSInfo.GPSVersionID"] = "2 0 0 0"
+#     exiv_image["Exif.ImageDescription"] = desc
 
-    exiv_image.writeMetadata()
+#     exiv_image.writeMetadata()
 
 cache = {}
 # get location address information from latitude and longitude
@@ -125,12 +125,32 @@ def random_user_agent(num_chars = 8):
     # return random.choice(user_agent_names)
     return ''.join(random.choices(string.ascii_letters + string.digits, k=8))
 
+
+"""
+metadata = pe.ImageMetadata(image_path)
+
+# Read existing EXIF data
+metadata.read()
+
+"""
 def setDateTimeOriginal(fname, dt):
-    print(fname)
-    exiv_image = pyexiv2.Image(fname)
-    exiv_image.readMetadata()
-    exiv_image["Exif"]['Exif.Image.DateTimeOriginal'] = dt
-    exiv_image.writeMetaDate()
+    exiv_image_metadata = pyexiv2.ImageMetadata(fname)
+    exiv_image_metadata.read()
+    exiv_image_metadata["Exif.Photo.DateTimeOriginal"] = dt
+    exiv_image_metadata.write()
+
+def setImageDescription(fname, desc):
+    exiv_image_metadata = pyexiv2.ImageMetadata(fname)
+    exiv_image_metadata.read()
+    exiv_image_metadata["Exif.Image.ImageDescription"] = desc
+    exiv_image_metadata.write()
+
+def getImageMetadata(fname):
+    exiv_image_metadata = pyexiv2.ImageMetadata(fname)
+    exiv_image_metadata.read()
+    desc = exiv_image_metadata["Exif.Image.ImageDescription"]
+    datetimeoriginal= exiv_image_metadata["Exif.Photo.DateTimeOriginal"]
+    return (desc, datetimeoriginal)
 
 
 # get GPS information from image file
@@ -144,11 +164,10 @@ def gpsInfo(img):
             gps = (data["Latitude"], data["Longitude"])
     except Exception as e:
         st.error(f'exception occured in extracting lat/ lon data: {e}')
-        
     return gps
 
 
-def setGpsInfo(fn, lat, lon, desc=""):
+def setGpsInfo(fn, lat, lon):
     photo = gpsphoto.GPSPhoto(fn)
     info = gpsphoto.GPSInfo((float(lat), float(lon)))
     photo.modGPSData(info, fn)
@@ -175,27 +194,32 @@ def getTimestamp(img):
     return value
 
 # get data and time from image file
-def getDateTime(img):
-    value = []
-    # open the image
-    image = Image.open(img)
+# def getDateTime(img):
+#     value = []
+#     # open the image
+#     image = Image.open(img)
 
-    # extracting the exif metadata
-    exifdata = image.getexif()
-    date_time = exifdata.get(306)
-    if date_time:
-        value = (date_time.split(" ")[0]).split(":")[:3]
-        value.append(date_time)
-    else:
-        value = default_date_time
-    return value
+#     # extracting the exif metadata
+#     exifdata = image.getexif()
+#     date_time = exifdata.get(306)
+#     if date_time:
+#         value = (date_time.split(" ")[0]).split(":")[:3]
+#         value.append(date_time)
+#     else:
+#         value = default_date_time
+#     return value
 
 # collect all metadata
 def getMetadata(img):
-    res = getTimestamp(img)
     lat_lon = gpsInfo(img=img)
-    res.append(lat_lon[0])
-    res.append(lat_lon[1])
-    res.append(getLocationDetails(lat_lon))
+    desc, dt = getImageMetadata(img)
+    if not desc and lat_lon:
+        desc = getLocationDetails(lat_lon)
+        if not desc:
+            desc = "image description not avaliable."
+    #res = getTimestamp(img)
+    # res.append(lat_lon[0])
+    # res.append(lat_lon[1])
+    # res.append(getLocationDetails(lat_lon))
     # print(res)
-    return res
+    return (desc, lat_lon, dt)
