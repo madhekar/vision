@@ -128,6 +128,7 @@ def random_user_agent(num_chars = 8):
 def setDateTimeOriginal(fname, dt):
     print(fname)
     exiv_image = pyexiv2.Image(fname)
+    exiv_image.readMetadata()
     exiv_image["Exif"]['Exif.Image.DateTimeOriginal'] = dt
     exiv_image.writeMetaDate()
 

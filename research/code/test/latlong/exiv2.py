@@ -43,12 +43,14 @@ print("Original EXIF data:")
 #     print(f"{tag}: {metadata[tag]}")
 
 print(metadata['Exif.Image.ImageDescription'])
+print(metadata["Exif.Photo.DateTimeOriginal"])
+#print(metadata["Exif.Image.DateTimeOriginal"])
 print(metadata["Exif.GPSInfo.GPSLatitude"], metadata["Exif.GPSInfo.GPSLatitudeRef"])
 print(metadata["Exif.GPSInfo.GPSLongitude"], metadata["Exif.GPSInfo.GPSLongitudeRef"])
+
 # # Modify a specific EXIF tag
 # key = 'Exif.Image.ImageDescription'
 # metadata[key] = 'San diego school 6th grade'
-
 # # Write the modified metadata back to the image
 # metadata.write()
 
