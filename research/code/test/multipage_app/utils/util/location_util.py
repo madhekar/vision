@@ -41,9 +41,10 @@ import string
 import time
 
 # define constants
-default_home_loc = (32.968699774829794, -117.18420145463236)
+default_home_loc = (0.0, 0.0)
 default_date_time = ["2000", "01", "01", "2000:01:01 01:01:01"]
 def_date_time = "2000:01:01 01:01:01"
+def_name = "NULL Island - location description not provided."
 
 # def to_deg(value, loc):
 #     value = float(value)
@@ -216,7 +217,7 @@ def getMetadata(img):
     if not desc and lat_lon:
         desc = getLocationDetails(lat_lon)
         if not desc:
-            desc = "image description not avaliable."
+            desc = def_name
     #res = getTimestamp(img)
     # res.append(lat_lon[0])
     # res.append(lat_lon[1])
