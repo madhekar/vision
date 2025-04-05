@@ -24,7 +24,7 @@ def getLocationDetails(strLnL, max_retires):
         retries = 1
         while retries < max_retires:
             try:
-                delay = 2#**retries
+                delay = 2**retries
                 time.sleep(delay)
                 rev = RateLimiter(geolocator.reverse, min_delay_seconds=1)
                 location = rev(strLnL, language="en", exactly_one=True)
@@ -44,11 +44,18 @@ def random_user_agent(num_chars=8):
     return "".join(random.choices(string.ascii_letters + string.digits, k=8))
    
 def collect_addresses(df):
-    list_lat_lon = df.values.tolist()
+    df['latitude'] = df['latitude'].round(6)
+    df["longitude"] = df["longitude"].round(6)
+    df_nodup = df.drop_duplicates(subset=['latitude', 'longitude'], keep=False)
+    print('--->', df_nodup.size, df_nodup.head())
+
+    #df.to_csv('lat_lon_nodup.csv', index=False, encoding='utf-8')
+
+    list_lat_lon = df_nodup.values.tolist()
     result_list = []
     for ll in list_lat_lon:
         print((ll[1],ll[0]))
-        time.sleep(1)
+        time.sleep(10)
         addr = getLocationDetails((ll[1],ll[0]), 3)
         print(addr)
         result_list.append([addr, ll[1], ll[0]])
