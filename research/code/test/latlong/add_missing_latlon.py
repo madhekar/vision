@@ -21,20 +21,20 @@ def getLocationDetails(strLnL, max_retires):
         return cache[strLnL]
     else:
         geolocator = Nominatim(user_agent=random_user_agent())
-        retries = 1
-        while retries < max_retires:
-            try:
-                delay = 2**retries
-                time.sleep(delay)
-                rev = RateLimiter(geolocator.reverse, min_delay_seconds=1)
-                location = rev(strLnL, language="en", exactly_one=True)
-                if location:
-                    address = location.address
-                    cache[strLnL] = address
-                    return address
-            except (GeocoderTimedOut, GeocoderUnavailable) as e:
-                st.warning(f"Get address failed with {e}")
-                retries += 1
+        # retries = 1
+        # while retries < max_retires:
+        try:
+            # delay = 2**retries
+            # time.sleep(delay)
+            rev = RateLimiter(geolocator.reverse, min_delay_seconds=1)
+            location = rev(strLnL, language="en", exactly_one=True)
+            if location:
+                address = location.address
+                cache[strLnL] = address
+                return address
+        except (GeocoderTimedOut, GeocoderUnavailable) as e:
+            st.warning(f"Get address failed with {e}")
+            #retries += 1
     return address
 
 
@@ -49,15 +49,14 @@ def collect_addresses(df):
     df_nodup = df.drop_duplicates(subset=['latitude', 'longitude'], keep=False)
     print('--->', df_nodup.size, df_nodup.head())
 
-    #df.to_csv('lat_lon_nodup.csv', index=False, encoding='utf-8')
+    df.to_csv('lat_lon_nodup.csv', index=False, encoding='utf-8')
 
     list_lat_lon = df_nodup.values.tolist()
     result_list = []
     for ll in list_lat_lon:
-        print((ll[1],ll[0]))
-        time.sleep(10)
+        time.sleep(5)
         addr = getLocationDetails((ll[1],ll[0]), 3)
-        print(addr)
+        print(f'{addr},{ll[1]},{ll[0]}')
         result_list.append([addr, ll[1], ll[0]])
     df = pd.DataFrame(result_list, columns=['address', 'latitude', 'longitude'])    
     
