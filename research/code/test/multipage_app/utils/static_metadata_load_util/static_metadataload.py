@@ -15,6 +15,8 @@ def execute(user_storage):
     metadata_storage_path = os.path.join(static_metadata_path, static_metadata_file)
     user_location_metadata_path =  os.path.join(user_location_metadata_path, user_storage)
 
+    
+
     c1, c2 = st.columns([0.5, 1], gap="medium")
     with c1:
         st.subheader("Static Metadata")

@@ -4,11 +4,11 @@ import torch.nn as nn
 import clip
 from torchvision import transforms
 from PIL import Image
-import util
+from utils.util import model_util as mu
 import streamlit as st
 
 # paths
-subclasses = util.subclasses
+subclasses = mu.subclasses
 
 """
 modify model for fine tuning
