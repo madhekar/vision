@@ -98,12 +98,13 @@ def static_metadata_config_load():
         pprint.pprint(dict)
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * * *")
 
+        raw_data_path = dict["datapaths"]["raw_data_path"]
         location_metadata_path = dict["static-locations"]["location_metadata_path"]
         user_location_metadata_path = dict["static-locations"]["user_location_metadata_path"]
         static_metadata_path = dict["static-locations"]["static_metadata_path"]
         static_metadata_file = dict["static-locations"]["static_metadata_file"]
 
-    return (location_metadata_path, user_location_metadata_path, static_metadata_path, static_metadata_file)    
+    return (raw_data_path, location_metadata_path, user_location_metadata_path, static_metadata_path, static_metadata_file)    
 
 @st.cache_resource
 def preprocess_config_load():
