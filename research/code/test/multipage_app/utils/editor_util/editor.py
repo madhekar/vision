@@ -114,18 +114,15 @@ def select_location_by_country_and_state(rdf):
         frdf = rdf[rdf["country"] == selected_country]
         s_frdf = frdf.sort_values(by="state")
         state_values = list(s_frdf["state"].unique())
-        default_state = state_values.index('CA')
-        selected_state = st.selectbox("select state", state_values, index=default_state)
-
+        if 'CA' in state_values:
+           default_state = state_values.index('CA')
+           selected_state = st.selectbox("select state", state_values, index=default_state)
+        else:   
+           selected_state = st.selectbox("select state", state_values)
     with c_location:
        ffrdf = frdf[frdf['state'] == selected_state]
        s_ffrdf = ffrdf.sort_values(by='name')
        loc_values = list(s_ffrdf['name'].unique())
-    #    try:
-    #       default_loc = loc_values.index('Madhekar Residence Home in San Diego')
-    #    except IndexError:
-    #        st.info("Index does not exists")   
-    #        default_loc = None
        if 'Madhekar Residence Home in San Diego' in loc_values:    
            default_loc = loc_values.index('Madhekar Residence Home in San Diego')
            selected_location = st.selectbox('select location name/ description', s_ffrdf['name'].unique(), index=default_loc)  
