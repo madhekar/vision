@@ -21,11 +21,7 @@ def getLocationDetails(strLnL, max_retires):
         return cache[strLnL]
     else:
         geolocator = Nominatim(user_agent=random_user_agent())
-        # retries = 1
-        # while retries < max_retires:
         try:
-            # delay = 2**retries
-            # time.sleep(delay)
             rev = RateLimiter(geolocator.reverse, min_delay_seconds=1)
             location = rev(strLnL, language="en", exactly_one=True)
             if location:
@@ -34,13 +30,10 @@ def getLocationDetails(strLnL, max_retires):
                 return address
         except (GeocoderTimedOut, GeocoderUnavailable) as e:
             st.warning(f"Get address failed with {e}")
-            #retries += 1
     return address
 
 
 def random_user_agent(num_chars=8):
-    # user_agent_names= [ 'zs_ref', 'zs_loc_ref', 'zs_global_ref', 'zs_usa_ref' ]
-    # return random.choice(user_agent_names)
     return "".join(random.choices(string.ascii_letters + string.digits, k=8))
    
 def collect_addresses(df):
