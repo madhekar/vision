@@ -2,22 +2,24 @@ import os
 from utils.config_util import config
 from utils.util import fast_parquet_util as fpu
 from utils.util import storage_stat as ss
+import user_static_loc as usl
 import streamlit as st
 
 colors = ["#ae5a41", "#1b85b8"]
+def generate_use_specific_static_metadata():
+    
+
 def transform_and_add_static_metadata(location_metadata_path, user_loation_metadata,  final_parquet_storage):
     fpu.add_all_locations(location_metadata_path, user_loation_metadata, final_parquet_storage)
 
 
 def execute():
-    (raw_data_path, location_metadata_path, user_location_metadata_path, static_metadata_path, static_metadata_file)  = config.static_metadata_config_load()
- 
-   
+    (rdp, location_metadata_path, user_location_metadata_path, missing_metadata_path, missing_metadata_file, static_metadata_path, static_metadata_file)  = config.static_metadata_config_load()
 
     st.sidebar.subheader("Storage Source", divider="gray")
     user_source_selected = st.sidebar.selectbox(
         "data source folder",
-        options=ss.extract_user_raw_data_folders(raw_data_path),
+        options=ss.extract_user_raw_data_folders(rdp),
         label_visibility="collapsed",
     )
     user_location_metadata_path =  os.path.join(user_location_metadata_path, user_source_selected)
