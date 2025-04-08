@@ -33,6 +33,7 @@ def transform_raw_locations(fpath):
         df.to_csv(fpath, sep=",", header=False, index=False)
 
         rdf = df
+        print(rdf.head())
   except Exception as e:
         st.error(f"failed to transform raw locations with exception: {e}")
   return rdf

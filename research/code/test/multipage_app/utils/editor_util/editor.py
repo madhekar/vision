@@ -243,8 +243,8 @@ def execute():
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
     col = 0
 
-    print(st.session_state.df.loc["/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/b5c06024-c63b-5488-813e-4b826ac80b53/vcm_s_kf_repr_832x624.jpg"])
-    print(st.session_state.df.get('/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/38903983-7882-5da4-8a19-d4a73ddafa3b/vcm_s_kf_repr_587x886.jpg', None))
+    # print(st.session_state.df.loc["/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/b5c06024-c63b-5488-813e-4b826ac80b53/vcm_s_kf_repr_832x624.jpg"])
+    # print(st.session_state.df.get('/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/38903983-7882-5da4-8a19-d4a73ddafa3b/vcm_s_kf_repr_587x886.jpg', None))
 
     for image in batch:
         with grid[col]:
