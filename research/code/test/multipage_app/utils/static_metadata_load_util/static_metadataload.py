@@ -6,13 +6,12 @@ import streamlit as st
 
 colors = ["#ae5a41", "#1b85b8"]
 def transform_and_add_static_metadata(location_metadata_path, user_loation_metadata,  final_parquet_storage):
-    fpu.add_all_locations(location_metadata_path, user_loation_metadata,final_parquet_storage)
+    fpu.add_all_locations(location_metadata_path, user_loation_metadata, final_parquet_storage)
 
 
 def execute():
     (raw_data_path, location_metadata_path, user_location_metadata_path, static_metadata_path, static_metadata_file)  = config.static_metadata_config_load()
-    # paths to import static location files
-    metadata_storage_path = os.path.join(static_metadata_path, static_metadata_file)
+ 
    
 
     st.sidebar.subheader("Storage Source", divider="gray")
@@ -22,7 +21,10 @@ def execute():
         label_visibility="collapsed",
     )
     user_location_metadata_path =  os.path.join(user_location_metadata_path, user_source_selected)
-    
+
+    # paths to import static location files
+    metadata_storage_path = os.path.join(static_metadata_path, user_source_selected, static_metadata_file)
+
     c1, c2 = st.columns([0.5, 1], gap="medium")
     with c1:
         st.subheader("Static Metadata")

@@ -81,7 +81,7 @@ def get_all_loc_by_country_and_state(file_path, country, state):
         st.error(f"get all locations by country: {country} and state: {state} failed with exception: {e}")
     return rdf
 
-def add_all_locations(location_root, user_location_root,  parquet_file_path):
+def add_all_locations(location_root, user_location_root, parquet_file_path):
     try:
         locations_file_list = glob.glob(os.path.join(location_root, "*.csv"))
         for f in locations_file_list:

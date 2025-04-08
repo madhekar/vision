@@ -22,9 +22,9 @@ def metadata_initialize(mmp,us,mmf):
     return df
 
 @st.cache_resource
-def location_initialize(smp, smf):
+def location_initialize(smp,user_source, smf):
     try:
-        df = fpu.read_parquet_file(os.path.join(smp, smf))
+        df = fpu.read_parquet_file(os.path.join(smp, user_source, smf))
         print(df.head())
     except Exception as e:
         print(f"exception occured in loading location metadata: {smf} with exception: {e}")  
@@ -51,7 +51,7 @@ def initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source):
             df = st.session_state.df
 
         if "df_loc" not in st.session_state:
-            df = location_initialize(smp, smf)
+            df = location_initialize(smp, user_source, smf)
             st.session_state.df_loc = df
         else:
             df_loc = st.session_state.df_loc   
