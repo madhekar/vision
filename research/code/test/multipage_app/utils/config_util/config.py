@@ -82,7 +82,13 @@ def dataload_config_load():
         input_audio_path = dict["dataload"]["input_audio_path"]
 
     return (raw_data_path, input_image_path, input_txt_path, input_video_path, input_audio_path)
-
+"""
+static-locations:
+  location_metadata_path: /home/madhekar/work/home-media-app/data/static-data/static-locations/default
+  user_location_metadata_path: /home/madhekar/work/home-media-app/data/static-data/static-locations/user-specific
+  static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
+  static_metadata_file: static_locations.parquet
+"""
 @st.cache_resource
 def static_metadata_config_load():
     with open("utils/config_util/static_metadata_conf.yaml") as prop:
@@ -92,12 +98,13 @@ def static_metadata_config_load():
         pprint.pprint(dict)
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * * *")
 
-        location_metadata_path = dict["static-locations-prep"]["location_metadata_path"]
-        address_metadata_path = dict["static-locations-prep"]["address_metadata_path"]
-        static_metadata_path = dict["static-locations-prep"]["static_metadata_path"]
-        static_metadata_file = dict["static-locations-prep"]["static_metadata_file"]
+        raw_data_path = dict["datapaths"]["raw_data_path"]
+        location_metadata_path = dict["static-locations"]["location_metadata_path"]
+        user_location_metadata_path = dict["static-locations"]["user_location_metadata_path"]
+        static_metadata_path = dict["static-locations"]["static_metadata_path"]
+        static_metadata_file = dict["static-locations"]["static_metadata_file"]
 
-    return (location_metadata_path, address_metadata_path, static_metadata_path, static_metadata_file)    
+    return (raw_data_path, location_metadata_path, user_location_metadata_path, static_metadata_path, static_metadata_file)    
 
 @st.cache_resource
 def preprocess_config_load():

@@ -2,7 +2,6 @@ import os
 import getpass
 from utils.config_util import config
 import streamlit as st   
-import util
 from utils.util import adddata_util as adu
 from streamlit_tree_select import tree_select
 from utils.util import model_util as mu

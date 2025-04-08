@@ -114,18 +114,15 @@ def select_location_by_country_and_state(rdf):
         frdf = rdf[rdf["country"] == selected_country]
         s_frdf = frdf.sort_values(by="state")
         state_values = list(s_frdf["state"].unique())
-        default_state = state_values.index('CA')
-        selected_state = st.selectbox("select state", state_values, index=default_state)
-
+        if 'CA' in state_values:
+           default_state = state_values.index('CA')
+           selected_state = st.selectbox("select state", state_values, index=default_state)
+        else:   
+           selected_state = st.selectbox("select state", state_values)
     with c_location:
        ffrdf = frdf[frdf['state'] == selected_state]
        s_ffrdf = ffrdf.sort_values(by='name')
        loc_values = list(s_ffrdf['name'].unique())
-    #    try:
-    #       default_loc = loc_values.index('Madhekar Residence Home in San Diego')
-    #    except IndexError:
-    #        st.info("Index does not exists")   
-    #        default_loc = None
        if 'Madhekar Residence Home in San Diego' in loc_values:    
            default_loc = loc_values.index('Madhekar Residence Home in San Diego')
            selected_location = st.selectbox('select location name/ description', s_ffrdf['name'].unique(), index=default_loc)  
@@ -246,8 +243,8 @@ def execute():
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
     col = 0
 
-    print(st.session_state.df.loc["/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/b5c06024-c63b-5488-813e-4b826ac80b53/vcm_s_kf_repr_832x624.jpg"])
-    print(st.session_state.df.get('/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/38903983-7882-5da4-8a19-d4a73ddafa3b/vcm_s_kf_repr_587x886.jpg', None))
+    # print(st.session_state.df.loc["/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/b5c06024-c63b-5488-813e-4b826ac80b53/vcm_s_kf_repr_832x624.jpg"])
+    # print(st.session_state.df.get('/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/38903983-7882-5da4-8a19-d4a73ddafa3b/vcm_s_kf_repr_587x886.jpg', None))
 
     for image in batch:
         with grid[col]:
