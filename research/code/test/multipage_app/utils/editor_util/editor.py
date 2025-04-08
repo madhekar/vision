@@ -27,7 +27,7 @@ def location_initialize(smp,user_source, smf):
         df = fpu.read_parquet_file(os.path.join(smp, user_source, smf))
         print(df.head())
     except Exception as e:
-        print(f"exception occured in loading location metadata: {smf} with exception: {e}")  
+        st.error(f"exception occured in loading location metadata: {smf} with exception: {e}")  
     return df    
 
 def initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source):
@@ -60,7 +60,7 @@ def initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source):
             st.session_state["edited_image_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'DateTimeOriginal'))  
 
     except Exception as e:      
-        print(f"Exception occurred in initializing Medata Editor: {e}")
+        st.error(f"Exception occurred in initializing Medata Editor: {e}")
 
 def clear_markers():
     st.session_state["markers"].clear()
@@ -81,7 +81,7 @@ def add_marker(lat, lon, label, url):
 
  
 def update_latitude_longitude(image, latitude, longitude, name):
-    print(st.session_state.df)
+    print(st.session_state.df.head())
     st.session_state.df.at[image, "GPSLatitude"] =latitude
     st.session_state.df.at[image, "GPSLongitude"] = longitude
     lu.setGpsInfo(image, latitude, longitude)
@@ -89,7 +89,7 @@ def update_latitude_longitude(image, latitude, longitude, name):
 
 
 def update_all_datetime_changes(image, col):
-    print(st.session_state.df)
+    print(st.session_state.df.head())
     dt = st.session_state[f"{col}_{image}"]
     st.session_state.df.at[image, "DateTimeOriginal"] = dt
     lu.setDateTimeOriginal(image, dt)
@@ -136,8 +136,8 @@ def select_location_by_country_and_state(rdf):
 
 
 def save_metadata( mmp, mmf, mmep, mmef):
-    for index, row in st.session_state.edited_image_attributes.iterrows():
-        print(f'-->{row}')
+    # for index, row in st.session_state.edited_image_attributes.iterrows():
+    #     print(f'-->{row}')
         # lat = st.session_state.df.at[row["SourceFile"], "GPSLatitude"]
         # lon = st.session_state.df.at[row["SourceFile"], "GPSLongitude"]
         # dt = st.session_state.df.at[row["SourceFile"], "DateTimeOriginal"]
@@ -153,10 +153,6 @@ def save_metadata( mmp, mmf, mmep, mmef):
         st.session_state.edited_image_attributes.to_csv(os.path.join(mmep, mmef), index=False, header=False)   
 
     st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0)
-
-# get immediate child folders
-# def extract_user_raw_data_folders(pth):
-#     return next(os.walk(pth))[1]
 
 """
 metadata:
@@ -249,7 +245,7 @@ def execute():
     for image in batch:
         with grid[col]:
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
-            print(image)
+            #print(image)
             st.session_state.df.reset_index()
             lat = st.session_state.df.at[image.strip(), "GPSLatitude"]
             lon = st.session_state.df.at[image, "GPSLongitude"]
