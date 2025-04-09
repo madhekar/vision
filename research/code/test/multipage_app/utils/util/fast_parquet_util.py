@@ -81,15 +81,18 @@ def get_all_loc_by_country_and_state(file_path, country, state):
         st.error(f"get all locations by country: {country} and state: {state} failed with exception: {e}")
     return rdf
 
-def prepare_all_default_locations_for_user_specific(location_root):
+def combine_all_default_locations(location_root):
     try:
         locations_file_list = glob.glob(os.path.join(location_root, "*.csv"))
+        pdf = []
         for f in locations_file_list:
-            create_or_append_locations(f, parquet_file_path)
+            pdf.append(transform_raw_locations(f))
+        df_comb = pd.concat(pdf, ignore_index=True)    
     except Exception as e:
         st.error(
             f"create append locations parquet for file: {f} failed with exception: {e}"
         )
+    return df_comb
 
 def add_all_locations(location_root, user_location_root, parquet_file_path):
     try:

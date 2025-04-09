@@ -8,7 +8,7 @@ import streamlit as st
 colors = ["#ae5a41", "#1b85b8"]
 # create user specific static image metadata not found in default static metadata
 def generate_user_specific_static_metadata(missing_path, missing_file, location_path):
-    default_df = usl.transform_raw_locations(location_path)
+    default_df = fpu.combine_all_default_locations(location_path)
 
 def transform_and_add_static_metadata(location_metadata_path, user_location_metadata,  final_parquet_storage):
     fpu.add_all_locations(location_metadata_path, user_location_metadata, final_parquet_storage)
