@@ -6,11 +6,12 @@ import user_static_loc as usl
 import streamlit as st
 
 colors = ["#ae5a41", "#1b85b8"]
-def generate_use_specific_static_metadata():
-    
+# create user specific static image metadata not found in default static metadata
+def generate_user_specific_static_metadata(missing_path, missing_file, location_path):
+    default_df = usl.transform_raw_locations(location_path)
 
-def transform_and_add_static_metadata(location_metadata_path, user_loation_metadata,  final_parquet_storage):
-    fpu.add_all_locations(location_metadata_path, user_loation_metadata, final_parquet_storage)
+def transform_and_add_static_metadata(location_metadata_path, user_location_metadata,  final_parquet_storage):
+    fpu.add_all_locations(location_metadata_path, user_location_metadata, final_parquet_storage)
 
 
 def execute():
@@ -23,6 +24,10 @@ def execute():
         label_visibility="collapsed",
     )
     user_location_metadata_path =  os.path.join(user_location_metadata_path, user_source_selected)
+
+    location_metadata_path = os.path.join(location_metadata_path, user_source_selected)
+
+    missing_metadata_path = os.path.join(missing_metadata_path, user_source_selected)
 
     # paths to import static location files
     metadata_storage_path = os.path.join(static_metadata_path, user_source_selected, static_metadata_file)
@@ -57,6 +62,8 @@ def execute():
         except Exception as e:
             st.error(f"Exception encountered wile removing metadata file: {e}")
         st.info(f"creating new static metadata storage: {metadata_storage_path}")
+        generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, location_metadata_path)
+
         transform_and_add_static_metadata(location_metadata_path, user_location_metadata_path, metadata_storage_path)
 
 if __name__ == "__main__":

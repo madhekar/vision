@@ -81,6 +81,16 @@ def get_all_loc_by_country_and_state(file_path, country, state):
         st.error(f"get all locations by country: {country} and state: {state} failed with exception: {e}")
     return rdf
 
+def prepare_all_default_locations_for_user_specific(location_root):
+    try:
+        locations_file_list = glob.glob(os.path.join(location_root, "*.csv"))
+        for f in locations_file_list:
+            create_or_append_locations(f, parquet_file_path)
+    except Exception as e:
+        st.error(
+            f"create append locations parquet for file: {f} failed with exception: {e}"
+        )
+
 def add_all_locations(location_root, user_location_root, parquet_file_path):
     try:
         locations_file_list = glob.glob(os.path.join(location_root, "*.csv"))
