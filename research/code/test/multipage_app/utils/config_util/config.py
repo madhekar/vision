@@ -83,11 +83,21 @@ def dataload_config_load():
 
     return (raw_data_path, input_image_path, input_txt_path, input_video_path, input_audio_path)
 """
+datapaths:
+  raw_data_path: /home/madhekar/work/home-media-app/data/raw-data/
 static-locations:
   location_metadata_path: /home/madhekar/work/home-media-app/data/static-data/static-locations/default
   user_location_metadata_path: /home/madhekar/work/home-media-app/data/static-data/static-locations/user-specific
+  user_location_metadata_file: user-specific.csv
+  user_draft_location_metadata_path_ext: draft
+  user_draft_locations_metadata_file: user-specific-draft.csv
+
+  missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data
+  missing_metadata_file: missing-metadata-wip.csv
+
   static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
   static_metadata_file: static_locations.parquet
+
 """
 @st.cache_resource
 def static_metadata_config_load():
@@ -101,10 +111,27 @@ def static_metadata_config_load():
         raw_data_path = dict["datapaths"]["raw_data_path"]
         location_metadata_path = dict["static-locations"]["location_metadata_path"]
         user_location_metadata_path = dict["static-locations"]["user_location_metadata_path"]
+        user_location_metadata_file = dict["static-locations"]["user_location_metadata_file"]
+
+        user_draft_location_metadata_path_ext = dict["static-locations"]["user_draft_location_metadata_path_ext"]
+        user_draft_location_metadata_file = dict["static-locations"]["user_draft_location_metadata_file"]
+
+        missing_metadata_path = dict["static-locations"]["missing_metadata_path"]
+        missing_metadata_file = dict["static-locations"]["missing_metadata_file"]
+        
         static_metadata_path = dict["static-locations"]["static_metadata_path"]
         static_metadata_file = dict["static-locations"]["static_metadata_file"]
 
-    return (raw_data_path, location_metadata_path, user_location_metadata_path, static_metadata_path, static_metadata_file)    
+    return (raw_data_path, 
+            location_metadata_path, 
+            user_location_metadata_path,  
+            user_location_metadata_file,  
+            user_draft_location_metadata_path_ext,
+            user_draft_location_metadata_file,
+            missing_metadata_path,
+            missing_metadata_file,
+            static_metadata_path, 
+            static_metadata_file)    
 
 @st.cache_resource
 def preprocess_config_load():

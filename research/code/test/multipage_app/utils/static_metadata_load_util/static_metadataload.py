@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 from utils.config_util import config
 from utils.util import fast_parquet_util as fpu
 from utils.util import storage_stat as ss
@@ -9,18 +10,47 @@ colors = ["#ae5a41", "#1b85b8"]
 # create user specific static image metadata not found in default static metadata
 def generate_user_specific_static_metadata(missing_path, missing_file, location_path):
     default_df = fpu.combine_all_default_locations(location_path)
+    df_unique =  usl.get_unique_locations(pd.read_csv(os.path.join(missing_path, missing_file)),default_df)
 
 def transform_and_add_static_metadata(location_metadata_path, user_location_metadata,  final_parquet_storage):
     fpu.add_all_locations(location_metadata_path, user_location_metadata, final_parquet_storage)
 
+"""
+datapaths:
+  raw_data_path: /home/madhekar/work/home-media-app/data/raw-data/
+static-locations:
+  location_metadata_path: /home/madhekar/work/home-media-app/data/static-data/static-locations/default
+  user_location_metadata_path: /home/madhekar/work/home-media-app/data/static-data/static-locations/user-specific
+  user_location_metadata_file: user-specific.csv
+  user_draft_location_metadata_path_ext: draft
+  user_draft_locations_metadata_file: user-specific-draft.csv
+
+  missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data
+  missing_metadata_file: missing-metadata-wip.csv
+
+  static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
+  static_metadata_file: static_locations.parquet
+
+"""
 
 def execute():
-    (rdp, location_metadata_path, user_location_metadata_path, missing_metadata_path, missing_metadata_file, static_metadata_path, static_metadata_file)  = config.static_metadata_config_load()
+    (
+        raw_data_path,
+        location_metadata_path,
+        user_location_metadata_path,
+        user_location_metadata_file,
+        user_draft_location_metadata_path_ext,
+        user_draft_location_metadata_file,
+        missing_metadata_path,
+        missing_metadata_file,
+        static_metadata_path,
+        static_metadata_file,
+    ) = config.static_metadata_config_load()
 
     st.sidebar.subheader("Storage Source", divider="gray")
     user_source_selected = st.sidebar.selectbox(
         "data source folder",
-        options=ss.extract_user_raw_data_folders(rdp),
+        options=ss.extract_user_raw_data_folders(raw_data_path),
         label_visibility="collapsed",
     )
     user_location_metadata_path =  os.path.join(user_location_metadata_path, user_source_selected)

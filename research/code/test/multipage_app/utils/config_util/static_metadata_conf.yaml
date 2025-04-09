@@ -4,7 +4,12 @@ datapaths:
 static-locations:
   location_metadata_path: /home/madhekar/work/home-media-app/data/static-data/static-locations/default
   user_location_metadata_path: /home/madhekar/work/home-media-app/data/static-data/static-locations/user-specific
-  missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data/
+  user_location_metadata_file: user-specific.csv
+  user_draft_location_metadata_path_ext: draft
+  user_draft_locations_metadata_file: user-specific-draft.csv
+
+  missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data
   missing_metadata_file: missing-metadata-wip.csv
+
   static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
   static_metadata_file: static_locations.parquet
