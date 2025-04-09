@@ -9,8 +9,14 @@ import streamlit as st
 colors = ["#ae5a41", "#1b85b8"]
 # create user specific static image metadata not found in default static metadata
 def generate_user_specific_static_metadata(missing_path, missing_file, location_path):
+
+    # dataframe for all default static locations
     default_df = fpu.combine_all_default_locations(location_path)
+
+    # additional locations not included in default static locations
     df_unique =  usl.get_unique_locations(pd.read_csv(os.path.join(missing_path, missing_file)),default_df)
+
+    
 
 def transform_and_add_static_metadata(location_metadata_path, user_location_metadata,  final_parquet_storage):
     fpu.add_all_locations(location_metadata_path, user_location_metadata, final_parquet_storage)
@@ -37,12 +43,16 @@ def execute():
     (
         raw_data_path,
         location_metadata_path,
+
         user_location_metadata_path,
         user_location_metadata_file,
+
         user_draft_location_metadata_path_ext,
         user_draft_location_metadata_file,
+        
         missing_metadata_path,
         missing_metadata_file,
+        
         static_metadata_path,
         static_metadata_file,
     ) = config.static_metadata_config_load()
@@ -54,7 +64,8 @@ def execute():
         label_visibility="collapsed",
     )
     user_location_metadata_path =  os.path.join(user_location_metadata_path, user_source_selected)
-
+    user_draft_location_metadata_path = os.path.join(user_location_metadata_path, user_source_selected, user_draft_location_metadata_path_ext)
+    
     location_metadata_path = os.path.join(location_metadata_path, user_source_selected)
 
     missing_metadata_path = os.path.join(missing_metadata_path, user_source_selected)
@@ -92,6 +103,7 @@ def execute():
         except Exception as e:
             st.error(f"Exception encountered wile removing metadata file: {e}")
         st.info(f"creating new static metadata storage: {metadata_storage_path}")
+
         generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, location_metadata_path)
 
         transform_and_add_static_metadata(location_metadata_path, user_location_metadata_path, metadata_storage_path)
