@@ -7,8 +7,8 @@ import user_static_loc as usl
 import streamlit as st
 
 colors = ["#ae5a41", "#1b85b8"]
-# create user specific static image metadata not found in default static metadata
-def generate_user_specific_static_metadata(missing_path, missing_file, location_path):
+# create user specific static image metadata "locations" not found in default static metadata
+def generate_user_specific_static_metadata(missing_path, missing_file, location_path, user_draft_location_metadata_path, user_draft_location_metadata_file):
 
     # dataframe for all default static locations
     default_df = fpu.combine_all_default_locations(location_path)
@@ -16,7 +16,8 @@ def generate_user_specific_static_metadata(missing_path, missing_file, location_
     # additional locations not included in default static locations
     df_unique =  usl.get_unique_locations(pd.read_csv(os.path.join(missing_path, missing_file)),default_df)
 
-    
+    #create draft static unique location file
+    df_unique.to_csv(os.path.join(user_draft_location_metadata_path, user_draft_location_metadata_file), index=False, encoding="utf-8")
 
 def transform_and_add_static_metadata(location_metadata_path, user_location_metadata,  final_parquet_storage):
     fpu.add_all_locations(location_metadata_path, user_location_metadata, final_parquet_storage)
@@ -38,7 +39,6 @@ static-locations:
   static_metadata_file: static_locations.parquet
 
 """
-
 def execute():
     (
         raw_data_path,
@@ -93,20 +93,31 @@ def execute():
             st.metric("Number of user location files", dfa['count'])
             st.metric("Total size of user locations files (MB)",  round(dfa["size"]/(pow(1024,2)), 2), delta=-.1) 
     st.divider()
-    ld = st.button("clean & load static metadata")
-    if ld:
-        #clean previous parquet
-        try:
-          if os.path.exists(metadata_storage_path):
-             st.warning(f"cleaning previous static metadata storage: {metadata_storage_path}")
-             os.remove(metadata_storage_path)
-        except Exception as e:
-            st.error(f"Exception encountered wile removing metadata file: {e}")
-        st.info(f"creating new static metadata storage: {metadata_storage_path}")
+    
+    c1, c1 = st.columns([1,1], gap="small")
+    with c1:
+        c1_create = st.button("user specific static metadata")
+        if c1_create:
+            generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, location_metadata_path, user_draft_location_metadata_path, user_draft_location_metadata_file)
+    with c2:
+        c2_create = st.button("final static metadata")
+        if c2_create:
+            # clean previous parquet
+            try:
+                if os.path.exists(metadata_storage_path):
+                    st.warning(
+                        f"cleaning previous static metadata storage: {metadata_storage_path}"
+                    )
+                    os.remove(metadata_storage_path)
+            except Exception as e:
+                st.error(f"Exception encountered wile removing metadata file: {e}")
 
-        generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, location_metadata_path)
-
-        transform_and_add_static_metadata(location_metadata_path, user_location_metadata_path, metadata_storage_path)
+            st.info(f"creating new static metadata storage: {metadata_storage_path}")
+            transform_and_add_static_metadata(
+                location_metadata_path,
+                user_location_metadata_path,
+                metadata_storage_path,
+            )
 
 if __name__ == "__main__":
     execute()
