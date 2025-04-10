@@ -19,13 +19,8 @@ def generate_user_specific_static_metadata(missing_path, missing_file, location_
     #create draft static unique location file
     df_unique.to_csv(os.path.join(user_draft_location_metadata_path, user_draft_location_metadata_file), index=False, encoding="utf-8")
 
-    # lst = df_unique.values.tolist()
-    # print(lst)
-    # with open(os.path.join(user_draft_location_metadata_path, user_draft_location_metadata_file), "w") as fo:
-    #  fo.writelines(lst)
-
-def transform_and_add_static_metadata(location_metadata_path, user_location_metadata,  final_parquet_storage):
-    fpu.add_all_locations(location_metadata_path, user_location_metadata, final_parquet_storage)
+def transform_and_add_static_metadata(location_metadata_path, user_location_metadata, user_location_metadata_file, final_parquet_storage):
+    fpu.add_all_locations(location_metadata_path, user_location_metadata, user_location_metadata_file, final_parquet_storage)
 
 """
 datapaths:
@@ -123,6 +118,7 @@ def execute():
             transform_and_add_static_metadata(
                 location_metadata_path,
                 user_location_metadata_path,
+                user_location_metadata_file,
                 metadata_storage_path,
             )
 
