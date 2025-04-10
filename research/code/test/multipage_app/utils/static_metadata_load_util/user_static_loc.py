@@ -46,7 +46,7 @@ def join_state_county(line):
         l2 = " ".join(arr[0:2])
         return l2 + "," + l1
 
-def collect_addresses(df, loc_accuracy=2):
+def collect_addresses(df, loc_accuracy=0):
     df = df[['latitude', 'longitude']].astype(float).round(loc_accuracy)
     # df["latitude"] = df["latitude"].astype(float).round(2)
     # df["longitude"] = df["longitude"].astype(float).round(4)
@@ -65,10 +65,9 @@ def collect_addresses(df, loc_accuracy=2):
         addr = getLocationDetails((ll[0], ll[1]), 3)
         addr = join_state_county(addr)
         print(f"{addr},{ll[1]},{ll[0]}")
-        result_list.append([addr, ll[1], ll[0]])
-    df = pd.DataFrame(result_list, columns=["address", "latitude", "longitude"])
-
-    #df.to_csv("new_address_lat_lang.csv", index=False, encoding="utf-8")
+        address, state, contry = addr.split(',')
+        result_list.append([address, state, contry, ll[1], ll[0]])
+    df = pd.DataFrame(result_list, columns=['address','state','county','latitude','longitude'])
     return df
 
 
