@@ -36,10 +36,22 @@ def getLocationDetails(strLnL, max_retires):
             st.warning(f"Get address failed with {e}")
     return address
 
+def join_state_county(line):
+    arr1 = line.strip().split(",")
+    arr = [e.strip() for e in arr1]
+    if len(arr) <= 2:
+        return ",".join(arr).strip()
+    else:
+        l1 = ",".join(arr[-2:]).strip()
+        l2 = " ".join(arr[0:2])
+        return l2 + "," + l1
 
-def collect_addresses(df):
-    df["latitude"] = df["latitude"].round(6)
-    df["longitude"] = df["longitude"].round(6)
+def collect_addresses(df, loc_accuracy=2):
+    df = df[['latitude', 'longitude']].astype(float).round(loc_accuracy)
+    # df["latitude"] = df["latitude"].astype(float).round(2)
+    # df["longitude"] = df["longitude"].astype(float).round(4)
+    # df['latitude'] = [round(float(x), 4) for x in df['latitude']]
+    # df['longitude'] = [round(float(x), 4) for x in df['longitude']]
     df_nodup = df.drop_duplicates(subset=["latitude", "longitude"], keep=False)
     print("--->", df_nodup.size, df_nodup.head())
 
@@ -49,7 +61,9 @@ def collect_addresses(df):
     result_list = []
     for ll in list_lat_lon:
         time.sleep(5)
-        addr = getLocationDetails((ll[1], ll[0]), 3)
+        print((ll[1], ll[0]))
+        addr = getLocationDetails((ll[0], ll[1]), 3)
+        addr = join_state_county(addr)
         print(f"{addr},{ll[1]},{ll[0]}")
         result_list.append([addr, ll[1], ll[0]])
     df = pd.DataFrame(result_list, columns=["address", "latitude", "longitude"])
@@ -68,7 +82,7 @@ def join_last_four(line):
         l2 = " ".join(arr[0:4])
         return l2 + "," + l1
     
-def fix_comma_locations(draft_file, ):
+def format_comma_locations(draft_file):
     nlines = []
     #in_file = "data/lat_lon_nodup_full.csv"
     with open(draft_file, "r") as f:
@@ -78,8 +92,8 @@ def fix_comma_locations(draft_file, ):
             print(nline)
             nlines.append(nline + "\n")
 
-    out_file = "data/name_lat_lon_full.csv"
-    with open(out_file, "w") as fo:
+    #out_file = "data/name_lat_lon_full.csv"
+    with open(draft_file, "w") as fo:
         fo.writelines(nlines)
 
 def get_unique_locations(df_mis, df_def):
@@ -112,8 +126,6 @@ def get_unique_locations(df_mis, df_def):
     df_ret = collect_addresses(dfr)
 
     return df_ret
-
-
 
 def load_missing_recods(f_name, static_metadata):
 

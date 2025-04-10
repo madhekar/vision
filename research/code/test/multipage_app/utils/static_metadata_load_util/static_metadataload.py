@@ -65,7 +65,7 @@ def execute():
     )
     user_location_metadata_path =  os.path.join(user_location_metadata_path, user_source_selected)
 
-    user_draft_location_metadata_path = os.path.join(user_location_metadata_path, user_source_selected, user_draft_location_metadata_path_ext)
+    user_draft_location_metadata_path = os.path.join(user_location_metadata_path, user_draft_location_metadata_path_ext)
     
     #location_metadata_path = os.path.join(location_metadata_path, user_source_selected)
 
