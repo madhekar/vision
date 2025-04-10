@@ -3,7 +3,7 @@ import pandas as pd
 from utils.config_util import config
 from utils.util import fast_parquet_util as fpu
 from utils.util import storage_stat as ss
-import user_static_loc as usl
+from utils.static_metadata_load_util import user_static_loc as usl
 import streamlit as st
 
 colors = ["#ae5a41", "#1b85b8"]
@@ -64,9 +64,10 @@ def execute():
         label_visibility="collapsed",
     )
     user_location_metadata_path =  os.path.join(user_location_metadata_path, user_source_selected)
+
     user_draft_location_metadata_path = os.path.join(user_location_metadata_path, user_source_selected, user_draft_location_metadata_path_ext)
     
-    location_metadata_path = os.path.join(location_metadata_path, user_source_selected)
+    #location_metadata_path = os.path.join(location_metadata_path, user_source_selected)
 
     missing_metadata_path = os.path.join(missing_metadata_path, user_source_selected)
 
@@ -92,16 +93,17 @@ def execute():
             st.subheader("User Locations")
             st.metric("Number of user location files", dfa['count'])
             st.metric("Total size of user locations files (MB)",  round(dfa["size"]/(pow(1024,2)), 2), delta=-.1) 
+
     st.divider()
-    
-    c1, c1 = st.columns([1,1], gap="small")
-    with c1:
-        c1_create = st.button("user specific static metadata")
-        if c1_create:
+
+    ca, cb = st.columns([1,1], gap="large",vertical_alignment='center')
+    with ca:
+        ca_create = st.button("user specific static metadata")
+        if ca_create:
             generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, location_metadata_path, user_draft_location_metadata_path, user_draft_location_metadata_file)
-    with c2:
-        c2_create = st.button("final static metadata")
-        if c2_create:
+    with cb:
+        cb_create = st.button("final static metadata")
+        if cb_create:
             # clean previous parquet
             try:
                 if os.path.exists(metadata_storage_path):

@@ -159,22 +159,22 @@ def load_missing_recods(f_name, static_metadata):
 
 
 ## 2
-nlines = []
-in_file = "data/lat_lon_nodup_full.csv"
-with open(in_file, "r") as f:
-    lines = f.readlines()
-    for line in lines:
-        nline = join_last_four(line)
-        print(nline)
-        nlines.append(nline + "\n")
+# nlines = []
+# in_file = "data/lat_lon_nodup_full.csv"
+# with open(in_file, "r") as f:
+#     lines = f.readlines()
+#     for line in lines:
+#         nline = join_last_four(line)
+#         print(nline)
+#         nlines.append(nline + "\n")
 
-out_file = "data/name_lat_lon_full.csv"
-with open(out_file, "w") as fo:
-    fo.writelines(nlines)
+# out_file = "data/name_lat_lon_full.csv"
+# with open(out_file, "w") as fo:
+#     fo.writelines(nlines)
 
 ## 1
-file = "new_lat_lon.csv"
-df = pd.read_csv(file)
-collect_addresses(df)
+# file = "new_lat_lon.csv"
+# df = pd.read_csv(file)
+# collect_addresses(df)
 
 
