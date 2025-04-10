@@ -101,16 +101,16 @@ def execute():
     with ca:            
         ca_create = st.button("user specific locations", use_container_width=True)
 
-        ca_status = st.status('create user locations')
+        ca_status = st.status('create user specific locations', state="running", expanded=True)
         with ca_status:
             if ca_create:
                 ca.info('starting to create user specific static location data.')
                 generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, location_metadata_path, user_draft_location_metadata_path, user_draft_location_metadata_file)
-                ca.info("completed user specific static location data.")
+                ca_status.update(label='user specific locations complete!', state='complete', expanded=False)
     with cb:
         cb_metadata = st.button("agg locations", use_container_width=True)
   
-        cb_status = st.status('create user locations')
+        cb_status = st.status('create static location store', state='running', expanded=True)
         with cb_status:
             if cb_metadata:
                 ca.info("starting to create total static location data.")
@@ -129,6 +129,7 @@ def execute():
                     user_location_metadata_file,
                     metadata_storage_path,
                 )
+                cb_status.update(label="metadata creation complete!", state="complete", expanded=False)    
 
 if __name__ == "__main__":
     execute()
