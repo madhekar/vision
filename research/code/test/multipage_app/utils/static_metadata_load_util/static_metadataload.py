@@ -95,32 +95,40 @@ def execute():
             st.metric("Total size of user locations files (MB)",  round(dfa["size"]/(pow(1024,2)), 2), delta=-.1) 
 
     st.divider()
+ 
+    ca, cb = st.columns([.1,.1], gap="small",vertical_alignment='center')
+   
+    with ca:            
+        ca_create = st.button("user specific locations", use_container_width=True)
 
-    ca, cb = st.columns([1,1], gap="large",vertical_alignment='center')
-    with ca:
-        ca_create = st.button("user specific static metadata")
-        if ca_create:
-            generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, location_metadata_path, user_draft_location_metadata_path, user_draft_location_metadata_file)
+        ca_status = st.status('create user locations')
+        with ca_status:
+            if ca_create:
+                ca.info('starting to create user specific static location data.')
+                generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, location_metadata_path, user_draft_location_metadata_path, user_draft_location_metadata_file)
+                ca.info("completed user specific static location data.")
     with cb:
-        cb_create = st.button("final static metadata")
-        if cb_create:
-            # clean previous parquet
-            try:
-                if os.path.exists(metadata_storage_path):
-                    st.warning(
-                        f"cleaning previous static metadata storage: {metadata_storage_path}"
-                    )
-                    os.remove(metadata_storage_path)
-            except Exception as e:
-                st.error(f"Exception encountered wile removing metadata file: {e}")
+        cb_metadata = st.button("agg locations", use_container_width=True)
+  
+        cb_status = st.status('create user locations')
+        with cb_status:
+            if cb_metadata:
+                ca.info("starting to create total static location data.")
+                # clean previous parquet
+                try:
+                    if os.path.exists(metadata_storage_path):
+                        st.warning(f"cleaning previous static metadata storage: {metadata_storage_path}")
+                        os.remove(metadata_storage_path)
+                except Exception as e:
+                    st.error(f"Exception encountered wile removing metadata file: {e}")
 
-            st.info(f"creating new static metadata storage: {metadata_storage_path}")
-            transform_and_add_static_metadata(
-                location_metadata_path,
-                user_location_metadata_path,
-                user_location_metadata_file,
-                metadata_storage_path,
-            )
+                st.info(f"creating new static metadata storage: {metadata_storage_path}")
+                transform_and_add_static_metadata(
+                    location_metadata_path,
+                    user_location_metadata_path,
+                    user_location_metadata_file,
+                    metadata_storage_path,
+                )
 
 if __name__ == "__main__":
     execute()
