@@ -23,6 +23,7 @@ from functools import partial
 import dill as pickle
 
 d_latitude, d_longitude = 32.968700, -117.184196
+d_loc = 'madhekar residence at carmel vally san diego, california'
 m, t, p = LLM.setLLM()
 ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
 
@@ -39,6 +40,7 @@ def get_loc_name_by_latlon(latlon):
     if latlon:
         row = st.session_state.df_loc.loc[st.session_state.df_loc.LatLon == latlon].values.flatten().tolist()
         if len(row) > 0:
+           print(f'--> found location in cache: {row}')
            return row[0]
         else:
            return None
@@ -57,21 +59,22 @@ async def timestamp(uri):
 # get location details as: (latitude, longitude) and address
 async def locationDetails(uri, lock):
     async with lock:
+      try:  
         print(f"-->> {uri}")
         loc = ""
         lat_lon = ()
         lat_lon = lu.gpsInfo(uri)
-        print(f"->> {lat_lon}")
         if lat_lon == ():
-            lat_lon = (d_latitude, d_longitude)
-        print(f"--->> {lat_lon}")
-        loc = get_loc_name_by_latlon(lat_lon)
-        print(loc)
-        if loc:
-            return loc
-        else:
+            lat_lon = (d_latitude, d_longitude) # default location lat, lon
+            loc = d_loc # default location description
+        else:    
+           loc = get_loc_name_by_latlon(lat_lon)
+        print(f"--->> {lat_lon} : {loc}")
+        if not loc:
             loc = lu.getLocationDetails(lat_lon, max_retires=3)
-            return str(lat_lon), loc
+      except Exception as e:
+        st.error(f'exception occured in getting lat/ lon or location details for {uri}')
+      return str(lat_lon), loc
      
 # get names of people in image
 async def namesOfPeople(uri):
