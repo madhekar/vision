@@ -100,15 +100,15 @@ async def describeImage(args):
 """
 /home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth
 """
-async def llm_workflow(uri):
-    #m, t, p = LLM.setLLM()
-    semaphore = asyncio.Semaphore(1)
-    suuid = await generateId(uri)
-    ts = await timestamp(uri)
-    location_details =  await locationDetails(uri, semaphore)
-    names =  await namesOfPeople(uri)
-    text =  await describeImage(uri, m, p, names, location_details)
-    return (uri, suuid, ts, location_details, names, text)
+# async def llm_workflow(uri):
+#     #m, t, p = LLM.setLLM()
+#     semaphore = asyncio.Semaphore(1)
+#     suuid = await generateId(uri)
+#     ts = await timestamp(uri)
+#     location_details =  await locationDetails(uri, semaphore)
+#     names =  await namesOfPeople(uri)
+#     text =  await describeImage(uri, m, p, names, location_details)
+#     return (uri, suuid, ts, location_details, names, text)
 
 
 # recursive call to get all image filenames
