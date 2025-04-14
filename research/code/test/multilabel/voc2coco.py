@@ -49,6 +49,7 @@ def voc2coco(xml_dir,output):
     for xml_fileName in tqdm(voc_xmls_list):
 
         xml_fullName = xml_fileName
+        print(f'--> {xml_fileName}')
         tree = ET.parse(os.path.join(xml_dir,xml_fullName)) 
         root = tree.getroot()         
         
@@ -133,9 +134,12 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.labelmap:
+        
         PRE_DEFINE_CATEGORIES = OrderedDict()
         with open(args.labelmap,'r') as f:
-            lines = [x.strip() for x in f.readlines()]
+           
+            lines = [x.strip() for x in f.readlines()] 
+            print(f'-->labelmap {lines}')
             for line in lines:
                 val, key = line.split(',')
                 PRE_DEFINE_CATEGORIES[key] = int(val)
