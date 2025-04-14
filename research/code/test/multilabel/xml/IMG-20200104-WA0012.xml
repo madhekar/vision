@@ -1,0 +1,48 @@
+<annotation>
+    <folder>AnjaliBackup</folder>
+    <filename>IMG-20200104-WA0012.jpg</filename>
+    <path>/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMG-20200104-WA0012.jpg</path>
+    <source>
+        <database>Unknown</database>
+    </source>
+    <size>
+        <width>1600</width>
+        <height>1200</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>Esha</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>258</xmin>
+            <ymin>273</ymin>
+            <xmax>582</xmax>
+            <ymax>517</ymax>
+        </bndbox>
+    </object>    <object>
+        <name>woman</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>612</xmin>
+            <ymin>182</ymin>
+            <xmax>817</xmax>
+            <ymax>416</ymax>
+        </bndbox>
+    </object>    <object>
+        <name>kid</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>898</xmin>
+            <ymin>235</ymin>
+            <xmax>1133</xmax>
+            <ymax>465</ymax>
+        </bndbox>
+    </object>
+</annotation>

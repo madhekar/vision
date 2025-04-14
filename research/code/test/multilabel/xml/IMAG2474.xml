@@ -1,0 +1,37 @@
+<annotation>
+    <folder>AnjaliBackup</folder>
+    <filename>IMAG2474.jpg</filename>
+    <path>/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2474.jpg</path>
+    <source>
+        <database>Unknown</database>
+    </source>
+    <size>
+        <width>2688</width>
+        <height>1520</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>man</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>26</xmin>
+            <ymin>157</ymin>
+            <xmax>321</xmax>
+            <ymax>366</ymax>
+        </bndbox>
+    </object>    <object>
+        <name>kid</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>1574</xmin>
+            <ymin>568</ymin>
+            <xmax>1838</xmax>
+            <ymax>758</ymax>
+        </bndbox>
+    </object>
+</annotation>

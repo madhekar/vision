@@ -1,0 +1,59 @@
+<annotation>
+    <folder>AnjaliBackup</folder>
+    <filename>IMAG2472.jpg</filename>
+    <path>/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2472.jpg</path>
+    <source>
+        <database>Unknown</database>
+    </source>
+    <size>
+        <width>2688</width>
+        <height>1520</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>kid</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>103</xmin>
+            <ymin>403</ymin>
+            <xmax>306</xmax>
+            <ymax>650</ymax>
+        </bndbox>
+    </object>    <object>
+        <name>kid</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>1516</xmin>
+            <ymin>414</ymin>
+            <xmax>1673</xmax>
+            <ymax>650</ymax>
+        </bndbox>
+    </object>    <object>
+        <name>kid</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>2031</xmin>
+            <ymin>410</ymin>
+            <xmax>2215</xmax>
+            <ymax>646</ymax>
+        </bndbox>
+    </object>    <object>
+        <name>kid</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>1854</xmin>
+            <ymin>522</ymin>
+            <xmax>2053</xmax>
+            <ymax>704</ymax>
+        </bndbox>
+    </object>
+</annotation>

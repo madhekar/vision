@@ -1,0 +1,26 @@
+<annotation>
+    <folder>AnjaliBackup</folder>
+    <filename>IMAG2306.jpg</filename>
+    <path>/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2306.jpg</path>
+    <source>
+        <database>Unknown</database>
+    </source>
+    <size>
+        <width>1088</width>
+        <height>1920</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>Anjali</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>363</xmin>
+            <ymin>661</ymin>
+            <xmax>856</xmax>
+            <ymax>1275</ymax>
+        </bndbox>
+    </object>
+</annotation>
