@@ -6,7 +6,10 @@ import xml.etree.ElementTree as ET
 import argparse
 from collections import OrderedDict
 from tqdm import tqdm
+"""
+python3 voc2coco.py --xml_dir 'xml' --labelmap 'labelmap.txt' --output 'data.json'
 
+"""
 
 def get_elements(root, childElementName):
     elements = root.findall(childElementName)
@@ -43,7 +46,7 @@ def voc2coco(xml_dir,output):
         temp_dict = {}
         temp_dict['id'] = int(val)
         temp_dict['name'] = key
-        temp_dict['supercategory'] = 'object'
+        temp_dict['supercategory'] = 'person'
         coco_json['categories'].append(temp_dict)
     
     for xml_fileName in tqdm(voc_xmls_list):
@@ -121,7 +124,7 @@ def voc2coco(xml_dir,output):
     
     # write json
     with open(output, 'w') as outfile:  
-        outfile.write(json.dumps(coco_json))
+        outfile.write(json.dumps(coco_json, indent=2, sort_keys=True))
 
 
 

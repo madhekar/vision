@@ -107,6 +107,6 @@ def run(img_dir, labels):
 
 
 if __name__ == "__main__":
-    custom_labels = ["", "Esha","Anjali","Bhalchandra","Asha","Kumar","Shibangi","Sham","Advait","Chandrakant","Puja","Sagar","Young kid","Shoma","Bhiman","kid","man","woman"]
+    custom_labels = ["na", "Esha","Anjali","Bhalchandra","Asha","Kumar","Shibangi","Sham","Advait","Chandrakant","Puja","Sagar","Young kid","Shoma","Bhiman","kid","man","woman"]
     image_path = "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup"
     run(image_path, custom_labels)

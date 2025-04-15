@@ -12,7 +12,7 @@
     </size>
     <segmented>0</segmented>
     <object>
-        <name>kid</name>
+        <name>Young kid</name>
         <pose>Unspecified</pose>
         <truncated>0</truncated>
         <difficult>0</difficult>
@@ -23,7 +23,7 @@
             <ymax>650</ymax>
         </bndbox>
     </object>    <object>
-        <name>kid</name>
+        <name>Young kid</name>
         <pose>Unspecified</pose>
         <truncated>0</truncated>
         <difficult>0</difficult>
@@ -34,7 +34,7 @@
             <ymax>650</ymax>
         </bndbox>
     </object>    <object>
-        <name>kid</name>
+        <name>Young kid</name>
         <pose>Unspecified</pose>
         <truncated>0</truncated>
         <difficult>0</difficult>
@@ -45,7 +45,7 @@
             <ymax>646</ymax>
         </bndbox>
     </object>    <object>
-        <name>kid</name>
+        <name>Young kid</name>
         <pose>Unspecified</pose>
         <truncated>0</truncated>
         <difficult>0</difficult>

@@ -23,7 +23,7 @@
             <ymax>1984</ymax>
         </bndbox>
     </object>    <object>
-        <name>Anjali</name>
+        <name>Shibangi</name>
         <pose>Unspecified</pose>
         <truncated>0</truncated>
         <difficult>0</difficult>
