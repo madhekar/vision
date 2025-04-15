@@ -84,11 +84,12 @@ val_dataset_dicts = DatasetCatalog.get("zesha_dataset_val")
 
 from matplotlib import pyplot as plt
 
+print(train_dataset_dicts)
 
 # Visualize some random samples
-for d in random.sample(train_dataset_dicts, 2):
-    img = cv2.imread(d["file_name"])
-    visualizer = Visualizer(img[:, :, ::-1], metadata=train_metadata, scale=0.5)
-    vis = visualizer.draw_dataset_dict(d)
-    plt.imshow(vis.get_image()[:, :, ::-1])
-    plt.show()
+# for d in random.choice(train_dataset_dicts):
+#     img = cv2.imread(d["file_name"])
+#     visualizer = Visualizer(img[:, :, ::-1], metadata=train_metadata, scale=0.5)
+#     vis = visualizer.draw_dataset_dict(d)
+#     plt.imshow(vis.get_image()[:, :, ::-1])
+#     plt.show()
