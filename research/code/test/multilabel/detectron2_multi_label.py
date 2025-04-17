@@ -22,10 +22,10 @@ from detectron2.utils.visualizer import Visualizer
 from detectron2.data import MetadataCatalog, DatasetCatalog
 
 
-im = cv2.imread(
-    "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2400.jpg"
-)
-cv2.imshow('sample', im)
+# im = cv2.imread(
+#     "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2400.jpg"
+# )
+# cv2.imshow('sample', im)
 
 
 cfg = get_cfg()
@@ -39,17 +39,17 @@ cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5  # set threshold for this model
 cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url(
     "COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"
 )
-predictor = DefaultPredictor(cfg)
-outputs = predictor(im)
+# predictor = DefaultPredictor(cfg)
+# outputs = predictor(im)
 
-# look at the outputs - tensors and bounding boxes.
-print(outputs["instances"].pred_classes)
-print(outputs["instances"].pred_boxes)
+# # look at the outputs - tensors and bounding boxes.
+# print(outputs["instances"].pred_classes)
+# print(outputs["instances"].pred_boxes)
 
-# We can use `Visualizer` to draw the predictions on the image.
-v = Visualizer(im[:, :, ::-1], MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=0.8)
-out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
-cv2.imshow('viz', out.get_image()[:, :, ::-1])
+# # We can use `Visualizer` to draw the predictions on the image.
+# v = Visualizer(im[:, :, ::-1], MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=0.8)
+# out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+# cv2.imshow('viz', out.get_image()[:, :, ::-1])
 
 
 '''
@@ -62,14 +62,14 @@ from detectron2.data.datasets import register_coco_instances
 register_coco_instances(
     "zesha_dataset_train",
     {},
-    "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/data.json",
-    "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup",
+    "/home/madhekar/work/vision/research/code/test/annotations/annotations.json",
+    "/home/madhekar/work/vision/research/code/test/annotations/images",
 )
 register_coco_instances(
     "zesha_dataset_val",
     {},
-    "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/data.json",
-    "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup",
+    "/home/madhekar/work/vision/research/code/test/annotations/annotations.json",
+    "/home/madhekar/work/vision/research/code/test/annotations/images",
 )
 
 """
@@ -87,13 +87,13 @@ from matplotlib import pyplot as plt
 print(train_dataset_dicts)
 
 # Visualize some random samples
-for d in random.sample(train_dataset_dicts,1):
-    print(f'-->{d}')
-    img = cv2.imread(d["file_name"])
-    visualizer = Visualizer(img[:, :, ::-1], metadata=train_metadata, scale=0.5)
-    vis = visualizer.draw_dataset_dict(d)
-    plt.imshow(vis.get_image()[:, :, ::-1])
-    plt.show()
+# for d in random.sample(train_dataset_dicts,1):
+#     print(f'-->{d}')
+#     img = cv2.imread(d["file_name"])
+#     visualizer = Visualizer(img[:, :, ::-1], metadata=train_metadata, scale=0.5)
+#     vis = visualizer.draw_dataset_dict(d)
+#     plt.imshow(vis.get_image()[:, :, ::-1])
+#     plt.show()
 
 """
 to train a Mask R-CNN model using the Detectron2 library. 
