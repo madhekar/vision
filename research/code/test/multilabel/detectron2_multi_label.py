@@ -120,3 +120,57 @@ trainer.resume_or_load(resume=False)  # Load a pretrained model if available (re
 # train 
 
 trainer.train()  # Start the training process
+
+
+
+# Look at training curves in tensorboard:
+# %load_ext tensorboard
+# %tensorboard --logdir output
+     
+
+import yaml
+# Save the configuration to a config.yaml file
+# Save the configuration to a config.yaml file
+config_yaml_path = "/home/madhekar/work/home-media-app/models/detectron2/config.yaml"
+with open(config_yaml_path, 'w') as file:
+    yaml.dump(cfg, file)
+     
+# Inference should use the config with parameters that are used in training
+# cfg now already contains everything we've set previously. We changed it a little bit for inference:
+cfg.MODEL.WEIGHTS = os.path.join(cfg.OUTPUT_DIR, "model_final.pth")  # path to the model we just trained
+cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5  # set a custom testing threshold
+predictor = DefaultPredictor(cfg)     
+
+from detectron2.utils.visualizer import ColorMode
+
+for d in random.sample(val_dataset_dicts, 1):  # select number of images for display
+    im = cv2.imread(d["file_name"])
+    outputs = predictor(im)
+    v = Visualizer(
+        im[:, :, ::-1],
+        metadata=val_metadata,
+        scale=0.5,
+        instance_mode=ColorMode.IMAGE_BW,  # remove the colors of unsegmented pixels. This option is only available for segmentation models
+    )
+    out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+    cv2.imshow('QA', out.get_image()[:, :, ::-1])
+
+
+from detectron2.evaluation import COCOEvaluator, inference_on_dataset
+from detectron2.data import build_detection_test_loader
+
+evaluator = COCOEvaluator("my_dataset_val", output_dir="./output")
+val_loader = build_detection_test_loader(cfg, "my_dataset_val")
+print(inference_on_dataset(predictor.model, val_loader, evaluator))
+# another equivalent way to evaluate the model is to use `trainer.test`
+
+new_im = cv2.imread(
+    "/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_8131.jpeg"
+)
+outputs = predictor(new_im)
+
+# We can use `Visualizer` to draw the predictions on the image.
+v = Visualizer(new_im[:, :, ::-1], metadata=train_metadata)
+out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+
+cv2.imshow('QA New', out.get_image()[:, :, ::-1])
