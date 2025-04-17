@@ -22,23 +22,16 @@ from detectron2.utils.visualizer import Visualizer
 from detectron2.data import MetadataCatalog, DatasetCatalog
 
 
-# im = cv2.imread(
-#     "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2400.jpg"
-# )
+# im = cv2.imread("/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2400.jpg")
 # cv2.imshow('sample', im)
-
 
 cfg = get_cfg()
 cfg.MODEL.DEVICE = "cpu"
 print(cfg)
-cfg.merge_from_file(
-    model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")
-)
+cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
 cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5  # set threshold for this model
 # Find a model from detectron2's model zoo.  https://github.com/facebookresearch/detectron2/blob/main/MODEL_ZOO.md
-cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url(
-    "COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"
-)
+cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")
 # predictor = DefaultPredictor(cfg)
 # outputs = predictor(im)
 
@@ -107,34 +100,22 @@ from detectron2.engine import DefaultTrainer
 cfg = get_cfg()
 cfg.MODEL.DEVICE = "cpu"
 cfg.OUTPUT_DIR = "/home/madhekar/work/home-media-app/models/detectron2"
-cfg.merge_from_file(
-    model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")
-)
+cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
 cfg.DATASETS.TRAIN = ("zesha_dataset_train",)
 cfg.DATASETS.TEST = ()
 cfg.DATALOADER.NUM_WORKERS = 2
-cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url(
-    "COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"
-)  # Let training initialize from model zoo
-cfg.SOLVER.IMS_PER_BATCH = (
-    2  # This is the real "batch size" commonly known to deep learning people
-)
+cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")  # Let training initialize from model zoo
+cfg.SOLVER.IMS_PER_BATCH = (2) # This is the real "batch size" commonly known to deep learning people
 cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
 cfg.SOLVER.MAX_ITER = 1000  # 1000 iterations seems good enough for this dataset
 cfg.SOLVER.STEPS = []  # do not decay learning rate
-cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = (
-    512  # Default is 512, using 256 for this dataset.
-)
+cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = (512)# Default is 512, using 256 for this dataset.
 cfg.MODEL.ROI_HEADS.NUM_CLASSES = 18  # We have 4 classes.
 # NOTE: this config means the number of classes, without the background. Do not use num_classes+1 here.
 
 os.makedirs(cfg.OUTPUT_DIR, exist_ok=True)
-trainer = DefaultTrainer(
-    cfg
-)  # Create an instance of of DefaultTrainer with the given congiguration
-trainer.resume_or_load(
-    resume=False
-)  # Load a pretrained model if available (resume training) or start training from scratch if no pretrained model is available
+trainer = DefaultTrainer(cfg)  # Create an instance of of DefaultTrainer with the given congiguration
+trainer.resume_or_load(resume=False)  # Load a pretrained model if available (resume training) or start training from scratch if no pretrained model is available
 
 # train 
 
