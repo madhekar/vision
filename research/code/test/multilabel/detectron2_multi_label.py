@@ -107,10 +107,10 @@ cfg.DATALOADER.NUM_WORKERS = 2
 cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")  # Let training initialize from model zoo
 cfg.SOLVER.IMS_PER_BATCH = (2) # This is the real "batch size" commonly known to deep learning people
 cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
-cfg.SOLVER.MAX_ITER = 1000  # 1000 iterations seems good enough for this dataset
+cfg.SOLVER.MAX_ITER = 500  # 1000 iterations seems good enough for this dataset
 cfg.SOLVER.STEPS = []  # do not decay learning rate
-cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = (512)# Default is 512, using 256 for this dataset.
-cfg.MODEL.ROI_HEADS.NUM_CLASSES = 18  # We have 4 classes.
+cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = (256)# Default is 512, using 256 for this dataset.
+cfg.MODEL.ROI_HEADS.NUM_CLASSES = 17  # We have 4 classes.
 # NOTE: this config means the number of classes, without the background. Do not use num_classes+1 here.
 
 os.makedirs(cfg.OUTPUT_DIR, exist_ok=True)
@@ -118,10 +118,7 @@ trainer = DefaultTrainer(cfg)  # Create an instance of of DefaultTrainer with th
 trainer.resume_or_load(resume=False)  # Load a pretrained model if available (resume training) or start training from scratch if no pretrained model is available
 
 # train 
-
 trainer.train()  # Start the training process
-
-
 
 # Look at training curves in tensorboard:
 # %load_ext tensorboard
@@ -135,6 +132,7 @@ config_yaml_path = "/home/madhekar/work/home-media-app/models/detectron2/config.
 with open(config_yaml_path, 'w') as file:
     yaml.dump(cfg, file)
      
+
 # Inference should use the config with parameters that are used in training
 # cfg now already contains everything we've set previously. We changed it a little bit for inference:
 cfg.MODEL.WEIGHTS = os.path.join(cfg.OUTPUT_DIR, "model_final.pth")  # path to the model we just trained
@@ -174,3 +172,11 @@ v = Visualizer(new_im[:, :, ::-1], metadata=train_metadata)
 out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
 
 cv2.imshow('QA New', out.get_image()[:, :, ::-1])
+
+from detectron2.evaluation import COCOEvaluator, inference_on_dataset
+from detectron2.data import build_detection_test_loader
+
+evaluator = COCOEvaluator("zesha_dataset_val", output_dir="./output")
+val_loader = build_detection_test_loader(cfg, "zesha_dataset_val")
+print(inference_on_dataset(predictor.model, val_loader, evaluator))
+# another equivalent way to evaluate the model is to use `trainer.test`
