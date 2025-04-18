@@ -157,8 +157,8 @@ for d in random.sample(val_dataset_dicts, 1):  # select number of images for dis
 from detectron2.evaluation import COCOEvaluator, inference_on_dataset
 from detectron2.data import build_detection_test_loader
 
-evaluator = COCOEvaluator("my_dataset_val", output_dir="./output")
-val_loader = build_detection_test_loader(cfg, "my_dataset_val")
+evaluator = COCOEvaluator("zesha_dataset_val", output_dir="./output")
+val_loader = build_detection_test_loader(cfg, "zesha_dataset_val")
 print(inference_on_dataset(predictor.model, val_loader, evaluator))
 # another equivalent way to evaluate the model is to use `trainer.test`
 
