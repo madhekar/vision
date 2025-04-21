@@ -36,6 +36,16 @@ register_coco_instances(
     "/home/madhekar/work/vision/research/code/test/annotations/annotations.json",
     "/home/madhekar/work/vision/research/code/test/annotations/images",
 )
+
+"""
+ the metadata and dataset dictionaries for both training and validation datasets. 
+ These can be used later for other purposes, like visualization, model training, evaluation, etc.
+"""
+train_metadata = MetadataCatalog.get("zesha_dataset_train")
+train_dataset_dicts = DatasetCatalog.get("zesha_dataset_train")
+val_metadata = MetadataCatalog.get("zesha_dataset_val")
+val_dataset_dicts = DatasetCatalog.get("zesha_dataset_val")
+
 cfg = get_cfg()
 cfg.MODEL.DEVICE = "cpu"
 cfg.OUTPUT_DIR = "/home/madhekar/work/home-media-app/models/detectron2"
@@ -53,31 +63,23 @@ predictor = DefaultPredictor(cfg)
 
 trainer.resume_or_load(resume=False)
 
-
-
-"""
- the metadata and dataset dictionaries for both training and validation datasets. 
- These can be used later for other purposes, like visualization, model training, evaluation, etc.
-"""
-train_metadata = MetadataCatalog.get("zesha_dataset_train")
-train_dataset_dicts = DatasetCatalog.get("zesha_dataset_train")
-val_metadata = MetadataCatalog.get("zesha_dataset_val")
-val_dataset_dicts = DatasetCatalog.get("zesha_dataset_val")
-
 from detectron2.utils.visualizer import ColorMode
+from matplotlib import pyplot as plt
 
-for d in random.sample(val_dataset_dicts, 2):  # select number of images for display
+for d in random.sample(val_dataset_dicts, 5):  # select number of images for display
     im = cv2.imread(d["file_name"])
     outputs = predictor(im)
-    print(f'{outputs["instances"]} : {d["file_name"]}')
+    print(f'{outputs["instances"].pred_boxes} : {d["file_name"]}')
     v = Visualizer(
         im[:, :, ::-1],
         metadata=val_metadata,
         scale=0.5,
         instance_mode=ColorMode.IMAGE_BW,  # remove the colors of unsegmented pixels. This option is only available for segmentation models
     )
-    out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
-    cv2.imshow('QA', out.get_image()[:, :, ::-1])
+    vis = v.draw_dataset_dict(d)
+    #out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+    plt.imshow( vis.get_image()[:, :, ::-1])
+    plt.show()
 
 
 # from detectron2.evaluation import COCOEvaluator, inference_on_dataset
