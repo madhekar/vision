@@ -21,7 +21,7 @@ data = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 labels = [[1, 0, 1], [0, 1, 0], [1, 1, 0]]
 
 dataset = MultiLabelDataset(data, labels)
-dataloader = DataLoader(dataset, batch_size=2)
+dataloader = DataLoader(dataset, batch_size=3)
 
 
 # Model
@@ -40,10 +40,11 @@ model = MultiLabelModel(input_size, num_labels)
 
 # Loss and optimizer
 criterion = nn.BCEWithLogitsLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.01)
+optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 # Training loop
-epochs = 10
+epochs = 10000
+
 for epoch in range(epochs):
     for inputs, targets in dataloader:
         optimizer.zero_grad()
@@ -55,7 +56,7 @@ for epoch in range(epochs):
 
 # Prediction
 with torch.no_grad():
-    sample_input = torch.tensor([[2, 4, 6]], dtype=torch.float32)
+    sample_input = torch.tensor([[4, 5, 6]], dtype=torch.float32)
     output = model(sample_input)
     probabilities = torch.sigmoid(output)
     predicted_labels = (probabilities > 0.5).int()
