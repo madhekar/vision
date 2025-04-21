@@ -30,7 +30,7 @@ cfg.MODEL.DEVICE = "cpu"
 print(cfg)
 cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
 cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5  # set threshold for this model
-# Find a model from detectron2's model zoo.  https://github.com/facebookresearch/detectron2/blob/main/MODEL_ZOO.md
+# Find a model from detectron2's model zoo - https://github.com/facebookresearch/detectron2/blob/main/MODEL_ZOO.md
 cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")
 # predictor = DefaultPredictor(cfg)
 # outputs = predictor(im)
@@ -89,10 +89,8 @@ print(train_dataset_dicts)
 #     plt.show()
 
 """
-to train a Mask R-CNN model using the Detectron2 library. 
-setting up a configuration file (.cfg) for the model. 
-The configuration file contains many details including the output directory path, 
-training dataset information, pre-trained weights, base learning rate, maximum number of iterations, etc.
+to train a Mask R-CNN model using the Detectron2 library. setting up a configuration file (.cfg) for the model. 
+The configuration file contains many details including the output directory path, training dataset information, pre-trained weights, base learning rate, maximum number of iterations, etc.
 """
 
 from detectron2.engine import DefaultTrainer
@@ -102,12 +100,12 @@ cfg.MODEL.DEVICE = "cpu"
 cfg.OUTPUT_DIR = "/home/madhekar/work/home-media-app/models/detectron2"
 cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
 cfg.DATASETS.TRAIN = ("zesha_dataset_train",)
-cfg.DATASETS.TEST = ()
+cfg.DATASETS.TEST = ("zesha_dataset_train",)
 cfg.DATALOADER.NUM_WORKERS = 2
 cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")  # Let training initialize from model zoo
 cfg.SOLVER.IMS_PER_BATCH = (2) # This is the real "batch size" commonly known to deep learning people
 cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
-cfg.SOLVER.MAX_ITER = 500  # 1000 iterations seems good enough for this dataset
+cfg.SOLVER.MAX_ITER = 1000  # 1000 iterations seems good enough for this dataset
 cfg.SOLVER.STEPS = []  # do not decay learning rate
 cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = (256)# Default is 512, using 256 for this dataset.
 cfg.MODEL.ROI_HEADS.NUM_CLASSES = 17  # We have 4 classes.

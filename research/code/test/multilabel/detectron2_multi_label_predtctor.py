@@ -36,7 +36,7 @@ cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rc
 # cfg.SOLVER.MAX_ITER = 1000  # 1000 iterations seems good enough for this dataset
 # cfg.SOLVER.STEPS = []  # do not decay learning rate
 # cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = (256)# Default is 512, using 256 for this dataset.
-# cfg.MODEL.ROI_HEADS.NUM_CLASSES = 17  # We have 4 classes.
+cfg.MODEL.ROI_HEADS.NUM_CLASSES = 17  # We have 4 classes.
 
 # Inference should use the config with parameters that are used in training
 # cfg now already contains everything we've set previously. We changed it a little bit for inference:
