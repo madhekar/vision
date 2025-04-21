@@ -66,7 +66,7 @@ trainer.resume_or_load(resume=False)
 from detectron2.utils.visualizer import ColorMode
 from matplotlib import pyplot as plt
 
-for d in random.sample(val_dataset_dicts, 5):  # select number of images for display
+for d in random.sample(val_dataset_dicts, 1):  # select number of images for display
     im = cv2.imread(d["file_name"])
     outputs = predictor(im)
     print(f'{outputs["instances"].pred_boxes} : {d["file_name"]}')
@@ -77,8 +77,8 @@ for d in random.sample(val_dataset_dicts, 5):  # select number of images for dis
         instance_mode=ColorMode.IMAGE_BW,  # remove the colors of unsegmented pixels. This option is only available for segmentation models
     )
     vis = v.draw_dataset_dict(d)
-    #out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
-    plt.imshow( vis.get_image()[:, :, ::-1])
+    out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+    plt.imshow( out.get_image()[:, :, ::-1])
     plt.show()
 
 
@@ -89,3 +89,12 @@ for d in random.sample(val_dataset_dicts, 5):  # select number of images for dis
 # val_loader = build_detection_test_loader(cfg, "zesha_dataset_val")
 # print(inference_on_dataset(predictor.model, val_loader, evaluator))
 # another equivalent way to evaluate the model is to use `trainer.test`
+
+raw_image = '/home/madhekar/work/home-media-app/data/input-data/img/IMG-20190706-WA0000.jpg'
+im = cv2.imread(raw_image)
+op = predictor(im)
+print(op)
+# v = Visualizer(im[:, :, ::-1], metadata= train_metadata, scale=.5, instance_mode=ColorMode.IMAGE_BW,)
+# out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+# plt.imshow( out.get_image()[:, :, ::-1])
+# plt.show()
