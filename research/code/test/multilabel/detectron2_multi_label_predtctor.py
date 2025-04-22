@@ -119,7 +119,7 @@ with open(output_csv_path, "w", newline="") as csvfile:
 
     # Write the header row in the CSV file
     csvwriter.writerow(
-        ["File Name", "Class Name", "Object Number", "Area", "Centroid", "BoundingBox"]
+        ["File Name", "Class Labels", "Class Names"]#, "Object Number", "Area", "Centroid", "BoundingBox"]
     )  # Add more columns as needed for other properties
 
     # Loop over the images in the input folder
@@ -138,39 +138,47 @@ with open(output_csv_path, "w", newline="") as csvfile:
         # Get the predicted class labels
         class_labels = outputs["instances"].pred_classes.to("cpu").numpy()
 
+        pred_classes = outputs["instances"].pred_classes.cpu().tolist()
+        class_names = train_metadata.thing_classes
+        pred_class_names = list(map(lambda x: class_names[x], pred_classes))
+
         # Debugging: print class_labels and metadata.thing_classes
-        # print("Class Labels:", class_labels)
-        # print("Thing Classes:", train_metadata.thing_classes)
+        print("File Name:", image_filename,  "Class Labels:", class_labels, "Class Names", pred_class_names)
+        #print("Thing Classes:", train_metadata.thing_classes)
+
+        
 
         # Use skimage.measure.regionprops to calculate object parameters
-        labeled_mask = label(mask)
-        props = regionprops(labeled_mask)
+        # labeled_mask = label(mask)
+        # props = regionprops(labeled_mask)
+
+        # # Write the object-level information to the CSV file
+        # for i, prop in enumerate(props):
+        #     # object_number = i + 1  # Object number starts from 1
+        #     # area = prop.area
+        #     # centroid = prop.centroid
+        #     # bounding_box = prop.bbox
+
+        #     # Check if the corresponding class label exists
+        #     if i < len(class_labels):
+        #         class_label = class_labels[i]
+        #         class_name = train_metadata.thing_classes[class_label]
+        #         print(f'{i} : {class_label} : {class_name}')
+        #     else:
+        #         # If class label is not available (should not happen), use 'Unknown' as class name
+        #         class_name = "Unknown"
 
         # Write the object-level information to the CSV file
-        for i, prop in enumerate(props):
-            object_number = i + 1  # Object number starts from 1
-            area = prop.area
-            centroid = prop.centroid
-            bounding_box = prop.bbox
-
-            # Check if the corresponding class label exists
-            if i < len(class_labels):
-                class_label = class_labels[i]
-                class_name = train_metadata.thing_classes[class_label]
-            else:
-                # If class label is not available (should not happen), use 'Unknown' as class name
-                class_name = "Unknown"
-
-            # Write the object-level information to the CSV file
-            csvwriter.writerow(
-                [
-                    image_filename,
-                    class_name,
-                    object_number,
-                    area,
-                    centroid,
-                    bounding_box,
-                ]
-            )  # Add more columns as needed for other properties
+        csvwriter.writerow(
+            [
+                image_filename,
+                class_labels,
+                pred_class_names,
+                # object_number,
+                # area,
+                # centroid,
+                # bounding_box,
+            ]
+        )  # Add more columns as needed for other properties
 
 print("Object-level information saved to CSV file.")
