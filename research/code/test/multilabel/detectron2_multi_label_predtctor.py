@@ -148,7 +148,7 @@ with open(output_csv_path, "w", newline="") as csvfile:
         pred_class_dict = Counter(pred_class_names)
 
         # Debugging: print class_labels and metadata.thing_classes
-        print("File Name:", image_filename,  "Class Labels:", class_labels, "predicted Classs", pred_class_dict)
+        print("File Name:", image_filename,  "Class Labels:", pred_class_dict.keys(), "predicted Classs", pred_class_dict)
         #print("Thing Classes:", train_metadata.thing_classes)
 
         

@@ -108,7 +108,7 @@ cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
 cfg.SOLVER.MAX_ITER = 1000  # 1000 iterations seems good enough for this dataset
 cfg.SOLVER.STEPS = []  # do not decay learning rate
 cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = (256)# Default is 512, using 256 for this dataset.
-cfg.MODEL.ROI_HEADS.NUM_CLASSES = 17  # We have 4 classes.
+cfg.MODEL.ROI_HEADS.NUM_CLASSES = 20  # We have 4 classes.
 # NOTE: this config means the number of classes, without the background. Do not use num_classes+1 here.
 
 os.makedirs(cfg.OUTPUT_DIR, exist_ok=True)
