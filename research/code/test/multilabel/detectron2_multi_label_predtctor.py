@@ -143,8 +143,12 @@ with open(output_csv_path, "w", newline="") as csvfile:
         class_names = train_metadata.thing_classes
         pred_class_names = list(map(lambda x: class_names[x], pred_classes))
 
+        from collections import Counter
+
+        pred_class_dict = Counter(pred_class_names)
+
         # Debugging: print class_labels and metadata.thing_classes
-        print("File Name:", image_filename,  "Class Labels:", class_labels, "Class Names", pred_class_names)
+        print("File Name:", image_filename,  "Class Labels:", class_labels, "predicted Classs", pred_class_dict)
         #print("Thing Classes:", train_metadata.thing_classes)
 
         
