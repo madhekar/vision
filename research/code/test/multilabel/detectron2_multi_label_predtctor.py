@@ -90,11 +90,87 @@ for d in random.sample(val_dataset_dicts, 1):  # select number of images for dis
 # print(inference_on_dataset(predictor.model, val_loader, evaluator))
 # another equivalent way to evaluate the model is to use `trainer.test`
 
-raw_image = '/home/madhekar/work/home-media-app/data/input-data/img/IMG-20190706-WA0000.jpg'
-im = cv2.imread(raw_image)
-op = predictor(im)
-print(op)
+# raw_image = '/home/madhekar/work/home-media-app/data/input-data/img/IMG-20190706-WA0000.jpg'
+# im = cv2.imread(raw_image)
+# op = predictor(im)
+# print(op)
 # v = Visualizer(im[:, :, ::-1], metadata= train_metadata, scale=.5, instance_mode=ColorMode.IMAGE_BW,)
 # out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
 # plt.imshow( out.get_image()[:, :, ::-1])
 # plt.show()
+
+
+import csv
+from skimage.measure import regionprops, label
+
+
+# Assuming you have already defined the 'predictor' object and loaded the model.
+# Also, make sure 'metadata' is defined appropriately.
+
+# Directory path to the input images folder
+input_images_directory = "/home/madhekar/work/home-media-app/data/input-data/img/"
+
+# Output directory where the CSV file will be saved
+output_csv_path = "./output_objects.csv"  # Replace this with the path to your desired output CSV file
+
+# Open the CSV file for writing
+with open(output_csv_path, "w", newline="") as csvfile:
+    csvwriter = csv.writer(csvfile)
+
+    # Write the header row in the CSV file
+    csvwriter.writerow(
+        ["File Name", "Class Name", "Object Number", "Area", "Centroid", "BoundingBox"]
+    )  # Add more columns as needed for other properties
+
+    # Loop over the images in the input folder
+    for image_filename in os.listdir(input_images_directory):
+        image_path = os.path.join(input_images_directory, image_filename)
+        new_im = cv2.imread(image_path)
+
+        # Perform prediction on the new image
+        outputs = predictor(
+            new_im
+        )  # Format is documented at https://detectron2.readthedocs.io/tutorials/models.html#model-output-format
+
+        # Convert the predicted mask to a binary mask
+        mask = outputs["instances"].pred_masks.to("cpu").numpy().astype(bool)
+
+        # Get the predicted class labels
+        class_labels = outputs["instances"].pred_classes.to("cpu").numpy()
+
+        # Debugging: print class_labels and metadata.thing_classes
+        # print("Class Labels:", class_labels)
+        # print("Thing Classes:", train_metadata.thing_classes)
+
+        # Use skimage.measure.regionprops to calculate object parameters
+        labeled_mask = label(mask)
+        props = regionprops(labeled_mask)
+
+        # Write the object-level information to the CSV file
+        for i, prop in enumerate(props):
+            object_number = i + 1  # Object number starts from 1
+            area = prop.area
+            centroid = prop.centroid
+            bounding_box = prop.bbox
+
+            # Check if the corresponding class label exists
+            if i < len(class_labels):
+                class_label = class_labels[i]
+                class_name = train_metadata.thing_classes[class_label]
+            else:
+                # If class label is not available (should not happen), use 'Unknown' as class name
+                class_name = "Unknown"
+
+            # Write the object-level information to the CSV file
+            csvwriter.writerow(
+                [
+                    image_filename,
+                    class_name,
+                    object_number,
+                    area,
+                    centroid,
+                    bounding_box,
+                ]
+            )  # Add more columns as needed for other properties
+
+print("Object-level information saved to CSV file.")
