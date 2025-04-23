@@ -52,13 +52,13 @@ cfg.OUTPUT_DIR = "/home/madhekar/work/home-media-app/models/detectron2"
 cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
 cfg.DATASETS.TRAIN = ("zesha_dataset_train",)
 cfg.DATASETS.TEST = ("zesha_dataset_train",)
-cfg.MODEL.ROI_HEADS.NUM_CLASSES = 17 
+cfg.MODEL.ROI_HEADS.NUM_CLASSES = 20 
 
 # Inference should use the config with parameters that are used in training
 # cfg now already contains everything we've set previously. We changed it a little bit for inference:
 cfg.MODEL.WEIGHTS = os.path.join(cfg.OUTPUT_DIR, "model_final.pth")  # path to the model we just trained
-cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = .4 #0.4  # set a custom testing threshold -confidence
-cfg.MODEL.NMS_THRESH_TEST= .8 #.6 # iou
+cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = .6 #0.4  # set a custom testing threshold -confidence
+#cfg.MODEL.NMS_THRESH_TEST= .8 #.6 # iou
 trainer = DefaultTrainer(cfg)
 predictor = DefaultPredictor(cfg)     
 
