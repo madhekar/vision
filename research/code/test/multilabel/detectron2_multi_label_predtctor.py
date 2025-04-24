@@ -27,12 +27,14 @@ from detectron2.data.datasets import register_coco_instances
 register_coco_instances(
     "zesha_dataset_train",
     {},
+    "/home/madhekar/work/vision/research/code/test/annotations/augmented_annotations.json",
     "/home/madhekar/work/vision/research/code/test/annotations/annotations.json",
     "/home/madhekar/work/vision/research/code/test/annotations/images",
 )
 register_coco_instances(
     "zesha_dataset_val",
     {},
+    "/home/madhekar/work/vision/research/code/test/annotations/augmented_annotations.json",
     "/home/madhekar/work/vision/research/code/test/annotations/annotations.json",
     "/home/madhekar/work/vision/research/code/test/annotations/images",
 )
@@ -57,7 +59,7 @@ cfg.MODEL.ROI_HEADS.NUM_CLASSES = 20
 # Inference should use the config with parameters that are used in training
 # cfg now already contains everything we've set previously. We changed it a little bit for inference:
 cfg.MODEL.WEIGHTS = os.path.join(cfg.OUTPUT_DIR, "model_final.pth")  # path to the model we just trained
-cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = .5 #0.4  # set a custom testing threshold -confidence
+cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = .4 #0.4  # set a custom testing threshold -confidence
 #cfg.MODEL.NMS_THRESH_TEST= .8 #.6 # iou
 trainer = DefaultTrainer(cfg)
 predictor = DefaultPredictor(cfg)     
