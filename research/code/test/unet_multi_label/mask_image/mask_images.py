@@ -14,8 +14,8 @@ img = coco.imgs[image_id]
 print(img)
 
 image = np.array(Image.open(os.path.join(img_dir, img["file_name"])))
-plt.imshow(image, interpolation="nearest")
-plt.show()
+# plt.imshow(image, interpolation="nearest")
+# plt.show()
 
 plt.imshow(image)
 cat_ids = coco.getCatIds()
@@ -30,3 +30,13 @@ for i in range(len(anns)):
 
 plt.imshow(mask)
 plt.show()
+
+
+cat_ids = coco.getCatIds()
+anns_ids = coco.getAnnIds(imgIds=img["id"], catIds=cat_ids, iscrowd=None)
+anns = coco.loadAnns(anns_ids)
+anns_img = np.zeros((img["height"], img["width"]))
+for ann in anns:
+    anns_img = np.maximum(anns_img, coco.annToMask(ann) * ann["category_id"])
+    plt.imshow(anns_img)
+    plt.show()
