@@ -3,6 +3,7 @@ from pycocotools.coco import COCO
 import json
 
 """
+---------------------------------------------------------------------------------------
 |  category   | #instances   |  category   | #instances   |  category  | #instances   |
 |:-----------:|:-------------|:-----------:|:-------------|:----------:|:-------------|
 |    Kumar    | 54           |    Esha     | 360          |  Shibangi  | 66           |
@@ -13,6 +14,19 @@ import json
 | Chandrakant | 12           |    dipti    | 60           |   child    | 150          |
 |     man     | 402          |    woman    | 690          |            |              |
 |    total    | 2448         |             |              |            |              |
+
+--------------------------------------------------------------------------------------
+|  category  | #instances   |  category   | #instances   |  category  | #instances   |
+|:----------:|:-------------|:-----------:|:-------------|:----------:|:-------------|
+|   Kumar    | 81           |    Esha     | 540          |  Shibangi  | 99           |
+|   Anjali   | 297          | Bhalchandra | 162          |    Asha    | 90           |
+|   Advait   | 36           |    Sham     | 27           |   Amanda   | 72           |
+|  Nelakshi  | 72           |    sachi    | 72           |   sanvi    | 72           |
+|   sagar    | 63           | Chandrakant | 18           |   dipti    | 90           |
+|   child    | 144          |     man     | 351          |   woman    | 909          |
+|            |              |             |              |            |              |
+|   total    | 3195         |             |              |            |              |
+
 
 
 """
