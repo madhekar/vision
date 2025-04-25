@@ -4,6 +4,8 @@ import torch.nn.functional as F
 
 """
 https://stackoverflow.com/questions/50805634/how-to-create-mask-images-from-coco-dataset
+https://www.youtube.com/watch?v=HS3Q_90hnDg
+
 """
 
 class DoubleConv(nn.Module):
