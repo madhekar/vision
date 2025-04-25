@@ -27,14 +27,14 @@ from detectron2.data.datasets import register_coco_instances
 register_coco_instances(
     "zesha_dataset_train",
     {},
-    "/home/madhekar/work/vision/research/code/test/annotations/augmented_annotations.json",
+    #"/home/madhekar/work/vision/research/code/test/annotations/augmented_annotations.json",
     "/home/madhekar/work/vision/research/code/test/annotations/annotations.json",
     "/home/madhekar/work/vision/research/code/test/annotations/images",
 )
 register_coco_instances(
     "zesha_dataset_val",
     {},
-    "/home/madhekar/work/vision/research/code/test/annotations/augmented_annotations.json",
+    #"/home/madhekar/work/vision/research/code/test/annotations/augmented_annotations.json",
     "/home/madhekar/work/vision/research/code/test/annotations/annotations.json",
     "/home/madhekar/work/vision/research/code/test/annotations/images",
 )
