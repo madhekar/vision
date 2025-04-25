@@ -2,6 +2,21 @@
 from pycocotools.coco import COCO
 import json
 
+"""
+|  category   | #instances   |  category   | #instances   |  category  | #instances   |
+|:-----------:|:-------------|:-----------:|:-------------|:----------:|:-------------|
+|    Kumar    | 54           |    Esha     | 360          |  Shibangi  | 66           |
+|   Anjali    | 198          | Bhalchandra | 108          |    Asha    | 60           |
+|   Advait    | 24           |    Sham     | 18           |   Amanda   | 48           |
+|  Nelakshi   | 48           |    sachi    | 48           |   sanvi    | 48           |
+|    sagar    | 42           |   Jahnvi    | 6            |  Jawahar   | 6            |
+| Chandrakant | 12           |    dipti    | 60           |   child    | 150          |
+|     man     | 402          |    woman    | 690          |            |              |
+|    total    | 2448         |             |              |            |              |
+
+
+"""
+
 def merge_coco_json(json_files, output_file):
     merged_annotations = {
         "info": {},
@@ -46,10 +61,10 @@ def merge_coco_json(json_files, output_file):
         json.dump(merged_annotations, f)
 
 # List of paths to COCO JSON files to merge
-json_files = ["part1.json", "part2.json"]
+json_files = ["../annotations.json", "../augmented_annotations.json"]
 
 # Output file path for merged annotations
-output_file = "merged_coco.json"
+output_file = "../merged_annotations_coco.json"
 
 # Merge COCO JSON files
 merge_coco_json(json_files, output_file)
