@@ -9,9 +9,8 @@ import shutil
 from pycocotools.coco import COCO
 from matplotlib import pyplot as plt
 
-def coco_mask():
 
-    
+
 
 def create_mask(image_info, annotations, output_folder):
     # Create an empty mask as a numpy array
@@ -66,6 +65,27 @@ def create_mask(image_info, annotations, output_folder):
 --------bbox
           [List of length 4 contains:]
 """
+def coco_mask(json_file, image_dir):
+    coco = COCO(json_file)
+
+    imgs = coco.getImgIds()
+    num = len(imgs)
+    print(f"num of images: {num}")
+
+    for id in imgs:
+        imgs = coco.loadImgs(ids=id)
+        print(f"->>>{imgs}")
+        
+        cat_ids = coco.getCatIds()
+        anns_ids =  coco.getAnnIds(imgIds=id, catIds=cat_ids, iscrowd=None)
+        anns = coco.loadAnns(anns_ids)
+        mask = coco.annToMask(anns[0])
+        for i in range(len(anns)):
+            mask += coco.annToMask(anns[i])
+        imsave('./1.png', mask)
+
+
+
 def main(json_file, mask_output_folder, image_output_folder, original_image_dir):
     # Load COCO JSON annotations
     with open(json_file, "r") as f:
@@ -100,4 +120,5 @@ if __name__ == "__main__":
     json_file = '/home/madhekar/work/vision/research/code/test/annotations/annotations.json'
     mask_output_folder = ("/home/madhekar/work/vision/research/code/test/annotations/val/masks")
     image_output_folder = "/home/madhekar/work/vision/research/code/test/annotations/val/images"  #
-    main(json_file, mask_output_folder, image_output_folder, original_image_dir)
+    #main(json_file, mask_output_folder, image_output_folder, original_image_dir)
+    coco_mask(json_file, original_image_dir)
