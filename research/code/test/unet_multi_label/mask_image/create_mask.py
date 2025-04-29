@@ -2,7 +2,38 @@
 import os
 import shutil
 from pycocotools.coco import COCO
+import seaborn as sns
 from matplotlib import pyplot as plt
+
+
+def cat_distribution(coco):
+    catIDs = coco.getCatIds()
+    cats = coco.loadCats(catIDs)
+
+    # Get category names
+    category_names = [cat['name'].title() for cat in cats]
+
+    # Get category counts
+    category_counts = [coco.getImgIds(catIds=[cat['id']]) for cat in cats]
+    category_counts = [len(img_ids) for img_ids in category_counts]
+
+
+    # Create a color palette for the plot
+    colors = sns.color_palette('viridis', len(category_names))
+
+    # Create a horizontal bar plot to visualize the category counts
+    plt.figure(figsize=(11, 15))
+    sns.barplot(x=category_counts, y=category_names, palette=colors)
+
+    # Add value labels to the bars
+    for i, count in enumerate(category_counts):
+        plt.text(count + 20, i, str(count), va='center')
+    plt.xlabel('Count',fontsize=20)
+    plt.ylabel('Category',fontsize=20)
+    plt.title('Category Distribution in COCO Dataset',fontsize=25)
+    plt.tight_layout()
+    plt.savefig('coco-cats.png',dpi=300)
+    plt.show()
 
 """
 ----images
@@ -28,8 +59,7 @@ from matplotlib import pyplot as plt
 --------bbox
           [List of length 4 contains:]
 """
-def coco_mask(json_file, mask_output_folder, image_output_folder, original_image_dir):
-    coco = COCO(json_file)
+def coco_mask(coco, mask_output_folder, image_output_folder, original_image_dir):
 
     # Ensure the output directories exist
     if not os.path.exists(mask_output_folder):
@@ -76,4 +106,6 @@ if __name__ == "__main__":
     mask_output_folder = ("/home/madhekar/work/vision/research/code/test/annotations/val/masks")
     image_output_folder = "/home/madhekar/work/vision/research/code/test/annotations/val/images"  #
     #main(json_file, mask_output_folder, image_output_folder, original_image_dir)
-    coco_mask(json_file, mask_output_folder, image_output_folder, original_image_dir)
+    coco= COCO(json_file)
+    cat_distribution(coco)
+    coco_mask(coco, mask_output_folder, image_output_folder, original_image_dir)
