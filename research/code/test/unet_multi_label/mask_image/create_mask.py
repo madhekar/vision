@@ -73,16 +73,12 @@ def coco_mask(coco, mask_output_folder, image_output_folder, original_image_dir)
     for id in imgs:
 
         imgs = coco.imgs[id]
-        #print(f"->>>{imgs}")
-        
         anns_ids =  coco.getAnnIds(imgIds=id, catIds=cat_ids, iscrowd=None)
         anns = coco.loadAnns(anns_ids)
-        #print(anns)
+
         mask = coco.annToMask(anns[0])
         for i in range(len(anns)):
             mask += coco.annToMask(anns[i])
-        #imsave(f'{cnt}.png', mask)
-        print(len(mask))
 
         # Copy original images to the specified folder
         original_image_path = os.path.join(original_image_dir, imgs["file_name"])
@@ -105,7 +101,6 @@ if __name__ == "__main__":
     json_file = '/home/madhekar/work/vision/research/code/test/annotations/annotations.json'
     mask_output_folder = ("/home/madhekar/work/vision/research/code/test/annotations/val/masks")
     image_output_folder = "/home/madhekar/work/vision/research/code/test/annotations/val/images"  #
-    #main(json_file, mask_output_folder, image_output_folder, original_image_dir)
     coco= COCO(json_file)
     cat_distribution(coco)
     coco_mask(coco, mask_output_folder, image_output_folder, original_image_dir)
