@@ -3,6 +3,7 @@ import os
 import shutil
 from pycocotools.coco import COCO
 import seaborn as sns
+import numpy as np
 from matplotlib import pyplot as plt
 
 
@@ -75,11 +76,15 @@ def coco_mask(coco, mask_output_folder, image_output_folder, original_image_dir)
         imgs = coco.imgs[id]
         anns_ids =  coco.getAnnIds(imgIds=id, catIds=cat_ids, iscrowd=None)
         anns = coco.loadAnns(anns_ids)
+        
+        instance_mask = np.zeros((imgs['height'], imgs['width']), dtype=np.uint8)
 
-        mask = coco.annToMask(anns[0])
+        #mask = coco.annToMask(anns[0])
         for i in range(len(anns)):
-            mask += coco.annToMask(anns[i])
+            mask = coco.annToMask(anns[i])
+            cat_id = anns[i]['category_id']
 
+            instance_mask[mask==1] = cat_id
         # Copy original images to the specified folder
         original_image_path = os.path.join(original_image_dir, imgs["file_name"])
 
@@ -94,7 +99,7 @@ def coco_mask(coco, mask_output_folder, image_output_folder, original_image_dir)
         fn1 = ''.join(fn[:-1]) + '_mask.'+ fn[-1]
         mask_path = os.path.join(mask_output_folder, fn1)
                                  
-        plt.imsave(mask_path, mask)                         
+        plt.imsave(mask_path, instance_mask)                         
 
 if __name__ == "__main__":
     original_image_dir = "/home/madhekar/work/vision/research/code/test/annotations/images"
@@ -102,5 +107,5 @@ if __name__ == "__main__":
     mask_output_folder = ("/home/madhekar/work/vision/research/code/test/annotations/val/masks")
     image_output_folder = "/home/madhekar/work/vision/research/code/test/annotations/val/images"  #
     coco= COCO(json_file)
-    cat_distribution(coco)
+    #cat_distribution(coco)
     coco_mask(coco, mask_output_folder, image_output_folder, original_image_dir)
