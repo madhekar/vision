@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 from mtcnn.mtcnn import MTCNN
 from keras_facenet import FaceNet
 from sklearn.model_selection import train_test_split
-from sklearn import SVC
+from sklearn.svm import SVC
+from sklearn.preprocessing import LabelEncoder
 
 class bface:
     def __init__(self, _dir):
@@ -43,7 +44,7 @@ class bface:
           print(sub_dir)
           faces = self.load_faces(path)
           print(len(faces))
-          labels = [sub_dir for _ in range(len(faces))]
+          labels = [sub_dir.name for _ in range(len(faces))]
           print(f'-->{labels}')
           self.x.extend(faces)
           self.y.extend(labels) 
@@ -66,16 +67,17 @@ class base_facenet():
 
    def get_embeddings(self, face_img):
       face_img = face_img.astype('float32')   
-      face_img = np.expand_dims(face_img)
+      face_img = np.expand_dims(face_img, axis=0)
       yhat = self.embedder.embeddings(face_img)
       return yhat[0]
-   
-  
 
+'''
+load and embed
+'''    
 bface_inst = bface('/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces')
 x,y = bface_inst.load_names_and_faces()
 
-bface_inst.plot_images()
+#bface_inst.plot_images()
 
 embedded_x = [] 
 b_fasenet = base_facenet()
@@ -85,4 +87,30 @@ for img in x:
 
 embedded_x = np.asarray(embedded_x)   
 
-np.savez_compressed('faces_embeddings_done_for_classes.npz', embedded_x, y)
+#np.savez_compressed('faces_embeddings_done_for_classes.npz', embedded_x, y)
+
+'''
+Label encoder
+'''
+encoder = LabelEncoder()
+encoder.fit(y)
+y = encoder.transform(y)
+
+'''
+train SVC
+'''
+detector = MTCNN()
+
+model = SVC(kernel='linear', probability=True)
+model.fit(embedded_x, y)
+
+t_im = cv.imread('/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_2439.jpeg')
+t_im = cv.cvtColor(t_im, cv.COLOR_BGR2RGB)
+x,y,w,h = detector.detect_faces(t_im)[0]['box']
+
+t_im = t_im[y:y+h, x:x+w]
+t_im = cv.resize(t_im, (160,160))
+test_im = b_fasenet.get_embeddings(t_im)
+ypred = model.predict([test_im])
+
+print(encoder.inverse_transform(ypred))
