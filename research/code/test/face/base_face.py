@@ -1,4 +1,5 @@
 import cv2 as cv
+import joblib
 import os
 import numpy as np
 import tensorflow as tf
@@ -103,6 +104,9 @@ detector = MTCNN()
 
 model = SVC(kernel='linear', probability=True)
 model.fit(embedded_x, y)
+model_path = "/home/madhekar/work/home-media-app/models/faces_svc"
+model_name ='faces_model_svc.joblib'
+joblib.dump(model, filename=os.path.join(model_path, model_name))
 
 t_im = cv.imread('/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_2439.jpeg')
 t_im = cv.cvtColor(t_im, cv.COLOR_BGR2RGB)
@@ -111,6 +115,8 @@ x,y,w,h = detector.detect_faces(t_im)[0]['box']
 t_im = t_im[y:y+h, x:x+w]
 t_im = cv.resize(t_im, (160,160))
 test_im = b_fasenet.get_embeddings(t_im)
+
+model = joblib.load(filename=os.path.join(model_path, model_name))
 ypred = model.predict([test_im])
 
 print(encoder.inverse_transform(ypred))
