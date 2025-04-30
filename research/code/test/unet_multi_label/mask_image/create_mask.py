@@ -10,6 +10,9 @@ from matplotlib import pyplot as plt
 https://forums.fast.ai/t/image-segmentation-on-coco-dataset-summary-questions-and-suggestions/36816
 """
 
+'''
+https://www.youtube.com/watch?v=rrtTfqiCc24
+'''
 def cat_distribution(coco):
     catIDs = coco.getCatIds()
     cats = coco.loadCats(catIDs)
