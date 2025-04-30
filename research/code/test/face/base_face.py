@@ -72,6 +72,17 @@ class base_facenet():
       yhat = self.embedder.embeddings(face_img)
       return yhat[0]
 
+
+class inferance_faces():
+    def __init__(self, _mpath, _ppath ):
+        self.detector = MTCNN()
+        self.t_size = (160,160)
+        self.x, self.y = np.load(_ppath)
+        self.model = joblib.load(_mpath)
+
+
+
+      
 '''
 load and embed
 '''    
@@ -88,7 +99,7 @@ for img in x:
 
 embedded_x = np.asarray(embedded_x)   
 
-#np.savez_compressed('faces_embeddings_done_for_classes.npz', embedded_x, y)
+np.savez_compressed('faces_embeddings_done_for_classes.npz', embedded_x, y)
 
 '''
 Label encoder
@@ -119,4 +130,4 @@ test_im = b_fasenet.get_embeddings(t_im)
 model = joblib.load(filename=os.path.join(model_path, model_name))
 ypred = model.predict([test_im])
 
-print(encoder.inverse_transform(ypred))
+print(ypred, encoder.inverse_transform(ypred))
