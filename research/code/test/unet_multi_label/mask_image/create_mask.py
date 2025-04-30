@@ -6,7 +6,9 @@ import seaborn as sns
 import numpy as np
 from matplotlib import pyplot as plt
 
-
+'''
+https://www.youtube.com/watch?v=rrtTfqiCc24
+'''
 def cat_distribution(coco):
     catIDs = coco.getCatIds()
     cats = coco.loadCats(catIDs)
