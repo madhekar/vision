@@ -6,6 +6,9 @@ import seaborn as sns
 import numpy as np
 from matplotlib import pyplot as plt
 
+"""
+https://forums.fast.ai/t/image-segmentation-on-coco-dataset-summary-questions-and-suggestions/36816
+"""
 
 def cat_distribution(coco):
     catIDs = coco.getCatIds()
@@ -17,7 +20,6 @@ def cat_distribution(coco):
     # Get category counts
     category_counts = [coco.getImgIds(catIds=[cat['id']]) for cat in cats]
     category_counts = [len(img_ids) for img_ids in category_counts]
-
 
     # Create a color palette for the plot
     colors = sns.color_palette('viridis', len(category_names))
