@@ -2,7 +2,7 @@ import cv2 as cv
 import joblib
 import numpy as np
 from mtcnn.mtcnn import MTCNN
-import time
+from ast import literal_eval
 from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
 import base_facenet as bfn
@@ -34,6 +34,23 @@ class infer_faces:
                 cnt += 1
         return dict
 
+    def replace_duplicates_and_missing(self, nfaces, names, prefix='person_'):
+        seen = set()
+        cnt = 1
+        for i in range(len(names)):
+            if names[i] in seen:
+                names[i] = prefix + str(cnt)
+                cnt +=1
+            else:
+                seen.add(names[i])
+        
+        if nfaces > len(names):
+            nmissing = nfaces - len(names)
+            for j in range(nmissing):
+                names.append(prefix + str(cnt)) 
+                cnt +=1       
+        return names        
+
     def predict_names(self, img):
         nfaces = 0
         names = []
@@ -49,7 +66,8 @@ class infer_faces:
                         test_im = [test_im]
 
                         ypred = self.faces_model_svc.predict(test_im)
-                        names.append(self.faces_label_enc.inverse_transform(ypred))
+                        names.append(''.join(literal_eval(str(self.faces_label_enc.inverse_transform(ypred)))))
+                    names = self.replace_duplicates_and_missing(nfaces, names)
         except Exception as e:
             print(f'Excetion : {e} ')
         return nfaces, names        
