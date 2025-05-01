@@ -28,8 +28,7 @@ def exec():
     img_path = '/home/madhekar/work/home-media-app/data/input-data/img'
     ibtf = init()
     for img in os.listdir(img_path):
-      print(img)
       nfaces, names = predict_names(ibtf, os.path.join(img_path, img))
-      print(f'total faces detected: {nfaces} identified faces: {names}')
+      print(f' file: {img} # of faces: {nfaces} identified faces: {names}')
 
 exec()    

@@ -34,14 +34,12 @@ class bface:
        return faces
 
     def load_names_and_faces(self):
-       print('-->here')
        for sub_dir in os.scandir(self.dir):
           path = os.path.join(self.dir, sub_dir)
           print(sub_dir)
           faces = self.load_faces(path)
           print(len(faces))
           labels = [sub_dir.name for _ in range(len(faces))]
-          print(f'-->{labels}')
           self.x.extend(faces)
           self.y.extend(labels) 
              

@@ -32,7 +32,7 @@ class infer_faces:
                 cnt += 1
         return dict
 
-    def replace_duplicates_and_missing(self, nfaces, names, prefix='person_'):
+    def replace_duplicates_and_missing(self, nfaces, names, prefix='person-'):
         seen = set()
         cnt = 1
         for i in range(len(names)):

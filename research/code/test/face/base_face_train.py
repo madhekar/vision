@@ -45,7 +45,7 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
     """
     detector = MTCNN()
 
-    model = SVC(kernel="linear", probability=True)
+    model = SVC(kernel="rbf", probability=True)
     model.fit(embedded_x, y)
     joblib.dump(model, filename=os.path.join(faces_svc_path, faces_svc))
 
