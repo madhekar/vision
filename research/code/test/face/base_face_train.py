@@ -41,7 +41,7 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
     encoder.fit(y)
     y = encoder.transform(y)
 
-    joblib.dump(y, filename=os.path.join(label_encoder_path, label_encoder))
+    joblib.dump(encoder, filename=os.path.join(label_encoder_path, label_encoder))
 
     """
     train SVC

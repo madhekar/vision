@@ -2,21 +2,22 @@ import cv2 as cv
 import joblib
 import numpy as np
 from mtcnn.mtcnn import MTCNN
-
+import time
 from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
 import base_facenet as bfn
 
 class infer_faces:
-    def __init__(self, _mpath, _ppath, _lpath):
+    def __init__(self, _faces_embeddings, _faces_label_enc, _faces_model_svc):
         self.detector = MTCNN()
         self.t_size = (160, 160)
-        self.x, self.y = np.load(_ppath)
-        self.model = joblib.load(_mpath)
-        self.label_encoder = joblib(_lpath)
+        self.x, self.y = np.load(_faces_embeddings)
+        self.faces_model_svc = joblib.load(_faces_model_svc)
+        self.faces_label_enc = joblib.load(_faces_label_enc)
         self.facenet = bfn.base_facenet()
 
     def extract_faces(self, img):
+        dict = {}
         tin = cv.imread(img)
         tin = cv.cvtColor(tin, cv.COLOR_BGR2RGB)
         res = self.detector.detect_faces(tin)
@@ -34,16 +35,22 @@ class infer_faces:
         return dict
 
     def predict_names(self, img):
-        if img:
-          dict = self.extract_faces(img)
+        nfaces = 0
+        names = []
+        try:
+            if img:
+                dict = self.extract_faces(img)
 
-          if dict and dict.keys() > 0:
-            names = []
-            for e in dict.items():
-                test_im = self.facenet.get_embeddings(e.value())
-                test_im = [test_im]
+                if dict and len(dict.keys()) > 0:
+                    nfaces= len(dict.keys())
+                    names = []
+                    for key in dict:
+                        test_im = self.facenet.get_embeddings(dict[key])
+                        test_im = [test_im]
 
-                ypred = self.model.predict(test_im)
-                names.append(self.label_encoder.inverse_transform(ypred))
-        return names        
+                        ypred = self.faces_model_svc.predict(test_im)
+                        names.append(self.faces_label_enc.inverse_transform(ypred))
+        except Exception as e:
+            print(f'Excetion : {e} ')
+        return nfaces, names        
 
