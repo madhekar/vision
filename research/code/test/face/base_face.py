@@ -5,8 +5,7 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from mtcnn.mtcnn import MTCNN
-from keras_facenet import FaceNet
-from sklearn.model_selection import train_test_split
+
 from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
 
@@ -29,7 +28,6 @@ class bface:
     
     def load_faces(self, dir):
        faces = []
-       print(f'++{dir}')
        for im_file in os.listdir(dir):
           try:
              fp = os.path.join(dir, im_file)
@@ -40,6 +38,7 @@ class bface:
        return faces
 
     def load_names_and_faces(self):
+       print('-->here')
        for sub_dir in os.scandir(self.dir):
           path = os.path.join(self.dir, sub_dir)
           print(sub_dir)
@@ -62,102 +61,9 @@ class bface:
           plt.axis('off')
        plt.show()   
 
-class base_facenet():
-   def __init__(self):
-      self.embedder = FaceNet()
-
-   def get_embeddings(self, face_img):
-      face_img = face_img.astype('float32')   
-      face_img = np.expand_dims(face_img, axis=0)
-      yhat = self.embedder.embeddings(face_img)
-      return yhat[0]
 
 
-class inferance_faces():
-    def __init__(self, _mpath, _ppath, _lpath ):
-        self.detector = MTCNN()
-        self.t_size = (160,160)
-        self.x, self.y = np.load(_ppath)
-        self.model = joblib.load(_mpath)
-        self.label_encoder = joblib(_lpath)
-        self.facenet_i = base_facenet()
 
-    def extract_faces(self, img):
-        tin = cv.imread(img)
-        tin = cv.cvtColor(tin, cv.COLOR_BGR2RGB)
-        res = self.detector.detect_faces(tin)
-        
-        if res and len(res)> 0:
-            dict = {}
-            cnt = 1
-            for d in res:
-               x, y, w, h = d["box"]
-               face = tin[y : y + h, x : x + w]
-               face_arr = cv.resize(face, (160, 160))
-               key = f"face_{cnt}"
-               dict[key] = face_arr
-               cnt += 1
-        return dict
-    
-    def predict_names(self, dict):
-       if dict and dict.keys() > 0:
-          names = []
-          for e in dict.items():
-             test_im = self.facenet_i.get_embeddings(e.value())
-             test_im = [test_im]
 
-             ypred = self.model.predict(test_im)
-             names.append(self.label_encoder.inverse_transform(ypred))
 
       
-'''
-load and embed
-'''    
-bface_inst = bface('/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces')
-x,y = bface_inst.load_names_and_faces()
-
-#bface_inst.plot_images()
-
-embedded_x = [] 
-b_fasenet = base_facenet()
-
-for img in x:
-   embedded_x.append(b_fasenet.get_embeddings(img))
-
-embedded_x = np.asarray(embedded_x)   
-
-np.savez_compressed('faces_embeddings_done_for_classes.npz', embedded_x, y)
-
-'''
-Label encoder
-'''
-encoder = LabelEncoder()
-encoder.fit(y)
-y = encoder.transform(y)
-label_encoder_path = '/home/madhekar/work/home-media-app/models/faces_label_enc'
-label_encoder = "faces_model_svc.joblib"
-joblib.dump(y, filename=os.path.join(label_encoder_path, label_encoder))
-
-'''
-train SVC
-'''
-detector = MTCNN()
-
-model = SVC(kernel='linear', probability=True)
-model.fit(embedded_x, y)
-model_path = "/home/madhekar/work/home-media-app/models/faces_svc"
-model_name ='faces_model_svc.joblib'
-joblib.dump(model, filename=os.path.join(model_path, model_name))
-
-t_im = cv.imread('/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_2439.jpeg')
-t_im = cv.cvtColor(t_im, cv.COLOR_BGR2RGB)
-x,y,w,h = detector.detect_faces(t_im)[0]['box']
-
-t_im = t_im[y:y+h, x:x+w]
-t_im = cv.resize(t_im, (160,160))
-test_im = b_fasenet.get_embeddings(t_im)
-
-model = joblib.load(filename=os.path.join(model_path, model_name))
-ypred = model.predict([test_im])
-
-print(ypred, encoder.inverse_transform(ypred))
