@@ -3,8 +3,6 @@ import joblib
 import numpy as np
 from mtcnn.mtcnn import MTCNN
 from ast import literal_eval
-from sklearn.svm import SVC
-from sklearn.preprocessing import LabelEncoder
 import base_facenet as bfn
 
 class infer_faces:

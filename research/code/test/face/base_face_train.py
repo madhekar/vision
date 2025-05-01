@@ -2,10 +2,7 @@ import cv2 as cv
 import joblib
 import os
 import numpy as np
-import tensorflow as tf
-import matplotlib.pyplot as plt
 from mtcnn.mtcnn import MTCNN
-from keras_facenet import FaceNet
 
 from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
