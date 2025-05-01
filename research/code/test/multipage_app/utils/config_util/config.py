@@ -351,3 +351,41 @@ def search_config_load():
         video_collection_name,
         audio_collection_name,
     )
+
+"""
+static-metadata:
+      faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
+model-path:
+      faces_embbedings_path: /home/madhekar/work/home-media-app/models/faces_embbedings
+      faces_embbedings: faces_embeddings_done_for_classes.npz
+      faces_label_enc_path: /home/madhekar/work/home-media-app/models/faces_label_enc
+      faces_label_enc: faces_label_enc.joblib
+      faces_svc_path: /home/madhekar/work/home-media-app/models/faces_svc
+      faces_svc: faces_model_svc.joblib
+"""
+@st.cache_resource
+def faces_config_load():
+    with open("utils/config_util/face_conf.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        pprint.pprint("* * * Metadata Generator Properties * * *")
+        pprint.pprint(dict)
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
+
+        faces_metadata_path = dict["static-metadata"]["faces_metadata_path"]
+        faces_embbedings_path = dict["model-path"]["faces_embbedings_path"]
+        faces_embbedings = dict["model-path"]["faces_embbedings"]
+        faces_label_enc_path = dict["model-path"]["faces_label_enc_path"]
+        faces_label_enc = dict["model-path"]["faces_label_enc"]
+        faces_svc_path = dict["model-path"]["faces_svc_path"]
+        faces_svc = dict["model-path"]["faces_svc"]
+
+        return(
+            faces_metadata_path,
+            faces_embbedings_path,
+            faces_embbedings,
+            faces_label_enc_path,
+            faces_label_enc,
+            faces_svc_path,
+            faces_svc
+        )
