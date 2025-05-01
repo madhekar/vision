@@ -1,23 +1,20 @@
 import cv2 as cv
 import joblib
-import os
 import numpy as np
-import tensorflow as tf
-import matplotlib.pyplot as plt
 from mtcnn.mtcnn import MTCNN
 
 from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
-import base_facenet
+import base_facenet as bfn
 
-class inferance_faces:
+class infer_faces:
     def __init__(self, _mpath, _ppath, _lpath):
         self.detector = MTCNN()
         self.t_size = (160, 160)
         self.x, self.y = np.load(_ppath)
         self.model = joblib.load(_mpath)
         self.label_encoder = joblib(_lpath)
-        self.facenet_i = base_facenet()
+        self.facenet = bfn.base_facenet()
 
     def extract_faces(self, img):
         tin = cv.imread(img)
@@ -36,12 +33,17 @@ class inferance_faces:
                 cnt += 1
         return dict
 
-    def predict_names(self, dict):
-        if dict and dict.keys() > 0:
+    def predict_names(self, img):
+        if img:
+          dict = self.extract_faces(img)
+
+          if dict and dict.keys() > 0:
             names = []
             for e in dict.items():
-                test_im = self.facenet_i.get_embeddings(e.value())
+                test_im = self.facenet.get_embeddings(e.value())
                 test_im = [test_im]
 
                 ypred = self.model.predict(test_im)
                 names.append(self.label_encoder.inverse_transform(ypred))
+        return names        
+
