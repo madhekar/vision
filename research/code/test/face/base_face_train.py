@@ -10,7 +10,7 @@ from sklearn.preprocessing import LabelEncoder
 import base_face as bf
 import base_facenet as bfn
 
-def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc):
+def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc,sample_test_image):
 
     """
     load and embed
@@ -52,7 +52,7 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
     '''
     single face inference test
     '''
-    t_im = cv.imread("/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_2439.jpeg")
+    t_im = cv.imread(sample_test_image)
     t_im = cv.cvtColor(t_im, cv.COLOR_BGR2RGB)
     x, y, w, h = detector.detect_faces(t_im)[0]["box"]
 
@@ -76,6 +76,7 @@ def exec():
         "/home/madhekar/work/home-media-app/models/faces_svc",
         "faces_model_svc.joblib"
     )
-    bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc)     
+    sample_test_image = "/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_2439.jpeg"
+    bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc, sample_test_image)     
 
 exec()
