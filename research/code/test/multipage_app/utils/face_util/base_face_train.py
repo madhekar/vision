@@ -7,19 +7,21 @@ from mtcnn.mtcnn import MTCNN
 from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
 
-import base_face as bf
-import base_facenet as bfn
+from utils.face_util import base_face as bf
+from utils.face_util import base_facenet as bfn
+import streamlit as st
 
 def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc,sample_test_image):
 
     """
     load and embed
     """
+    st.info('loading face database and extracting faces...')
     bface_inst = bf.bface(faces_dir)
     x, y = bface_inst.load_names_and_faces()
 
     # test faces load
-    bface_inst.plot_images()
+    #bface_inst.plot_images()
 
     embedded_x = []
     b_fasenet = bfn.base_facenet()
@@ -34,6 +36,7 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
     """
     Label encoder
     """
+    st.info('creating new labels for faces...')
     encoder = LabelEncoder()
     encoder.fit(y)
     y = encoder.transform(y)
@@ -43,6 +46,7 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
     """
     train SVC
     """
+    st.info('creating new model to classifiy faces...')
     detector = MTCNN()
 
     model = SVC(kernel="rbf", probability=True)
@@ -63,7 +67,7 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
     model = joblib.load(filename=os.path.join(faces_svc_path, faces_svc))
     ypred = model.predict([test_im])
 
-    print(f'{ypred}, {encoder.inverse_transform(ypred)}')
+    st.info(f'{ypred}, {encoder.inverse_transform(ypred)}')
 
 
 def exec():
@@ -79,4 +83,6 @@ def exec():
     sample_test_image = "/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_2439.jpeg"
     bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc, sample_test_image)     
 
-exec()
+# kick-off face training generation
+if __name__ == "__main__":
+    exec()

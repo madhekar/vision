@@ -3,7 +3,8 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 from mtcnn.mtcnn import MTCNN
-
+import streamlit as st
+import time
 
 class bface:
     def __init__(self, _dir):
@@ -14,12 +15,16 @@ class bface:
        self.detector = MTCNN()
 
     def extract_face(self, fn):
-       img = cv.imread(fn)
-       img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
-       x,y,w,h = self.detector.detect_faces(img)[0]['box']
-       x,y = abs(x), abs(y)
-       face = img[y:y+h, x:x+w]
-       face_arr = cv.resize(face, self.t_size)
+       try:
+         img = cv.imread(fn)
+         time.sleep(5)
+         img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
+         x,y,w,h = self.detector.detect_faces(img)[0]['box']
+         x,y = abs(x), abs(y)
+         face = img[y:y+h, x:x+w]
+         face_arr = cv.resize(face, self.t_size)
+       except Exception as e:
+          st.error(f'exception hapened in etract face: {e}')
        return face_arr
     
     def load_faces(self, dir):
@@ -30,15 +35,14 @@ class bface:
              single_f = self.extract_face(fp)
              faces.append(single_f)
           except Exception as e:
-             print(f'exception occreed {e}')   
+             st.error(f'exception occreed {e}')   
        return faces
 
     def load_names_and_faces(self):
        for sub_dir in os.scandir(self.dir):
           path = os.path.join(self.dir, sub_dir)
-          print(sub_dir)
           faces = self.load_faces(path)
-          print(len(faces))
+          st.info(f'name: {sub_dir.name} number of images: {len(faces)}')
           labels = [sub_dir.name for _ in range(len(faces))]
           self.x.extend(faces)
           self.y.extend(labels) 

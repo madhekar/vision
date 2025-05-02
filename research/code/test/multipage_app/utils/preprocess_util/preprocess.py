@@ -269,6 +269,7 @@ def execute():
         label_visibility="collapsed"
     )
 
+    static_metadata_path = os.path.join(static_metadata_path, user_source_selected)
     # add user data source to image input and metadata output paths
     image_dir_path = os.path.join(image_dir_path, user_source_selected)
     
