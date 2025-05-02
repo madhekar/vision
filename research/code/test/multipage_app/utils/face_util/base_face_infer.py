@@ -34,19 +34,20 @@ class infer_faces:
 
     def replace_duplicates_and_missing(self, nfaces, names, prefix='person-'):
         seen = set()
-        cnt = 1
+        cnt = 0
         for i in range(len(names)):
             if names[i] in seen:
-                names[i] = prefix + str(cnt)
                 cnt +=1
+                names[i] = prefix + str(cnt)
             else:
                 seen.add(names[i])
         
         if nfaces > len(names):
             nmissing = nfaces - len(names)
             for j in range(nmissing):
-                names.append(prefix + str(cnt)) 
                 cnt +=1
+                names.append(prefix + str(cnt)) 
+       
         rnames = [name for name in names if not name.startswith("person-")]
         txt = "person" if cnt == 1 else "people"
         rnames.append(f"{cnt} {txt}")
