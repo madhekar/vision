@@ -7,19 +7,11 @@ def predict_names(ibtf, img):
     return names
 
 def init():
+    
     faces_embeddings, faces_label_enc, faces_model_svc = (
-        os.path.join(
-            "/home/madhekar/work/home-media-app/models/faces_embbedings",
-            "faces_embeddings_done_for_classes.npz",
-        ),
-        os.path.join(
-            "/home/madhekar/work/home-media-app/models/faces_label_enc",
-            "faces_label_enc.joblib",
-        ),
-        os.path.join(
-            "/home/madhekar/work/home-media-app/models/faces_svc",
-            "faces_model_svc.joblib",
-        )
+        os.path.join("/home/madhekar/work/home-media-app/models/faces_embbedings","faces_embeddings_done_for_classes.npz"),
+        os.path.join("/home/madhekar/work/home-media-app/models/faces_label_enc","faces_label_enc.joblib"),
+        os.path.join("/home/madhekar/work/home-media-app/models/faces_svc","faces_model_svc.joblib",)
     )
     ibtf = bft.infer_faces(faces_embeddings, faces_label_enc, faces_model_svc)
     return ibtf

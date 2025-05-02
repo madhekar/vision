@@ -13,6 +13,7 @@ from utils.util import location_util as lu
 from utils.util import model_util as mu
 from utils.util import fast_parquet_util as fpu
 from utils.util import storage_stat as ss
+from utils.face_util import base_face_test as bft
 
 import asyncio
 import multiprocessing as mp
@@ -80,6 +81,8 @@ async def locationDetails(uri, lock):
 async def namesOfPeople(uri):
     names =  en.getEntityNames(uri, ocfine)
     return names
+
+async def facesNames(uri):
 
 
 # get image description from LLM
@@ -304,7 +307,7 @@ def execute():
     except Exception as e:
         st.error(f"exception: {e} occured in loading metadata file")
 
-    bcreate_metadata = st.button("start metadata creation -")
+    bcreate_metadata = st.button("start metadata creation")
     if bcreate_metadata:
 
         asyncio.run(run_workflow(
