@@ -6,7 +6,7 @@ from mtcnn.mtcnn import MTCNN
 
 from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
-
+from utils.config_util import config
 from utils.face_util import base_face as bf
 from utils.face_util import base_facenet as bfn
 import streamlit as st
@@ -69,17 +69,27 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
 
     st.info(f'{ypred}, {encoder.inverse_transform(ypred)}')
 
-
+"""
+            faces_metadata_path,
+            faces_embbedings_path,
+            faces_embbedings,
+            faces_label_enc_path,
+            faces_label_enc,
+            faces_svc_path,
+            faces_svc
+"""
 def exec():
-    faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc = (
-        "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces",
-        "/home/madhekar/work/home-media-app/models/faces_embbedings",
-        "faces_embeddings_done_for_classes.npz",
-        "/home/madhekar/work/home-media-app/models/faces_label_enc",
-        "faces_label_enc.joblib",
-        "/home/madhekar/work/home-media-app/models/faces_svc",
-        "faces_model_svc.joblib"
-    )
+
+    faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc = config.faces_config_load()
+    # faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc = (
+    #     "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces",
+    #     "/home/madhekar/work/home-media-app/models/faces_embbedings",
+    #     "faces_embeddings_done_for_classes.npz",
+    #     "/home/madhekar/work/home-media-app/models/faces_label_enc",
+    #     "faces_label_enc.joblib",
+    #     "/home/madhekar/work/home-media-app/models/faces_svc",
+    #     "faces_model_svc.joblib"
+    # )
     sample_test_image = "/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_2439.jpeg"
     bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc, sample_test_image)     
 

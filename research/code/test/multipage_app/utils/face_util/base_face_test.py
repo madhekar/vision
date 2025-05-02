@@ -1,19 +1,20 @@
 import os
-import base_face_infer as bft
 
+from utils.face_util import base_face_infer as bftf
+from utils.config_util import config
 
 def predict_names(ibtf, img):
     names = ibtf.predict_names(img)
     return names
 
 def init():
-    
+    faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc = config.faces_config_load()
     faces_embeddings, faces_label_enc, faces_model_svc = (
-        os.path.join("/home/madhekar/work/home-media-app/models/faces_embbedings","faces_embeddings_done_for_classes.npz"),
-        os.path.join("/home/madhekar/work/home-media-app/models/faces_label_enc","faces_label_enc.joblib"),
-        os.path.join("/home/madhekar/work/home-media-app/models/faces_svc","faces_model_svc.joblib",)
+        os.path.join(class_embeddings_folder, class_embeddings),
+        os.path.join(label_encoder_path,label_encoder),
+        os.path.join(faces_svc_path,faces_svc)
     )
-    ibtf = bft.infer_faces(faces_embeddings, faces_label_enc, faces_model_svc)
+    ibtf = bftf.infer_faces(faces_embeddings, faces_label_enc, faces_model_svc)
     return ibtf
 
 def exec():

@@ -3,7 +3,7 @@ import joblib
 import numpy as np
 from mtcnn.mtcnn import MTCNN
 from ast import literal_eval
-import base_facenet as bfn
+from utils.face_util import base_facenet as bfn
 
 class infer_faces:
     def __init__(self, _faces_embeddings, _faces_label_enc, _faces_model_svc):

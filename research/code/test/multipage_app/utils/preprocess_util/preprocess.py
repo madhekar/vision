@@ -28,6 +28,8 @@ d_loc = 'madhekar residence at carmel vally san diego, california'
 m, t, p = LLM.setLLM()
 ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
 
+face_detect = bft.init()
+
 # init LLM modules
 @st.cache_resource
 def location_initialize(smp, smf):
@@ -83,7 +85,8 @@ async def namesOfPeople(uri):
     return names
 
 async def facesNames(uri):
-
+    names = bft.predict_names(face_detect,uri)
+    return names
 
 # get image description from LLM
 async def describeImage(args):
@@ -209,7 +212,8 @@ async def run_workflow(
                     res = await asyncio.gather(
                         pool.map(generateId, rlist),
                         pool.map(timestamp, rlist),
-                        pool.map(namesOfPeople, rlist),
+                        #pool.map(namesOfPeople, rlist),
+                        pool.map(facesNames, rlist),
                         pool.map(partial(locationDetails, lock=lock), rlist)
                     )
 
