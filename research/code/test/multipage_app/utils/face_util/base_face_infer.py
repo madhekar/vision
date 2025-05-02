@@ -46,8 +46,11 @@ class infer_faces:
             nmissing = nfaces - len(names)
             for j in range(nmissing):
                 names.append(prefix + str(cnt)) 
-                cnt +=1       
-        return names        
+                cnt +=1
+        rnames = [name for name in names if not name.startswith("person-")]
+        txt = "person" if cnt == 1 else "people"
+        rnames.append(f"{cnt} {txt}")
+        return rnames
 
     def predict_names(self, img):
         nfaces = 0
