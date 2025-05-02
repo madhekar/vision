@@ -85,7 +85,7 @@ async def namesOfPeople(uri):
     return names
 
 async def facesNames(uri):
-    names = bft.predict_names(face_detect,uri)
+    names = bft.predict_names(face_detect, uri)
     return names
 
 # get image description from LLM
