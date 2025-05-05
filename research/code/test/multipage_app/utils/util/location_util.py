@@ -98,27 +98,46 @@ def_name = "NULL Island - location description not provided."
 
 cache = {}
 # get location address information from latitude and longitude
+# def getLocationDetails(strLnL, max_retires):
+#     address = "n/a"
+    
+#     if strLnL in cache:
+#         return cache[strLnL]
+#     else:
+#         geolocator = Nominatim(user_agent=random_user_agent())
+#         retries= 1
+#         while retries < max_retires:
+#           try:
+#             delay = 2 ** retries
+#             time.sleep(delay)
+#             rev = RateLimiter(geolocator.reverse, min_delay_seconds=1)
+#             location = rev(strLnL, language="en", exactly_one=True)
+#             if location:
+#                 address = location.address
+#                 cache[strLnL] = address
+#                 return address
+#           except (GeocoderTimedOut, GeocoderUnavailable) as e:
+#               st.warning(f'Get address failed with {e}')
+#               retries += 1       
+#     return address
+
+# get location address information from latitude and longitude
 def getLocationDetails(strLnL, max_retires):
     address = "n/a"
-    
+
     if strLnL in cache:
         return cache[strLnL]
     else:
         geolocator = Nominatim(user_agent=random_user_agent())
-        retries= 1
-        while retries < max_retires:
-          try:
-            delay = 2 ** retries
-            time.sleep(delay)
+        try:
             rev = RateLimiter(geolocator.reverse, min_delay_seconds=1)
             location = rev(strLnL, language="en", exactly_one=True)
             if location:
                 address = location.address
                 cache[strLnL] = address
                 return address
-          except (GeocoderTimedOut, GeocoderUnavailable) as e:
-              st.warning(f'Get address failed with {e}')
-              retries += 1       
+        except (GeocoderTimedOut, GeocoderUnavailable) as e:
+            st.warning(f"Get address failed with {e}")
     return address
 
 def random_user_agent(num_chars = 8):

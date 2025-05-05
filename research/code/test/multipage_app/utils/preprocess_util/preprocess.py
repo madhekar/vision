@@ -55,6 +55,7 @@ async def generateId(uri):
 
 # convert image date time to timestamp
 async def timestamp(uri):
+    print(f'ts--{uri}')
     ts = lu.getTimestamp(uri)
     return str(ts)
 
@@ -85,12 +86,15 @@ async def namesOfPeople(uri):
     return names
 
 async def facesNames(uri):
-    names = bft.predict_names(face_detect, uri)
+    print(uri)
+    names = bft.predict_names(face_detect, uri)   
+    print(names)
     return names
 
 # get image description from LLM
 async def describeImage(args):
     names, uri, location = args
+    print(args)
     d =  LLM.fetch_llm_text(
         imUrl=uri,
         model=m,
@@ -101,6 +105,7 @@ async def describeImage(args):
         people=names,
         location=location,
     )
+    print(d)
     return d
 
 """
@@ -174,7 +179,7 @@ async def run_workflow(
     openclip_finetuned,
 ):
     st.info(f"CPU COUNT: {chunk_size}")
-    
+    print(f"CPU COUNT: {chunk_size}")
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
     if df is not None:
@@ -212,8 +217,8 @@ async def run_workflow(
                     res = await asyncio.gather(
                         pool.map(generateId, rlist),
                         pool.map(timestamp, rlist),
-                        #pool.map(namesOfPeople, rlist),
-                        pool.map(facesNames, rlist),
+                        pool.map(namesOfPeople, rlist),
+                        #pool.map(facesNames, rlist),
                         pool.map(partial(locationDetails, lock=lock), rlist)
                     )
 
@@ -311,18 +316,18 @@ def execute():
     except Exception as e:
         st.error(f"exception: {e} occured in loading metadata file")
 
-    bcreate_metadata = st.button("start metadata creation")
-    if bcreate_metadata:
+    # bcreate_metadata = st.button("start metadata creation")
+    # if bcreate_metadata:
 
-        asyncio.run(run_workflow(
-            df,
-            image_dir_path,
-            chunk_size,
-            metadata_path,
-            metadata_file,
-            number_of_instances,
-            openclip_finetuned,
-        ))
+    asyncio.run(run_workflow(
+        df,
+        image_dir_path,
+        chunk_size,
+        metadata_path,
+        metadata_file,
+        number_of_instances,
+        openclip_finetuned,
+    ))
 
 
 # kick-off metadata generation
