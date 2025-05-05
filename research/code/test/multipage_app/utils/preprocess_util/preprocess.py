@@ -81,14 +81,13 @@ async def locationDetails(uri, lock):
       return str(lat_lon), loc
      
 # get names of people in image
-async def namesOfPeople(uri, lock):
-    async with lock:
+async def namesOfPeople(uri):
       names =  en.getEntityNames(uri, ocfine)
       return names
 
 async def facesNames(uri):
     print(uri)
-    names = bft.predict_names(face_detect, uri)   
+    names = bft.pred_names(face_detect, uri)   
     print(names)
     return names
 
@@ -219,7 +218,7 @@ async def run_workflow(
                         pool.map(generateId, rlist),
                         pool.map(timestamp, rlist),
                         #pool.map(namesOfPeople, rlist),
-                        pool.map(partial(facesNames, lock=lock), rlist),
+                        pool.map(facesNames, rlist),
                         pool.map(partial(locationDetails, lock=lock), rlist)
                     )
 
