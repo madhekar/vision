@@ -1,5 +1,5 @@
 import os
-
+import streamlit as st
 from utils.face_util import base_face_infer as bftf
 from utils.config_util import config
 
@@ -7,6 +7,7 @@ def predict_names(ibtf, img):
     names = ibtf.predict_names(img)
     return names
 
+@st.cache_resource
 def init():
     faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc = config.faces_config_load()
 
@@ -16,7 +17,7 @@ def init():
         os.path.join(faces_svc_path,faces_svc)
     )
     ibtf = bftf.infer_faces(faces_embeddings, faces_label_enc, faces_model_svc)    
-    print(f'init face test{label_encoder_path}{faces_svc_path}')
+    print(f'-->init face test{label_encoder_path}{faces_svc_path}')
     return ibtf
 
 def exec():
