@@ -7,11 +7,19 @@ from utils.face_util import base_facenet as bfn
 
 class infer_faces:
     def __init__(self, _faces_embeddings, _faces_label_enc, _faces_model_svc):
-        self.detector = MTCNN()
+        self.detector = None 
         self.t_size = (160, 160)
-        self.x, self.y = np.load(_faces_embeddings)
-        self.faces_model_svc = joblib.load(_faces_model_svc)
-        self.faces_label_enc = joblib.load(_faces_label_enc)
+        self.x = None
+        self.y = None
+        self.faces_model_svc = _faces_embeddings
+        self.faces_label_enc = _faces_label_enc 
+        self.facenet = _faces_model_svc
+
+    def init(self):    
+        self.detector = MTCNN()
+        self.x, self.y = np.load(self.faces_embeddings)
+        self.faces_model_svc = joblib.load(self.faces_model_svc)
+        self.faces_label_enc = joblib.load(self.faces_label_enc)
         self.facenet = bfn.base_facenet()
 
     def extract_faces(self, img):

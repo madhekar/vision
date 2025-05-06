@@ -1,5 +1,6 @@
 from datetime import datetime
 import concurrent.futures
+import multiprocessing
 
 def process(num_jobs=1,**kwargs) :
 
@@ -28,7 +29,7 @@ def test_multi(*args,**kwargs):
 
 if __name__ == '__main__' :
 
-    max_processors = 10
+    max_processors = multiprocessing.cpu_count()
     
     for i in range(max_processors):      
         starttime = datetime.utcnow()
