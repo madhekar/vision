@@ -50,7 +50,7 @@ class infer_faces:
    
         if cnt > 0:
             names = [name for name in names if not name.startswith('person-')] 
-            txt = 'person' if cnt == 1 else 'people'
+            txt = 'and person' if cnt == 1 else 'and people'
             names.append(f'{cnt} {txt}')   
 
         return names 

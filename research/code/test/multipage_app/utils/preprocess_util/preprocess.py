@@ -28,7 +28,7 @@ d_loc = 'madhekar residence at carmel vally san diego, california'
 m, t, p = LLM.setLLM()
 ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
 
-face_inf_o = bft.base_face_res()
+#face_inf_o = bft.base_face_res()
 
 # init LLM modules
 @st.cache_resource
@@ -87,6 +87,7 @@ async def namesOfPeople(uri):
 
 async def facesNames(uri):
     print(uri)
+    face_inf_o = bft.base_face_res()
     names = face_inf_o.pred_names_of_people(uri)   
     print(names)
     return names

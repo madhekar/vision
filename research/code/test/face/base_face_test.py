@@ -20,8 +20,8 @@ class base_face_res:
         )
 
     def pred_names_of_people(self, img):
-        names = self.faces_infer_obj.predict_names(img)
-        return names
+        _, names = self.faces_infer_obj.predict_names(img)
+        return ' '.join(names)
 
 
 
