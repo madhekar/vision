@@ -6,14 +6,23 @@ from utils.config_util import config
 class base_face_res:
 
     def __init__(self):
+        self.faces_dir = None,
+        self.class_embeddings_folder= None,
+        self.class_embeddings= None,
+        self.label_encoder_path= None,
+        self.label_encoder= None,
+        self.faces_svc_path= None,
+        self.faces_sv= None,
+
+    async def init(self):
         (
-            self.faces_dir,
+            self.faces_dir ,  
             self.class_embeddings_folder,
             self.class_embeddings,
             self.label_encoder_path,
             self.label_encoder,
             self.faces_svc_path,
-            self.faces_svc,
+            self.faces_sv,
         ) = config.faces_config_load()
 
         self.faces_embeddings, self.faces_label_enc, self.faces_model_svc = (
@@ -21,9 +30,10 @@ class base_face_res:
             os.path.join(self.label_encoder_path, self.label_encoder),
             os.path.join(self.faces_svc_path, self.faces_svc),
         )
-        self.faces_infer_obj = bftf.infer_faces(
+        self.faces_infer_obj = await bftf.infer_faces(
             self.faces_embeddings, self.faces_label_enc, self.faces_model_svc
         )
+
     def pred_names_of_people(self, img):
         _,names =  self.faces_infer_obj.predict_names(img)    
         return ', '.join(names)

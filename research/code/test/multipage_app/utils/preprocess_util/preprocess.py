@@ -27,7 +27,6 @@ d_latitude, d_longitude = 32.968700, -117.184196
 d_loc = 'madhekar residence at carmel vally san diego, california'
 m, t, p = LLM.setLLM()
 ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
-
 global_face = bft.base_face_res()
 
 # init LLM modules
