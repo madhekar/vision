@@ -29,6 +29,7 @@ class base_face_res:
    
 
 def worker(img):
+
    names = bfs.pred_names_of_people(img)
    return names
 
@@ -61,8 +62,9 @@ def exec():
 
 
     imgs = [os.path.join (img_path, ifile) for ifile in os.listdir(img_path)]
-    with concurrent.futures.ProcessPoolExecutor(max_workers=cores, initializer=pool_init, initargs=(BFS,)) as executor:
-       res = executor.map(worker, imgs)
+    print(imgs[0:10])
+    with concurrent.futures.ThreadPoolExecutor(max_workers=cores, initializer=pool_init, initargs=(bfs,)) as executor:
+       res = executor.map(worker, imgs[0:100])
        for r in res:
            print(r)
     # for img in os.listdir(img_path):
