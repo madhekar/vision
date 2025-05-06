@@ -28,7 +28,7 @@ d_loc = 'madhekar residence at carmel vally san diego, california'
 m, t, p = LLM.setLLM()
 ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
 
-#face_inf_o = bft.base_face_res()
+global_face = bft.base_face_res()
 
 # init LLM modules
 @st.cache_resource
@@ -87,8 +87,8 @@ async def namesOfPeople(uri):
 
 async def facesNames(uri):
     print(uri)
-    face_inf_o = bft.base_face_res()
-    names = face_inf_o.pred_names_of_people(uri)   
+    #face_inf_o = bft.base_face_res()
+    names = global_face.pred_names_of_people(uri)   
     print(names)
     return names
 
@@ -195,7 +195,6 @@ async def run_workflow(
     #semaphore = asyncio.Semaphore(1)
 
     lock = asyncio.Lock()
-
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
     with st.status("Generating LLM responses...", expanded=True) as status:
@@ -223,11 +222,11 @@ async def run_workflow(
                         pool.map(partial(locationDetails, lock=lock), rlist)
                     )
 
-                    #st.info(res)
+                    st.info(res)
 
                     rflist, oflist = xform(res)
 
-                    #st.info(oflist)
+                    st.info(oflist)
 
                     res1 = await asyncio.gather(
                         pool.map(describeImage,  rflist)

@@ -4,6 +4,7 @@ from utils.face_util import base_face_infer as bftf
 from utils.config_util import config
 
 class base_face_res:
+
     def __init__(self):
         (
             self.faces_dir,
@@ -24,7 +25,7 @@ class base_face_res:
             self.faces_embeddings, self.faces_label_enc, self.faces_model_svc
         )
     def pred_names_of_people(self, img):
-        _,names = self.faces_infer_obj.predict_names(img)    
+        _,names =  self.faces_infer_obj.predict_names(img)    
         return ', '.join(names)
 
 
