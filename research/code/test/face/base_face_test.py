@@ -2,7 +2,9 @@ import os
 import base_face_infer as bft
 import multiprocessing as mp
 import concurrent.futures 
-
+import aiomultiprocess as aiomp
+from aiomultiprocess import Pool
+import asyncio
 
 class base_face_res:
     def __init__(self):
@@ -53,7 +55,7 @@ def pool_init(BFS):
     global bfs
     bfs = BFS
 
-def exec():
+async def exec():
     img_path = '/home/madhekar/work/home-media-app/data/input-data/img'
     cores =  mp.cpu_count()
     BFS = base_face_res()
@@ -63,16 +65,13 @@ def exec():
 
     imgs = [os.path.join (img_path, ifile) for ifile in os.listdir(img_path)]
     print(imgs[0:10])
-    with concurrent.futures.ThreadPoolExecutor(max_workers=cores, initializer=pool_init, initargs=(bfs,)) as executor:
-       res = executor.map(worker, imgs[0:100])
-       for r in res:
-          print(r.result())
-    #    for future in concurrent.futures.as_completed(res):
-    #      print(future.result())
-    #    futures.append(res)
-    #    for r in futures:
-    #        print(r.result())
+    # with concurrent.futures.ThreadPoolExecutor(max_workers=cores, initializer=pool_init, initargs=(bfs,)) as executor:
+    #    res = executor.map(worker, imgs[0:100])
+    #    for r in res:
+    #       print(r.result())
 
+    async with Pool(processes=4, initializer=pool_init, initargs=(bfs,), maxtasksperchild=1) as pool:
+        pool.map(worker, imgs[0:10])
 
 
     # for img in os.listdir(img_path):
@@ -85,4 +84,4 @@ def exec():
     #   print(f' file: {img} identified faces: {names}')
    
 if __name__=="__main__":
-  exec()
+   asyncio.run(exec())
