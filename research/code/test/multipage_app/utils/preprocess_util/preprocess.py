@@ -27,7 +27,7 @@ d_latitude, d_longitude = 32.968700, -117.184196
 d_loc = 'madhekar residence at carmel vally san diego, california'
 m, t, p = LLM.setLLM()
 ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
-global_face = bft.base_face_res()
+#global_face = bft.base_face_res()
 
 # init LLM modules
 @st.cache_resource
@@ -87,7 +87,7 @@ async def namesOfPeople(uri):
 async def facesNames(uri):
     print(uri)
     #face_inf_o = bft.base_face_res()
-    names = global_face.pred_names_of_people(uri)   
+    names = bfs.pred_names_of_people(uri)   
     print(names)
     return names
 
@@ -164,6 +164,11 @@ async def append_file(filename, dict_data_list, mode):
 
 def setup_logging(level=logging.WARNING):
     logging.basicConfig(level=level)
+
+# pool iniitializer
+def pool_init(BFS):
+    global bfs
+    bfs = BFS    
 """
 ps -ef | grep -w streamlit
 pgrep --count streamlit
@@ -180,6 +185,10 @@ async def run_workflow(
 ):
     st.info(f"CPU COUNT: {chunk_size}")
     print(f"CPU COUNT: {chunk_size}")
+    BFS = bft.base_face_res()
+    BFS.init()
+    pool_init(BFS)
+
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
     if df is not None:
@@ -197,7 +206,7 @@ async def run_workflow(
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
     with st.status("Generating LLM responses...", expanded=True) as status:
-        async with Pool(processes=chunk_size, initializer=setup_logging, initargs=(logging.WARNING,), maxtasksperchild=1) as pool:
+        async with Pool(processes=chunk_size, initializer=pool_init, initargs=(bfs,), maxtasksperchild=1) as pool:
             count = 0
             res = []
             for ilist in img_iterator:

@@ -64,7 +64,6 @@ class infer_faces:
             else:    
                names.append(f'and {cnt} people')
               
-
         return names       
 
     def predict_names(self, img):

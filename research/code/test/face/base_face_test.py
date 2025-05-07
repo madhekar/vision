@@ -59,14 +59,22 @@ def exec():
     BFS = base_face_res()
     BFS.init() 
     pool_init(BFS)
-
+    futures = []
 
     imgs = [os.path.join (img_path, ifile) for ifile in os.listdir(img_path)]
     print(imgs[0:10])
     with concurrent.futures.ThreadPoolExecutor(max_workers=cores, initializer=pool_init, initargs=(bfs,)) as executor:
        res = executor.map(worker, imgs[0:100])
        for r in res:
-           print(r)
+          print(r.result())
+    #    for future in concurrent.futures.as_completed(res):
+    #      print(future.result())
+    #    futures.append(res)
+    #    for r in futures:
+    #        print(r.result())
+
+
+
     # for img in os.listdir(img_path):
     #   p = mp.Process(target=worker, args=(img,))
     #   processes.append(p)

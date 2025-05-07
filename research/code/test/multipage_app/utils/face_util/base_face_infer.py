@@ -11,9 +11,9 @@ class infer_faces:
         self.t_size = (160, 160)
         self.x = None
         self.y = None
-        self.faces_model_svc = _faces_embeddings
+        self.faces_embeddings = _faces_embeddings
         self.faces_label_enc = _faces_label_enc 
-        self.facenet = _faces_model_svc
+        self.faces_model_svc = _faces_model_svc
 
     def init(self):    
         self.detector = MTCNN()
