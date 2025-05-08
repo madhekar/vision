@@ -5,6 +5,9 @@ import concurrent.futures
 import aiomultiprocess as aiomp
 from aiomultiprocess import Pool
 import asyncio
+import time
+
+
 
 class base_face_res:
     def __init__(self):
@@ -31,9 +34,11 @@ class base_face_res:
    
 
 def worker(img):
-
-   names = bfs.pred_names_of_people(img)
-   return names
+    print('-->')
+    BFS = base_face_res()
+    BFS.init() 
+    names = BFS.pred_names_of_people(img)
+    return names
 
 """
 import concurrent.futures
@@ -55,33 +60,34 @@ def pool_init(BFS):
     global bfs
     bfs = BFS
 
-async def exec():
+def exec():
     img_path = '/home/madhekar/work/home-media-app/data/input-data/img'
-    cores =  mp.cpu_count()
+    # cores =  mp.cpu_count()
     BFS = base_face_res()
     BFS.init() 
-    pool_init(BFS)
-    futures = []
+    # pool_init(BFS)
+    # futures = []
 
-    imgs = [os.path.join (img_path, ifile) for ifile in os.listdir(img_path)]
-    print(imgs[0:10])
-    # with concurrent.futures.ThreadPoolExecutor(max_workers=cores, initializer=pool_init, initargs=(bfs,)) as executor:
-    #    res = executor.map(worker, imgs[0:100])
-    #    for r in res:
-    #       print(r.result())
+    # imgs = [os.path.join (img_path, ifile) for ifile in os.listdir(img_path)]
+    # print(imgs[0:10])
+    # # with concurrent.futures.ThreadPoolExecutor(max_workers=cores, initializer=pool_init, initargs=(bfs,)) as executor:
+    # #    res = executor.map(worker, imgs[0:100])
+    # #    for r in res:
+    # #       print(r.result())
 
-    async with Pool(processes=4, initializer=pool_init, initargs=(bfs,), maxtasksperchild=1) as pool:
-        pool.map(worker, imgs[0:10])
+    # with Pool(processes=4, maxtasksperchild=1) as pool:
+    #     pool.map(worker, imgs[0:10])
 
 
-    # for img in os.listdir(img_path):
-    #   p = mp.Process(target=worker, args=(img,))
-    #   processes.append(p)
-    #   #names =  bfs.pred_names_of_people( os.path.join(img_path, img))
+    for img in os.listdir(img_path):
+      time.sleep(1)
+      #p = mp.Process(target=worker, args=(img,))
+      #processes.append(p)
+      names =  BFS.pred_names_of_people( os.path.join(img_path, img))
     #   p.start()
     #   p.join()
     #   names = p.name
-    #   print(f' file: {img} identified faces: {names}')
+      print(f' file: {img} identified faces: {names}')
    
 if __name__=="__main__":
-   asyncio.run(exec())
+  exec()
