@@ -14,6 +14,6 @@ class base_facenet:
          return embeddings
        
 if '__name__' == '__main__':
-    img = Image.open(os.path.join("/home/madhekar/work/home-media-app/data/input-data/img", "Collage8.jpg") )
+    img = Image.open(os.path.join("/Users/emadhekar/Downloads", "IMG_9067.PNG") )
     bf = base_facenet()
     print(bf.get_embeddings(img))

@@ -7,7 +7,7 @@ mtcnn = MTCNN(keep_all=True)
 
 resnet = InceptionResnetV1(pretrained='casia-webface').eval()
 
-img = Image.open(os.path.join('/home/madhekar/work/home-media-app/data/input-data/img', 'Collage8.jpg'))
+img = Image.open(os.path.join("/Users/emadhekar/Downloads", "IMG_9067.PNG"))
 
 # boxes, _ = mtcnn.detect(img)
 
