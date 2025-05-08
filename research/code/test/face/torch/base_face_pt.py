@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import cv2
 from PIL import Image
 from facenet_pytorch import MTCNN, InceptionResnetV1
 import matplotlib.pyplot as plt
@@ -11,7 +12,7 @@ class bface:
         self.t_size = (160, 160)
         self.x = []
         self.y = []
-        self.mtcnn = MTCNN(image_size=160, keep_all=True)
+        self.mtcnn = MTCNN(image_size=160, select_largest=False, post_process=False, keep_all=True)
         self.resnet = InceptionResnetV1(pretrained="casia-webface").eval()
     '''
         # boxes, _ = mtcnn.detect(img)
@@ -24,14 +25,20 @@ class bface:
         # if boxes is not None:
     '''
     def extract_face(self, fn):
-        img = Image.open(fn)
-        face_cropped = self.mtcnn.detect(img)
-        x,y,w,h = r[0],r[1],r[2],r[3]
-        print(x, y, w, h)
-        x, y = abs(x), abs(y)
-        face = img[y : y + h, x : x + w]
-        face_arr = Image.resize(face, self.t_size)
-        return face_arr
+        #img = Image.open(fn)
+        img = cv2.imread(filename=fn)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        #frame = img.fromarray(img)
+        face = self.mtcnn.detect(img)
+        plt.imshow(face)
+        plt.show()
+        # x,y,w,h = r[0],r[1],r[2],r[3]
+        # print(x, y, w, h)
+        # x, y = abs(x), abs(y)
+        # face = img[y : y + h, x : x + w]
+
+        # face_arr = Image.resize(face, self.t_size)
+        # return face_arr
 
     def load_faces(self, dir):
         faces = []
