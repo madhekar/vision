@@ -25,14 +25,7 @@ def get_emb(pth, f):
             draw.rectangle(box.tolist(), outline='red', width=1)
         img.show()  
 
-    if boxes is not None:
-        print(f' ->>>{boxes[0]}')
-        faces, probs = mtcnn(img, return_prob=True)
-        if faces is None or len(faces) ==0:
-            return None, None
-    
-        embeddings = resnet(faces[0].unsqueeze(0)).detach()
-        return embeddings, faces[0]
+img = Image.open(os.path.join("/Users/emadhekar/Downloads", "IMG_9067.PNG"))
 
 e, f = get_emb(
     "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup",
