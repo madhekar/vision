@@ -25,7 +25,8 @@ class bface:
     '''
     def extract_face(self, fn):
         img = Image.open(fn)
-        x, y, w, h = self.mtcnn.detect(img)[0]['box']
+        face_cropped = self.mtcnn.detect(img)
+        x,y,w,h = r[0],r[1],r[2],r[3]
         print(x, y, w, h)
         x, y = abs(x), abs(y)
         face = img[y : y + h, x : x + w]
