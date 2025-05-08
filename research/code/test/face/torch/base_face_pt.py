@@ -26,6 +26,7 @@ class bface:
     def extract_face(self, fn):
         img = Image.open(fn)
         x, y, w, h = self.mtcnn.detect(img)[0]['box']
+        print(x, y, w, h)
         x, y = abs(x), abs(y)
         face = img[y : y + h, x : x + w]
         face_arr = Image.resize(face, self.t_size)

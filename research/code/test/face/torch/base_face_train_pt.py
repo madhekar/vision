@@ -66,8 +66,8 @@ def bface_train(
     """
     t_im = Image.open(sample_test_image)
     #t_im = cv.cvtColor(t_im, cv.COLOR_BGR2RGB)
-    x, y, w, h = detector.detect_faces(t_im)[0]["box"]
-
+    x, y, w, h = detector.detect(t_im)[0]["box"]
+    
     t_im = t_im[y : y + h, x : x + w]
     #t_im = Image.resize(t_im, (160, 160))
     test_im = b_fasenet.get_embeddings(t_im)
