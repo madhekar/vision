@@ -1,7 +1,7 @@
 from multiprocessing import Process, Pipe
 
 def f(conn):
-    conn.send([42, None, 'hello'],[43, None, 'hello1'] )
+    conn.send([42, None, 'hello'])
     conn.close()
 
 if __name__ == '__main__':

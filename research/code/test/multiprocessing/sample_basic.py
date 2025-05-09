@@ -2,6 +2,7 @@ import asyncio
 from aiomultiprocess import Pool
 import logging
 
+# module class
 class MyObject:
     def __init__(self, name):
         self.name = name
@@ -11,16 +12,15 @@ class MyObject:
         await asyncio.sleep(0.1)
         return f"Process {self.name}: {value * 2}"
 
+#worker
 async def worker_function(obj, data):
     return await obj.my_method(data)
 
-async def setup_logging(level=logging.WARNING):
-    logging.basicConfig(level=level)
-
+# main process
 async def main():
     logging.basicConfig(level=logging.INFO)
 
-    async with Pool(initializer=setup_logging, initargs=(logging.DEBUG,)) as pool:
+    async with Pool() as pool:
         obj1 = MyObject("One")
         obj2 = MyObject("Two")
         tasks = [

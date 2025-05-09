@@ -86,5 +86,5 @@ class infer_faces:
                     names = self.replace_duplicates_and_missing(nfaces, names)
         except Exception as e:
             print(f'Excetion : {e} ')
-        return nfaces, names        
+        return ', '.join(names)        
 
