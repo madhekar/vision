@@ -61,7 +61,7 @@ def pool_init(BFS):
     bfs = BFS
 
 def exec():
-    img_path = '/home/madhekar/work/home-media-app/data/input-data/img'
+    img_path = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup'
     # cores =  mp.cpu_count()
     BFS = base_face_res()
     BFS.init() 
