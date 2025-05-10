@@ -79,17 +79,17 @@ async def locationDetails(uri, lock):
         st.error(f'exception occured in getting lat/ lon or location details for {uri}')
       return str(lat_lon), loc
      
-# get names of people in image
-async def namesOfPeople(uri):
-      names =  en.getEntityNames(uri, ocfine)
-      return names
+# # get names of people in image
+# async def namesOfPeople(uri):
+#       names =  en.getEntityNames(uri, ocfine)
+#       return names
 
-async def facesNames(uri):
-    print(uri)
-    #face_inf_o = bft.base_face_res()
-    names = bfs.pred_names_of_people(uri)   
-    print(names)
-    return names
+# async def facesNames(uri):
+#     print(uri)
+#     #face_inf_o = bft.base_face_res()
+#     names = bfs.pred_names_of_people(uri)   
+#     print(names)
+#     return names
 
 # get image description from LLM
 async def describeImage(args):
@@ -185,9 +185,9 @@ async def run_workflow(
 ):
     st.info(f"CPU COUNT: {chunk_size}")
     print(f"CPU COUNT: {chunk_size}")
-    BFS = bft.base_face_res()
-    BFS.init()
-    pool_init(BFS)
+    # BFS = bft.base_face_res()
+    # BFS.init()
+    # pool_init(BFS)
 
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
@@ -226,7 +226,7 @@ async def run_workflow(
                         pool.map(generateId, rlist),
                         pool.map(timestamp, rlist),
                         #pool.map(namesOfPeople, rlist),
-                        pool.map(facesNames, rlist),
+                        #pool.map(facesNames, rlist),
                         pool.map(partial(locationDetails, lock=lock), rlist)
                     )
 
