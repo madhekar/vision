@@ -69,7 +69,7 @@ def init():
     ibtf = bftf.infer_faces(faces_embeddings, faces_label_enc, faces_model_svc)    
     ibtf.init()
     print(f'-->init face test{label_encoder_path}{faces_svc_path}')
-    return ibtf
+    return ibtf, input_image_path, faces_of_people_parquet_path, faces_of_people_parquet
 
 def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=10):
     img_paths= [os.path.join(img_dir, img) for img in os.listdir(img_dir)]
@@ -84,10 +84,10 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=10):
     return num_imgs, 'Done!'
 
 def exec():
-    ibtf =  init()
-    parquet_file = 'people_in_image.parquet'
+    ibtf, img_path, faces_of_people_parquet_path, faces_of_people_parquet =  init()
+
     img_path = '/home/madhekar/work/home-media-app/data/input-data/img'
-    num, ret = process_images_in_batch(ibtf, parquet_file, img_path,batch_size=100)
+    num, ret = process_images_in_batch(ibtf, os.path.join(faces_of_people_parquet_path, faces_of_people_parquet), img_path,batch_size=100)
     st.info(f'processed {num} images to predict people with status: {ret}')
 
     #r = {(os.path.join(img_path,img_file), ibtf.pred_names_of_people(os.path.join(img_path, img_file))) for img_file in os.listdir(img_path)[0:2]}
