@@ -48,7 +48,18 @@ class base_face_res:
 
 @st.cache_resource
 def init():
-    (faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc) = config.faces_config_load()
+    (
+        faces_dir,
+        input_image_path,
+        class_embeddings_folder,
+        class_embeddings,
+        label_encoder_path,
+        label_encoder,
+        faces_svc_path,
+        faces_svc,
+        faces_of_people_parquet_path, 
+        faces_of_people_parquet,
+    ) = config.faces_config_load()
 
     faces_embeddings, faces_label_enc, faces_model_svc = (
         os.path.join(class_embeddings_folder, class_embeddings),

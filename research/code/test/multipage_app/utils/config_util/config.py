@@ -373,19 +373,25 @@ def faces_config_load():
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
 
         faces_metadata_path = dict["static-metadata"]["faces_metadata_path"]
+        input_image_path = dict["image-data"]["input_image_path"]
         faces_embbedings_path = dict["model-path"]["faces_embbedings_path"]
         faces_embbedings = dict["model-path"]["faces_embbedings"]
         faces_label_enc_path = dict["model-path"]["faces_label_enc_path"]
         faces_label_enc = dict["model-path"]["faces_label_enc"]
         faces_svc_path = dict["model-path"]["faces_svc_path"]
         faces_svc = dict["model-path"]["faces_svc"]
+        faces_of_people_parquet_path = dict["model-path"]["faces_of_people_parquet_path"]
+        faces_of_people_parquet = dict["model-path"]["faces_of_people_parquet"]
 
-        return(
+        return (
             faces_metadata_path,
+            input_image_path,
             faces_embbedings_path,
             faces_embbedings,
             faces_label_enc_path,
             faces_label_enc,
             faces_svc_path,
-            faces_svc
+            faces_svc,
+            faces_of_people_parquet_path,
+            faces_of_people_parquet
         )

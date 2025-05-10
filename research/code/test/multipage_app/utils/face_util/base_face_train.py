@@ -70,17 +70,34 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
     st.info(f'{ypred}, {encoder.inverse_transform(ypred)}')
 
 """
-            faces_metadata_path,
-            faces_embbedings_path,
-            faces_embbedings,
-            faces_label_enc_path,
-            faces_label_enc,
-            faces_svc_path,
-            faces_svc
+static-metadata:
+      faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
+image-data:
+      input_image_path: /home/madhekar/work/home-media-app/data/input-data-1/img
+model-path:
+      faces_embbedings_path: /home/madhekar/work/home-media-app/models/faces_embbedings
+      faces_embbedings: faces_embeddings_done_for_classes.npz
+      faces_label_enc_path: /home/madhekar/work/home-media-app/models/faces_label_enc
+      faces_label_enc: faces_label_enc.joblib
+      faces_svc_path: /home/madhekar/work/home-media-app/models/faces_svc
+      faces_svc: faces_model_svc.joblib
+      faces_of_people_parquet_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/image_people
+      faces_of_people_parquet: image_people.parquet
 """
 def exec():
 
-    faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc = config.faces_config_load()
+    (
+        faces_dir,
+        input_image_path,
+        class_embeddings_folder,
+        class_embeddings,
+        label_encoder_path,
+        label_encoder,
+        faces_svc_path,
+        faces_svc,
+        faces_of_people_parquet_path, 
+        faces_of_people_parquet,
+    ) = config.faces_config_load()
     # faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc = (
     #     "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces",
     #     "/home/madhekar/work/home-media-app/models/faces_embbedings",
