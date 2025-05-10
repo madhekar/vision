@@ -34,14 +34,12 @@ class base_face_res:
         names =  self.faces_infer_obj.predict_names(img)
         return (names)
     
-   
 
-
-def worker(img):
-    print('-->')
-    BFS = base_face_res()
-    BFS.init() 
-    return BFS.pred_names_of_people(img)
+# def worker(img):
+#     print('-->')
+#     BFS = base_face_res()
+#     BFS.init() 
+#     return BFS.pred_names_of_people(img)
 
 
 """
@@ -74,21 +72,14 @@ import time
 #     with Pool(processes=1) as pool:
 #         r = pool.map(worker, [os.path.join('/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup', 'IMG_0697.JPG')])
 #         print(r)
-BFS = base_face_res()
-BFS.init() 
-
-def add_row(row):
-    r1 = BFS.pred_names_of_people(row['image'])
-    return r1
 
 def main():
-    print('-->')
-
+    BFS = base_face_res()
+    BFS.init() 
     fpath = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup'
     r = {os.path.join(fpath, file) for file in os.listdir(fpath)}
-    #r = {(os.path.join(fpath,file), BFS.pred_names_of_people(os.path.join(fpath, file))) for file in os.listdir(fpath)}
     df = pd.DataFrame(r, columns=['image'])
-    df['people'] = df.apply(add_row, axis=1)
+    df['people'] = df.apply(lambda row: BFS.pred_names_of_people(row['image']), axis=1)
     print(df)
     df.to_parquet('./image_people.parquet')
 
