@@ -78,8 +78,8 @@ def execute():
     with c1:
         st.subheader("Static Metadata")
         dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
-        #st.metric("Number of location files", dfs['count'])
-        #st.metric("Total size of location files (MB)", round(dfs["size"]/(pow(1024,2)), 2), delta=.7)
+        st.metric("Number of location files", sum(dfs['count']))
+        st.metric("Total size of location files (MB)", round(sum(dfs["size"])/(pow(1024,2)), 2), delta=.7)
     with c2:
         dfl = ss.extract_all_file_stats_in_folder(location_metadata_path)
         dfa = ss.extract_all_file_stats_in_folder(user_location_metadata_path)        
@@ -87,11 +87,11 @@ def execute():
         c2a, c2b = st.columns([1,1], gap="small")
         with c2a:
             st.subheader("Locations")
-            st.metric("Number of location files", dfl['count'])
+            st.metric("Number of location files", sum(dfl['count']))
             st.metric("Total size of location files (MB)", round(dfl["size"]/(pow(1024,2)), 2),delta=.23)
         with c2b:
             st.subheader("User Locations")
-            st.metric("Number of user location files", dfa['count'])
+            st.metric("Number of user location files", int(dfa['count']))
             st.metric("Total size of user locations files (MB)",  round(dfa["size"]/(pow(1024,2)), 2), delta=-.1) 
 
     st.divider()
