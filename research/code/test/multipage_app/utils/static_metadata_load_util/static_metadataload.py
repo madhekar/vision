@@ -133,11 +133,15 @@ def execute():
                     user_location_metadata_file,
                     metadata_storage_path,
                 )
-                cb_status.update(label="metadata creation complete!", state="complete", expanded=False)    
+                cb_status.update(label="metadata creation complete!", state="complete", expanded=False)  
     with cc:
         cc_metadata = st.button("people in image", use_container_width=True)
-  
-        cc_status = st.status('create people names ', state='running', expanded=True)            
+        cc_status = st.status('create people names ', state='running', expanded=True)  
+
+        with cc_status:
+            if cc_metadata:
+                ca.info("starting to create total static location data.")
+                # clean previous parquet          
 
 if __name__ == "__main__":
     execute()
