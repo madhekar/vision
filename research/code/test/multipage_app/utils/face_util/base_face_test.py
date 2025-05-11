@@ -83,11 +83,11 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=10):
         time.sleep(2)
     return num_imgs, 'Done!'
 
-def exec():
+def exec(user_storage_name):
     ibtf, img_path, faces_of_people_parquet_path, faces_of_people_parquet =  init()
 
     img_path = '/home/madhekar/work/home-media-app/data/input-data/img'
-    num, ret = process_images_in_batch(ibtf, os.path.join(faces_of_people_parquet_path, faces_of_people_parquet), img_path,batch_size=100)
+    num, ret = process_images_in_batch(ibtf, os.path.join(faces_of_people_parquet_path, user_storage_name, faces_of_people_parquet), img_path, batch_size=100)
     st.info(f'processed {num} images to predict people with status: {ret}')
 
     #r = {(os.path.join(img_path,img_file), ibtf.pred_names_of_people(os.path.join(img_path, img_file))) for img_file in os.listdir(img_path)[0:2]}
@@ -101,5 +101,5 @@ def exec():
 
 # kick-off face training generation
 if __name__ == "__main__":
-    exec()
+    exec('AnjaliBackup')
     

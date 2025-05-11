@@ -1,6 +1,8 @@
 
 static-metadata:
       faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
+      faces_of_people_parquet_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
+      faces_of_people_parquet: image_people.parquet
 image-data:
       input_image_path: /home/madhekar/work/home-media-app/data/input-data-1/img
 model-path:
@@ -10,6 +12,5 @@ model-path:
       faces_label_enc: faces_label_enc.joblib
       faces_svc_path: /home/madhekar/work/home-media-app/models/faces_svc
       faces_svc: faces_model_svc.joblib
-      faces_of_people_parquet_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/image_people
-      faces_of_people_parquet: image_people.parquet
+
     

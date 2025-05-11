@@ -355,6 +355,10 @@ def search_config_load():
 """
 static-metadata:
       faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
+      faces_of_people_parquet_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
+      faces_of_people_parquet: image_people.parquet
+image-data:
+      input_image_path: /home/madhekar/work/home-media-app/data/input-data-1/img
 model-path:
       faces_embbedings_path: /home/madhekar/work/home-media-app/models/faces_embbedings
       faces_embbedings: faces_embeddings_done_for_classes.npz
@@ -362,6 +366,7 @@ model-path:
       faces_label_enc: faces_label_enc.joblib
       faces_svc_path: /home/madhekar/work/home-media-app/models/faces_svc
       faces_svc: faces_model_svc.joblib
+
 """
 @st.cache_resource
 def faces_config_load():
@@ -372,16 +377,19 @@ def faces_config_load():
         pprint.pprint(dict)
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
 
-        faces_metadata_path = dict["static-metadata"]["faces_metadata_path"]
+        faces_metadata_path = dict["static-metadata"]["faces_metadata_path"]        
+        faces_of_people_parquet_path = dict["static-metadata"]["faces_of_people_parquet_path"]
+        faces_of_people_parquet = dict["static-metadata"]["faces_of_people_parquet"]
+
         input_image_path = dict["image-data"]["input_image_path"]
+        
         faces_embbedings_path = dict["model-path"]["faces_embbedings_path"]
         faces_embbedings = dict["model-path"]["faces_embbedings"]
         faces_label_enc_path = dict["model-path"]["faces_label_enc_path"]
         faces_label_enc = dict["model-path"]["faces_label_enc"]
         faces_svc_path = dict["model-path"]["faces_svc_path"]
         faces_svc = dict["model-path"]["faces_svc"]
-        faces_of_people_parquet_path = dict["model-path"]["faces_of_people_parquet_path"]
-        faces_of_people_parquet = dict["model-path"]["faces_of_people_parquet"]
+
 
         return (
             faces_metadata_path,
