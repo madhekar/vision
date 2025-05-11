@@ -75,7 +75,7 @@ metadata_loader = st.Page(
 
 static_metadata_loader = st.Page(
     page="pages/static_metadata_loader.py",
-    title="STATIC LOAD",
+    title="STATIC DATA CREATE",
     icon=":material/published_with_changes:",
 )
 

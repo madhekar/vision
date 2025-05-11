@@ -74,12 +74,13 @@ def execute():
     # paths to import static location files
     metadata_storage_path = os.path.join(static_metadata_path, user_source_selected, static_metadata_file)
 
-    c1, c2 = st.columns([0.5, 1], gap="medium")
+    c1, c2, c3 = st.columns([0.5, 1, .5], gap="medium")
     with c1:
         st.subheader("Static Metadata")
         dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
         st.metric("Number of location files", sum(dfs['count']))
         st.metric("Total size of location files (MB)", round(sum(dfs["size"])/(pow(1024,2)), 2), delta=.7)
+   
     with c2:
         dfl = ss.extract_all_file_stats_in_folder(location_metadata_path)
         dfa = ss.extract_all_file_stats_in_folder(user_location_metadata_path)        
@@ -94,9 +95,12 @@ def execute():
             st.metric("Number of user location files", int(dfa['count']))
             st.metric("Total size of user locations files (MB)",  round(dfa["size"]/(pow(1024,2)), 2), delta=-.1) 
 
+    with c3:
+        st.subheader('CREATE PEOPLE') 
+
     st.divider()
  
-    ca, cb = st.columns([.1,.1], gap="small",vertical_alignment='center')
+    ca, cb, cc = st.columns([.1,.1,.1], gap="small",vertical_alignment='center')
    
     with ca:            
         ca_create = st.button("user specific locations", use_container_width=True)
@@ -130,6 +134,10 @@ def execute():
                     metadata_storage_path,
                 )
                 cb_status.update(label="metadata creation complete!", state="complete", expanded=False)    
+    with cc:
+        cc_metadata = st.button("people in image", use_container_width=True)
+  
+        cc_status = st.status('create people names ', state='running', expanded=True)            
 
 if __name__ == "__main__":
     execute()
