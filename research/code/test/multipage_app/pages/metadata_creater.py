@@ -28,19 +28,18 @@ with c1:
    with c1a_status:
       if btn_face:
           c1a_status.info("starting to create face model.")
-          st.info('step 1: train know faces for search...')
-          bft.exec(user_source_selected)
+          st.info('step: - 1: train know faces for search...')
+          bft_train.exec(user_source_selected)
           c1a_status.update(label="face detection model complete!", state="complete", expanded=False) 
    c2b_status = st.status('create names from images', state='running', expanded=True)      
    with c2b_status:
       if btn_face:
           c2b_status.info("starting to create names for images using face model.")
-          st.info("step 1: detect faces form images...")
-          bft.exec(user_source_selected)
+          st.info("step: - 2: detect faces form images...")
+          bft_predict.exec(user_source_selected)
           c2b_status.update(
               label="names of people generation from model complete!", state="complete", expanded=False
           )
-
 
 with c2: 
    btn_metatdata = st.button(label='Metadata Generate')
