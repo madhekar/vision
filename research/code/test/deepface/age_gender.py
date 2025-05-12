@@ -21,7 +21,9 @@ import cv2
 
 """
 #img_path = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/Anjali Garba 2018.jpg'
-img_path = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2285.jpg'
+#img_path = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2285.jpg'
+#img_path = "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMG-20190111-WA0010.jpg"
+img_path = "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2478.jpg"
 
 img = cv2.imread(img_path)
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
