@@ -1,7 +1,8 @@
 
 import streamlit as st
 from utils.preprocess_util import preprocess as pp
-from utils.face_util import base_face_train as bft
+from utils.face_util import base_face_train as bft_train
+from multipage_app.utils.face_util import base_face_predict as bft_predict
 from utils.util import storage_stat as ss
 from utils.config_util import config
 
