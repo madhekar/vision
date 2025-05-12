@@ -20,33 +20,36 @@ import cv2
 
 
 """
-#img_path = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/Anjali Garba 2018.jpg'
+img_path = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/Anjali Garba 2018.jpg'
 #img_path = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2285.jpg'
 #img_path = "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMG-20190111-WA0010.jpg"
 #img_path = "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2478.jpg"
-img_path = "/home/madhekar/work/home-media-app/data/input-data/img/chicago 012.jpg"
+#img_path = "/home/madhekar/work/home-media-app/data/input-data/img/chicago 012.jpg"
 
+def detect_human_attributs(img_path):
+    people= []
+    age, emotion, gender, race = None, None, None, None
+    try:
+        img = cv2.imread(img_path)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-try:
-    img = cv2.imread(img_path)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        preds = DeepFace.analyze(img, enforce_detection=True)
 
-    preds = DeepFace.analyze(img, enforce_detection=True)
+        if preds:
+            num_faces = len(preds)
+            if num_faces > 0:
+                for nf in range(num_faces):
+                    age = preds[nf]['age']
+                    emotion = preds[nf]['dominant_emotion']
+                    gender = preds[nf]["dominant_gender"]
+                    race = preds[nf]["dominant_race"]
+                    #print(f'{img_path}: {nf} of {num_faces} age: {age} - emotion: {emotion} - gender: {gender} - race: {race}')
+                    people.append({'age':age, 'emotion': emotion, 'gender': gender, 'race': race})    
+    except Exception as e:
+        print(f'Error occured in emotion detection: {e}')
+    return people
 
-    if preds:
-        num_faces = len(preds)
-        if num_faces > 0:
-            for nf in range(num_faces):
-                age = preds[nf]['age']
-                emotion = preds[nf]['dominant_emotion']
-                gender = preds[nf]["dominant_gender"]
-                race = preds[nf]["dominant_race"]
-
-                print(f'{img_path}: {nf} of {num_faces} age: {age} - emotion: {emotion} - gender: {gender} - race: {race}')
-except Exception as e:
-    print(f'Error occured in emotion detection: {e}')
-
-
+print(detect_human_attributs(img_path))
 #print(preds)
 #print(f"Age: {preds[0]['age']} Gender: {preds[0]['dominant_gender']}")
 

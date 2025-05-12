@@ -3,6 +3,8 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 import tensorflow as tf
 import base_face_infer as bft
 import pandas as pd
+from deepface import DeepFace
+import cv2
 
 class base_face_res:
     def __init__(self):
@@ -25,6 +27,30 @@ class base_face_res:
         names =  self.faces_infer_obj.predict_names(img)
         return (names)
     
+def detect_human_attributs(img_path):
+    people = []
+    age, emotion, gender, race = None, None, None, None
+    try:
+        img = cv2.imread(img_path)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+        preds = DeepFace.analyze(img, enforce_detection=True)
+
+        if preds:
+            num_faces = len(preds)
+            if num_faces > 0:
+                for nf in range(num_faces):
+                    age = preds[nf]["age"]
+                    emotion = preds[nf]["dominant_emotion"]
+                    gender = preds[nf]["dominant_gender"]
+                    race = preds[nf]["dominant_race"]
+                    # print(f'{img_path}: {nf} of {num_faces} age: {age} - emotion: {emotion} - gender: {gender} - race: {race}')
+                    people.append(
+                        {"age": age, "emotion": emotion, "gender": gender, "race": race}
+                    )
+    except Exception as e:
+        print(f"Error occured in emotion detection: {e}")
+    return people    
 def main():
     BFS = base_face_res()
     BFS.init() 
@@ -32,6 +58,7 @@ def main():
     r = {os.path.join(fpath, file) for file in os.listdir(fpath)}
     df = pd.DataFrame(r, columns=['image'])
     df['people'] = df.apply(lambda row: BFS.pred_names_of_people(row['image']), axis=1)
+    df['age'], df['emotion'], df['gender'], df['race'] = df.apply(lambda row: detect_human_attributs(row['image']), axis=1)
     print(df)
     df.to_parquet('./image_people.parquet')
 
