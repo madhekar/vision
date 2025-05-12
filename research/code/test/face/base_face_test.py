@@ -44,10 +44,8 @@ def detect_human_attributs(img_path):
                     emotion = preds[nf]["dominant_emotion"]
                     gender = preds[nf]["dominant_gender"]
                     race = preds[nf]["dominant_race"]
-                    # print(f'{img_path}: {nf} of {num_faces} age: {age} - emotion: {emotion} - gender: {gender} - race: {race}')
-                    people.append(
-                        {"age": age, "emotion": emotion, "gender": gender, "race": race}
-                    )
+                    print(f'{img_path}: {nf} of {num_faces} age: {age} - emotion: {emotion} - gender: {gender} - race: {race}')
+                    people.append((age,  emotion,  gender, race))
     except Exception as e:
         print(f"Error occured in emotion detection: {e}")
     return people    
@@ -55,7 +53,7 @@ def main():
     BFS = base_face_res()
     BFS.init() 
     fpath = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup'
-    r = {os.path.join(fpath, file) for file in os.listdir(fpath)}
+    r = {os.path.join(fpath, file) for file in os.listdir(fpath)[0:2]}
     df = pd.DataFrame(r, columns=['image'])
     df['people'] = df.apply(lambda row: BFS.pred_names_of_people(row['image']), axis=1)
     df['age'], df['emotion'], df['gender'], df['race'] = df.apply(lambda row: detect_human_attributs(row['image']), axis=1)
