@@ -96,7 +96,7 @@ def execute():
             st.metric("Total size of user locations files (MB)",  round(dfa["size"]/(pow(1024,2)), 2), delta=-.1) 
 
     with c3:
-        st.subheader('CREATE PEOPLE') 
+        st.subheader('Detect Faces') 
 
     st.divider()
  
@@ -137,11 +137,15 @@ def execute():
     with cc:
         cc_metadata = st.button("people in image", use_container_width=True)
         cc_status = st.status('create people names ', state='running', expanded=True)  
-
         with cc_status:
             if cc_metadata:
-                ca.info("starting to create total static location data.")
+                ca.info("starting to create total static image face data.")
                 # clean previous parquet          
-
+                try:
+                    if os.path.exists(metadata_storage_path):
+                        st.warning(f"cleaning previous static metadata storage: {metadata_storage_path}")
+                        os.remove(metadata_storage_path)
+                except Exception as e:
+                    st.error(f"Exception encountered wile removing metadata file: {e}")
 if __name__ == "__main__":
     execute()
