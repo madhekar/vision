@@ -1,4 +1,5 @@
 from deepface import DeepFace
+import pandas as pd
 import cv2
 """
 [{
@@ -20,11 +21,23 @@ import cv2
 
 
 """
-img_path = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/Anjali Garba 2018.jpg'
-#img_path = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2285.jpg'
+#img_path = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/Anjali Garba 2018.jpg'
+img_path = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2285.jpg'
 #img_path = "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMG-20190111-WA0010.jpg"
 #img_path = "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2478.jpg"
 #img_path = "/home/madhekar/work/home-media-app/data/input-data/img/chicago 012.jpg"
+def compute_aggregate_msg(in_arr):
+    if in_arr:
+        if len(in_arr) > 0:
+            df = pd.DataFrame(in_arr, columns=['age','emotion','gender','race'])
+            print(df.head())
+            #age range
+
+            #common emotion 
+
+            #male count vs female count
+
+            #race common race
 
 def detect_human_attributs(img_path):
     people= []
@@ -49,7 +62,8 @@ def detect_human_attributs(img_path):
         print(f'Error occured in emotion detection: {e}')
     return people
 
-print(detect_human_attributs(img_path))
+compute_aggregate_msg(detect_human_attributs(img_path))
+
 #print(preds)
 #print(f"Age: {preds[0]['age']} Gender: {preds[0]['dominant_gender']}")
 
