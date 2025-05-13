@@ -31,7 +31,8 @@ with c1:
           st.info('step: - 1: train know faces for search...')
           bft_train.exec(user_source_selected)
           c1a_status.update(label="face detection model complete!", state="complete", expanded=False) 
-   c2b_status = st.status('create names from images', state='running', expanded=True)      
+   c2b_status = st.status('create names from images', state='running', expanded=True)    
+     
    with c2b_status:
       if btn_face:
           c2b_status.info("starting to create names for images using face model.")
