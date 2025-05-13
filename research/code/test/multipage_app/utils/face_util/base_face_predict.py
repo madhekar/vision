@@ -9,6 +9,7 @@ import pandas as pd
 import streamlit as st
 from utils.face_util import base_face_infer as bftf
 from utils.config_util import config
+from utils.util import model_util as mu
 
 class base_face_res:
 
@@ -134,17 +135,19 @@ def detect_human_attributs(img_path):
         print(f'Error occured in emotion detection: {e}')
     return people  
 
+
 def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=10):
-    img_paths= [os.path.join(img_dir, img) for img in os.listdir(img_dir)]
-    num_imgs = len(img_paths)
+
+    img_iterator = mu.getRecursive(img_dir, chunk_size=batch_size)
     st.info(f'processing images in {batch_size} batches: ')
-    for i in range(0, num_imgs, batch_size):
-        st.info(f'image processing {i} batch in progress...')
-        batch_paths = img_paths[i: i+ batch_size]
-        result = {(file_path, ibtf.pred_names_of_people(file_path), compute_aggregate_msg(detect_human_attributs(file_path))) for file_path in batch_paths }
+    num_imgs = 0 
+    for file_list in img_iterator:
+        st.info('image processing batch in progress...')
+        result = {(file_path, ibtf.pred_names_of_people(file_path), compute_aggregate_msg(detect_human_attributs(file_path))) for file_path in file_list }
         df = pd.DataFrame(result, columns=["image", "people", "attrib"])
         df.to_parquet(parquet_file, mode="append", engine="fastparquet")
         time.sleep(2)
+        num_imgs += len(file_list)
     st.info(f'names of people from {num_imgs} images is complete!')    
     return num_imgs, 'Done!'
 
