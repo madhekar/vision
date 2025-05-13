@@ -142,18 +142,20 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=10):
     st.info(f'processing images in {batch_size} batches: ')
     num_imgs = 0 
     for file_list in img_iterator:
+        print(file_list)
         st.info('image processing batch in progress...')
-        result = {(file_path, ibtf.pred_names_of_people(file_path), compute_aggregate_msg(detect_human_attributs(file_path))) for file_path in file_list }
+        result = [[file_path, ibtf.predict_names(file_path), compute_aggregate_msg(detect_human_attributs(file_path))] for file_path in file_list ]
         df = pd.DataFrame(result, columns=["image", "people", "attrib"])
-        df.to_parquet(parquet_file, mode="append", engine="fastparquet")
+        df.to_parquet(parquet_file, compression='snappy', append=True, index=None, engine="fastparquet")
         time.sleep(2)
         num_imgs += len(file_list)
     st.info(f'names of people from {num_imgs} images is complete!')    
     return num_imgs, 'Done!'
 
 def exec(user_storage_name):
+    st.info('predict names and attributes on people in images!')
     ibtf, img_path, faces_of_people_parquet_path, faces_of_people_parquet =  init()
-    num, ret = process_images_in_batch(ibtf, os.path.join(faces_of_people_parquet_path, user_storage_name, faces_of_people_parquet), img_path, batch_size=100)
+    num, ret = process_images_in_batch(ibtf, os.path.join(faces_of_people_parquet_path, user_storage_name, faces_of_people_parquet), os.path.join(img_path, user_storage_name), batch_size=10)
     st.info(f'processed {num} images to predict people with status: {ret}')
 
 # kick-off face training generation

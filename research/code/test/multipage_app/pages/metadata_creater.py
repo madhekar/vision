@@ -2,7 +2,7 @@
 import streamlit as st
 from utils.preprocess_util import preprocess as pp
 from utils.face_util import base_face_train as bft_train
-from multipage_app.utils.face_util import base_face_predict as bft_predict
+from utils.face_util import base_face_predict as bft_predict
 from utils.util import storage_stat as ss
 from utils.config_util import config
 
@@ -23,7 +23,8 @@ with c1:
    with c11:
       btn_face = st.button(label='Face Model Generate/ Refresh')
    with c12:   
-      btn_gennerate = st.button(label='Generate names in images')
+      btn_generate = st.button(label='Generate names in images')
+
    c1a_status = st.status('refresh people detection model', state='running', expanded=True)
    with c1a_status:
       if btn_face:
@@ -31,10 +32,10 @@ with c1:
           st.info('step: - 1: train know faces for search...')
           bft_train.exec(user_source_selected)
           c1a_status.update(label="face detection model complete!", state="complete", expanded=False) 
+  
    c2b_status = st.status('create names from images', state='running', expanded=True)    
-     
    with c2b_status:
-      if btn_face:
+      if btn_generate:
           c2b_status.info("starting to create names for images using face model.")
           st.info("step: - 2: detect faces form images...")
           bft_predict.exec(user_source_selected)
