@@ -1,10 +1,11 @@
 import os
+from deepface import DeepFace
 from collections import Counter
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 import tensorflow as tf
 import base_face_infer as bft
 import pandas as pd
-from deepface import DeepFace
+
 import cv2
 
 class base_face_res:
@@ -35,11 +36,11 @@ def group_attribute_into_ranges(data, ranges_dict):
 def compute_aggregate_msg(in_arr):
     str_age, str_emo, str_gen, str_race = "","","",""
     age_ranges = {'infant':(0,2), 'toddler': (3,5), 'child':(6,9), 'adolescent':(10,24), 'young adult':(25,39), 'middle adult':(40,64), 'elderly':(65,120)}
-    print(in_arr)
+    #print(in_arr)
     if in_arr:
         if len(in_arr) > 0:
             df = pd.DataFrame(in_arr, columns=['age','emotion','gender','race'])
-            print(df.head())
+            #print(df.head())
 
             #age range
             age_data = df['age'].values.tolist()
@@ -70,12 +71,12 @@ def detect_human_attributs(img_path):
     people= []
     age, emotion, gender, race = None, None, None, None
     try:
-        print(img_path)
+        #print(img_path)
         img = cv2.imread(img_path)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
         preds = DeepFace.analyze(img, enforce_detection=True )
-        print(preds)
+        #print(preds)
         if preds:
             num_faces = len(preds)
             if num_faces > 0:
@@ -86,7 +87,7 @@ def detect_human_attributs(img_path):
                     race = preds[nf]["dominant_race"]
                     #print(f'{img_path}: {nf} of {num_faces} age: {age} - emotion: {emotion} - gender: {gender} - race: {race}')
                     people.append({'age':age, 'emotion': emotion, 'gender': gender, 'race': race})    
-                    print(people)
+                    #print(people)
     except Exception as e:
         print(f'Error occured in emotion detection: {e}')
     return people  
@@ -95,12 +96,12 @@ def main():
     BFS = base_face_res()
     BFS.init() 
     fpath = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup'
-    r = {os.path.join(fpath, file) for file in os.listdir(fpath)[0:2]}
+    r = {os.path.join(fpath, file) for file in os.listdir(fpath)[0:10]}
     df = pd.DataFrame(r, columns=['image'])
     df['people'] = df.apply(lambda row: BFS.pred_names_of_people(row['image']), axis=1)
     df['attrib'] =  df.apply(lambda row: compute_aggregate_msg(detect_human_attributs(row['image'])), axis=1)
     print(df)
-    #df.to_parquet('./image_people.parquet')
+    df.to_parquet('./image_people.parquet')
 
 if __name__=="__main__":
     os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
