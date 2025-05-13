@@ -1,4 +1,5 @@
 from deepface import DeepFace
+from collections import Counter
 import pandas as pd
 import cv2
 """
@@ -30,7 +31,7 @@ def group_attribute_into_ranges(data, ranges_dict):
     return{k: len([n for n in data if r[0] <= n <= r[1]]) for k,r in ranges_dict.items()}
 
 def compute_aggregate_msg(in_arr):
-    age_ranges = {'infant':[0,2], 'toddler': [3,5], 'child':[6,9], 'adolescent':[10,24], 'young adult':[25,39], 'middle adult':[40,64], 'elderly':[65-120]}
+    age_ranges = {'infant':(0,2), 'toddler': (3,5), 'child':(6,9), 'adolescent':(10,24), 'young adult':(25,39), 'middle adult':(40,64), 'elderly':(65,120)}
     if in_arr:
         if len(in_arr) > 0:
             df = pd.DataFrame(in_arr, columns=['age','emotion','gender','race'])
@@ -39,13 +40,27 @@ def compute_aggregate_msg(in_arr):
             #age range
             age_data = df['age'].values.tolist()
             age_classify = group_attribute_into_ranges(age_data, age_ranges)
-            print(age_classify)
-            
-            #common emotion 
+            str_age = ', '.join([ f'{v} {k}' for k,v in age_classify.items() if v > 0])
+            #print(f'-->{str_age}')
+
+            #common emotion
+            emotion_data = df["emotion"].values.tolist()
+            emo_cnt = Counter(emotion_data)
+            str_emo = ', '.join([f'{v} {k}' for k, v in emo_cnt.items()])
+            #print(f'-->{str_emo}')
 
             #male count vs female count
+            gender_data = df['gender'].values.tolist()
+            gen_cnt = Counter(gender_data)
+            str_gen = ", ".join([f"{v} {k}" for k, v in gen_cnt.items()])
+            #print(f'-->{str_gen}')
 
             #race common race
+            race_data = df['race'].values.tolist()
+            race_cnt = Counter(race_data)
+            str_race = ", ".join([f"{v} {k}" for k, v in race_cnt.items()])
+            #print(f'-->{str_race}')
+    return (str_age, str_emo, str_gen, str_race)
 
 def detect_human_attributs(img_path):
     people= []
@@ -54,7 +69,7 @@ def detect_human_attributs(img_path):
         img = cv2.imread(img_path)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-        preds = DeepFace.analyze(img, enforce_detection=True)
+        preds = DeepFace.analyze(img,enforce_detection=True )
 
         if preds:
             num_faces = len(preds)
@@ -70,8 +85,9 @@ def detect_human_attributs(img_path):
         print(f'Error occured in emotion detection: {e}')
     return people
 
-compute_aggregate_msg(detect_human_attributs(img_path))
+str_result = compute_aggregate_msg(detect_human_attributs(img_path))
 
+print(str_result)
 #print(preds)
 #print(f"Age: {preds[0]['age']} Gender: {preds[0]['dominant_gender']}")
 
