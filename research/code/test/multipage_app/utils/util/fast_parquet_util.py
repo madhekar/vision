@@ -51,6 +51,17 @@ def create_or_append_locations(raw_file, pfile_path):
     except Exception as e:
         st.error(f"create append locations parquet failed with exception: {e}")
 
+def create_or_append_parquet(df, pfile_path):
+    try:
+        st.info(f"adding file: dataframe to parquat store: {pfile_path}")
+
+        if not os.path.isfile(pfile_path):
+            print(pfile_path)
+            write(pfile_path, df)
+        else:
+            write(pfile_path, df, append=True)
+    except Exception as e:
+        st.error(f"create append locations parquet failed with exception: {e}")
 
 def read_parquet_file(file_path):
     rdf = None
