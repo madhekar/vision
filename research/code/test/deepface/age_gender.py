@@ -26,13 +26,21 @@ img_path = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/
 #img_path = "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMG-20190111-WA0010.jpg"
 #img_path = "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2478.jpg"
 #img_path = "/home/madhekar/work/home-media-app/data/input-data/img/chicago 012.jpg"
+def group_attribute_into_ranges(data, ranges_dict):
+    return{k: len([n for n in data if r[0] <= n <= r[1]]) for k,r in ranges_dict.items()}
+
 def compute_aggregate_msg(in_arr):
+    age_ranges = {'infant':[0,2], 'toddler': [3,5], 'child':[6,9], 'adolescent':[10,24], 'young adult':[25,39], 'middle adult':[40,64], 'elderly':[65-120]}
     if in_arr:
         if len(in_arr) > 0:
             df = pd.DataFrame(in_arr, columns=['age','emotion','gender','race'])
             print(df.head())
-            #age range
 
+            #age range
+            age_data = df['age'].values.tolist()
+            age_classify = group_attribute_into_ranges(age_data, age_ranges)
+            print(age_classify)
+            
             #common emotion 
 
             #male count vs female count
