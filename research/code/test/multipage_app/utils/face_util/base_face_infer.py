@@ -28,6 +28,7 @@ class infer_faces:
         dict = {}
         tin = cv.imread(img)
         tin = cv.cvtColor(tin, cv.COLOR_BGR2RGB)
+
         res = self.detector.detect_faces(tin)
 
         if res and len(res) > 0:
