@@ -1,11 +1,13 @@
 
-from deepface import DeepFace
+
+
 import os
-import gc
+from deepface import DeepFace
 from collections import Counter
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+import gc
 import tensorflow as tf
 import cv2
-import time
 import pandas as pd
 import streamlit as st
 from utils.face_util import base_face_infer as bftf
@@ -103,8 +105,8 @@ def detect_human_attributs(img_path):
         img = cv2.imread(img_path)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-        preds = DeepFace.analyze(img) #, enforce_detection=False )
-        #print(preds)
+        preds = DeepFace.analyze(img, enforce_detection=False )
+        print(preds)
         if preds:
             num_faces = len(preds)
             if num_faces > 0:
@@ -123,27 +125,27 @@ def detect_human_attributs(img_path):
 
 def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
 
-    file_list = os.listdir('/home/madhekar/work/home-media-app/data/input-data/img') #mu.getRecursive(img_dir, chunk_size=batch_size)
+    file_list = os.listdir('/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup') #mu.getRecursive(img_dir, chunk_size=batch_size)
     st.info(f'processing images in {batch_size} batches: ')
     num_imgs = 0 
     results = []
     st.info('image processing batch in progress...')
 
     for file_path in file_list[0:10]:
-        names = ibtf.pred_names_of_people(os.path.join('/home/madhekar/work/home-media-app/data/input-data/img' ,file_path))
+        names = ibtf.pred_names_of_people(os.path.join('/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup' ,file_path))
         gc.collect()
         tf.keras.backend.clear_session()
-        attribs = compute_aggregate_msg(detect_human_attributs(os.path.join('/home/madhekar/work/home-media-app/data/input-data/img' ,file_path)))
+        attribs = compute_aggregate_msg(detect_human_attributs(os.path.join('/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup' ,file_path)))
         gc.collect()
         tf.keras.backend.clear_session()
 
-    #result = [[file_path, ibtf.pred_names_of_people(file_path), compute_aggregate_msg(detect_human_attributs(file_path))] for file_path in file_list ]
-    result = [{'image': file_path, 'names': names, 'attribs': attribs}]
-    print(result)
-    num_imgs += len(file_list)
-    results.append(result)
+        #result = [[file_path, ibtf.pred_names_of_people(file_path), compute_aggregate_msg(detect_human_attributs(file_path))] for file_path in file_list ]
+        #result = {'image': file_path, 'names': names, 'attribs': attribs}
+        print(names, attribs)
+        num_imgs += 1
+        results.append({"image": file_path, "names": names, "attribs": attribs})
 
-    df = pd.DataFrame(result)
+    df = pd.DataFrame(results)
     #df.to_parquet(parquet_file, compression='snappy', append=True, index=None, engine="fastparquet")
     print(df.head())
     #fpu.create_or_append_parquet(df, parquet_file)
