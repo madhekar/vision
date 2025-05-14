@@ -4,6 +4,8 @@ import numpy as np
 from mtcnn.mtcnn import MTCNN
 from ast import literal_eval
 from utils.face_util import base_facenet as bfn
+import streamlit as st
+
 
 class infer_faces:
     def __init__(self, _faces_embeddings, _faces_label_enc, _faces_model_svc):
@@ -58,8 +60,8 @@ class infer_faces:
    
         if cnt > 0:
             names = [name for name in names if not name.startswith('person-')] 
-            txt = 'and person' if cnt == 1 else 'and people'
-            names.append(f'{cnt} {txt}')   
+            txt = 'and a person' if cnt == 1 else f'and {cnt} people'
+            names.append(f'{txt}')   
 
         return names 
 
