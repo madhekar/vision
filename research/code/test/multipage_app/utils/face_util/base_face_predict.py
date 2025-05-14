@@ -1,14 +1,12 @@
 
-
-
 import os
-from deepface import DeepFace
+
 from collections import Counter
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-import gc
 import tensorflow as tf
-import cv2
 import pandas as pd
+import cv2
+from deepface import DeepFace
 import streamlit as st
 from utils.face_util import base_face_infer as bftf
 from utils.config_util import config
@@ -125,34 +123,45 @@ def detect_human_attributs(img_path):
 
 def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
 
-    file_list = os.listdir('/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup') #mu.getRecursive(img_dir, chunk_size=batch_size)
-    st.info(f'processing images in {batch_size} batches: ')
-    num_imgs = 0 
-    results = []
-    st.info('image processing batch in progress...')
+    # BFS = base_face_res()
+    # BFS.init() 
+    fpath = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup'
+    r = {os.path.join(fpath, file) for file in os.listdir(fpath)[0:10]}
+    df = pd.DataFrame(r, columns=['image'])
+    df['people'] = df.apply(lambda row: ibtf.pred_names_of_people(row['image']), axis=1)
+    df['attrib'] =  df.apply(lambda row: compute_aggregate_msg(detect_human_attributs(row['image'])), axis=1)
+    print(df)
+    df.to_parquet('./image_people.parquet')
 
-    for file_path in file_list[0:10]:
-        names = ibtf.pred_names_of_people(os.path.join('/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup' ,file_path))
-        gc.collect()
-        tf.keras.backend.clear_session()
-        attribs = compute_aggregate_msg(detect_human_attributs(os.path.join('/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup' ,file_path)))
-        gc.collect()
-        tf.keras.backend.clear_session()
 
-        #result = [[file_path, ibtf.pred_names_of_people(file_path), compute_aggregate_msg(detect_human_attributs(file_path))] for file_path in file_list ]
-        #result = {'image': file_path, 'names': names, 'attribs': attribs}
-        print(names, attribs)
-        num_imgs += 1
-        results.append({"image": file_path, "names": names, "attribs": attribs})
+    # file_list = os.listdir('/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup') #mu.getRecursive(img_dir, chunk_size=batch_size)
+    # st.info(f'processing images in {batch_size} batches: ')
+    # num_imgs = 0 
+    # results = []
+    # st.info('image processing batch in progress...')
 
-    df = pd.DataFrame(results)
-    #df.to_parquet(parquet_file, compression='snappy', append=True, index=None, engine="fastparquet")
-    print(df.head())
-    #fpu.create_or_append_parquet(df, parquet_file)
+    # for file_path in file_list[0:10]:
+    #     names = ibtf.pred_names_of_people(os.path.join('/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup' ,file_path))
+    #     gc.collect()
+    #     tf.keras.backend.clear_session()
+    #     attribs = compute_aggregate_msg(detect_human_attributs(os.path.join('/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup' ,file_path)))
+    #     gc.collect()
+    #     tf.keras.backend.clear_session()
+
+    #     #result = [[file_path, ibtf.pred_names_of_people(file_path), compute_aggregate_msg(detect_human_attributs(file_path))] for file_path in file_list ]
+    #     #result = {'image': file_path, 'names': names, 'attribs': attribs}
+    #     print(names, attribs)
+    #     num_imgs += 1
+    #     results.append({"image": file_path, "names": names, "attribs": attribs})
+
+    # df = pd.DataFrame(results)
+    # #df.to_parquet(parquet_file, compression='snappy', append=True, index=None, engine="fastparquet")
+    # print(df.head())
+    # #fpu.create_or_append_parquet(df, parquet_file)
         
-    gc.collect()
-    st.info(f'names of people from {num_imgs} images is complete!')    
-    return num_imgs, 'Done!'
+    # gc.collect()
+    # st.info(f'names of people from {num_imgs} images is complete!')    
+    # return num_imgs, 'Done!'
 
 def exec(user_storage_name):
     st.info('predict names and attributes on people in images!')
