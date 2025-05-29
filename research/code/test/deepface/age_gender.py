@@ -2,6 +2,7 @@ from deepface import DeepFace
 from collections import Counter
 import pandas as pd
 import cv2
+
 """
 [{
 
@@ -19,14 +20,13 @@ import cv2
  'dominant_race': 'indian'
 
  }]
-
-
 """
 #img_path = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/Anjali Garba 2018.jpg'
 img_path = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2285.jpg'
 #img_path = "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMG-20190111-WA0010.jpg"
 #img_path = "/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup/IMAG2478.jpg"
 #img_path = "/home/madhekar/work/home-media-app/data/input-data/img/chicago 012.jpg"
+
 def group_attribute_into_ranges(data, ranges_dict):
     return{k: len([n for n in data if r[0] <= n <= r[1]]) for k,r in ranges_dict.items()}
 

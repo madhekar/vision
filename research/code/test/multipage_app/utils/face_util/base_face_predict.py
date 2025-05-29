@@ -128,6 +128,7 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
     fpath = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup'
     r = {os.path.join(fpath, file) for file in os.listdir(fpath)[0:10]}
     df = pd.DataFrame(r, columns=['image'])
+    print(df)
     df['people'] = df.apply(lambda row: ibtf.pred_names_of_people(row['image']), axis=1)
     df['attrib'] =  df.apply(lambda row: compute_aggregate_msg(detect_human_attributs(row['image'])), axis=1)
     print(df)

@@ -3,10 +3,10 @@ import os
 import sys
 sys.path.append('..')
 
-###########################################
+########################################################################
 # https://docs.streamlit.io/get-started/tutorials/create-a-multipage-app
 # https://www.youtube.com/watch?v=jbJpAdGlKVY
-#####################################
+#########################################################################
 
 st.set_page_config(
     page_title="zesha: Home Media Portal (HMP)",
