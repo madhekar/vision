@@ -3,6 +3,15 @@ from collections import Counter
 import pandas as pd
 import cv2
 
+<<<<<<< HEAD
+=======
+'''
+backends = ['opencv', 'ssd', 'dlib', 'mtcnn', 'retinaface', 'mediapipe']
+analyze = DeepFace.analyze(img_path = 'emotion.jpg', detector_backend =backends[4])
+print(analyze)
+'''
+
+>>>>>>> c0dc923c320797c703c9431334690b2619151e01
 """
 [{
 
