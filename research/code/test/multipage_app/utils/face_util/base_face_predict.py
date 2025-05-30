@@ -100,10 +100,13 @@ def detect_human_attributs(img_path):
     age, emotion, gender, race = None, None, None, None
     try:
         print(f'---->{img_path}')
-        img = cv2.imread(img_path)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        # img = cv2.imread(img_path)
+        # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-        preds = DeepFace.analyze(img, enforce_detection=False )
+        preds = DeepFace.analyze(
+            img_path,
+            enforce_detection=False
+        )
         print(preds)
         if preds:
             num_faces = len(preds)
@@ -117,10 +120,16 @@ def detect_human_attributs(img_path):
                     people.append({'age':age, 'emotion': emotion, 'gender': gender, 'race': race})    
                     print(f'---->{people}')
     except Exception as e:
-        print(f'Error occured in emotion detection: {e}')
+        print(f'Error occurred in emotion detection: {e}')
     return people  
 
-
+"""
+deepface                                 0.0.93
+tensorboard                              2.19.0
+tensorboard-data-server                  0.7.2
+tensorflow                               2.16.1
+tensorflow_cpu                           2.19.0
+"""
 def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
 
     # BFS = base_face_res()
@@ -130,7 +139,7 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
     df = pd.DataFrame(r, columns=['image'])
     print(df)
     df['people'] = df.apply(lambda row: ibtf.pred_names_of_people(row['image']), axis=1)
-    #df['attrib'] =  df.apply(lambda row: compute_aggregate_msg(detect_human_attributs(row['image'])), axis=1)
+    df['attrib'] =  df.apply(lambda row: compute_aggregate_msg(detect_human_attributs(row['image'])), axis=1)
     print(df)
     #df.to_parquet('./image_people.parquet')
     return df.size, 'Done!'
