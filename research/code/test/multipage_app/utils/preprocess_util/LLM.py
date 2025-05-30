@@ -37,14 +37,14 @@ def setLLM():
     # Do not write outside its scope unless you find your answer better {article} if you thin your answer is better add it after document.<|im_end|>
 def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, location):
     
-    print("calling LLM")
+    st.info("calling LLM")
 
     prompt = """<|im_start|>system
     A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people's and location's, and gives helpful, detailed, and polite answers to the human's questions. The assistant does not hallucinate and pays very close attention to the details.
     <|im_end|>
     <|im_start|>user
     <image>
-     {question}you must include person name(s) "{people}" and the location details "{location}" in the answer.
+     {question} you must include person name(s) {people} and the location information {location} in the answer.
     <|im_end|> 
     <|im_start|>assistant
     """.format(question=question, people=people, location=location) #, article=st.session_state["document"])
@@ -53,9 +53,7 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, 
     #image = image[:, :, :3]
     # generate propcssor using image and associated prompt query, and generate LLM response
     with torch.inference_mode():
-        inputs = processor(
-            prompt, [image], model, max_crops=10, num_tokens=100        #100, 728
-            )
+        inputs = processor( prompt, [image], model, max_crops=10, num_tokens=100)        #100, 72
         
     # streamer 
     streamer = TextStreamer(processor.tokenizer)
@@ -73,7 +71,6 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, 
             streamer=streamer,
             #return_dict_in_generate=True,
             #output_scores=True
-            
         )
 
     result = processor.tokenizer.decode(output[0])

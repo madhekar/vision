@@ -111,9 +111,9 @@ def deep_copy_external_drive_to_raw(src, dest):
     try:
         shutil.copytree(src, dest, ignore_dangling_symlinks=True, dirs_exist_ok=True)
     except FileNotFoundError as e:
-        st.error(f'error: folder {src} not found occured {e}')    
+        st.error(f'error: folder {src} not found occurred {e}')    
     except Exception as e:
-        st.error(f'An error occured: {e}')    
+        st.error(f'An error occurred: {e}')    
     st.info('done deep copy!')    
 
 def copy_folders_with_files(src_dir, dest_dir):

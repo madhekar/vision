@@ -183,7 +183,7 @@ def gpsInfo(img):
         if "Latitude" in data and "Longitude" in data:
             gps = (data["Latitude"], data["Longitude"])
     except Exception as e:
-        st.error(f'exception occured in extracting lat/ lon data: {e}')
+        st.error(f'exception occurred in extracting lat/ lon data: {e}')
     return gps
 
 

@@ -1,7 +1,7 @@
 import glob
 import os.path
 import pandas as pd
-from fastparquet import write
+from fastparquet import write, ParquetFile
 import fastparquet as fp
 import country_converter as coco
 from utils.util import us_states as ust
@@ -62,6 +62,11 @@ def create_or_append_parquet(df, pfile_path):
             write(pfile_path, df, append=True)
     except Exception as e:
         st.error(f"create append locations parquet failed with exception: {e}")
+
+def parquet_generator(pfile_path, chunk_size=10):
+    pf = ParquetFile(pfile_path)   
+    for i in range(0, len(pf), chunk_size):
+        yield pf.to_pandas(rows=(i, min(i + chunk_size. len(pf))))     
 
 def read_parquet_file(file_path):
     rdf = None

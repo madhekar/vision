@@ -21,12 +21,12 @@ import aiofiles
 import aiomultiprocess as aiomp
 from aiomultiprocess import Pool
 from functools import partial
-import dill as pickle
+#import dill as pickle
 
 d_latitude, d_longitude = 32.968700, -117.184196
 d_loc = 'madhekar residence at carmel vally san diego, california'
 m, t, p = LLM.setLLM()
-ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
+#ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
 #global_face = bft.base_face_res()
 
 # init LLM modules
@@ -76,7 +76,7 @@ async def locationDetails(uri, lock):
         if not loc:
             loc = lu.getLocationDetails(lat_lon, max_retires=3)
       except Exception as e:
-        st.error(f'exception occured in getting lat/ lon or location details for {uri}')
+        st.error(f'exception: {e} occurred in getting lat/ lon or location details for {uri}')
       return str(lat_lon), loc
      
 # # get names of people in image
@@ -105,7 +105,7 @@ async def describeImage(args):
         people=names,
         location=location,
     )
-    print(d)
+    st.info(d)
     return d
 
 """
@@ -145,7 +145,7 @@ def xform(res):
     df.drop(columns=['url', 'ts', 'id', 'latlon', 'location'], inplace=True)
     #print(df.head())  
     lst = df.to_numpy().tolist() 
-    print(lst)  
+    #print(lst)  
     return [tuple(e) for e in lst], dfo.to_numpy().tolist()
 
 def final_xform(alist):

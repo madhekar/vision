@@ -64,7 +64,7 @@ def group_attribute_into_ranges(data, ranges_dict):
 def compute_aggregate_msg(in_arr):
     str_age, str_emo, str_gen, str_race = "","","",""
     age_ranges = {'infant':(0,2), 'toddler': (3,5), 'child':(6,9), 'adolescent':(10,24), 'young adult':(25,39), 'middle adult':(40,64), 'elderly':(65,120)}
-    print(in_arr)
+    #print(in_arr)
     if in_arr:
         if len(in_arr) > 0:
             df = pd.DataFrame(in_arr, columns=['age','emotion','gender','race'])
@@ -78,7 +78,7 @@ def compute_aggregate_msg(in_arr):
 
             #common emotion
             emotion_data = df["emotion"].values.tolist()
-            print(emotion_data)
+            #print(emotion_data)
             #emo_cnt = Counter(emotion_data)
             str_emo = Counter(emotion_data).most_common(1)[0][0]
             #str_emo = ', '.join([f'{v} {k}' for k, v in emo_cnt.items()])
@@ -101,16 +101,12 @@ def detect_human_attributs(img_path):
     people= []
     age, emotion, gender, race = None, None, None, None
     try:
-        #print(f'---->{img_path}')
-        # img = cv2.imread(img_path)
-        # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-
+        st.info(f'processing: {img_path}')
         preds = DeepFace.analyze(
             img_path,
             actions=[ 'emotion'],
             enforce_detection=False
         )
-        print(preds)
         if preds:
             num_faces = len(preds)
             if num_faces > 0:
@@ -124,7 +120,7 @@ def detect_human_attributs(img_path):
                     people.append({"emotion": emotion})
                 #print(f'---->{people}')
     except Exception as e:
-        print(f'Error occurred in emotion detection: {e}')
+        st.error(f'Error occurred in emotion detection: {e}')
     return people  
 
 """
@@ -139,7 +135,7 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
     # BFS = base_face_res()
     # BFS.init() 
     fpath = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup'
-    r = {os.path.join(fpath, file) for file in os.listdir(fpath)[0:5]}
+    r = {os.path.join(fpath, file) for file in os.listdir(fpath)}
     df = pd.DataFrame(r, columns=['image'])
     df['people'] = df.apply(lambda row: ibtf.pred_names_of_people(row['image']), axis=1)
     df['attrib'] =  df.apply(lambda row: compute_aggregate_msg(detect_human_attributs(row['image'])), axis=1)
