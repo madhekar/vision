@@ -126,13 +126,14 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
     # BFS = base_face_res()
     # BFS.init() 
     fpath = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup'
-    r = {os.path.join(fpath, file) for file in os.listdir(fpath)[0:10]}
+    r = {os.path.join(fpath, file) for file in os.listdir(fpath)[0:1]}
     df = pd.DataFrame(r, columns=['image'])
     print(df)
     df['people'] = df.apply(lambda row: ibtf.pred_names_of_people(row['image']), axis=1)
-    df['attrib'] =  df.apply(lambda row: compute_aggregate_msg(detect_human_attributs(row['image'])), axis=1)
+    #df['attrib'] =  df.apply(lambda row: compute_aggregate_msg(detect_human_attributs(row['image'])), axis=1)
     print(df)
-    df.to_parquet('./image_people.parquet')
+    #df.to_parquet('./image_people.parquet')
+    return df.size, 'Done!'
 
 
     # file_list = os.listdir('/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup') #mu.getRecursive(img_dir, chunk_size=batch_size)
