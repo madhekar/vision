@@ -72,29 +72,31 @@ def compute_aggregate_msg(in_arr):
             #print(df.head())
 
             #age range
-            age_data = df['age'].values.tolist()
-            age_classify = group_attribute_into_ranges(age_data, age_ranges)
-            str_age = ', '.join([ f'{v} {k}' for k,v in age_classify.items() if v > 0])
-            #print(f'-->{str_age}')
+            # age_data = df['age'].values.tolist()
+            # age_classify = group_attribute_into_ranges(age_data, age_ranges)
+            # str_age = ', '.join([ f'{v} {k}' for k,v in age_classify.items() if v > 0])
+            # #print(f'-->{str_age}')
 
             #common emotion
             emotion_data = df["emotion"].values.tolist()
-            emo_cnt = Counter(emotion_data)
-            str_emo = ', '.join([f'{v} {k}' for k, v in emo_cnt.items()])
-            #print(f'-->{str_emo}')
+            print(emotion_data)
+            #emo_cnt = Counter(emotion_data)
+            str_emo = Counter(emotion_data).most_common(1)[0][0]
+            #str_emo = ', '.join([f'{v} {k}' for k, v in emo_cnt.items()])
+            print(f'-->{str_emo}')
 
             #male count vs female count
-            gender_data = df['gender'].values.tolist()
-            gen_cnt = Counter(gender_data)
-            str_gen = ", ".join([f"{v} {k}" for k, v in gen_cnt.items()])
+            # gender_data = df['gender'].values.tolist()
+            # gen_cnt = Counter(gender_data)
+            # str_gen = ", ".join([f"{v} {k}" for k, v in gen_cnt.items()])
             #print(f'-->{str_gen}')
 
             #race common race
-            race_data = df['race'].values.tolist()
-            race_cnt = Counter(race_data)
-            str_race = ", ".join([f"{v} {k}" for k, v in race_cnt.items()])
+            # race_data = df['race'].values.tolist()
+            # race_cnt = Counter(race_data)
+            # str_race = ", ".join([f"{v} {k}" for k, v in race_cnt.items()])
             #print(f'-->{str_race}')
-    return str_age + ' ' + str_emo + ' ' + str_gen + ' ' + str_race
+    return str_emo #str_age + ' ' + str_emo + ' ' + str_gen + ' ' + str_race
 
 def detect_human_attributs(img_path):
     people= []
@@ -121,7 +123,7 @@ def detect_human_attributs(img_path):
                     #print(f'{img_path}: {nf} of {num_faces} age: {age} - emotion: {emotion} - gender: {gender} - race: {race}')
                     #people.append({'age':age, 'emotion': emotion, 'gender': gender, 'race': race})    
                     people.append({"emotion": emotion})
-                    print(f'---->{people}')
+                print(f'---->{people}')
     except Exception as e:
         print(f'Error occurred in emotion detection: {e}')
     return people  
@@ -138,7 +140,7 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
     # BFS = base_face_res()
     # BFS.init() 
     fpath = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup'
-    r = {os.path.join(fpath, file) for file in os.listdir(fpath)[0:10]}
+    r = {os.path.join(fpath, file) for file in os.listdir(fpath)[0:5]}
     df = pd.DataFrame(r, columns=['image'])
     print(df)
     df['people'] = df.apply(lambda row: ibtf.pred_names_of_people(row['image']), axis=1)
