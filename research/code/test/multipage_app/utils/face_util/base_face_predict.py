@@ -3,6 +3,7 @@ import os
 
 from collections import Counter
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
 import tensorflow as tf
 import pandas as pd
 import cv2
@@ -105,6 +106,7 @@ def detect_human_attributs(img_path):
 
         preds = DeepFace.analyze(
             img_path,
+            actions=[ 'emotion'],
             enforce_detection=False
         )
         print(preds)
@@ -112,12 +114,13 @@ def detect_human_attributs(img_path):
             num_faces = len(preds)
             if num_faces > 0:
                 for nf in range(num_faces):
-                    age = preds[nf]['age']
+                    #age = preds[nf]['age']
                     emotion = preds[nf]['dominant_emotion']
-                    gender = preds[nf]["dominant_gender"]
-                    race = preds[nf]["dominant_race"]
+                    #gender = preds[nf]["dominant_gender"]
+                    #race = preds[nf]["dominant_race"]
                     #print(f'{img_path}: {nf} of {num_faces} age: {age} - emotion: {emotion} - gender: {gender} - race: {race}')
-                    people.append({'age':age, 'emotion': emotion, 'gender': gender, 'race': race})    
+                    #people.append({'age':age, 'emotion': emotion, 'gender': gender, 'race': race})    
+                    people.append({"emotion": emotion})
                     print(f'---->{people}')
     except Exception as e:
         print(f'Error occurred in emotion detection: {e}')
@@ -135,13 +138,13 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
     # BFS = base_face_res()
     # BFS.init() 
     fpath = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup'
-    r = {os.path.join(fpath, file) for file in os.listdir(fpath)[0:1]}
+    r = {os.path.join(fpath, file) for file in os.listdir(fpath)[0:10]}
     df = pd.DataFrame(r, columns=['image'])
     print(df)
     df['people'] = df.apply(lambda row: ibtf.pred_names_of_people(row['image']), axis=1)
     df['attrib'] =  df.apply(lambda row: compute_aggregate_msg(detect_human_attributs(row['image'])), axis=1)
     print(df)
-    #df.to_parquet('./image_people.parquet')
+    df.to_parquet('./image_people.parquet')
     return df.size, 'Done!'
 
 
