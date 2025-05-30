@@ -54,7 +54,6 @@ def init():
 
     print(class_embeddings, class_embeddings_folder)
     ibtf = base_face_res(faces_dir, class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc)  
-    print('-->hrer')
     ibtf.initialize()
     st.info(f'init face predict {label_encoder_path}:{faces_svc_path}')
     return ibtf, input_image_path, faces_of_people_parquet_path, faces_of_people_parquet
@@ -83,7 +82,7 @@ def compute_aggregate_msg(in_arr):
             #emo_cnt = Counter(emotion_data)
             str_emo = Counter(emotion_data).most_common(1)[0][0]
             #str_emo = ', '.join([f'{v} {k}' for k, v in emo_cnt.items()])
-            print(f'-->{str_emo}')
+            #print(f'-->{str_emo}')
 
             #male count vs female count
             # gender_data = df['gender'].values.tolist()
@@ -102,7 +101,7 @@ def detect_human_attributs(img_path):
     people= []
     age, emotion, gender, race = None, None, None, None
     try:
-        print(f'---->{img_path}')
+        #print(f'---->{img_path}')
         # img = cv2.imread(img_path)
         # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
@@ -123,7 +122,7 @@ def detect_human_attributs(img_path):
                     #print(f'{img_path}: {nf} of {num_faces} age: {age} - emotion: {emotion} - gender: {gender} - race: {race}')
                     #people.append({'age':age, 'emotion': emotion, 'gender': gender, 'race': race})    
                     people.append({"emotion": emotion})
-                print(f'---->{people}')
+                #print(f'---->{people}')
     except Exception as e:
         print(f'Error occurred in emotion detection: {e}')
     return people  
@@ -142,10 +141,9 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
     fpath = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup'
     r = {os.path.join(fpath, file) for file in os.listdir(fpath)[0:5]}
     df = pd.DataFrame(r, columns=['image'])
-    print(df)
     df['people'] = df.apply(lambda row: ibtf.pred_names_of_people(row['image']), axis=1)
     df['attrib'] =  df.apply(lambda row: compute_aggregate_msg(detect_human_attributs(row['image'])), axis=1)
-    print(df)
+    #print(df)
     df.to_parquet('./image_people.parquet')
     return df.size, 'Done!'
 
