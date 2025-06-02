@@ -8,7 +8,6 @@ class process_json:
         self.batch_size = _batch_size
         self.progress_file = _progress_file
 
-
     def process_large_json(self, resume_index=0):
         processed_count = resume_index
 
@@ -42,7 +41,7 @@ class process_json:
 
 
     def process_item(self, item):
-        # Use orjson.dumps() for efficient serialization if needed
+        # Use orjson.dumps() for efficient serialization 
         return orjson.dumps(item)
 
     def save_progress(self, index):
@@ -56,7 +55,6 @@ class process_json:
         return 0
 
 # Usage
-
 file_path = "image_people_names_emotions.json" 
 progress_file = 'json_process_progress.txt'
 pj = process_json(file_path, 10, progress_file)
