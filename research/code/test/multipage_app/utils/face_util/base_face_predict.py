@@ -135,12 +135,13 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
     # BFS = base_face_res()
     # BFS.init() 
     fpath = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup'
-    r = {os.path.join(fpath, file) for file in os.listdir(fpath)}
+    r = {os.path.join(fpath, file) for file in os.listdir(fpath)[0:5]}
     df = pd.DataFrame(r, columns=['image'])
     df['people'] = df.apply(lambda row: ibtf.pred_names_of_people(row['image']), axis=1)
     df['attribute'] =  df.apply(lambda row: compute_aggregate_msg(detect_human_attributs(row['image'])), axis=1)
     #print(df)
     df.to_parquet('./image_people.parquet')
+    df.to_json('./image_people_names_emotions.json', orient='index')
     return df.size, 'Done!'
 
 

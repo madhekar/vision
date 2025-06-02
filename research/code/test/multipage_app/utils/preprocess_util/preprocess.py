@@ -122,7 +122,7 @@ async def describeImage(args):
 #     return (uri, suuid, ts, location_details, names, text)
 
 
-# recursive call to get all image filenames
+# recursive call to get all image filenames, to be replaced by parquet generator
 def getRecursive(rootDir, chunk_size=10):
     f_list = []
     for fn in glob.iglob(rootDir + "/**/*", recursive=True):
@@ -152,7 +152,7 @@ def final_xform(alist):
     keys = ['ts', 'names', 'uri', 'id', 'latlon', 'loc', 'text']
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
-
+# appends json rows to file
 async def append_file(filename, dict_data_list, mode):
     async with aiofiles.open(filename, mode) as f:
         for dict_element in dict_data_list:
@@ -169,7 +169,9 @@ def setup_logging(level=logging.WARNING):
 def pool_init(BFS):
     global bfs
     bfs = BFS    
+
 """
+multi processing linux tools
 ps -ef | grep -w streamlit
 pgrep --count streamlit
 killall -9 streamlit
