@@ -205,6 +205,8 @@ async def run_workflow(
     lock = asyncio.Lock()
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
+    #fpu.parquet_generator(file, chunk_size=10)
+
     with st.status("Generating LLM responses...", expanded=True) as status:
         async with Pool(processes=chunk_size, initializer=pool_init, initargs=(bfs,), maxtasksperchild=1) as pool:
             count = 0
