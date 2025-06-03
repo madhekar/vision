@@ -48,19 +48,22 @@ def get_loc_name_by_latlon(latlon):
            return None
 
 # uuid4 id for vector database
-async def generateId(uri):
+async def generateId(args):
+    uri, names, emo = args
     return (uri, str(uuid.uuid4()))
 
 
 # convert image date time to timestamp
-async def timestamp(uri):
+async def timestamp(args):
+    uri, names, emo = args
     print(f'ts--{uri}')
     ts = lu.getTimestamp(uri)
     return str(ts)
 
 
 # get location details as: (latitude, longitude) and address
-async def locationDetails(uri, lock):
+async def locationDetails(args, lock):
+    uri, names, emo = args
     async with lock:
       try:  
         print(f"-->> {uri}")
@@ -175,14 +178,14 @@ async def run_workflow(
 ):
     st.info(f"CPU COUNT: {chunk_size}")
     print(f"CPU COUNT: {chunk_size}")
-
+    
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
     if df is not None:
       if not df.empty:
         num = df.shape[0]
       else:
-          num=0
+        num=0
     else:
       num = 0
     num_files = len(glob.glob(os.path.join(image_dir_path,'*')))
@@ -202,15 +205,12 @@ async def run_workflow(
                 rlist = mu.is_processed_batch(ilist, df)
                 if len(rlist) > 0:
 
-                    # res=[]
-                    # fetch_result = [asyncio.create_task(llm_workflow(uri=u)) for u in rlist ]
-                    # for ul in asyncio.as_completed(fetch_result):
-                    #     res.extend(await(ul))
+                    # prep names and emotion
+                    df_rl = pd.DataFrame(rlist, columns=['uri'])
+                    df_r = bft.exec_process(df_rl)
+                    rlist = df_r.values.tolist()
+                    print(rlist)
 
-                    # async for ur in pool.map(llm_workflow, rlist): 
-                    #     st.info(ur)
-                    #     res.extend(ur)
-                       
                     res = await asyncio.gather(
                         pool.map(generateId, rlist),
                         pool.map(timestamp, rlist),
@@ -219,11 +219,11 @@ async def run_workflow(
                         pool.map(partial(locationDetails, lock=lock), rlist)
                     )
 
-                    st.info(res)
+                    st.info(res.append(rlist[1:]))
 
                     rflist, oflist = xform(res)
 
-                    st.info(oflist)
+                    #st.info(oflist)
 
                     res1 = await asyncio.gather(
                         pool.map(describeImage,  rflist)
@@ -268,15 +268,6 @@ def execute(user_source_selected):
         static_metadata_path,
         static_metadata_file
     ) = config.preprocess_config_load()
-
-    #image_dir_path = "/home/madhekar/work/home-media-app/data/train-data/img"    
-    # st.sidebar.subheader("User Storage Source", divider="gray")
-
-    # user_source_selected = st.sidebar.selectbox(
-    #     "data source folder",
-    #     options=ss.extract_user_raw_data_folders(image_dir_path),
-    #     label_visibility="collapsed"
-    # )
 
     static_metadata_path = os.path.join(static_metadata_path, user_source_selected)
     # add user data source to image input and metadata output paths

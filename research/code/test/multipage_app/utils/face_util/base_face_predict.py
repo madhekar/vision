@@ -123,6 +123,14 @@ def detect_human_attributs(img_path):
         st.error(f'Error occurred in emotion detection: {e}')
     return people  
 
+def process_dataframe_urls_in_batch(ibtf, df):
+    df["people"] = df.apply(lambda row: ibtf.pred_names_of_people(row["uri"]), axis=1)
+    df["attribute"] = df.apply(lambda row: compute_aggregate_msg(detect_human_attributs(row["uri"])), axis=1)
+    # print(df)
+    # df.to_parquet("./image_people.parquet")
+    # df.to_json("./image_people_names_emotions.json", orient="records")
+    return df
+
 """
 deepface                                 0.0.93
 tensorboard                              2.19.0
@@ -193,6 +201,12 @@ def exec(user_storage_name):
     ibtf, img_path, faces_of_people_parquet_path, faces_of_people_parquet =  init()
     num, ret = process_images_in_batch(ibtf, os.path.join(faces_of_people_parquet_path, user_storage_name, faces_of_people_parquet), os.path.join(img_path, user_storage_name), batch_size=1)
     st.info(f'processed {num} images to predict people with status: {ret}')
+
+def exec_process(df):
+    st.info('predict names and attributes on people in images!')
+    ibtf, img_path, faces_of_people_parquet_path, faces_of_people_parquet =  init()   
+    df = process_dataframe_urls_in_batch(ibtf, df)
+    return df
 
 # kick-off face training generation
 if __name__ == "__main__":
