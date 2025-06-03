@@ -89,7 +89,7 @@ async def locationDetails(args, lock):
 
 # get image description from LLM
 async def describeImage(args):
-    uri, location = args
+    names, uri, location = args
     print(args)
     d =  LLM.fetch_llm_text(
         imUrl=uri,
@@ -98,7 +98,7 @@ async def describeImage(args):
         top=0.9,
         temperature=0.9,
         question="Answer with well organized thoughts, please describe the picture with insights.",
-        people="esha",
+        people=names,
         location=location,
     )
     st.info(d)
@@ -133,7 +133,7 @@ def xform(res):
     for k in range(len(res[0])):
       lr = [i[k] for i in res]
       fr.append(lr)
-
+    print(fr)
     df = pd.DataFrame(fr, columns=['url', 'ts', 'location'])   
     df[['uri', 'id']] = pd.DataFrame(df['url'].tolist(), index=df.index)
     df[['latlon','loc']] = pd.DataFrame(df['location'].tolist(), index=df.index)
