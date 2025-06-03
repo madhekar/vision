@@ -219,7 +219,7 @@ async def run_workflow(
                         pool.map(partial(locationDetails, lock=lock), rlist)
                     )
 
-                    st.info(res.append(rlist[1:]))
+                    st.info(res)
 
                     rflist, oflist = xform(res)
 
