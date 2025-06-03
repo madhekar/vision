@@ -84,16 +84,9 @@ async def locationDetails(uri, lock):
 #       names =  en.getEntityNames(uri, ocfine)
 #       return names
 
-# async def facesNames(uri):
-#     print(uri)
-#     #face_inf_o = bft.base_face_res()
-#     names = bfs.pred_names_of_people(uri)   
-#     print(names)
-#     return names
-
 # get image description from LLM
 async def describeImage(args):
-    names, uri, location = args
+    uri, location = args
     print(args)
     d =  LLM.fetch_llm_text(
         imUrl=uri,
@@ -102,7 +95,7 @@ async def describeImage(args):
         top=0.9,
         temperature=0.9,
         question="Answer with well organized thoughts, please describe the picture with insights.",
-        people=names,
+        people="esha",
         location=location,
     )
     st.info(d)
@@ -138,7 +131,7 @@ def xform(res):
       lr = [i[k] for i in res]
       fr.append(lr)
 
-    df = pd.DataFrame(fr, columns=['url', 'ts', 'names', 'location'])   
+    df = pd.DataFrame(fr, columns=['url', 'ts', 'location'])   
     df[['uri', 'id']] = pd.DataFrame(df['url'].tolist(), index=df.index)
     df[['latlon','loc']] = pd.DataFrame(df['location'].tolist(), index=df.index)
     dfo= df.drop(columns=['url', 'location'])
@@ -149,7 +142,7 @@ def xform(res):
     return [tuple(e) for e in lst], dfo.to_numpy().tolist()
 
 def final_xform(alist):
-    keys = ['ts', 'names', 'uri', 'id', 'latlon', 'loc', 'text']
+    keys = ['ts', 'uri', 'id', 'latlon', 'loc', 'text']
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
 # appends json rows to file
@@ -163,12 +156,7 @@ async def append_file(filename, dict_data_list, mode):
         await f.close()       
 
 def setup_logging(level=logging.WARNING):
-    logging.basicConfig(level=level)
-
-# pool iniitializer
-def pool_init(BFS):
-    global bfs
-    bfs = BFS    
+    logging.basicConfig(level=level)  
 
 """
 multi processing linux tools
@@ -187,9 +175,6 @@ async def run_workflow(
 ):
     st.info(f"CPU COUNT: {chunk_size}")
     print(f"CPU COUNT: {chunk_size}")
-    # BFS = bft.base_face_res()
-    # BFS.init()
-    # pool_init(BFS)
 
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
@@ -210,7 +195,7 @@ async def run_workflow(
     #fpu.parquet_generator(file, chunk_size=10)
 
     with st.status("Generating LLM responses...", expanded=True) as status:
-        async with Pool(processes=chunk_size, initializer=pool_init, initargs=(bfs,), maxtasksperchild=1) as pool:
+        async with Pool(processes=chunk_size,  maxtasksperchild=1) as pool:  #initializer=pool_init, initargs=(bfs,),
             count = 0
             res = []
             for ilist in img_iterator:
@@ -269,7 +254,7 @@ async def run_workflow(
     status.update(label="process completed!", state="complete", expanded=False)
 
 
-def execute():
+def execute(user_source_selected):
     #mp.freeze_support()
     aiomp.set_start_method("fork")
 
@@ -285,13 +270,13 @@ def execute():
     ) = config.preprocess_config_load()
 
     #image_dir_path = "/home/madhekar/work/home-media-app/data/train-data/img"    
-    st.sidebar.subheader("User Storage Source", divider="gray")
+    # st.sidebar.subheader("User Storage Source", divider="gray")
 
-    user_source_selected = st.sidebar.selectbox(
-        "data source folder",
-        options=ss.extract_user_raw_data_folders(image_dir_path),
-        label_visibility="collapsed"
-    )
+    # user_source_selected = st.sidebar.selectbox(
+    #     "data source folder",
+    #     options=ss.extract_user_raw_data_folders(image_dir_path),
+    #     label_visibility="collapsed"
+    # )
 
     static_metadata_path = os.path.join(static_metadata_path, user_source_selected)
     # add user data source to image input and metadata output paths
@@ -331,6 +316,8 @@ def execute():
     # bcreate_metadata = st.button("start metadata creation")
     # if bcreate_metadata:
 
+    print(df)
+
     asyncio.run(run_workflow(
         df,
         image_dir_path,
@@ -344,4 +331,4 @@ def execute():
 
 # kick-off metadata generation
 if __name__ == "__main__":
-    execute()
+    execute("user_source_selected")

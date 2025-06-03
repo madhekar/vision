@@ -134,8 +134,8 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
 
     # BFS = base_face_res()
     # BFS.init() 
-    fpath = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup'
-    r = {os.path.join(fpath, file) for file in os.listdir(fpath)[0:100]}
+    #fpath = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup'
+    r = {os.path.join(img_dir, file) for file in os.listdir(img_dir)[0:100]}
     df = pd.DataFrame(r, columns=['image'])
     df['people'] = df.apply(lambda row: ibtf.pred_names_of_people(row['image']), axis=1)
     df['attribute'] =  df.apply(lambda row: compute_aggregate_msg(detect_human_attributs(row['image'])), axis=1)
@@ -173,11 +173,25 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
     # gc.collect()
     # st.info(f'names of people from {num_imgs} images is complete!')    
     # return num_imgs, 'Done!'
-
+"""
+static-metadata:
+      faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
+      faces_of_people_parquet_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
+      faces_of_people_parquet: image_people.parquet
+image-data:
+      input_image_path: /home/madhekar/work/home-media-app/data/input-data-1/img
+model-path:
+      faces_embbedings_path: /home/madhekar/work/home-media-app/models/faces_embbedings
+      faces_embbedings: faces_embeddings_done_for_classes.npz
+      faces_label_enc_path: /home/madhekar/work/home-media-app/models/faces_label_enc
+      faces_label_enc: faces_label_enc.joblib
+      faces_svc_path: /home/madhekar/work/home-media-app/models/faces_svc
+      faces_svc: faces_model_svc.joblib
+"""
 def exec(user_storage_name):
     st.info('predict names and attributes on people in images!')
     ibtf, img_path, faces_of_people_parquet_path, faces_of_people_parquet =  init()
-    num, ret = process_images_in_batch(ibtf, os.path.join(faces_of_people_parquet_path, user_storage_name, faces_of_people_parquet), img_path, batch_size=1)
+    num, ret = process_images_in_batch(ibtf, os.path.join(faces_of_people_parquet_path, user_storage_name, faces_of_people_parquet), os.path.join(img_path, user_storage_name), batch_size=1)
     st.info(f'processed {num} images to predict people with status: {ret}')
 
 # kick-off face training generation

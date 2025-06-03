@@ -45,9 +45,9 @@ with c1:
 
 with c2: 
    btn_metatdata = st.button(label='Metadata Generate')
-   c2_status = st.status('create static location store', state='running', expanded=True)
-   with c2_status:
-      if btn_metatdata:
+#    c2_status = st.status('create static location store', state='running', expanded=True)
+#    with c2_status:
+   if btn_metatdata:
           st.info('step 2: create metadata for search such as annotations location, text, person names etc...')
           pp.execute(user_source_selected)
 
