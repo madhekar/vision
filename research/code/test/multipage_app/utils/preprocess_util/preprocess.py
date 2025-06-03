@@ -134,11 +134,12 @@ def xform(res):
       lr = [i[k] for i in res]
       fr.append(lr)
     print(fr)
-    df = pd.DataFrame(fr, columns=['url', 'ts', 'location'])   
+    df = pd.DataFrame(fr, columns=['url', 'ts', 'location', 'people'])   
     df[['uri', 'id']] = pd.DataFrame(df['url'].tolist(), index=df.index)
     df[['latlon','loc']] = pd.DataFrame(df['location'].tolist(), index=df.index)
+    df[['urii', 'names', 'attrib']] = pd.DataFrame(df['people'].tolist(), index=df.index)
     dfo= df.drop(columns=['url', 'location'])
-    df.drop(columns=['url', 'ts', 'id', 'latlon', 'location'], inplace=True)
+    df.drop(columns=['urii', 'url', 'ts', 'id', 'latlon', 'location'], inplace=True)
     #print(df.head())  
     lst = df.to_numpy().tolist() 
     #print(lst)  
@@ -218,6 +219,8 @@ async def run_workflow(
                         #pool.map(facesNames, rlist),
                         pool.map(partial(locationDetails, lock=lock), rlist)
                     )
+                    
+                    res.append(rlist)
 
                     st.info(res)
 
