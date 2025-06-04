@@ -35,19 +35,19 @@ def setLLM():
 
     # create prompt to test the LLM
     # Do not write outside its scope unless you find your answer better {article} if you thin your answer is better add it after document.<|im_end|>
-def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, location):
+def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, attrib, location):
     
     st.info("calling LLM")
 
     prompt = """<|im_start|>system
-    A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people's and location's, and gives helpful, detailed, and polite answers to the human's questions. The assistant does not hallucinate and pays very close attention to the details.
+    A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotion's and location's, and gives helpful, detailed, and polite answers to the human's questions. The assistant does not hallucinate and pays very close attention to the details.
     <|im_end|>
     <|im_start|>user
     <image>
-     {question} you must include person name(s) {people} and the location information {location} in the answer.
+     '{question}' you MUST include person name(s) '{people}' with '{attrib}' emotions and the location information '{location}' in the answer.
     <|im_end|> 
     <|im_start|>assistant
-    """.format(question=question, people=people, location=location) #, article=st.session_state["document"])
+    """.format(question=question, people=people, attrib=attrib, location=location) #, article=st.session_state["document"])
     image = Image.open(imUrl).convert('RGB')
     #image = np.array(image)
     #image = image[:, :, :3]

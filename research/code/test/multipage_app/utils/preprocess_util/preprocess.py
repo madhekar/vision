@@ -90,7 +90,7 @@ async def locationDetails(args, lock):
 
 # get image description from LLM
 async def describeImage(args):
-    names, uri, location = args
+    uri, location, names, attrib = args
     print(args)
     d =  LLM.fetch_llm_text(
         imUrl=uri,
@@ -100,6 +100,7 @@ async def describeImage(args):
         temperature=0.9,
         question="Answer with well organized thoughts, please describe the picture with insights.",
         people=names,
+        attrib = attrib,
         location=location,
     )
     st.info(d)
@@ -134,8 +135,9 @@ def new_xform(res):
     print('-->', res, '\n', lr)
     df = pd.DataFrame(lr, columns=["url", "id", "ts", "latlon", "location", "url2", "names", "attrib"])
     print(df.head(5))
-    df1 = df.drop(columns=["url2","url", "id", "ts", "latlon", "location"], axis=1)
+    df1 = df.drop(columns=["url2", "id", "ts", "latlon"], axis=1)
     lst = df1.to_numpy().tolist()
+    print('...>', lst)
     return [tuple(e) for e in lst], lst
 
 def xform(res):
