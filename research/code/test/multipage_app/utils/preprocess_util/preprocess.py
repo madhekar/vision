@@ -244,7 +244,7 @@ async def run_workflow(
                         pool.map(describeImage,  rflist)
                     )
 
-                    #st.info(res1)
+                    st.info(res1, oflist)
 
                     zlist = [oflist[i] + [res1[0][i]]  for i in range(len(oflist))]
 
@@ -300,7 +300,7 @@ def execute(user_source_selected):
     else:
         df_loc = st.session_state.df_loc   
 
-    chunk_size = int(mp.cpu_count() // 2)
+    chunk_size = int(mp.cpu_count() // 4)
     st.sidebar.subheader("Metadata Generation")
     st.sidebar.divider()
 
