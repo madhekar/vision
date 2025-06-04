@@ -1,3 +1,5 @@
+import pandas as pd
+import itertools as it
 ll = [
     [
         (
@@ -117,9 +119,31 @@ ll = [
         ],
     ],
 ]
-
-print(ll)
+def flatten(data):
+    if isinstance(data, tuple):
+        if len(data) == 0:
+            return ()
+        else:
+            return flatten(data[0] + flatten(data[1:]))
+    else:
+        return (data,)    
+    
+#print(ll)
 
 res = [list(x) for x in zip(*ll)]
 
 print(res)
+
+# df = pd.DataFrame({'data': res})
+
+# df = df['data'].list.flatten()
+
+#r = [flatten(e) for e in res]
+
+# r = list(it.chain(*res))
+
+# print(r)
+
+r1 = [it for li in res for item in li for it in item if isinstance(item, tuple) or  isinstance(item, list)]
+
+print(r1)
