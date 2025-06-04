@@ -1,6 +1,7 @@
 import os
 import uuid
 import logging
+import itertools as it
 from utils.preprocess_util import awaitUtil
 from utils.preprocess_util import entities as en
 from utils.preprocess_util import LLM
@@ -50,7 +51,7 @@ def get_loc_name_by_latlon(latlon):
 # uuid4 id for vector database
 async def generateId(args):
     uri, names, emo = args
-    return (uri, str(uuid.uuid4()))
+    return [uri, str(uuid.uuid4())]
 
 
 # convert image date time to timestamp
@@ -58,7 +59,7 @@ async def timestamp(args):
     uri, names, emo = args
     print(f'ts--{uri}')
     ts = lu.getTimestamp(uri)
-    return str(ts)
+    return [str(ts)]
 
 
 # get location details as: (latitude, longitude) and address
@@ -80,7 +81,7 @@ async def locationDetails(args, lock):
             loc = lu.getLocationDetails(lat_lon, max_retires=3)
       except Exception as e:
         st.error(f'exception: {e} occurred in getting lat/ lon or location details for {uri}')
-      return str(lat_lon), loc
+      return [str(lat_lon), loc]
      
 # # get names of people in image
 # async def namesOfPeople(uri):
@@ -127,13 +128,22 @@ def getRecursive(rootDir, chunk_size=10):
     for i in range(0, len(f_list), chunk_size):
         yield f_list[i : i + chunk_size]
 
+def new_xform(res):
+    ll = [list(x) for x in zip(*res)]
+    lr = [list(it.chain(*item)) for item in ll]
+    print('-->', res, '\n', lr)
+    df = pd.DataFrame(lr, columns=["url", "id", "ts", "latlon", "location", "url2", "names", "attrib"])
+    print(df.head(5))
+    df1 = df.drop(columns=["url2","url", "id", "ts", "latlon", "location"], axis=1)
+    lst = df1.to_numpy().tolist()
+    return [tuple(e) for e in lst], lst
 
 def xform(res):
     fr=[]
     for k in range(len(res[0])):
       lr = [i[k] for i in res]
       fr.append(lr)
-    print(fr)
+    print('-->', fr)
     df = pd.DataFrame(fr, columns=['url', 'ts', 'location', 'people'])   
     df[['uri', 'id']] = pd.DataFrame(df['url'].tolist(), index=df.index)
     df[['latlon','loc']] = pd.DataFrame(df['location'].tolist(), index=df.index)
@@ -210,7 +220,7 @@ async def run_workflow(
                     df_rl = pd.DataFrame(rlist, columns=['uri'])
                     df_r = bft.exec_process(df_rl)
                     rlist = df_r.values.tolist()
-                    print(rlist)
+                    # print(rlist)
 
                     res = await asyncio.gather(
                         pool.map(generateId, rlist),
@@ -224,7 +234,7 @@ async def run_workflow(
 
                     st.info(res)
 
-                    rflist, oflist = xform(res)
+                    rflist, oflist = new_xform(res) #xform(res)
 
                     #st.info(oflist)
 
