@@ -37,14 +37,15 @@ def setLLM():
     # Do not write outside its scope unless you find your answer better {article} if you thin your answer is better add it after document.<|im_end|>
 def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, attrib, location):
     
-    st.info("calling LLM")
+    st.info("calling LLM...")
 
     prompt = """<|im_start|>system
-    A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotion's and location's, and gives helpful, detailed, and polite answers to the human's questions. The assistant does not hallucinate and pays very close attention to the details.
+    A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. 
+    The assistant does not hallucinate and pays very close attention to the details and take time pause if necessary.
     <|im_end|>
     <|im_start|>user
     <image>
-     '{question}' you MUST include person name(s) '{people}' with '{attrib}' emotions and the location information '{location}' in the answer.
+     "{question}" you MUST include person name(s) "{people}" with "{attrib}" emotions and the location details "{location}" in the answer.
     <|im_end|> 
     <|im_start|>assistant
     """.format(question=question, people=people, attrib=attrib, location=location) #, article=st.session_state["document"])
@@ -62,7 +63,7 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, 
     with torch.inference_mode():
         output =  model.generate(
             **inputs,
-            max_new_tokens=70,  #200
+            max_new_tokens=200,  #200 #70
             do_sample=True,
             use_cache=False,
             top_p=top,
@@ -74,6 +75,8 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, 
         )
 
     result = processor.tokenizer.decode(output[0])
-    result = result.replace(prompt, "").replace("<|im_end|>", "").replace("<|im_start|>", "")
-    return result
+    r = result.replace(prompt, "").replace("<|im_end|>", "").replace("<|im_start|>", "")
+
+    print('===>', r)
+    return r
     
