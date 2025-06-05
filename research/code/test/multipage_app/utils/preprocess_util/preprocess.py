@@ -43,7 +43,7 @@ def get_loc_name_by_latlon(latlon):
     if latlon:
         row = st.session_state.df_loc.loc[st.session_state.df_loc.LatLon == latlon].values.flatten().tolist()
         if len(row) > 0:
-           print(f'--> found location in cache: {row}')
+           #print(f'--> found location in cache: {row}')
            return row[0]
         else:
            return None
@@ -57,7 +57,7 @@ async def generateId(args):
 # convert image date time to timestamp
 async def timestamp(args):
     uri, names, emo = args
-    print(f'ts--{uri}')
+    #print(f'ts--{uri}')
     ts = lu.getTimestamp(uri)
     return [str(ts)]
 
@@ -67,7 +67,7 @@ async def locationDetails(args, lock):
     uri, names, emo = args
     async with lock:
       try:  
-        print(f"-->> {uri}")
+        #print(f"-->> {uri}")
         loc = ""
         lat_lon = ()
         lat_lon = lu.gpsInfo(uri)
@@ -76,18 +76,13 @@ async def locationDetails(args, lock):
             loc = d_loc # default location description
         else:    
            loc = get_loc_name_by_latlon(lat_lon)
-        print(f"--->> {lat_lon} : {loc}")
+        #print(f"--->> {lat_lon} : {loc}")
         if not loc:
             loc = lu.getLocationDetails(lat_lon, max_retires=3)
       except Exception as e:
         st.error(f'exception: {e} occurred in getting lat/ lon or location details for {uri}')
       return [str(lat_lon), loc]
      
-# # get names of people in image
-# async def namesOfPeople(uri):
-#       names =  en.getEntityNames(uri, ocfine)
-#       return names
-
 # get image description from LLM
 async def describeImage(args):
     uri, location, names, attrib = args
@@ -98,7 +93,7 @@ async def describeImage(args):
         processor=p,
         top=0.9,
         temperature=0.9,
-        question="Answer with well organized thoughts, please describe the picture with insights ",
+        question="Answer with well organized thoughts, please describe the picture with thoughtful insights ",
         people=names,
         attrib = attrib,
         location=location,
@@ -132,17 +127,17 @@ def getRecursive(rootDir, chunk_size=10):
 def new_xform(res):
     ll = [list(x) for x in zip(*res)]
     lr = [list(it.chain(*item)) for item in ll]
-    print('-->', res, '\n', lr)
+    #print('-->', res, '\n', lr)
     df = pd.DataFrame(lr, columns=["uri", "id", "ts", "latlon", "loc", "url2", "names", "attrib"])
-    print(df.head(5))
+    #print(df.head(5))
     df1 = df.drop(columns=["url2", "id", "ts", "latlon"], axis=1)
     dfo = df.drop(columns=["url2"], axis=1)
     lst = df1.to_numpy().tolist()
-    print('...>', lst)
+    #print('...>', lst)
     return [tuple(e) for e in lst], dfo.to_numpy().tolist()
 
 def final_xform(alist):
-    print('--->', alist)
+    #print('--->', alist)
     keys = [ 'uri', 'id', 'ts','latlon', 'loc', 'names', 'attrib', 'text']
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
@@ -193,8 +188,6 @@ async def run_workflow(
     lock = asyncio.Lock()
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
-    #fpu.parquet_generator(file, chunk_size=10)
-
     with st.status("Generating LLM responses...", expanded=True) as status:
         async with Pool(processes=chunk_size,  maxtasksperchild=1) as pool:  #initializer=pool_init, initargs=(bfs,),
             count = 0
@@ -212,8 +205,6 @@ async def run_workflow(
                     res = await asyncio.gather(
                         pool.map(generateId, rlist),
                         pool.map(timestamp, rlist),
-                        #pool.map(namesOfPeople, rlist),
-                        #pool.map(facesNames, rlist),
                         pool.map(partial(locationDetails, lock=lock), rlist)
                     )
                     
@@ -286,7 +277,7 @@ def execute(user_source_selected):
     else:
         df_loc = st.session_state.df_loc   
 
-    chunk_size = int(mp.cpu_count() // 8)
+    chunk_size = int(mp.cpu_count() // 2)
     st.sidebar.subheader("Metadata Generation")
     st.sidebar.divider()
 

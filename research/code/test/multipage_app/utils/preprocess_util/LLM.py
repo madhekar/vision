@@ -45,7 +45,7 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, 
     <|im_end|>
     <|im_start|>user
     <image>
-     "{question}" you (MUST:1.5) include person name(s) "{people}" with "{attrib}" emotions and the location details "{location}" in the answer.
+     "{question}" you "(MUST:1.5)" include person name(s) "{people}" with "{attrib}" emotions and the location details "{location}" in the answer.
     <|im_end|> 
     <|im_start|>assistant
     """.format(question=question, people=people, attrib=attrib, location=location) #, article=st.session_state["document"])
@@ -77,6 +77,6 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, 
     result = processor.tokenizer.decode(output[0])
     r = result.replace(prompt, "").replace("<|im_end|>", "").replace("<|im_start|>", "")
 
-    print('===>', r)
+    #print('===>', r)
     return r
     

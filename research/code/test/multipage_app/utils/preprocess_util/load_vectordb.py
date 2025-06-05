@@ -30,6 +30,21 @@ UPDATE METADATA STRUCTURE:
 There are four people in front of the building. Two of them are on the left side of the image, one is in the middle, and one is on the right side."
 }
 
+{
+"uri": "/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/19951e8d-2921-566b-b23c-dd08ddfb25de/vcm_s_kf_repr_960x540.jpg", 
+"id": "20be6b77-a8f1-4b43-b6de-5f4194006e04", 
+"ts": "1345132415.0", 
+"latlon": "(32.9687, -117.184196)", 
+"loc": "madhekar residence at carmel vally san diego, california", 
+"names": "", 
+"attrib": "angry", 
+"text": "The image shows a group of people gathered in a large room. There are two people in the front row, both with their backs turned to the camera. 
+They are wearing dark suits and ties, and look very serious. The other people in the room are wearing a variety of clothing, and are sitting in rows facing the front row.
+\n\nThe room is decorated with a large painting on the wall behind the front row. The painting is of a group of people gathered in a field, with a mountain range in the background. 
+The people in the painting are all wearing casual clothing, and look happy and relaxed.\n\nIn the background, there is a large window looking out at a city. 
+The city is in the distance, and is covered in a haze. The people in the painting are looking out at the city as well.\n\nIn the foreground, there is a table with a few chairs around it. 
+The table is covered in a white tablecloth, and there is a v"
+}
 """
 
 def recur_listdir(path):
@@ -66,7 +81,7 @@ def load_metadata(metadata_path, metadata_file, image_final_path, image_final_fo
             "input-data/img",
             "final-data/img/" + image_final_folder,
         )
-        #print(df.head(10))
+        print(df.head(10))
     return df
 
 def detect_encoding(fp):
