@@ -98,7 +98,7 @@ async def describeImage(args):
         processor=p,
         top=0.9,
         temperature=0.9,
-        question="Answer with well organized thoughts, please describe the picture with insights.",
+        question="Answer with well organized thoughts, please describe the picture with insights ",
         people=names,
         attrib = attrib,
         location=location,
@@ -140,23 +140,6 @@ def new_xform(res):
     lst = df1.to_numpy().tolist()
     print('...>', lst)
     return [tuple(e) for e in lst], dfo.to_numpy().tolist()
-
-# def xform(res):
-#     fr=[]
-#     for k in range(len(res[0])):
-#       lr = [i[k] for i in res]
-#       fr.append(lr)
-#     print('-->', fr)
-#     df = pd.DataFrame(fr, columns=['url', 'ts', 'location', 'people'])   
-#     df[['uri', 'id']] = pd.DataFrame(df['url'].tolist(), index=df.index)
-#     df[['latlon','loc']] = pd.DataFrame(df['location'].tolist(), index=df.index)
-#     df[['urii', 'names', 'attrib']] = pd.DataFrame(df['people'].tolist(), index=df.index)
-#     dfo= df.drop(columns=['url', 'location'])
-#     df.drop(columns=['urii', 'url', 'ts', 'id', 'latlon', 'location'], inplace=True)
-#     #print(df.head())  
-#     lst = df.to_numpy().tolist() 
-#     #print(lst)  
-#     return [tuple(e) for e in lst], dfo.to_numpy().tolist()
 
 def final_xform(alist):
     print('--->', alist)
