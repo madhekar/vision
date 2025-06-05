@@ -158,7 +158,8 @@ def xform(res):
     return [tuple(e) for e in lst], dfo.to_numpy().tolist()
 
 def final_xform(alist):
-    keys = ['ts', 'uri', 'id', 'latlon', 'loc', 'text']
+    print('--->', alist)
+    keys = ['ts', 'uri', 'id', 'latlon', 'loc', 'names', 'attrib', 'text']
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
 # appends json rows to file
@@ -244,7 +245,8 @@ async def run_workflow(
                         pool.map(describeImage,  rflist)
                     )
 
-                    st.info(res1, oflist)
+                    st.info(res1)
+                    st.info(oflist)
 
                     zlist = [oflist[i] + [res1[0][i]]  for i in range(len(oflist))]
 
@@ -300,7 +302,7 @@ def execute(user_source_selected):
     else:
         df_loc = st.session_state.df_loc   
 
-    chunk_size = int(mp.cpu_count() // 4)
+    chunk_size = int(mp.cpu_count() // 8)
     st.sidebar.subheader("Metadata Generation")
     st.sidebar.divider()
 
