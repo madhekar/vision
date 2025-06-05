@@ -133,33 +133,34 @@ def new_xform(res):
     ll = [list(x) for x in zip(*res)]
     lr = [list(it.chain(*item)) for item in ll]
     print('-->', res, '\n', lr)
-    df = pd.DataFrame(lr, columns=["url", "id", "ts", "latlon", "location", "url2", "names", "attrib"])
+    df = pd.DataFrame(lr, columns=["uri", "id", "ts", "latlon", "loc", "url2", "names", "attrib"])
     print(df.head(5))
     df1 = df.drop(columns=["url2", "id", "ts", "latlon"], axis=1)
+    dfo = df.drop(columns=["url2"], axis=1)
     lst = df1.to_numpy().tolist()
     print('...>', lst)
-    return [tuple(e) for e in lst], lst
-
-def xform(res):
-    fr=[]
-    for k in range(len(res[0])):
-      lr = [i[k] for i in res]
-      fr.append(lr)
-    print('-->', fr)
-    df = pd.DataFrame(fr, columns=['url', 'ts', 'location', 'people'])   
-    df[['uri', 'id']] = pd.DataFrame(df['url'].tolist(), index=df.index)
-    df[['latlon','loc']] = pd.DataFrame(df['location'].tolist(), index=df.index)
-    df[['urii', 'names', 'attrib']] = pd.DataFrame(df['people'].tolist(), index=df.index)
-    dfo= df.drop(columns=['url', 'location'])
-    df.drop(columns=['urii', 'url', 'ts', 'id', 'latlon', 'location'], inplace=True)
-    #print(df.head())  
-    lst = df.to_numpy().tolist() 
-    #print(lst)  
     return [tuple(e) for e in lst], dfo.to_numpy().tolist()
+
+# def xform(res):
+#     fr=[]
+#     for k in range(len(res[0])):
+#       lr = [i[k] for i in res]
+#       fr.append(lr)
+#     print('-->', fr)
+#     df = pd.DataFrame(fr, columns=['url', 'ts', 'location', 'people'])   
+#     df[['uri', 'id']] = pd.DataFrame(df['url'].tolist(), index=df.index)
+#     df[['latlon','loc']] = pd.DataFrame(df['location'].tolist(), index=df.index)
+#     df[['urii', 'names', 'attrib']] = pd.DataFrame(df['people'].tolist(), index=df.index)
+#     dfo= df.drop(columns=['url', 'location'])
+#     df.drop(columns=['urii', 'url', 'ts', 'id', 'latlon', 'location'], inplace=True)
+#     #print(df.head())  
+#     lst = df.to_numpy().tolist() 
+#     #print(lst)  
+#     return [tuple(e) for e in lst], dfo.to_numpy().tolist()
 
 def final_xform(alist):
     print('--->', alist)
-    keys = ['ts', 'uri', 'id', 'latlon', 'loc', 'names', 'attrib', 'text']
+    keys = [ 'uri', 'id', 'ts','latlon', 'loc', 'names', 'attrib', 'text']
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
 # appends json rows to file
