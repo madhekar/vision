@@ -25,7 +25,7 @@ from functools import partial
 #import dill as pickle
 
 d_latitude, d_longitude = 32.968700, -117.184196
-d_loc = 'madhekar residence at carmel vally san diego, california'
+d_loc = 'madhekar residence at carmel vally'
 m, t, p = LLM.setLLM()
 #ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
 #global_face = bft.base_face_res()
@@ -104,17 +104,6 @@ async def describeImage(args):
 """
 /home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth
 """
-# async def llm_workflow(uri):
-#     #m, t, p = LLM.setLLM()
-#     semaphore = asyncio.Semaphore(1)
-#     suuid = await generateId(uri)
-#     ts = await timestamp(uri)
-#     location_details =  await locationDetails(uri, semaphore)
-#     names =  await namesOfPeople(uri)
-#     text =  await describeImage(uri, m, p, names, location_details)
-#     return (uri, suuid, ts, location_details, names, text)
-
-
 # recursive call to get all image filenames, to be replaced by parquet generator
 def getRecursive(rootDir, chunk_size=10):
     f_list = []
@@ -170,7 +159,7 @@ async def run_workflow(
     openclip_finetuned,
 ):
     st.info(f"CPU COUNT: {chunk_size}")
-    print(f"CPU COUNT: {chunk_size}")
+    #print(f"CPU COUNT: {chunk_size}")
     
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
@@ -183,7 +172,6 @@ async def run_workflow(
       num = 0
     num_files = len(glob.glob(os.path.join(image_dir_path,'*')))
     num = num_files - num
-    #semaphore = asyncio.Semaphore(1)
 
     lock = asyncio.Lock()
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
@@ -210,7 +198,7 @@ async def run_workflow(
                     
                     res.append(rlist)
 
-                    st.info(res)
+                    #st.info(res)
 
                     rflist, oflist = new_xform(res) #xform(res)
 
@@ -220,8 +208,8 @@ async def run_workflow(
                         pool.map(describeImage,  rflist)
                     )
 
-                    st.info(res1)
-                    st.info(oflist)
+                    #st.info(res1)
+                    #st.info(oflist)
 
                     zlist = [oflist[i] + [res1[0][i]]  for i in range(len(oflist))]
 
@@ -239,7 +227,7 @@ async def run_workflow(
                 else:
                     progress_generation.text(f"{count} files processed out-of {num} => {int((100 / 1) * count)}% processed (all done!)")
                     bar.progress(int((100 / 1) * count))    
-        st.info(res)
+        #st.info(res)
         pool.close()
         # pool.join()
 
@@ -249,7 +237,6 @@ async def run_workflow(
 def execute(user_source_selected):
     #mp.freeze_support()
     aiomp.set_start_method("fork")
-
     (
         image_dir_path,
         metadata_path,
