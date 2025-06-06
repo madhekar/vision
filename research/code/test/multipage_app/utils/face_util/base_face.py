@@ -17,7 +17,7 @@ class bface:
     def extract_face(self, fn):
        try:
          img = cv.imread(fn, cv.IMREAD_ANYCOLOR | cv.IMREAD_ANYDEPTH)
-         time.sleep(10)
+         time.sleep(1)
          if img is None:
             st.error(f'Error: loading image {fn}, check path or format')
          img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
@@ -34,6 +34,7 @@ class bface:
        for im_file in os.listdir(dir):
           try:
              fp = os.path.join(dir, im_file)
+             print(fp)
              single_f = self.extract_face(fp)
              faces.append(single_f)
           except Exception as e:
