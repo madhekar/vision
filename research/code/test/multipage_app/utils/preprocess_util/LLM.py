@@ -54,7 +54,7 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, 
     #image = image[:, :, :3]
     # generate propcssor using image and associated prompt query, and generate LLM response
     with torch.inference_mode():
-        inputs = processor( prompt, [image], model, max_crops=100, num_tokens=728)        #100, 72 (100)
+        inputs = processor( prompt, [image], model, max_crops=100, num_tokens=200)        #100, 72 (100)
         
     # streamer 
     streamer = TextStreamer(processor.tokenizer)
