@@ -1,0 +1,12 @@
+Processes: 600 total, 3 running, 597 sleeping, 1997 threads 
+2024/10/10 15:42:31
+Load Avg: 0.66, 1.00, 1.05 
+CPU usage: 7.43% user, 22.29% sys, 70.27% idle 
+SharedLibs: 470M resident, 90M data, 234M linkedit.
+MemRegions: 133487 total, 6673M resident, 105M private, 1597M shared.
+PhysMem: 16G used (2529M wired), 29M unused.
+VM: 23T vsize, 3153M framework vsize, 45889921(0) swapins, 50037351(0) swapouts.
+Networks: packets: 0/0B in, 0/0B out.
+Disks: 0/0B read, 0/0B written.
+
+PID    COMMAND          %CPU TIME     #TH #WQ #PORTS MEM   PURG CMPRS PGRP  PPID STATE    BOOSTS %CPU_ME %CPU_OTHRS UID FAULTS COW MSGSENT MSGRECV SYSBSD SYSMACH CSW PAGEINS IDLEW POWER INSTRS CYCLES USER      #MREGS RPRVT VPRVT VSIZE KPRVT KSHRD
