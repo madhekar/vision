@@ -98,7 +98,7 @@ async def describeImage(args):
         attrib = attrib,
         location=location,
     )
-    st.info(d)
+    # st.info(d)
     return d
 
 """
@@ -135,7 +135,7 @@ async def append_file(filename, dict_data_list, mode):
     async with aiofiles.open(filename, mode) as f:
         for dict_element in dict_data_list:
            stv = json.dumps(dict_element)
-           st.info(stv)
+           #info(stv)
            await f.write(stv)
            await f.write(os.linesep)
         await f.close()       
@@ -264,7 +264,7 @@ def execute(user_source_selected):
     else:
         df_loc = st.session_state.df_loc   
 
-    chunk_size = int(mp.cpu_count() // 2)
+    chunk_size = int(mp.cpu_count() // 4)
     st.sidebar.subheader("Metadata Generation")
     st.sidebar.divider()
 
@@ -286,7 +286,7 @@ def execute(user_source_selected):
     # bcreate_metadata = st.button("start metadata creation")
     # if bcreate_metadata:
 
-    print(df)
+    # print(df)
 
     asyncio.run(run_workflow(
         df,
