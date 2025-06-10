@@ -106,7 +106,7 @@ def search_fn(client, cImgs, cTxts):
                 label="## Select Image",
                 label_visibility="hidden",
                 type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG"],
-                help="select example image to search similar images",
+                help="select image to search similar images",
             )
             im = st.empty()
             if similar_image:

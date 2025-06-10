@@ -101,7 +101,7 @@ def detect_human_attributs(img_path):
     people= []
     age, emotion, gender, race = None, None, None, None
     try:
-        st.info(f'processing: {img_path}')
+        #st.info(f'processing: {img_path}')
         preds = DeepFace.analyze(
             img_path,
             actions=[ 'emotion'],
