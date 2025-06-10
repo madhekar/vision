@@ -17,10 +17,11 @@ user_source_selected = st.sidebar.selectbox(
     )
 st.subheader("METADATA: GENERATE", divider="gray")
 
-c1,c2 = st.columns([.1,.9], gap="small", vertical_alignment="top")
+c1,c2 = st.columns([.1,.9], gap="medium", vertical_alignment="top")
 with c1:
-   btn_face = st.button(label='Face Model Generate/ Refresh')
-   c1_status = st.status('refresh people detection model', state='running', expanded=True)
+   c = st.container(border=True)
+   btn_face = c.button(label='Refresh: Face Model')
+   c1_status = c.status('refresh people detection model', state='running', expanded=True)
    with c1_status:
       if btn_face:
           c1_status.info("starting to create face model.")
@@ -28,7 +29,8 @@ with c1:
           bft_train.exec()
           c1_status.update(label="face detection model complete!", state="complete", expanded=False) 
 with c2: 
-   btn_metatdata = st.button(label='Metadata Generate')
+   c_ = st.container(border=True)
+   btn_metatdata = c_.button(label='Metadata Generate')
    if btn_metatdata:
           st.info('step 2: create metadata for search such as annotations location, text, person names etc...')
           pp.execute(user_source_selected)
