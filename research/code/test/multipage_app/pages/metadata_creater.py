@@ -17,14 +17,9 @@ user_source_selected = st.sidebar.selectbox(
     )
 st.subheader("METADATA: GENERATE", divider="gray")
 
-c1,c2 = st.columns([.1,.9])
+c1,c2 = st.columns([.1,.9], gap="small", vertical_alignment="top")
 with c1:
-   #    c11,c12 = st.columns([1,1], gap="small") 
-   #    with c11:
    btn_face = st.button(label='Face Model Generate/ Refresh')
-   # with c12:   
-   #    btn_generate = st.button(label='Generate names in images')
-
    c1_status = st.status('refresh people detection model', state='running', expanded=True)
    with c1_status:
       if btn_face:
@@ -32,21 +27,8 @@ with c1:
           st.info('step: - 1: train know faces for search...')
           bft_train.exec()
           c1_status.update(label="face detection model complete!", state="complete", expanded=False) 
-  
-   # c2b_status = st.status('create names from images', state='running', expanded=True)    
-   # with c2b_status:
-   #    if btn_generate:
-   #        c2b_status.info("starting to create names for images using face model.")
-   #        st.info("step: - 2: detect faces form images...")
-   #        bft_predict.exec(user_source_selected)
-   #        c2b_status.update(
-   #            label="names of people generation from model complete!", state="complete", expanded=False
-   #        )
-
 with c2: 
    btn_metatdata = st.button(label='Metadata Generate')
-#    c2_status = st.status('create static location store', state='running', expanded=True)
-#    with c2_status:
    if btn_metatdata:
           st.info('step 2: create metadata for search such as annotations location, text, person names etc...')
           pp.execute(user_source_selected)
