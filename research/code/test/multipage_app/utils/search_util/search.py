@@ -192,7 +192,7 @@ def search_fn(client, cImgs, cTxts):
 
             # execute image query with search criteria
             st.session_state["imgs"] = cImgs.query(
-                query_texts=modalityTxt, include=["data", "metadatas"], n_results=36
+                query_texts=modalityTxt, include=["data", "metadatas"], n_results=10
             )
 
         for img in st.session_state["imgs"]["data"][0][1:]:
