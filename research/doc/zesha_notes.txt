@@ -1,3 +1,14 @@
+{
+"uri": "/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/916cc21d-6dc2-5369-b994-ae97e411b377/vcm_s_kf_repr_832x624.jpg", 
+"id": "e3667a4f-801d-47bb-b8dd-07955b400086", 
+"ts": "1291580101.0", 
+"latlon": "(32.941483, -117.233592)", 
+"loc": "12327, Caminito Mira del Mar, San Diego, San Diego County, California, 92130, United States", 
+"names": "Esha, Asha, and a person", 
+"attrib": "angry", 
+"text": "There are three girls sitting on a couch in a living room. Esha is wearing a red sweater, Asha is wearing a blue sweater, and the third girl is wearing a white sweater. They are all looking at the TV, which is showing a movie. Esha is holding a fork and knife, and Asha is holding a spoon. The third girl is holding a remote control. There is a tray of food on the coffee table in front of them. The girls are all smiling and look like they are having a good time."
+}
+----
 {"ts": "/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/319dbc8e-2c74-58cd-8f7a-43c1e7447c1d/vcm_s_kf_repr_886x587.jpg", 
 "uri": "madhekar residence at carmel vally san diego, california",
  "id": "", 

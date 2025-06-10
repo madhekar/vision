@@ -278,7 +278,7 @@ def search_fn(client, cImgs, cTxts):
             c2.markdown(o_desc, unsafe_allow_html=True)
 
             c2.write("<p class='big-font-subh'>People</p>", unsafe_allow_html=True)
-            o_names = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
+            o_names = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["attrib"]} - {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
             c2.markdown(o_names, unsafe_allow_html=True)
 
             c2.write("<p class='big-font-subh'>Date Time</p>", unsafe_allow_html=True)
