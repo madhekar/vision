@@ -79,18 +79,6 @@ static_metadata_loader = st.Page(
     icon=":material/published_with_changes:",
 )
 
-# location_metadata_creater = st.Page(
-#     page="pages/location_metadata_creater.py",
-#     title="GENERATE",
-#     icon=":material/engineering:",
-# )
-
-# loacation_metadata_loader = st.Page(
-#     page="pages/location_metadata_loader.py",
-#     title="LOAD",
-#     icon=":material/published_with_changes:",
-# )
-
 multimodal_search = st.Page(
     page="pages/multimodal_search.py",
     title="SEARCH",
@@ -98,14 +86,13 @@ multimodal_search = st.Page(
 )
 
 st.logo("assets/zesha-high-resolution-logo.jpeg")
-#st.sidebar.text("Home Media Portal")
 
 pg = st.navigation(
     {
         "OVERVIEW": [overview],
         "DATA": [data_extadd, data_trim, data_validate],      
-        "METADATA-STATIC": [static_metadata_loader],
-        "METADATA-DYNAMIC": [data_correction, metadata_creater, metadata_loader],
+        "METADATA: STATIC": [static_metadata_loader],
+        "METADATA: DYNAMIC": [data_correction, metadata_creater, metadata_loader],
         "SEARCH": [multimodal_search],
     }
 )
