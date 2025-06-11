@@ -57,7 +57,7 @@ data_validate = st.Page(
 
 data_correction = st.Page(
     page='pages/metadata_correction.py',
-    title="EDITOR",
+    title="EDIT",
     icon=":material/edit:"
 )
 
@@ -75,15 +75,15 @@ metadata_loader = st.Page(
 
 static_metadata_loader = st.Page(
     page="pages/static_metadata_loader.py",
-    title="STATIC DATA CREATE",
+    title="CREATE",
     icon=":material/published_with_changes:",
 )
 
-location_metadata_creater = st.Page(
-    page="pages/location_metadata_creater.py",
-    title="GENERATE",
-    icon=":material/engineering:",
-)
+# location_metadata_creater = st.Page(
+#     page="pages/location_metadata_creater.py",
+#     title="GENERATE",
+#     icon=":material/engineering:",
+# )
 
 # loacation_metadata_loader = st.Page(
 #     page="pages/location_metadata_loader.py",
@@ -104,7 +104,7 @@ pg = st.navigation(
     {
         "OVERVIEW": [overview],
         "DATA": [data_extadd, data_trim, data_validate],      
-        "METADATA-STATIC": [static_metadata_loader, location_metadata_creater],
+        "METADATA-STATIC": [static_metadata_loader],
         "METADATA-DYNAMIC": [data_correction, metadata_creater, metadata_loader],
         "SEARCH": [multimodal_search],
     }
