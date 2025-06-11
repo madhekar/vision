@@ -106,7 +106,7 @@ def search_fn(client, cImgs, cTxts):
                 label="## Select Image",
                 label_visibility="hidden",
                 type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG"],
-                help="select example image to search similar images",
+                help="select image to search similar images",
             )
             im = st.empty()
             if similar_image:
@@ -192,7 +192,7 @@ def search_fn(client, cImgs, cTxts):
 
             # execute image query with search criteria
             st.session_state["imgs"] = cImgs.query(
-                query_texts=modalityTxt, include=["data", "metadatas"], n_results=36
+                query_texts=modalityTxt, include=["data", "metadatas"], n_results=10
             )
 
         for img in st.session_state["imgs"]["data"][0][1:]:
@@ -278,7 +278,7 @@ def search_fn(client, cImgs, cTxts):
             c2.markdown(o_desc, unsafe_allow_html=True)
 
             c2.write("<p class='big-font-subh'>People</p>", unsafe_allow_html=True)
-            o_names = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
+            o_names = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["attrib"]} - {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
             c2.markdown(o_names, unsafe_allow_html=True)
 
             c2.write("<p class='big-font-subh'>Date Time</p>", unsafe_allow_html=True)

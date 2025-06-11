@@ -33,10 +33,11 @@ class bface:
        faces = []
        for im_file in os.listdir(dir):
           try:
-             fp = os.path.join(dir, im_file)
-             print(fp)
-             single_f = self.extract_face(fp)
-             faces.append(single_f)
+            if not im_file.startswith('._'):  
+               fp = os.path.join(dir, im_file)
+               print(fp)
+               single_f = self.extract_face(fp)
+               faces.append(single_f)
           except Exception as e:
              st.error(f'exception occreed {e}')   
        return faces
