@@ -1,4 +1,6 @@
 import cv2 as cv
+from PIL import Image
+import io
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -14,13 +16,23 @@ class bface:
        self.y = []
        self.detector = MTCNN()
 
+    def file_read(self, file_n):
+       try:
+          with open(file_n, 'rb') as img_bin:
+             buff = io.BytesIO(img_bin.read())
+             img = Image.open(buff)
+             return img
+       except Exception as e:
+          st.error(f'error loading image: {e}') 
+
     def extract_face(self, fn):
        try:
-         img = cv.imread(fn, cv.IMREAD_ANYCOLOR | cv.IMREAD_ANYDEPTH)
-         time.sleep(1)
-         if img is None:
-            st.error(f'Error: loading image {fn}, check path or format')
-         img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
+         # img = cv.imread(fn, cv.IMREAD_ANYCOLOR | cv.IMREAD_ANYDEPTH)
+         # time.sleep(2)
+         # if img is None:
+         #    st.error(f'Error: loading image {fn}, check path or format')
+         # img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
+         img = self.file_read(fn)
          x,y,w,h = self.detector.detect_faces(img)[0]['box']
          x,y = abs(x), abs(y)
          face = img[y:y+h, x:x+w]
