@@ -96,7 +96,7 @@ def execute():
             st.metric("Total size of user locations files (MB)",  round(dfa["size"]/(pow(1024,2)), 2), delta=-.1) 
 
     with c3:
-        st.subheader('Detect Faces') 
+        st.subheader('Detect Faces Train') 
 
     st.divider()
  
