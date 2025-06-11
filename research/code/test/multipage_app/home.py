@@ -85,11 +85,11 @@ location_metadata_creater = st.Page(
     icon=":material/engineering:",
 )
 
-loacation_metadata_loader = st.Page(
-    page="pages/location_metadata_loader.py",
-    title="LOAD",
-    icon=":material/published_with_changes:",
-)
+# loacation_metadata_loader = st.Page(
+#     page="pages/location_metadata_loader.py",
+#     title="LOAD",
+#     icon=":material/published_with_changes:",
+# )
 
 multimodal_search = st.Page(
     page="pages/multimodal_search.py",
@@ -104,7 +104,7 @@ pg = st.navigation(
     {
         "OVERVIEW": [overview],
         "DATA: ADD/ TRIM": [data_extadd, data_trim, data_validate],      
-        "STATIC-METADATA": [static_metadata_loader, location_metadata_creater, loacation_metadata_loader],
+        "STATIC-METADATA": [static_metadata_loader, location_metadata_creater],
         "METADATA": [data_correction, metadata_creater, metadata_loader],
         "SEARCH": [multimodal_search],
     }
