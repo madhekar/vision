@@ -95,11 +95,11 @@ def update_all_datetime_changes(image, col):
     lu.setDateTimeOriginal(image, dt)
 
 def select_location_by_country_and_state(rdf):
-
-    c_location_type, c_country, c_state, c_location, c_selected = st.columns([.1,.1,.1,.3,.6], gap="medium")
+    
+    c_location_type, c_country, c_state = st.sidebar.columns([.1,.1,.1], gap="small")
     
     with c_location_type:
-        is_public_location = st.selectbox('select location type', options=('personal','public','both'), placeholder="select type of locations to display...")
+        is_public_location = st.selectbox('type', options=('personal','public','both'), placeholder="select type of locations to display...")
         if is_public_location == 'personal':
             rdf = rdf[rdf['name'].str.len() >  20]
         elif is_public_location == 'public':
@@ -108,7 +108,7 @@ def select_location_by_country_and_state(rdf):
             pass 
 
     with c_country:
-      selected_country = st.selectbox('select country', rdf['country'].unique())
+      selected_country = st.selectbox('country', rdf['country'].unique())
 
     with c_state:
         frdf = rdf[rdf["country"] == selected_country]
@@ -116,22 +116,23 @@ def select_location_by_country_and_state(rdf):
         state_values = list(s_frdf["state"].unique())
         if 'CA' in state_values:
            default_state = state_values.index('CA')
-           selected_state = st.selectbox("select state", state_values, index=default_state)
+           selected_state = st.selectbox("state", state_values, index=default_state)
         else:   
            selected_state = st.selectbox("select state", state_values)
-    with c_location:
-       ffrdf = frdf[frdf['state'] == selected_state]
-       s_ffrdf = ffrdf.sort_values(by='name')
-       loc_values = list(s_ffrdf['name'].unique())
-       if 'Madhekar Residence Home in San Diego' in loc_values:    
-           default_loc = loc_values.index('Madhekar Residence Home in San Diego')
-           selected_location = st.selectbox('select location name/ description', s_ffrdf['name'].unique(), index=default_loc)  
-       else:
-           selected_location = st.selectbox('select location name/ description', s_ffrdf['name'].unique())      
+
+    # with c_location:
+    ffrdf = frdf[frdf['state'] == selected_state]
+    s_ffrdf = ffrdf.sort_values(by='name')
+    loc_values = list(s_ffrdf['name'].unique())
+    if 'Madhekar Residence Home in San Diego' in loc_values:    
+        default_loc = loc_values.index('Madhekar Residence Home in San Diego')
+        selected_location = st.sidebar.selectbox('description', s_ffrdf['name'].unique(), index=default_loc)  
+    else:
+        selected_location = st.sidebar.selectbox('description', s_ffrdf['name'].unique())      
     
-    with c_selected:
-        st.header(f"**{selected_country} :: {selected_state} :: {selected_location}**")
-        st.sidebar.subheader(f"**{selected_country} :: {selected_state} :: {selected_location}**")
+    # with c_selected:
+    #     #st.header(f"**{selected_country} :: {selected_state} :: {selected_location}**")
+    st.sidebar.subheader(f"**{selected_country} :: {selected_state} :: {selected_location}**")
     return (s_ffrdf[s_ffrdf['name'] == selected_location].iloc[0])
 
 
