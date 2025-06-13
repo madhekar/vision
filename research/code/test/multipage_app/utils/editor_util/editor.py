@@ -229,8 +229,9 @@ def execute():
     #...
 
     # Location to Apply to many images
-    st.subheader("Location to Apply", divider='gray') 
+    st.subheader("Edit Location and Date", divider='gray') 
 
+    st.sidebar.subheader('Locations', divider='gray')
     sindex = select_location_by_country_and_state(st.session_state.df_loc)
 
     # Display images to correct
