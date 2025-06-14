@@ -102,8 +102,10 @@ def combine_all_default_locations(location_root):
         locations_file_list = glob.glob(os.path.join(location_root, "*.csv"))
         pdf = []
         for f in locations_file_list:
+            print(f'>> {f}')
             pdf.append(transform_raw_locations(f))
-        df_comb = pd.concat(pdf, ignore_index=True)    
+        df_comb = pd.concat(pdf, ignore_index=True)  
+        print(f'>>{len(df_comb)}')  
     except Exception as e:
         st.error(
             f"create append locations parquet for file: {f} failed with exception: {e}"
