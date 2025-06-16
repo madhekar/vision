@@ -8,6 +8,7 @@ from utils.preprocess_util import preprocess as pp
 from utils.face_util import base_face_train as bft_train
 from utils.face_util import base_face_predict as bft_predict
 import streamlit as st
+from utils.util import folder_chart as fc
 
 colors = ["#ae5a41", "#1b85b8"]
 # create user specific static image metadata "locations" not found in default static metadata
@@ -101,6 +102,10 @@ def execute():
 
     with c3:
         st.subheader('Detect Faces Train') 
+        df = fc.sub_file_count(
+            "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces"
+        )
+        st.dataframe(df, height=300)
 
     st.divider()
  
