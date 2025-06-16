@@ -125,6 +125,7 @@ def add_all_locations(location_root, user_location_root, user_location_metadata_
     try:
         locations_file_list = glob.glob(os.path.join(location_root, "*.csv"))
         for f in locations_file_list:
+            st.info(f'adding locations in {f}')
             create_or_append_locations(f, parquet_file_path)
     except Exception as e:
         st.error(f"create append locations parquet for file: {f} failed with exception: {e}")

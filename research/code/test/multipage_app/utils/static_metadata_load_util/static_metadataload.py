@@ -113,7 +113,7 @@ def execute():
                 generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, location_metadata_path, user_draft_location_metadata_path, user_draft_location_metadata_file)
                 ca_status.update(label='user specific locations complete!', state='complete', expanded=False)
     with cb:
-        cb_metadata = st.button("agg locations", use_container_width=True)
+        cb_metadata = st.button("aggregate locations", use_container_width=True)
   
         cb_status = st.status('create static location store', state='running', expanded=True)
         with cb_status:
