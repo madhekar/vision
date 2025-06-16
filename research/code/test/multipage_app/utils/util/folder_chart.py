@@ -2,13 +2,16 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
+"""
+sorted(d.items(), key=lambda item: item[1], reverse=True)
+"""
 def sub_file_count(root):
     sub_dic = {}
     for dirpath, dirnames, filenames in os.walk(root):
         if dirpath != root:
             sub_dic[os.path.basename(dirpath)] = len(filenames)
-    df = pd.DataFrame(sub_dic, columns=['face','num'])        
+    df = pd.DataFrame(sorted(sub_dic.items(), key=lambda item: item[1], reverse=True), columns=['face','num'])    
+    print(df, sub_dic)    
     return df
 
 
