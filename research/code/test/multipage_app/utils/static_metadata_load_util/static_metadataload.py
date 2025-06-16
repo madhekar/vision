@@ -101,11 +101,10 @@ def execute():
 
     st.divider()
  
-    ca, cb, cc = st.columns([.1,.1,.1], gap="small",vertical_alignment='center')
+    ca, cb, cc = st.columns([.1,.1,.1], gap="small",vertical_alignment='top')
    
     with ca:            
         ca_create = st.button("user specific locations", use_container_width=True)
-
         ca_status = st.status('create user specific locations', state="running", expanded=True)
         with ca_status:
             if ca_create:
