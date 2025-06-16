@@ -4,6 +4,9 @@ from utils.config_util import config
 from utils.util import fast_parquet_util as fpu
 from utils.util import storage_stat as ss
 from utils.static_metadata_load_util import user_static_loc as usl
+from utils.preprocess_util import preprocess as pp
+from utils.face_util import base_face_train as bft_train
+from utils.face_util import base_face_predict as bft_predict
 import streamlit as st
 
 colors = ["#ae5a41", "#1b85b8"]
@@ -135,17 +138,13 @@ def execute():
                 )
                 cb_status.update(label="metadata creation complete!", state="complete", expanded=False)  
     with cc:
-        cc_metadata = st.button("people in image", use_container_width=True)
+        cc_metadata = st.button("Refresh people detection model", use_container_width=True)
         cc_status = st.status('create people names ', state='running', expanded=True)  
         with cc_status:
             if cc_metadata:
-                ca.info("starting to create total static image face data.")
-                # clean previous parquet          
-                try:
-                    if os.path.exists(metadata_storage_path):
-                        st.warning(f"cleaning previous static metadata storage: {metadata_storage_path}")
-                        os.remove(metadata_storage_path)
-                except Exception as e:
-                    st.error(f"Exception encountered wile removing metadata file: {e}")
+                    cc_status.info("starting to create face model.")
+                    st.info('step: - 1: train know faces for search...')
+                    bft_train.exec()
+                    cc_status.update(label="face detection model complete!", state="complete", expanded=False) 
 if __name__ == "__main__":
     execute()
