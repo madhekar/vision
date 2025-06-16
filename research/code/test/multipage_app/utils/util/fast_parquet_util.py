@@ -8,35 +8,42 @@ from utils.util import us_states as ust
 import streamlit as st
 cc = coco.CountryConverter()
 
+
 def transform_raw_locations(fpath):
-  rdf =None
-  try:  
-    with open(fpath, "r") as temp_f:
-        f_arr = []
-        for line in temp_f.readlines():
-            a_ = line.split(",")
-            a_ = [s.strip() for s in a_]
-            if len(a_) > 5:
-                a_[0 : len(a_) - 4] = ["-".join(a_[0 : len(a_) - 4])]
-            f_arr.append(a_)
+    rdf = None
+    try:
+        with open(fpath, "r") as temp_f:
+            f_arr = []
+            for line in temp_f.readlines():
+                a_ = line.split(",")
+                a_ = [s.strip() for s in a_]
+                if len(a_) > 5:
+                    a_[0 : len(a_) - 4] = ["-".join(a_[0 : len(a_) - 4])]
+                f_arr.append(a_)
 
-        # create data frame
-        df = pd.DataFrame(f_arr, columns=["name", "state", "country", "latitude", "longitude"])
+            # create data frame
+            df = pd.DataFrame(
+                f_arr, columns=["name", "state", "country", "latitude", "longitude"]
+            )
 
-        # format country codes
-        df["country"] = cc.pandas_convert(series=df["country"], to="ISO2")
+            # format country codes
+            df["country"] = cc.pandas_convert(series=df["country"], to="ISO2")
 
-        # standardize us state codes
-        df["state"] = df["state"].apply(lambda x: ust.multiple_replace(ust.statename_to_abbr, x))
+            # standardize us state codes
+            df["state"] = df["state"].apply(
+                lambda x: ust.multiple_replace(ust.statename_to_abbr, x)
+            )
 
-        # overrite existing file in-place
-        df.to_csv(fpath, sep=",", header=False, index=False)
+            # overrite existing file in-place
+            df.to_csv(fpath, sep=",", header=False, index=False)
 
-        rdf = df
-        print(f'+++ {rdf.head()}')
-  except Exception as e:
+            rdf = df
+            print(f"+++ {fpath}: {rdf.shape}")
+            st.info(f"{fpath}: {rdf.shape}")
+    except Exception as e:
         st.error(f"failed to transform raw locations with exception: {e}")
-  return rdf
+    return rdf
+
 
 def create_or_append_locations(raw_file, pfile_path):
     try:
@@ -51,6 +58,7 @@ def create_or_append_locations(raw_file, pfile_path):
     except Exception as e:
         st.error(f"create append locations parquet failed with exception: {e}")
 
+
 def create_or_append_parquet(df, pfile_path):
     try:
         st.info(f"adding file: dataframe to parquat store: {pfile_path}")
@@ -62,6 +70,7 @@ def create_or_append_parquet(df, pfile_path):
             write(pfile_path, df, append=True)
     except Exception as e:
         st.error(f"create append locations parquet failed with exception: {e}")
+
 
 def parquet_generator(pfile_path, chunk_size=10):
     pf = ParquetFile(pfile_path)   
