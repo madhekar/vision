@@ -1,9 +1,6 @@
 import os
-import time
 import streamlit as st
 import pandas as pd
-import plotly.express as px
-import numpy as np
 import streamlit.components.v1 as components
 from utils.config_util import config
 from utils.missing_util import missing_metadata as mm
