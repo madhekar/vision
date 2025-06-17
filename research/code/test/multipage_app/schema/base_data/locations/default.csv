@@ -22,8 +22,15 @@ Bhuskute Residence in Bellevue,WA,US,47.5612244,-122.1350465
 Balboa Park San Diego,CA,US,32.7316771, -117.1465253
 Sequoia national park,CA,US,36.4958406,-118.5599194
 Yellowstone National Park,MT,US,44.6200885,-110.5606893
-grand canyon national park,AZ,US,36.3078548,-112.292896
-Ellis Island,NY,US,40.6985935,-74.0420135
+Grand Canyon National Park,AZ,US,36.3078548,-112.292896
+Ellis Island Statue Of Liberty,NY,US,40.6985935,-74.0420135
+Lake Tahoe in California,CA,US,39.0885405,-120.0503528
+Newport Beach in Canifornia,CA,US,33.6170092,-117.9294401
+Julian in California,CA,US,33.6170092,-116.5878464
+Palm Springs in CAlifornia,CA,US,33.8246269,-116.540303
+Temecula in California,CA,US,33.4946353,-117.147366
+Los Penasquitos Canyon County Preserve,CA,US,32.9375784,-117.1274967
+Big Bear Lake,CA,US,34.2440587,-116.910118
 Empire State Building,NY,US,40.7484421,-73.9856589
 Los Angeles Airport,CA,US,33.942503,-118.4105158
 San Diego Airport,CA,US,32.7333608,-117.1922464
@@ -33,17 +40,20 @@ George Washington Birthplace National Monument,VA,US,38.1918855,-76.9208322
 San Diego Zoo San Diego,CA,US,32.7359874,-117.1506542
 Hilltop Park in San Diego,CA,US,32.9712946,-117.1190194
 Celly Cristobal Park in San Diego,CA,US,32.923220700,-117.16772200
+Solvang XMAS village,CA,US,34.5960774,-120.1381144
 Independence Hall in Philadelphia,PA,US,39.9488872,-75.150026
 Shankarrao and preeti Residence in Bridgetown,NJ,US,39.9642492,-74.2572533
-Wild Animal Safari Park San Diego,CA,US,33.0981185, -116.9965363
+Wild Animal Safari Park San Diego,CA,US,33.0981185,-116.9965363
 BAPS Shri Swaminarayan Mandir Chino Hills,CA,US,33.9772249,-117.6961614
 Esha Bharatnatyam Class San Diego,CA,US,32.930294,-117.087159
-Poway Performing Arts Poway,CA,US,32.9970824, -117.0245726
+Poway Performing Arts Poway,CA,US,32.9970824,-117.0245726
 Bellevue Downtown Park,WA,US,47.6124709,-122.2045589
 Ballard Locks in Seattle,WA,US,47.6660193,-122.3977506
 Green Lake Park in Seattle,WA,US,47.6782841,-122.3385487
 Shri Mandir in San Diego,CA,US,32.8951019,-117.1244042
 Torrey Pines State Reserve San Diego,CA,US,32.921650,-117.253532
+Iron Mountain in San Diego,CA,US,32.9707813,-116.955412
+Woodson Mountain in San Diego,CA,US,38.0086764,-116.970721
 Del Mar Beach Del Mar,CA,US,32.973039,-117.2701334
 Hill Creek School,Santee,CA,US,32.8531353,-116.963232
 La Jolla Cave La Jolla,CA,US,32.8480393,-117.2703319
@@ -61,6 +71,7 @@ Kīlauea Big Island,HI,US,19.4138647,-155.275811
 Hawaii Volcanoes National Park,HI,US,19.2608312,-155.3578662
 Hawaii tropical botanical garden,HI,US,19.810773,-155.09633
 Ellison Onizuka Kona International airport,HI,US,19.743906,-156.042296
+Ramona in California,CA,US,33.0472806,-116.8776005
 Rainbow Falls in Hilo,HI,US,19.7194808,-155.1095939
 Hualalai Four Seasons Resort,HI,US,19.8278417,-155.991648
 Kailua-kona,HI,US,19.641941,-155.996933
