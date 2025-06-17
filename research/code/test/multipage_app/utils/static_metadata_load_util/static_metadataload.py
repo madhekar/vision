@@ -9,6 +9,7 @@ from utils.face_util import base_face_train as bft_train
 from utils.face_util import base_face_predict as bft_predict
 import streamlit as st
 from utils.util import folder_chart as fc
+import plotly.express as px
 
 colors = ["#ae5a41", "#1b85b8"]
 # create user specific static image metadata "locations" not found in default static metadata
@@ -79,7 +80,7 @@ def execute():
     # paths to import static location files
     metadata_storage_path = os.path.join(static_metadata_path, user_source_selected, static_metadata_file)
 
-    c1, c2, c3 = st.columns([0.5, 1, .5], gap="medium")
+    c1, c2, c3 = st.columns([.4, .4, .5], gap="small")
     with c1:
         st.subheader("Static Metadata")
         dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
@@ -101,15 +102,19 @@ def execute():
             st.metric("Total size of user locations files (MB)",  round(dfa["size"]/(pow(1024,2)), 2), delta=-.1) 
 
     with c3:
-        st.subheader('Detect Faces Train') 
+        st.subheader('Detect Face Number of Images / Person') 
         df = fc.sub_file_count(
             "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces"
         )
-        st.dataframe(df, height=300)
+        #st.dataframe(df, height=300)
+        # fig = px.line(df, y='num', x='face')
+
+        # st.plotly_chart(fig, use_container_width=True)
+        st.bar_chart(df, x="face", y="num", color=["#1b85b8"], horizontal=True)
 
     st.divider()
  
-    ca, cb, cc = st.columns([.1,.1,.1], gap="small",vertical_alignment='top')
+    ca, cb, cc = st.columns([0.4, 0.4, 0.5], gap="small", vertical_alignment="top")
    
     with ca:            
         ca_create = st.button("**user specific locations**", use_container_width=True)
