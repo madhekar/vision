@@ -102,11 +102,12 @@ def execute():
             st.metric("Total size of user locations files (MB)",  round(dfa["size"]/(pow(1024,2)), 2), delta=-.1) 
 
     with c3:
-        st.subheader('Detect Face Number of Images / Person') 
+        st.subheader('Number of Images / Person') 
         df = fc.sub_file_count(
             "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces"
         )
-        st.bar_chart(df, x="face", y="num", color=["#1b85b8"], horizontal=True)
+
+        st.bar_chart(df, x="person", y="number of images", color=["#1b85b8"], horizontal=True)
 
     st.divider()
  
