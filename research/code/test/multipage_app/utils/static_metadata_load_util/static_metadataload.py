@@ -106,10 +106,6 @@ def execute():
         df = fc.sub_file_count(
             "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces"
         )
-        #st.dataframe(df, height=300)
-        # fig = px.line(df, y='num', x='face')
-
-        # st.plotly_chart(fig, use_container_width=True)
         st.bar_chart(df, x="face", y="num", color=["#1b85b8"], horizontal=True)
 
     st.divider()
