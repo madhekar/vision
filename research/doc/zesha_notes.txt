@@ -1,3 +1,21 @@
+Eshas-MacBook-Pro-2:geoclip emadhekar$ ollama run llava-llama3
+>>> please describe this image /Users/emadhekar/Downloads/chandrakant9.png
+Added image '/Users/emadhekar/Downloads/chandrakant9.png'
+In the center of the image, an older man with a mustache and red face paint is seated on a chair. He's wearing a vibrant red 
+robe that contrasts with his light skin tone. His eyes are closed, suggesting he might be in a state of relaxation or perhaps 
+even in prayer.
+
+The room around him is painted white, providing a neutral backdrop to the scene. However, there's a floral pattern on the wall 
+behind him, adding a touch of nature to the indoor setting.
+
+Above his head, a red and gold rangoli design adorns the wall, its intricate patterns standing out against the plain white 
+background. This traditional Indian art form adds a cultural element to the image.
+
+At the bottom of the image, there's a text that reads "Free Trial", possibly indicating an advertisement or promotion. The 
+precise location of this text isn't clear from the image description provided.
+
+Overall, the image captures a moment of quiet reflection for the man, surrounded by elements of Indian culture and tradition.
+-----
 [{'uri': '/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/8077d991-9485-5093-93e8-3a21e36ac342/vcm_s_kf_repr_587x886.jpg', 'id': '1c955c7e-dd3b-4b30-81d0-25e4dea63ed7', 'ts': '1365462426.0', 'latlon': '(32.9687, -117.184196)', 'loc': 'madhekar residence at carmel vally', 'names': '', 'attrib': 'sad', 
 'text': 'The image shows a coat rack with a black helmet and a pair of goggles hanging on it. There are also two books, one red and one white, and a pair of gloves on the rack. The background wall has a shelf with three books on it. A small, round mirror is hanging on the wall above the rack. The mirror is made of glass and has a silver frame.'}, 
 
