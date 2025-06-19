@@ -15,7 +15,7 @@ This can help users to quickly identify the best model architecture for their sp
 Automodels are also becoming increasingly popular in the field of natural language processing (NLP). 
 This is because AutoNLP tools can be used to automatically generate and train language models for a variety of tasks, such as text classification, question answering, and machine translation.
 """
-#@st.cache_resource(ttl=36000, show_spinner=True)
+@st.cache_resource(ttl=36000, show_spinner=True)
 def setLLM():
     """
     model auto-tokenizer and processor components for LLM model MC-LLaVA-3b with trust flag
@@ -45,7 +45,7 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, 
     <|im_end|>
     <|im_start|>user
     <image>
-     "{question}" you "MUST" include person name(s) "({people}:2)" with "({attrib}:3)" emotions and the location details "{location}" in the answer.
+     "{question}" you MUST include person name(s) "{people}" with "{attrib}" emotion and the location details "{location}" in the answer.
     <|im_end|> 
     <|im_start|>assistant
     """.format(question=question, people=people, attrib=attrib, location=location) #, article=st.session_state["document"])
@@ -77,6 +77,5 @@ def fetch_llm_text(imUrl, model, processor, top, temperature, question, people, 
     result = processor.tokenizer.decode(output[0])
     r = result.replace(prompt, "").replace("<|im_end|>", "").replace("<|im_start|>", "")
 
-    #print('===>', r)
     return r
     
