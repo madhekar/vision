@@ -1,6 +1,8 @@
 from transformers import pipeline
 from PIL import Image
+import streamlit as st
 
+@st.cache
 def init():
 
     model_id = "xtuner/llava-phi-3-mini-hf"
@@ -8,7 +10,6 @@ def init():
     return pipe
 
 """
-
 
 [{'generated_text': '<|im_start|>system\n    A chat between a curious human and an artificial intelligence assistant. 
 The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. \n    
@@ -88,17 +89,13 @@ def fetch_llm_text(imUrl, pipe, question, people, attrib, location):
     <|im_start|>assistant
     """.format(question=question, people=people, attrib=attrib, location=location) #, article=st.session_state["document"])
 
-    outputs = pipe(image, prompt=prompt, generate_kwargs={"max_new_tokens": 400})
-    return outputs, prompt
+    outputs = pipe(image, prompt=prompt, generate_kwargs={"max_new_tokens": 300})
+    result = outputs[0]["generated_text"].partition("<|im_start|>assistant")[2]
+    return result
     
 # make a call    
 #url = "/home/madhekar/work/home-media-app/data/input-data/img/Grad Pics family1.jpg"
 url= '/home/madhekar/work/home-media-app/data/input-data/img/20130324-3I3A4652-X2.jpg'
 p = init()
-result, prompt = fetch_llm_text(url, p, "Please take time to describe the picture with thoughtful insights", "Esha, Shibangi and 1 person", "happy", "Poway Performing Arts Theater" )
+result = fetch_llm_text(url, p, "Please take time to describe the picture with thoughtful insights", "Esha, Shibangi and 1 person", "happy", "Poway Performing Arts Theater" )
 print(result)
-print('\n\n')
-res = str(result)
-r = res.replace(prompt, "").replace("<|im_end|>", "").replace("<|im_start|>", "")
-
-print(r)
