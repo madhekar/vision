@@ -24,7 +24,7 @@ from aiomultiprocess import Pool
 from functools import partial
 #import dill as pickle
 
-d_latitude, d_longitude = 32.968700, -117.184196
+d_latitude, d_longitude = 32.968689, -117.184243
 d_loc = 'madhekar residence at carmel vally'
 #m, t, p = LLM.setLLM()
 p = LLM_Next.setLLM()
