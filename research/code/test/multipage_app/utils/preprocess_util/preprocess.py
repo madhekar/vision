@@ -4,7 +4,7 @@ import logging
 import itertools as it
 from utils.preprocess_util import awaitUtil
 from utils.preprocess_util import entities as en
-from utils.preprocess_util import LLM
+from utils.preprocess_util import LLM_Next
 import json
 import glob
 import pandas as pd
@@ -26,7 +26,8 @@ from functools import partial
 
 d_latitude, d_longitude = 32.968700, -117.184196
 d_loc = 'madhekar residence at carmel vally'
-m, t, p = LLM.setLLM()
+#m, t, p = LLM.setLLM()
+p = LLM_Next.setLLM()
 #ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
 #global_face = bft.base_face_res()
 
@@ -87,7 +88,7 @@ async def locationDetails(args, lock):
 async def describeImage(args):
     uri, location, names, attrib = args
     print(args)
-    d =  LLM.fetch_llm_text(
+    d =  LLM_Next.fetch_llm_text(
         imUrl=uri,
         model=m,
         processor=p,
