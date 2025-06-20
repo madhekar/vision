@@ -8,6 +8,34 @@ def init():
     return pipe
 
 """
+
+
+[{'generated_text': '<|im_start|>system\n    A chat between a curious human and an artificial intelligence assistant. 
+The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. \n    
+The assistant does not hallucinate and gives extreamly very close attention to the details and take time to process information if necessary, please produce response in string format.\n    
+<|im_end|>\n    
+<|im_start|>user\n     "Please take time to describe the picture with thoughtful insights" It is stremly important that, you "MUST" include person names "Esha, Shibangi and 1 person" with "happy" emotion and the location details "Poway Performing Arts Theater" in the response.\n    
+<|im_end|> \n    
+<|im_start|>assistant\n    
+1. Esha, a young woman, is sitting on the floor in the center of the stage, wearing a vibrant pink and green sari. She is holding a fan in her hand and has a radiant smile on her face.\n    
+2. Shibangi, another young woman, is standing to the left of Esha. She is wearing a blue and gold sari and is holding a fan in her hand. She is looking directly at the camera with a serious expression.\n    
+3. The third person, whose face is not visible in the image, is standing to the right of Esha. She is wearing a pink and green sari and is holding a fan in her hand. She is looking towards the left side of the stage.\n    
+4. The stage is set against a purple background, which contrasts with the colorful saris of the performers.\n    
+5. The Poway Performing Arts Theater is the location of this performance. It is a large, open space with a stage at the front and rows of seating on either side.'}]
+
+
+[{'generated_text': 'system\n    A chat between a curious human and an artificial intelligence assistant. 
+The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. \n   
+The assistant does not hallucinate and gives extreamly very close attention to the details and take time to process information if necessary, 
+please produce response in string format.\n    \n    user\n     "Please take time to describe the picture with thoughtful insights" It is stremly important that, you "MUST" include person names "Esha, Shibangi and 1 person" with "happy" emotion and the location details "Poway Performing Arts Theater" in the response.\n     \n    
+assistant\n    
+1. Esha, a young woman, is sitting on the floor in the center of the stage, wearing a vibrant pink and green sari. She is holding a fan in her hand and has a radiant smile on her face.\n    
+2. Shibangi, another young woman, is standing to the left of Esha. She is wearing a blue and gold sari and is holding a fan in her hand. She is looking directly at the camera with a serious expression.\n    
+3. The third person, whose face is not visible in the image, is standing to the right of Esha. She is wearing a pink and green sari and is holding a fan in her hand. She is looking towards the left side of the stage.\n    
+4. The stage is set against a purple background, which contrasts with the colorful saris of the performers.\n    
+5. The Poway Performing Arts Theater is the location of this performance. It is a large, open space with a stage at the front and rows of seating on either side.'}]
+
+
 /home/madhekar/work/home-media-app/data/input-data/img/Grad Pics family1.jpg
     2 women are hugging in front of the UC Berkeley Sather Gate. 
     One of them is wearing a graduation cap and gown. The other woman is wearing a gray sweater. 
@@ -68,6 +96,8 @@ def fetch_llm_text(imUrl, pipe, question, people, attrib, location):
 url= '/home/madhekar/work/home-media-app/data/input-data/img/20130324-3I3A4652-X2.jpg'
 p = init()
 result, prompt = fetch_llm_text(url, p, "Please take time to describe the picture with thoughtful insights", "Esha, Shibangi and 1 person", "happy", "Poway Performing Arts Theater" )
+print(result)
+print('\n\n')
 res = str(result)
 r = res.replace(prompt, "").replace("<|im_end|>", "").replace("<|im_start|>", "")
 
