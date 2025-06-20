@@ -17,26 +17,33 @@ def init():
     The blue sky and trees in the background give the image a pleasant and serene atmosphere.
 
 /home/madhekar/work/home-media-app/data/input-data/img/20130324-3I3A4652-X2.jpg
-3 women are performing a traditional Indian dance on a stage at the Poway Performing Arts Theater. 
-The stage is set against a purple background, adding a vibrant touch to the performance.
-\n\nThe woman on the left is kneeling on the ground, her hands raised in a gesture of joy and celebration. 
-She is wearing a traditional Indian outfit in shades of pink and green, adorned with gold jewelry that glitters under the stage lights.
-\n\nIn the center, another woman is standing, her hands gracefully extended as if she is leading the dance. 
-She is dressed in a similar traditional Indian outfit, but her colors are more muted, with hues of blue and white.\n\nOn the right, the third woman is also standing, her hands held close to her body. 
-She is wearing a traditional Indian outfit in shades of pink and blue, with gold jewelry that complements her attire.
-\n\nAll three women are smiling, their faces radiating happiness and enthusiasm. 
-Their traditional Indian outfits and jewelry add a touch of cultural richness to the performance, making it a truly captivating sight to behold.
+    3 women are performing a traditional Indian dance on a stage at the Poway Performing Arts Theater. 
+    The stage is set against a purple background, adding a vibrant touch to the performance.
+    \n\nThe woman on the left is kneeling on the ground, her hands raised in a gesture of joy and celebration. 
+    She is wearing a traditional Indian outfit in shades of pink and green, adorned with gold jewelry that glitters under the stage lights.
+    \n\nIn the center, another woman is standing, her hands gracefully extended as if she is leading the dance. 
+    She is dressed in a similar traditional Indian outfit, but her colors are more muted, with hues of blue and white.\n\nOn the right, the third woman is also standing, her hands held close to her body. 
+    She is wearing a traditional Indian outfit in shades of pink and blue, with gold jewelry that complements her attire.
+    \n\nAll three women are smiling, their faces radiating happiness and enthusiasm. 
+    Their traditional Indian outfits and jewelry add a touch of cultural richness to the performance, making it a truly captivating sight to behold.
 
 
-3 women are performing a traditional Indian dance on a stage at the Poway Performing Arts Theater. 
-The stage is set against a purple background, creating a vibrant and colorful atmosphere.
-\n\nThe woman on the left is sitting on the floor, adorned in a traditional Indian outfit that is predominantly pink and green. 
-She holds a fan in her hand, adding to the authenticity of her performance.\n\nIn the center, another woman is standing, wearing a similar outfit but with a more balanced mix of pink and blue colors. 
-She too holds a fan, mirroring the actions of the woman on the left.
-\n\nOn the right, the third woman is standing and wearing an outfit that is a mix of pink and green. 
-She holds a flower in her hand, adding a touch of elegance to her performance.\n\nAll three women are smiling, their faces radiating happiness and joy. 
-Their traditional Indian outfits, complete with jewelry and accessories, add a cultural richness to the scene. 
-The Poway Performing Arts Theater serves as the perfect backdrop for this captivating performance.
+    3 women are performing a traditional Indian dance on a stage at the Poway Performing Arts Theater. 
+    The stage is set against a purple background, creating a vibrant and colorful atmosphere.
+    \n\nThe woman on the left is sitting on the floor, adorned in a traditional Indian outfit that is predominantly pink and green. 
+    She holds a fan in her hand, adding to the authenticity of her performance.\n\nIn the center, another woman is standing, wearing a similar outfit but with a more balanced mix of pink and blue colors. 
+    She too holds a fan, mirroring the actions of the woman on the left.
+    \n\nOn the right, the third woman is standing and wearing an outfit that is a mix of pink and green. 
+    She holds a flower in her hand, adding a touch of elegance to her performance.
+    \n\nAll three women are smiling, their faces radiating happiness and joy. 
+    Their traditional Indian outfits, complete with jewelry and accessories, add a cultural richness to the scene. 
+    The Poway Performing Arts Theater serves as the perfect backdrop for this captivating performance.
+
+    1. Esha, a young woman, is sitting on the floor in the center of the stage, wearing a vibrant pink and green sari. She is holding a fan in her hand and has a radiant smile on her face.\n    
+    2. Shibangi, another young woman, is standing to the left of Esha. She is wearing a blue and gold sari and is holding a fan in her hand. She is looking directly at the camera with a serious expression.\n    
+    3. The third person, whose face is not visible in the image, is standing to the right of Esha. She is wearing a pink and green sari and is holding a fan in her hand. She is looking towards the left side of the stage.\n    
+    4. The stage is set against a purple background, which contrasts with the colorful saris of the performers.\n    
+    5. The Poway Performing Arts Theater is the location of this performance. It is a large, open space with a stage at the front and rows of seating on either side.
 """
 
 def fetch_llm_text(imUrl, pipe, question, people, attrib, location):
@@ -45,10 +52,10 @@ def fetch_llm_text(imUrl, pipe, question, people, attrib, location):
     
     prompt = """<|im_start|>system
     A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. 
-    The assistant does not hallucinate and gives very close attention to the details and take time to process information if necessary, please produce response in string format not a list.
+    The assistant does not hallucinate and gives extreamly very close attention to the details and take time to process information if necessary, please produce response in string format.
     <|im_end|>
     <|im_start|>user
-    <image>"{question}" It is stremly important that, you "MUST" include person name(s) "{people}" with "{attrib}" emotion and the location details "{location}" in the response.
+    <image>"{question}" It is stremly important that, you "MUST" include person names "{people}" with "{attrib}" emotion and the location details "{location}" in the response.
     <|im_end|> 
     <|im_start|>assistant
     """.format(question=question, people=people, attrib=attrib, location=location) #, article=st.session_state["document"])
