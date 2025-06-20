@@ -36,7 +36,7 @@ statename_to_abbr = {
     # "Dadra and Nagar Haveli": "DIU",
     # Other
     "District Of Columbia": "DC",
-    "Washington Dc": "DC",
+    "Washington DC": "DC",
     # States
     "Alabama": "AL",
     "Montana": "MT",

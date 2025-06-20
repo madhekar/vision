@@ -100,7 +100,7 @@ def get_all_loc_by_country_and_state(file_path, country, state):
     rdf = None
     try:
         pf = fp.ParquetFile(file_path)
-        df_ = pf.to_pandas(filters=[("country", "=", country)], row_filter=True)
+        df_ = pf.to_pandas(filters=[("country", "==", country)], row_filter=True)
         rdf = df_[df_["state"] == state]
     except Exception as e:
         st.error(f"get all locations by country: {country} and state: {state} failed with exception: {e}")
