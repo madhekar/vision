@@ -170,8 +170,15 @@ def execute():
 
     initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source_selected)
 
+    show = st.sidebar.checkbox(label='show all vs missing metadata images')
     # extract files
-    files = pd.read_csv(os.path.join(mmp, user_source_selected, mmf))["SourceFile"]
+    files = pd.read_csv(os.path.join(mmp, user_source_selected, mmf))['SourceFile']
+
+    # files =  df[(df['GPSLongitude'] == '-') | (df['DateTimeOriginal'] == '-')]
+
+    # #files = files.drop(columns=['GPSLongitude', 'GPSLatitude', 'DateTimeOriginal'], axis=1)
+
+    # print('***',files.head(10))
 
     st.sidebar.subheader("Display Criteria",divider="gray")
 
@@ -230,7 +237,7 @@ def execute():
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
     col = 0
-
+    print('*-*',batch)
     for image in batch:
         with grid[col]:
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
