@@ -25,7 +25,7 @@ def metadata_initialize(mmp,us,mmf):
 def location_initialize(smp,user_source, smf):
     try:
         df = fpu.read_parquet_file(os.path.join(smp, user_source, smf))
-        print(df.head())
+        #print(df.head())
     except Exception as e:
         st.error(f"exception occured in loading location metadata: {smf} with exception: {e}")  
     return df    
@@ -66,17 +66,7 @@ def clear_markers():
     st.session_state["markers"].clear()
 
 def add_marker(lat, lon, label, url):
-    #iconurl = fl.features.CustomIcon(url, icon_size=(50,50))
-    ##
-    # encoded = base64.b64encode(open(url, 'rb').read())
-    # html = '<img src="data:image/jpg;base64,{}">'.format
-    # ifr = fl.IFrame(html(encoded.decode('UTF-8')), width=200, height=200)
-    # popup = fl.Popup(ifr, max_width= 400)
-    ##
-    #t = """<img src='" + url + "' width=50>"""
-    #iframe = fl.IFrame(html=t, width=200, height=100)
-    #pop = fl.Popup(t, max_width=2600)
-    marker = fl.Marker([lat, lon], popup=url, tooltip=label)#, icon=iconurl)
+    marker = fl.Marker([lat, lon], popup=url, tooltip=label)
     st.session_state["markers"].append(marker)
 
  
@@ -101,9 +91,9 @@ def select_location_by_country_and_state(rdf):
     with c_location_type:
         is_public_location = st.selectbox('type', options=('personal','public','both'), placeholder="select type of locations to display...")
         if is_public_location == 'personal':
-            rdf = rdf[rdf['name'].str.len() >  20]
+            rdf = rdf[rdf['name'].str.len() >  15]
         elif is_public_location == 'public':
-            rdf = rdf[rdf["name"].str.len() <= 20]   
+            rdf = rdf[rdf["name"].str.len() <= 15]   
         else:
             pass 
 
