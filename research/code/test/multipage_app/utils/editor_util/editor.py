@@ -127,14 +127,6 @@ def select_location_by_country_and_state(rdf):
 
 
 def save_metadata( mmp, mmf, mmep, mmef):
-    # for index, row in st.session_state.edited_image_attributes.iterrows():
-    #     print(f'-->{row}')
-        # lat = st.session_state.df.at[row["SourceFile"], "GPSLatitude"]
-        # lon = st.session_state.df.at[row["SourceFile"], "GPSLongitude"]
-        # dt = st.session_state.df.at[row["SourceFile"], "DateTimeOriginal"]
-        #lu.setGpsInfo(row["SourceFile"], lat, lon)
-        #lu.setDateTimeOriginal(row["SourceFile"], dt)
-
     st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",",index=True)
 
     if os.path.exists(mmep):
@@ -170,15 +162,17 @@ def execute():
 
     initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source_selected)
 
-    show = st.sidebar.checkbox(label='show all vs missing metadata images')
+    show_missing = st.sidebar.checkbox(label='show all metadata images')
     # extract files
-    files = pd.read_csv(os.path.join(mmp, user_source_selected, mmf))['SourceFile']
-
-    # files =  df[(df['GPSLongitude'] == '-') | (df['DateTimeOriginal'] == '-')]
-
-    # #files = files.drop(columns=['GPSLongitude', 'GPSLatitude', 'DateTimeOriginal'], axis=1)
-
-    # print('***',files.head(10))
+    if show_missing:        
+        df = pd.read_csv(os.path.join(mmp, user_source_selected, mmf))#['SourceFile', 'GPSLongitude', 'GPSLatitude', 'DateTimeOriginal']
+        # df.set_index("SourceFile", inplace=True)
+        print('+++', df.head())
+        df = df[(df["GPSLongitude"] == "-") | (df["DateTimeOriginal"] == "-")]
+        files = df[['SourceFile']]
+    else:
+        files = pd.read_csv(os.path.join(mmp, user_source_selected, mmf))['SourceFile']
+        print('===',files.head(10))
 
     st.sidebar.subheader("Display Criteria",divider="gray")
 
