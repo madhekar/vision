@@ -19,6 +19,7 @@ def get_env():
 def metadata_initialize(mmp,us,mmf):
     df = pd.read_csv (os.path.join(mmp, us, mmf)) #('metadata.csv')
     df.set_index("SourceFile", inplace=True)
+    print('>>>',df.head())
     return df
 
 @st.cache_resource
@@ -160,15 +161,16 @@ def execute():
         label_visibility="collapsed",
     )
 
+    show_missing = st.sidebar.checkbox(label='show all metadata images')
+
     initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source_selected)
 
-    show_missing = st.sidebar.checkbox(label='show all metadata images')
     # extract files
     if show_missing:        
-        df = pd.read_csv(os.path.join(mmp, user_source_selected, mmf))#['SourceFile', 'GPSLongitude', 'GPSLatitude', 'DateTimeOriginal']
+        df = pd.read_csv(os.path.join(mmp, user_source_selected, mmf))
         # df.set_index("SourceFile", inplace=True)
-        print('+++', df.head())
         df = df[(df["GPSLongitude"] == "-") | (df["DateTimeOriginal"] == "-")]
+        print('+++', df.head())
         files = df[['SourceFile']]
     else:
         files = pd.read_csv(os.path.join(mmp, user_source_selected, mmf))['SourceFile']
