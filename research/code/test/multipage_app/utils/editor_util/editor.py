@@ -16,10 +16,12 @@ def get_env():
     return (rdp, smp, smf, mmp, mmf, mmep, mmef, hlat, hlon)
 
 @st.cache_resource
-def metadata_initialize(mmp,us,mmf):
+def metadata_initialize(mmp,us,mmf, show_missing):
     df = pd.read_csv (os.path.join(mmp, us, mmf)) #('metadata.csv')
     df.set_index("SourceFile", inplace=True)
-    print('>>>',df.head())
+    if show_missing:
+        df = df[(df["GPSLongitude"] == "-") | (df["DateTimeOriginal"] == "-")]
+        print('>>>',df.head())
     return df
 
 @st.cache_resource
@@ -31,7 +33,7 @@ def location_initialize(smp,user_source, smf):
         st.error(f"exception occured in loading location metadata: {smf} with exception: {e}")  
     return df    
 
-def initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source):
+def initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source,show_missing):
     try:
         if "markers" not in st.session_state:
             st.session_state["markers"] = []
@@ -46,7 +48,7 @@ def initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source):
             st.session_state["editor_audit_msg"] = []   
             
         if "df" not in st.session_state:
-            df = metadata_initialize(mmp, user_source, mmf)
+            df = metadata_initialize(mmp, user_source, mmf, show_missing)
             st.session_state.df = df
         else:
             df = st.session_state.df
@@ -163,7 +165,7 @@ def execute():
 
     show_missing = st.sidebar.checkbox(label='show all metadata images')
 
-    initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source_selected)
+    initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source_selected, show_missing)
 
     # extract files
     if show_missing:        
@@ -198,7 +200,7 @@ def execute():
     
     st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
-    save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) #on_click=save_metadata(sdp, sdn, mmp, mmf)
+    save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) 
     if save_btn:
         save_metadata(os.path.join(mmp, user_source_selected), mmf, os.path.join(mmep,user_source_selected), mmef)
 
