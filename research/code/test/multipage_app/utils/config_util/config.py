@@ -94,6 +94,7 @@ static-locations:
 
   missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data
   missing_metadata_file: missing-metadata-wip.csv
+  missing_metdata_filter_file: missing-metdata-filter-wip.csv
 
   static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
   static_metadata_file: static_locations.parquet
@@ -118,6 +119,7 @@ def static_metadata_config_load():
 
         missing_metadata_path = dict["static-locations"]["missing_metadata_path"]
         missing_metadata_file = dict["static-locations"]["missing_metadata_file"]
+        missing_metadata_filter_file = dict["static-locations"]["missing_metadata_filter_file"]
         
         static_metadata_path = dict["static-locations"]["static_metadata_path"]
         static_metadata_file = dict["static-locations"]["static_metadata_file"]
@@ -130,6 +132,7 @@ def static_metadata_config_load():
             user_draft_location_metadata_file,
             missing_metadata_path,
             missing_metadata_file,
+            missing_metadata_filter_file,
             static_metadata_path, 
             static_metadata_file)    
 

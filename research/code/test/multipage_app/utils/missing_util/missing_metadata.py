@@ -23,6 +23,11 @@ def create_missing_report(missing_file_path):
 
     sm.add_messages( "metadata", f"w| missing data Longitudes: {n_lon} Latitude: {n_lat} DataTime: {n_dt} of: {n_total} rows")
 
+def filter_missing_image_data(mmp,mmf,user_source, mff):
+    df = pd.read_csv(missing_file_path)
+    dfm = df[(df['GPSLatitude']) | (df['DateTimeOriginal'])]  
+    dfm.to_csv()
+
 def execute(source_name):
     sm.add_messages("metadata", "s| starting to analyze missing metadata files...")
 
