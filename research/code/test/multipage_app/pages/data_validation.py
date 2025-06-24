@@ -67,7 +67,16 @@ def extract_user_raw_data_folders(pth):
     return next(os.walk(pth))[1]
 
 def execute():        
-
+    '''
+            raw_data_path,
+            duplicate_data_path,
+            quality_data_path,
+            missing_metadata_path,
+            missing_metadata_file,
+            metadata_file_path,
+            static_metadata_file_path,
+            vectordb_path
+    '''
     # extract config settings  
     (
         raw_data_path,

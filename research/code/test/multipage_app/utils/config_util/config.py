@@ -177,10 +177,12 @@ def missing_metadata_config_load():
         input_image_path = dict["missing-metadata"]["input_image_path"]
         missing_metadata_path = dict["missing-metadata"]["missing_metadata_path"]
         missing_metadata_file = dict["missing-metadata"]["missing_metadata_file"]
+        missing_metadata_filter_file = dict["missing-metadata"]["missing_metadata_filter_file"]
     return (
         input_image_path,
         missing_metadata_path,
         missing_metadata_file,
+        missing_metadata_filter_file
     )
 
 @st.cache_resource
@@ -238,6 +240,7 @@ def data_validation_config_load():
 
         missing_metadata_path = dict["missing"]["base_path"]        
         missing_metadata_file = dict["missing"]["missing_metadata_file"]
+        missing_metadata_filter_file = dict["missing"]["missing_metadata_filter_file"]
 
         metadata_file_path = dict["metadata"]["base_path"]
 
@@ -250,6 +253,7 @@ def data_validation_config_load():
         quality_data_path,
         missing_metadata_path,
         missing_metadata_file,
+        missing_metadata_filter_file,
         metadata_file_path,
         static_metadata_file_path,
         vectordb_path
