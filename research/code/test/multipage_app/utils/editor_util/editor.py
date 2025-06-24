@@ -232,7 +232,7 @@ def execute():
     sindex = select_location_by_country_and_state(st.session_state.df_loc)
 
     # Display images to correct
-    st.subheader("IMAGES", divider='gray')    
+    #st.subheader("IMAGES", divider='gray')    
 
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
