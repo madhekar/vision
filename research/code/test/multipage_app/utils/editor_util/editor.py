@@ -204,7 +204,7 @@ def execute():
 
     save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) 
     if save_btn:
-        save_metadata(os.path.join(mmp, user_source_selected), mmf, os.path.join(mmp,user_source_selected), mmef)
+        save_metadata(os.path.join(mmp, user_source_selected), mmf, mmef)
 
     m = fl.Map(location=[hlat, hlon], zoom_start=4, min_zoom=3, max_zoom=10)
 
