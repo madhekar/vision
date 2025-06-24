@@ -11,18 +11,26 @@ from utils.util import storage_stat as ss
 from PIL import Image
 from utils.util import fast_parquet_util as fpu
 
+"""
+  raw_data_path: /home/madhekar/work/home-media-app/data/raw-data/
+  static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/
+  static_metadata_file: static_locations.parquet
+  missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data/
+  missing_metadata_file: missing-metadata-wip.csv
+  missing_metadata_filter_file: missing-metadata-filter-wip.csv
+  missing_metadata_edit_file: missing-matadata-edits.csv
+  home_latitude: 32.968700
+  home_longitude: -117.184200
+"""
 def get_env():
-    (rdp, smp, smf, mmp, mmf, mmep, mmef, hlat, hlon) = config.editor_config_load()
-    return (rdp, smp, smf, mmp, mmf, mmep, mmef, hlat, hlon)
+    (rdp, smp, smf, mmp, mmf, mmff,mmef, hlat, hlon) = config.editor_config_load()
+    return (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon)
 
 @st.cache_resource
 def metadata_initialize(mmp,us,mmf):
-    df = pd.read_csv (os.path.join(mmp, us, mmf)) #('metadata.csv')
-    df.set_index("SourceFile", inplace=True)
-    # if show_missing:
-    #     df = df[(df["GPSLongitude"] == "-") | (df["DateTimeOriginal"] == "-")]
-    #     print('>>>',df.head())
-    return df
+       df = pd.read_csv (os.path.join(mmp, us, mmf)) #('metadata.csv')
+       df.set_index("SourceFile", inplace=True)
+       return df
 
 @st.cache_resource
 def location_initialize(smp,user_source, smf):
@@ -33,7 +41,7 @@ def location_initialize(smp,user_source, smf):
         st.error(f"exception occured in loading location metadata: {smf} with exception: {e}")  
     return df    
 
-def initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source, show_missing):
+def initialize(smp, smf, mmp, mmf, mmef, hlat, hlon, user_source):
     try:
         if "markers" not in st.session_state:
             st.session_state["markers"] = []
@@ -154,7 +162,7 @@ metadata:
 """
 def execute():
 
-    (rdp, smp, smf, mmp, mmf, mmep, mmef, hlat, hlon) = get_env()
+    (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon) = get_env()
 
     st.sidebar.subheader("Storage Source", divider="gray")
     user_source_selected = st.sidebar.selectbox(
@@ -163,20 +171,14 @@ def execute():
         label_visibility="collapsed",
     )
 
-    show_missing = st.sidebar.checkbox(label='show all metadata images')
+    show_missing = st.sidebar.checkbox(label='show missing images')
 
-    initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source_selected, show_missing)
+    mmfile = mmff if show_missing else mmf
 
-    # extract files
-    if show_missing:        
-        df = pd.read_csv(os.path.join(mmp, user_source_selected, mmf))
-        # df.set_index("SourceFile", inplace=True)
-        df = df[(df["GPSLongitude"] == "-") | (df["DateTimeOriginal"] == "-")]
-        print('+++', df.head())
-        files = df[['SourceFile']]
-    else:
-        files = pd.read_csv(os.path.join(mmp, user_source_selected, mmf))['SourceFile']
-        print('===',files.head(10))
+    initialize(smp, smf, mmp, mmfile, mmef, hlat, hlon, user_source_selected)
+
+    files = pd.read_csv(os.path.join(mmp, user_source_selected, mmfile))['SourceFile']
+    print('===',files.head(10))
 
     st.sidebar.subheader("Display Criteria",divider="gray")
 
@@ -202,7 +204,7 @@ def execute():
 
     save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) 
     if save_btn:
-        save_metadata(os.path.join(mmp, user_source_selected), mmf, os.path.join(mmep,user_source_selected), mmef)
+        save_metadata(os.path.join(mmp, user_source_selected), mmf, os.path.join(mmp,user_source_selected), mmef)
 
     m = fl.Map(location=[hlat, hlon], zoom_start=4, min_zoom=3, max_zoom=10)
 
