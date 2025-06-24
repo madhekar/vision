@@ -84,6 +84,7 @@ def execute():
         quality_data_path,
         missing_metadata_path,
         missing_metadata_file,
+        missing_metadata_filter_file,
         metadata_file_path,
         static_metadata_file_path,
         vectordb_path
@@ -223,7 +224,7 @@ def execute():
             st.divider()
             st.caption("**Images With Missing Metadata**")
                    
-            dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  missing_metadata_file))
+            dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file))
             print(dict)
             df = pd.DataFrame.from_dict([dict])
             st.bar_chart(
