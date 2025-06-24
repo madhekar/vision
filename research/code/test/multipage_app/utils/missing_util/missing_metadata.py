@@ -11,6 +11,7 @@ missing-metadata:
   input_image_path: '/home/madhekar/work/home-media-app/data/input-data/img'
   missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
   missing_metadata_file: missing-metadata-wip.csv
+  missing_metadata_filter_file: missing-metadata-filter-wip.csv
   find /home/madhekar/work/home-media-app/data/input-data-1/img -name '*' -print0 | xargs -0 exiftool -gps:GPSLongitude -gps:GPSLatitude -DateTimeOriginal -csv -T -r -n
   f"find '{input_image_path}' -name '*' -print0 | xargs -0 exiftool -GPSLongitude -GPSLatitude -DateTimeOriginal -csv -T -r -n"
 """
@@ -23,15 +24,15 @@ def create_missing_report(missing_file_path):
 
     sm.add_messages( "metadata", f"w| missing data Longitudes: {n_lon} Latitude: {n_lat} DataTime: {n_dt} of: {n_total} rows")
 
-def filter_missing_image_data(mmp,mmf,user_source, mff):
+def filter_missing_image_data(missing_file_path, missing_filter_file_path):
     df = pd.read_csv(missing_file_path)
-    dfm = df[(df['GPSLatitude']) | (df['DateTimeOriginal'])]  
-    dfm.to_csv()
+    dfm = df[(df['GPSLatitude'] == '-') | (df['DateTimeOriginal'] == '-')]  
+    dfm.to_csv(missing_filter_file_path,sep=',')
 
 def execute(source_name):
     sm.add_messages("metadata", "s| starting to analyze missing metadata files...")
 
-    imp, mmp, mmf = config.missing_metadata_config_load()
+    imp, mmp, mmf, mmff= config.missing_metadata_config_load()
 
     input_image_path = os.path.join(imp, source_name)
     #clean empty folders if any
@@ -55,6 +56,8 @@ def execute(source_name):
     
     with open(os.path.join(output_file_path, mmf), "wb") as output:
         output.write(proc.stdout)
+
+    filter_missing_image_data(os.path.join(output_file_path, mmf), os.path.join(output_file_path, mmff))
 
     create_missing_report(os.path.join(output_file_path, mmf))
 

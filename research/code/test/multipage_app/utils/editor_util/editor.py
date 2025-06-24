@@ -16,12 +16,12 @@ def get_env():
     return (rdp, smp, smf, mmp, mmf, mmep, mmef, hlat, hlon)
 
 @st.cache_resource
-def metadata_initialize(mmp,us,mmf, show_missing):
+def metadata_initialize(mmp,us,mmf):
     df = pd.read_csv (os.path.join(mmp, us, mmf)) #('metadata.csv')
     df.set_index("SourceFile", inplace=True)
-    if show_missing:
-        df = df[(df["GPSLongitude"] == "-") | (df["DateTimeOriginal"] == "-")]
-        print('>>>',df.head())
+    # if show_missing:
+    #     df = df[(df["GPSLongitude"] == "-") | (df["DateTimeOriginal"] == "-")]
+    #     print('>>>',df.head())
     return df
 
 @st.cache_resource
@@ -33,7 +33,7 @@ def location_initialize(smp,user_source, smf):
         st.error(f"exception occured in loading location metadata: {smf} with exception: {e}")  
     return df    
 
-def initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source,show_missing):
+def initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source, show_missing):
     try:
         if "markers" not in st.session_state:
             st.session_state["markers"] = []
@@ -48,7 +48,7 @@ def initialize(smp, smf, mmp, mmf, mmep, mmef, hlat, hlon, user_source,show_miss
             st.session_state["editor_audit_msg"] = []   
             
         if "df" not in st.session_state:
-            df = metadata_initialize(mmp, user_source, mmf, show_missing)
+            df = metadata_initialize(mmp, user_source, mmf)
             st.session_state.df = df
         else:
             df = st.session_state.df
@@ -129,14 +129,14 @@ def select_location_by_country_and_state(rdf):
     return (s_ffrdf[s_ffrdf['name'] == selected_location].iloc[0])
 
 
-def save_metadata( mmp, mmf, mmep, mmef):
+def save_metadata( mmp, mmf, mmef):
     st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",",index=True)
 
-    if os.path.exists(mmep):
-        st.session_state.edited_image_attributes.to_csv(os.path.join(mmep, mmef), mode='a', index=False, header=False)
+    if os.path.exists(mmp):
+        st.session_state.edited_image_attributes.to_csv(os.path.join(mmp, mmef), mode='a', index=False, header=False)
     else:
-        os.makedirs(mmep)
-        st.session_state.edited_image_attributes.to_csv(os.path.join(mmep, mmef), index=False, header=False)   
+        os.makedirs(mmp)
+        st.session_state.edited_image_attributes.to_csv(os.path.join(mmp, mmef), index=False, header=False)   
 
     st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0)
 
@@ -147,7 +147,7 @@ metadata:
   static_metadata_file: static_locations.parquet
   missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
   missing_metadata_file: missing-metadata-wip.csv
-  missing_metadata_edit_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
+  missing_metadata_filter_file: missing-metadata-filter-wip.csv
   missing_metadata_edit_file: missing-matadata-edits.csv
   home_latitude: 32.968700
   home_longitude: -117.184200
