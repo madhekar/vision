@@ -86,9 +86,8 @@ def execute():
     with c1:
         st.subheader("Static Metadata")
         dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
-        print(')))', dfs.head(20))
-        st.metric("Number of location files", sum(dfs['count']))
-        st.metric("Total size of location files (MB)", round(sum(dfs["size"])/(pow(1024,2)), 2), delta=.7)
+        st.metric("Total location files", sum(dfs['count']))
+        st.metric("Total size of location files (MB)", round(sum(dfs["size"])/(pow(1024,2)), 2), delta=.0)
    
     with c2:
         dfl = ss.extract_all_file_stats_in_folder(location_metadata_path)
@@ -109,9 +108,7 @@ def execute():
         df = fc.sub_file_count(
             "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces"
         )
-
         st.bar_chart(df, x="person", y="number of images", color=["#1b85b8"], horizontal=True)
-
     st.divider()
  
     ca, cb, cc = st.columns([0.4, 0.4, 0.5], gap="small", vertical_alignment="top")
