@@ -58,6 +58,7 @@ def execute():
         
         missing_metadata_path,
         missing_metadata_file,
+        missing_metadata_filter_file,
         
         static_metadata_path,
         static_metadata_file,
