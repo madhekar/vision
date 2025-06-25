@@ -19,7 +19,7 @@ def random_user_agent(num_chars=8):
 cache = {}
 # get location address information from latitude and longitude
 def getLocationDetails(strLnL, max_retires):
-    address = "n/a"
+    address = "na,na,na"
 
     if strLnL in cache:
         return cache[strLnL]
