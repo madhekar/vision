@@ -178,7 +178,6 @@ def execute():
     initialize(smp, smf, mmp, mmfile, mmef, hlat, hlon, user_source_selected)
 
     files = pd.read_csv(os.path.join(mmp, user_source_selected, mmfile))['SourceFile']
-    print('===',files.head(10))
 
     st.sidebar.subheader("Display Criteria",divider="gray")
 
@@ -229,10 +228,7 @@ def execute():
     st.subheader("Edit Location and Date", divider='gray') 
 
     st.sidebar.subheader('Locations', divider='gray')
-    sindex = select_location_by_country_and_state(st.session_state.df_loc)
-
-    # Display images to correct
-    #st.subheader("IMAGES", divider='gray')    
+    sindex = select_location_by_country_and_state(st.session_state.df_loc)  
 
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
@@ -255,7 +251,6 @@ def execute():
                 c2.empty()
                 c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
             else:
-                #print(st.session_state.df_loc.name.values)
                 clk = c2.checkbox(label=f"location_{image}", label_visibility="collapsed")
                 if clk:
                     update_latitude_longitude(image, sindex['latitude'], sindex['longitude'], sindex['name'])

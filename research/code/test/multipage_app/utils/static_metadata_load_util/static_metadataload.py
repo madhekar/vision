@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import pandas as pd
 from utils.config_util import config
 from utils.util import fast_parquet_util as fpu
@@ -85,9 +86,14 @@ def execute():
     c1, c2, c3 = st.columns([.4, .4, .5], gap="small")
     with c1:
         st.subheader("Static Metadata")
+        c11,c12 = c1.columns([1,1])
         dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
-        st.metric("Total location files", sum(dfs['count']))
-        st.metric("Total size of location files (MB)", round(sum(dfs["size"])/(pow(1024,2)), 2), delta=.0)
+        dfs['size'] = dfs['size'].apply(lambda x: x /(pow(1024, 2)))
+        dfs['count'] = dfs['size'].apply(lambda x: x /10)
+        with c11:
+           st.bar_chart(dfs, y="count", color=["#1b85b8"], horizontal=True, x_label= "Count * 10")
+        with c12:   
+           st.bar_chart(dfs, y="size", color=["#1b85b8"], horizontal=True, x_label= "Size in MB")
    
     with c2:
         dfl = ss.extract_all_file_stats_in_folder(location_metadata_path)
