@@ -32,14 +32,15 @@ def transform_and_add_static_metadata(location_metadata_path, user_location_meta
 datapaths:
   raw_data_path: /home/madhekar/work/home-media-app/data/raw-data/
 static-locations:
-  location_metadata_path: /home/madhekar/work/home-media-app/data/static-data/static-locations/default
-  user_location_metadata_path: /home/madhekar/work/home-media-app/data/static-data/static-locations/user-specific
+  location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/default
+  user_location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific
   user_location_metadata_file: user-specific.csv
   user_draft_location_metadata_path_ext: draft
-  user_draft_locations_metadata_file: user-specific-draft.csv
+  user_draft_location_metadata_file: user-specific-draft.csv
 
   missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data
   missing_metadata_file: missing-metadata-wip.csv
+  missing_metadata_filter_file: missing-metadata-filter-wip.csv
 
   static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
   static_metadata_file: static_locations.parquet
@@ -85,13 +86,14 @@ def execute():
     with c1:
         st.subheader("Static Metadata")
         dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
+        print(')))', dfs.head(20))
         st.metric("Number of location files", sum(dfs['count']))
         st.metric("Total size of location files (MB)", round(sum(dfs["size"])/(pow(1024,2)), 2), delta=.7)
    
     with c2:
         dfl = ss.extract_all_file_stats_in_folder(location_metadata_path)
         dfa = ss.extract_all_file_stats_in_folder(user_location_metadata_path)        
-        print(dfl['count'], dfa)
+        print(dfl['count'], dfa['count'])
         c2a, c2b = st.columns([1,1], gap="small")
         with c2a:
             st.subheader("Locations")
