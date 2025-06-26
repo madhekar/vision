@@ -83,17 +83,17 @@ def execute():
     # paths to import static location files
     metadata_storage_path = os.path.join(static_metadata_path, user_source_selected, static_metadata_file)
 
-    c1, c2, c3 = st.columns([.4, .4, .5], gap="small")
+    c1, c2, c3 = st.columns([.5, .3, .5], gap="medium")
     with c1:
         st.subheader("Static Metadata")
         c11,c12 = c1.columns([1,1])
         dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
         dfs['size'] = dfs['size'].apply(lambda x: x /(pow(1024, 2)))
-        dfs['count'] = dfs['size'].apply(lambda x: x /10)
+        #dfs['count'] = dfs['size'].apply(lambda x: x /10)
         with c11:
-           st.bar_chart(dfs, y="count", color=["#1b85b8"], horizontal=True, x_label= "Count * 10")
+           st.bar_chart(dfs, y="count", color=["#1b85b8"], horizontal=True, x_label= "Count")
         with c12:   
-           st.bar_chart(dfs, y="size", color=["#1b85b8"], horizontal=True, x_label= "Size in MB")
+           st.bar_chart(dfs, y="size", color=["#1b85b8"], horizontal=True, x_label= "Size MB")
    
     with c2:
         dfl = ss.extract_all_file_stats_in_folder(location_metadata_path)
