@@ -82,7 +82,7 @@ def add_marker(lat, lon, label, url):
 
  
 def update_latitude_longitude(image, latitude, longitude, name):
-    print(st.session_state.df.head())
+    #print(st.session_state.df.head())
     st.session_state.df.at[image, "GPSLatitude"] =latitude
     st.session_state.df.at[image, "GPSLongitude"] = longitude
     lu.setGpsInfo(image, latitude, longitude)
@@ -90,7 +90,7 @@ def update_latitude_longitude(image, latitude, longitude, name):
 
 
 def update_all_datetime_changes(image, col):
-    print(st.session_state.df.head())
+    #print(st.session_state.df.head())
     dt = st.session_state[f"{col}_{image}"]
     st.session_state.df.at[image, "DateTimeOriginal"] = dt
     lu.setDateTimeOriginal(image, dt)
