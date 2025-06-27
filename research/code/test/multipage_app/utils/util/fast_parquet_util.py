@@ -51,7 +51,7 @@ def create_or_append_locations(raw_file, pfile_path):
         df = transform_raw_locations(raw_file)
 
         if not os.path.isfile(pfile_path):
-            print(pfile_path)
+            #print(pfile_path)
             write(pfile_path, df)
         else:
             write(pfile_path, df, append=True)
@@ -64,7 +64,7 @@ def create_or_append_parquet(df, pfile_path):
         st.info(f"adding file: dataframe to parquat store: {pfile_path}")
 
         if not os.path.isfile(pfile_path):
-            print(pfile_path)
+            #print(pfile_path)
             write(pfile_path, df)
         else:
             write(pfile_path, df, append=True)
@@ -111,7 +111,7 @@ def combine_all_default_locations(location_root):
         locations_file_list = glob.glob(os.path.join(location_root, "*.csv"))
         pdf = []
         for f in locations_file_list:
-            print(f'>> {f}')
+            #print(f'>> {f}')
             pdf.append(transform_raw_locations(f))
         df_comb = pd.concat(pdf, ignore_index=True)  
         print(f'>>{len(df_comb)}')  
@@ -145,20 +145,12 @@ def init_location_cache(parquet_file_path):
     df["LatLon"] = df[["latitude", "longitude"]].apply(tuple, axis=1)
 
     df.drop(columns=["latitude", "longitude"], inplace=True)
-    df.head(10)
+    #df.head(10)
     return df     
 
 
 if __name__ == "__main__":
     parquet_file_path = "parquet/static_locations.parquet"
-
-    # add_all_locations('locations/', parquet_file_path=parquet_file_path)
-
-    # rdf = read_parquet_file(file_path=parquet_file_path)
-    # print(rdf.head())
-
-    # rdf = get_all_loc_by_country(parquet_file_path, "us")
-    # print(rdf.head())
 
     rdf = get_all_loc_by_country_and_state(parquet_file_path, "US", "CA")
     print(f"results with {rdf.shape[0]} rows and  {rdf}")
