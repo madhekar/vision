@@ -93,7 +93,7 @@ def execute():
         with c11:
            st.bar_chart(dfs, y="count", color=["#1b85b8"], horizontal=True, x_label= "Count")
         with c12:   
-           st.bar_chart(dfs, y="size", color=["#1b85b8"], horizontal=True, x_label= "Size MB")
+           st.bar_chart(dfs, y="size", color=["#ae5a41"], horizontal=True, x_label= "Size MB")
    
     with c2:
         dfl = ss.extract_all_file_stats_in_folder(location_metadata_path)
@@ -114,7 +114,7 @@ def execute():
         df = fc.sub_file_count(
             "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces"
         )
-        st.bar_chart(df, x="person", y="number of images", color=["#1b85b8"], horizontal=True)
+        st.bar_chart(df, x="person", y="number of images", color=["#c3cb71"], horizontal=True)
     st.divider()
  
     ca, cb, cc = st.columns([0.4, 0.4, 0.5], gap="small", vertical_alignment="top")
