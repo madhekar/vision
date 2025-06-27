@@ -53,7 +53,7 @@ def collect_addresses(df):
         result_list.append([addr, ll[1], ll[0]])
     df = pd.DataFrame(result_list, columns=['address', 'latitude', 'longitude'])    
     
-    df.to_csv("new_address_lat_lang.csv", index=False, encoding="utf-8")
+    df.to_csv("new_address_lat_long.csv", index=False, encoding="utf-8")
 
 
 
