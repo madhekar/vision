@@ -5,7 +5,6 @@ from sklearn.neighbors import NearestNeighbors
 from math import cos, asin, sqrt
 import numpy as np
 
-
 def get_num_of_clusters(X):
 
    # Range of K values to test
@@ -51,11 +50,13 @@ def haversine_distance(lat_lon1, lat_lon2):
     return 12742 * asin(sqrt(hav))
 
 
-def walk_centroids(X, cen):
+def walk_centroids(X, cen, data_vs_clusters):
     ret = {}
 
+    print(data_vs_clusters)
+
     # Initialize NearestNeighbors with your custom metric
-    nbrs = NearestNeighbors( n_neighbors=20, metric=haversine_distance, radius=5.0, leaf_size=30, p=2)
+    nbrs = NearestNeighbors( n_neighbors=data_vs_clusters, metric=haversine_distance, radius=5.0, leaf_size=30, p=2)
 
     # Fit the model
     nbrs.fit(X)
@@ -72,12 +73,15 @@ def walk_centroids(X, cen):
 
 if __name__=='__main__':
     df = pd.read_csv('lat_lon_nodup.csv')
+
     X = df.values.tolist()
+    len_X = len(X)
+
     n_clusters = get_num_of_clusters(X)
 
     labels, centroids = get_cluster_centers(X, n_clusters + 2)
     print(centroids)
     
-    ret = walk_centroids(X, centroids)
+    ret = walk_centroids(X, centroids, len_X// n_clusters)
 
     print(ret)
