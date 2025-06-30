@@ -6,6 +6,7 @@ import numpy as np
 # Sample data (replace with your actual data)
 X = np.random.rand(100, 2) * 10
 
+print(X)
 # Range of K values to test
 range_n_clusters = range(2, 11)
 
