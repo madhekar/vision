@@ -1,4 +1,4 @@
-import os
+
 import pandas as pd
 import pyexiv2
 from PIL import Image
@@ -7,7 +7,6 @@ from GPSPhoto import gpsphoto
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 from geopy.exc import GeocoderTimedOut, GeocoderUnavailable
-import datetime
 import random
 import string
 import time
