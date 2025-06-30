@@ -8,7 +8,7 @@ X = np.random.rand(100, 2) * 10
 
 print(X)
 # Range of K values to test
-range_n_clusters = range(2, 11)
+range_n_clusters = range(2, 20)
 
 silhouette_scores = []
 
@@ -21,6 +21,9 @@ for n_clusters in range_n_clusters:
     score = silhouette_score(X, cluster_labels)
     silhouette_scores.append(score)
     print(f"For n_clusters = {n_clusters}, silhouette score = {score:.4f}")
+
+
+print( silhouette_scores.index(max(silhouette_scores)))
 
 # Plotting the silhouette scores
 plt.figure(figsize=(8, 6))

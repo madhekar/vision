@@ -5,12 +5,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 df = pd.read_csv('lat_lon_nodup.csv')
-
 X = df.values.tolist()
 
 print(X)
 # Range of K values to test
-range_n_clusters = range(2, 11)
+range_n_clusters = range(2, 20)
 
 silhouette_scores = []
 
