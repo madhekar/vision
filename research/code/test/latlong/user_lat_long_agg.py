@@ -61,11 +61,7 @@ def walk_centroids(X, cen, data_vs_clusters):
     # Fit the model
     nbrs.fit(X)
 
-    # Find nearest neighbors for a new point
-    # new_point = np.array([[117.28210047 , 33.010097  ]])
-
     for c in cen:
-        print(c.tolist())
         distances, indices = nbrs.kneighbors([c.tolist()])
         ret[tuple(c.tolist())] = (indices)
     return ret
