@@ -32,8 +32,11 @@ def transform_and_add_static_metadata(location_metadata_path, user_location_meta
 """
 datapaths:
   raw_data_path: /home/madhekar/work/home-media-app/data/raw-data/
+static-faces: 
+  faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
 static-locations:
   location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/default
+  faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
   user_location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific
   user_location_metadata_file: user-specific.csv
   user_draft_location_metadata_path_ext: draft
@@ -46,10 +49,23 @@ static-locations:
   static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
   static_metadata_file: static_locations.parquet
 
+(raw_data_path, 
+            faces_metadata_path, 
+            location_metadata_path, 
+            user_location_metadata_path, 
+            user_location_metadata_file,  
+            user_draft_location_metadata_path_ext,
+            user_draft_location_metadata_file,
+            missing_metadata_path,
+            missing_metadata_file,
+            missing_metadata_filter_file,
+            static_metadata_path, 
+            static_metadata_file)
 """
 def execute():
     (
         raw_data_path,
+        faces_metadata_path,
         location_metadata_path,
 
         user_location_metadata_path,
@@ -111,7 +127,7 @@ def execute():
 
     with c3:
         st.subheader('Number of Images / Person') 
-        df = fc.sub_file_count("/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces")
+        df = fc.sub_file_count( faces_metadata_path) #"/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces")
         st.bar_chart(df, x="person", y="number of images", color=["#c3cb71"], horizontal=True)
     st.divider()
  
