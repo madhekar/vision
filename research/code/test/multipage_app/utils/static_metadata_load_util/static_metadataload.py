@@ -111,9 +111,7 @@ def execute():
 
     with c3:
         st.subheader('Number of Images / Person') 
-        df = fc.sub_file_count(
-            "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces"
-        )
+        df = fc.sub_file_count("/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces")
         st.bar_chart(df, x="person", y="number of images", color=["#c3cb71"], horizontal=True)
     st.divider()
  

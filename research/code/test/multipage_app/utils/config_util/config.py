@@ -99,6 +99,9 @@ static-locations:
   static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
   static_metadata_file: static_locations.parquet
 
+
+static-faces: 
+  faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
 """
 @st.cache_resource
 def static_metadata_config_load():
@@ -110,6 +113,9 @@ def static_metadata_config_load():
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * * *")
 
         raw_data_path = dict["datapaths"]["raw_data_path"]
+
+        faces_metadata_path = dict['static-faces']['faces_metadata_path']
+
         location_metadata_path = dict["static-locations"]["location_metadata_path"]
         user_location_metadata_path = dict["static-locations"]["user_location_metadata_path"]
         user_location_metadata_file = dict["static-locations"]["user_location_metadata_file"]
@@ -125,8 +131,9 @@ def static_metadata_config_load():
         static_metadata_file = dict["static-locations"]["static_metadata_file"]
 
     return (raw_data_path, 
+            faces_metadata_path, 
             location_metadata_path, 
-            user_location_metadata_path,  
+            user_location_metadata_path, 
             user_location_metadata_file,  
             user_draft_location_metadata_path_ext,
             user_draft_location_metadata_file,
