@@ -9,8 +9,24 @@ import numpy as np
 #X,y = make_blobs(n_samples=300, centers=3, cluster_std=0.60, random_state=0)
 
 
-df = pd.read_csv("lat_lon_nodup.csv")
-X = df.values.tolist()
+# df = pd.read_csv("lat_lon_nodup.csv")
+# X = df.values.tolist()
+
+df = pd.read_csv(
+    "/home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data/AnjaliBackup/missing-metadata-wip.csv"
+)  #'lat_lon_nodup.csv')
+
+df = df.drop(["SourceFile", "DateTimeOriginal"], axis=1)
+
+dfm = df[~(df["GPSLatitude"] == "-")]
+
+dfm[["GPSLatitude", "GPSLongitude"]] = (
+    dfm[["GPSLatitude", "GPSLongitude"]].apply(pd.to_numeric).round(6)
+)
+
+print(dfm.head())
+X = dfm.values.tolist()
+
 
 x1 = np.array(X)[:,0]
 x2 = np.array(X)[:,1]
@@ -25,7 +41,7 @@ plt.show()
 
 # 3. Apply K-Means clustering
 # Initialize KMeans with the desired number of clusters (k=3 in this case)
-kmeans = KMeans(n_clusters=8, random_state=0, n_init=10) # n_init for robustness
+kmeans = KMeans(n_clusters=20, random_state=0, n_init=10) # n_init for robustness
 kmeans.fit(X)
 
 # Get the cluster labels for each data point

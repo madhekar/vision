@@ -4,12 +4,20 @@ from sklearn.metrics import silhouette_score
 import matplotlib.pyplot as plt
 import numpy as np
 
-df = pd.read_csv('lat_lon_nodup.csv')
-X = df.values.tolist()
+df = pd.read_csv('/home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data/AnjaliBackup/missing-metadata-wip.csv')#'lat_lon_nodup.csv')
+
+df =df.drop(['SourceFile', 'DateTimeOriginal'], axis=1)
+
+dfm = df[~(df['GPSLatitude'] == '-')]  
+
+dfm[["GPSLatitude", "GPSLongitude"]] = dfm[["GPSLatitude", "GPSLongitude"]].apply(pd.to_numeric).round(6)
+
+print(dfm.head())
+X = dfm.values.tolist()
 
 print(X)
 # Range of K values to test
-range_n_clusters = range(2, 20)
+range_n_clusters = range(2, 50)
 
 silhouette_scores = []
 
