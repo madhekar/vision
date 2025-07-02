@@ -133,7 +133,7 @@ def execute():
             if ca_create:
                 ca.info('starting to create user specific static location data.')
                 if not os.path.exists(os.path.join(user_location_metadata_path, user_location_metadata_file)):
-                   generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, user_location_metadata_path, user_location_metadata_file) #, user_draft_location_metadata_path, user_draft_location_metadata_file)
+                   generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, user_location_metadata_path, user_location_metadata_file) 
                 ca_status.update(label='user specific locations complete!', state='complete', expanded=False)
     with cb:
         cb_metadata = st.button("**aggregate all locations**", use_container_width=True)
