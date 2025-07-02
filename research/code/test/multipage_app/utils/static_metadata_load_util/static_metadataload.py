@@ -39,8 +39,6 @@ static-locations:
   faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
   user_location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific
   user_location_metadata_file: user-specific.csv
-  user_draft_location_metadata_path_ext: draft
-  user_draft_location_metadata_file: user-specific-draft.csv
 
   missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data
   missing_metadata_file: missing-metadata-wip.csv
@@ -54,8 +52,6 @@ static-locations:
             location_metadata_path, 
             user_location_metadata_path, 
             user_location_metadata_file,  
-            user_draft_location_metadata_path_ext,
-            user_draft_location_metadata_file,
             missing_metadata_path,
             missing_metadata_file,
             missing_metadata_filter_file,
@@ -139,7 +135,7 @@ def execute():
                 generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, user_location_metadata_path, user_location_metadata_file) #, user_draft_location_metadata_path, user_draft_location_metadata_file)
                 ca_status.update(label='user specific locations complete!', state='complete', expanded=False)
     with cb:
-        cb_metadata = st.button("**aggregate locations**", use_container_width=True)
+        cb_metadata = st.button("**aggregate all locations**", use_container_width=True)
   
         cb_status = st.status('create static location store', state='running', expanded=True)
         with cb_status:
@@ -154,12 +150,7 @@ def execute():
                     st.error(f"Exception encountered wile removing metadata file: {e}")
 
                 st.info(f"creating new static metadata storage: {metadata_storage_path}")
-                transform_and_add_static_metadata(
-                    location_metadata_path,
-                    user_location_metadata_path,
-                    user_location_metadata_file,
-                    metadata_storage_path,
-                )
+                transform_and_add_static_metadata( location_metadata_path, user_location_metadata_path, user_location_metadata_file, metadata_storage_path)
                 cb_status.update(label="metadata creation complete!", state="complete", expanded=False)  
     with cc:
         cc_metadata = st.button("**Refresh people detection model**", use_container_width=True)
