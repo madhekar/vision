@@ -120,9 +120,6 @@ def static_metadata_config_load():
         user_location_metadata_path = dict["static-locations"]["user_location_metadata_path"]
         user_location_metadata_file = dict["static-locations"]["user_location_metadata_file"]
 
-        user_draft_location_metadata_path_ext = dict["static-locations"]["user_draft_location_metadata_path_ext"]
-        user_draft_location_metadata_file = dict["static-locations"]["user_draft_location_metadata_file"]
-
         missing_metadata_path = dict["static-locations"]["missing_metadata_path"]
         missing_metadata_file = dict["static-locations"]["missing_metadata_file"]
         missing_metadata_filter_file = dict["static-locations"]["missing_metadata_filter_file"]
@@ -135,8 +132,6 @@ def static_metadata_config_load():
             location_metadata_path, 
             user_location_metadata_path, 
             user_location_metadata_file,  
-            user_draft_location_metadata_path_ext,
-            user_draft_location_metadata_file,
             missing_metadata_path,
             missing_metadata_file,
             missing_metadata_filter_file,

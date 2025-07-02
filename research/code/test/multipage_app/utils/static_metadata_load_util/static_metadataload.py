@@ -14,7 +14,7 @@ import plotly.express as px
 
 colors = ["#ae5a41", "#1b85b8"]
 # create user specific static image metadata "locations" not found in default static metadata
-def generate_user_specific_static_metadata(missing_path, missing_file, location_path, user_draft_location_metadata_path, user_draft_location_metadata_file):
+def generate_user_specific_static_metadata(missing_path, missing_file, location_path, user_location_metadata_path, user_location_metadata_file):
 
     # dataframe for all default static locations
     default_df = fpu.combine_all_default_locations(location_path)
@@ -23,7 +23,7 @@ def generate_user_specific_static_metadata(missing_path, missing_file, location_
     df_unique =  usl.get_unique_locations(pd.read_csv(os.path.join(missing_path, missing_file)),default_df)
 
     #create draft static unique location file
-    df_unique.to_csv(os.path.join(user_draft_location_metadata_path, user_draft_location_metadata_file), index=False, encoding="utf-8")
+    df_unique.to_csv(os.path.join(user_location_metadata_path, user_location_metadata_file), index=False, encoding="utf-8")
     #print(f'---->{df_unique} : {len(df_unique)}')
 
 def transform_and_add_static_metadata(location_metadata_path, user_location_metadata, user_location_metadata_file, final_parquet_storage):
@@ -70,9 +70,6 @@ def execute():
 
         user_location_metadata_path,
         user_location_metadata_file,
-
-        user_draft_location_metadata_path_ext,
-        user_draft_location_metadata_file,
         
         missing_metadata_path,
         missing_metadata_file,
@@ -90,7 +87,7 @@ def execute():
     )
     user_location_metadata_path =  os.path.join(user_location_metadata_path, user_source_selected)
 
-    user_draft_location_metadata_path = os.path.join(user_location_metadata_path, user_draft_location_metadata_path_ext)
+    #user_draft_location_metadata_path = os.path.join(user_location_metadata_path, user_draft_location_metadata_path_ext)
     
     #location_metadata_path = os.path.join(location_metadata_path, user_source_selected)
 
@@ -139,7 +136,7 @@ def execute():
         with ca_status:
             if ca_create:
                 ca.info('starting to create user specific static location data.')
-                generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, location_metadata_path, user_draft_location_metadata_path, user_draft_location_metadata_file)
+                generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, user_location_metadata_path, user_location_metadata_file) #, user_draft_location_metadata_path, user_draft_location_metadata_file)
                 ca_status.update(label='user specific locations complete!', state='complete', expanded=False)
     with cb:
         cb_metadata = st.button("**aggregate locations**", use_container_width=True)

@@ -33,6 +33,7 @@ def getLocationDetails(strLnL, max_retires):
                 return address
         except (GeocoderTimedOut, GeocoderUnavailable) as e:
             st.warning(f"Get address failed with {e}")
+        print('->>>', address)    
     return address
 
 def join_state_county(line):
@@ -45,7 +46,7 @@ def join_state_county(line):
         l2 = " ".join(arr[0:2])
         return l2 + "," + l1
 
-def collect_addresses(df, loc_accuracy=0):
+def collect_addresses(df, loc_accuracy=6):
     df = df[['latitude', 'longitude']].astype(float).round(loc_accuracy)
     # df["latitude"] = df["latitude"].astype(float).round(2)
     # df["longitude"] = df["longitude"].astype(float).round(4)
@@ -103,9 +104,7 @@ def get_unique_locations(df_mis, df_def):
     print("not missing-->", dfp.size)
 
     # match column names to parquet file standards
-    dfp.rename(
-        columns={"GPSLatitude": "latitude", "GPSLongitude": "longitude"}, inplace=True
-    )
+    dfp.rename(columns={"GPSLatitude": "latitude", "GPSLongitude": "longitude"}, inplace=True)
     print(dfp.head(), dfp.size)
 
     # extract non prepresented data from static metadata 
