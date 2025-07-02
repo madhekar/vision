@@ -62,4 +62,5 @@ for i,cluster in enumerate(np.unique(y_predict)):
     
    plt.tight_layout()
    plt.title(f' Silhouette analysis using k = {k}',fontsize=16,fontweight = 'semibold')
+   plt.show()
    plt.savefig(f'Silhouette_analysis_{k}.jpg')
