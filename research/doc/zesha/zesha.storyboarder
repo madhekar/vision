@@ -1,0 +1,42 @@
+{
+  "version": "2.1.0",
+  "aspectRatio": "2.39",
+  "fps": 24,
+  "defaultBoardTiming": 2000,
+  "boards": [
+    {
+      "uid": "KNK44",
+      "url": "board-1-KNK44.png",
+      "newShot": false,
+      "lastEdited": 1729277625259,
+      "layers": {
+        "reference": {
+          "url": "board-1-KNK44-reference.png",
+          "opacity": 0.75
+        },
+        "shot-generator": {
+          "url": "board-1-KNK44-shot-generator.png"
+        },
+        "fill": {
+          "url": "board-1-KNK44-fill.png"
+        },
+        "tone": {
+          "url": "board-1-KNK44-tone.png"
+        },
+        "pencil": {
+          "url": "board-1-KNK44-pencil.png"
+        },
+        "ink": {
+          "url": "board-1-KNK44-ink.png"
+        },
+        "notes": {
+          "url": "board-1-KNK44-notes.png"
+        }
+      },
+      "number": 1,
+      "shot": "1A",
+      "time": 0,
+      "lineMileage": 488.08054876152045
+    }
+  ]
+}
