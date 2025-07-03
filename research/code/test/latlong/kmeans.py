@@ -10,7 +10,7 @@ import random
 import string
 import time
 
-
+# https://www.toolify.ai/ai-model/xtuner-llava-llama-3-8b-v1-1-hf
 def random_user_agent(num_chars=8):
     return "".join(random.choices(string.ascii_letters + string.digits, k=8))
 
