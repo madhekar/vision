@@ -1,0 +1,84 @@
+
+
+[{'uri': '/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/35e30613-f4b6-5a5d-bf08-16e99d2f58e5/IMG_4976.JPG', 
+'id': 'dba8d1a0-d632-4889-9902-fc0ea94b34f0', 
+'ts': '1384024732.0', 
+'latlon': '(32.968689000000005, -117.18424300000001)', 
+'loc': '13580, Sage Mesa Road, San Diego, San Diego County, California, 92130, United States', 
+'names': 'Bhalchandra', 
+'attrib': 'sad', 
+'text': "\n 13580 Sage Mesa Road, San Diego, San Diego County, California, 92130, United States\n\nA man named Bhalchandra, dressed in a white robe with brown straps, stands in a kitchen. He holds a yellow object in his hand, possibly a sponge or a cloth. The kitchen is well-equipped with dark wood cabinets and a granite countertop. A white pendant light hangs above the countertop, casting a soft glow on the scene. The man's face is not visible in the image, but he appears to be in a state of sadness. The kitchen is clean and well-maintained, indicating that it is well-used and loved by its inhabitants."}, 
+
+{'uri': '/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/35e30613-f4b6-5a5d-bf08-16e99d2f58e5/IMG_4963.JPG', 'id': 'b1f98ddc-5318-4a08-b5f0-2bab80d1e64f', 'ts': '1384024522.0', 'latlon': '(32.968689000000005, -117.18424300000001)', 'loc': '13580, Sage Mesa Road, San Diego, San Diego County, California, 92130, United States', 'names': 'Kumar', 'attrib': 'sad', 'text': '\n 13580 Sage Mesa Road, San Diego, San Diego County, California, 92130, United States\n\nIn the image, there are three people standing in a hallway. The person on the left is holding a tray with food on it. The person in the middle is holding a green bottle. The person on the right is wearing a white robe. The person in the middle is named Kumar and he looks sad. The person on the right is named Priya. The hallway is white and has a staircase in the background.'}, 
+
+{'uri': '/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/35e30613-f4b6-5a5d-bf08-16e99d2f58e5/IMG_4825.JPG', 'id': '062d589f-3d44-4a1c-9a12-40165e777f82', 'ts': '1376179815.0', 'latlon': '(32.968689000000005, -117.18424300000001)', 'loc': '13580, Sage Mesa Road, San Diego, San Diego County, California, 92130, United States', 'names': '', 'attrib': 'surprise', 'text': '\n 13580 Sage Mesa Road, San Diego, San Diego County, California, 92130, United States\n\nThe image shows a small, unfinished room with a concrete floor. The floor is covered in a layer of pink paint, which has been applied in a circular pattern. A blue pipe is sticking out of the wall, and a small hole has been cut into the wall. The room appears to be in the process of being renovated. The image shows a small, unfinished room with a concrete floor. The floor is covered in a layer of pink paint, which has been applied in a circular pattern. A blue pipe is sticking out of the wall, and a small hole has been cut into the wall. The room appears to be in the process of being renovated.\n\nThe room is located at 13580 Sage Mesa Road, San Diego, San Diego County, California, 92130, United States. The blue pipe and the small hole in the wall suggest that the renovation process is still ongoing. The pink paint on the floor adds a pop of color to the otherwise plain concrete surface. The room is currently empty, but it is likely that it will be transformed into a functional space once the renovation is complete.'},
+
+ {'uri': '/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/35e30613-f4b6-5a5d-bf08-16e99d2f58e5/IMG_4786.JPG', 'id': '53c99905-731d-4245-87d3-78ba0f5adf40', 'ts': '1376178921.0', 'latlon': '(32.968689000000005, -117.18424300000001)', 'loc': '13580, Sage Mesa Road, San Diego, San Diego County, California, 92130, United States', 'names': 'Anjali, Esha', 'attrib': 'neutral', 'text': '\n 13580 Sage Mesa Road, San Diego, San Diego County, California, 92130, United States\n\nIn the image, there are two individuals, Anjali and Esha, standing in a room with a white wall. Anjali is positioned on the left side of the image, while Esha is on the right. Both of them are wearing patterned shirts. Anjali is holding a white bag, and Esha is holding a black object. The room they are in has a red object on the ceiling. The overall atmosphere of the image is neutral.'}]
+
+-----
+
+"""
+
+[{'generated_text': '<|im_start|>system\n    A chat between a curious human and an artificial intelligence assistant. 
+The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. \n    
+The assistant does not hallucinate and gives extreamly very close attention to the details and take time to process information if necessary, please produce response in string format.\n    
+<|im_end|>\n    
+<|im_start|>user\n     "Please take time to describe the picture with thoughtful insights" It is stremly important that, you "MUST" include person names "Esha, Shibangi and 1 person" with "happy" emotion and the location details "Poway Performing Arts Theater" in the response.\n    
+<|im_end|> \n    
+<|im_start|>assistant\n    
+1. Esha, a young woman, is sitting on the floor in the center of the stage, wearing a vibrant pink and green sari. She is holding a fan in her hand and has a radiant smile on her face.\n    
+2. Shibangi, another young woman, is standing to the left of Esha. She is wearing a blue and gold sari and is holding a fan in her hand. She is looking directly at the camera with a serious expression.\n    
+3. The third person, whose face is not visible in the image, is standing to the right of Esha. She is wearing a pink and green sari and is holding a fan in her hand. She is looking towards the left side of the stage.\n    
+4. The stage is set against a purple background, which contrasts with the colorful saris of the performers.\n    
+5. The Poway Performing Arts Theater is the location of this performance. It is a large, open space with a stage at the front and rows of seating on either side.'}]
+
+
+[{'generated_text': 'system\n    A chat between a curious human and an artificial intelligence assistant. 
+The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. \n   
+The assistant does not hallucinate and gives extreamly very close attention to the details and take time to process information if necessary, 
+please produce response in string format.\n    \n    user\n     "Please take time to describe the picture with thoughtful insights" It is stremly important that, you "MUST" include person names "Esha, Shibangi and 1 person" with "happy" emotion and the location details "Poway Performing Arts Theater" in the response.\n     \n    
+assistant\n    
+1. Esha, a young woman, is sitting on the floor in the center of the stage, wearing a vibrant pink and green sari. She is holding a fan in her hand and has a radiant smile on her face.\n    
+2. Shibangi, another young woman, is standing to the left of Esha. She is wearing a blue and gold sari and is holding a fan in her hand. She is looking directly at the camera with a serious expression.\n    
+3. The third person, whose face is not visible in the image, is standing to the right of Esha. She is wearing a pink and green sari and is holding a fan in her hand. She is looking towards the left side of the stage.\n    
+4. The stage is set against a purple background, which contrasts with the colorful saris of the performers.\n    
+5. The Poway Performing Arts Theater is the location of this performance. It is a large, open space with a stage at the front and rows of seating on either side.'}]
+
+
+/home/madhekar/work/home-media-app/data/input-data/img/Grad Pics family1.jpg
+    2 women are hugging in front of the UC Berkeley Sather Gate. 
+    One of them is wearing a graduation cap and gown. The other woman is wearing a gray sweater. 
+    There are 4 other people in the background, one of whom is holding a camera. The sky is blue and there are trees in the background. 
+    The women are smiling and appear to be happy. The graduation cap and gown suggest that one of the women has recently graduated from college. 
+    The camera in the hands of one of the people in the background suggests that they are taking photos to commemorate the occasion. 
+    The blue sky and trees in the background give the image a pleasant and serene atmosphere.
+
+/home/madhekar/work/home-media-app/data/input-data/img/20130324-3I3A4652-X2.jpg
+    3 women are performing a traditional Indian dance on a stage at the Poway Performing Arts Theater. 
+    The stage is set against a purple background, adding a vibrant touch to the performance.
+    \n\nThe woman on the left is kneeling on the ground, her hands raised in a gesture of joy and celebration. 
+    She is wearing a traditional Indian outfit in shades of pink and green, adorned with gold jewelry that glitters under the stage lights.
+    \n\nIn the center, another woman is standing, her hands gracefully extended as if she is leading the dance. 
+    She is dressed in a similar traditional Indian outfit, but her colors are more muted, with hues of blue and white.\n\nOn the right, the third woman is also standing, her hands held close to her body. 
+    She is wearing a traditional Indian outfit in shades of pink and blue, with gold jewelry that complements her attire.
+    \n\nAll three women are smiling, their faces radiating happiness and enthusiasm. 
+    Their traditional Indian outfits and jewelry add a touch of cultural richness to the performance, making it a truly captivating sight to behold.
+
+
+    3 women are performing a traditional Indian dance on a stage at the Poway Performing Arts Theater. 
+    The stage is set against a purple background, creating a vibrant and colorful atmosphere.
+    \n\nThe woman on the left is sitting on the floor, adorned in a traditional Indian outfit that is predominantly pink and green. 
+    She holds a fan in her hand, adding to the authenticity of her performance.\n\nIn the center, another woman is standing, wearing a similar outfit but with a more balanced mix of pink and blue colors. 
+    She too holds a fan, mirroring the actions of the woman on the left.
+    \n\nOn the right, the third woman is standing and wearing an outfit that is a mix of pink and green. 
+    She holds a flower in her hand, adding a touch of elegance to her performance.
+    \n\nAll three women are smiling, their faces radiating happiness and joy. 
+    Their traditional Indian outfits, complete with jewelry and accessories, add a cultural richness to the scene. 
+    The Poway Performing Arts Theater serves as the perfect backdrop for this captivating performance.
+
+    1. Esha, a young woman, is sitting on the floor in the center of the stage, wearing a vibrant pink and green sari. She is holding a fan in her hand and has a radiant smile on her face.\n    
+    2. Shibangi, another young woman, is standing to the left of Esha. She is wearing a blue and gold sari and is holding a fan in her hand. She is looking directly at the camera with a serious expression.\n    
+    3. The third person, whose face is not visible in the image, is standing to the right of Esha. She is wearing a pink and green sari and is holding a fan in her hand. She is looking towards the left side of the stage.\n    
+    4. The stage is set against a purple background, which contrasts with the colorful saris of the performers.\n    
+    5. The Poway Performing Arts Theater is the location of this performance. It is a large, open space with a stage at the front and rows of seating on either side.
+"""
