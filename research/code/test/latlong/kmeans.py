@@ -110,3 +110,6 @@ plt.show()
 # 5. Print the cluster centroids
 print("Cluster Centroids:")
 print(centroids)
+
+
+# http://localhost:8501/media/c635a2027dade25a72391fe1ac23aded7fd23fb371b0d95c0fe25a71.jpg
