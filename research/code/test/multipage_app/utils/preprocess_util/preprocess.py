@@ -161,7 +161,6 @@ async def run_workflow(
     openclip_finetuned,
 ):
     st.info(f"CPU COUNT: {chunk_size}")
-    #print(f"CPU COUNT: {chunk_size}")
     
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
