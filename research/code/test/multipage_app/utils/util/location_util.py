@@ -181,7 +181,7 @@ def gpsInfo(img):
         data = gpsphoto.getGPSData(img)
 
         if "Latitude" in data and "Longitude" in data:
-            gps = (data["Latitude"].round(6), data["Longitude"].round(6))
+            gps = (round(data["Latitude"],6), round(data["Longitude"], 6))
     except Exception as e:
         st.error(f'exception occurred in extracting lat/ lon data: {e}')
     return gps
@@ -189,7 +189,7 @@ def gpsInfo(img):
 
 def setGpsInfo(fn, lat, lon):
     photo = gpsphoto.GPSPhoto(fn)
-    info = gpsphoto.GPSInfo((float(lat).round(6), float(lon).round(6)))
+    info = gpsphoto.GPSInfo((round(float(lat), 6), round(float(lon), 6)))
     photo.modGPSData(info, fn)
 
 # get timestamp from image file
