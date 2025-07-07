@@ -25,7 +25,7 @@ from functools import partial
 #import dill as pickle
 
 d_latitude, d_longitude = 32.968689, -117.184243
-d_loc = 'madhekar residence at carmel vally'
+d_loc = 'madhekar residence at Sage Mesa rd in carmel vally'
 #m, t, p = LLM.setLLM()
 p = LLM_Next.setLLM()
 #ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
