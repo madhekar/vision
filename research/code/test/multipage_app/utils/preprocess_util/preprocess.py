@@ -25,7 +25,7 @@ from functools import partial
 #import dill as pickle
 
 d_latitude, d_longitude = 32.968689, -117.184243
-d_loc = 'madhekar residence at Sage Mesa rd in carmel vally'
+d_loc = 'madhekar residence at sage mesa rd in carmel vally'
 #m, t, p = LLM.setLLM()
 p = LLM_Next.setLLM()
 #ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
@@ -44,10 +44,11 @@ def get_loc_name_by_latlon(latlon):
     if latlon:
         row = st.session_state.df_loc.loc[st.session_state.df_loc.LatLon == latlon].values.flatten().tolist()
         if len(row) > 0:
-           #print(f'--> found location in cache: {row}')
+           print(f'--> found location in cache: {latlon} --> {row}')
            return row[0]
         else:
-           return None
+            print(f"--> not found location in cache: {latlon} --> {row}")
+            return None
 
 # uuid4 id for vector database
 async def generateId(args):

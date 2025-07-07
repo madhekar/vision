@@ -141,8 +141,6 @@ def getLocationDetails(strLnL, max_retires):
     return address
 
 def random_user_agent(num_chars = 8):
-    # user_agent_names= [ 'zs_ref', 'zs_loc_ref', 'zs_global_ref', 'zs_usa_ref' ]
-    # return random.choice(user_agent_names)
     return ''.join(random.choices(string.ascii_letters + string.digits, k=8))
 
 
@@ -212,22 +210,6 @@ def getTimestamp(img):
         )
 
     return value
-
-# get data and time from image file
-# def getDateTime(img):
-#     value = []
-#     # open the image
-#     image = Image.open(img)
-
-#     # extracting the exif metadata
-#     exifdata = image.getexif()
-#     date_time = exifdata.get(306)
-#     if date_time:
-#         value = (date_time.split(" ")[0]).split(":")[:3]
-#         value.append(date_time)
-#     else:
-#         value = default_date_time
-#     return value
 
 # collect all metadata
 def getMetadata(img):
