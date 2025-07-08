@@ -99,7 +99,7 @@ def exec():
         faces_of_people_parquet,
     ) = config.faces_config_load()
     
-    sample_test_image = "/home/madhekar/work/home-media-app/data/input-data/img/imgIMG_2439.jpeg"
+    sample_test_image = "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces/Kumar/kumar3.png"
     bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc, sample_test_image)     
 
 # kick-off face training generation
