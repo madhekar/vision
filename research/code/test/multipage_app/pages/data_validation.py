@@ -230,10 +230,10 @@ def execute():
             st.bar_chart(
                 df,
                 horizontal=False,
-                stack=True,
+                stack=False,
                 y_label="number of files",
                 use_container_width=True,
-                color= ['#ae5a41','#1b85b8','#559e83','#c3cb71']#['#c09b95','#bac095','#95bac0','#9b95c0']#["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
+                color= ['#ae5a41','#1b85b8','#559e83'] #,'#c3cb71']#['#c09b95','#bac095','#95bac0','#9b95c0']#["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
             )
             # fig = px.pie(df, names=df.columns, values=df.values[0],color_discrete_sequence=colors, height=355 )
             # fig.update_traces( textinfo="percent+value")
