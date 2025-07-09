@@ -167,12 +167,9 @@ def extract_stats_of_metadata_file(metadata_path):
     correct = mdf[(mdf['DateTimeOriginal'] != "-") & (mdf['GPSLatitude'] != "-")].shape[0]
 
     return {
-        #"total": tot,
-        "no-missing-data": correct,
-        "missging-lat-lon": lat_lon,
-       # "lon" : clon,
         "missing-datetime": cdatetime,
-       # "latlon_n_datetime": clatlong_n_datetime
+        "missging-lat-lon": lat_lon,
+        "no-missing-data": correct
     }
 
 """

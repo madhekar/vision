@@ -227,12 +227,14 @@ def execute():
             dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file))
             print(dict)
             #df = pd.DataFrame.from_dict([dict])
-            df = pd.DataFrame.from_dict(dict, orient='index')
+            df = pd.DataFrame.from_dict(dict, orient='index',columns=['number'])
+            print(df)
+        
             st.bar_chart(
                 df,
                 horizontal=False,
                 stack=True,
-                y_label="number of files",
+                y_label="number of images",
                 use_container_width=True,
                 color= ['#ae5a41']#,'#1b85b8','#559e83']#,'#c3cb71']#['#c09b95','#bac095','#95bac0','#9b95c0']#["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
             )
