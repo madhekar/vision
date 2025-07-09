@@ -226,14 +226,15 @@ def execute():
                    
             dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file))
             print(dict)
-            df = pd.DataFrame.from_dict([dict])
+            #df = pd.DataFrame.from_dict([dict])
+            df = pd.DataFrame.from_dict(dict, orient='index')
             st.bar_chart(
                 df,
                 horizontal=False,
-                stack=False,
+                stack=True,
                 y_label="number of files",
                 use_container_width=True,
-                color= ['#ae5a41','#1b85b8','#559e83'] #,'#c3cb71']#['#c09b95','#bac095','#95bac0','#9b95c0']#["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
+                color= ['#ae5a41']#,'#1b85b8','#559e83']#,'#c3cb71']#['#c09b95','#bac095','#95bac0','#9b95c0']#["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
             )
             # fig = px.pie(df, names=df.columns, values=df.values[0],color_discrete_sequence=colors, height=355 )
             # fig.update_traces( textinfo="percent+value")
