@@ -1,18 +1,20 @@
 import os
 from PIL import Image
-from skimage import io, img_as_float
+#from skimage import io, img_as_float
 import matplotlib.pyplot as plt
 import imquality.brisque as b
 
 #import cv2.quality as q
-#import io
+import io
 
 def load_image(image_path):
     try:
-        with open(image_path, 'rb') as img_bin:
-            buff = io.BytesIO(img_bin.read())
-            img = Image.open(buff)
-            return img
+        # with open(image_path, 'rb') as img_bin:
+        #     buff = io.BytesIO(img_bin.read())
+        #     img = Image.open(buff).convert('RGB')
+        #     return img
+        i = Image.open(image_path).convert('RGB')
+        return i
     except Exception as e:
         print(f"Error loading image: {e}")
         return None
@@ -22,8 +24,8 @@ def is_valid_brisque_score(image, brisque_model_path, model_live_file, model_ran
             
             # _image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
             # gray = cv2.cvtColor(_image, cv2.COLOR_BGR2GRAY)
-
-            h, w = image.shape
+            print(image.size)
+            h, w = image.size
             if w < 512 or h < 512:
                 return False
 
@@ -42,7 +44,7 @@ def is_valid_brisque_score(image, brisque_model_path, model_live_file, model_ran
 
 
 def load_img(image_path):
-    img = img_as_float(io.imread(image_path, as_gray=True))
+    img = io.imread(image_path, as_gray=True, multichannel=False) #img_as_float(io.imread(image_path, as_gray=True))
     return img
 
 # Example usage:
@@ -54,8 +56,8 @@ brisque_model_live_file= 'brisque_model_live.yml'
 brisque_range_live_file= 'brisque_range_live.yml'
 
 
-image = load_img("/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/0a6d1339-b672-50db-b5cb-984320fb90cc/vcm_s_kf_repr_886x587.jpg")
-if image.any():
+image = load_image("/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/0a6d1339-b672-50db-b5cb-984320fb90cc/vcm_s_kf_repr_886x587.jpg")
+if image:
     # Process the image
     bv = is_valid_brisque_score(image, brisque_model_config_path, brisque_model_live_file, brisque_range_live_file)
     plt.imshow(image)
