@@ -13,6 +13,7 @@ psnr_metric = pyiqa.create_metric("psnr", device=device)
 # SSIM (Structural Similarity Index)
 ssim_metric = pyiqa.create_metric("ssim", device=device)
 
+brisque_metric = pyiqa.create_metric("brisque", device=device)
 # Paths to your image directories
 ref_dir = "/home/madhekar/work/home-media-app/data/input-data-1/error/img/quality/AnjaliBackup/20250320-135228/bf98198d-fcc6-51fe-a36a-275c06005669"  # Directory containing original images
 dist_dir = "/home/madhekar/work/home-media-app/data/input-data-1/error/img/quality/AnjaliBackup/20250320-135228/bf98198d-fcc6-51fe-a36a-275c06005669"  # Directory containing distorted images
@@ -38,8 +39,10 @@ for filename in image_files:
     psnr_score = psnr_metric(ref_tensor, dist_tensor)
     ssim_score = ssim_metric(ref_tensor, dist_tensor)
 
+    brisque_score = brisque_metric(ref_tensor)
+
     print(
-        f"Image: {filename}, PSNR: {psnr_score.item():.2f}, SSIM: {ssim_score.item():.4f}"
+        f"Image: {filename}, PSNR: {psnr_score.item():.2f}, SSIM: {ssim_score.item():.4f} Brinque: {brisque_score.item():.4f}"
     )
 
 # Note: For No-Reference (NR) metrics like BRISQUE, you would only pass the distorted image.
