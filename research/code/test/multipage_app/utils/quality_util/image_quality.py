@@ -113,12 +113,24 @@ class Quality():
             sm.add_messages("quality", "w| no bad quality images Found.")
 
     
+    """
+        input_image_path,
+        archive_quality_path,
+        image_sharpness_threshold,
+        image_quality_threshold,
+        brisque_model_config_path,
+        brisque_model_live_file,
+        brisque_range_live_file
+    """
 def execute(source_name):
     (
         input_image_path,
         archive_quality_path,
         image_sharpness_threshold,
-        image_quality_threshold
+        image_quality_threshold,
+        brisque_model_config_path,
+        brisque_model_live_file,
+        brisque_range_live_file
     ) = config.image_quality_config_load()
 
     input_image_path_updated = os.path.join(input_image_path,source_name)

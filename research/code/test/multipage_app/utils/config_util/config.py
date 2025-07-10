@@ -203,6 +203,13 @@ def dedup_config_load():
         archive_dup_path
     )
 
+"""
+brisque-model:
+  brisque_model_config_path: '/home/madhekar/work/home-media-app/models/brisque'
+  brisque_model_live_file: 'brisque_model_live.yml'
+  brisque_range_live_file: 'brisque_range_live.yml'
+"""
+
 @st.cache_resource
 def image_quality_config_load():
     with open("utils/config_util/quality_conf.yaml") as prop:
@@ -217,11 +224,18 @@ def image_quality_config_load():
         image_sharpness_threshold = dict["quality"]["image_sharpness_threshold"]
         image_quality_threshold = dict["quality"]["image_quality_threshold"]
 
+        brisque_model_config_path = dict["brisque-model"]["brisque_model_config_path"]
+        brisque_model_live_file = dict["brisque-model"]["brisque_model_live_file"]
+        brisque_range_live_file = dict["brisque-model"]["brisque_range_live_file"]
+
     return (
         input_image_path,
         archive_quality_path,
         image_sharpness_threshold,
-        image_quality_threshold
+        image_quality_threshold,
+        brisque_model_config_path,
+        brisque_model_live_file,
+        brisque_range_live_file
     )
 
 
