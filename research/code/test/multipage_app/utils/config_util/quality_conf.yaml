@@ -1,5 +1,8 @@
 quality:
   input_image_path: '/home/madhekar/work/home-media-app/data/input-data-1/img/'
   archive_quality_path: '/home/madhekar/work/home-media-app/data/input-data-1/error/img/quality'
+  brisque_model_config_path: '/home/madhekar/work/home-media-app/models/brisque'
+  brisque_model_live_file: 'brisque_model_live.yml'
+  brisque_range_live_file: 'brisque_range_live.yml'
   image_sharpness_threshold: 100
   image_quality_threshold: 60.0

@@ -41,7 +41,7 @@ class Quality():
         if image is not None:
             h, w, _ = image.shape
             if w < 512 or h < 512:
-                return True
+                return False
 
             _image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
             gray = cv2.cvtColor(_image, cv2.COLOR_BGR2GRAY)
