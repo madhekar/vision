@@ -19,9 +19,12 @@ def getRecursive(rootDir):
     return f_list
 
 class Quality():
-    def __init__(self, image_path, archivedir):
+    def __init__(self, image_path, archivedir, brisque_model_path, model_live_file,model_range_file ):
         self.image_path = image_path
         self.archivedir = archivedir
+        self.brisque_model_path = brisque_model_path
+        self.model_live_file = model_live_file
+        self.model_range_file = model_range_file
 
     def is_blurry(self, image, threshold=25.0):
 
@@ -48,11 +51,11 @@ class Quality():
             
             brisque_score = cv2.quality.QualityBRISQUE_compute(
                 gray,
-                "/home/madhekar/work/home-media-app/models/brisque/brisque_model_live.yml",
-                "/home/madhekar/work/home-media-app/models/brisque/brisque_range_live.yml",
+                os.path.join(self.brisque_model_path, self.model_live_file),
+                os.path.join(self.brisque_model_path, self.model_range_file)
             )    
 
-            return brisque_score[0] > threshold
+            return brisque_score[0] < threshold
         else:
             sm.add_messages('quality', 'e| unable to load - NULL image') 
 
@@ -139,7 +142,7 @@ def execute(source_name):
     
     archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
   
-    dr = Quality(image_path=input_image_path_updated, archivedir=archive_quality_path)
+    dr = Quality(input_image_path_updated, archive_quality_path, brisque_model_config_path,brisque_model_live_file, brisque_range_live_file )
 
     dr.find_quality_sharpness(image_sharpness_threshold, image_quality_threshold)
 
