@@ -10,10 +10,10 @@ https://ece.uwaterloo.ca/~z70wang/research/ssim/
 
 """
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+#brisque_metric = pyiqa.create_metric("brisque", device=device)
 def create_metric():
     print(pyiqa.list_models())
-    iqa_metric = pyiqa.create_metric('brisque', device=device, as_loss=False)
+    iqa_metric = pyiqa.create_metric('niqe', device=device)
     return iqa_metric
 
 def getRecursive(rootDir):
@@ -30,15 +30,20 @@ def process_images_for_quality(iqa_metric, fnames):
 
         transform = ToTensor()
         img_tensor = transform(img).unsqueeze(0).to(device)
-        print(img_file)
-        score = iqa_metric(img_tensor).float()
-        print(f'image: {img_file} brisque_score: {score.item()}')
-        time.sleep(1)
+        #print(img_tensor)
+        #print(img_file)
+        score = iqa_metric(img_tensor)
+        print(f'image: {img_file} niqe_score: {score.item()}')
+        time.sleep(3)
 
 
 if __name__=='__main__':
     metric = create_metric()
-    flist = getRecursive('/home/madhekar/work/home-media-app/data/input-data-1/error/img/quality/AnjaliBackup')
+    flist = getRecursive('/home/madhekar/work/home-media-app/data/input-data-1/error/img/quality/AnjaliBackup/20250307-112745/cd775aa2-5df0-5fd9-b062-dbdaf6b76425')
+    #('/home/madhekar/work/home-media-app/data/raw-data/AnjaliBackup/00WhatsApp Media/Pictures 12-8-2020') 
+    #('/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup') 
+    
+    #('/home/madhekar/work/home-media-app/data/input-data-1/error/img/quality/AnjaliBackup')
 
     process_images_for_quality(metric, flist)
 
