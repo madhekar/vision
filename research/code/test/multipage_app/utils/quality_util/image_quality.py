@@ -1,6 +1,5 @@
 import os
 import glob
-import cv2
 from PIL import Image
 import pyiqa
 import torch
@@ -10,6 +9,7 @@ from utils.util import model_util as mu
 from utils.util import statusmsg_util as sm
 from utils.util import storage_stat as ss
 
+# /home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/c5fdad7b-5b98-5890-956d-f0faef0f38bd/IMG_4367.PNG
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 transform = ToTensor()
