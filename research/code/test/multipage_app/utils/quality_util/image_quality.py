@@ -30,49 +30,12 @@ class Quality():
     def __init__(self, image_path, archivedir):
         self.image_path = image_path
         self.archivedir = archivedir
-        # self.brisque_model_path = brisque_model_path
-        # self.model_live_file = model_live_file
-        # self.model_range_file = model_range_file
-
-    # def is_blurry(self, image, threshold=25.0):
-
-    #     if image is not None:
-    #         _image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-
-    #         gray_image = cv2.cvtColor(_image, cv2.COLOR_BGR2GRAY)
-
-    #         lap_var = cv2.Laplacian(gray_image, cv2.CV_64F).var()
-
-    #         return lap_var < threshold  
-    #     else:
-    #         sm.add_messages('quality', 'e| Null image')  
-
-    # def is_valid_brisque_score(self, image, threshold = 6.0):
-
-    #     if image is not None:
-    #         h, w, _ = image.shape
-    #         if w < 512 or h < 512:
-    #             return False
-
-    #         _image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-    #         gray = cv2.cvtColor(_image, cv2.COLOR_BGR2GRAY)
-            
-    #         brisque_score = cv2.quality.QualityBRISQUE_compute(
-    #             gray,
-    #             os.path.join(self.brisque_model_path, self.model_live_file),
-    #             os.path.join(self.brisque_model_path, self.model_range_file)
-    #         )    
-
-    #         return brisque_score[0] < threshold
-    #     else:
-    #          
-
-    #     return False   
 
     def is_valid_size_and_score(self, img, metric, threshold=6.0):
         if img is not None:
             img = Image.open(img).convert("RGB")
             h, w, _ = img.shape
+
             if w < 512 or h < 512:
                 return False
             
@@ -144,11 +107,7 @@ def execute(source_name):
     (
         input_image_path,
         archive_quality_path,
-        #image_sharpness_threshold,
-        image_quality_threshold,
-        # brisque_model_config_path,
-        # brisque_model_live_file,
-        # brisque_range_live_file
+        image_quality_threshold
     ) = config.image_quality_config_load()
 
     input_image_path_updated = os.path.join(input_image_path,source_name)
