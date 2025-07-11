@@ -221,21 +221,21 @@ def image_quality_config_load():
 
         input_image_path = dict["quality"]["input_image_path"]
         archive_quality_path = dict["quality"]["archive_quality_path"]
-        image_sharpness_threshold = dict["quality"]["image_sharpness_threshold"]
+        #image_sharpness_threshold = dict["quality"]["image_sharpness_threshold"]
         image_quality_threshold = dict["quality"]["image_quality_threshold"]
 
-        brisque_model_config_path = dict["brisque-model"]["brisque_model_config_path"]
-        brisque_model_live_file = dict["brisque-model"]["brisque_model_live_file"]
-        brisque_range_live_file = dict["brisque-model"]["brisque_range_live_file"]
+        # brisque_model_config_path = dict["brisque-model"]["brisque_model_config_path"]
+        # brisque_model_live_file = dict["brisque-model"]["brisque_model_live_file"]
+        # brisque_range_live_file = dict["brisque-model"]["brisque_range_live_file"]
 
     return (
         input_image_path,
         archive_quality_path,
-        image_sharpness_threshold,
+        #image_sharpness_threshold,
         image_quality_threshold,
-        brisque_model_config_path,
-        brisque_model_live_file,
-        brisque_range_live_file
+        # brisque_model_config_path,
+        # brisque_model_live_file,
+        # brisque_range_live_file
     )
 
 
