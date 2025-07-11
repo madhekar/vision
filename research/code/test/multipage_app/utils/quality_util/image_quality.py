@@ -33,15 +33,17 @@ class Quality():
 
     def is_valid_size_and_score(self, img, metric, threshold=6.0):
         if img is not None:
-            img = Image.open(img).convert("RGB")
-            h, w, _ = img.shape
+            im = Image.open(img).convert("RGB")
+            h, w = im.size
 
             if w < 512 or h < 512:
                 return False
             
-            img_tensor = transform(img).unsqueeze(0).to(device)
-            score = metric(img_tensor)
+            im_tensor = transform(im).unsqueeze(0).to(device)
+            score = metric(im_tensor)
             fscore = score.item()
+
+            print(f'{img} :: {h}:{w} :: {fscore}')
 
             return fscore < threshold
         else:
@@ -59,7 +61,6 @@ class Quality():
         sm.add_messages("quality", "s| Searching Good Quality Images...")
 
         for im in fnames:
-            print(im[0], im[1])
             img = os.path.join(im[0], im[1])
             if not self.is_valid_size_and_score(img, iqa_metric, image_quality_threshold):
                 bad_quality_list.append(im)
@@ -120,7 +121,7 @@ def execute(source_name):
 
     iqa_metric = create_metric()
 
-    dr.find_images_quality_( iqa_metric, image_quality_threshold)
+    dr.find_images_quality( iqa_metric, image_quality_threshold)
 
     ss.remove_empty_folders(input_image_path_updated)
     
