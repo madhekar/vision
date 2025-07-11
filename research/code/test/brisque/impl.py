@@ -19,6 +19,7 @@ import cv2
 from libsvm import svmutil
 """
 https://github.com/ocampor/notebooks/tree/master/notebooks/image/quality
+https://medium.com/@sainishivpoojan1/documents-image-quality-assessment-part-1-75c9c4e441b0
 """
 
 
