@@ -60,7 +60,7 @@ class Quality():
 
         for im in fnames:
             print(im[0], im[1])
-            img = cv2.imread(os.path.join(im[0], im[1]))
+            img = os.path.join(im[0], im[1])
             if not self.is_valid_size_and_score(img, iqa_metric, image_quality_threshold):
                 bad_quality_list.append(im)
 
