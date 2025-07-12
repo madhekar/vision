@@ -32,6 +32,7 @@ class Quality():
         self.archivedir = archivedir
 
     def is_valid_size_and_score(self, img, metric, threshold=6.0):
+      try:  
         if img is not None:
             im = Image.open(img).convert("RGB")
             h, w = im.size
@@ -48,7 +49,11 @@ class Quality():
             return fscore < threshold
         else:
             sm.add_messages('quality', 'e| unable to load - NULL image')
-        return False    
+      except Exception as e:
+                sm.add_messages("quality", f"e| error: {e} ocurred while opening the image: {os.path.join(img[0], img[1])}")
+                os.remove(os.path.join(img[0], img[1]))
+                #continue
+      return False    
             
     """
     Find and Archive quality images
