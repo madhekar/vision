@@ -9,6 +9,13 @@ from utils.config_util import config
 from utils.util import model_util as mu
 from utils.util import statusmsg_util as sm
 
+def calculate_md5(filepath):
+    with open(filepath, "rb") as f:
+        file_hash = hashlib.md5()
+        while chunk := f.read(8192):
+            file_hash.update(chunk)
+    return file_hash.hexdigest()
+
 def getRecursive(rootDir):
     f_list = []
     for fn in glob.iglob(rootDir + "/**/*", recursive=True):
@@ -34,10 +41,11 @@ class DuplicateRemover:
         for image in fnames:
             print(f'---> {image}')
             try:
-              with open(os.path.join(image[0], image[1]), 'rb') as img:
-                img_data = img.read()
-                # temp_hash = imagehash.average_hash(img, self.hash_size)
-                temp_hash = hashlib.md5(img_data).hexdigest()
+                temp_hash = calculate_md5(os.path.join(image[0],image[1]))
+            #   with open(os.path.join(image[0], image[1]), 'rb') as img:
+            #     img_data = img.read()
+            #     # temp_hash = imagehash.average_hash(img, self.hash_size)
+            #     temp_hash = hashlib.md5(img_data).hexdigest()
                 if temp_hash in hashes:
                     print(f"Duplicate {image} found for Image {hashes[temp_hash]}!")
                     #sm.add_messages("duplicate", f"w|Duplicate {image} found for Image {hashes[temp_hash]}")
@@ -45,7 +53,7 @@ class DuplicateRemover:
                 else:
                     hashes[temp_hash] = image
             except(IOError) as e:
-                sm.add_messages("duplicate", f"e| error: {e} ocurred while opening the image: {os.path.join(image[0], image[1])}")
+                sm.add_messages("duplicate", f"e| error: {e} occur while opening the image: {os.path.join(image[0], image[1])}")
                 os.remove(os.path.join(image[0], image[1]))
                 continue
 
