@@ -27,9 +27,9 @@ def getRecursive(rootDir):
     return f_list
 
 class Quality():
-    def __init__(self, image_path, archivedir):
+    def __init__(self, image_path, archive_dir):
         self.image_path = image_path
-        self.archivedir = archivedir
+        self.archive_dir = archive_dir
 
     def is_valid_size_and_score(self, img, metric, threshold=6.0):
       try:  
@@ -50,7 +50,7 @@ class Quality():
         else:
             sm.add_messages('quality', 'e| unable to load - NULL / Invalid image')
       except Exception as e:
-                sm.add_messages("quality", f"e| error: {e} ocurred while opening the image: {os.path.join(img[0], img[1])}")
+                sm.add_messages("quality", f"e| error: {e} occurred while opening the image: {os.path.join(img[0], img[1])}")
                 #os.remove(os.path.join(img[0], img[1]))
                 #continue
       return False    
@@ -60,38 +60,33 @@ class Quality():
     """
     def find_images_quality(self, iqa_metric, image_quality_threshold):
 
-        fnames = getRecursive(self.image_path)
-        total_images = len(fnames)
-        bad_quality_list = []
-        sm.add_messages("quality", "s| Searching Good Quality Images...")
-
-        for im in fnames:
+        file_tuple_list = getRecursive(self.image_path)
+        total_images = len(file_tuple_list)
+        bad_quality_tuple_list = []
+        sm.add_messages("quality", "s| Identifying Good Quality Images...")
+        for im in file_tuple_list:
             img = os.path.join(im[0], im[1])
             if not self.is_valid_size_and_score(img, iqa_metric, image_quality_threshold):
-                bad_quality_list.append(im)
+                bad_quality_tuple_list.append(im)
 
-        images_with_quality_issues_count = len(bad_quality_list)
+        images_with_quality_issues_count = len(bad_quality_tuple_list)
 
-        sm.add_messages(
-            "quality",
-            f"w| {images_with_quality_issues_count} bad quality images found out off: {total_images}, percentage: {(images_with_quality_issues_count / total_images) * 100}%"
-        )
+        sm.add_messages("quality",f"w| {images_with_quality_issues_count} bad quality images found out off: {total_images}, percentage: {(images_with_quality_issues_count / total_images) * 100}%")
                 
-        if len(bad_quality_list) != 0:
-            a = input(f"Do you want to move/ archive these {len(bad_quality_list)} Images? Press Y or N:  ")
-
+        if len(bad_quality_tuple_list) != 0:
+            a = input(f"Do you want to move/ archive these {len(bad_quality_tuple_list)} Images? Press Y or N:  ")
             space_saved = 0
 
             if a.strip().lower() == "y":
-                for quality in bad_quality_list:
+                for quality in bad_quality_tuple_list:
                     space_saved += os.path.getsize(os.path.join(quality[0], quality[1]))
                     #uuid_path = mu.create_uuid_from_string(quality[0]) 
                     uuid_path = mu.extract_subpath(self.image_path, quality[0])
-                    if not os.path.exists(os.path.join(self.archivedir, uuid_path)):
-                        os.makedirs(os.path.join(self.archivedir, uuid_path))
-                    os.rename( os.path.join(quality[0], quality[1]), os.path.join(self.archivedir, uuid_path, quality[1]))
-                    print(f"{quality} Moved Succesfully!")
-                    #sm.add_messages("quality", f"s| file {quality} moved succesfully.")
+                    if not os.path.exists(os.path.join(self.archive_dir, uuid_path)):
+                        os.makedirs(os.path.join(self.archive_dir, uuid_path))
+                    os.rename( os.path.join(quality[0], quality[1]), os.path.join(self.archive_dir, uuid_path, quality[1]))
+                    print(f"{quality} Moved Successfully!")
+                    #sm.add_messages("quality", f"s| file {quality} moved successfully.")
 
                 print(f"\n\nYou saved {round(space_saved / 1000000)} mb of Space!")
                 sm.add_messages("quality",f"w| saved {round(space_saved / 1000000)} mb of Space.")
@@ -101,8 +96,6 @@ class Quality():
         else:
             print("No bad quality images Found :)")
             sm.add_messages("quality", "w| no bad quality images Found.")
-
-    
     """
         input_image_path,
         archive_quality_path,
