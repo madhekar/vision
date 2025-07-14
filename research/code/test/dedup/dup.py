@@ -5,7 +5,7 @@ def find_duplicate_images(directory):
     """Finds duplicate images in a directory using fdupes."""
 
     try:
-        result = subprocess.run(['fdupes', '-r', '-m', directory], capture_output=True, text=True, check=True)
+        result = subprocess.run(['fdupes', '-l', '-S', '-r', directory], capture_output=True, text=True, check=True)
         output = result.stdout.strip()
         if not output:
             print("No duplicate images found.")
@@ -29,5 +29,5 @@ def find_duplicate_images(directory):
 
 
 if __name__ == "__main__":
-    target_directory = "path/to/your/image/directory" # Replace with the actual directory
+    target_directory = "/home/madhekar/work/home-media-app/data/input-data-1/error/img/quality/AnjaliBackup/20250328-113554" # Replace with the actual directory
     find_duplicate_images(target_directory)
