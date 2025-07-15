@@ -205,11 +205,12 @@ def remove_empty_folders(path_absolute):
 
 def remove_empty_files_and_folders(root_folder):
     fc, dc = 0, 0
+    mac_file_pattern = '._'
     for dpath, dnames, files in os.walk(root_folder, topdown=False):
         # empty files
         for fn in files:
             fp = os.path.join(dpath, fn)
-            if os.path.getsize(fp) == 0:
+            if os.path.getsize(fp) < 512 or fn.startswith(mac_file_pattern):
                 try:
                     os.remove(fp)
                     fc +=1
