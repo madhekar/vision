@@ -4,6 +4,7 @@ datapaths:
 static-faces: 
   faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
 static-locations:
+  location_root_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations
   location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/default
   faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
   user_location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific

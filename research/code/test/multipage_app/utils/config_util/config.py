@@ -116,6 +116,7 @@ def static_metadata_config_load():
 
         faces_metadata_path = dict['static-faces']['faces_metadata_path']
 
+        location_root_path = dict["static-locations"]["location_root_path"]
         location_metadata_path = dict["static-locations"]["location_metadata_path"]
         user_location_metadata_path = dict["static-locations"]["user_location_metadata_path"]
         user_location_metadata_file = dict["static-locations"]["user_location_metadata_file"]
@@ -129,6 +130,7 @@ def static_metadata_config_load():
 
     return (raw_data_path, 
             faces_metadata_path, 
+            location_root_path,
             location_metadata_path, 
             user_location_metadata_path, 
             user_location_metadata_file,  
@@ -221,21 +223,13 @@ def image_quality_config_load():
 
         input_image_path = dict["quality"]["input_image_path"]
         archive_quality_path = dict["quality"]["archive_quality_path"]
-        #image_sharpness_threshold = dict["quality"]["image_sharpness_threshold"]
         image_quality_threshold = dict["quality"]["image_quality_threshold"]
 
-        # brisque_model_config_path = dict["brisque-model"]["brisque_model_config_path"]
-        # brisque_model_live_file = dict["brisque-model"]["brisque_model_live_file"]
-        # brisque_range_live_file = dict["brisque-model"]["brisque_range_live_file"]
 
     return (
         input_image_path,
         archive_quality_path,
-        #image_sharpness_threshold,
         image_quality_threshold,
-        # brisque_model_config_path,
-        # brisque_model_live_file,
-        # brisque_range_live_file
     )
 
 

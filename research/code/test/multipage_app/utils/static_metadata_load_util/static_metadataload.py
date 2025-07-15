@@ -35,6 +35,7 @@ datapaths:
 static-faces: 
   faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
 static-locations:
+  location_root_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations
   location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/default
   faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
   user_location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific
@@ -50,6 +51,7 @@ static-locations:
 
 (raw_data_path, 
             faces_metadata_path, 
+            location_root_path,
             location_metadata_path, 
             user_location_metadata_path, 
             user_location_metadata_file,  
@@ -63,6 +65,7 @@ def execute():
     (
         raw_data_path,
         faces_metadata_path,
+        location_root_path,
         location_metadata_path,
 
         user_location_metadata_path,
@@ -138,8 +141,9 @@ def execute():
         with ca_status:
             if ca_create:
                 ca.info('starting to create user specific static location data.')
+                print(user_location_metadata_file)
                 if not os.path.exists(os.path.join(user_location_metadata_path, user_location_metadata_file)):
-                   generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, user_location_metadata_path, user_location_metadata_file) 
+                   generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, location_metadata_path, user_location_metadata_path, user_location_metadata_file) 
                 ca_status.update(label='user specific locations complete!', state='complete', expanded=False)
     with cb:
         cb_metadata = st.button("**aggregate all locations**", use_container_width=True)
