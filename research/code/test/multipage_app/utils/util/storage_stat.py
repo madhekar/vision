@@ -219,7 +219,7 @@ def remove_empty_files_and_folders(root_folder):
 
         if not os.listdir(dpath):
             try:
-                os.remove(dpath)
+                os.rmdir(dpath)
                 dc +=1
                 print(f'removed empty folder: {dpath}')
             except OSError as e:

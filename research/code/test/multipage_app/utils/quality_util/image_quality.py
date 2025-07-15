@@ -121,7 +121,7 @@ def execute(source_name):
 
     dr.find_images_quality( iqa_metric, image_quality_threshold)
 
-    ss.remove_empty_folders(input_image_path_updated)
+    ss.remove_empty_files_and_folders(input_image_path_updated)
     
 if __name__ == "__main__":
     execute(source_name="")
