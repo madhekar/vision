@@ -47,6 +47,7 @@ static-locations:
   static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
   static_metadata_file: static_locations.parquet
 
+
 (raw_data_path, 
             faces_metadata_path, 
             location_metadata_path, 
@@ -83,6 +84,9 @@ def execute():
     )
     user_location_metadata_path =  os.path.join(user_location_metadata_path, user_source_selected)
 
+    if not os.path.exists(user_location_metadata_path):
+        os.makedirs(user_location_metadata_path, exist_ok=True)
+
     #user_draft_location_metadata_path = os.path.join(user_location_metadata_path, user_draft_location_metadata_path_ext)
     
     #location_metadata_path = os.path.join(location_metadata_path, user_source_selected)
@@ -106,7 +110,9 @@ def execute():
    
     with c2:
         dfl = ss.extract_all_file_stats_in_folder(location_metadata_path)
-        dfa = ss.extract_all_file_stats_in_folder(user_location_metadata_path)        
+        dfa = ss.extract_all_file_stats_in_folder(user_location_metadata_path) 
+        count = len(dfa) if len(dfa) > 0 else 0    
+        size = round(dfa["size"]/(pow(1024,2)),2) if len(dfa) >0 else 0  
         print(dfl['count'], dfa['count'])
         c2a, c2b = st.columns([1,1], gap="small")
         with c2a:
@@ -115,8 +121,8 @@ def execute():
             st.metric("Total size of location files (MB)", round(dfl["size"]/(pow(1024,2)), 2),delta=.23)
         with c2b:
             st.subheader("User Locations")
-            st.metric("Number of user location files", int(dfa['count']))
-            st.metric("Total size of user locations files (MB)",  round(dfa["size"]/(pow(1024,2)), 2), delta=-.1) 
+            st.metric("Number of user location files", int(count))
+            st.metric("Total size of user locations files (MB)",  size)
 
     with c3:
         st.subheader('Number of Images / Person') 
