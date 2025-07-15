@@ -26,13 +26,13 @@ def get_env():
     (rdp, smp, smf, mmp, mmf, mmff,mmef, hlat, hlon) = config.editor_config_load()
     return (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon)
 
-@st.cache_resource
+#@st.cache_resource
 def metadata_initialize(mmp,us,mmf):
        df = pd.read_csv (os.path.join(mmp, us, mmf)) #('metadata.csv')
        df.set_index("SourceFile", inplace=True)
        return df
 
-@st.cache_resource
+#@st.cache_resource
 def location_initialize(smp,user_source, smf):
     try:
         df = fpu.read_parquet_file(os.path.join(smp, user_source, smf))
@@ -170,6 +170,7 @@ def execute():
         options=ss.extract_user_raw_data_folders(rdp),
         label_visibility="collapsed",
     )
+    print('---->', user_source_selected)
 
     show_missing = st.sidebar.checkbox(label='show missing images')
 
@@ -237,7 +238,7 @@ def execute():
     for image in batch:
         with grid[col]:
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
-            #print(image)
+            print(image)
             st.session_state.df.reset_index()
             lat = st.session_state.df.at[image.strip(), "GPSLatitude"]
             lon = st.session_state.df.at[image, "GPSLongitude"]

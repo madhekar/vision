@@ -203,6 +203,29 @@ def remove_empty_folders(path_absolute):
                 print(f"exception: {e} removing empty folder {path}")
     return cnt
 
+def remove_empty_files_and_folders(root_folder):
+    fc, dc = 0, 0
+    for dpath, dnames, files in os.walk(root_folder, topdown=False):
+        # empty files
+        for fn in files:
+            fp = os.path.join(dpath, fn)
+            if os.path.getsize(fp) == 0:
+                try:
+                    os.remove(fp)
+                    fc +=1
+                    print(f'removed empty file: {fp}')
+                except OSError as e:
+                    print(f'error removing file {fp}: {e}')  
+
+        if not os.listdir(dpath):
+            try:
+                os.remove(dpath)
+                dc +=1
+                print(f'removed empty folder: {dpath}')
+            except OSError as e:
+                print(f'error removing folder{dpath}: {e}')    
+    return dc, fc
+
 # get immediate child folders
 def extract_user_raw_data_folders(pth):
     return next(os.walk(pth))[1]

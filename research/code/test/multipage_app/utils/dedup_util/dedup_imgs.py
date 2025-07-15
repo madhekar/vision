@@ -9,6 +9,7 @@ import glob
 from utils.config_util import config
 from utils.util import model_util as mu
 from utils.util import statusmsg_util as sm
+from utils.util import storage_stat as ss
 
 def calculate_md5(filepath):
     with open(filepath, "rb") as f:
@@ -127,15 +128,22 @@ def find_and_remove_duplicates(image_path):
     #                 sm.add_messages("duplicate", f"w| {image} image /w similarity score: {similarity}% found in: {location}")
 
 def execute(source_name):
-       input_image_path, archive_dup_path = config.dedup_config_load()
-       input_image_path = os.path.join(input_image_path, source_name)
-       arc_folder_name_dt = mu.get_foldername_by_datetime()
-       archive_dup_path_update = os.path.join(archive_dup_path, source_name, arc_folder_name_dt)
-       sm.add_messages("duplicate", f"w| Images input Folder Path: {input_image_path}")
-       sm.add_messages("duplicate", f"w| Images archive folder path: {archive_dup_path_update}")
-       #dr = DuplicateRemover( image_path=input_image_path,  archivedir=archive_dup_path_update)
-       #dr.find_duplicates()      
-       find_and_remove_duplicates(image_path=input_image_path)          
+    input_image_path, archive_dup_path = config.dedup_config_load()
+    input_image_path = os.path.join(input_image_path, source_name)
+    arc_folder_name_dt = mu.get_foldername_by_datetime()
+    archive_dup_path_update = os.path.join(
+        archive_dup_path, source_name, arc_folder_name_dt
+    )
+    sm.add_messages("duplicate", f"w| Images input Folder Path: {input_image_path}")
+    sm.add_messages(
+        "duplicate", f"w| Images archive folder path: {archive_dup_path_update}"
+    )
+    # dr = DuplicateRemover( image_path=input_image_path,  archivedir=archive_dup_path_update)
+    # dr.find_duplicates()
+    find_and_remove_duplicates(image_path=input_image_path)
+
+    dc, fc = ss.remove_empty_files_and_folders(input_image_path)     
+    sm.add_messages('duplicate', f'w| removed {dc} empty folders and {fc} empty riles.')
 
 if __name__=='__main__':
     execute()
