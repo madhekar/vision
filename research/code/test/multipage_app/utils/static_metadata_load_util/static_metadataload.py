@@ -32,6 +32,8 @@ def transform_and_add_static_metadata(location_metadata_path, user_location_meta
 """
 datapaths:
   raw_data_path: /home/madhekar/work/home-media-app/data/raw-data/
+static-metadata:
+  static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata  
 static-faces: 
   faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
 static-locations:
@@ -39,26 +41,33 @@ static-locations:
   user_location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific
   user_location_metadata_file: user-specific.csv
   final_user_location_metadata_file: static_locations.parquet
-
+missing-metadata:  
   missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data
   missing_metadata_file: missing-metadata-wip.csv
   missing_metadata_filter_file: missing-metadata-filter-wip.csv
  
             (
             raw_data_path, 
+
+            static_metadata_path,
+
             faces_metadata_path, 
+
             default_location_metadata_path, 
             user_location_metadata_path, 
             user_location_metadata_file, 
             final_user_location_metadata_file, 
+
             missing_metadata_path,
             missing_metadata_file,
             missing_metadata_filter_file
             )
+            
 """
 def execute():
     (
         raw_data_path,
+        static_metadata_path,
         faces_metadata_path,
         default_location_metadata_path,
         user_location_metadata_path,
@@ -76,21 +85,21 @@ def execute():
         label_visibility="collapsed",
     )
     
-    user_location_metadata_path_ext =  os.path.join(user_location_metadata_path, user_source_selected)
+    user_location_metadata_path =  os.path.join(user_location_metadata_path, user_source_selected)
 
-    if not os.path.exists(user_location_metadata_path_ext):
-        os.makedirs(user_location_metadata_path_ext, exist_ok=True)
+    if not os.path.exists(user_location_metadata_path):
+        os.makedirs(user_location_metadata_path, exist_ok=True)
 
     missing_metadata_path = os.path.join(missing_metadata_path, user_source_selected)
 
     # paths to import static location files
-    user_metadata_storage_path = os.path.join(user_location_metadata_path, user_location_metadata_file)
+    final_user_metadata_storage_path = os.path.join(user_location_metadata_path, final_user_location_metadata_file)
 
     c1, c2, c3 = st.columns([.5, .3, .5], gap="medium")
     with c1:
         st.subheader("Static Metadata")
         c11,c12 = c1.columns([1,1])
-        dfs = ss.extract_all_file_stats_in_folder(user_location_metadata_path)
+        dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
         dfs['size'] = dfs['size'].apply(lambda x: x /(pow(1024, 2)))
         #dfs['count'] = dfs['size'].apply(lambda x: x /10)
         with c11:
@@ -99,7 +108,7 @@ def execute():
            st.bar_chart(dfs, y="size", color=["#ae5a41"], horizontal=True, x_label= "Size MB")
    
     with c2:
-        dfl = ss.extract_all_file_stats_in_folder(location_metadata_path)
+        dfl = ss.extract_all_file_stats_in_folder(default_location_metadata_path)
         dfa = ss.extract_all_file_stats_in_folder(user_location_metadata_path) 
         count = len(dfa) if len(dfa) > 0 else 0    
         size = round(dfa["size"]/(pow(1024,2)),2) if len(dfa) >0 else 0  
@@ -130,7 +139,7 @@ def execute():
                 ca.info('starting to create user specific static location data.')
                 print(user_location_metadata_file)
                 if not os.path.exists(os.path.join(user_location_metadata_path, user_location_metadata_file)):
-                   generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, location_metadata_path, user_location_metadata_path, user_location_metadata_file) 
+                   generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, default_location_metadata_path, user_location_metadata_path, user_location_metadata_file) 
                 ca_status.update(label='user specific locations complete!', state='complete', expanded=False)
     with cb:
         cb_metadata = st.button("**aggregate all locations**", use_container_width=True)
@@ -141,14 +150,14 @@ def execute():
                 ca.info("starting to create total static location data.")
                 # clean previous parquet
                 try:
-                    if os.path.exists(metadata_storage_path):
-                        st.warning(f"cleaning previous static metadata storage: {metadata_storage_path}")
-                        os.remove(metadata_storage_path)
+                    if os.path.exists(final_user_metadata_storage_path):
+                        st.warning(f"cleaning previous static metadata storage: {final_user_metadata_storage_path}")
+                        os.remove(final_user_metadata_storage_path)
                 except Exception as e:
                     st.error(f"Exception encountered wile removing metadata file: {e}")
 
-                st.info(f"creating new static metadata storage: {metadata_storage_path}")
-                transform_and_add_static_metadata( location_metadata_path, user_location_metadata_path, user_location_metadata_file, metadata_storage_path)
+                st.info(f"creating new static metadata storage: {final_user_metadata_storage_path}")
+                transform_and_add_static_metadata( default_location_metadata_path, user_location_metadata_path, user_location_metadata_file, final_user_metadata_storage_path)
                 cb_status.update(label="metadata creation complete!", state="complete", expanded=False)  
     with cc:
         cc_metadata = st.button("**Refresh people detection model**", use_container_width=True)

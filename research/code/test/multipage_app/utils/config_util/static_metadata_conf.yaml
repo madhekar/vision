@@ -1,6 +1,8 @@
 
 datapaths:
   raw_data_path: /home/madhekar/work/home-media-app/data/raw-data/
+static-metadata:
+  static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata  
 static-faces: 
   faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
 static-locations:
@@ -8,7 +10,7 @@ static-locations:
   user_location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific
   user_location_metadata_file: user-specific.csv
   final_user_location_metadata_file: static_locations.parquet
-missing-metadata:
+missing-metadata:  
   missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data
   missing_metadata_file: missing-metadata-wip.csv
   missing_metadata_filter_file: missing-metadata-filter-wip.csv

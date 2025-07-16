@@ -86,6 +86,8 @@ def dataload_config_load():
 """
 datapaths:
   raw_data_path: /home/madhekar/work/home-media-app/data/raw-data/
+static-metadata:
+  static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata  
 static-faces: 
   faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
 static-locations:
@@ -93,7 +95,7 @@ static-locations:
   user_location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific
   user_location_metadata_file: user-specific.csv
   final_user_location_metadata_file: static_locations.parquet
-missing-metadata:
+missing-metadata:  
   missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data
   missing_metadata_file: missing-metadata-wip.csv
   missing_metadata_filter_file: missing-metadata-filter-wip.csv
@@ -110,6 +112,8 @@ def static_metadata_config_load():
 
         raw_data_path = dict["datapaths"]["raw_data_path"]
 
+        static_metadata_path = dict['static-metadata']['static_metadata_path']
+
         faces_metadata_path = dict['static-faces']['faces_metadata_path']
 
         default_location_metadata_path = dict["static-locations"]["default_location_metadata_path"]
@@ -122,15 +126,18 @@ def static_metadata_config_load():
         missing_metadata_filter_file = dict["missing-metadata"]["missing_metadata_filter_file"]
 
 
-    return (raw_data_path, 
-            faces_metadata_path, 
-            default_location_metadata_path, 
-            user_location_metadata_path, 
-            user_location_metadata_file, 
-            final_user_location_metadata_file, 
-            missing_metadata_path,
-            missing_metadata_file,
-            missing_metadata_filter_file)    
+    return (
+        raw_data_path,
+        static_metadata_path,
+        faces_metadata_path,
+        default_location_metadata_path,
+        user_location_metadata_path,
+        user_location_metadata_file,
+        final_user_location_metadata_file,
+        missing_metadata_path,
+        missing_metadata_file,
+        missing_metadata_filter_file,
+    )    
 
 @st.cache_resource
 def preprocess_config_load():
