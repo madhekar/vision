@@ -82,26 +82,22 @@ def dataload_config_load():
         input_audio_path = dict["dataload"]["input_audio_path"]
 
     return (raw_data_path, input_image_path, input_txt_path, input_video_path, input_audio_path)
+
 """
 datapaths:
   raw_data_path: /home/madhekar/work/home-media-app/data/raw-data/
-static-locations:
-  location_metadata_path: /home/madhekar/work/home-media-app/data/static-data/static-locations/default
-  user_location_metadata_path: /home/madhekar/work/home-media-app/data/static-data/static-locations/user-specific
-  user_location_metadata_file: user-specific.csv
-  user_draft_location_metadata_path_ext: draft
-  user_draft_locations_metadata_file: user-specific-draft.csv
-
-  missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data
-  missing_metadata_file: missing-metadata-wip.csv
-  missing_metdata_filter_file: missing-metdata-filter-wip.csv
-
-  static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
-  static_metadata_file: static_locations.parquet
-
-
 static-faces: 
   faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
+static-locations:
+  default_location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/default
+  user_location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific
+  user_location_metadata_file: user-specific.csv
+  final_user_location_metadata_file: static_locations.parquet
+missing-metadata:
+  missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data
+  missing_metadata_file: missing-metadata-wip.csv
+  missing_metadata_filter_file: missing-metadata-filter-wip.csv
+
 """
 @st.cache_resource
 def static_metadata_config_load():
@@ -116,29 +112,25 @@ def static_metadata_config_load():
 
         faces_metadata_path = dict['static-faces']['faces_metadata_path']
 
-        location_root_path = dict["static-locations"]["location_root_path"]
-        location_metadata_path = dict["static-locations"]["location_metadata_path"]
+        default_location_metadata_path = dict["static-locations"]["default_location_metadata_path"]
         user_location_metadata_path = dict["static-locations"]["user_location_metadata_path"]
         user_location_metadata_file = dict["static-locations"]["user_location_metadata_file"]
+        final_user_location_metadata_file = dict["static-locations"]["final_user_location_metadata_file"]
 
-        missing_metadata_path = dict["static-locations"]["missing_metadata_path"]
-        missing_metadata_file = dict["static-locations"]["missing_metadata_file"]
-        missing_metadata_filter_file = dict["static-locations"]["missing_metadata_filter_file"]
-        
-        static_metadata_path = dict["static-locations"]["static_metadata_path"]
-        static_metadata_file = dict["static-locations"]["static_metadata_file"]
+        missing_metadata_path = dict["missing-metadata"]["missing_metadata_path"]
+        missing_metadata_file = dict["missing-metadata"]["missing_metadata_file"]
+        missing_metadata_filter_file = dict["missing-metadata"]["missing_metadata_filter_file"]
+
 
     return (raw_data_path, 
             faces_metadata_path, 
-            location_root_path,
-            location_metadata_path, 
+            default_location_metadata_path, 
             user_location_metadata_path, 
-            user_location_metadata_file,  
+            user_location_metadata_file, 
+            final_user_location_metadata_file, 
             missing_metadata_path,
             missing_metadata_file,
-            missing_metadata_filter_file,
-            static_metadata_path, 
-            static_metadata_file)    
+            missing_metadata_filter_file)    
 
 @st.cache_resource
 def preprocess_config_load():

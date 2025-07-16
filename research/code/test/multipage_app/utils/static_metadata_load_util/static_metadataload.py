@@ -35,44 +35,38 @@ datapaths:
 static-faces: 
   faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
 static-locations:
-  location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/default
+  default_location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/default
   user_location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific
   user_location_metadata_file: user-specific.csv
+  final_user_location_metadata_file: static_locations.parquet
 
   missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data
   missing_metadata_file: missing-metadata-wip.csv
   missing_metadata_filter_file: missing-metadata-filter-wip.csv
-
-  static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific
-  static_metadata_file: static_locations.parquet 
-
-
-            (raw_data_path, 
+ 
+            (
+            raw_data_path, 
             faces_metadata_path, 
-            location_metadata_path, 
+            default_location_metadata_path, 
             user_location_metadata_path, 
-            user_location_metadata_file,  
+            user_location_metadata_file, 
+            final_user_location_metadata_file, 
             missing_metadata_path,
             missing_metadata_file,
-            missing_metadata_filter_file,
-            static_metadata_path, 
-            static_metadata_file)
+            missing_metadata_filter_file
+            )
 """
 def execute():
     (
         raw_data_path,
         faces_metadata_path,
-
-        location_metadata_path,
+        default_location_metadata_path,
         user_location_metadata_path,
         user_location_metadata_file,
-        
+        final_user_location_metadata_file,
         missing_metadata_path,
         missing_metadata_file,
         missing_metadata_filter_file,
-        
-        static_metadata_path,
-        static_metadata_file
     ) = config.static_metadata_config_load()
 
     st.sidebar.subheader("Storage Source", divider="gray")
@@ -81,25 +75,22 @@ def execute():
         options=ss.extract_user_raw_data_folders(raw_data_path),
         label_visibility="collapsed",
     )
-    user_location_metadata_path =  os.path.join(user_location_metadata_path, user_source_selected)
-
-    if not os.path.exists(user_location_metadata_path):
-        os.makedirs(user_location_metadata_path, exist_ok=True)
-
-    #user_draft_location_metadata_path = os.path.join(user_location_metadata_path, user_draft_location_metadata_path_ext)
     
-    #location_metadata_path = os.path.join(location_metadata_path, user_source_selected)
+    user_location_metadata_path_ext =  os.path.join(user_location_metadata_path, user_source_selected)
+
+    if not os.path.exists(user_location_metadata_path_ext):
+        os.makedirs(user_location_metadata_path_ext, exist_ok=True)
 
     missing_metadata_path = os.path.join(missing_metadata_path, user_source_selected)
 
     # paths to import static location files
-    metadata_storage_path = os.path.join(static_metadata_path, user_source_selected, static_metadata_file)
+    user_metadata_storage_path = os.path.join(user_location_metadata_path, user_location_metadata_file)
 
     c1, c2, c3 = st.columns([.5, .3, .5], gap="medium")
     with c1:
         st.subheader("Static Metadata")
         c11,c12 = c1.columns([1,1])
-        dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
+        dfs = ss.extract_all_file_stats_in_folder(user_location_metadata_path)
         dfs['size'] = dfs['size'].apply(lambda x: x /(pow(1024, 2)))
         #dfs['count'] = dfs['size'].apply(lambda x: x /10)
         with c11:
