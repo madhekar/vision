@@ -121,7 +121,7 @@ def execute():
         with c2b:
             st.subheader("User Locations")
             st.metric("Number of user location files", int(count))
-            st.metric("Total size of user locations files (MB)",  size)
+            st.metric("Total size of user locations files (MB)",  int(size))
 
     with c3:
         st.subheader('Number of Images / Person') 
