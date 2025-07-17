@@ -15,9 +15,18 @@ missing-metadata:
   find /home/madhekar/work/home-media-app/data/input-data-1/img -name '*' -print0 | xargs -0 exiftool -gps:GPSLongitude -gps:GPSLatitude -DateTimeOriginal -csv -T -r -n
   f"find '{input_image_path}' -name '*' -print0 | xargs -0 exiftool -GPSLongitude -GPSLatitude -DateTimeOriginal -csv -T -r -n"
 """
+
+def format_lat_lon(df):
+    lat_lon = ['GPSLatitude','GPSLongitude'] 
+    df[lat_lon] = df[lat_lon].applymap(lambda x: round(float(x) ,6) if not x == '-' else x )
+    print(f'transformed: {df.head()}')
+    return df
+
+
 def create_missing_report(missing_file_path):
     df = pd.read_csv(missing_file_path)
     n_total = len(df)
+    #df = format_lat_lon(df)
     n_lon = len(df[df["GPSLongitude"] == "-"])
     n_lat = len(df[df["GPSLatitude"] == "-"])
     n_dt = len(df[df["DateTimeOriginal"] == "-"])
@@ -26,6 +35,7 @@ def create_missing_report(missing_file_path):
 
 def filter_missing_image_data(missing_file_path, missing_filter_file_path):
     df = pd.read_csv(missing_file_path)
+    #df = format_lat_lon(df)
     dfm = df[(df['GPSLatitude'] == '-') | (df['DateTimeOriginal'] == '-')]  
     dfm.to_csv(missing_filter_file_path,sep=',')
 
