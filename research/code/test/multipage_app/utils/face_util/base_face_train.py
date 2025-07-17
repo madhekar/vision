@@ -11,7 +11,7 @@ from utils.face_util import base_face as bf
 from utils.face_util import base_facenet as bfn
 import streamlit as st
 
-def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc,sample_test_image):
+def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc, sample_test_image):
 
     """
     load and embed
