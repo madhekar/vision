@@ -23,12 +23,12 @@ class bface:
              img = Image.open(buff)
              return img
        except Exception as e:
-          st.error(f'error loading image: {e}') 
+          st.error(f'error loading image {file_n}: {e}') 
 
     def extract_face(self, fn):
        try:
          img = cv.imread(fn, cv.IMREAD_ANYCOLOR | cv.IMREAD_ANYDEPTH)
-         time.sleep(2)
+         time.sleep(4)
          if img is None:
             st.error(f'Error: loading image {fn}, check path or format')
          img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
@@ -38,7 +38,7 @@ class bface:
          face = img[y:y+h, x:x+w]
          face_arr = cv.resize(face, self.t_size)
        except Exception as e:
-          st.error(f'exception hapened in etract face: {e}')
+          st.error(f'exception hapened in etract face {fn}: {e}')
        return face_arr
     
     def load_faces(self, dir):
@@ -51,7 +51,7 @@ class bface:
                single_f = self.extract_face(fp)
                faces.append(single_f)
           except Exception as e:
-             st.error(f'exception occreed {e}')   
+             st.error(f'exception occreed {dir} {fp}: {e}')   
        return faces
 
     def load_names_and_faces(self):
