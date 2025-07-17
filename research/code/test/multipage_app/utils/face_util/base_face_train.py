@@ -9,6 +9,7 @@ from sklearn.preprocessing import LabelEncoder
 from utils.config_util import config
 from utils.face_util import base_face as bf
 from utils.face_util import base_facenet as bfn
+from utils.util import storage_stat as ss
 import streamlit as st
 
 def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc, sample_test_image):
@@ -100,6 +101,7 @@ def exec():
     ) = config.faces_config_load()
     
     sample_test_image = "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces/Kumar/kumar3.png"
+    ss.trim_unknown_files(faces_dir)
     bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc, sample_test_image)     
 
 # kick-off face training generation

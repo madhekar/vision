@@ -110,8 +110,9 @@ def execute():
     with c2:
         dfl = ss.extract_all_file_stats_in_folder(default_location_metadata_path)
         dfa = ss.extract_all_file_stats_in_folder(user_location_metadata_path) 
+        print('--->', dfa.head())
         count = len(dfa) if len(dfa) > 0 else 0    
-        size = round(dfa["size"]/(pow(1024,2)),2) if len(dfa) >0 else 0  
+        size = round(sum(dfa["size"])/(pow(1024,2)),2) if len(dfa) >0 else 0  
         print(dfl['count'], dfa['count'])
         c2a, c2b = st.columns([1,1], gap="small")
         with c2a:
