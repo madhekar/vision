@@ -94,7 +94,11 @@ def format_comma_locations(draft_file):
     #out_file = "data/name_lat_lon_full.csv"
     with open(draft_file, "w") as fo:
         fo.writelines(nlines)
-
+'''
+1. get all non missing lat/lon data in missing metadata file
+2. drop any dupicate lat/lon data from above list
+3. 
+'''
 def get_unique_locations(df_mis, df_def):
 
     # remove missing lat lon rows
