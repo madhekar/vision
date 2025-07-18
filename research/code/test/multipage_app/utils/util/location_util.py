@@ -170,6 +170,11 @@ def getImageMetadata(fname):
     datetimeoriginal= exiv_image_metadata["Exif.Photo.DateTimeOriginal"]
     return (desc, datetimeoriginal)
 
+def format_lat_lon(df):
+    lat_lon = ['GPSLatitude','GPSLongitude'] 
+    df[lat_lon] = df[lat_lon].applymap(lambda x: str(round(float(x) ,6)) if not x == '-' else x )
+    print(f'transformed: {df.head()}')
+    return df
 
 # get GPS information from image file
 def gpsInfo(img):

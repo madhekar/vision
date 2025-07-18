@@ -16,13 +16,6 @@ missing-metadata:
   f"find '{input_image_path}' -name '*' -print0 | xargs -0 exiftool -GPSLongitude -GPSLatitude -DateTimeOriginal -csv -T -r -n"
 """
 
-def format_lat_lon(df):
-    lat_lon = ['GPSLatitude','GPSLongitude'] 
-    df[lat_lon] = df[lat_lon].applymap(lambda x: round(float(x) ,6) if not x == '-' else x )
-    print(f'transformed: {df.head()}')
-    return df
-
-
 def create_missing_report(missing_file_path):
     df = pd.read_csv(missing_file_path)
     n_total = len(df)
