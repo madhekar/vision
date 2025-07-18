@@ -16,27 +16,6 @@ default_home_loc = (32.968699774829794, -117.18420145463236)
 default_date_time = ["2000","01","01","2000:01:01 01:01:01"] 
 # def_date_time = "2000:01:01 01:01:01"
 
-names = ["Esha", "Anjali", "Bhalchandra"]
-subclasses = [
-    "Esha",
-    "Anjali",
-    "Bhalchandra",
-    "Esha,Anjali",
-    "Esha,Bhalchandra",
-    "Anjali,Bhalchandra",
-    "Esha,Anjali,Bhalchandra",
-    "Bhalchandra,Sham",
-    "Esha,Aaji",
-    "Esha,Kumar",
-    "Aaji",
-    "Kumar",
-    "Esha,Anjali,Shibangi",
-    "Esha,Shibangi",
-    "Anjali,Shoma",
-    "Shibangi",
-    "Shoma",
-    "Bhiman",
-]
 # recursive call to get all image filenames
 def getRecursive(rootDir, chunk_size=10):
     f_list=[]
