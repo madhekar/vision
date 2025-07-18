@@ -25,7 +25,7 @@ from functools import partial
 #import dill as pickle
 
 d_latitude, d_longitude = 32.968689, -117.184243
-d_loc = 'madhekar residence at sage mesa rd in carmel vally'
+d_loc = 'Madhekar residence in Carmel Valley'
 #m, t, p = LLM.setLLM()
 p = LLM_Next.setLLM()
 #ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
@@ -37,7 +37,7 @@ def location_initialize(smp, smf):
     try:
         df = fpu.init_location_cache(os.path.join(smp, smf))
     except Exception as e:
-        st.error(f"exception occured in loading location metadata: {smf} with exception: {e}")  
+        st.error(f"exception occurred in loading location metadata: {smf} with exception: {e}")  
     return df 
 
 def get_loc_name_by_latlon(latlon):

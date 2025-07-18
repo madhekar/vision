@@ -26,44 +26,44 @@ def create_metric():
     iqa_metric = pyiqa.create_metric("niqe", device=device)
     return iqa_metric
 
-def getRecursive(rootDir, chunk_size=10):
-    f_list = []
-    for fn in glob.iglob(rootDir + "/**/*", recursive=True):
-        if not os.path.isdir(os.path.abspath(fn)):
-            f_list.append(( str(os.path.abspath(fn)).replace(str(os.path.basename(fn)), ""), os.path.basename(fn)))
-    for i in range(0, len(f_list), chunk_size):
-        yield f_list[i : i + chunk_size]
+iqa_metric = create_metric()
 
-async def is_valid_size_and_score(img, metric, threshold=6.0):
+# def getRecursive(rootDir, chunk_size=10):
+#     f_list = []
+#     for fn in glob.iglob(rootDir + "/**/*", recursive=True):
+#         if not os.path.isdir(os.path.abspath(fn)):
+#             f_list.append(( str(os.path.abspath(fn)).replace(str(os.path.basename(fn)), ""), os.path.basename(fn)))
+#     for i in range(0, len(f_list), chunk_size):
+#         yield f_list[i : i + chunk_size]
+
+async def is_valid_size_and_score(args):
+      img, threshold = args
       try:  
         if img is not None and os.path.getsize(img) > 512:
             im = Image.open(img).convert("RGB")
             h, w = im.size
 
             if w < 512 or h < 512:
-                return False
+                return img
             
             im_tensor = transform(im).unsqueeze(0).to(device)
-            score = metric(im_tensor)
+            score = iqa_metric(im_tensor)
             f_score = score.item()
 
             print(f'{img} :: {h}:{w} :: {f_score}')
 
-            return f_score < threshold
+            res = img if f_score > threshold else ""
+            return res
+        
         else:
             sm.add_messages('quality', 'e| unable to load - NULL / Invalid image')
       except Exception as e:
                 sm.add_messages("quality", f"e| error: {e} occurred while opening the image: {os.path.join(img[0], img[1])}")
-      return False    
+      return img    
 
 """
-Find and Archive quality images
+Archive quality images
 """
-async def find_images_quality(iqa_metric, image_quality_threshold, image):
-        sm.add_messages("quality", "s| Identifying Good Quality Images...")
-        if not is_valid_size_and_score(image, iqa_metric, image_quality_threshold):
-                return image
-
 def archive_images(image_path, archive_path, bad_quality_tuple_list):                
     if len(bad_quality_tuple_list) != 0:
         space_saved = 0
@@ -86,23 +86,21 @@ def archive_images(image_path, archive_path, bad_quality_tuple_list):
         sm.add_messages("quality", "w| no bad quality images Found.")
 
 
-async def iq_work_flow(image_dir_path, chunk_size):
+async def iq_work_flow(image_dir_path, threshold, chunk_size=10):
 
     lock = asyncio.Lock()
-    img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
-    iqa_metric = create_metric()
+    chunk_size = int(mp.cpu_count() // 2)
+    img_iterator = mu.getRecursive(image_dir_path, chunk_size=10)
 
-    with st.status("Generating LLM responses...", expanded=True) as status:
-        async with Pool(processes=chunk_size,  maxtasksperchild=1) as pool:  #initializer=pool_init, initargs=(bfs,),
-            count = 0
-            res = [] 
-            for ilist in img_iterator:
-                if len(ilist) > 0:
-                     
-            res = await asyncio.gather(
-                        pool.map(generateId, ilist)
- 
-            )         
+    #with st.status("Generating LLM responses...", expanded=True) as status:
+    async with Pool(processes=chunk_size,  maxtasksperchild=1) as pool:  #initializer=pool_init, initargs=(bfs,),
+        count = 0
+        res = [] 
+        for il in img_iterator:
+            if len(il) > 0:
+                res = await asyncio.gather(
+                        pool.map(partial(is_valid_size_and_score, threshold), il))
+                archive_images(res)
 """
     input_image_path,
     archive_quality_path,
@@ -121,7 +119,9 @@ def execute(source_name):
 
     iqa_metric = create_metric()
 
-    find_images_quality( input_image_path_updated, arc_folder_name, iqa_metric, image_quality_threshold)
+    asyncio.run(iq_work_flow(input_image_path_updated, image_quality_threshold))
+
+    #find_images_quality( input_image_path_updated, arc_folder_name, iqa_metric, image_quality_threshold)
 
     ss.remove_empty_files_and_folders(input_image_path_updated)
     
