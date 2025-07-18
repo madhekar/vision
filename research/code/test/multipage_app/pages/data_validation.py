@@ -4,7 +4,7 @@ import pandas as pd
 import streamlit.components.v1 as components
 from utils.config_util import config
 from utils.missing_util import missing_metadata as mm
-from utils.quality_util import image_quality as iq
+from multipage_app.utils.quality_util import image_quality as iq
 from utils.dedup_util import dedup_imgs as di
 from utils.dataload_util import dataload as dl
 from utils.util import storage_stat as ss
@@ -262,27 +262,27 @@ def exec_task(iTask, user_source):
         case 0:  
             # load images check
             task_name = 'data load'
-            sm.add_messages('load', f"s|starting {task_name} prpcess")
+            sm.add_messages('load', f"s|starting {task_name} process")
             dl.execute(user_source)
-            sm.add_messages("load", f"s|done {task_name} prpcess")
+            sm.add_messages("load", f"s|done {task_name} process")
             return 1
         case 1:  # duplicate images check
             task_name = 'de-duplicate files'
-            sm.add_messages("duplicate", f"s|starting {task_name} prpcess")
+            sm.add_messages("duplicate", f"s|starting {task_name} process")
             di.execute(user_source)
-            sm.add_messages("duplicate", f"s|done {task_name} prpcess")
+            sm.add_messages("duplicate", f"s|done {task_name} process")
             return 1
         case 2:  # image sharpness/ quality check
             task_name = 'image quality check'
-            sm.add_messages("quality", f"s|starting {task_name} prpcess")
+            sm.add_messages("quality", f"s|starting {task_name} process")
             iq.execute(user_source)
-            sm.add_messages("quality", f"s|done {task_name} prpcess")
+            sm.add_messages("quality", f"s|done {task_name} process")
             return 1
         case 3:  # missing metadata check
             task_name = "missing metadata"
-            sm.add_messages("metadata", f"s|starting {task_name} prpcess")
+            sm.add_messages("metadata", f"s|starting {task_name} process")
             mm.execute(user_source)
-            sm.add_messages("metadata", f"s|done {task_name} prpcess")
+            sm.add_messages("metadata", f"s|done {task_name} process")
             return 1
         case _:
             return -1        
