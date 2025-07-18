@@ -63,6 +63,7 @@ class Quality():
         file_tuple_list = getRecursive(self.image_path)
         total_images = len(file_tuple_list)
         bad_quality_tuple_list = []
+        
         sm.add_messages("quality", "s| Identifying Good Quality Images...")
         for im in file_tuple_list:
             img = os.path.join(im[0], im[1])
