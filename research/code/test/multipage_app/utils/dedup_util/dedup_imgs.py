@@ -28,8 +28,10 @@ def getRecursive(rootDir):
 def find_and_remove_duplicates(image_path):
     """Finds duplicate images in a directory using fdupes."""
 
+    command = ["fdupes", "-r", "-d", "-N", image_path]
+
     try:
-        result = subprocess.run(['fdupes', '-l', '-S', '-r', '-d', '-N', image_path], capture_output=True, text=True, check=True)
+        result = subprocess.run(command, capture_output=True, text=True, check=True) #'-l', '-S',
         output = result.stdout.strip()
         if not output:
             print("No duplicate images found.")

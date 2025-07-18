@@ -21,6 +21,7 @@ from utils.util import fast_parquet_util as fpu
   missing_metadata_edit_file: missing-matadata-edits.csv
   home_latitude: 32.968700
   home_longitude: -117.184200
+  /home/madhekar/work/home-media-app/data/input-data-1/img/Madhekar/11ec2ea8-663c-5e28-9486-cf19a181beb1/vcm_s_kf_m160_160x120.jpg
 """
 def get_env():
     (rdp, smp, smf, mmp, mmf, mmff,mmef, hlat, hlon) = config.editor_config_load()
