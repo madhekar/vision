@@ -27,8 +27,8 @@ def create_metric():
 
 iqa_metric = create_metric()
 
-async def is_valid_size_and_score(args):
-      img, threshold = args
+async def is_valid_size_and_score(args, img):
+      threshold = args
       try:  
         if img is not None and os.path.getsize(img) > 512:
             im = Image.open(img).convert("RGB")
@@ -54,7 +54,7 @@ async def is_valid_size_and_score(args):
 """
 Archive quality images
 """
-def archive_images(image_path, archive_path, bad_quality_tuple_list):                
+async def archive_images(image_path, archive_path, bad_quality_tuple_list):                
     if len(bad_quality_tuple_list) != 0:
         space_saved = 0
         image_cnt =0 
@@ -76,21 +76,26 @@ def archive_images(image_path, archive_path, bad_quality_tuple_list):
         sm.add_messages("quality", "w| no bad quality images Found.")
 
 
-async def iq_work_flow(image_dir_path, threshold, chunk_size=10):
+async def iq_work_flow(image_dir_path, archive_path, threshold):
 
-    lock = asyncio.Lock()
-    chunk_size = int(mp.cpu_count() // 2)
+    #lock = asyncio.Lock()
+    chunk_size = int(mp.cpu_count())
+
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=10)
-
+    result = []
     #with st.status("Generating LLM responses...", expanded=True) as status:
-    async with Pool(processes=chunk_size,  maxtasksperchild=1) as pool:  #initializer=pool_init, initargs=(bfs,),
-        count = 0
+    async with Pool(processes=chunk_size,  maxtasksperchild=1) as pool: 
+        #count = 0
         res = [] 
         for il in img_iterator:
             if len(il) > 0:
                 res = await asyncio.gather(
                         pool.map(partial(is_valid_size_and_score, threshold), il))
-                archive_images(res)
+                result.append(res)
+                #await archive_images(image_dir_path, archive_path, res)
+    pool.close()
+
+    archive_images(image_dir_path, archive_path, result)            
 """
     input_image_path,
     archive_quality_path,
@@ -99,6 +104,7 @@ async def iq_work_flow(image_dir_path, threshold, chunk_size=10):
 """
 def execute(source_name):
 
+    aiomp.set_start_method('fork')
     (input_image_path, archive_quality_path,image_quality_threshold) = config.image_quality_config_load()
 
     input_image_path_updated = os.path.join(input_image_path,source_name)
@@ -107,9 +113,9 @@ def execute(source_name):
     
     archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
 
-    iqa_metric = create_metric()
+    #iqa_metric = create_metric()
 
-    asyncio.run(iq_work_flow(input_image_path_updated, image_quality_threshold))
+    asyncio.run(iq_work_flow(input_image_path_updated, archive_quality_path, image_quality_threshold))
 
     ss.remove_empty_files_and_folders(input_image_path_updated)
     
