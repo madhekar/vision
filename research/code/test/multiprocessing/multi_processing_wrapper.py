@@ -7,5 +7,5 @@ def add(x, y):
 if __name__=="__main__":
     from multiprocessing import Pool
     with Pool(4) as pool:
-        res = pool.map(warapper, [(34,55),(8,4),(4,8)])
-    print(res)    
+        res = pool.map_async(warapper, [(34,55),(8,4),(4,8)])
+        print(res.get())    

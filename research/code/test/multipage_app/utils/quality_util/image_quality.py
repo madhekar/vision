@@ -1,5 +1,5 @@
 import os
-import glob
+import time
 from PIL import Image
 import pyiqa
 import torch
@@ -11,7 +11,7 @@ from utils.util import storage_stat as ss
 
 import asyncio
 import multiprocessing as mp
-import aiofiles
+#import aiofiles
 import aiomultiprocess as aiomp
 from aiomultiprocess import Pool
 from functools import partial
@@ -54,18 +54,18 @@ async def is_valid_size_and_score(args, img):
 """
 Archive quality images
 """
-async def archive_images(image_path, archive_path, bad_quality_tuple_list):                
-    if len(bad_quality_tuple_list) != 0:
+async def archive_images(image_path, archive_path, bad_quality_path_list):                
+    if len(bad_quality_path_list) != 0:
         space_saved = 0
         image_cnt =0 
-        for quality in bad_quality_tuple_list:
-                space_saved += os.path.getsize(os.path.join(quality[0], quality[1]))
+        for quality in bad_quality_path_list:
+                space_saved += os.path.getsize(os.path.join(quality))
                 image_cnt += 1
                 #uuid_path = mu.create_uuid_from_string(quality[0]) 
-                uuid_path = mu.extract_subpath(image_path, quality[0])
+                uuid_path = mu.extract_subpath(image_path, os.path.dirname(quality))
                 if not os.path.exists(os.path.join(archive_path, uuid_path)):
                     os.makedirs(os.path.join(archive_path, uuid_path))
-                os.rename( os.path.join(quality[0], quality[1]), os.path.join(archive_path, uuid_path, quality[1]))
+                os.rename( quality, os.path.join(archive_path, uuid_path, os.path.basename(quality)))
                 print(f"{quality} Moved Successfully!")
                 #sm.add_messages("quality", f"s| file {quality} moved successfully.")
 
@@ -90,15 +90,20 @@ async def iq_work_flow(image_dir_path, archive_path, threshold):
         for il in img_iterator:
             if len(il) > 0:
                 res = await asyncio.gather(
-                        pool.map(partial(is_valid_size_and_score, threshold), il))
+                   pool.map(partial(is_valid_size_and_score, threshold), il)
+                )
                 result.append(res)
-                #await archive_images(image_dir_path, archive_path, res)
-    
-
         #await archive_images(image_dir_path, archive_path, result)      
-    
-    pool.close()      
-    pool.join()
+    # pool.close()      
+    # pool.join()
+    # r = [e for sb1 in result for sb2 in sb1 for e in sb2 if not e == '']
+    # print(r)
+    await archive_images(
+        image_dir_path,
+        archive_path,
+        [e for sb1 in result for sb2 in sb1 for e in sb2 if not e == ""]
+    )
+
 """
     input_image_path,
     archive_quality_path,
@@ -107,7 +112,7 @@ async def iq_work_flow(image_dir_path, archive_path, threshold):
 """
 def execute(source_name):
 
-    aiomp.set_start_method('fork')
+    aiomp.set_start_method("fork")
     (input_image_path, archive_quality_path,image_quality_threshold) = config.image_quality_config_load()
 
     input_image_path_updated = os.path.join(input_image_path,source_name)
@@ -117,8 +122,15 @@ def execute(source_name):
     archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
 
     #iqa_metric = create_metric()
-
-    asyncio.run(iq_work_flow(input_image_path_updated, archive_quality_path, image_quality_threshold))
+    start = time.time()
+    asyncio.run(
+        iq_work_flow(
+            "/home/madhekar/work/home-media-app/data/input-data-1/error/img/quality/AnjaliBackup/20250307-112745/1c6fe1e2-82c2-5051-8392-5881c6808ca4",
+            archive_quality_path,
+            image_quality_threshold,
+        )
+    )
+    print(f'processing time: {int(time.time() - start)}')
 
     ss.remove_empty_files_and_folders(input_image_path_updated)
     
