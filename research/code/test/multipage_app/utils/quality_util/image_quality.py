@@ -93,11 +93,7 @@ async def iq_work_flow(image_dir_path, archive_path, threshold):
                    pool.map(partial(is_valid_size_and_score, threshold), il)
                 )
                 result.append(res)
-        #await archive_images(image_dir_path, archive_path, result)      
-    # pool.close()      
-    # pool.join()
-    # r = [e for sb1 in result for sb2 in sb1 for e in sb2 if not e == '']
-    # print(r)
+
     await archive_images(
         image_dir_path,
         archive_path,
@@ -125,9 +121,9 @@ def execute(source_name):
     start = time.time()
     asyncio.run(
         iq_work_flow(
-            "/home/madhekar/work/home-media-app/data/input-data-1/error/img/quality/AnjaliBackup/20250307-112745/1c6fe1e2-82c2-5051-8392-5881c6808ca4",
+            input_image_path_updated,
             archive_quality_path,
-            image_quality_threshold,
+            image_quality_threshold
         )
     )
     print(f'processing time: {int(time.time() - start)}')
