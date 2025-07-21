@@ -10,7 +10,7 @@ from utils.util import statusmsg_util as sm
 from utils.util import storage_stat as ss
 
 import asyncio
-import multiprocessing as mp
+#import multiprocessing as mp
 #import aiofiles
 import aiomultiprocess as aiomp
 from aiomultiprocess import Pool
@@ -118,7 +118,6 @@ def execute(source_name):
     
     archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
 
-    #iqa_metric = create_metric()
     start = time.time()
     asyncio.run(
         iq_work_flow(
