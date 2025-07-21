@@ -84,7 +84,7 @@ async def iq_work_flow(image_dir_path, archive_path, threshold):
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=10)
     result = []
     #with st.status("Generating LLM responses...", expanded=True) as status:
-    async with Pool(processes=chunk_size,  maxtasksperchild=1) as pool: 
+    async with Pool(processes=chunk_size) as pool: 
         #count = 0
         res = [] 
         for il in img_iterator:
@@ -93,9 +93,12 @@ async def iq_work_flow(image_dir_path, archive_path, threshold):
                         pool.map(partial(is_valid_size_and_score, threshold), il))
                 result.append(res)
                 #await archive_images(image_dir_path, archive_path, res)
-    pool.close()
+    
 
-    archive_images(image_dir_path, archive_path, result)            
+        #await archive_images(image_dir_path, archive_path, result)      
+    
+    pool.close()      
+    pool.join()
 """
     input_image_path,
     archive_quality_path,
