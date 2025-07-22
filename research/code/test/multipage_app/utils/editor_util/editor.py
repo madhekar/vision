@@ -43,6 +43,7 @@ def location_initialize(smp,user_source, smf):
     return df    
 
 def initialize(smp, smf, mmp, mmf, mmef, hlat, hlon, user_source):
+    print('re-init on source change')
     try:
         if "markers" not in st.session_state:
             st.session_state["markers"] = []
@@ -241,7 +242,7 @@ def execute():
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
             print(image)
             st.session_state.df.reset_index()
-            lat = st.session_state.df.at[image.strip(), "GPSLatitude"]
+            lat = st.session_state.df.at[image, "GPSLatitude"]
             lon = st.session_state.df.at[image, "GPSLongitude"]
             dt = st.session_state.df.at[image, "DateTimeOriginal"]
             label = os.path.basename(image)
