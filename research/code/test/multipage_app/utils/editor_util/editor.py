@@ -280,6 +280,7 @@ def execute():
                 c2.text_input(value=lon, label=f"Lon_{image}", label_visibility="collapsed") 
                 c2.empty()
                 c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
+                add_marker(lat, lon, label, image)
             else:
                 clk = c2.checkbox(label=f"location_{image}", label_visibility="collapsed")
                 if clk:
@@ -299,8 +300,8 @@ def execute():
             image = Image.open(image)  
             image.thumbnail((200,200), Image.Resampling.LANCZOS)
             c1.image(image, caption=label, output_format="JPG")
-            if lat != "-":
-                add_marker(lat, lon, label, image)
+            # if lat != "-":
+            #     add_marker(lat, lon, label, image)
             st.divider()    
 
         col = (col + 1) % row_size
