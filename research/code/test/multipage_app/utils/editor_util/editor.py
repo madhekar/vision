@@ -42,8 +42,23 @@ def location_initialize(smp,user_source, smf):
         st.error(f"exception occured in loading location metadata: {smf} with exception: {e}")  
     return df    
 
+def remove_initialization_on_device_change():
+    print('----> enter remove state function')
+    if 'makers' in st.session_state:
+        del st.session_state['makers']
+    if "updated_datetime_list" in st.session_state:
+        del st.session_state["updated_datetime_list"]
+    if "editor_audit_msg" in st.session_state:
+        del st.session_state["editor_audit_msg"]
+    if "df" in st.session_state:
+        del st.session_state["df"]
+    if "df_loc" in st.session_state:
+        del st.session_state["df_loc"]
+    if "edited_image_attributes" in st.session_state:
+        del st.session_state["edited_image_attributes"]
+
 def initialize(smp, smf, mmp, mmf, mmef, hlat, hlon, user_source):
-    print('re-init on source change')
+
     try:
         if "markers" not in st.session_state:
             st.session_state["markers"] = []
@@ -70,7 +85,7 @@ def initialize(smp, smf, mmp, mmf, mmef, hlat, hlon, user_source):
             df_loc = st.session_state.df_loc   
 
         if "edited_image_attributes" not in st.session_state:
-            st.session_state["edited_image_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'DateTimeOriginal'))  
+            st.session_state["edited_image_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'DateTimeOriginal'))     
 
     except Exception as e:      
         st.error(f"Exception occurred in initializing Medata Editor: {e}")
@@ -171,6 +186,7 @@ def execute():
         "data source folder",
         options=ss.extract_user_raw_data_folders(rdp),
         label_visibility="collapsed",
+        on_change=remove_initialization_on_device_change()
     )
     print('---->', user_source_selected)
 
@@ -236,7 +252,8 @@ def execute():
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
     col = 0
-    print('*-*',batch)
+    print(f'batch {batch_size} page {page} ')
+    print('*-*',batch[0])
     for image in batch:
         with grid[col]:
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
