@@ -128,7 +128,7 @@ def execute(source_name):
     )
     processing_duration = int(time.time() - start)
     print(f'processing duration: {processing_duration}')
-    sm.add_messages("quality", f"w| processing duration: {processing_duration}}.")
+    sm.add_messages("quality", f"w| processing duration: {processing_duration}.")
 
     ss.remove_empty_files_and_folders(input_image_path_updated)
     
