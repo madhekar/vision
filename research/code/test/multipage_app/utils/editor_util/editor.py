@@ -23,6 +23,7 @@ from utils.util import fast_parquet_util as fpu
   home_longitude: -117.184200
   /home/madhekar/work/home-media-app/data/input-data-1/img/Madhekar/11ec2ea8-663c-5e28-9486-cf19a181beb1/vcm_s_kf_m160_160x120.jpg
 """
+user_device = st.empty()
 def get_env():
     (rdp, smp, smf, mmp, mmf, mmff,mmef, hlat, hlon) = config.editor_config_load()
     return (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon)
@@ -60,6 +61,7 @@ def remove_initialization_on_device_change():
 def initialize(smp, smf, mmp, mmf, mmef, hlat, hlon, user_source):
 
     try:
+
         if "markers" not in st.session_state:
             st.session_state["markers"] = []
 
@@ -181,14 +183,22 @@ def execute():
 
     (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon) = get_env()
 
+    if 'global_user_source' not in st.session_state:
+        st.session_state['global_user_source'] = ""
+
     st.sidebar.subheader("Storage Source", divider="gray")
     user_source_selected = st.sidebar.selectbox(
         "data source folder",
         options=ss.extract_user_raw_data_folders(rdp),
         label_visibility="collapsed",
-        on_change=remove_initialization_on_device_change()
+        #on_change=remove_initialization_on_device_change()
     )
     print('---->', user_source_selected)
+    if st.session_state['global_user_source'] != user_source_selected:
+        print(f"--->:{st.session_state['global_user_source']} : {user_source_selected}")
+        st.session_state["global_user_source"] = user_source_selected
+        #print(f"--->:{user_device} : {user_source_selected}")
+        remove_initialization_on_device_change()
 
     show_missing = st.sidebar.checkbox(label='show missing images')
 
@@ -257,7 +267,7 @@ def execute():
     for image in batch:
         with grid[col]:
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
-            print(image)
+            #print(image)
             st.session_state.df.reset_index()
             lat = st.session_state.df.at[image, "GPSLatitude"]
             lon = st.session_state.df.at[image, "GPSLongitude"]
