@@ -99,7 +99,7 @@ def add_marker(lat, lon, label, url):
     marker = fl.Marker([lat, lon], popup=url, tooltip=label)
     st.session_state["markers"].append(marker)
 
- 
+@st.fragment 
 def update_latitude_longitude(image, latitude, longitude, name):
     #print(st.session_state.df.head())
     st.session_state.df.at[image, "GPSLatitude"] =latitude
@@ -107,7 +107,7 @@ def update_latitude_longitude(image, latitude, longitude, name):
     lu.setGpsInfo(image, latitude, longitude)
     lu.setImageDescription(image, name)
 
-
+@st.fragment
 def update_all_datetime_changes(image, col):
     #print(st.session_state.df.head())
     dt = st.session_state[f"{col}_{image}"]
