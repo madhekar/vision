@@ -10,7 +10,7 @@ from utils.util import statusmsg_util as sm
 from utils.util import storage_stat as ss
 
 import asyncio
-import multiprocessing as mp
+#import multiprocessing as mp
 #import aiofiles
 import aiomultiprocess as aiomp
 from aiomultiprocess import Pool
@@ -80,12 +80,12 @@ async def iq_work_flow(image_dir_path, archive_path, threshold):
 
     #lock = asyncio.Lock()
     chunk_size = int(mp.cpu_count())
-    queuecount = chunk_size // 4
+    queue_count = chunk_size // 4
 
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
     result = []
     #with st.status("Generating LLM responses...", expanded=True) as status:
-    async with Pool(processes=chunk_size, queuecount=queuecount) as pool: 
+    async with Pool(processes=chunk_size, queuecount=queue_count) as pool: 
         #count = 0
         res = [] 
         for il in img_iterator:
@@ -118,7 +118,6 @@ def execute(source_name):
     
     archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
 
-    #iqa_metric = create_metric()
     start = time.time()
     asyncio.run(
         iq_work_flow(
@@ -127,7 +126,9 @@ def execute(source_name):
             image_quality_threshold
         )
     )
-    print(f'processing time: {int(time.time() - start)}')
+    processing_duration = int(time.time() - start)
+    print(f'processing duration: {processing_duration}')
+    sm.add_messages("quality", f"w| processing duration: {processing_duration}}.")
 
     ss.remove_empty_files_and_folders(input_image_path_updated)
     
