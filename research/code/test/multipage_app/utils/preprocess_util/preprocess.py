@@ -260,7 +260,7 @@ def execute(user_source_selected):
     else:
         df_loc = st.session_state.df_loc   
 
-    chunk_size = int(aiomp.cpu_count())
+    chunk_size = int(mp.cpu_count())
     queue_size = chunk_size // 4
     st.sidebar.subheader("Metadata Generation")
     st.sidebar.divider()
