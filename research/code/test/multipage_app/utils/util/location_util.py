@@ -31,6 +31,7 @@ See Dependences on page Developers
 import pyexiv2
 from PIL import Image
 import streamlit as st
+from math import cos,asin,sqrt,radians,sin
 from GPSPhoto import gpsphoto
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
@@ -96,7 +97,7 @@ def_name = "NULL Island - location description not provided."
 
 #     exiv_image.writeMetadata()
 
-cache = {}
+
 # get location address information from latitude and longitude
 # def getLocationDetails(strLnL, max_retires):
 #     address = "n/a"
@@ -120,7 +121,7 @@ cache = {}
 #               st.warning(f'Get address failed with {e}')
 #               retries += 1       
 #     return address
-
+cache = {}
 # get location address information from latitude and longitude
 def getLocationDetails(strLnL, max_retires):
     address = "na"
@@ -230,3 +231,15 @@ def getMetadata(img):
     # res.append(getLocationDetails(lat_lon))
     # print(res)
     return (desc, lat_lon, dt)
+
+def distance(lat1, lon1, lat2, lon2):
+    p = 0.017453292519943295
+    haversine = (
+        0.5
+        - cos((lat2 - lat1) * p) / 2
+        + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
+    )
+    return 12742 * asin(sqrt(haversine))
+
+def closest(data, v):
+    return min(data, key=lambda x: distance(v[0], v[1], x[0], x[1]))

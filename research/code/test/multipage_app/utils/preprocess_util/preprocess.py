@@ -39,10 +39,13 @@ def location_initialize(smp, smf):
     except Exception as e:
         st.error(f"exception occurred in loading location metadata: {smf} with exception: {e}")  
     return df 
-
+    
 def get_loc_name_by_latlon(latlon):
     if latlon:
+        print(f'****search loc by latlon: {latlon}')
+
         row = st.session_state.df_loc.loc[st.session_state.df_loc.LatLon == latlon].values.flatten().tolist()
+        
         if len(row) > 0:
            print(f'--> found location in cache: {latlon} --> {row}')
            return row[0]
