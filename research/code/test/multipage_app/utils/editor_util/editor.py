@@ -23,6 +23,7 @@ from utils.util import fast_parquet_util as fpu
   home_longitude: -117.184200
   /home/madhekar/work/home-media-app/data/input-data-1/img/Madhekar/11ec2ea8-663c-5e28-9486-cf19a181beb1/vcm_s_kf_m160_160x120.jpg
 """
+user_device = st.empty()
 def get_env():
     (rdp, smp, smf, mmp, mmf, mmff,mmef, hlat, hlon) = config.editor_config_load()
     return (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon)
@@ -42,9 +43,25 @@ def location_initialize(smp,user_source, smf):
         st.error(f"exception occured in loading location metadata: {smf} with exception: {e}")  
     return df    
 
+def remove_initialization_on_device_change():
+    print('----> enter remove state function')
+    if 'makers' in st.session_state:
+        del st.session_state['makers']
+    if "updated_datetime_list" in st.session_state:
+        del st.session_state["updated_datetime_list"]
+    if "editor_audit_msg" in st.session_state:
+        del st.session_state["editor_audit_msg"]
+    if "df" in st.session_state:
+        del st.session_state["df"]
+    if "df_loc" in st.session_state:
+        del st.session_state["df_loc"]
+    if "edited_image_attributes" in st.session_state:
+        del st.session_state["edited_image_attributes"]
+
 def initialize(smp, smf, mmp, mmf, mmef, hlat, hlon, user_source):
-    print('re-init on source change')
+
     try:
+
         if "markers" not in st.session_state:
             st.session_state["markers"] = []
 
@@ -70,7 +87,7 @@ def initialize(smp, smf, mmp, mmf, mmef, hlat, hlon, user_source):
             df_loc = st.session_state.df_loc   
 
         if "edited_image_attributes" not in st.session_state:
-            st.session_state["edited_image_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'DateTimeOriginal'))  
+            st.session_state["edited_image_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'DateTimeOriginal'))     
 
     except Exception as e:      
         st.error(f"Exception occurred in initializing Medata Editor: {e}")
@@ -82,7 +99,7 @@ def add_marker(lat, lon, label, url):
     marker = fl.Marker([lat, lon], popup=url, tooltip=label)
     st.session_state["markers"].append(marker)
 
- 
+@st.fragment 
 def update_latitude_longitude(image, latitude, longitude, name):
     #print(st.session_state.df.head())
     st.session_state.df.at[image, "GPSLatitude"] =latitude
@@ -90,7 +107,7 @@ def update_latitude_longitude(image, latitude, longitude, name):
     lu.setGpsInfo(image, latitude, longitude)
     lu.setImageDescription(image, name)
 
-
+@st.fragment
 def update_all_datetime_changes(image, col):
     #print(st.session_state.df.head())
     dt = st.session_state[f"{col}_{image}"]
@@ -166,13 +183,22 @@ def execute():
 
     (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon) = get_env()
 
+    if 'global_user_source' not in st.session_state:
+        st.session_state['global_user_source'] = ""
+
     st.sidebar.subheader("Storage Source", divider="gray")
     user_source_selected = st.sidebar.selectbox(
         "data source folder",
         options=ss.extract_user_raw_data_folders(rdp),
         label_visibility="collapsed",
+        #on_change=remove_initialization_on_device_change()
     )
     print('---->', user_source_selected)
+    if st.session_state['global_user_source'] != user_source_selected:
+        print(f"--->:{st.session_state['global_user_source']} : {user_source_selected}")
+        st.session_state["global_user_source"] = user_source_selected
+        #print(f"--->:{user_device} : {user_source_selected}")
+        remove_initialization_on_device_change()
 
     show_missing = st.sidebar.checkbox(label='show missing images')
 
@@ -236,11 +262,10 @@ def execute():
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
     col = 0
-    print('*-*',batch)
     for image in batch:
         with grid[col]:
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
-            print(image)
+            #print(image)
             st.session_state.df.reset_index()
             lat = st.session_state.df.at[image, "GPSLatitude"]
             lon = st.session_state.df.at[image, "GPSLongitude"]
@@ -253,6 +278,7 @@ def execute():
                 c2.text_input(value=lon, label=f"Lon_{image}", label_visibility="collapsed") 
                 c2.empty()
                 c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
+                add_marker(lat, lon, label, image)
             else:
                 clk = c2.checkbox(label=f"location_{image}", label_visibility="collapsed")
                 if clk:
@@ -272,8 +298,8 @@ def execute():
             image = Image.open(image)  
             image.thumbnail((200,200), Image.Resampling.LANCZOS)
             c1.image(image, caption=label, output_format="JPG")
-            if lat != "-":
-                add_marker(lat, lon, label, image)
+            # if lat != "-":
+            #     add_marker(lat, lon, label, image)
             st.divider()    
 
         col = (col + 1) % row_size

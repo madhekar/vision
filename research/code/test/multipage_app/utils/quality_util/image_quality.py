@@ -79,7 +79,7 @@ async def archive_images(image_path, archive_path, bad_quality_path_list):
 async def iq_work_flow(image_dir_path, archive_path, threshold):
 
     #lock = asyncio.Lock()
-    chunk_size = int(mp.cpu_count())
+    chunk_size = int(aiomp.cpu_count())
     queue_count = chunk_size // 4
 
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
@@ -128,7 +128,7 @@ def execute(source_name):
     )
     processing_duration = int(time.time() - start)
     print(f'processing duration: {processing_duration}')
-    sm.add_messages("quality", f"w| processing duration: {processing_duration}}.")
+    sm.add_messages("quality", f"w| processing duration: {processing_duration}.")
 
     ss.remove_empty_files_and_folders(input_image_path_updated)
     
