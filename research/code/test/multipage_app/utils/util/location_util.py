@@ -36,6 +36,7 @@ from GPSPhoto import gpsphoto
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 from geopy.exc import GeocoderTimedOut, GeocoderUnavailable
+
 import datetime
 import random
 import string
@@ -243,3 +244,7 @@ def distance(lat1, lon1, lat2, lon2):
 
 def closest(data, v):
     return min(data, key=lambda x: distance(v[0], v[1], x[0], x[1]))
+
+
+
+    
