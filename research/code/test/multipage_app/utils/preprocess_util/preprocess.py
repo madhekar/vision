@@ -180,7 +180,7 @@ async def run_workflow(
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
     with st.status("Generating LLM responses...", expanded=True) as status:
-        async with Pool(processes=chunk_size,  queuecount=queue_size) as pool: #maxtasksperchild=1) as pool:  #initializer=pool_init, initargs=(bfs,),
+        async with Pool(processes=chunk_size,  queuecount=queue_size, maxtasksperchild=1) as pool:  #initializer=pool_init, initargs=(bfs,),
             count = 0
             res = []
             for ilist in img_iterator:
@@ -260,8 +260,8 @@ def execute(user_source_selected):
     else:
         df_loc = st.session_state.df_loc   
 
-    chunk_size = int(mp.cpu_count())
-    queue_size = chunk_size // 4
+    chunk_size = int(mp.cpu_count() // 4)
+    queue_size = chunk_size
     st.sidebar.subheader("Metadata Generation")
     st.sidebar.divider()
 
