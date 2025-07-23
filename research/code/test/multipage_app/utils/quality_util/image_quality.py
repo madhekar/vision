@@ -79,7 +79,7 @@ async def archive_images(image_path, archive_path, bad_quality_path_list):
 async def iq_work_flow(image_dir_path, archive_path, threshold):
 
     #lock = asyncio.Lock()
-    chunk_size = int(mp.cpu_count())
+    chunk_size = int(aiomp.cpu_count())
     queue_count = chunk_size // 4
 
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
