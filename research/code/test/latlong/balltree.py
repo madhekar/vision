@@ -59,7 +59,25 @@ def create_balltree(df):
 
     cleaned_array = np_data_radian[~np.isnan(np_data_radian).any(axis=1)]
 
-    tree = BallTree(cleaned_array, metric="haversine")
+    tree = BallTree(cleaned_array, leaf_size=2,  metric="haversine")
+
+    return tree, cleaned_array
+
+def find_nearest(bt, np_arr_rad, lat, lon):
+        
+        arr = np.array([[lon,lat]])
+
+        query_pt_radians = np.radians(arr)
+
+        dist, index = bt.query(query_pt_radians, k=1)
+
+        print(f'dist: {dist[0][0]} index: {index} ind: {index[0]}')
+
+        nearest_pt_rad = np_arr_rad[index[0]]
+
+        nearest_pt = np.degrees(nearest_pt_rad)
+
+        return nearest_pt, dist
 
 def sample_ball_tree():
     # Sample data (replace with your actual data loading)
@@ -82,8 +100,14 @@ if __name__=='__main__':
     parquet_path = '/home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific/Madhekar'
     parquet_file = 'static_locations.parquet'
 
+    lat = 40.00
+    lon = -117.7
     dff = read_parquet(parquet_path, parquet_file)
 
-    create_balltree(dff)
+    BT,arr_rad = create_balltree(dff)
+
+    nept, d = find_nearest(BT, arr_rad, lon, lat)
+
+    print(f'nearest point to {lat} : {lon} is: {nept} and distance: {d} ')
 
     #sample_ball_tree()
