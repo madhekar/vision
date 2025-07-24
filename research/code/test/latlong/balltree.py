@@ -5,7 +5,12 @@ import pandas as pd
 import fastparquet as fp
 #import geopandas as gpd
 
-
+def conditional_proc(x):
+    if isinstance(x, float):
+        return np.radians(x)
+    else:
+        return x
+    
 def read_parquet(p,f):
     df = None
     try:
@@ -19,7 +24,7 @@ def read_parquet(p,f):
 def create_balltree(df):
     df.dropna()
     print(df.describe())
-    df.drop(columns=["name", "state", "country"], inplace=True)
+    df.drop(columns=[ "state", "country"], inplace=True)
 
     print(df.head(20)) 
 
@@ -32,36 +37,31 @@ def create_balltree(df):
 
     print(df.head(20))
 
-    # df_lat = pd.to_numeric(df['latitude'], errors='coerce')
-    # df_lon = pd.to_numeric(df['longitude'], errors='coerce')
-
-    # print(df_lat)
-    # print(df_lon)
-   
-    #df[["latitude", "longitude"]] = df[["latitude", "longitude"]].astype(float)
-
-    #df = df.astype(float)
+    df['name'] = df['name'].astype('string')
 
     cols = ['latitude','longitude']
     for col in cols:
         df[col] = pd.to_numeric(df[col] , errors='coerce')
 
     print(df.dtypes)
+
     print(df.head(20))
 
     np_data = df.to_numpy()
     
     print(np_data)
 
-    np_data_radian = np.radians(np_data)
+    clean_array = np_data[~np.isnan(np_data).any(axis=1)]
 
-    print(np_data_radian)
+    clean_array['latitude'] = np.deg2rad(clean_array['latitude'])
 
-    cleaned_array = np_data_radian[~np.isnan(np_data_radian).any(axis=1)]
+    print(clean_array)
 
-    tree = BallTree(cleaned_array, leaf_size=2,  metric="haversine")
+    
 
-    return tree, cleaned_array
+    tree = BallTree(clean_array, leaf_size=2,  metric="haversine")
+
+    return tree, clean_array
 
 def find_nearest(bt, np_arr_rad, lat, lon):
         
