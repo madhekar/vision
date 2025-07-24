@@ -9,7 +9,8 @@ class GeoBallTree():
         self.BT = None
 
     def create_data_structure(self):
-        self.lpt = self.df[['latitude','longitude']].to_numpy()    
+        self.lpt = self.df[['latitude','longitude']].astype(float).to_numpy()    
+        print(self.lpt)
         self.lrad = np.radians(self.lpt)
         self.BT = BallTree(self.lrad, metric='haversine')
 
