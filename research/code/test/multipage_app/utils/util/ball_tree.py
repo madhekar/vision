@@ -1,5 +1,6 @@
 from sklearn.neighbors import BallTree
 import numpy as np
+import pandas as pd
 
 class GeoBallTree():
     def __init__(self, df):
@@ -10,9 +11,17 @@ class GeoBallTree():
 
     def create_data_structure(self):
       
-        self.df = self.df[(self.df.latitude != '-') & (~self.df.latitude.isnull())]  
-        print(f'--- {self.df}')
-        self.lpt = self.df[['latitude','longitude']].to_numpy() 
+        self.df = self.df[
+            (self.df.longitude != "-")
+            & (self.df.latitude != "-")
+            & (~self.df.longitude.isnull())
+            & (~self.df.latitude.isnull())
+        ]  
+        print(f'--- {self.df.describe()}')
+        #self.lpt = self.lpt.dropna()
+        self.lpt = self.df[['latitude','longitude']].dropna()
+        print("*+++", self.lpt)
+        self.lpt = self.lpt.astype(float) #pd.to_numeric(self.lpt, errors='coerce')
         print('+++', self.lpt)
         self.lrad = np.radians(self.lpt)
         self.BT = BallTree(self.lrad, metric='haversine')
