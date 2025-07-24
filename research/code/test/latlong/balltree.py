@@ -49,6 +49,18 @@ def create_balltree(df):
     print(df.dtypes)
     print(df.head(20))
 
+    np_data = df.to_numpy()
+    
+    print(np_data)
+
+    np_data_radian = np.radians(np_data)
+
+    print(np_data_radian)
+
+    cleaned_array = np_data_radian[~np.isnan(np_data_radian).any(axis=1)]
+
+    tree = BallTree(cleaned_array, metric="haversine")
+
 def sample_ball_tree():
     # Sample data (replace with your actual data loading)
     np.random.seed(0)
@@ -73,3 +85,5 @@ if __name__=='__main__':
     dff = read_parquet(parquet_path, parquet_file)
 
     create_balltree(dff)
+
+    #sample_ball_tree()
