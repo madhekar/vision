@@ -177,7 +177,7 @@ async def run_workflow(
     metadata_path,
     metadata_file,
     number_of_instances,
-    openclip_finetuned,
+    openclip_finetuned
 ):
     st.info(f"CPU COUNT: {chunk_size}")
     
@@ -266,7 +266,7 @@ def execute(user_source_selected):
     image_dir_path = os.path.join(image_dir_path, user_source_selected)
     
     if not os.path.exists(image_dir_path):
-        st.error(f'excetion: image data path for {user_source_selected} does not exixts!')
+        st.error(f'exception: image data path for {user_source_selected} does not exixts!')
     metadata_path = os.path.join(metadata_path, user_source_selected)
     if not os.path.exists(metadata_path):
         os.makedirs(metadata_path)
