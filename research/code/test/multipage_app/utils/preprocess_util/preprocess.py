@@ -278,7 +278,7 @@ def execute(user_source_selected):
         df_loc = st.session_state.df_loc   
 
     if "ball_tree" not in st.session_state:
-        btree = location_initialize_btree(static_metadata_path,static_metadata_file)
+        btree = location_initialize_btree(static_metadata_path, static_metadata_file)
         st.session_state.ball_tree = btree
     else:
         ball_tree = st.session_state.ball_tree        

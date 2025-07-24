@@ -155,6 +155,8 @@ def init_location_btree_cache(parquet_file_path):
 
     df = read_parquet_file(parquet_file_path)
 
+    print('%%%',df.head())
+
     btree = bt.GeoBallTree(df)
 
     btree.create_data_structure()
