@@ -22,13 +22,11 @@ def haversine(lon1, lat1, lon2, lat2):
     return c * r
 
 def closest(data, v):
-    return min(data, key=lambda p: distance(v['lat'],v['lon'],p['lat'],p['lon']))
+    return min(data, key=lambda x: distance(v[0],v[1],x[0],x[1]))
 
-tempDataList = [{'lat': 39.7612992, 'lon': -86.1519681}, 
-                {'lat': 39.762241,  'lon': -86.158436 }, 
-                {'lat': 39.7622292, 'lon': -86.1578917}]
+tempDataList = [ (39.762241, -86.158436 ),(41.7612992, -88.1519681),( 39.7622292, -86.1578917)]
 
-v = {'lat': 39.7622290, 'lon': -86.1519750}
+v = ( 40.7622290,  -90.1519750)
 print(closest(tempDataList, v))
 
 print(distance( 39.7622292, -86.1578917, 39.7612992, -86.1519681))

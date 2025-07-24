@@ -8,6 +8,7 @@ from streamlit_folium import folium_static
 from utils.config_util import config
 from utils.util import location_util as lu 
 from utils.util import storage_stat as ss
+
 from PIL import Image
 from utils.util import fast_parquet_util as fpu
 
@@ -38,7 +39,7 @@ def metadata_initialize(mmp,us,mmf):
 def location_initialize(smp,user_source, smf):
     try:
         df = fpu.read_parquet_file(os.path.join(smp, user_source, smf))
-        #print(df.head())
+        print('====',df.head())
     except Exception as e:
         st.error(f"exception occured in loading location metadata: {smf} with exception: {e}")  
     return df    

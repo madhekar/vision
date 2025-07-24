@@ -21,6 +21,7 @@ import multiprocessing as mp
 import aiofiles
 import aiomultiprocess as aiomp
 from aiomultiprocess import Pool
+from utils.util import ball_tree as bt
 from functools import partial
 #import dill as pickle
 
@@ -28,6 +29,7 @@ d_latitude, d_longitude = 32.968689, -117.184243
 d_loc = 'Madhekar residence in Carmel Valley'
 #m, t, p = LLM.setLLM()
 p = LLM_Next.setLLM()
+#btree = st.empty()
 #ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
 #global_face = bft.base_face_res()
 
@@ -40,9 +42,24 @@ def location_initialize(smp, smf):
         st.error(f"exception occurred in loading location metadata: {smf} with exception: {e}")  
     return df 
 
+@st.cache_resource
+def location_initialize_btree(smp, smf):
+    try:
+        btree_ = fpu.init_location_btree_cache(os.path.join(smp, smf))
+    except Exception as e:
+        st.error(f"exception occurred in loading location metadata: {smf} with exception: {e}")  
+    return btree_ 
+    
 def get_loc_name_by_latlon(latlon):
     if latlon:
+        print(f'****search loc by latlon: {latlon}')
+
         row = st.session_state.df_loc.loc[st.session_state.df_loc.LatLon == latlon].values.flatten().tolist()
+
+        ll, d = st.session_state.ball_tree.query_find_nearest(latlon[0], latlon[1])
+
+        print(f'%%%% => {ll} : {d}')
+
         if len(row) > 0:
            print(f'--> found location in cache: {latlon} --> {row}')
            return row[0]
@@ -156,6 +173,7 @@ async def run_workflow(
     df,
     image_dir_path,
     chunk_size,
+    queue_size,
     metadata_path,
     metadata_file,
     number_of_instances,
@@ -179,7 +197,7 @@ async def run_workflow(
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
     with st.status("Generating LLM responses...", expanded=True) as status:
-        async with Pool(processes=chunk_size,  maxtasksperchild=1) as pool:  #initializer=pool_init, initargs=(bfs,),
+        async with Pool(processes=chunk_size,  queuecount=queue_size, maxtasksperchild=1) as pool:  #initializer=pool_init, initargs=(bfs,),
             count = 0
             res = []
             for ilist in img_iterator:
@@ -259,7 +277,16 @@ def execute(user_source_selected):
     else:
         df_loc = st.session_state.df_loc   
 
+    if "ball_tree" not in st.session_state:
+        btree = location_initialize_btree(static_metadata_path, static_metadata_file)
+        st.session_state.ball_tree = btree
+    else:
+        ball_tree = st.session_state.ball_tree        
+
+    #btree = location_initialize(static_metadata_path, static_metadata_file)    
+
     chunk_size = int(mp.cpu_count() // 4)
+    queue_size = chunk_size
     st.sidebar.subheader("Metadata Generation")
     st.sidebar.divider()
 
@@ -287,6 +314,7 @@ def execute(user_source_selected):
         df,
         image_dir_path,
         chunk_size,
+        queue_size,
         metadata_path,
         metadata_file,
         number_of_instances,

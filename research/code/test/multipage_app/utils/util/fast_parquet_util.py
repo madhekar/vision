@@ -5,6 +5,7 @@ from fastparquet import write, ParquetFile
 import fastparquet as fp
 import country_converter as coco
 from utils.util import us_states as ust
+from utils.util import ball_tree as bt
 import streamlit as st
 cc = coco.CountryConverter()
 
@@ -85,6 +86,8 @@ def read_parquet_file(file_path):
         rdf['name'].str.strip()
     except Exception as e:
         st.error(f"get all locations failed with exception: {e}")
+
+    print(f'$$$$ {rdf}')    
     return rdf
 
 def get_all_loc_by_country(file_path, country):
@@ -139,15 +142,26 @@ def add_all_locations(location_root, user_location_root, user_location_metadata_
 
 
 def init_location_cache(parquet_file_path):
-    
-    df = read_parquet_file(parquet_file_path)   
 
+    df = read_parquet_file(parquet_file_path)
+    
     df["LatLon"] = df[["latitude", "longitude"]].apply(tuple, axis=1)
 
     df.drop(columns=["latitude", "longitude"], inplace=True)
     #df.head(10)
     return df     
 
+def init_location_btree_cache(parquet_file_path):
+
+    df = read_parquet_file(parquet_file_path)
+
+    print('%%%',df.head())
+
+    btree = bt.GeoBallTree(df)
+
+    btree.create_data_structure()
+
+    return btree
 
 if __name__ == "__main__":
     parquet_file_path = "parquet/static_locations.parquet"
