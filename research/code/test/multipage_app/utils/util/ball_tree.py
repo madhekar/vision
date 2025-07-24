@@ -9,6 +9,7 @@ class GeoBallTree():
         self.BT = None
 
     def create_data_structure(self):
+        self.df = self.df[self.df['latitude' != '-']]
         self.lpt = self.df[['latitude','longitude']].astype(float).to_numpy()    
         print(self.lpt)
         self.lrad = np.radians(self.lpt)
