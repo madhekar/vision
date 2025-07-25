@@ -5,18 +5,18 @@ import pandas as pd
 import fastparquet as fp
 #import geopandas as gpd
 
-def conditional_proc(x):
-    if isinstance(x, float):
-        return np.radians(x)
-    else:
-        return x
+# def conditional_proc(x):
+#     if isinstance(x, float):
+#         return np.radians(x)
+#     else:
+#         return x
     
 def read_parquet(p,f):
     df = None
     try:
         pf = fp.ParquetFile(os.path.join(p,f))
         df = pf.to_pandas()
-        df['name'].str.strip()
+        df['name'] = df['name'].str.strip()
     except Exception as e:
        print(f"error loading/ reading file: {e}")  
     return df
@@ -36,8 +36,6 @@ def create_balltree(df):
         ]  
 
     print(df.head(20))
-
-    #df['name'] = df['name'].astype('string')
 
     cols = ['latitude','longitude']
     for col in cols:
@@ -82,23 +80,6 @@ def find_nearest(bt, np_arr_rad, lat, lon):
 
         return nearest_pt, dist
 
-def sample_ball_tree():
-    # Sample data (replace with your actual data loading)
-    np.random.seed(0)
-    num_points = 1000000
-    # Example: random points in a 10x10 area
-    points = np.random.rand(num_points, 2) * 10
-
-    print(points)
-
-    # Convert to radians for BallTree (if using lat/lon)
-    points_radians = np.radians(points)
-
-    print(points_radians)
-
-    # Build the BallTree (using haversine distance for lat/lon)
-    tree = BallTree(points_radians, metric='haversine')
-
 if __name__=='__main__':
     parquet_path = '/home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific/Madhekar'
     parquet_file = 'static_locations.parquet'
@@ -106,11 +87,23 @@ if __name__=='__main__':
     lat = 37.809326
     lon = -122.409981
     dff = read_parquet(parquet_path, parquet_file)
+    df_copy = dff.copy(deep=True)
+    print(f' original: {df_copy.head()}')
 
     BT,arr_rad = create_balltree(dff)
 
     nept, d = find_nearest(BT, arr_rad, lat, lon)
 
     print(f'nearest point to {lat} : {lon} is: {nept} and distance: {d} ')
+
+    np_arr = nept[0]
+
+    print( f'{np_arr[0]} :: {np_arr[1]}')
+    
+    print(df_copy.head())
+
+    q = df_copy[(df_copy['latitude'] == str(np_arr[0])) & (df_copy['longitude'] == str(np_arr[1]))] 
+
+    print(q['name'])
 
     #sample_ball_tree()
