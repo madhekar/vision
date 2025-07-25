@@ -5,35 +5,83 @@ import pandas as pd
 class GeoBallTree():
     def __init__(self, df):
         self.df = df
-        self.lpt = None
-        self.lrad = None
-        self.BT = None
+        self.df_copy = self.df.copy(deep=True)
+        self.np_arr_rad_clean = None
+        self.BTree = None
 
     def create_data_structure(self):
       
-        self.df = self.df[
-            (self.df.longitude != "-")
-            & (self.df.latitude != "-")
-            & (~self.df.longitude.isnull())
-            & (~self.df.latitude.isnull())
-        ]  
-        print(f'--- {self.df.describe()}')
-        #self.lpt = self.lpt.dropna()
-        self.lpt = self.df[['latitude','longitude']].dropna()
-        print("*+++", self.lpt)
-        self.lpt = self.lpt.astype(float) #pd.to_numeric(self.lpt, errors='coerce')
-        print('+++', self.lpt)
-        self.lrad = np.radians(self.lpt)
-        self.BT = BallTree(self.lrad, metric='haversine')
+       self.df.dropna()
 
-    def query_find_nearest(self, lat, lon):
+       self.df.drop(columns=['name', "state", "country"], inplace=True)
+
+       #print(df.head(20)) 
+
+       self.df = self.df[(self.df.longitude != "-") & (self.df.latitude != "-") & (~self.df.longitude.isnull()) & (~self.df.latitude.isnull())] 
        
-       query_pt_radians = np.radians([lat, lon])
+       cols = ['latitude','longitude']
+       for col in cols:
+           self.df[col] = pd.to_numeric(self.df[col] , errors='coerce')
 
-       dist, index = self.BT.query(query_pt_radians, k=1)
+       #print(self.df.head(20))
 
-       nearest_pt_rad = self.lrad(index[0])
+       np_data = self.df.to_numpy()
+    
+       #print(np_data)
 
-       nearest_pt = np.degrees(nearest_pt_rad)
+       np_clean_array = np_data[~np.isnan(np_data).any(axis=1)]
 
-       return nearest_pt, dist
+       self.np_arr_rad_clean = np.deg2rad(np_clean_array)
+
+       #print(clean_array)
+
+       self.BTree = BallTree(self.np_arr_rad_clean,  metric="haversine")
+
+
+
+    def find_nearest(self, lat, lon):
+
+        arr = np.array([[lat, lon]])
+
+        # print(f'search nearest point to: {arr}')
+
+        query_pt_radians = np.deg2rad(arr)
+
+        # print(f'search nearest point to (rad) :{query_pt_radians}')
+
+        dist, index = self.BTree.query(query_pt_radians, k=1)
+
+        # print(f'dist: {dist[0][0]} index: {index} ind: {index[0]}')
+
+        nearest_pt_rad = self.np_arr_rad_clean[index[0]]
+
+        nearest_pt = np.rad2deg(nearest_pt_rad)
+
+        if dist >= 2.0:
+            return None, dist
+        else:
+            return nearest_pt, dist
+        
+    def find_nearest_location_name(self, np_arr):
+    
+        if np_arr is None:
+            return None
+        else:
+                npa = np_arr[0]
+
+                q = self.df_copy[(self.df_copy["latitude"] == str(npa[0])) & (self.df_copy["longitude"] == str(npa[1]))]
+
+        return q['name'].item()    
+    
+
+    def get_location_name_for_latlong(self, lat, lon):
+
+        if (( lat is  None) & (lon is None)):
+            return ""
+
+        npt, d = self.find_nearest(lat, lon)
+
+        nm = self.find_nearest_location_name(npt)
+
+        return nm
+
