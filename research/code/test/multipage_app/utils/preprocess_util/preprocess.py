@@ -51,21 +51,13 @@ def location_initialize_btree(smp, smf):
     return btree_ 
     
 def get_loc_name_by_latlon(latlon):
-    if latlon:
-        print(f'****search loc by latlon: {latlon}')
+    # if latlon:
+    #     print(f'****search loc by latlon: {latlon}')
 
-        row = st.session_state.df_loc.loc[st.session_state.df_loc.LatLon == latlon].values.flatten().tolist()
+        #row = st.session_state.df_loc.loc[st.session_state.df_loc.LatLon == latlon].values.flatten().tolist()
 
-        ll, d = st.session_state.ball_tree.query_find_nearest(latlon[0], latlon[1])
-
-        print(f'%%%% => {ll} : {d}')
-
-        if len(row) > 0:
-           print(f'--> found location in cache: {latlon} --> {row}')
-           return row[0]
-        else:
-            print(f"--> not found location in cache: {latlon} --> {row}")
-            return None
+    nm = st.session_state.ball_tree.get_location_name_for_latlong(latlon[0], latlon[1])
+    return nm
 
 # uuid4 id for vector database
 async def generateId(args):
