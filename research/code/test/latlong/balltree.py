@@ -24,7 +24,7 @@ def read_parquet(p,f):
 def create_balltree(df):
     df.dropna()
     print(df.describe())
-    df.drop(columns=[ "state", "country"], inplace=True)
+    df.drop(columns=['name', "state", "country"], inplace=True)
 
     print(df.head(20)) 
 
@@ -37,7 +37,7 @@ def create_balltree(df):
 
     print(df.head(20))
 
-    df['name'] = df['name'].astype('string')
+    #df['name'] = df['name'].astype('string')
 
     cols = ['latitude','longitude']
     for col in cols:
@@ -53,21 +53,24 @@ def create_balltree(df):
 
     clean_array = np_data[~np.isnan(np_data).any(axis=1)]
 
-    clean_array['latitude'] = np.deg2rad(clean_array['latitude'])
+    clean_array_rad = np.deg2rad(clean_array)
 
     print(clean_array)
 
-    
 
-    tree = BallTree(clean_array, leaf_size=2,  metric="haversine")
+    tree = BallTree(clean_array_rad,  metric="haversine")
 
-    return tree, clean_array
+    return tree, clean_array_rad
 
 def find_nearest(bt, np_arr_rad, lat, lon):
         
-        arr = np.array([[lon,lat]])
+        arr = np.array([[lat,lon]])
 
-        query_pt_radians = np.radians(arr)
+        print(f'search nearest point to: {arr}')
+
+        query_pt_radians = np.deg2rad(arr)
+
+        print(f'search nearest point to (rad) :{query_pt_radians}')
 
         dist, index = bt.query(query_pt_radians, k=1)
 
@@ -75,7 +78,7 @@ def find_nearest(bt, np_arr_rad, lat, lon):
 
         nearest_pt_rad = np_arr_rad[index[0]]
 
-        nearest_pt = np.degrees(nearest_pt_rad)
+        nearest_pt = np.rad2deg(nearest_pt_rad)
 
         return nearest_pt, dist
 
@@ -100,13 +103,13 @@ if __name__=='__main__':
     parquet_path = '/home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific/Madhekar'
     parquet_file = 'static_locations.parquet'
 
-    lat = 40.00
-    lon = -117.7
+    lat = 37.809326
+    lon = -122.409981
     dff = read_parquet(parquet_path, parquet_file)
 
     BT,arr_rad = create_balltree(dff)
 
-    nept, d = find_nearest(BT, arr_rad, lon, lat)
+    nept, d = find_nearest(BT, arr_rad, lat, lon)
 
     print(f'nearest point to {lat} : {lon} is: {nept} and distance: {d} ')
 
