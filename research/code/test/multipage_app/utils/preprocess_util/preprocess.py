@@ -57,6 +57,7 @@ def get_loc_name_by_latlon(latlon):
         #row = st.session_state.df_loc.loc[st.session_state.df_loc.LatLon == latlon].values.flatten().tolist()
 
     nm = st.session_state.ball_tree.get_location_name_for_latlong(latlon[0], latlon[1])
+    print(f'latlon: {latlon} => loc name: {nm}')
     return nm
 
 # uuid4 id for vector database
@@ -82,6 +83,7 @@ async def locationDetails(args, lock):
         loc = ""
         lat_lon = ()
         lat_lon = lu.gpsInfo(uri)
+        print(f' {lat_lon} : {uri}')
         if lat_lon == ():
             lat_lon = (d_latitude, d_longitude) # default location lat, lon
             loc = d_loc # default location description
