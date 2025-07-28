@@ -21,3 +21,5 @@ write(
     df,
     object_encoding=object_encodings
 )
+
+print(df.dtypes)
