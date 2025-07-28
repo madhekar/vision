@@ -24,9 +24,12 @@ def transform_raw_locations(fpath):
 
             # create data frame
             df = pd.DataFrame(
-                f_arr, columns=["name", "state", "country", "latitude", "longitude"]
+                f_arr, columns=["name", "state", "country", "latitude", "longitude"], 
             )
-
+            #dtype={'name': str, 'state': str, 'city':str, 'latitude': float, 'longitude': float}
+            df["name"] = df["name"].astype(str)
+            df['latitude'] = df['latitude'].astype(float)
+            df["longitude"] = df["longitude"].astype(float)
             # format country codes
             df["country"] = cc.pandas_convert(series=df["country"], to="ISO2")
 
@@ -48,21 +51,15 @@ def transform_raw_locations(fpath):
 
 def create_or_append_locations(raw_file, pfile_path):
     try:
-        obj_encoding = {
-            'name' : 'utf8',
-            'city' : 'utf8',
-            'state': 'utf8',
-            'latitude' : 'decimal',
-            'longitude': 'decimal'
-        }
         st.info(f"adding file: {raw_file} to parquat store: {pfile_path}")
         df = transform_raw_locations(raw_file)
 
+        print(f'---> {df.dtypes}')
         if not os.path.isfile(pfile_path):
             #print(pfile_path)
-            write(pfile_path, df, object_encoding = obj_encoding)
+            write(pfile_path, df)#, object_encoding = obj_encoding)
         else:
-            write(pfile_path, df, object_encoding = obj_encoding, append=True)
+            write(pfile_path, df,  append=True) #object_encoding = obj_encoding,
     except Exception as e:
         st.error(f"create append locations parquet failed with exception: {e}")
 

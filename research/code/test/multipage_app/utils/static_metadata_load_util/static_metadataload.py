@@ -137,7 +137,7 @@ def execute():
         ca_status = st.status('create user specific locations', state="running", expanded=True)
         with ca_status:
             if ca_create:
-                ca.info('starting to create user specific static location data for: {user_source_selected}')
+                ca.info(f'starting to create user specific static location data for: {user_source_selected}')
                 print(user_location_metadata_file)
                 if not os.path.exists(os.path.join(user_location_metadata_path, user_location_metadata_file)):
                    generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, default_location_metadata_path, user_location_metadata_path, user_location_metadata_file) 

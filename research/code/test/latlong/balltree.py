@@ -20,18 +20,9 @@ import time
 def read_parquet(p,f):
     df = None
     try:
-        #pf = fp.ParquetFile(os.path.join(p,f))     
-        df = pd.read_parquet(os.path.join(p,f), 'fastparquet')
-        # print(pf.schema, ':', pf.dtypes)
-        # df = pf.to_pandas()
-        
-        # df['name'] = df.name.astype(str)
-        # df['state'] = df.state.astype(str)
-        # df['country'] = df.country.astype(str)
-        # df["latitude"] = df.latitude.astype(float)
-        # df["longitude"] = df.longitude.astype(float)
-
-        df['name'] = df['name'].str.strip()
+        pf = fp.ParquetFile(os.path.join(p,f))
+        df = pf.to_pandas()
+        df['name'] = df["name"].str.strip()
         print('**', df.dtypes)
     except Exception as e:
        print(f"error loading/ reading file: {e}")  
@@ -102,7 +93,7 @@ def find_nearest_location_name(df, np_arr):
     else:
         npa = np_arr[0]
 
-        q = df[(math.isclose(float(df['latitude']), npa[0])) & (math.isclose(float(df["longitude"]), npa[1]))]
+        q = df[(np.isclose(df['latitude'], npa[0])) & (np.isclose(df["longitude"], npa[1]))]
 
         print(f'{np_arr} --> {q}')
 
@@ -138,6 +129,8 @@ if __name__=='__main__':
     images_path = '/home/madhekar/work/home-media-app/data/input-data-1/img/Madhekar'
     parquet_path = '/home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific/Madhekar'
     parquet_file = 'static_locations.parquet'
+
+    #/home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific/Madhekar/static_locations.parquet
 
     lat = 37.809326
     lon = -122.409981
