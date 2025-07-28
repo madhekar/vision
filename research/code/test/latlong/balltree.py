@@ -14,13 +14,25 @@ import time
 #         return np.radians(x)
 #     else:
 #         return x
+
+
     
 def read_parquet(p,f):
     df = None
     try:
-        pf = fp.ParquetFile(os.path.join(p,f))
-        df = pf.to_pandas()
+        #pf = fp.ParquetFile(os.path.join(p,f))     
+        df = pd.read_parquet(os.path.join(p,f), 'fastparquet')
+        # print(pf.schema, ':', pf.dtypes)
+        # df = pf.to_pandas()
+        
+        # df['name'] = df.name.astype(str)
+        # df['state'] = df.state.astype(str)
+        # df['country'] = df.country.astype(str)
+        # df["latitude"] = df.latitude.astype(float)
+        # df["longitude"] = df.longitude.astype(float)
+
         df['name'] = df['name'].str.strip()
+        print('**', df.dtypes)
     except Exception as e:
        print(f"error loading/ reading file: {e}")  
     return df
@@ -53,7 +65,7 @@ def build_balltree(df):
 
     #print(clean_array)
 
-    tree = BallTree(clean_array_rad,  metric="haversine")
+    tree = BallTree(clean_array_rad, leaf_size=15, metric="haversine")
 
     return tree, clean_array_rad
 
@@ -77,12 +89,12 @@ def find_nearest(bt, np_arr_rad, lat, lon):
 
         print(f'nearest pt: {nearest_pt}')
 
-        if dist >= 1000.0:
+        if dist >= 10.0:
             return None, dist
         else: 
             return nearest_pt, dist
         
-
+import math
 def find_nearest_location_name(df, np_arr):
     
     if np_arr is None:
@@ -90,7 +102,7 @@ def find_nearest_location_name(df, np_arr):
     else:
         npa = np_arr[0]
 
-        q = df[(df["latitude"] == str(npa[0])) & (df["longitude"] == str(npa[1]))]
+        q = df[(math.isclose(float(df['latitude']), npa[0])) & (math.isclose(float(df["longitude"]), npa[1]))]
 
         print(f'{np_arr} --> {q}')
 
@@ -144,14 +156,14 @@ if __name__=='__main__':
     for i in img_iterator:
 
        ll = gpsInfo(i[0])
+       if ll != ():
+        print(i, ':', ll)
 
-       print(i, ':', ll)
+        nept, d = find_nearest(BT, arr_rad, ll[0], ll[1])
 
-       nept, d = find_nearest(BT, arr_rad, ll[0], ll[1])
+        loc_name = find_nearest_location_name(df_copy, nept)
 
-       loc_name = find_nearest_location_name(df_copy, nept)
+        print(f'nearest point to {lat} : {lon} is: {nept} and distance: {d}  location name: {loc_name}')
 
-       print(f'nearest point to {lat} : {lon} is: {nept} and distance: {d}  location name: {loc_name}')
-
-       time.sleep(2)
+        time.sleep(2)
 

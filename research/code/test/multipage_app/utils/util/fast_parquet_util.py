@@ -48,14 +48,21 @@ def transform_raw_locations(fpath):
 
 def create_or_append_locations(raw_file, pfile_path):
     try:
+        obj_encoding = {
+            'name' : 'utf8',
+            'city' : 'utf8',
+            'state': 'utf8',
+            'latitude' : 'decimal',
+            'longitude': 'decimal'
+        }
         st.info(f"adding file: {raw_file} to parquat store: {pfile_path}")
         df = transform_raw_locations(raw_file)
 
         if not os.path.isfile(pfile_path):
             #print(pfile_path)
-            write(pfile_path, df)
+            write(pfile_path, df, object_encoding = obj_encoding)
         else:
-            write(pfile_path, df, append=True)
+            write(pfile_path, df, object_encoding = obj_encoding, append=True)
     except Exception as e:
         st.error(f"create append locations parquet failed with exception: {e}")
 
