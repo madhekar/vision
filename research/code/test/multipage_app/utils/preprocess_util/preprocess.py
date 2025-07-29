@@ -196,13 +196,14 @@ async def run_workflow(
             res = []
             for ilist in img_iterator:
                 rlist = mu.is_processed_batch(ilist, df)
+                print(rlist)
                 if len(rlist) > 0:
 
                     # prep names and emotion
                     df_rl = pd.DataFrame(rlist, columns=['uri'])
                     df_r = bft.exec_process(df_rl)
                     rlist = df_r.values.tolist()
-                    # print(rlist)
+                    print(rlist)
 
                     res = await asyncio.gather(
                         pool.map(generateId, rlist),
@@ -304,16 +305,19 @@ def execute(user_source_selected):
 
     # print(df)
 
-    asyncio.run(run_workflow(
-        df,
-        image_dir_path,
-        chunk_size,
-        queue_size,
-        metadata_path,
-        metadata_file,
-        number_of_instances,
-        openclip_finetuned,
-    ))
+    try:
+        asyncio.run(run_workflow(
+            df,
+            image_dir_path,
+            chunk_size,
+            queue_size,
+            metadata_path,
+            metadata_file,
+            number_of_instances,
+            openclip_finetuned,
+        ))
+    except Exception as e:
+        st.error(f'exception: {e} occred in async main function')    
 
 
 # kick-off metadata generation
