@@ -35,7 +35,7 @@ class GeoBallTree():
 
        #print(clean_array)
 
-       self.BTree = BallTree(self.np_arr_rad_clean,  metric="haversine")
+       self.BTree = BallTree(self.np_arr_rad_clean, leaf_size=15, metric="haversine")
 
 
 
@@ -65,7 +65,7 @@ class GeoBallTree():
     def find_nearest_location_name(self, np_arr):
     
         if np_arr is None:
-            return None
+            return "none"
         else:
                 npa = np_arr[0]
 
@@ -76,11 +76,8 @@ class GeoBallTree():
         else:
             ret = q['name'].item() 
 
-        return ret         
-
-        #return q['name'].item()    
+        return ret           
     
-
     def get_location_name_for_latlong(self, lat, lon):
 
         if (( lat is  None) & (lon is None)):
