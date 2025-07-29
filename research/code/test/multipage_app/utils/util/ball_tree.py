@@ -71,7 +71,14 @@ class GeoBallTree():
 
                 q = self.df_copy[(np.isclose(self.df_copy["latitude"] ,npa[0])) & (np.isclose(self.df_copy["longitude"], npa[1]))]
 
-        return q['name'].item()    
+        if q.empty:
+            ret = 'none'
+        else:
+            ret = q['name'].item() 
+
+        return ret         
+
+        #return q['name'].item()    
     
 
     def get_location_name_for_latlong(self, lat, lon):
