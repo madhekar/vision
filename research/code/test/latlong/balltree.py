@@ -85,7 +85,7 @@ def find_nearest(bt, np_arr_rad, lat, lon):
         else: 
             return nearest_pt, dist
         
-import math
+
 def find_nearest_location_name(df, np_arr):
     
     if np_arr is None:

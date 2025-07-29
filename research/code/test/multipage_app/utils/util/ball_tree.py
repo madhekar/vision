@@ -69,7 +69,7 @@ class GeoBallTree():
         else:
                 npa = np_arr[0]
 
-                q = self.df_copy[(self.df_copy["latitude"] == str(npa[0])) & (self.df_copy["longitude"] == str(npa[1]))]
+                q = self.df_copy[(np.isclose(self.df_copy["latitude"] ,npa[0])) & (np.isclose(self.df_copy["longitude"], npa[1]))]
 
         return q['name'].item()    
     
