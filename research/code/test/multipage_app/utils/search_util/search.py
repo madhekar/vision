@@ -215,7 +215,7 @@ def search_fn(client, cImgs, cTxts):
     with image:
         if st.session_state["timgs"] and len(st.session_state["timgs"]) > 1:
             index = image_select(
-                label="Similar Images",
+                label= "",#"Similar Images",
                 images=st.session_state["timgs"],
                 use_container_width=True,
                 # captions=st.session_state["meta"],
