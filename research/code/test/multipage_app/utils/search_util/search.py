@@ -179,10 +179,10 @@ def search_fn(client, cImgs, cTxts):
             st.session_state["imgs"] = cImgs.query(
                 query_uris="./" + similar_image.name,
                 include=["data", "metadatas"],
-                n_results=8,
+                n_results=10,
             )
 
-            st.write(st.session_state["imgs"])
+            # st.write(st.session_state["imgs"]) # ---enable to debug
 
         elif modality_selected == "text":
             # execute text collection query --- TBD fix
@@ -193,13 +193,15 @@ def search_fn(client, cImgs, cTxts):
 
             # execute image query with search criteria
             st.session_state["imgs"] = cImgs.query(
-                query_texts=modalityTxt, include=["data", "metadatas"], n_results=10
+                query_texts=modalityTxt, 
+                include=["data", "metadatas"], 
+                n_results=10
             )
 
         for img in st.session_state["imgs"]["data"][0][1:]:
             st.session_state["timgs"].append(img)
         for mdata in st.session_state["imgs"]["metadatas"][0][1:]:
-            st.write(mdata)
+            #st.write(mdata) #---???
             st.session_state["meta"].append(
                 "Desc:["
                 + mdata.get("text")
