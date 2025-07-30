@@ -184,7 +184,7 @@ async def run_workflow(
         num=0
     else:
       num = 0
-    num_files = len(glob.glob(os.path.join(image_dir_path,'*')))
+    num_files = len(glob.glob(os.path.join(image_dir_path,'/**/*')))
     num = num_files - num
 
     lock = asyncio.Lock()

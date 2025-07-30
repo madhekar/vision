@@ -31,24 +31,16 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             dfi,
             horizontal=False,
             stack=True,
-            y_label='total size(MB) & count of images',
+            y_label='total size(MB) & count of image files',
             use_container_width=True,
             color=colors
         )
-        # dfi['type'] = dfi.index
-        # dfi.reset_index(inplace=True)
-        # #alt.scheme('my', ["#ae5a41", "#1b85b8"])
-        # ch = alt.Chart(dfi).mark_bar(opacity=1).encode(x="type", y="size", color="type")
-        # ch1 = alt.Chart(dfi).mark_bar(opacity=.3).encode( x="type", y="count", color="type")
-        # c = alt.layer(ch, ch1)
-        # st.altair_chart(c)
-
     with c2:
         st.bar_chart(
             dfv,
             horizontal=False,
             stack=True,
-            y_label="total size(MB) & count of videos",
+            y_label="total size(MB) & count of video files",
             use_container_width=True,
             color=colors,
         )
@@ -57,7 +49,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             dfd,
             horizontal=False,
             stack=True,
-            y_label="total size(MB) & count of documents",
+            y_label="total size(MB) & count of document files",
             use_container_width=True,
             color=colors,
         )
@@ -66,7 +58,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             dfa,
             horizontal=False,
             stack=True,
-            y_label="total size(MB) & count of audios",
+            y_label="total size(MB) & count of audio files",
             use_container_width=True,
             color=colors,
         )
@@ -107,48 +99,6 @@ def execute():
 
     st.caption("**FINAL DATA** FOLDER DETAILS")
     display_folder_details(*ss.extract_all_folder_stats(fdp))
-
-
-
-# st.subheader("STORAGE DETAIL", divider="gray")
-
-# df1 = pd.DataFrame(np.random.randn(10, 5), columns=("col %d" % i for i in range(5)))
-
-# my_table = st.table(df1)
-
-# df2 = pd.DataFrame(np.random.randn(10, 5), columns=("col %d" % i for i in range(5)))
-
-# my_table.add_rows(df2)
-# # Now the table shown in the Streamlit app contains the data for
-# # df1 followed by the data for df2.
-
-# # Assuming df1 and df2 from the example above still exist...
-# my_chart = st.line_chart(df1)
-# my_chart.add_rows(df2)
-# # Now the chart shown in the Streamlit app contains the data for
-# # df1 followed by the data for df2.
-
-# my_chart = st.vega_lite_chart(
-#     {
-#         "mark": "line",
-#         "encoding": {"x": "a", "y": "b"},
-#         "datasets": {
-#             "some_fancy_name": df1,  # <-- named dataset
-#         },
-#         "data": {"name": "some_fancy_name"},
-#     }
-# )
-# my_chart.add_rows(some_fancy_name=df2)  # <-- name used as keyword
-
-# """
-#   raw_data_path: '/home/madhekar/work/home-media-app/data/raw-data'
-#   input_data_path: '/home/madhekar/work/home-media-app/data/input-data'
-#   app_data_path: '/home/madhekar/work/home-media-app/data/app-data'
-#   final_data_path: '/home/madhekar/work/home-media-app/data/final-data'  
-
-# """
-
-
 
 # if __name__ == "__main__":
 #     execute()
