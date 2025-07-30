@@ -157,11 +157,12 @@ def search_fn(client, cImgs, cTxts):
             st.session_state["meta"] = []
 
         if modality_selected == "image":
-            # execute text collection query
-            st.session_state["document"] = cTxts.query(
-                query_embeddings=embedding_function("./" + similar_image.name),
-                n_results=5,
-            )["documents"][0][0]
+            # execute text collection query --- TBD fix
+
+            # st.session_state["document"] = cTxts.query(
+            #     query_embeddings=embedding_function("./" + similar_image.name),
+            #     n_results=5,
+            # )["documents"][0][0]
 
             # get location and datetime metadata for an image
             # qmdata = util.getMetadata(sim.name)
@@ -184,11 +185,11 @@ def search_fn(client, cImgs, cTxts):
             st.write(st.session_state["imgs"])
 
         elif modality_selected == "text":
-            # execute text collection query
-            st.session_state["document"] = cTxts.query(
-                query_texts=modalityTxt,
-                n_results=5,
-            )["documents"][0][0]
+            # execute text collection query --- TBD fix
+            # st.session_state["document"] = cTxts.query(
+            #     query_texts=modalityTxt,
+            #     n_results=5,
+            # )["documents"][0][0]
 
             # execute image query with search criteria
             st.session_state["imgs"] = cImgs.query(
