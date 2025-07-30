@@ -8,7 +8,7 @@ def initUI():
 
     st.set_page_config(
         page_title="zesha: Home Media Portal (HMP)",
-        page_icon="/home/madhekar/work/zsource/zesha-high-resolution-logo.jpeg",
+        #page_icon="/home/madhekar/work/zsource/zesha-high-resolution-logo.jpeg",
         initial_sidebar_state="auto",
         layout="wide",
     )  # (margins_css)
@@ -24,18 +24,19 @@ def initUI():
         }
             
         .block-container{
-        padding-top: 2rem;
+        padding-top: 0rem;
         padding-bottom:0rem;
         padding-left: 1rem;
         padding-right: 1rem;
         }
             
-        MainMenu { visibility: hidden;}
+        #MainMenu { visibility: hidden;}
         .stDeployButton {display:none;}
-        footer {visibility: hidden;}
+        # footer {visibility: hidden;}
+        # header {visibility: hidden;}
         stDecoration {display: none;}
             [alt=Logo] {
-            height: 7rem;
+            height: 5rem;
         }
             
         section[data-testid="stSidebar"] {

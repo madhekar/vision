@@ -154,6 +154,12 @@
     border: none;
 }
 
+.block-container {
+    padding-top: 1rem;
+    padding-bottom: 0rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
 
 /* Text area with custom font */
 .st-key-styledtextarea textarea {
@@ -184,16 +190,16 @@
 [data-testid="stSidebarNav"]{
     background-image: url(/assets/zesha-high-resolution-logo.jpeg);
     background-repeat: no-repeat;
-    padding-top: 1px;
-    background-position: 20px 20px;
+    padding-top: 0px;
+    background-position: 0px 0px;
     size: 5em;
 }
 
 [data-testid="stSidebarNav"]::before {
-content: "@HOME MEDIA PORTAL";
+content: "ZESHA MEDIA PORTAL";
 margin-left: 20px;
-margin-top: 20px;
-font-size: 20px;
+margin-top: 0px;
+font-size: 18px;
 position: relative;
 color: white;
 background-color: #636B2F;
