@@ -178,6 +178,10 @@
     font-size: 24px;
 }
 
+.stTabs [data-baseweb='tab-list'] button [data-testid="stMarkdownContainer"] p {
+   font-size: 24px;
+}
+
 
 /* Styled markdown */
 .custom-markdown {

@@ -29,7 +29,7 @@ def create_missing_report(missing_file_path):
 def filter_missing_image_data(missing_file_path, missing_filter_file_path):
     df = pd.read_csv(missing_file_path)
     #df = format_lat_lon(df)
-    dfm = df[(df['GPSLatitude'] == '-') | (df['GPSlongitude'] == '-') | (df['DateTimeOriginal'] == '-')]  
+    dfm = df[(df['GPSLatitude'] == '-') | (df['GPSLongitude'] == '-') | (df['DateTimeOriginal'] == '-')]  
     dfm.to_csv(missing_filter_file_path,sep=',')
 
 def execute(source_name):
