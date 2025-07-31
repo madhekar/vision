@@ -1,43 +1,67 @@
 """
-/home-media-app/app/main
-/home-media-app/app-data/metadata
-/home-media-app/app-data/static-metadata/faces
-/home-media-app/app-data/static-metadata/locations/default
-/home-media-app/app-data/static-metadata/locations/user-specific
-/home-media-app/app-data/vectordb
-/home-media-app/data/final-data/img
-/home-media-app/data/final-data/txt
-/home-media-app/data/final-data/video
-/home-media-app/data/final-data/audio
-/home-media-app/data/input-data/img
-/home-media-app/data/input-data/txt
-/home-media-app/data/input-data/video
-/home-media-app/data/input-data/audio
-/home-media-app/data/input-data/error/img/duplicate
-/home-media-app/data/input-data/error/img/missing-data
-/home-media-app/data/input-data/error/img/quality
-/home-media-app/data/raw-data
-/home-media-app/data/train-data/img
-/home-media-app/data/train-data/txt
-/home-media-app/data/train-data/video
-/home-media-app/data/train-data/audio
-/home-media-app/models/faces_label_enc
-/home-media-app/models/faces_svc
-/home-media-app/models/faces_embeddings
+app-root:
+    /home/madhekar/temp/home-media-app
+app-paths:
+    /app/main
+    /app-data/metadata
+    /app-data/static-metadata/faces
+    /app-data/static-metadata/locations/default
+    /app-data/static-metadata/locations/user-specific
+    /app-data/vectordb
+    /data/final-data/img
+    /data/final-data/txt
+    /data/final-data/video
+    /data/final-data/audio
+    /data/input-data/img
+    /data/input-data/txt
+    /data/input-data/video
+    /data/input-data/audio
+    /data/input-data/error/img/duplicate
+    /data/input-data/error/img/missing-data
+    /data/input-data/error/img/quality
+    /data/raw-data
+    /data/train-data/img
+    /data/train-data/txt
+    /data/train-data/video
+    /data/train-data/audio
+    /models/faces_label_enc
+    /models/faces_svc
+    /models/faces_embeddings
 
 """
 import os
 import pathlib
 import yaml
+import shutil
 
-with open('app_paths.yaml') as ifile:
-    loded_data = yaml.safe_load(ifile)
+def remove_folder_tree(folder):
+    # Check if the folder exists before attempting to remove it
+    if os.path.exists(folder):
+        try:
+            shutil.rmtree(folder)
+            print(f"Folder '{folder}' and its contents removed successfully.")
+        except OSError as e:
+            print(f"Error: {e.filename} - {e.strerror}.")
+    else:
+        print(f"Folder '{folder}' does not exist.")
 
-    root_folder = loded_data['app-root']
-    app_path_list = loded_data['app-paths']
+def create_folder_tree():
 
-    for p in app_path_list:
-        ap = os.path.join(root_folder, *p.split('/'))
-        print(ap)
-        pathlib.Path(ap).mkdir(parents= True, exist_ok= True)
+    with open('app_paths.yaml') as ifile:
+        loded_data = yaml.safe_load(ifile)
+   
+        root_folder = loded_data['app-root']
 
+        remove_folder_tree(root_folder)
+
+        app_path_list = loded_data['app-paths']
+
+        for p in app_path_list:
+            ap = os.path.join(root_folder, *p.split('/'))
+            print(ap)
+            pathlib.Path(ap).mkdir(parents= True, exist_ok= True)
+
+        print(f"Folder '{root_folder}' and its contents created successfully.")
+
+if __name__=='__main__':
+    create_folder_tree()        
