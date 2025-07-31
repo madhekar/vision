@@ -9,6 +9,7 @@ from utils.util import model_util as mu
 
 # https://www.color-hex.com/color-palette/164
 colors = ["#ae5a41", "#1b85b8"]#["#636B2F","#BAC095"] #["#9EB8A0", "#58855c"]#['#58855c','#0D3311']#["#BAC095", "#636B2F"]
+
 def extract_folder_paths():
     raw_data_path, input_data_path, app_data_path, final_data_path = (
         config.overview_config_load()
@@ -92,6 +93,7 @@ def execute():
     display_folder_details(*ss.extract_all_folder_stats(rdp))
 
     st.caption("**INPUT DATA** FOLDER DETAILS")
+    print('---->', idp)
     display_folder_details(*ss.extract_all_folder_stats(idp))
 
     st.caption("**APP DATA** FOLDER DETAILS")

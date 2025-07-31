@@ -1,6 +1,6 @@
 datapaths:
   raw_data_path: '/home/madhekar/work/home-media-app/data/raw-data'
-  input_data_path: '/home/madhekar/work/home-media-app/data/input-data'
+  input_data_path: '/home/madhekar/work/home-media-app/data/input-data-1'
   app_data_path: '/home/madhekar/work/home-media-app/data/app-data'
   final_data_path: '/home/madhekar/work/home-media-app/data/final-data'  
 
