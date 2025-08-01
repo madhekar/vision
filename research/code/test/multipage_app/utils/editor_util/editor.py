@@ -235,16 +235,17 @@ def execute():
     if save_btn:
         save_metadata(os.path.join(mmp, user_source_selected), mmf, mmef)
 
-    m = fl.Map(location=[hlat, hlon], zoom_start=4, min_zoom=3, max_zoom=10)
+    with st.container(border=True):
+        m = fl.Map(location=[hlat, hlon], zoom_start=4, min_zoom=3, max_zoom=10)
 
-    fg = fl.FeatureGroup(name="zesha")
+        fg = fl.FeatureGroup(name="zesha")
 
-    for marker in st.session_state["markers"]:
-        fg.add_child(marker)
+        for marker in st.session_state["markers"]:
+            fg.add_child(marker)
 
-    m.add_child(fl.LatLngPopup())
-
-    map = st_folium(m, width="100%", feature_group_to_add=fg)
+        m.add_child(fl.LatLngPopup())
+        
+        map = st_folium(m, width="100%", feature_group_to_add=fg)
 
     data = None
     if map.get("last_clicked"):

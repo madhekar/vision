@@ -10,7 +10,7 @@ sys.path.append('..')
 #########################################################################
 
 st.set_page_config(
-    page_title="zesha: Home Media Portal (HMP)",
+    page_title="zesha: Media Portal (MP)",
     page_icon="/home/madhekar/work/zsource/zesha-high-resolution-logo.jpeg",
     initial_sidebar_state="expanded",
     layout="wide",
