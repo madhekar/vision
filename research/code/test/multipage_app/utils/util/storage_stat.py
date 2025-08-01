@@ -231,6 +231,15 @@ def remove_empty_files_and_folders(root_folder):
                 print(f'error removing folder{dpath}: {e}')    
     return dc, fc
 
+def remove_file(file_path):
+    if os.path.exists(file_path):
+        if os.path.getsize(file_path) < 50:
+            os.remove(file_path)
+        else:
+            print(f'file not empty: {file_path}')    
+    else:
+        print(f'file not found {file_path}')        
+
 # get immediate child folders
 def extract_user_raw_data_folders(pth):
     return next(os.walk(pth))[1]

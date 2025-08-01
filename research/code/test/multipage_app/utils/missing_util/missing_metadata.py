@@ -27,6 +27,7 @@ def create_missing_report(missing_file_path):
 
         sm.add_messages( "metadata", f"w| missing data Longitudes: {n_lon} Latitude: {n_lat} DataTime: {n_dt} of: {n_total} rows")
     else:
+        ss.remove_file(missing_file_path)
         sm.add_messages(
             "metadata",
             "w| missing data Longitudes: 0 Latitude: 0 DataTime: 0 of: 0 rows",
