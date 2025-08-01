@@ -20,17 +20,28 @@ def create_missing_report(missing_file_path):
     df = pd.read_csv(missing_file_path)
     n_total = len(df)
     #df = format_lat_lon(df)
-    n_lon = len(df[df["GPSLongitude"] == "-"])
-    n_lat = len(df[df["GPSLatitude"] == "-"])
-    n_dt = len(df[df["DateTimeOriginal"] == "-"])
+    if df.index.size > 0:
+        n_lon = len(df[df["GPSLongitude"] == "-"])
+        n_lat = len(df[df["GPSLatitude"] == "-"])
+        n_dt = len(df[df["DateTimeOriginal"] == "-"])
 
-    sm.add_messages( "metadata", f"w| missing data Longitudes: {n_lon} Latitude: {n_lat} DataTime: {n_dt} of: {n_total} rows")
+        sm.add_messages( "metadata", f"w| missing data Longitudes: {n_lon} Latitude: {n_lat} DataTime: {n_dt} of: {n_total} rows")
+    else:
+        sm.add_messages(
+            "metadata",
+            "w| missing data Longitudes: 0 Latitude: 0 DataTime: 0 of: 0 rows",
+        )    
 
 def filter_missing_image_data(missing_file_path, missing_filter_file_path):
     df = pd.read_csv(missing_file_path)
+    print('----->', df.index.size)
     #df = format_lat_lon(df)
-    dfm = df[(df['GPSLatitude'] == '-') | (df['GPSLongitude'] == '-') | (df['DateTimeOriginal'] == '-')]  
-    dfm.to_csv(missing_filter_file_path,sep=',')
+    if (df.index.size) > 0:
+       dfm = df[(df['GPSLatitude'] == '-') | (df['GPSLongitude'] == '-') | (df['DateTimeOriginal'] == '-')]  
+       dfm.to_csv(missing_filter_file_path,sep=',')
+    else:
+        sm.add_messages('metadata', f'e| empty or invalid missing metadata file {missing_file_path}') 
+          
 
 def execute(source_name):
     sm.add_messages("metadata", "s| starting to analyze missing metadata files...")

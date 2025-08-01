@@ -239,7 +239,7 @@ def execute():
                     color= ['#ae5a41']#,'#1b85b8','#559e83']#,'#c3cb71']#['#c09b95','#bac095','#95bac0','#9b95c0']#["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
                )
             else:
-                st.error('missing', f"s| missing metadata file not present {missing_metadata_file}.")   
+                st.error(f"s| missing metadata file not present {missing_metadata_file}.")   
             st.divider()
             status_metadata = st.status("**metadata check task msgs...**", expanded=True)
             with status_metadata:

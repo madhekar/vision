@@ -158,14 +158,17 @@ def extract_server_stats():
 def extract_stats_of_metadata_file(metadata_path):
     print(metadata_path)
     mdf = pd.read_csv(metadata_path)
-    print(mdf.head(10))
-    tot = mdf.shape[0]
-    clat = mdf[mdf['GPSLatitude'] == "-"].shape[0]
-    clon = mdf[mdf['GPSLatitude'] == "-"].shape[0]
-    lat_lon = clat if clat > clon else clon
-    cdatetime = mdf[mdf['DateTimeOriginal'] == "-"].shape[0]
-    correct = mdf[(mdf['DateTimeOriginal'] != "-") & (mdf['GPSLatitude'] != "-")].shape[0]
-
+    
+    if mdf.index.size > 0:
+        tot = mdf.shape[0]
+        clat = mdf[mdf['GPSLatitude'] == "-"].shape[0]
+        clon = mdf[mdf['GPSLatitude'] == "-"].shape[0]
+        lat_lon = clat if clat > clon else clon
+        cdatetime = mdf[mdf['DateTimeOriginal'] == "-"].shape[0]
+        correct = mdf[(mdf['DateTimeOriginal'] != "-") & (mdf['GPSLatitude'] != "-")].shape[0]
+    else:
+        tot, lat_lon, cdatetime, correct = 0, 0, 0, 0
+        
     return {
         "missing-datetime": cdatetime,
         "missing-lat-lon": lat_lon,
