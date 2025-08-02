@@ -51,7 +51,7 @@ def execute(source_name):
 
     input_image_path = os.path.join(imp, source_name)
     #clean empty folders if any
-    ss.remove_empty_files_and_folders(input_image_path) #remove_empty_folders(input_image_path) 
+    #ss.remove_empty_files_and_folders(input_image_path) #remove_empty_folders(input_image_path) 
     
     try:            
         args = shlex.split( f"exiftool -gps:GPSLongitude -gps:GPSLatitude -DateTimeOriginal -csv -T -r -n {input_image_path}")

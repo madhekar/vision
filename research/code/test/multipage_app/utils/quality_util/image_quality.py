@@ -17,6 +17,21 @@ from aiomultiprocess import Pool
 from functools import partial
 import streamlit as st
 
+"""
+madhekar@madhekar-UM690:~/work/vision/research/code/test/multipage_app$ inxi -G
+Graphics:
+  Device-1: AMD Rembrandt driver: amdgpu v: kernel
+  Display: x11 server: X.Org v: 1.21.1.4 driver: X: loaded: amdgpu,ati
+    unloaded: fbdev,modesetting,vesa gpu: amdgpu resolution: 3840x2160~30Hz
+  OpenGL:
+    renderer: REMBRANDT (rembrandt LLVM 15.0.7 DRM 3.42 5.15.0-144-generic)
+    v: 4.6 Mesa 23.2.1-1ubuntu3.1~22.04.3
+
+     pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/rocm6.4/
+
+
+"""
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 transform = ToTensor()
 
