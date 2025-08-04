@@ -25,7 +25,7 @@ def fetch_llm_text(imUrl, pipe, question, people, attrib, location):
     <|im_start|>assistant
     """.format(question=question, people=people, attrib=attrib, location=location)  # , article=st.session_state["document"])
  
-    outputs = pipe(image, prompt=prompt, generate_kwargs={"max_new_tokens": 300})
+    outputs = pipe(image, prompt=prompt, generate_kwargs={"max_new_tokens": 200})
 
     result = outputs[0]["generated_text"].partition("<|im_start|>assistant")[2]
     return result
@@ -34,7 +34,7 @@ if __name__=='__main__':
     url= '/home/madhekar/work/home-media-app/data/input-data/img/20130324-3I3A4652-X2.jpg'
     p = setLLM()
     generation_args = {
-        "max_new_tokens": 500,
+        "max_new_tokens": 200,
         "return_full_text": False,
         "temperature": 0.0,
         "do_sample": False,

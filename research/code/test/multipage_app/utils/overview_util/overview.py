@@ -17,11 +17,11 @@ def extract_folder_paths():
     return (raw_data_path, input_data_path, app_data_path, final_data_path)
 
 def display_storage_metrics(tm, um, fm):
-    c1, c2, c3 = st.columns([1, 1, 1])
+    c1, c2, c3 = st.columns([1.0, 1.0, 1.0])
     with c1:
-        st.metric("TOTAL DISK SIZE (GB)", tm, 0.1)
+        st.metric(label="TOTAL DISK SIZE (GB)", delta_color="inverse", value=tm, delta=0.1)
     with c2:
-        st.metric("USED DISK SIZE (GB)", um, 0.1)
+        st.metric(label="USED DISK SIZE (GB)", delta_color="inverse", value=um, delta=0.1)
     with c3:
         st.metric(label="FREE DISK SIZE (GB)",delta_color="inverse", value=fm, delta=0.1)
 
@@ -93,7 +93,6 @@ def execute():
     display_folder_details(*ss.extract_all_folder_stats(rdp))
 
     st.caption("**INPUT DATA** FOLDER DETAILS")
-    print('---->', idp)
     display_folder_details(*ss.extract_all_folder_stats(idp))
 
     st.caption("**APP DATA** FOLDER DETAILS")
