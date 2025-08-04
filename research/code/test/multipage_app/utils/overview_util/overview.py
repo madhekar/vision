@@ -23,7 +23,7 @@ def display_storage_metrics(tm, um, fm):
     with c2:
         st.metric("USED DISK SIZE (GB)", um, 0.1)
     with c3:
-        st.metric("FREE DISK SIZE (GB)", fm, 0.1)
+        st.metric(label="FREE DISK SIZE (GB)",delta_color="inverse", value=fm, delta=0.1)
 
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):
     c1, c2, c3, c4, c5 = st.columns([1, 1, 1, 1, 1])
