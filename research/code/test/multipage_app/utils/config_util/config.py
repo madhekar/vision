@@ -419,3 +419,27 @@ def faces_config_load():
             faces_of_people_parquet_path,
             faces_of_people_parquet
         )
+    
+'''    
+    app-config:
+      appdata_root_path: /home/madhekar/work/home-media-app
+      approot_path: /home/madhekar/work/vision/research/code/test/multipage_app
+      
+'''
+
+@st.cache_resource
+def app_config_load():
+    with open("utils/config_util/app_conf.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        pprint.pprint("* * * App Properties * * *")
+        pprint.pprint(dict)
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
+
+        data_root = dict["app-config"]["appdata_root_path"]
+        app_root = dict["app-config"]["approot_path"]
+
+        return{
+            data_root,
+            app_root
+        }

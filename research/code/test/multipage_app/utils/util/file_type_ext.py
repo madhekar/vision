@@ -2,15 +2,23 @@
 
 image_types = [
     ".jpg",
+    ".JPG",
     ".jpeg",
+    ".JPEG",
     ".png",
+    ".PNG"
     # ".gif",
     ".bmp",
+    ".BMP",
     ".tiff",
+    ".TIFF",
     ".heic",
+    ".HEIF",
     ".heif",
-    ".tif",    
+    ".tif", 
+    ".TIF",   
     ".webp",
+    ".WEBP"
 ]
 video_types = [
     ".mp4",

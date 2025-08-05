@@ -1,4 +1,6 @@
 import streamlit as st
+from utils.config_util import config 
+from utils.util import storage_stat as ss
 import os
 import sys
 sys.path.append('..')
@@ -19,6 +21,12 @@ st.set_page_config(
         'Get Help':'https://www.linkedin.com/in/bmadhekar'
     }
 )
+def load_app_configuration():
+    root_data, root_app = config.app_config_load()
+    print(f'app root: {root_app} data root: {root_data}')
+    cnt = ss.remove_all_files_by_type(root_app, 'I')
+    print(f' {cnt} : number of files removed')
+    return root_data, root_app
 
 def load_css(css_path):
     with open(file=css_path) as f:
@@ -26,8 +34,14 @@ def load_css(css_path):
         st.html(s)
 
 css_path = os.path.join("assets", "styles.css")
-
 load_css(css_path)
+
+ar,dr = load_app_configuration()
+if 'app_root' not in st.session_state:
+    st.session_state['app_root'] = ar
+
+if 'data_root' not in st.session_state:
+    st.session_state['data_root'] = dr
 
 sys.dont_write_bytecode = True
 

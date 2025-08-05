@@ -194,6 +194,19 @@ def trim_unknown_files(image_path):
                     print(f"exception: {e} removing empty file {file}.")
     return cnt
 
+def remove_all_files_by_type(root_folder, type):
+    cnt = 0
+    dtype = image_types if type == 'I' else video_types
+    for root, dirs, files in os.walk(root_folder):
+        for file in files:
+            if os.path.splitext(file)[1].lower() in dtype:
+                try:
+                    os.remove(os.path.join(root, file))
+                    print(f'removed {os.path.join(root, file)}')
+                    cnt += 1
+                except OSError as e:
+                    print(f"exception: {e} removing empty file {file}.")
+    return cnt
 
 def remove_empty_folders(path_absolute):
     cnt = 0
