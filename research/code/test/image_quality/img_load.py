@@ -56,7 +56,7 @@ brisque_model_live_file= 'brisque_model_live.yml'
 brisque_range_live_file= 'brisque_range_live.yml'
 
 
-image = load_image("/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/0a6d1339-b672-50db-b5cb-984320fb90cc/vcm_s_kf_repr_886x587.jpg")
+image = load_image("/home/madhekar/work/home-media-app/data/input-data/img/AnjaliBackup/0a6d1339-b672-50db-b5cb-984320fb90cc/vcm_s_kf_repr_886x587.jpg")
 if image:
     # Process the image
     bv = is_valid_brisque_score(image, brisque_model_config_path, brisque_model_live_file, brisque_range_live_file)

@@ -16,13 +16,13 @@ from utils.util import fast_parquet_util as fpu
   raw_data_path: /home/madhekar/work/home-media-app/data/raw-data/
   static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/
   static_metadata_file: static_locations.parquet
-  missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data/
+  missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
   missing_metadata_file: missing-metadata-wip.csv
   missing_metadata_filter_file: missing-metadata-filter-wip.csv
   missing_metadata_edit_file: missing-matadata-edits.csv
   home_latitude: 32.968700
   home_longitude: -117.184200
-  /home/madhekar/work/home-media-app/data/input-data-1/img/Madhekar/11ec2ea8-663c-5e28-9486-cf19a181beb1/vcm_s_kf_m160_160x120.jpg
+  /home/madhekar/work/home-media-app/data/input-data/img/Madhekar/11ec2ea8-663c-5e28-9486-cf19a181beb1/vcm_s_kf_m160_160x120.jpg
 """
 user_device = st.empty()
 def get_env():

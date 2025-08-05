@@ -29,7 +29,7 @@ Exif.GPSInfo.GPSDateStamp: <Exif.GPSInfo.GPSDateStamp [Ascii] = 2014:06:23>
 """
 
 # Open an image file
-image_path = "/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/bf98198d-fcc6-51fe-a36a-275c06005669/IMAG0191.jpg"
+image_path = "/home/madhekar/work/home-media-app/data/input-data/img/AnjaliBackup/bf98198d-fcc6-51fe-a36a-275c06005669/IMAG0191.jpg"
 metadata = pe.ImageMetadata(image_path)
 
 # Read existing EXIF data

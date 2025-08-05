@@ -15,8 +15,8 @@ ssim_metric = pyiqa.create_metric("ssim", device=device)
 
 brisque_metric = pyiqa.create_metric("brisque", device=device)
 # Paths to your image directories
-ref_dir = "/home/madhekar/work/home-media-app/data/input-data-1/error/img/quality/AnjaliBackup/20250320-135228/bf98198d-fcc6-51fe-a36a-275c06005669"  # Directory containing original images
-dist_dir = "/home/madhekar/work/home-media-app/data/input-data-1/error/img/quality/AnjaliBackup/20250320-135228/bf98198d-fcc6-51fe-a36a-275c06005669"  # Directory containing distorted images
+ref_dir = "/home/madhekar/work/home-media-app/data/input-data/error/img/quality/AnjaliBackup/20250320-135228/bf98198d-fcc6-51fe-a36a-275c06005669"  # Directory containing original images
+dist_dir = "/home/madhekar/work/home-media-app/data/input-data/error/img/quality/AnjaliBackup/20250320-135228/bf98198d-fcc6-51fe-a36a-275c06005669"  # Directory containing distorted images
 
 # Get list of image files (assuming same filenames in both directories)
 image_files = [f for f in os.listdir(ref_dir) if f.endswith((".png", ".jpg", ".jpeg"))]

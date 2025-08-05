@@ -4,7 +4,7 @@ from sklearn.metrics import silhouette_score
 import matplotlib.pyplot as plt
 import numpy as np
 
-df = pd.read_csv('/home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data/AnjaliBackup/missing-metadata-wip.csv')#'lat_lon_nodup.csv')
+df = pd.read_csv('/home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/AnjaliBackup/missing-metadata-wip.csv')#'lat_lon_nodup.csv')
 
 df =df.drop(['SourceFile', 'DateTimeOriginal'], axis=1)
 

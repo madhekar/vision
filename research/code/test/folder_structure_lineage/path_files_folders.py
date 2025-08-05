@@ -15,7 +15,7 @@ def getRecursive(rootDir):
     return f_list
 
 
-lst = getRecursive("/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup")
+lst = getRecursive("/home/madhekar/work/home-media-app/data/input-data/img/AnjaliBackup")
 
 df = pd.DataFrame(lst, columns=('path', 'file'))
 

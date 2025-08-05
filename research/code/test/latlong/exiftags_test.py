@@ -8,7 +8,7 @@ from PIL.ExifTags import TAGS, GPSTAGS
 https://exiv2.org/tags.html
 '''
 
-image = '/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/bf98198d-fcc6-51fe-a36a-275c06005669/IMAG0191.jpg'
+image = '/home/madhekar/work/home-media-app/data/input-data/img/AnjaliBackup/bf98198d-fcc6-51fe-a36a-275c06005669/IMAG0191.jpg'
 
 
 def get_exif(image_file_path):

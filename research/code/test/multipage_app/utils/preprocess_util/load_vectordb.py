@@ -22,7 +22,7 @@ UPDATE METADATA STRUCTURE:
 {
 "ts": "1345295504.0", 
 "names": "Esha", 
-"uri": "/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/f623049e-bf89-5dcc-8628-3d310d6d4f96/vcm_s_kf_repr_832x624.jpg", 
+"uri": "/home/madhekar/work/home-media-app/data/input-data/img/AnjaliBackup/f623049e-bf89-5dcc-8628-3d310d6d4f96/vcm_s_kf_repr_832x624.jpg", 
 "id": "dd90b7bd-9ae9-4c90-8e37-41c41cc5af69", 
 "latlon": "(32.96887205555556, -117.18414305555557)", 
 "loc": "13582, Sage Mesa Road, San Diego, San Diego County, California, 92130, United States", 
@@ -31,7 +31,7 @@ There are four people in front of the building. Two of them are on the left side
 }
 
 {
-"uri": "/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/19951e8d-2921-566b-b23c-dd08ddfb25de/vcm_s_kf_repr_960x540.jpg", 
+"uri": "/home/madhekar/work/home-media-app/data/input-data/img/AnjaliBackup/19951e8d-2921-566b-b23c-dd08ddfb25de/vcm_s_kf_repr_960x540.jpg", 
 "id": "20be6b77-a8f1-4b43-b6de-5f4194006e04", 
 "ts": "1345132415.0", 
 "latlon": "(32.9687, -117.184196)", 

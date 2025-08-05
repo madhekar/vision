@@ -167,7 +167,7 @@ def load_missing_recods(f_name, static_metadata):
    dfr.to_csv('new_lat_lon.csv', index=False, encoding='utf-8')
 
 # static_metadata = '/home/madhekar/work/home-media-app/data/app-data/static-metadata/static_locations.parquet'
-# input_file = "/home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data/AnjaliBackup/missing-metadata-wip.csv"
+# input_file = "/home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/AnjaliBackup/missing-metadata-wip.csv"
 # load_missing_recods(input_file, static_metadata)
 
 

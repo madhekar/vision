@@ -74,7 +74,7 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
 static-metadata:
       faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
 image-data:
-      input_image_path: /home/madhekar/work/home-media-app/data/input-data-1/img
+      input_image_path: /home/madhekar/work/home-media-app/data/input-data/img
 model-path:
       faces_embbedings_path: /home/madhekar/work/home-media-app/models/faces_embbedings
       faces_embbedings: faces_embeddings_done_for_classes.npz

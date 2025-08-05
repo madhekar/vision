@@ -31,6 +31,6 @@ def remove_empty_folders(path_absolute):
                 print(f'exception: {e} removing empty folder {path}')    
     return cnt        
 
-print(trim_unknown_files("/home/madhekar/work/home-media-app/data/input-data-1"))                
+print(trim_unknown_files("/home/madhekar/work/home-media-app/data/input-data"))                
 
-print(remove_empty_folders("/home/madhekar/work/home-media-app/data/input-data-1"))
+print(remove_empty_folders("/home/madhekar/work/home-media-app/data/input-data"))

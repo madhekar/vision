@@ -2,10 +2,10 @@ import piexif
 from PIL import Image
 
 # img = Image.open(
-#     "/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/bf98198d-fcc6-51fe-a36a-275c06005669/IMAG0191.jpg"
+#     "/home/madhekar/work/home-media-app/data/input-data/img/AnjaliBackup/bf98198d-fcc6-51fe-a36a-275c06005669/IMAG0191.jpg"
 # )
 
-exif_dict = piexif.load("/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/bf98198d-fcc6-51fe-a36a-275c06005669/IMAG0191.jpg")
+exif_dict = piexif.load("/home/madhekar/work/home-media-app/data/input-data/img/AnjaliBackup/bf98198d-fcc6-51fe-a36a-275c06005669/IMAG0191.jpg")
 for ifd in ("0th", "Exif", "GPS", "1st"):
     for tag in exif_dict[ifd]:
         print(piexif.TAGS[ifd][tag]["name"], exif_dict[ifd][tag])

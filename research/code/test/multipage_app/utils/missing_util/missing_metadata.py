@@ -12,7 +12,7 @@ missing-metadata:
   missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/
   missing_metadata_file: missing-metadata-wip.csv
   missing_metadata_filter_file: missing-metadata-filter-wip.csv
-  find /home/madhekar/work/home-media-app/data/input-data-1/img -name '*' -print0 | xargs -0 exiftool -gps:GPSLongitude -gps:GPSLatitude -DateTimeOriginal -csv -T -r -n
+  find /home/madhekar/work/home-media-app/data/input-data/img -name '*' -print0 | xargs -0 exiftool -gps:GPSLongitude -gps:GPSLatitude -DateTimeOriginal -csv -T -r -n
   f"find '{input_image_path}' -name '*' -print0 | xargs -0 exiftool -GPSLongitude -GPSLatitude -DateTimeOriginal -csv -T -r -n"
 """
 

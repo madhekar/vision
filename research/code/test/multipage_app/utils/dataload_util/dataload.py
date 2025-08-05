@@ -86,10 +86,10 @@ def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
                     handle_copy_media_files(root, fdest_audio, uuid_path, adu_items)     
 
 '''
-  input_image_path: '/home/madhekar/work/home-media-app/data/input-data-1/img/'
-  input_video_path: '/home/madhekar/work/home-media-app/data/input-data-1/video/'
-  input_txt_path: '/home/madhekar/work/home-media-app/data/input-data-1/txt/'
-  input_audio_path: '/home/madhekar/work/home-media-app/data/input-data-1/audio/'
+  input_image_path: '/home/madhekar/work/home-media-app/data/input-data/img/'
+  input_video_path: '/home/madhekar/work/home-media-app/data/input-data/video/'
+  input_txt_path: '/home/madhekar/work/home-media-app/data/input-data/txt/'
+  input_audio_path: '/home/madhekar/work/home-media-app/data/input-data/audio/'
 '''
 def clean_unknown_files_folders(fdest_image, fdest_txt, fdest_video, fdest_audio):
     

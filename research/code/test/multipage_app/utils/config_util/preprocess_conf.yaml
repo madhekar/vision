@@ -1,6 +1,6 @@
 metadata:
   raw_data_path: /home/madhekar/work/home-media-app/data/raw-data/
-  image_dir_path: /home/madhekar/work/home-media-app/data/input-data-1/img/
+  image_dir_path: /home/madhekar/work/home-media-app/data/input-data/img/
   metadata_path: /home/madhekar/work/home-media-app/data/app-data/metadata/
   metadata_file: metadata.json
   vectordb_path: /home/madhekar/work/home-media-app/data/app-data/vectordb/
@@ -16,7 +16,7 @@ vectordb:
   text_collection_name: multimodal_collection_texts
   video_collection_name: multimodal_collection_videos
   audio_collection_name: multimedia_collection_audios
-  text_dir_path: /home/madhekar/work/home-media-app/data/input-data-1/txt/
+  text_dir_path: /home/madhekar/work/home-media-app/data/input-data/txt/
 
 prod:
   image_final_path:  /home/madhekar/work/home-media-app/data/final-data/img/

@@ -35,12 +35,12 @@ def process_images_for_quality(iqa_metric, fnames):
 
     '''
     '/home/madhekar/work/home-media-app/data/raw-data/AnjaliBackup/00WhatsApp Media/Pictures 12-8-2020'
-    '/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup'
-    '/home/madhekar/work/home-media-app/data/input-data-1/error/img/quality/AnjaliBackup'
+    '/home/madhekar/work/home-media-app/data/input-data/img/AnjaliBackup'
+    '/home/madhekar/work/home-media-app/data/input-data/error/img/quality/AnjaliBackup'
     '''
 if __name__=='__main__':
     metric = create_metric()
-    ilist = getRecursive('/home/madhekar/work/home-media-app/data/input-data-1/error/img/quality/AnjaliBackup/20250307-112745/cd775aa2-5df0-5fd9-b062-dbdaf6b76425')
+    ilist = getRecursive('/home/madhekar/work/home-media-app/data/input-data/error/img/quality/AnjaliBackup/20250307-112745/cd775aa2-5df0-5fd9-b062-dbdaf6b76425')
     process_images_for_quality(metric, ilist)
 
 

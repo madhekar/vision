@@ -187,7 +187,7 @@ static-metadata:
       faces_of_people_parquet_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
       faces_of_people_parquet: image_people.parquet
 image-data:
-      input_image_path: /home/madhekar/work/home-media-app/data/input-data-1/img
+      input_image_path: /home/madhekar/work/home-media-app/data/input-data/img
 model-path:
       faces_embbedings_path: /home/madhekar/work/home-media-app/models/faces_embbedings
       faces_embbedings: faces_embeddings_done_for_classes.npz

@@ -126,7 +126,7 @@ def getRecursive(rootDir, chunk_size=10):
         yield f_list[i : i + chunk_size]
 
 if __name__=='__main__':
-    images_path = '/home/madhekar/work/home-media-app/data/input-data-1/img/Madhekar'
+    images_path = '/home/madhekar/work/home-media-app/data/input-data/img/Madhekar'
     parquet_path = '/home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific/Madhekar'
     parquet_file = 'static_locations.parquet'
 

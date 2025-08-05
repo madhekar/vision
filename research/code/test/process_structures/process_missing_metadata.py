@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-fo = "/home/madhekar/work/home-media-app/data/input-data-1/error/img/missing-data/AnjaliBackup/"
+fo = "/home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/AnjaliBackup/"
 fn = 'missing-metadata-wip.csv'
 
 df = pd.read_csv(os.path.join(fo,fn))
