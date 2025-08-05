@@ -51,6 +51,8 @@ addtrim:
 
 @st.cache_resource
 def overview_config_load():
+    #dr, ar = app_config_load()
+    #print(f'in overview data root: {dr} app root: {ar}')
     with open("utils/config_util/overview_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
