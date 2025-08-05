@@ -694,3 +694,8 @@ iuytr/*/{"ts": "/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliB
  add:
  'names': 'Esha, Bhalchandra and 11 other people'
  'attrib': 'happy'
+ 
+ 
+ [{'uri': '/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/f93dfa8e-7e10-5cc2-bdbe-eb0ef5908a5b/vcm_s_kf_m160_160x120.jpg', 'id': '9d12d4d5-b757-4203-9044-c3d5ecd12a5a', 'ts': '1314064196.0', 'latlon': '(32.968689, -117.184243)', 'loc': 'Madhekar residence in Carmel Valley', 'names': '', 'attrib': 'fear', 'text': '\n 3 women are dancing in a garage at the Madhekar residence in Carmel Valley. They are all wearing yellow and black saris. The woman on the left is holding a fan in her hand. The woman in the middle is holding a stick. The woman on the right is holding a book. They are all facing towards the right side of the image.'}, 
+ 
+ {'uri': '/home/madhekar/work/home-media-app/data/input-data-1/img/AnjaliBackup/f40f520d-035c-5d8e-a5cb-ceeb73529e92/vcm_s_kf_m160_160x105.jpg', 'id': '1dd5ef7f-bf07-4f84-bdf5-add11467b489', 'ts': '1365322489.0', 'latlon': '(32.968689, -117.184243)', 'loc': 'Madhekar residence in Carmel Valley', 'names': '', 'attrib': 'sad', 'text': '\n \nThe image depicts a scene from the Madhekar residence in Carmel Valley. A person, whose face is not visible, is sitting on a couch in a dimly lit room. The person appears to be looking out of a window, which is located on the right side of the image. The window is open, allowing a view of the outside world. The room is furnished with a couch and a coffee table, both of which are also visible in the image. The overall atmosphere of the image is one of quiet contemplation.'}]
