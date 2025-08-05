@@ -199,7 +199,7 @@ def remove_all_files_by_type(root_folder, type):
     dtype = image_types if type == 'I' else video_types
     for root, dirs, files in os.walk(root_folder):
         for file in files:
-            if os.path.splitext(file)[1] in dtype:
+            if os.path.splitext(file)[1].lower() in dtype:
                 try:
                     os.remove(os.path.join(root, file))
                     print(f'removed {os.path.join(root, file)}')

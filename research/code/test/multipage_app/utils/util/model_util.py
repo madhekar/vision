@@ -10,7 +10,14 @@ from pathlib import Path
 import streamlit as st
 import pandas as pd
 
+"""
+    import pandas as pd
+    df = pd.DataFrame({'value': ['10', 'empty', '20']})
+    df['value'] = df['value'].replace('empty', pd.NA) # For nullable integer or object types
+    # Or for numerical columns:
+    # df['value'] = pd.to_numeric(df['value'], errors='coerce') 
 
+"""
 
 default_home_loc = (32.968699774829794, -117.18420145463236)
 default_date_time = ["2000","01","01","2000:01:01 01:01:01"] 
