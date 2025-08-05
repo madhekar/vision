@@ -1,4 +1,4 @@
-
+import os
 import pprint
 import yaml
 import streamlit as st
@@ -51,8 +51,8 @@ addtrim:
 
 @st.cache_resource
 def overview_config_load():
-    #dr, ar = app_config_load()
-    #print(f'in overview data root: {dr} app root: {ar}')
+    ar, dr = app_config_load()
+
     with open("utils/config_util/overview_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -65,11 +65,16 @@ def overview_config_load():
         app_data_path = dict["datapaths"]["app_data_path"]
         final_data_path = dict["datapaths"]["final_data_path"]
 
-
-    return (raw_data_path, input_data_path, app_data_path, final_data_path)
+    return (
+        os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *input_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *app_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *final_data_path.split(os.sep)[1:])
+    )
 
 @st.cache_resource
 def dataload_config_load():
+    ar, dr = app_config_load()
     with open("utils/config_util/dataload_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -83,7 +88,13 @@ def dataload_config_load():
         input_video_path = dict["dataload"]["input_video_path"]
         input_audio_path = dict["dataload"]["input_audio_path"]
 
-    return (raw_data_path, input_image_path, input_txt_path, input_video_path, input_audio_path)
+    return (
+        os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *input_image_path.split(os.sep)[1:]),
+        os.path.join(dr, *input_txt_path.split(os.sep)[1:]),
+        os.path.join(dr, *input_video_path.split(os.sep)[1:]),
+        os.path.join(dr, *input_audio_path.split(os.sep)[1:])
+    )
 
 """
 datapaths:
