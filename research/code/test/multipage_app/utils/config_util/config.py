@@ -116,6 +116,7 @@ missing-metadata:
 """
 @st.cache_resource
 def static_metadata_config_load():
+    ar, dr = app_config_load()
     with open("utils/config_util/static_metadata_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -140,14 +141,14 @@ def static_metadata_config_load():
 
 
     return (
-        raw_data_path,
-        static_metadata_path,
-        faces_metadata_path,
-        default_location_metadata_path,
-        user_location_metadata_path,
+        os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *static_metadata_path.split(os.sep)[1:]),
+        os.path.join(dr, *faces_metadata_path.split(os.sep)[1:]),
+        os.path.join(dr, *default_location_metadata_path.split(os.sep)[1:]),
+        os.path.join(dr, *user_location_metadata_path.split(os.sep)[1:]),
         user_location_metadata_file,
         final_user_location_metadata_file,
-        missing_metadata_path,
+        os.path.join(dr, *missing_metadata_path.split(os.sep)[1:]),
         missing_metadata_file,
         missing_metadata_filter_file,
     )    
