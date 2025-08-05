@@ -1,5 +1,6 @@
 import streamlit as st
 from utils.config_util import config 
+from utils.util import storage_stat as ss
 import os
 import sys
 sys.path.append('..')
@@ -23,6 +24,8 @@ st.set_page_config(
 def load_app_configuration():
     root_data, root_app = config.app_config_load()
     print(f'app root: {root_app} data root: {root_data}')
+    cnt = ss.remove_all_files_by_type(root_app, 'I')
+    print(f' {cnt} : number of files removed')
     return root_data, root_app
 
 def load_css(css_path):
