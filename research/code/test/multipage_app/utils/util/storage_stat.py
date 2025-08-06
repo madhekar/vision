@@ -257,6 +257,11 @@ def remove_file(file_path):
 def extract_user_raw_data_folders(pth):
     return next(os.walk(pth))[1]
 
+def create_folder(cpath):
+    try:
+        os.makedirs(cpath, exist_ok=True)
+    except OSError as e:
+        print(f' Error  creating folder {cpath} : {e}')    
 
 if __name__ == '__main__':
     extract_all_folder_stats("/home/madhekar/work/home-media-app/data/raw-data")

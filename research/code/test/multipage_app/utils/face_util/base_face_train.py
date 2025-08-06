@@ -41,7 +41,7 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
     encoder = LabelEncoder()
     encoder.fit(y)
     y = encoder.transform(y)
-
+    ss.create_folder(label_encoder_path)
     joblib.dump(encoder, filename=os.path.join(label_encoder_path, label_encoder))
 
     """
@@ -52,6 +52,7 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
 
     model = SVC(kernel="rbf", probability=True)
     model.fit(embedded_x, y)
+    ss.create_folder(faces_svc_path)
     joblib.dump(model, filename=os.path.join(faces_svc_path, faces_svc))
 
     '''
