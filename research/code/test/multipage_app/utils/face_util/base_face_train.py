@@ -32,6 +32,7 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
     embedded_x = np.asarray(embedded_x)
 
     # persist people faces embeddings and classes/ names
+    ss.create_folder(class_embeddings_folder)
     np.savez_compressed(os.path.join(class_embeddings_folder, class_embeddings), embedded_x, y)
 
     """
