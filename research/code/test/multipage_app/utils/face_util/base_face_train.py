@@ -57,20 +57,20 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
     joblib.dump(model, filename=os.path.join(faces_svc_path, faces_svc))
 
     '''
-    single face inference test
+    single face inference test, disabled due to path issue!!!
     '''
-    t_im = cv.imread(sample_test_image)
-    t_im = cv.cvtColor(t_im, cv.COLOR_BGR2RGB)
-    x, y, w, h = detector.detect_faces(t_im)[0]["box"]
+    # t_im = cv.imread(sample_test_image)
+    # t_im = cv.cvtColor(t_im, cv.COLOR_BGR2RGB)
+    # x, y, w, h = detector.detect_faces(t_im)[0]["box"]
 
-    t_im = t_im[y : y + h, x : x + w]
-    t_im = cv.resize(t_im, (160, 160))
-    test_im = b_fasenet.get_embeddings(t_im)
+    # t_im = t_im[y : y + h, x : x + w]
+    # t_im = cv.resize(t_im, (160, 160))
+    # test_im = b_fasenet.get_embeddings(t_im)
 
-    model = joblib.load(filename=os.path.join(faces_svc_path, faces_svc))
-    ypred = model.predict([test_im])
+    # model = joblib.load(filename=os.path.join(faces_svc_path, faces_svc))
+    # ypred = model.predict([test_im])
 
-    st.info(f'{ypred}, {encoder.inverse_transform(ypred)}')
+    # st.info(f'{ypred}, {encoder.inverse_transform(ypred)}')
 
 """
 static-metadata:
