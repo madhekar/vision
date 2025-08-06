@@ -27,7 +27,7 @@ def create_missing_report(missing_file_path):
 
         sm.add_messages( "metadata", f"w| missing data Longitudes: {n_lon} Latitude: {n_lat} DataTime: {n_dt} of: {n_total} rows")
     else:
-        ss.remove_file(missing_file_path)
+        #ss.remove_file(missing_file_path)
         sm.add_messages(
             "metadata",
             "w| missing data Longitudes: 0 Latitude: 0 DataTime: 0 of: 0 rows",
@@ -53,14 +53,17 @@ def execute(source_name):
     #clean empty folders if any
     #ss.remove_empty_files_and_folders(input_image_path) #remove_empty_folders(input_image_path) 
     
-    try:            
-        args = shlex.split( f"exiftool -gps:GPSLongitude -gps:GPSLatitude -DateTimeOriginal -csv -T -r -n {input_image_path}")
+    try:          
+        print('try---->', input_image_path)  
+        args = shlex.split( f"exiftool -gps:GPSLongitude -gps:GPSLatitude -DateTimeOriginal -csv -T -r -n '{input_image_path}'")
+        print(args)
         proc = subprocess.run(args, capture_output=True)
+        print('----->',proc.stdout)
     except Exception as e:
         print(f'error {e}')
-    print(proc.stdout)
+    print('----->',proc.stdout)
 
-    if proc.stdout == "":
+    if not proc.stdout:
         sm.add_messages("metadata","w| No missing metadata found in image files.") 
     else:    
         output_file_path = os.path.join(mmp, source_name)
@@ -74,6 +77,6 @@ def execute(source_name):
         create_missing_report(os.path.join(output_file_path, mmf))
 
         sm.add_messages("metadata",f"w| finized to analyze missing metadata files created {output_file_path}.")   
-         
+
 if __name__=='__main__':
     execute(source_name="")
