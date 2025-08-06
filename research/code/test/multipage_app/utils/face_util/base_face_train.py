@@ -47,7 +47,7 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
     """
     train SVC
     """
-    st.info('creating new model to classifiy faces...')
+    st.info('creating new model to classify faces...')
     detector = MTCNN()
 
     model = SVC(kernel="rbf", probability=True)
@@ -72,17 +72,17 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
 
 """
 static-metadata:
-      faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
+      faces_metadata_path: /data/app-data/static-metadata/faces
 image-data:
-      input_image_path: /home/madhekar/work/home-media-app/data/input-data/img
+      input_image_path: /data/input-data/img
 model-path:
-      faces_embbedings_path: /home/madhekar/work/home-media-app/models/faces_embbedings
-      faces_embbedings: faces_embeddings_done_for_classes.npz
-      faces_label_enc_path: /home/madhekar/work/home-media-app/models/faces_label_enc
+      faces_embeddings_path: /models/faces_embeddings
+      faces_embeddings: faces_embeddings_done_for_classes.npz
+      faces_label_enc_path: /models/faces_label_enc
       faces_label_enc: faces_label_enc.joblib
-      faces_svc_path: /home/madhekar/work/home-media-app/models/faces_svc
+      faces_svc_path: /models/faces_svc
       faces_svc: faces_model_svc.joblib
-      faces_of_people_parquet_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/image_people
+      faces_of_people_parquet_path: /data/app-data/static-metadata/image_people
       faces_of_people_parquet: image_people.parquet
 """
 def exec():
@@ -100,7 +100,7 @@ def exec():
         faces_of_people_parquet,
     ) = config.faces_config_load()
     
-    sample_test_image = "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces/Kumar/kumar3.png"
+    sample_test_image = "/data/app-data/static-metadata/faces/Kumar/kumar3.png"
     ss.trim_unknown_files(faces_dir)
     bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_encoder_path, label_encoder, faces_svc_path, faces_svc, sample_test_image)     
 

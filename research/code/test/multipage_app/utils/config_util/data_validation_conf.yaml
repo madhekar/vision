@@ -1,23 +1,23 @@
 duplicate:
-  base_path: /home/madhekar/work/home-media-app/data/input-data/error/img/duplicate
+  base_path: /data/input-data/error/img/duplicate
 
 quality:
-  base_path: /home/madhekar/work/home-media-app/data/input-data/error/img/quality
+  base_path: /data/input-data/error/img/quality
 
 missing: 
-  base_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data
+  base_path: /data/input-data/error/img/missing-data
   missing_metadata_file: missing-metadata-wip.csv
-  missing_metadata_filter_file: missing-metdata-filter-wip.csv
+  missing_metadata_filter_file: missing-metadata-filter-wip.csv
 
 metadata:
-  base_path: /home/madhekar/work/home-media-app/data/app-data/metadata
+  base_path: /data/app-data/metadata
 
 static-metadata:
-  base_path:  /home/madhekar/work/home-media-app/data/app-data/static-metadata 
+  base_path:  /data/app-data/static-metadata 
 
 vectordb:
-  base_path: /home/madhekar/work/home-media-app/data/app-data/vectordb
+  base_path: /data/app-data/vectordb
 
 raw-data:
-  base_path:  /home/madhekar/work/home-media-app/data/raw-data
+  base_path:  /data/raw-data
 

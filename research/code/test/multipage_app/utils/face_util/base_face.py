@@ -38,7 +38,7 @@ class bface:
          face = img[y:y+h, x:x+w]
          face_arr = cv.resize(face, self.t_size)
        except Exception as e:
-          st.error(f'exception hapened in etract face {fn}: {e}')
+          st.error(f'exception happened in extract face {fn}: {e}')
        return face_arr
     
     def load_faces(self, dir):
@@ -51,7 +51,7 @@ class bface:
                single_f = self.extract_face(fp)
                faces.append(single_f)
           except Exception as e:
-             st.error(f'exception occreed {dir} {fp}: {e}')   
+             st.error(f'exception occurred {dir} {fp}: {e}')   
        return faces
 
     def load_names_and_faces(self):

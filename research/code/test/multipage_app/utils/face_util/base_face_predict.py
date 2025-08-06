@@ -142,7 +142,7 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
 
     # BFS = base_face_res()
     # BFS.init() 
-    #fpath = '/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup'
+    #fpath = '/data/train-data/img/AnjaliBackup'
     r = {os.path.join(img_dir, file) for file in os.listdir(img_dir)[0:100]}
     df = pd.DataFrame(r, columns=['image'])
     df['people'] = df.apply(lambda row: ibtf.pred_names_of_people(row['image']), axis=1)
@@ -153,17 +153,17 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
     return df.size, 'Done!'
 
 
-    # file_list = os.listdir('/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup') #mu.getRecursive(img_dir, chunk_size=batch_size)
+    # file_list = os.listdir('/data/train-data/img/AnjaliBackup') #mu.getRecursive(img_dir, chunk_size=batch_size)
     # st.info(f'processing images in {batch_size} batches: ')
     # num_imgs = 0 
     # results = []
     # st.info('image processing batch in progress...')
 
     # for file_path in file_list[0:10]:
-    #     names = ibtf.pred_names_of_people(os.path.join('/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup' ,file_path))
+    #     names = ibtf.pred_names_of_people(os.path.join('/data/train-data/img/AnjaliBackup' ,file_path))
     #     gc.collect()
     #     tf.keras.backend.clear_session()
-    #     attribs = compute_aggregate_msg(detect_human_attributs(os.path.join('/home/madhekar/work/home-media-app/data/train-data/img/AnjaliBackup' ,file_path)))
+    #     attribs = compute_aggregate_msg(detect_human_attributs(os.path.join('/data/train-data/img/AnjaliBackup' ,file_path)))
     #     gc.collect()
     #     tf.keras.backend.clear_session()
 
@@ -183,17 +183,17 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
     # return num_imgs, 'Done!'
 """
 static-metadata:
-      faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
-      faces_of_people_parquet_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata
+      faces_metadata_path: /data/app-data/static-metadata/faces
+      faces_of_people_parquet_path: /data/app-data/static-metadata
       faces_of_people_parquet: image_people.parquet
 image-data:
-      input_image_path: /home/madhekar/work/home-media-app/data/input-data/img
+      input_image_path: /data/input-data/img
 model-path:
-      faces_embbedings_path: /home/madhekar/work/home-media-app/models/faces_embbedings
-      faces_embbedings: faces_embeddings_done_for_classes.npz
-      faces_label_enc_path: /home/madhekar/work/home-media-app/models/faces_label_enc
+      faces_embeddings_path: /models/faces_embeddings
+      faces_embeddings: faces_embeddings_done_for_classes.npz
+      faces_label_enc_path: /models/faces_label_enc
       faces_label_enc: faces_label_enc.joblib
-      faces_svc_path: /home/madhekar/work/home-media-app/models/faces_svc
+      faces_svc_path: /models/faces_svc
       faces_svc: faces_model_svc.joblib
 """
 def exec(user_storage_name):
