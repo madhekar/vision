@@ -58,24 +58,22 @@ def execute(source_name):
         proc = subprocess.run(args, capture_output=True)
     except Exception as e:
         print(f'error {e}')
-
-    # print(proc.stderr)
     print(proc.stdout)
 
-    #arc_folder_name_dt = mu.get_foldername_by_datetime()
+    if proc.stdout == "":
+        sm.add_messages("metadata","w| No missing metadata found in image files.") 
+    else:    
+        output_file_path = os.path.join(mmp, source_name)
+        ss.create_folder(output_file_path)
+        
+        with open(os.path.join(output_file_path, mmf), "wb") as output:
+            output.write(proc.stdout)
 
-    output_file_path = os.path.join(mmp, source_name) #, arc_folder_name_dt)
+        filter_missing_image_data(os.path.join(output_file_path, mmf), os.path.join(output_file_path, mmff))
 
-    if not os.path.exists(output_file_path):
-        os.makedirs(output_file_path)
-    
-    with open(os.path.join(output_file_path, mmf), "wb") as output:
-        output.write(proc.stdout)
+        create_missing_report(os.path.join(output_file_path, mmf))
 
-    filter_missing_image_data(os.path.join(output_file_path, mmf), os.path.join(output_file_path, mmff))
-
-    create_missing_report(os.path.join(output_file_path, mmf))
-
-    sm.add_messages("metadata",f"w| finized to analyze missing metadata files created {output_file_path}.",)    
+        sm.add_messages("metadata",f"w| finized to analyze missing metadata files created {output_file_path}.")   
+         
 if __name__=='__main__':
     execute(source_name="")
