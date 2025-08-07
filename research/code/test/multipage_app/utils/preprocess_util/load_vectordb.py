@@ -215,7 +215,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
 ok for now!
 '''
 def archive_metadata(metadata_path, arc_folder_name, metadata_file):
-    new_archive_folder = os.path.join( metadata_path, arc_folder_name)
+    new_archive_folder = os.path.join( metadata_path) #, arc_folder_name)
     if not os.path.exists(new_archive_folder):
         os.mkdir(new_archive_folder)
         os.rename(os.path.join(metadata_path, metadata_file), os.path.join(new_archive_folder, metadata_file))
