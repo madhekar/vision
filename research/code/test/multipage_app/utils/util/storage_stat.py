@@ -197,8 +197,9 @@ def trim_unknown_files(image_path):
 def remove_all_files_by_type(root_folder, type):
     cnt = 0
     dtype = image_types if type == 'I' else video_types
-    for files in os.listdir(root_folder):
-        for file in files:
+    print('->', dtype)
+    for file in os.listdir(root_folder):
+            print('-->', file)
             if os.path.splitext(file)[1].lower() in dtype:
                 try:
                     os.remove(os.path.join(root_folder, file))
