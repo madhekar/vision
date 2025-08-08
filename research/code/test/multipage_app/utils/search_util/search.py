@@ -326,7 +326,7 @@ def search_fn(client, cImgs, cTxts):
 def execute():
 
     vdb, icn, tcn, vcn, acn = config.search_config_load()
-
+    print(vdb, ': ', icn,':', tcn)
     client, img_collection, txt_collection  = init_vdb(vdb, icn, tcn)
 
     search_fn(client, img_collection, txt_collection)
