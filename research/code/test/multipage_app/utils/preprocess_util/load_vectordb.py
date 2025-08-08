@@ -79,7 +79,7 @@ def load_metadata(metadata_path, metadata_file, image_final_path, image_final_fo
 
         df["uri"] = df["uri"].str.replace(
             "input-data/img",
-            "final-data/img/" + image_final_folder,
+            "final-data/img" #+ image_final_path,
         )
         print(df.head(10))
     return df
@@ -92,7 +92,7 @@ def detect_encoding(fp):
 
 def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folder, text_collection_name):
     
-    
+    cdb.api.client.SharedSystemClient.clear_system_cache()
     # vector database persistance
     client = cdb.PersistentClient( path=vectordb_dir_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=True))
 
@@ -215,7 +215,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
 ok for now!
 '''
 def archive_metadata(metadata_path, arc_folder_name, metadata_file):
-    new_archive_folder = os.path.join( metadata_path, arc_folder_name)
+    new_archive_folder = os.path.join( metadata_path) #, arc_folder_name)
     if not os.path.exists(new_archive_folder):
         os.mkdir(new_archive_folder)
         os.rename(os.path.join(metadata_path, metadata_file), os.path.join(new_archive_folder, metadata_file))

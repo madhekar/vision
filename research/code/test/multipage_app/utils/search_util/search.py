@@ -77,7 +77,7 @@ def search_fn(client, cImgs, cTxts):
     if "dt_range" not in st.session_state:
         st.session_state["dt_range"] = (
             datetime.datetime(2010, 1, 1),
-            datetime.datetime(2019, 1, 1),
+            datetime.datetime(2025, 1, 1),
         )
 
     # define application sidebar
@@ -105,7 +105,7 @@ def search_fn(client, cImgs, cTxts):
             similar_image = st.file_uploader(
                 label="## Select Image",
                 label_visibility="hidden",
-                type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG"],
+                type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG", "JPEG", "MPG"],
                 help="select image to search similar images",
             )
             im = st.empty()
@@ -182,7 +182,7 @@ def search_fn(client, cImgs, cTxts):
                 n_results=10,
             )
 
-            # st.write(st.session_state["imgs"]) # ---enable to debug
+            st.write(st.session_state["imgs"]) # ---enable to debug
 
         elif modality_selected == "text":
             # execute text collection query --- TBD fix
@@ -326,7 +326,7 @@ def search_fn(client, cImgs, cTxts):
 def execute():
 
     vdb, icn, tcn, vcn, acn = config.search_config_load()
-
+    print(vdb, ': ', icn,':', tcn)
     client, img_collection, txt_collection  = init_vdb(vdb, icn, tcn)
 
     search_fn(client, img_collection, txt_collection)
