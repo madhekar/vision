@@ -1,0 +1,33 @@
+inxi -G
+Graphics:
+  Device-1: AMD Rembrandt [Radeon 680M] driver: amdgpu v: kernel
+  Display: x11 server: X.Org v: 1.21.1.4 driver: X: loaded: amdgpu,ati
+    unloaded: fbdev,modesetting,vesa gpu: amdgpu resolution: 1024x600~60Hz
+  OpenGL:
+    renderer: REMBRANDT (rembrandt LLVM 15.0.7 DRM 3.42 5.15.0-151-generic)
+    v: 4.6 Mesa 23.2.1-1ubuntu3.1~22.04.3
+
+sudo lshw -C display
+[sudo] password for madhekar:          
+  *-display                 
+       description: VGA compatible controller
+       product: Rembrandt [Radeon 680M]
+       vendor: Advanced Micro Devices, Inc. [AMD/ATI]
+       physical id: 0
+       bus info: pci@0000:35:00.0
+       logical name: /dev/fb0
+       version: c7
+       width: 64 bits
+       clock: 33MHz
+       capabilities: pm pciexpress msi msix vga_controller bus_master cap_list fb
+       configuration: depth=32 driver=amdgpu latency=0 resolution=1024,600
+       resources: iomemory:7f0-7ef iomemory:7f0-7ef irq:75 memory:7fe0000000-7fefffffff memory:7ff0000000-7ff01fffff ioport:f000(size=256) memory:dc700000-dc77ffff
+
+lspci | grep VGA
+35:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Rembrandt [Radeon 680M] (rev c7)
+
+lspci -k | grep -EA3 'VGA|3D|Display'
+35:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Rembrandt [Radeon 680M] (rev c7)
+	Subsystem: Advanced Micro Devices, Inc. [AMD/ATI] Rembrandt [Radeon 680M]
+	Kernel driver in use: amdgpu
+	Kernel modules: amdgpu
