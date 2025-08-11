@@ -1,3 +1,11 @@
+https://www.amd.com/en/developer/resources/technical-articles/running-llms-locally-on-amd-gpus-with-ollama.html
+
+https://www.youtube.com/watch?v=hzQh0EpLhyw
+
+----https://github.com/ollama/ollama/blob/main/docs/gpu.md#amd-radeon
+
+https://rocm.docs.amd.com/projects/radeon/en/latest/docs/install/native_linux/install-onnx.html
+
 This guide will help you easily install ROCm, ZLUDA, and Blender on Linux Mint 21.3.
 It can be executed on a fresh installation, but it might also work after an apt update
 and upgrade (i've not tested for edge iso kernels of mint so far).

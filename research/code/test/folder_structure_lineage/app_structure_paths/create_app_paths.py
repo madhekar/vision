@@ -41,20 +41,21 @@ def remove_folder_tree(folder):
             shutil.rmtree(folder)
             print(f"Folder '{folder}' and its contents removed successfully.")
         except OSError as e:
-            print(f"Error: {e.filename} - {e.strerror}.")
+            print(f"Error: {e.filename} - {e.str.error}.")
     else:
         print(f"Folder '{folder}' does not exist.")
 
 def create_folder_tree():
 
     with open('app_paths.yaml') as ifile:
-        loded_data = yaml.safe_load(ifile)
+
+        loaded_data = yaml.safe_load(ifile)
    
-        root_folder = loded_data['app-root']
+        root_folder = loaded_data['app-root']
 
         remove_folder_tree(root_folder)
 
-        app_path_list = loded_data['app-paths']
+        app_path_list = loaded_data['app-paths']
 
         for p in app_path_list:
             ap = os.path.join(root_folder, *p.split('/'))
