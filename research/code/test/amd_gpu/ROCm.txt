@@ -1,0 +1,107 @@
+This guide will help you easily install ROCm, ZLUDA, and Blender on Linux Mint 21.3.
+It can be executed on a fresh installation, but it might also work after an apt update
+and upgrade (i've not tested for edge iso kernels of mint so far).
+
+Installation of ROCm
+
+The compatible version with the current ZLUDA 3
+is ROCm 5.7.0. Here’s how to proceed:
+
+Create the directory for APT keys:
+
+sudo mkdir --parents --mode=0755 /etc/apt/keyrings
+
+Download and add the ROCm GPG key:
+
+wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | gpg --dearmor | sudo tee /etc/apt/keyrings/rocm.gpg > /dev/null
+
+Add the ROCm and AMDGPU repositories:
+
+sudo tee /etc/apt/sources.list.d/amdgpu.list <<'EOF'
+deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/amdgpu/5.7/ubuntu jammy main
+EOF
+
+sudo tee /etc/apt/sources.list.d/rocm.list <<'EOF'
+deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/rocm/apt/5.7 jammy main
+EOF
+
+Set the package priority:
+
+echo -e 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' | sudo tee /etc/apt/preferences.d/rocm-pin-600
+
+Update and install the necessary packages:
+
+sudo apt update
+sudo apt install amdgpu-dkms
+sudo apt install rocm-hip-libraries
+sudo reboot
+
+After rebooting, install other ROCm packages:
+
+sudo apt-get update
+sudo apt-get install rocm-dkms rocm-dev hip-base hip-doc hip-samples hip-runtime-amd
+
+Update the environment variables:
+
+export PATH=$PATH:/opt/rocm/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rocm/lib
+
+Add the user to the video and render groups:
+
+sudo usermod -a -G video $USER
+sudo usermod -a -G render $USER
+sudo reboot
+
+Verify if ROCm is running:
+
+/opt/rocm/bin/rocminfo
+/opt/rocm/opencl/bin/clinfo
+
+Installation of ZLUDA
+
+Download the compiled binaries of ZLUDA 3:
+
+https://github.com/vosen/ZLUDA/releases ... nux.tar.gz
+
+Extract the files into a local folder in your home directory:
+
+tar -xvf zluda-3-linux.tar.gz -C /home/<username>/mybin/zluda-lib
+
+Installation of Blender
+
+Download Blender (version 4.0 recommended):
+
+You can download an alternative version of Blender
+called Bforartists, which is based on Blender 4.0:
+
+https://www.bforartists.de/data/binarie ... -Linux.deb
+
+Install the .deb package:
+
+sudo dpkg -i bforartists-3.6.2-Linux.deb
+
+If you prefer to use the .tgz tarball, download it from the official Blender website and extract it.
+
+Note: Blender 4.1.1 or later versions may not work and could give an error
+in the rendering window. Everything has been tested with Blender 4.0 or
+variants based on it, like Bforartists 3.6.2.
+
+Using Blender with ZLUDA
+
+Add the Blender command with ZLUDA to your .bashrc:
+
+echo 'alias blender="LD_LIBRARY_PATH=/home/<username>/<local-bin>/zluda-lib bforartists"' >> ~/.bashrc
+source ~/.bashrc
+
+Now you can start Blender with the command:
+
+blender
+
+Configure Blender to use your GPU:
+Open Blender.
+Go to Edit -> Preferences.
+In the Preferences window, select the System tab.
+Under CUDA, select your GPU.
+Deselect your Radeon GPU under HIP (as it is no longer needed).
+When you load a file to render, go to the camera icon in the Properties panel.
+Under Render Engine, select Cycles and then choose GPU Compute.
