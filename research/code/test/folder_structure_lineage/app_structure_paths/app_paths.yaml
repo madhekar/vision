@@ -1,7 +1,7 @@
 app-root: 
   /home/madhekar/temp/home-media-app
 app-paths:
-- /data/app/main
+- /app/main
 - /data/app-data/metadata
 - /data/app-data/static-metadata/faces
 - /data/app-data/static-metadata/locations/default
