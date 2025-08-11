@@ -66,3 +66,9 @@ def create_folder_tree():
 
 if __name__=='__main__':
     create_folder_tree()        
+
+    """
+        x = {'a':45, 'c':67}
+        y = {'d':63, 'f':89}
+        z = {**x, **y}
+    """
