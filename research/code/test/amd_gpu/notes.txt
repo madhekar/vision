@@ -64,3 +64,6 @@ NVIDIA A100/H100: For highly demanding tasks and large-scale model training, the
 NVIDIA A6000: Provides a balance of performance and features for professional and scientific computing, including a larger memory capacity (48GB) and NVLink support.
 Cloud computing/GPU rental services: Services like Vast.ai and SimplePod offer on-demand access to GPUs like the RTX 4090, which can be a cost-effective and flexible alternative to purchasing expensive hardware. 
 Ultimately, the best GPU for machine learning depends on factors like budget, the specific type and scale of machine learning tasks, and the importance of professional-grade features and scaling capabilities. 
+
+sudo du -sh /*
+apt list --installed
