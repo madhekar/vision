@@ -68,3 +68,5 @@ Ultimately, the best GPU for machine learning depends on factors like budget, th
 sudo du -sh /*
 apt list --installed
 sudo find /var/log -type f -name "*.gz" -delete
+
+du -sh * | sort -nr | head -n 10
