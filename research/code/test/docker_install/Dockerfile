@@ -11,7 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir  --default-timeout=900 -r requirements.txt
 
 # Copy the rest of your Streamlit application code into the container
-COPY . /app
+COPY /home/madhekar/work/vision/research/code/test/multipage_app /app
 
 # Expose the port Streamlit runs on (default is 8501)
 EXPOSE 8501

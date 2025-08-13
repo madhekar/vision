@@ -12,7 +12,7 @@ joblib==1.4.2
 keras_facenet==0.3.2
 matplotlib==3.10.5
 mtcnn==1.0.0
-numpy==1.21.5
+numpy==1.26.4
 openai_clip==1.0.1
 opencv_contrib_python==4.11.0.86
 opencv_python==4.10.0.84
