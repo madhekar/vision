@@ -12,18 +12,6 @@ from utils.util import storage_stat as ss
 from PIL import Image
 from utils.util import fast_parquet_util as fpu
 
-"""
-  raw_data_path: /data/raw-data/
-  static_metadata_path: /data/app-data/static-metadata/
-  static_metadata_file: static_locations.parquet
-  missing_metadata_path: /data/input-data/error/img/missing-data/
-  missing_metadata_file: missing-metadata-wip.csv
-  missing_metadata_filter_file: missing-metadata-filter-wip.csv
-  missing_metadata_edit_file: missing-matadata-edits.csv
-  home_latitude: 32.968700
-  home_longitude: -117.184200
-  /data/input-data/img/Madhekar/11ec2ea8-663c-5e28-9486-cf19a181beb1/vcm_s_kf_m160_160x120.jpg
-"""
 user_device = st.empty()
 def get_env():
     (rdp, smp, smf, mmp, mmf, mmff,mmef, hlat, hlon) = config.editor_config_load()

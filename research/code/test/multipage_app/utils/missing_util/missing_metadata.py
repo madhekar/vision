@@ -76,7 +76,7 @@ def execute(source_name):
 
         create_missing_report(os.path.join(output_file_path, mmf))
 
-        sm.add_messages("metadata",f"w| finized to analyze missing metadata files created {output_file_path}.")   
+        sm.add_messages("metadata",f"w| finalized to analyze missing metadata files created {output_file_path}.")   
 
 if __name__=='__main__':
     execute(source_name="")

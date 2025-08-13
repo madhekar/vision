@@ -1,7 +1,6 @@
 from PIL import Image
 import imagehash
 import hashlib
-#from utils import util
 import os
 import subprocess
 import numpy as np

@@ -8,7 +8,6 @@ from multipage_app.utils.quality_util import image_quality as iq
 from utils.dedup_util import dedup_imgs as di
 from utils.dataload_util import dataload as dl
 from utils.util import storage_stat as ss
-
 from utils.util import statusmsg_util as sm
    
 sm.init()
