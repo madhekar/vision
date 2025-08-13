@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.10-slim
+FROM python:3.10-slim-bullseye
 
 # Set the working directory in the container
 WORKDIR /app
@@ -8,10 +8,10 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir  --default-timeout=900 -r requirements.txt
 
 # Copy the rest of your Streamlit application code into the container
-# COPY . .
+COPY . /app
 
 # Expose the port Streamlit runs on (default is 8501)
 EXPOSE 8501
