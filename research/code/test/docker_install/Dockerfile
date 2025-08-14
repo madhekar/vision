@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
 # research/code/test/multipage_app
 # RUN git clone https://github.com/streamlit/streamlit-example.git .
 
-RUN git -b multipage_app clone https://github.com/madhekar/vision.git .
+RUN git clone -b multipage_app https://github.com/madhekar/vision.git .
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir  --default-timeout=900 -r requirements.txt
