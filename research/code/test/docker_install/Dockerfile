@@ -2,7 +2,7 @@
 FROM python:3.10-slim-bullseye
 
 # Set the working directory in the container
-WORKDIR /app/zmedia
+WORKDIR /app
 
 # Copy the requirements file into the container
 COPY requirements.txt .
@@ -18,7 +18,8 @@ RUN apt-get update && apt-get install -y \
 # research/code/test/multipage_app
 # RUN git clone https://github.com/streamlit/streamlit-example.git .
 
-RUN git clone --single-branch --branch /research/code/test/multipage_app  https://github.com/madhekar/vision.git
+# RUN git clone --single-branch --branch /research/code/test/multipage_app  https://github.com/madhekar/vision.git
+COPY . /app
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir  --default-timeout=900 -r requirements.txt
