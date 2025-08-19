@@ -1,0 +1,6 @@
+datapaths:
+  raw_data_path: /data/raw-data
+  input_data_path: /data/input-data
+  app_data_path: /data/app-data
+  final_data_path: /data/final-data
+

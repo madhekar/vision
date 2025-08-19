@@ -1,0 +1,16 @@
+
+datapaths:
+  raw_data_path: /data/raw-data/
+static-metadata:
+  static_metadata_path: /data/app-data/static-metadata  
+static-faces: 
+  faces_metadata_path: /data/app-data/static-metadata/faces
+static-locations:
+  default_location_metadata_path: /data/app-data/static-metadata/locations/default
+  user_location_metadata_path: /data/app-data/static-metadata/locations/user-specific
+  user_location_metadata_file: user-specific.csv
+  final_user_location_metadata_file: static_locations.parquet
+missing-metadata:  
+  missing_metadata_path: /data/input-data/error/img/missing-data
+  missing_metadata_file: missing-metadata-wip.csv
+  missing_metadata_filter_file: missing-metadata-filter-wip.csv

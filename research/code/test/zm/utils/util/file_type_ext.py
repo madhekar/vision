@@ -1,0 +1,84 @@
+
+
+image_types = [
+    ".jpg",
+    ".JPG",
+    ".jpeg",
+    ".JPEG",
+    ".png",
+    ".PNG"
+    # ".gif",
+    ".bmp",
+    ".BMP",
+    ".tiff",
+    ".TIFF",
+    ".heic",
+    ".HEIF",
+    ".heif",
+    ".tif", 
+    ".TIF",   
+    ".webp",
+    ".WEBP"
+]
+video_types = [
+    ".mp4",
+    ".avi",
+    ".mkv",
+    ".mov",
+    ".wmv",
+    ".flv",
+    ".mpeg",
+    ".mov",
+    ".eps",
+    ".sbd",
+    ".ra",
+    ".au",
+    ".wma",
+    ".wmv",
+    ".3gp",
+]
+audio_types = [
+    ".mp3",
+    ".wav",
+    ".flac",
+    ".ogg",
+    ".m4a",
+    ".aac",
+    ".amv",
+]
+document_types = [
+    ".txt",
+    ".doc",
+    ".docx",
+    ".pdf",
+    ".xls",
+    ".xlsx",
+    ".ppt",
+    ".pptx",
+    ".rtf",
+    ".csv",
+    ".wps",
+    ".msg",
+    ".dta"
+]
+non_media_types = [
+    ".json",
+    ".py",
+    ".csv",
+    ".sqllite3",
+    ".log",
+    ".java",
+    ".c",
+    ".py",
+    ".js",
+    ".html",
+    ".asp",
+    ".css",
+    ".xps",
+    ".swift",
+    ".pl",
+    ".sh",
+    ".bat",
+    ".ts",
+    ".cpp"
+]
