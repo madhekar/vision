@@ -13,6 +13,9 @@ uv add piexif
 uv add exifread
 uv add country_converter
 
+source .venv/bin/activate
+
+
  + absl-py==2.3.1
  + accelerate==1.10.0
  + addict==2.4.0
