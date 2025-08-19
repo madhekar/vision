@@ -7,6 +7,12 @@ uv venv --python 3.9
 
 uv python pin 3.9
 
+uv add open-clip-torch
+uv add tf-keras
+uv add piexif
+uv add exifread
+uv add country_converter
+
  + absl-py==2.3.1
  + accelerate==1.10.0
  + addict==2.4.0
