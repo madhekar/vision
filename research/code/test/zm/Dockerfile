@@ -1,12 +1,12 @@
 # Use an official Python runtime as a parent image
-#FROM python:3.10-slim-bullseye
-FROM python:3.10-alpine
+FROM python:3.10-slim-bullseye
+#FROM python:3.10-alpine
 
 # Set the working directory in the container
 WORKDIR /app
 
 # Copy the requirements file into the container
-COPY requirements.txt .
+COPY requirements_1.txt .
 
 # RUN apt-get update && apt-get install -y \
 #     build-essential \
@@ -23,7 +23,7 @@ COPY requirements.txt .
 COPY . /app
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir  --default-timeout=900 -r requirements.txt
+RUN pip install --no-cache-dir  --default-timeout=900 -r requirements_1.txt
 
 # Expose the port Streamlit runs on (default is 8501)
 EXPOSE 8501
