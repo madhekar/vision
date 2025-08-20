@@ -39,4 +39,4 @@ RUN pip install --no-cache-dir  --default-timeout=900 -r requirements_1.txt
 EXPOSE 8501
 
 # Command to run the Streamlit application
-CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "home.py", "--server.port=8501", "--server.address=0.0.0.0"]
