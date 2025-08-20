@@ -1,0 +1,7 @@
+README.md
+my_main.py
+pyproject.toml
+uv_test.egg-info/PKG-INFO
+uv_test.egg-info/SOURCES.txt
+uv_test.egg-info/dependency_links.txt
+uv_test.egg-info/top_level.txt
