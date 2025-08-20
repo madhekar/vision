@@ -8,12 +8,12 @@ WORKDIR /app
 # Copy the requirements file into the container
 COPY requirements.txt .
 
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    software-properties-common \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && apt-get install -y \
+#     build-essential \
+#     curl \
+#     software-properties-common \
+#     git \
+#     && rm -rf /var/lib/apt/lists/*
 
 # RUN git -b my_branch clone https://github.com/madhekar/vision.git .
 # research/code/test/multipage_app
