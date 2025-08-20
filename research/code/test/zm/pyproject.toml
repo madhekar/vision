@@ -47,3 +47,7 @@ dependencies = [
     "torchvision==0.18.1",
     "transformers==4.37.2",
 ]
+[tool.setuptools.packages.find]
+    where = ["."] # Search in the current directory
+    include = ["assets*", "pages*", "schema*", "utils*","home.py"] # Include specific patterns
+    # exclude = ["tests*", "docs*"] # Exclude specific patterns

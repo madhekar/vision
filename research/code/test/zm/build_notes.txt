@@ -252,3 +252,93 @@ source .venv/bin/activate
  + yapf==0.43.0
  + zipp==3.23.0
 
+  error: subprocess-exited-with-error
+  
+  × Running setup.py install for py3exiv2 did not run successfully.
+  │ exit code: 1
+  ╰─> [71 lines of output]
+      running install
+      /usr/local/lib/python3.10/site-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+        warnings.warn(
+      running build
+      running build_py
+      creating build
+      creating build/lib.linux-x86_64-cpython-310
+      creating build/lib.linux-x86_64-cpython-310/pyexiv2
+      copying src/pyexiv2/preview.py -> build/lib.linux-x86_64-cpython-310/pyexiv2
+      copying src/pyexiv2/iptc.py -> build/lib.linux-x86_64-cpython-310/pyexiv2
+      copying src/pyexiv2/xmp.py -> build/lib.linux-x86_64-cpython-310/pyexiv2
+      copying src/pyexiv2/utils.py -> build/lib.linux-x86_64-cpython-310/pyexiv2
+      copying src/pyexiv2/__init__.py -> build/lib.linux-x86_64-cpython-310/pyexiv2
+      copying src/pyexiv2/exif.py -> build/lib.linux-x86_64-cpython-310/pyexiv2
+      copying src/pyexiv2/metadata.py -> build/lib.linux-x86_64-cpython-310/pyexiv2
+      running build_ext
+      building 'libexiv2python' extension
+      creating build/temp.linux-x86_64-cpython-310
+      creating build/temp.linux-x86_64-cpython-310/src
+      gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -fPIC -I/usr/local/include/python3.10 -c src/exiv2wrapper.cpp -o build/temp.linux-x86_64-cpython-310/src/exiv2wrapper.o -g -std=c++11
+      In file included from /usr/include/boost/smart_ptr/detail/sp_thread_sleep.hpp:22,
+                       from /usr/include/boost/smart_ptr/detail/yield_k.hpp:23,
+                       from /usr/include/boost/smart_ptr/detail/spinlock_gcc_atomic.hpp:14,
+                       from /usr/include/boost/smart_ptr/detail/spinlock.hpp:42,
+                       from /usr/include/boost/smart_ptr/detail/spinlock_pool.hpp:25,
+                       from /usr/include/boost/smart_ptr/shared_ptr.hpp:29,
+                       from /usr/include/boost/shared_ptr.hpp:17,
+                       from /usr/include/boost/python/converter/shared_ptr_to_python.hpp:12,
+                       from /usr/include/boost/python/converter/arg_to_python.hpp:15,
+                       from /usr/include/boost/python/call.hpp:15,
+                       from /usr/include/boost/python/object_core.hpp:14,
+                       from /usr/include/boost/python/args.hpp:22,
+                       from /usr/include/boost/python.hpp:11,
+                       from src/exiv2wrapper.hpp:35,
+                       from src/exiv2wrapper.cpp:27:
+      /usr/include/boost/bind.hpp:36:1: note: ‘#pragma message: The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.’
+         36 | BOOST_PRAGMA_MESSAGE(
+            | ^~~~~~~~~~~~~~~~~~~~
+      /usr/include/boost/detail/iterator.hpp:13:1: note: ‘#pragma message: This header is deprecated. Use <iterator> instead.’
+         13 | BOOST_HEADER_DEPRECATED("<iterator>")
+            | ^~~~~~~~~~~~~~~~~~~~~~~
+      src/exiv2wrapper.cpp: In function ‘void exiv2wrapper::unregisterXmpNs(const string&)’:
+      src/exiv2wrapper.cpp:2049:37: warning: unused variable ‘info’ [-Wunused-variable]
+       2049 |             const Exiv2::XmpNsInfo* info = Exiv2::XmpProperties::nsInfo(prefix);
+            |                                     ^~~~
+      gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -fPIC -I/usr/local/include/python3.10 -c src/exiv2wrapper_python.cpp -o build/temp.linux-x86_64-cpython-310/src/exiv2wrapper_python.o -g -std=c++11
+      In file included from /usr/include/boost/smart_ptr/detail/sp_thread_sleep.hpp:22,
+                       from /usr/include/boost/smart_ptr/detail/yield_k.hpp:23,
+                       from /usr/include/boost/smart_ptr/detail/spinlock_gcc_atomic.hpp:14,
+                       from /usr/include/boost/smart_ptr/detail/spinlock.hpp:42,
+                       from /usr/include/boost/smart_ptr/detail/spinlock_pool.hpp:25,
+                       from /usr/include/boost/smart_ptr/shared_ptr.hpp:29,
+                       from /usr/include/boost/shared_ptr.hpp:17,
+                       from /usr/include/boost/python/converter/shared_ptr_to_python.hpp:12,
+                       from /usr/include/boost/python/converter/arg_to_python.hpp:15,
+                       from /usr/include/boost/python/call.hpp:15,
+                       from /usr/include/boost/python/object_core.hpp:14,
+                       from /usr/include/boost/python/args.hpp:22,
+                       from /usr/include/boost/python.hpp:11,
+                       from src/exiv2wrapper.hpp:35,
+                       from src/exiv2wrapper_python.cpp:29:
+      /usr/include/boost/bind.hpp:36:1: note: ‘#pragma message: The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.’
+         36 | BOOST_PRAGMA_MESSAGE(
+            | ^~~~~~~~~~~~~~~~~~~~
+      /usr/include/boost/detail/iterator.hpp:13:1: note: ‘#pragma message: This header is deprecated. Use <iterator> instead.’
+         13 | BOOST_HEADER_DEPRECATED("<iterator>")
+            | ^~~~~~~~~~~~~~~~~~~~~~~
+      g++ -shared build/temp.linux-x86_64-cpython-310/src/exiv2wrapper.o build/temp.linux-x86_64-cpython-310/src/exiv2wrapper_python.o -L/usr/local/lib -lboost_python310 -lexiv2 -o build/lib.linux-x86_64-cpython-310/libexiv2python.cpython-310-x86_64-linux-gnu.so
+      /usr/bin/ld: cannot find -lboost_python310
+      collect2: error: ld returned 1 exit status
+      error: command '/usr/bin/g++' failed with exit code 1
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: legacy-install-failure
+
+× Encountered error while trying to install package.
+╰─> py3exiv2
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for output from the failure.
+
+[notice] A new release of pip is available: 23.0.1 -> 25.2
+[notice] To update, run: pip install --upgrade pip
+The command '/bin/sh -c pip install --no-cache-dir  --default-timeout=900 -r requirements_1.txt' returned a non-zero code: 1
