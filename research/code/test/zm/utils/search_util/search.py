@@ -141,7 +141,7 @@ def search_fn(client, cImgs, cTxts):
 
         st.divider()
 
-        search_btn = st.button(label="## Search")
+        search_btn = st.button(label="## Search", use_container_width=True, type="primary")
 
     # seach button pressed
     if search_btn:

@@ -274,7 +274,7 @@ def execute():
     metadata_path = os.path.join(metadata_path, user_source_selected)
     text_folder_name = os.path.join(text_folder_name, user_source_selected)
 
-    b_load_metadata = st.button("load image metadata")
+    b_load_metadata = st.button("load image metadata", type="primary")
     if b_load_metadata:
 
         df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file, image_final_path=image_final_path, image_final_folder=arc_folder_name)

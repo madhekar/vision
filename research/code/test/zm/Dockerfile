@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y \
     python3-setuptools \
     libexiv2-dev \
     libboost-python-dev \
+    libboost-all-dev \
     build-essential \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*

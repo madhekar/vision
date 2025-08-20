@@ -199,7 +199,7 @@ def execute():
                     deep_copy_external_drive_to_raw(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
                     #copy_folders_with_files(create_external_data_path(get_user(), ext_source),os.path.join(raw_data_path, ext_source))
         else:
-            bimp = st.sidebar.button(label="IMPORT DATA", use_container_width=True)
+            bimp = st.sidebar.button(label="IMPORT DATA", use_container_width=True, type="primary")
             if bimp:
                 # import folders and files - generate file paths based on uuid.uuid5
                 # keep base same

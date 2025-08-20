@@ -82,7 +82,7 @@ def execute():
 
     data = get_path_as_dict( os.path.join(raw_data_path, ext))
     checked= display_folder_tree( data)
-    btrim = st.sidebar.button(label="TRIM CHECKED FOLDERS",use_container_width=True) 
+    btrim = st.sidebar.button(label="TRIM CHECKED FOLDERS",use_container_width=True, type="primary") 
     # c1.text_area(label="External Source Structure", value= display_tree(os.path.join('/media/madhekar/' , ext)))
     if btrim:
         for rs in checked:

@@ -133,7 +133,7 @@ def execute():
     ca, cb, cc = st.columns([0.4, 0.4, 0.5], gap="small", vertical_alignment="top")
    
     with ca:            
-        ca_create = st.button("**user specific locations**", use_container_width=True)
+        ca_create = st.button("**user specific locations**", use_container_width=True, type="primary")
         ca_status = st.status('create user specific locations', state="running", expanded=True)
         with ca_status:
             if ca_create:
@@ -143,7 +143,7 @@ def execute():
                    generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, default_location_metadata_path, user_location_metadata_path, user_location_metadata_file) 
                 ca_status.update(label='user specific locations complete!', state='complete', expanded=False)
     with cb:
-        cb_metadata = st.button("**aggregate all locations**", use_container_width=True)
+        cb_metadata = st.button("**aggregate all locations**", use_container_width=True, type="primary")
   
         cb_status = st.status('create static location store', state='running', expanded=True)
         with cb_status:
@@ -161,7 +161,7 @@ def execute():
                 transform_and_add_static_metadata( default_location_metadata_path, user_location_metadata_path, user_location_metadata_file, final_user_metadata_storage_path)
                 cb_status.update(label="metadata creation complete!", state="complete", expanded=False)  
     with cc:
-        cc_metadata = st.button("**Refresh people detection model**", use_container_width=True)
+        cc_metadata = st.button("**Refresh people detection model**", use_container_width=True, type="primary")
         cc_status = st.status('create people names ', state='running', expanded=True)  
         with cc_status:
             if cc_metadata:
