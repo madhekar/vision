@@ -5,6 +5,8 @@ sudo apt-get clean autoclean
 sudo apt-get autoremove --yes
 rm -rf /var/lib{apt,dpkg,cache,log}
 
+ERROR: Cannot install -r requirements.txt (line 12), -r requirements.txt (line 15), -r requirements.txt (line 28), -r requirements.txt (line 31), -r requirements.txt (line 6) and Pillow==11.3.0 because these package versions have conflicting dependencies.
+
 
 ERROR: Cannot install -r requirements.txt (line 10), -r requirements.txt (line 13), -r requirements.txt (line 24), -r requirements.txt (line 27), -r requirements.txt (line 5) and Pillow==11.3.0 because these package versions have conflicting dependencies.
 
