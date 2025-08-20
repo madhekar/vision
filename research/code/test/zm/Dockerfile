@@ -15,6 +15,16 @@ COPY requirements_1.txt .
 #     git \
 #     && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-dev \
+    python3-setuptools \
+    libexiv2-dev \
+    libboost-python-dev \
+    build-essential \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 # RUN git -b my_branch clone https://github.com/madhekar/vision.git .
 # research/code/test/multipage_app
 # RUN git clone https://github.com/streamlit/streamlit-example.git .
