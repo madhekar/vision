@@ -13,10 +13,10 @@ from utils.util import statusmsg_util as sm
 sm.init()
 
 btn_labels = [
-    "DATA LOAD VALIDATE",       
-    "IMG: PURGE DUPLICATES",
-    "IMG: PURGE BAD QUALITY",
-    "IMG: METADATA VALIDATE"
+    "VALIDATE & DATA LOAD",       
+    "PURGE DUPLICATES",
+    "PURGE BAD QUALITY",
+    "VALIDATE METADATA"
 ]
 unpressed_color = "#5a5255"#"#636B2F"  # colors = ["#BAC095", "#636B2F"]
 success_color = '#559e83' #"#BAC095"
@@ -194,7 +194,6 @@ def execute():
 
         with c2:
             st.button(btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2, user_source_selected), use_container_width=True)
-            print('++++here')
             st.divider()
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(quality_data_path)
             st.caption('**Bad Quality Images Archived**')
@@ -225,9 +224,9 @@ def execute():
             st.caption("**Images With Missing Metadata**")
             if os.path.exists(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file)):       
                dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file))
-               print(dict)
+               #print(dict)
                df = pd.DataFrame.from_dict(dict, orient='index',columns=['number'])
-               print(df)
+              #print(df)
             
                st.bar_chart(
                     df,
@@ -254,7 +253,7 @@ def execute():
         ChkBtnStatusAndAssigncolor()
 
 def exec_task(iTask, user_source):
-    print(iTask, user_source)
+    #print(iTask, user_source)
     match iTask:
         case 0:  
             # load images check

@@ -74,7 +74,7 @@
 
 
 /* green button */
-.st-key-green button { background-color: #4CAF50; border-radius: 1px; padding: 20px 60px; animation: pulse 2s;}
+.st-key-green button { background-color: #4CAF50; border-radius: 0px; padding: 20px 60px; animation: pulse 3s;}
 .st-key-green button p {font-size: 24px; font-family: 'Comic Sans MS', sans-serif;}
 /* Hover effect for the button */
 .st-key-green button:hover { background-color: #45a049;/* Darker green */border: none;}
@@ -87,7 +87,7 @@
 
 
 /* orange button */
-.st-key-orange button { background-color: #FAD5A5; border-radius: 10px; padding: 20px 60px; animation: pulse 2s;}
+.st-key-orange button { background-color: #FAD5A5; border-radius: 0px; padding: 20px 60px; animation: pulse 3s;}
 .st-key-orange button p {font-size: 24px; font-family: 'Comic Sans MS', sans-serif;}
 /* Hover effect for the button */
 .st-key-orange button:hover { background-color: #FF7F50;/* Darker orange */border: none;}
@@ -115,6 +115,7 @@
 .st-key-pulse button:hover p {
     color: #FFD700;
     /* Gold color */
+    border: none;
 }
 
 /* Override the focus states to prevent default red border */
@@ -127,6 +128,7 @@
 /* Apply the same text color during focus states */
 .st-key-pulse button:focus p {
     color: #FFD700;
+    border: none;
 }
 
 
@@ -200,12 +202,14 @@
 }
 
 [data-testid="stSidebarNav"]::before {
-content: "ZESHA MEDIA PORTAL";
+content: "z-media";
 margin-left: 20px;
 margin-top: 0px;
-font-size: 18px;
+font-size: 50px;
+margin-bottom: 100px;
+font-family: cursive;
 position: relative;
-color: white;
-background-color: #636B2F;
+color: rgb(15, 35, 211);
+background-color:gainsboro;
 top: 0px;
 }
