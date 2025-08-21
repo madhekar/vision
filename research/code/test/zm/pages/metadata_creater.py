@@ -16,7 +16,7 @@ user_source_selected = st.sidebar.selectbox(
         label_visibility="collapsed"
     )
 
-st.subheader("METADATA: GENERATE", divider="gray")
+st.header("METADATA: GENERATE", divider="gray")
 btn_metatdata = st.button(label='Metadata Generate', type='primary')
 if btn_metatdata:
         st.info('step 2: create metadata for search such as annotations location, text, person names etc...')

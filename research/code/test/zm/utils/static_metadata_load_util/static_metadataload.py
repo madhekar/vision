@@ -96,8 +96,9 @@ def execute():
     final_user_metadata_storage_path = os.path.join(user_location_metadata_path, final_user_location_metadata_file)
 
     c1, c2, c3 = st.columns([.5, .3, .5], gap="medium")
+ 
     with c1:
-        st.subheader("Static Metadata")
+        st.subheader("Static Metadata", divider='gray')
         c11,c12 = c1.columns([1,1])
         dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
         dfs['size'] = dfs['size'].apply(lambda x: x /(pow(1024, 2)))
@@ -116,16 +117,16 @@ def execute():
         print(dfl['count'], dfa['count'])
         c2a, c2b = st.columns([1,1], gap="small")
         with c2a:
-            st.subheader("Locations")
+            st.subheader("Locations", divider='blue')
             st.metric("Number of location files", sum(dfl['count']))
             st.metric("Total size of location files (MB)", round(dfl["size"]/(pow(1024,2)), 2),delta=.23)
         with c2b:
-            st.subheader("User Locations")
+            st.subheader("User Locations", divider='red')
             st.metric("Number of user location files", int(count))
             st.metric("Total size of user locations files (MB)",  int(size))
 
     with c3:
-        st.subheader('Number of Images / Person') 
+        st.subheader('Number of Images / Person', divider='rainbow') 
         df = fc.sub_file_count( faces_metadata_path) #"/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces")
         st.bar_chart(df, x="person", y="number of images", color=["#c3cb71"], horizontal=True)
     st.divider()
