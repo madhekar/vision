@@ -1,7 +1,7 @@
 import subprocess
 import os
 import glob
-import json
+import pandas as pd
 
 class ExifTool(object):
 
@@ -33,7 +33,7 @@ class ExifTool(object):
         return output[:-len(self.sentinel)]
 
     def get_metadata(self, *filenames):
-        return self.execute( "-G", "-csv", "-n", *filenames)
+        return self.execute("-S","-f" ,"-csv", "-n", *filenames)
 
 # recursive call to get all image filenames, to be replaced by parquet generator
 def getRecursive(rootDir, chunk_size=10):
@@ -44,21 +44,40 @@ def getRecursive(rootDir, chunk_size=10):
     for i in range(0, len(f_list), chunk_size):
         yield f_list[i : i + chunk_size]
 
-if __name__=='__main__':
-    root = "/home/madhekar/work/home-media-app/data/final-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5"
-    out_file = "out.csv"
+def create_missing_metadata(fname, root):
+   if os.path.exists(fname):
+        os.remove(fname)
 
-    if os.path.exists(out_file):
-        os.remove(out_file)
+   img_iterator = getRecursive(root, chunk_size=100)    
 
-    img_iterator = getRecursive(root, chunk_size=10)    
-
-    with open(out_file, "a") as f:
+   with open(fname, "a") as f:
         for ilist in img_iterator:
             with ExifTool() as et:
-                print(ilist, "\n")
                 mdata = et.get_metadata(*ilist)
-
-                print(mdata)
                 f.write(mdata)
-    f.close()        
+   f.close()             
+
+def get_missing_metadata_dataframe(fname):
+    df = pd.read_csv(fname)
+    dfr = df[
+        (
+            (df["SourceFile"] != "SourceFile")
+            & (df["GPSLongitude"] != "GPSLongitude")
+            & (df["GPSLatitude"] != "GPSLatitude")
+            & (df["DateTimeOriginal"] != "DateTimeOriginal")
+        )
+    ]
+    dfr.to_csv(fname)
+    return dfr
+    
+if __name__=='__main__':
+    root = "/home/madhekar/work/home-media-app/data/input-data/img/madhekar"
+    out_file = "out.csv"
+    
+    create_missing_metadata(out_file, root)
+
+    df = get_missing_metadata_dataframe(out_file)
+  
+    print(df)
+
+    
