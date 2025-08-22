@@ -36,7 +36,7 @@ class ExifTool(object):
 
 
 if __name__=='__main__':
-    root = "/home/madhekar/temp/faces/Esha"
+    root = "/home/madhekar/work/home-media-app/data/final-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5"
     with ExifTool() as et:
         l_images =[os.path.join(root, img) for img in os.listdir(root)]
         print(l_images)
