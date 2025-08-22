@@ -6,7 +6,7 @@ from utils.util import model_util as mu
 from utils.config_util import config
 from utils.util import statusmsg_util as sm
 from utils.util import storage_stat as ss
-import exif_missing_metadata as emm
+from utils.missing_util import exif_missing_metadata as emm
 
 """
 missing-metadata:
@@ -60,7 +60,7 @@ def execute(source_name):
         
     out_file = os.path.join(output_file_path, mmf)    
     
-    emm.create_missing_metadata(input_image_path, out_file)
+    emm.create_missing_metadata(out_file, input_image_path)
 
     emm.get_missing_metadata_dataframe(out_file)
 
