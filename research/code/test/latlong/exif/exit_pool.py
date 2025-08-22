@@ -12,7 +12,8 @@ class ExifTool(object):
 
     def __enter__(self):
         self.process = subprocess.Popen(
-            [self.executable, "-stay_open", "True",  "-@", "-"],
+            [self.executable, '-gps:GPSLongitude', '-gps:GPSLatitude', '-DateTimeOriginal' ,'-stay_open', 'True', '-@' ,'-' ],
+            universal_newlines=True,
             stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         return self
 
@@ -27,18 +28,18 @@ class ExifTool(object):
         output = ""
         fd = self.process.stdout.fileno()
         while not output.endswith(self.sentinel):
-            output += os.read(fd, 4096)
+            output += os.read(fd, 4096).decode('utf-8')
         return output[:-len(self.sentinel)]
 
     def get_metadata(self, *filenames):
-        return json.loads(self.execute("-G", "-j", "-n", *filenames))
+        return self.execute("-G", "-csv", "-n", *filenames)
 
 
 if __name__=='__main__':
-    et = ExifTool()
-    root = '/Users/emadhekar/Documents/images'
-    l_images =[os.path.join(root, img) for img in os.listdir(root)]
-    print(l_images)
-    mdata = et.get_metadata(l_images)
+    root = "/home/madhekar/temp/faces/Esha"
+    with ExifTool() as et:
+        l_images =[os.path.join(root, img) for img in os.listdir(root)]
+        print(l_images)
+        mdata = et.get_metadata(*l_images)
 
-    print(mdata)
+        print(mdata)
