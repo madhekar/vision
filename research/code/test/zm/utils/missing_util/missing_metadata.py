@@ -6,6 +6,8 @@ from utils.util import model_util as mu
 from utils.config_util import config
 from utils.util import statusmsg_util as sm
 from utils.util import storage_stat as ss
+import exif_missing_metadata as emm
+
 """
 missing-metadata:
   input_image_path: '/home/madhekar/work/home-media-app/data/input-data/img'
@@ -52,31 +54,44 @@ def execute(source_name):
     input_image_path = os.path.join(imp, source_name)
     #clean empty folders if any
     #ss.remove_empty_files_and_folders(input_image_path) #remove_empty_folders(input_image_path) 
-    
-    try:          
-        print('try---->', input_image_path)  
-        args = shlex.split( f"exiftool -gps:GPSLongitude -gps:GPSLatitude -DateTimeOriginal -csv -T -r -n '{input_image_path}'")
-        print(args)
-        proc = subprocess.run(args, capture_output=True)
-        print('----->',proc.stdout)
-    except Exception as e:
-        print(f'error {e}')
-    print('----->',proc.stdout)
 
-    if not proc.stdout:
-        sm.add_messages("metadata","w| No missing metadata found in image files.") 
-    else:    
-        output_file_path = os.path.join(mmp, source_name)
-        ss.create_folder(output_file_path)
+    output_file_path = os.path.join(mmp, source_name)
+    ss.create_folder(output_file_path)
         
-        with open(os.path.join(output_file_path, mmf), "wb") as output:
-            output.write(proc.stdout)
+    out_file = os.path.join(output_file_path, mmf)    
+    
+    emm.create_missing_metadata(input_image_path, out_file)
 
-        filter_missing_image_data(os.path.join(output_file_path, mmf), os.path.join(output_file_path, mmff))
+    emm.get_missing_metadata_dataframe(out_file)
 
-        create_missing_report(os.path.join(output_file_path, mmf))
+    filter_missing_image_data(os.path.join(output_file_path, mmf), os.path.join(output_file_path, mmff))
 
-        sm.add_messages("metadata",f"w| finalized to analyze missing metadata files created {output_file_path}.")   
+    create_missing_report(os.path.join(output_file_path, mmf))
+    
+    # try:          
+    #     print('try---->', input_image_path)  
+    #     args = shlex.split( f"exiftool -gps:GPSLongitude -gps:GPSLatitude -DateTimeOriginal -csv -T -r -n '{input_image_path}'")
+    #     print(args)
+    #     proc = subprocess.run(args, capture_output=True)
+    #     print('----->',proc.stdout)
+    # except Exception as e:
+    #     print(f'error {e}')
+    # print('----->',proc.stdout)
+
+    # if not proc.stdout:
+    #     sm.add_messages("metadata","w| No missing metadata found in image files.") 
+    # else:    
+    #     output_file_path = os.path.join(mmp, source_name)
+    #     ss.create_folder(output_file_path)
+        
+    #     with open(os.path.join(output_file_path, mmf), "wb") as output:
+    #         output.write(proc.stdout)
+
+    #     filter_missing_image_data(os.path.join(output_file_path, mmf), os.path.join(output_file_path, mmff))
+
+    #     create_missing_report(os.path.join(output_file_path, mmf))
+
+    sm.add_messages("metadata",f"w| finalized to analyze missing metadata files created {output_file_path}.")   
 
 if __name__=='__main__':
     execute(source_name="")
