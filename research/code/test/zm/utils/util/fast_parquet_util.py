@@ -34,9 +34,7 @@ def transform_raw_locations(fpath):
             df["country"] = cc.pandas_convert(series=df["country"], to="ISO2")
 
             # standardize us state codes
-            df["state"] = df["state"].apply(
-                lambda x: ust.multiple_replace(ust.statename_to_abbr, x)
-            )
+            df["state"] = df["state"].apply(lambda x: ust.multiple_replace(ust.statename_to_abbr, x))
 
             # overrite existing file in-place
             df.to_csv(fpath, sep=",", header=False, index=False)
