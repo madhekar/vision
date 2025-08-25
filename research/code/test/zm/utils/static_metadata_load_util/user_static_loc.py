@@ -88,7 +88,7 @@ def format_comma_locations(draft_file):
         lines = f.readlines()
         for line in lines:
             nline = join_last_four(line)
-            print(nline)
+            print(f' *** {nline}')
             nlines.append(nline + "\n")
 
     #out_file = "data/name_lat_lon_full.csv"

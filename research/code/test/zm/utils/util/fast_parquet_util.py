@@ -23,9 +23,9 @@ def transform_raw_locations(fpath):
                 f_arr.append(a_)
 
             # create data frame
-            df = pd.DataFrame(
-                f_arr, columns=["name", "state", "country", "latitude", "longitude"], 
-            )
+            df = pd.DataFrame(f_arr, columns=["name", "state", "country", "latitude", "longitude"])
+
+            #print(df.isnull().sum())
             #dtype={'name': str, 'state': str, 'city':str, 'latitude': float, 'longitude': float}
             df["name"] = df["name"].astype(str)
             df['latitude'] = df['latitude'].astype(float)
@@ -45,7 +45,7 @@ def transform_raw_locations(fpath):
             print(f"+++ {fpath}: {rdf.shape}")
             st.info(f"{fpath}: {rdf.shape}")
     except Exception as e:
-        st.error(f"failed to transform raw locations with exception: {e}")
+        st.error(f"failed to transform {fpath} raw locations with exception: {e}")
     return rdf
 
 
