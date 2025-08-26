@@ -24,6 +24,7 @@ def transform_raw_locations(fpath):
 
             # create data frame
             df = pd.DataFrame(f_arr, columns=["name", "state", "country", "latitude", "longitude"])
+            df.to_csv('test.csv', index=False)
 
             #print(df.isnull().sum())
             #dtype={'name': str, 'state': str, 'city':str, 'latitude': float, 'longitude': float}

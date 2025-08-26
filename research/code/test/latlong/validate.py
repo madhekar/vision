@@ -16,10 +16,10 @@ def validate_static_metadata_location(loc_file):
     #df["latitude"] = df["latitude"].astype(float)
     #df["longitude"] = df["longitude"].astype(float)
 
-    #df["latitude"] = pd.to_numeric(df["latitude"], errors='coerce')
-    df['latitude'] = df['latitude'].astype(float)
-    df['longitude'] = df['longitude'].astype(float)
-    #df["longitude"] = pd.to_numeric(df["longitude"], errors='coerce')
+    df["latitude"] = pd.to_numeric(df["latitude"], errors='coerce')
+    #df['latitude'] = df['latitude'].astype(float)
+    #df['longitude'] = df['longitude'].astype(float)
+    df["longitude"] = pd.to_numeric(df["longitude"], errors='coerce')
     df.to_csv("out1.csv", columns=["name", "state", "country", "latitude", "longitude"],index=False)
     # print(df.isnull().sum(axis=1))
 
@@ -30,4 +30,5 @@ def validate_static_metadata_location(loc_file):
 if __name__=='__main__':
    #validate_static_metadata_location('/home/madhekar/work/vision/research/code/test/zm/schema/base_data/locations/in-cities.csv')   
    #validate_static_metadata_location('/home/madhekar/work/vision/research/code/test/zm/schema/base_data/locations/us-nationalparks.csv') 
-   validate_static_metadata_location('/home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific/madhekar/user-specific.csv')
+   #validate_static_metadata_location('/home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific/madhekar/user-specific.csv')
+   validate_static_metadata_location('/home/madhekar/work/vision/research/code/test/zm/test.csv') 
