@@ -16,9 +16,11 @@ def validate_static_metadata_location(loc_file):
     #df["latitude"] = df["latitude"].astype(float)
     #df["longitude"] = df["longitude"].astype(float)
 
-    df["latitude"] = pd.to_numeric(df["latitude"], errors='coerce')
-    df["longitude"] = pd.to_numeric(df["longitude"], errors='coerce')
-    df.to_csv('out1.csv', columns=['latitude', 'longitude'])
+    #df["latitude"] = pd.to_numeric(df["latitude"], errors='coerce')
+    df['latitude'] = df['latitude'].astype(float)
+    df['longitude'] = df['longitude'].astype(float)
+    #df["longitude"] = pd.to_numeric(df["longitude"], errors='coerce')
+    df.to_csv("out1.csv", columns=["name", "state", "country", "latitude", "longitude"],index=False)
     # print(df.isnull().sum(axis=1))
 
     print(df[df.isnull().any(axis=1)])
