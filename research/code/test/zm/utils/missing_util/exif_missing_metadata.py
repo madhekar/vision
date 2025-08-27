@@ -83,7 +83,7 @@ def get_missing_metadata_dataframe(fname):
         )
     ]
     dfr.to_csv(fname)
-    return dfr
+    return dfr.values.tolist()
 
 
 if __name__ == "__main__":
