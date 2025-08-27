@@ -3,8 +3,10 @@ import cv2
 import matplotlib.pyplot as plt
 
 # Load your image
-image_path = "image_with_many_faces.jpg" # Replace with your image file
+image_path = "/home/madhekar/temp/Deepface_issues/IMG_8543.PNG" # Replace with your image file
 img = cv2.imread(image_path)
+plt.imshow(img)
+plt.show()
 
 # Step 1: Detect all faces
 # The result is a list of dictionaries, one for each face detected
@@ -24,6 +26,7 @@ if detected_faces:
 
     # Step 3: Sort faces by area in descending order
     sorted_faces = sorted(detected_faces, key=lambda x: x["area"], reverse=True)
+    print(sorted_faces)
 
     # Step 4: Limit to the top N faces (e.g., the 3 largest)
     num_faces_to_keep = 3
@@ -33,14 +36,18 @@ if detected_faces:
 
     # Step 5: Visualize the restricted faces
     for face_obj in restricted_faces:
-        x, y, w, h = face_obj["facial_area"].values()
+        x, y, w, h,_,_= face_obj["facial_area"].values()
+        print(face_obj["facial_area"].values())
         cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
     # Display the image with bounding boxes
-    plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-    plt.title(f"Displaying top {num_faces_to_keep} largest faces")
-    plt.axis('off')
-    plt.show()
+    # plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    # plt.title(f"Displaying top {num_faces_to_keep} largest faces")
+    # plt.axis('off')    
+    # plt.show()
 
+    cv2.imshow('in', img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 else:
     print("No faces detected in the image.")
