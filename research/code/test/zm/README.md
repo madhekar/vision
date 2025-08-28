@@ -671,3 +671,49 @@ Info:
   Processes: 433 Uptime: 5h 54m wakeups: 46 Init: systemd v: 249 runlevel: 5
   Compilers: gcc: 11.4.0 alt: 11/12 Shell: Bash v: 5.1.16
   running-in: gnome-terminal inxi: 3.3.13
+
+-----
+
+sudo find /usr -type f -size +10M -printf '%s %p\n' | sort -nrk 1 | numfmt --to=iec --field=1 | head -n 40
+----------------------------------------------------------------------------------------------------------
+[sudo] password for madhekar:          
+187M /usr/share/code/code
+161M /usr/lib/firefox/libxul.so
+137M /usr/lib/jvm/java-11-openjdk-amd64/lib/modules
+112M /usr/lib/x86_64-linux-gnu/libLLVM-15.so.1
+107M /usr/local/n/versions/node/22.3.0/bin/node
+94M /usr/local/n/versions/node/20.14.0/bin/node
+94M /usr/local/bin/node
+89M /usr/bin/dockerd
+88M /usr/lib/x86_64-linux-gnu/libwebkit2gtk-4.1.so.0.17.10
+88M /usr/lib/x86_64-linux-gnu/libwebkit2gtk-4.0.so.37.72.10
+55M /usr/bin/containerd
+44M /usr/lib/firefox/browser/omni.ja
+37M /usr/lib/firmware/nvidia/ga102/gsp/gsp-535.113.01.bin
+36M /usr/lib/firefox/omni.ja
+33M /usr/share/icons/Bibata-Original-Classic/cursors/wait
+33M /usr/share/icons/Bibata-Original-Ice/cursors/wait
+33M /usr/share/icons/Bibata-Modern-Ice/cursors/wait
+33M /usr/share/icons/Bibata-Modern-Classic/cursors/wait
+33M /usr/lib/gcc/x86_64-linux-gnu/12/cc1
+33M /usr/share/icons/Bibata-Original-Ice/cursors/left_ptr_watch
+33M /usr/share/icons/Bibata-Modern-Ice/cursors/left_ptr_watch
+32M /usr/share/icons/Bibata-Original-Classic/cursors/left_ptr_watch
+32M /usr/share/icons/Bibata-Modern-Classic/cursors/left_ptr_watch
+32M /usr/lib/x86_64-linux-gnu/dri/zink_dri.so
+32M /usr/lib/x86_64-linux-gnu/dri/vmwgfx_dri.so
+32M /usr/lib/x86_64-linux-gnu/dri/virtio_gpu_dri.so
+32M /usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+32M /usr/lib/x86_64-linux-gnu/dri/radeonsi_dri.so
+32M /usr/lib/x86_64-linux-gnu/dri/r600_dri.so
+32M /usr/lib/x86_64-linux-gnu/dri/r300_dri.so
+32M /usr/lib/x86_64-linux-gnu/dri/nouveau_dri.so
+32M /usr/lib/x86_64-linux-gnu/dri/kms_swrast_dri.so
+32M /usr/lib/x86_64-linux-gnu/dri/iris_dri.so
+32M /usr/lib/x86_64-linux-gnu/dri/i915_dri.so
+32M /usr/lib/x86_64-linux-gnu/dri/d3d12_dri.so
+32M /usr/lib/x86_64-linux-gnu/dri/crocus_dri.so
+32M /usr/bin/x86_64-linux-gnu-lto-dump-12
+32M /usr/lib/gcc/x86_64-linux-gnu/12/lto1
+31M /usr/lib/x86_64-linux-gnu/libjavascriptcoregtk-4.1.so.0.8.8
+31M /usr/lib/x86_64-linux-gnu/libjavascriptcoregtk-4.0.so.18.27.8
