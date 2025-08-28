@@ -526,3 +526,148 @@ zm v0.1.0
 ├── torchvision v0.18.1 (*)
 └── transformers v4.37.2 (*)
 (*) Package tree already displayed
+
+-----
+
+sudo parted --list
+------------------
+[sudo] password for madhekar:          
+Model: FlashDri BLA_001 (scsi)
+Disk /dev/sda: 129GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End    Size   Type     File system  Flags
+ 1      16.8MB  129GB  129GB  primary
+
+
+Model: KINGSTON OM8PGP41024Q-A0 (nvme)
+Disk /dev/nvme0n1: 1024GB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags: 
+
+Number  Start   End     Size    File system     Name                          Flags
+ 1      1049kB  106MB   105MB   fat32           EFI system partition          boot, esp
+ 2      106MB   123MB   16.8MB                  Microsoft reserved partition  msftres
+ 3      123MB   72.4GB  72.3GB  ntfs            Basic data partition          msftdata
+ 5      72.4GB  93.9GB  21.5GB  ext4
+ 6      93.9GB  97.3GB  3375MB  linux-swap(v1)                                swap
+ 7      97.3GB  997GB   900GB   ext4
+ 4      1023GB  1024GB  1073MB  ntfs            Basic data partition          hidden, diag
+
+----
+
+inxi -Fxxxmprz
+--------------
+System:
+  Kernel: 5.15.0-152-generic x86_64 bits: 64 compiler: gcc v: 11.4.0
+    Desktop: Cinnamon 6.0.4 tk: GTK 3.24.33 wm: muffin dm: LightDM 1.30.0
+    Distro: Linux Mint 21.3 Virginia base: Ubuntu 22.04 jammy
+Machine:
+  Type: Desktop System: Micro (HK) Tech product: UM690 v: Version 1.0
+    serial: <superuser required>
+  Mobo: Shenzhen Meigao Equipment model: F7BFC v: Version 1.0
+    serial: <superuser required> UEFI: American Megatrends LLC. v: 1.16
+    date: 02/15/2023
+Battery:
+  Device-1: hidpp_battery_0 model: Logitech Wireless Keyboard
+    serial: <filter> charge: 50% (should be ignored) rechargeable: yes
+    status: N/A
+Memory:
+  RAM: total: 60.56 GiB used: 32.7 GiB (54.0%)
+  RAM Report:
+    permissions: Unable to run dmidecode. Root privileges required.
+CPU:
+  Info: 8-core model: AMD Ryzen 9 6900HX with Radeon Graphics bits: 64
+    type: MT MCP smt: enabled arch: Zen 3 rev: 1 cache: L1: 512 KiB L2: 4 MiB
+    L3: 16 MiB
+  Speed (MHz): avg: 3962 high: 4467 min/max: 1600/3300 boost: enabled
+    cores: 1: 4385 2: 4445 3: 4425 4: 4467 5: 4128 6: 4088 7: 4422 8: 4413
+    9: 3364 10: 4251 11: 3981 12: 4220 13: 1974 14: 1979 15: 4447 16: 4414
+    bogomips: 105395
+  Flags: avx avx2 ht lm nx pae sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3 svm
+Graphics:
+  Device-1: AMD Rembrandt [Radeon 680M] driver: amdgpu v: kernel pcie:
+    speed: 16 GT/s lanes: 16 ports: active: HDMI-A-1
+    empty: DP-1, DP-2, DP-3, DP-4, DP-5, HDMI-A-2 bus-ID: 35:00.0
+    chip-ID: 1002:1681 class-ID: 0300
+  Display: x11 server: X.Org v: 1.21.1.4 driver: X: loaded: amdgpu,ati
+    unloaded: fbdev,modesetting,vesa gpu: amdgpu display-ID: :0 screens: 1
+  Screen-1: 0 s-res: 3840x2160 s-dpi: 96 s-size: 1016x571mm (40.0x22.5")
+    s-diag: 1165mm (45.9")
+  Monitor-1: HDMI-A-0 mapped: HDMI-A-1 model: Dell P2715Q serial: <filter>
+    res: 3840x2160 hz: 30 dpi: 163 size: 597x336mm (23.5x13.2")
+    diag: 685mm (27") modes: max: 3840x2160 min: 720x400
+  OpenGL:
+    renderer: REMBRANDT (rembrandt LLVM 15.0.7 DRM 3.42 5.15.0-152-generic)
+    v: 4.6 Mesa 23.2.1-1ubuntu3.1~22.04.3 direct render: Yes
+Audio:
+  Device-1: AMD Radeon High Definition Audio [Rembrandt/Strix]
+    driver: snd_hda_intel v: kernel pcie: speed: 16 GT/s lanes: 16
+    bus-ID: 35:00.1 chip-ID: 1002:1640 class-ID: 0403
+  Device-2: AMD Audio Coprocessor driver: snd_pci_acp6x v: kernel pcie:
+    speed: 16 GT/s lanes: 16 bus-ID: 35:00.5 chip-ID: 1022:15e2 class-ID: 0480
+  Device-3: AMD Family 17h/19h/1ah HD Audio vendor: Realtek
+    driver: snd_hda_intel v: kernel pcie: speed: 16 GT/s lanes: 16
+    bus-ID: 35:00.6 chip-ID: 1022:15e3 class-ID: 0403
+  Sound Server-1: ALSA v: k5.15.0-152-generic running: yes
+  Sound Server-2: PulseAudio v: 15.99.1 running: yes
+  Sound Server-3: PipeWire v: 0.3.48 running: yes
+Network:
+  Device-1: Intel Ethernet I226-V driver: igc v: kernel pcie: speed: 5 GT/s
+    lanes: 1 port: N/A bus-ID: 02:00.0 chip-ID: 8086:125c class-ID: 0200
+  IF: eno1 state: down mac: <filter>
+  Device-2: MEDIATEK MT7921 802.11ax PCI Express Wireless Network Adapter
+    driver: mt7921e v: kernel pcie: speed: 5 GT/s lanes: 1 bus-ID: 03:00.0
+    chip-ID: 14c3:7961 class-ID: 0280
+  IF: wlp3s0 state: up mac: <filter>
+  IF-ID-1: docker0 state: down mac: <filter>
+Bluetooth:
+  Device-1: MediaTek Wireless_Device type: USB driver: btusb v: 0.8
+    bus-ID: 5-3:3 chip-ID: 0e8d:7961 class-ID: e001 serial: <filter>
+  Report: hciconfig ID: hci0 rfk-id: 0 state: up address: <filter>
+    bt-v: 3.0 lmp-v: 5.2 sub-v: 2311 hci-v: 5.2 rev: 919
+Drives:
+  Local Storage: total: 1.05 TiB used: 362.56 GiB (33.8%)
+  ID-1: /dev/nvme0n1 vendor: Kingston model: OM8PGP41024Q-A0
+    size: 953.87 GiB speed: 63.2 Gb/s lanes: 4 type: SSD serial: <filter>
+    rev: ELFK0S.6 temp: 44.9 C scheme: GPT
+  ID-2: /dev/sda type: USB model: FlashDri BLA 001 size: 120.12 GiB
+    type: SSD serial: <filter> rev: 2.10 scheme: MBR
+Partition:
+  ID-1: / size: 19.53 GiB used: 14.46 GiB (74.1%) fs: ext4
+    dev: /dev/nvme0n1p5
+  ID-2: /boot/efi size: 96 MiB used: 59.1 MiB (61.6%) fs: vfat
+    dev: /dev/nvme0n1p1
+  ID-3: /home size: 823.96 GiB used: 275.24 GiB (33.4%) fs: ext4
+    dev: /dev/nvme0n1p7
+  ID-4: /media/madhekar/madhekar size: 120.09 GiB used: 72.16 GiB (60.1%)
+    fs: exfat dev: /dev/sda1
+Swap:
+  ID-1: swap-1 type: partition size: 3.14 GiB used: 658.8 MiB (20.5%)
+    priority: -2 dev: /dev/nvme0n1p6
+Sensors:
+  System Temperatures: cpu: N/A mobo: N/A gpu: amdgpu temp: 65.0 C
+  Fan Speeds (RPM): N/A
+Repos:
+  Packages: 2614 apt: 2609 flatpak: 5
+  No active apt repos in: /etc/apt/sources.list
+  No active apt repos in: /etc/apt/sources.list.d/amdgpu-proprietary.list
+  Active apt repos in: /etc/apt/sources.list.d/amdgpu.list
+    1: deb [arch=amd64,i386 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/amdgpu/6.4.2/ubuntu noble main
+  Active apt repos in: /etc/apt/sources.list.d/official-package-repositories.list
+    1: deb http://packages.linuxmint.com virginia main upstream import backport
+    2: deb http://archive.ubuntu.com/ubuntu jammy main restricted universe multiverse
+    3: deb http://archive.ubuntu.com/ubuntu jammy-updates main restricted universe multiverse
+    4: deb http://archive.ubuntu.com/ubuntu jammy-backports main restricted universe multiverse
+    5: deb http://security.ubuntu.com/ubuntu/ jammy-security main restricted universe multiverse
+  Active apt repos in: /etc/apt/sources.list.d/rocm.list
+    1: deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/rocm/apt/6.4.2 noble main
+  Active apt repos in: /etc/apt/sources.list.d/vscode.sources
+    1: deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/repos/code stable main
+Info:
+  Processes: 433 Uptime: 5h 54m wakeups: 46 Init: systemd v: 249 runlevel: 5
+  Compilers: gcc: 11.4.0 alt: 11/12 Shell: Bash v: 5.1.16
+  running-in: gnome-terminal inxi: 3.3.13
