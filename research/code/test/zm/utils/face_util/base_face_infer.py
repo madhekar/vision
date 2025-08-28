@@ -26,25 +26,29 @@ class infer_faces:
 
     def extract_faces(self, img):
         dict = {}
-        tin = cv.imread(img)
-        tin = cv.cvtColor(tin, cv.COLOR_BGR2RGB)
+        try:
+            tin = cv.imread(img)
+            tin = cv.cvtColor(tin, cv.COLOR_BGR2RGB)
 
-        res = self.detector.detect_faces(
-            tin, 
-            detector_backend="retinaface",  # "opencv", # Use a detector backend
-            enforce_detection=False # Set to False to prevent errors if no faces are found
-        )
+            res = self.detector.detect_faces(
+                tin, 
+                detector_backend="retinaface",  # "opencv", # Use a detector backend
+                enforce_detection=False # Set to False to prevent errors if no faces are found
+            )
 
-        if res and len(res) > 0:
-            dict = {}
-            cnt = 1
-            for d in res:
-                x, y, w, h = d["box"]
-                face = tin[y : y + h, x : x + w]
-                face_arr = cv.resize(face, (160, 160))
-                key = f"face_{cnt}"
-                dict[key] = face_arr
-                cnt += 1
+            if res and len(res) > 0:
+                dict = {}
+                cnt = 1
+                for d in res:
+                    x, y, w, h = d["box"]
+                    face = tin[y : y + h, x : x + w]
+                    face_arr = cv.resize(face, (160, 160))
+                    key = f"face_{cnt}"
+                    dict[key] = face_arr
+                    cnt += 1
+        except Exception as e:
+            print(f'extract_faces detected an exception: {e}')
+            
         return dict
 
     def replace_duplicates_and_missing(self, nfaces, names, prefix='person-'):
