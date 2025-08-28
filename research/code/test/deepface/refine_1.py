@@ -1,14 +1,16 @@
 from deepface import DeepFace
 import cv2
 
+iph = "/home/madhekar/temp/Deepface_issues/IMG_9400.PNG"
 # Load the image
-img = cv2.imread("/home/madhekar/temp/Deepface_issues/IMG_8543.PNG")
+img = cv2.imread(iph)
 
 # Detect faces using a chosen backend (e.g., 'retinaface')
 # This will return a list of dictionaries, each containing face details and bounding box
 detected_faces = DeepFace.extract_faces(
-    img_path="/home/madhekar/temp/Deepface_issues/IMG_8629.PNG",
-    detector_backend="retinaface"
+    img_path=iph, 
+    detector_backend="retinaface", 
+    enforce_detection=False
 )
 
 # Iterate through each detected face
