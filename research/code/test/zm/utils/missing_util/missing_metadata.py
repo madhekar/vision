@@ -41,7 +41,7 @@ def filter_missing_image_data(missing_file_path, missing_filter_file_path):
     #df = format_lat_lon(df)
     if (df.index.size) > 0:
        dfm = df[(df['GPSLatitude'] == '-') | (df['GPSLongitude'] == '-') | (df['DateTimeOriginal'] == '-')]  
-       dfm.to_csv(missing_filter_file_path,sep=',')
+       dfm.to_csv(missing_filter_file_path,sep=',', index=False)
     else:
         sm.add_messages('metadata', f'e| empty or invalid missing metadata file {missing_file_path}') 
           

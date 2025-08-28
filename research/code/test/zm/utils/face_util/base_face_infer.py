@@ -29,7 +29,11 @@ class infer_faces:
         tin = cv.imread(img)
         tin = cv.cvtColor(tin, cv.COLOR_BGR2RGB)
 
-        res = self.detector.detect_faces(tin)
+        res = self.detector.detect_faces(
+            tin, 
+            detector_backend="retinaface",  # "opencv", # Use a detector backend
+            enforce_detection=False # Set to False to prevent errors if no faces are found
+        )
 
         if res and len(res) > 0:
             dict = {}

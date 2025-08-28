@@ -5,7 +5,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 # Load your image
-image_path = "/home/madhekar/temp/Deepface_issues/IMG_8543.PNG" # Replace with your image file
+image_path = "/home/madhekar/temp/Deepface_issues/IMG_8629.PNG" # Replace with your image file
 img = cv2.imread(image_path)
 # plt.imshow(img)
 # plt.show()
@@ -14,8 +14,8 @@ img = cv2.imread(image_path)
 # The result is a list of dictionaries, one for each face detected
 detected_faces = DeepFace.extract_faces(
     img_path=image_path,
-    detector_backend="opencv", # Use a detector backend
-    enforce_detection=False # Set to False to prevent errors if no faces are found
+    detector_backend="retinaface",  # "opencv", # Use a detector backend
+    enforce_detection=False,  # Set to False to prevent errors if no faces are found
 )
 
 # Step 2: Calculate area and sort faces
