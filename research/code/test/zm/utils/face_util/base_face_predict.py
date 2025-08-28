@@ -104,7 +104,7 @@ def detect_human_attributs(img_path):
         #st.info(f'processing: {img_path}')
         preds = DeepFace.analyze(
             img_path,
-            actions=[ 'emotion'],
+            actions=['emotion'],
             detector_backend='retinaface',
             enforce_detection=False
         )
