@@ -1,12 +1,14 @@
 from deepface import DeepFace
 import cv2
+import matplotlib
+#matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
 # Load your image
 image_path = "/home/madhekar/temp/Deepface_issues/IMG_8543.PNG" # Replace with your image file
 img = cv2.imread(image_path)
-plt.imshow(img)
-plt.show()
+# plt.imshow(img)
+# plt.show()
 
 # Step 1: Detect all faces
 # The result is a list of dictionaries, one for each face detected
@@ -41,13 +43,13 @@ if detected_faces:
         cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
     # Display the image with bounding boxes
-    # plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-    # plt.title(f"Displaying top {num_faces_to_keep} largest faces")
-    # plt.axis('off')    
-    # plt.show()
+    plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    plt.title(f"Displaying top {num_faces_to_keep} largest faces")
+    plt.axis('off')    
+    plt.show()
 
-    cv2.imshow('in', img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.imshow('in', img)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 else:
     print("No faces detected in the image.")
