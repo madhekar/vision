@@ -30,9 +30,8 @@ def calculate_md5(filepath):
             file_hash.update(chunk)
     return file_hash.hexdigest()
 
-if __name__=='__main__':
-    # Example usage:
-    image_path = "/Users/emadhekar/Downloads/1909ab0d-8449-47a4-848c-4a5d7c4832ad.JPG"
-    md5_hash = calculate_md5(image_path)
-    p_hash = calculate_pHash(image_path)
-    print(f"MD5 and pHash hash of {image_path}: {md5_hash} {p_hash}")
+# Example usage:
+image_path = "/Users/emadhekar/Downloads/1909ab0d-8449-47a4-848c-4a5d7c4832ad.JPG"
+md5_hash = calculate_md5(image_path)
+p_hash = calculate_pHash(image_path)
+print(f"MD5 and pHash hash of {image_path}: {md5_hash} pHash: {p_hash}")
