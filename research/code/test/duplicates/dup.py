@@ -20,4 +20,4 @@ def calculate_md5(filepath):
 image_path = "/Users/emadhekar/Downloads/1909ab0d-8449-47a4-848c-4a5d7c4832ad.JPG"
 md5_hash = calculate_md5(image_path)
 p_hash = calculate_pHash(image_path)
-print(f"MD5 and pHash hash of {image_path}: {md5_hash} {p_hash}")
+print(f"MD5 and pHash hash of {image_path}: {md5_hash} pHash: {p_hash}")
