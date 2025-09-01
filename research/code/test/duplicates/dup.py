@@ -1,7 +1,21 @@
+import glob
+import os
 import hashlib
 from PIL import Image
 import imagehash
 import os
+
+def getRecursive(rootDir):
+    f_list = []
+    for fn in glob.iglob(rootDir + "/**/*", recursive=True):
+        if not os.path.isdir(os.path.abspath(fn)):
+            f_list.append(
+                (
+                    str(os.path.abspath(fn)).replace(str(os.path.basename(fn)), ""),
+                    os.path.basename(fn),
+                )
+            )
+    return f_list
 
 def calculate_pHash(filepath):
     image_path = filepath
