@@ -56,7 +56,7 @@ batch_size=64
 threshold=5
 backup_keep='y'
 backup_duplicate='y' 
-safe_deletion='y'
+safe_deletion='n'
 image_h = 512
 image_w = 512
 
