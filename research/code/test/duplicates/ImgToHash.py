@@ -16,22 +16,7 @@ hash_algo_dict = {
 }
 
 # List mime types fully supported by Pillow
-image_extensions = [
-    ".bmp",
-    ".jp2",
-    "pcx",
-    ".jpe",
-    ".jpg",
-    ".jpeg",
-    ".tif",
-    ".gif",
-    ".tiff",
-    ".rgb",
-    ".png",
-    "x-ms-bmp",
-    "x-portable-pixmap",
-    "x-xbitmap",
-]
+image_extensions = [".bmp",".jp2","pcx",".jpe",".jpg",".jpeg",".tif",".gif",".tiff",".rgb",".png","x-ms-bmp","x-portable-pixmap","x-xbitmap"]
 
 
 class ImageToHash(object):
