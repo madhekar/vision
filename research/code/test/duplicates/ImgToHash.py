@@ -218,7 +218,8 @@ class ImageToHash(object):
                     df_hashes = pd.DataFrame(row)
                 else:
                     temp = pd.DataFrame(row)
-                    df_hashes = df_hashes.append(temp, ignore_index=True)
+                    df_hashes = pd.concat([df_hashes, temp], ignore_index=True)
+                    #df_hashes = df_hashes.append(temp, ignore_index=True)
                 pbar.update(1)
 
         return df_hashes
