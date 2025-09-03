@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 #from KDTree import build_tree
-from utils.dedup_util import helper_functions as hf #import build_tree
-from utils.dedup_util import ImgUtils
+from utils.dedup_util.phash import helper_functions as hf #import build_tree
+from utils.dedup_util.phash import ImgUtils
 
 
 def search(df_dataset,output_path,tree_type,distance_metric,nearest_neighbors,leaf_size,parallel,batch_size, threshold,image_w, image_h,query=None,show=False):

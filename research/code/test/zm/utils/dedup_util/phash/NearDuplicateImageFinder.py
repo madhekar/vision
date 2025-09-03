@@ -7,17 +7,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 
-from utils.dedup_util import ImgUtils
-
-"""
-(C) Umberto Griffo, 2019
-"""
+from utils.dedup_util.phash import ImgUtils
 
 
 class NearDuplicateImageFinder(object):
     def __init__(
-        self, df_dataset, leaf_size=40, parallel=False, batch_size=32, verbose=0
-    ):
+        self, df_dataset, leaf_size=40, parallel=False, batch_size=64, verbose=0):
         self.leaf_size = leaf_size
         self.parallel = parallel
         self.batch_size = batch_size

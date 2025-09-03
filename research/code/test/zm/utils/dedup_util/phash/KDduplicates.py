@@ -1,14 +1,14 @@
    
 import os
-from utils.dedup_util import ImgToHash as ah
-from utils.dedup_util import search_similar as search_similar
+from utils.dedup_util.phash import ImgToHash as ah
+from utils.dedup_util.phash import search_similar as search_similar
 from utils.config_util import config
 from utils.util import statusmsg_util as sm
-from utils.missing_util import storage_stat as mu
+from utils.missing_util import missing_metadata as mu
 import random
-from utils.dedup_util import helper_functions as hf #import build_tree, save_results
+from utils.dedup_util.phash import helper_functions as hf #import build_tree, save_results
 
-def remove_duplicates(img_file_list, output_path, hash_size=8, tree_type='cKDTree', distance_metric='manhattan', nearest_neighbors=5,
+def remove_duplicates(img_file_list, output_path, hash_size=8, tree_type='KDTree', distance_metric='manhattan', nearest_neighbors=5,
            leaf_size=16, hash_algo='phash', parallel='y', batch_size=64, threshold=5, backup_keep='n', backup_duplicate='y', safe_deletion='n', image_w=512, image_h=512):
     
     # Build the tree
