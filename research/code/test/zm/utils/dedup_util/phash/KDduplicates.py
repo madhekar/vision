@@ -4,7 +4,7 @@ from utils.dedup_util.phash import ImgToHash as ah
 from utils.dedup_util.phash import search_similar as search_similar
 from utils.config_util import config
 from utils.util import statusmsg_util as sm
-from utils.missing_util import missing_metadata as mu
+from utils.util import model_util  as mu
 import random
 from utils.dedup_util.phash import helper_functions as hf #import build_tree, save_results
 
