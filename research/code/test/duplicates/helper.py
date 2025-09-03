@@ -4,6 +4,7 @@ import pandas as pd
 from tqdm import tqdm
 
 from KDTree import KDTreeFinder
+from cKDTree import cKDTreeFinder
 #import cKDTreeFinder
 from fs import FileSystem
 
@@ -68,14 +69,7 @@ def save_results(
 
     Parameters
     ----------
-    copy_delete
-    to_keep_in
-    to_remove_in
-    hash_size_in
-    threshold_in
-    output_path_in
-    backup_keep
-    backup_duplicate
+    copy_delete, to_keep_in ,to_remove_in, hash_size_in, threshold_in, output_path_in, backup_keep, backup_duplicate
 
     Returns
     -------
@@ -123,35 +117,29 @@ def build_tree(
     df_dataset, tree_type, distance_metric_in, leaf_size_in, parallel_in, batch_size_in
 ):
     """
+        Parameters
+        ----------
+        df_dataset, tree_type, distance_metric_in, leaf_size_in, parallel_in, batch_size_in
 
-    Parameters
-    ----------
-    df_dataset
-    tree_type
-    distance_metric_in
-    leaf_size_in
-    parallel_in
-    batch_size_in
-
-    Returns
-    -------
-
+        Returns
+        -------
+        near_duplicate_image_finder
     """
-    # if tree_type == "cKDTree":
-    #     near_duplicate_image_finder = cKDTreeFinder(
-    #         df_dataset,
-    #         distance_metric=distance_metric_in,
-    #         leaf_size=leaf_size_in,
-    #         parallel=parallel_in,
-    #         batch_size=batch_size_in,
-    #     )
-    # elif tree_type == "KDTree":
-    near_duplicate_image_finder = KDTreeFinder(
-        df_dataset,
-        distance_metric=distance_metric_in,
-        leaf_size=leaf_size_in,
-        parallel=parallel_in,
-        batch_size=batch_size_in,
-    )
+    if tree_type == "cKDTree":
+        near_duplicate_image_finder = cKDTreeFinder(
+            df_dataset,
+            distance_metric=distance_metric_in,
+            leaf_size=leaf_size_in,
+            parallel=parallel_in,
+            batch_size=batch_size_in,
+        )
+    elif tree_type == "KDTree":
+        near_duplicate_image_finder = KDTreeFinder(
+            df_dataset,
+            distance_metric=distance_metric_in,
+            leaf_size=leaf_size_in,
+            parallel=parallel_in,
+            batch_size=batch_size_in,
+        )
 
     return near_duplicate_image_finder

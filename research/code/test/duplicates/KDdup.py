@@ -53,9 +53,7 @@ def remove_duplicates(img_file_list, output_path, hash_size=8, tree_type='KDTree
     near_duplicate_image_finder = build_tree(df_dataset, tree_type, distance_metric, leaf_size, parallel, batch_size)
 
     # Find duplicates
-    to_keep, to_remove, dict_image_to_duplicates = near_duplicate_image_finder.find_all_near_duplicates(
-        nearest_neighbors,
-        threshold)
+    to_keep, to_remove, dict_image_to_duplicates = near_duplicate_image_finder.find_all_near_duplicates(nearest_neighbors,threshold)
 
     print('We have found {0}/{1} duplicates in folder'.format(len(to_remove), len(img_file_list)))
 
