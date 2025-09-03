@@ -1,19 +1,19 @@
    
 import os
-import ImgToHash as ah
-import duplicates.search_similar as search_similar
+from utils.util import ImgToHash as ah
+from utils.util import search_similar as search_similar
 from utils.config_util import config
 from utils.util import statusmsg_util as sm
 from utils.missing_util import storage_stat as mu
 import random
-from duplicates.helper_functions import build_tree, save_results
+from utils.util import helper_functions as hf #import build_tree, save_results
 
 def remove_duplicates(img_file_list, output_path, hash_size=8, tree_type='cKDTree', distance_metric='manhattan', nearest_neighbors=5,
            leaf_size=16, hash_algo='phash', parallel='y', batch_size=64, threshold=5, backup_keep='n', backup_duplicate='y', safe_deletion='n', image_w=512, image_h=512):
     
     # Build the tree
     df_dataset, _ = ah.ImageToHash(img_file_list, hash_size=hash_size, hash_algo=hash_algo).build_dataset(parallel=parallel, batch_size=batch_size)
-    near_duplicate_image_finder = build_tree(df_dataset, tree_type, distance_metric, leaf_size, parallel, batch_size)
+    near_duplicate_image_finder = hf.build_tree(df_dataset, tree_type, distance_metric, leaf_size, parallel, batch_size)
 
     # Find duplicates
     to_keep, to_remove, dict_image_to_duplicates = near_duplicate_image_finder.find_all_near_duplicates(nearest_neighbors,threshold)
@@ -26,7 +26,7 @@ def remove_duplicates(img_file_list, output_path, hash_size=8, tree_type='cKDTre
         near_duplicate_image_finder.show_an_image_duplicates(dict_image_to_duplicates, random_img, output_path, image_w=image_w, image_h=image_h)
 
     # Save results
-    save_results(to_keep, to_remove, hash_size, threshold, output_path, backup_keep, backup_duplicate, safe_deletion)
+    hf.save_results(to_keep, to_remove, hash_size, threshold, output_path, backup_keep, backup_duplicate, safe_deletion)
 
     return to_keep, to_remove
 

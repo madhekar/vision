@@ -3,10 +3,11 @@ import os
 import pandas as pd
 from tqdm import tqdm
 
-from KDTree import KDTreeFinder
-from cKDTree import cKDTreeFinder
+from utils.util import KDTree as kdt
+from utils.util import cKDTree as ckdt
+#from cKDTree import cKDTreeFinder
 #import cKDTreeFinder
-from duplicates.filesystem import FileSystem
+from utils.util import filesystem as FileSystem
 
 
 def backup_images(df_results, output_path_in, column):
@@ -120,7 +121,7 @@ def build_tree(
         near_duplicate_image_finder
     """
     if tree_type == "cKDTree":
-        near_duplicate_image_finder = cKDTreeFinder(
+        near_duplicate_image_finder = kdt.cKDTreeFinder(
             df_dataset,
             distance_metric=distance_metric_in,
             leaf_size=leaf_size_in,
@@ -128,7 +129,7 @@ def build_tree(
             batch_size=batch_size_in,
         )
     elif tree_type == "KDTree":
-        near_duplicate_image_finder = KDTreeFinder(
+        near_duplicate_image_finder = ckdt.KDTreeFinder(
             df_dataset,
             distance_metric=distance_metric_in,
             leaf_size=leaf_size_in,

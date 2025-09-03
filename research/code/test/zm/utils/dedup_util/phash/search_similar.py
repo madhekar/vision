@@ -4,15 +4,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 #from KDTree import build_tree
-from helper_functions import build_tree
-from ImgUtils import ImgUtils
+from utils.util import helper_functions as hf #import build_tree
+from utils.util import ImgUtils
 
 
 def search(df_dataset,output_path,tree_type,distance_metric,nearest_neighbors,leaf_size,parallel,batch_size, threshold,image_w, image_h,query=None,show=False):
     assert query is not None, "Query can't be None"
 
     # Build the tree
-    near_duplicate_image_finder = build_tree(
+    near_duplicate_image_finder = hf.build_tree(
         df_dataset, tree_type, distance_metric, leaf_size, parallel, batch_size
     )
     # Get the image's id

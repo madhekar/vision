@@ -6,6 +6,7 @@ from utils.config_util import config
 from utils.missing_util import missing_metadata as mm
 from multipage_app.utils.quality_util import image_quality as iq
 from utils.dedup_util.md5 import dedup_imgs as di
+from utils.dedup_util.phash import KDduplicates as kdd
 from utils.dataload_util import dataload as dl
 from utils.util import storage_stat as ss
 from utils.util import statusmsg_util as sm
@@ -265,7 +266,8 @@ def exec_task(iTask, user_source):
         case 1:  # duplicate images check
             task_name = 'de-duplicate files'
             sm.add_messages("duplicate", f"s|starting {task_name} process")
-            di.execute(user_source)
+            #di.execute(user_source)
+            kdd.execute(user_source)
             sm.add_messages("duplicate", f"s|done {task_name} process")
             return 1
         case 2:  # image sharpness/ quality check
