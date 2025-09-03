@@ -1,5 +1,5 @@
 from scipy.spatial import cKDTree
-from NearDupImgFinder import NearDuplicateImageFinder
+from duplicates.NearDuplicateImageFinder import NearDuplicateImageFinder
 
 
 class cKDTreeFinder(NearDuplicateImageFinder):

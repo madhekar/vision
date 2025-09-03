@@ -1,5 +1,5 @@
 from sklearn.neighbors import KDTree
-from NearDupImgFinder import NearDuplicateImageFinder
+from duplicates.NearDuplicateImageFinder import NearDuplicateImageFinder
 
 
 
