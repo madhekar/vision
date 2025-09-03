@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 
-from ImgUtils import ImgUtils
+from utils.dedup_util import ImgUtils
 
 """
 (C) Umberto Griffo, 2019

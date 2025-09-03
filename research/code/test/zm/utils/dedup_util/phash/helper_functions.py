@@ -3,11 +3,9 @@ import os
 import pandas as pd
 from tqdm import tqdm
 
-from utils.util import KDTree as kdt
-from utils.util import cKDTree as ckdt
-#from cKDTree import cKDTreeFinder
-#import cKDTreeFinder
-from utils.util import filesystem as FileSystem
+from utils.dedup_util import KDTree as kdt
+from utils.dedup_util import cKDTree as ckdt
+from utils.dedup_util import filesystem as FileSystem
 
 
 def backup_images(df_results, output_path_in, column):

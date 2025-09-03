@@ -1,7 +1,6 @@
 import multiprocessing
 import os
 import time
-
 import imagehash
 import pandas as pd
 from PIL import Image
