@@ -80,15 +80,17 @@ class ImageToHash(object):
         print("Building the dataset...")
 
         if parallel:
-            print("\tParallel processing mode has been enabled...")
+            print("\tParallel mode has been enabled...")
             number_of_cpu = multiprocessing.cpu_count()
-            print(f"\tCPU: {number_of_cpu}")
+            print("\tCPU: {}".format(number_of_cpu))
 
             if number_of_cpu >= 2:
                 self.number_of_cpu = number_of_cpu
             else:
                 raise ValueError("Number of CPU must greater than or equal to 2.")
-            df_hashes = self.parallel_build_hash_to_image_dataframe(batch_size=batch_size)
+            df_hashes = self.parallel_build_hash_to_image_dataframe(
+                batch_size=batch_size
+            )
         else:
             df_hashes = self.build_hash_to_image_dataframe()
 
@@ -97,7 +99,9 @@ class ImageToHash(object):
         lambdafunc = lambda x: pd.Series([int(i, 16) for key, i in zip(range(0, len(x['hash_list'])), x['hash_list'])])
 
         newcols = df_hashes.apply(lambdafunc, axis=1)
-        newcols.columns = [str(i) for i in range(0, len(df_hashes.iloc[0]["hash_list"]))]
+        newcols.columns = [
+            str(i) for i in range(0, len(df_hashes.iloc[0]["hash_list"]))
+        ]
 
         # df_dataset's columns: 'file', 'hash', 'hash_list', '0', '1', '2', ..., 'N'
         self.df_dataset = df_hashes.join(newcols)
