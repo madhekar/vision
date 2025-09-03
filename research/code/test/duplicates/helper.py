@@ -14,13 +14,9 @@ def backup_images(df_results, output_path_in, column):
 
     Parameters
     ----------
-    df_results
-    output_path_in
-    column
-
+    df_results, output_path_in, column
     Returns
     -------
-
     """
     print("Backuping images...")
     with tqdm(total=len(df_results)) as pbar:
@@ -40,8 +36,7 @@ def delete_images(df_results, column):
 
     Parameters
     ----------
-    df_results
-    column
+    df_results, column
 
     Returns
     -------
@@ -66,7 +61,6 @@ def save_results(
     safe_deletion=False,
 ):
     """
-
     Parameters
     ----------
     copy_delete, to_keep_in ,to_remove_in, hash_size_in, threshold_in, output_path_in, backup_keep, backup_duplicate
