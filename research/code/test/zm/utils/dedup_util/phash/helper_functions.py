@@ -21,9 +21,12 @@ def backup_images(df_results, output_path_in, column):
     with tqdm(total=len(df_results)) as pbar:
         for index, row in df_results.iterrows():
             full_file_name = row[column]
+            d = os.path.dirname(full_file_name)
+            parent_path = d[d.rfind('/')+1 :]
+            print(full_file_name, '-', output_path_in)
 
             dest_path = os.path.join(output_path_in, column)
-            dstdir = os.path.join(dest_path, os.path.dirname(full_file_name)[1:])
+            dstdir = os.path.join(dest_path, parent_path) #os.path.dirname(full_file_name)[1:])
             if not os.path.exists(dstdir):
                 os.makedirs(dstdir)  # create all directories
             FileSystem.copy_file(full_file_name, dstdir)
