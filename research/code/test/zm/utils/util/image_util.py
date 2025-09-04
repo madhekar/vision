@@ -1,6 +1,7 @@
 import base64
 import os
 import file_type_ext as fte
+from PIL import Image
 
 st_img = """ 
 width: auto;
@@ -31,3 +32,12 @@ def clean_image_files(folder):
         if ext in fte.image_types:
             print(f'file: {file} extension: {ext}')
             ##os.remove(file)
+
+def verify_img(img):
+    try:
+        im = Image.open(img)
+        im.verify(im)
+        im.close()
+    except (IOError, SyntaxError) as e:
+        print(f'Bad or curruped file {img} removing...')    
+        os.remove(img)

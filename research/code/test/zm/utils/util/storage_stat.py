@@ -3,6 +3,7 @@ import glob
 import os
 import collections
 import shutil
+from PIL import Image
 import pandas as pd
 import streamlit as st
 from .file_type_ext import image_types, video_types, audio_types, document_types, non_media_types 
@@ -226,14 +227,20 @@ def remove_empty_files_and_folders(root_folder):
         # empty files
         for fn in files:
             fp = os.path.join(dpath, fn)
-            if os.path.getsize(fp) < 512 or fn.startswith(mac_file_pattern):
-                try:
-                    os.remove(fp)
-                    fc +=1
-                    print(f'removed empty file: {fp}')
-                except OSError as e:
-                    print(f'error removing file {fp}: {e}')  
-
+            try:  
+                f = Image.open(fp)
+                f.verify()
+                f.close()
+                if os.path.getsize(fp) < 512 or fn.startswith(mac_file_pattern):
+                    try:
+                        os.remove(fp)
+                        fc +=1
+                        print(f'removed empty file: {fp}')
+                    except (OSError, SyntaxError) as e:
+                        print(f'error removing file {fp}: {e}')  
+            except (OSError, SyntaxError) as e:
+                print(f'bad or currupt file{fp}: {e}')
+             
         if not os.listdir(dpath):
             try:
                 os.rmdir(dpath)
