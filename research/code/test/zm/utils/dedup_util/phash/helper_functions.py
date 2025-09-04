@@ -23,7 +23,7 @@ def backup_images(df_results, output_path_in, column):
             full_file_name = row[column]
             d = os.path.dirname(full_file_name)
             parent_path = d[d.rfind('/')+1 :]
-            print(full_file_name, '-', output_path_in)
+            #print(full_file_name, '-', output_path_in)
 
             dest_path = os.path.join(output_path_in, column)
             dstdir = os.path.join(dest_path, parent_path) #os.path.dirname(full_file_name)[1:])
@@ -58,7 +58,7 @@ def save_results(
     hash_size_in,
     threshold_in,
     output_path_in,
-    backup_keep=True,
+    backup_keep=False,
     backup_duplicate=True,
     safe_deletion=False,
 ):
