@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 
-from utils.dedup_util.phash import ImgUtils
+from utils.dedup_util.phash import ImgUtils as iu
 
 
 class NearDuplicateImageFinder(object):
@@ -190,22 +190,14 @@ class NearDuplicateImageFinder(object):
 
         return files_to_keep, files_to_remove, dict_image_to_duplicates
 
-    def show_an_image_duplicates(
-        self, image_to_duplicates, image, output_path, image_w=128, image_h=128
-    ):
+    def show_an_image_duplicates(self, image_to_duplicates, image, output_path, image_w=128, image_h=128):
         """Show near duplicates.
 
         Parameters
         ----------
-        image_to_duplicates
-        image
-        output_path
-        image_w
-        image_h
-
+        image_to_duplicates, image, output_path, image_w, image_h
         Returns
         -------
-
         """
 
         print("Showing duplicates...")
@@ -214,20 +206,26 @@ class NearDuplicateImageFinder(object):
 
         image_path = self.df_dataset.iloc[image]["file"]
         files_to_show.append(
-            ImgUtils.scale(ImgUtils.read_image_numpy(image_path, image_w, image_h))
+            iu.ImgUtils.scale(
+                iu.ImgUtils.read_image_numpy(image_path, image_w, image_h)
+            )
         )
 
         duplicates_path = [f for f in list(self.df_dataset.iloc[duplicate]["file"])]
         for path in duplicates_path:
             print(path)
         duplicates_arr = [
-            ImgUtils.scale(ImgUtils.read_image_numpy(f, image_w, image_h))
+            iu.ImgUtils.scale(
+                iu.ImgUtils.read_image_numpy(f, image_w, image_h)
+            )
             for f in duplicates_path
         ]
         files_to_show.extend(duplicates_arr)
         fig_acc = plt.figure(figsize=(10, len(files_to_show) * 5))
         plt.imshow(
-            ImgUtils.mosaic_images(np.asarray(files_to_show), len(files_to_show))
+            iu.ImgUtils.mosaic_images(
+                np.asarray(files_to_show), len(files_to_show)
+            )
         )
         fig_acc.savefig(os.path.join(output_path, image_path.split(os.path.sep)[-1]))
         if self.verbose == 1:
