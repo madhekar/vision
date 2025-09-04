@@ -4,6 +4,7 @@ from utils.dedup_util.phash import ImgToHash as ah
 from utils.dedup_util.phash import search_similar as search_similar
 from utils.config_util import config
 from utils.util import statusmsg_util as sm
+from utils.util import storage_stat as ss
 from utils.util import model_util  as mu
 import random
 from utils.dedup_util.phash import helper_functions as hf #import build_tree, save_results
@@ -40,6 +41,7 @@ def execute(source_name):
     )
     sm.add_messages("duplicate", f"w| Images input Folder Path: {input_image_path}")
     sm.add_messages("duplicate", f"w| Images archive folder path: {archive_dup_path_update}")
+    ss.create_folder(archive_dup_path_update)
 
     remove_duplicates(input_image_path, archive_dup_path_update)
 

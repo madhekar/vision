@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 from utils.dedup_util.phash import KDTreeFinder as kdt
 from utils.dedup_util.phash import cKDTreeFinder as ckdt
-from utils.dedup_util.phash import filesystem as FileSystem
+from utils.dedup_util.phash.filesystem import FileSystem
 
 
 def backup_images(df_results, output_path_in, column):
