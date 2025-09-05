@@ -1,7 +1,7 @@
 import time
 import random
 from multiprocessing import Pool
-from tqdm import tqdm
+import tqdm
 
 def my_func(a):
     time.sleep(random.random())
