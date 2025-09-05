@@ -16,8 +16,8 @@ class ExifTool(object):
             [
                 self.executable,
                 #"-s3",
-                "-gps:GPSLatitude",
-                "-gps:GPSLongitude",
+                "-GPSLatitude",
+                "-GPSLongitude",
                 "-DateTimeOriginal",
                 "-stay_open",
                 "True",

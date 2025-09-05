@@ -265,7 +265,7 @@ def execute():
             dt = st.session_state.df.at[image, "DateTimeOriginal"]
             label = os.path.basename(image)
             #add_marker(lat, lon, label, image)
-            if lat != "-" and lon != '_':
+            if lat != "-" and lon != '-':
                 lat = round(float(st.session_state.df.at[image, "GPSLatitude"]), 6)
                 lon = round(float(st.session_state.df.at[image, "GPSLongitude"]), 6)
                 c2.empty()
@@ -274,7 +274,7 @@ def execute():
                 c2.text_input(value=lon, label=f"Lon_{image}", label_visibility="collapsed") 
                 c2.empty()
                 c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
-                add_marker(lon, lat, label, image)
+                add_marker(lat, lon, label, image)
             else:
                 clk = c2.checkbox(label=f"location_{image}", label_visibility="collapsed")
                 if clk:
