@@ -15,9 +15,9 @@ class ExifTool(object):
         self.process = subprocess.Popen(
             [
                 self.executable,
-                "-s3",
-                "-gps:GPSLongitude",
+                #"-s3",
                 "-gps:GPSLatitude",
+                "-gps:GPSLongitude",
                 "-DateTimeOriginal",
                 "-stay_open",
                 "True",
@@ -42,6 +42,7 @@ class ExifTool(object):
         fd = self.process.stdout.fileno()
         while not output.endswith(self.sentinel):
             output += os.read(fd, 4096).decode("utf-8")
+            print(output)
         return output[: -len(self.sentinel)]
 
     def get_metadata(self, *filenames):

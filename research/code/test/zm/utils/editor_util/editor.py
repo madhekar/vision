@@ -254,25 +254,27 @@ def execute():
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
     col = 0
-    #clear_markers()
+    clear_markers()
     for image in batch:
         with grid[col]:
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
             #print(image)
             st.session_state.df.reset_index()
-            lat = st.session_state.df.at[image, "GPSLatitude"]
-            lon = st.session_state.df.at[image, "GPSLongitude"]
+            lat = round(float(st.session_state.df.at[image, "GPSLatitude"]),6)
+            lon = round(float(st.session_state.df.at[image, "GPSLongitude"]),6)
             dt = st.session_state.df.at[image, "DateTimeOriginal"]
             label = os.path.basename(image)
-            add_marker(lat, lon, label, image)
-            if lat != "-":
+            #add_marker(lat, lon, label, image)
+            if lat != "-" and lon != '_':
+                lat = round(float(st.session_state.df.at[image, "GPSLatitude"]), 6)
+                lon = round(float(st.session_state.df.at[image, "GPSLongitude"]), 6)
                 c2.empty()
                 c2.text_input(value=lat, label=f"Lat_{image}", label_visibility="collapsed")  
                 c2.empty()
                 c2.text_input(value=lon, label=f"Lon_{image}", label_visibility="collapsed") 
                 c2.empty()
                 c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
-                add_marker(lat, lon, label, image)
+                add_marker(lon, lat, label, image)
             else:
                 clk = c2.checkbox(label=f"location_{image}", label_visibility="collapsed")
                 if clk:
