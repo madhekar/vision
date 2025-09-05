@@ -260,8 +260,8 @@ def execute():
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
             #print(image)
             st.session_state.df.reset_index()
-            lat = round(float(st.session_state.df.at[image, "GPSLatitude"]),6)
-            lon = round(float(st.session_state.df.at[image, "GPSLongitude"]),6)
+            lat = st.session_state.df.at[image, "GPSLatitude"]
+            lon = st.session_state.df.at[image, "GPSLongitude"]
             dt = st.session_state.df.at[image, "DateTimeOriginal"]
             label = os.path.basename(image)
             #add_marker(lat, lon, label, image)
