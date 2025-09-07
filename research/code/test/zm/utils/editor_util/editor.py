@@ -14,7 +14,7 @@ from utils.util import fast_parquet_util as fpu
 
 user_device = st.empty()
 def get_env():
-    (rdp, smp, smf, mmp, mmf, mmff,mmef, hlat, hlon) = config.editor_config_load()
+    (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon) = config.editor_config_load()
     return (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon)
 
 #@st.cache_resource
