@@ -85,7 +85,7 @@ def clear_markers():
     st.session_state["markers"].clear()
 
 def add_marker(lat, lon, label, url):
-    #print(f'added marker at: {lat} : {lon}')
+    print(f'added marker at: {lat} : {lon}')
     marker = fl.Marker([lat, lon], popup=url, tooltip=label)
     st.session_state["markers"].append(marker)
 
@@ -225,6 +225,7 @@ def execute():
         save_metadata(os.path.join(mmp, user_source_selected), mmf, mmef)
 
     with st.container(border=False):
+
         m = fl.Map(location=[hlat, hlon], zoom_start=4, min_zoom=3, max_zoom=10)
 
         fg = fl.FeatureGroup(name="zesha")
@@ -236,12 +237,12 @@ def execute():
         
         map = st_folium(m, width="100%", feature_group_to_add=fg)
 
-    data = None
-    if map.get("last_clicked"):
-        data = (map["last_clicked"]["latitude"], map["last_clicked"]["longitude"])
+    # data = None
+    # if map.get("last_clicked"):
+    #     data = (map["last_clicked"]["latitude"], map["last_clicked"]["longitude"])
 
-    if data is not None:
-        st.session_state.editor_audit_msg.append(data)
+    # if data is not None:
+    #     st.session_state.editor_audit_msg.append(data)
     #...
 
     # Location to Apply to many images
@@ -263,7 +264,10 @@ def execute():
             lon = st.session_state.df.at[image, "GPSLongitude"]
             dt = st.session_state.df.at[image, "DateTimeOriginal"]
             label = os.path.basename(image)
-            if lat != "-":
+            #add_marker(lat, lon, label, image)
+            if lat != "-" and lon != '-':
+                lat = round(float(st.session_state.df.at[image, "GPSLatitude"]), 6)
+                lon = round(float(st.session_state.df.at[image, "GPSLongitude"]), 6)
                 c2.empty()
                 c2.text_input(value=lat, label=f"Lat_{image}", label_visibility="collapsed")  
                 c2.empty()
@@ -287,6 +291,7 @@ def execute():
                 # if r:
                 #     st.session_state["updated_location_list"].append((image, col, r))
                 c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt')) 
+                
             image = Image.open(image)  
             image.thumbnail((200,200), Image.Resampling.LANCZOS)
             c1.image(image, caption=label, output_format="JPG")
