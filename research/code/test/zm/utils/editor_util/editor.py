@@ -159,6 +159,7 @@ def save_metadata( mmp, mmf, mmef):
 
     st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0)
 
+#@st.fragment
 def showMap(hlat, hlon):
     with st.container(border=False):
 
@@ -172,6 +173,7 @@ def showMap(hlat, hlon):
         m.add_child(fl.LatLngPopup())
         
         map = st_folium(m, width="100%", feature_group_to_add=fg)
+
 
 def editLocations(files, page, batch_size, row_size):        
     sindex = select_location_by_country_and_state(st.session_state.df_loc)  
@@ -272,7 +274,7 @@ def execute():
 
     cb,cr,cp = st.sidebar.columns([1,1,1])
     with cb:
-        batch_size = st.select_slider("Batch Size:", range(10, 500, 10))
+        batch_size = st.select_slider("Batch Size:", range(10, 250, 10))
     with cr:   
         row_size = st.select_slider("Row Size:", range(1, 10), value=7)   
         num_batches = ceil(len(files) / batch_size)
