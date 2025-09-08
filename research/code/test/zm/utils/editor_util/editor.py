@@ -177,7 +177,7 @@ def showMap(hlat, hlon):
 #@st.fragment
 def editLocations(files, page, batch_size, row_size):        
     sindex = select_location_by_country_and_state(st.session_state.df_loc)  
-
+    
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
     col = 0
@@ -271,7 +271,7 @@ def execute():
     initialize(smp, smf, mmp, mmfile, mmef, hlat, hlon, user_source_selected)
 
     files = pd.read_csv(os.path.join(mmp, user_source_selected, mmfile))['SourceFile']
-
+    
     st.sidebar.subheader("Display Criteria",divider="gray")
 
     cb,cr,cp = st.sidebar.columns([1,1,1])
@@ -323,7 +323,10 @@ def execute():
 
     st.sidebar.subheader('Locations', divider='gray')
 
-    editLocations(files, page, batch_size, row_size)
+    if len(files) > 0:
+       editLocations(files, page, batch_size, row_size)
+    else:
+       st.info('No missing metadata images found!')    
 
     # sindex = select_location_by_country_and_state(st.session_state.df_loc)  
 
