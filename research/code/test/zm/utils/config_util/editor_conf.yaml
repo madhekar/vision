@@ -8,3 +8,5 @@ metadata:
   missing_metadata_edit_file: missing-matadata-edits.csv
   home_latitude: 32.968700
   home_longitude: -117.184200
+  batch_size_max: 250
+  row_size_preset: 7

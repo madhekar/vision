@@ -353,6 +353,8 @@ def editor_config_load():
         missing_metadata_edit_file = dict["metadata"]["missing_metadata_edit_file"]
         home_latitude = dict["metadata"]["home_latitude"]
         home_longitude = dict["metadata"]["home_longitude"]
+        batch_size_max = dict["metadata"]["batch_size_max"]
+        row_size_preset = dict["metadata"]["row_size_preset"]
     return (
         os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
         os.path.join(dr, *static_metadata_path.split(os.sep)[1:]),
@@ -363,6 +365,8 @@ def editor_config_load():
         missing_metadata_edit_file,
         home_latitude,
         home_longitude,
+        batch_size_max,
+        row_size_preset
     )
 
 @st.cache_resource
