@@ -5,6 +5,7 @@ import os
 import folium as fl
 from streamlit_folium import st_folium
 from streamlit_folium import folium_static
+from folium.plugins import FastMarkerCluster
 from utils.config_util import config
 from utils.util import location_util as lu 
 from utils.util import storage_stat as ss
