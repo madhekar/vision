@@ -48,6 +48,7 @@ def remove_initialization_on_device_change():
     if "edited_image_attributes" in st.session_state:
         del st.session_state["edited_image_attributes"]
 
+
 def initialize(smp, smf, mmp, mmf, mmef, hlat, hlon, user_source):
 
     try:
@@ -158,73 +159,7 @@ def save_metadata( mmp, mmf, mmef):
 
     st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0)
 
-"""
-metadata:
-  raw_data_path: /data/raw-data/
-  static_metadata_path: /data/app-data/static-metadata/
-  static_metadata_file: static_locations.parquet
-  missing_metadata_path: /data/input-data/error/img/missing-data/
-  missing_metadata_file: missing-metadata-wip.csv
-  missing_metadata_filter_file: missing-metadata-filter-wip.csv
-  missing_metadata_edit_file: missing-matadata-edits.csv
-  home_latitude: 32.968700
-  home_longitude: -117.184200
-"""
-def execute():
-
-    (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon) = get_env()
-
-    if 'global_user_source' not in st.session_state:
-        st.session_state['global_user_source'] = ""
-
-    st.sidebar.subheader("Storage Source", divider="gray")
-    user_source_selected = st.sidebar.selectbox(
-        "data source folder",
-        options=ss.extract_user_raw_data_folders(rdp),
-        label_visibility="collapsed",
-        #on_change=remove_initialization_on_device_change()
-    )
-    print('---->', user_source_selected)
-    if st.session_state['global_user_source'] != user_source_selected:
-        print(f"--->:{st.session_state['global_user_source']} : {user_source_selected}")
-        st.session_state["global_user_source"] = user_source_selected
-        #print(f"--->:{user_device} : {user_source_selected}")
-        remove_initialization_on_device_change()
-
-    show_missing = st.sidebar.checkbox(label='show missing images')
-
-    mmfile = mmff if show_missing else mmf
-
-    initialize(smp, smf, mmp, mmfile, mmef, hlat, hlon, user_source_selected)
-
-    files = pd.read_csv(os.path.join(mmp, user_source_selected, mmfile))['SourceFile']
-
-    st.sidebar.subheader("Display Criteria",divider="gray")
-
-    cb,cr,cp = st.sidebar.columns([1,1,1])
-    with cb:
-        batch_size = st.select_slider("Batch Size:", range(10, 700, 10))
-    with cr:   
-        row_size = st.select_slider("Row Size:", range(1, 10), value=7)   
-        num_batches = ceil(len(files) / batch_size)
-    with cp:   
-        page = st.selectbox("Page Number:", range(1, num_batches + 1))
-
-    
-    st.sidebar.subheader('Edited Images', divider="gray")
-
-    config = {
-        'SourceFile' : st.column_config.TextColumn('image', width='small', required=True),       
-        'GPSLatitude' : st.column_config.NumberColumn('latitude', min_value=-90.0, max_value=90.0, required=True),
-        'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
-        'DateTimeOriginal' : st.column_config.TextColumn('datetime', width="small", required=False)}
-    
-    st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
-
-    save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) 
-    if save_btn:
-        save_metadata(os.path.join(mmp, user_source_selected), mmf, mmef)
-
+def showMap(hlat, hlon):
     with st.container(border=False):
 
         m = fl.Map(location=[hlat, hlon], zoom_start=4, min_zoom=3, max_zoom=10)
@@ -238,24 +173,14 @@ def execute():
         
         map = st_folium(m, width="100%", feature_group_to_add=fg)
 
-    # data = None
-    # if map.get("last_clicked"):
-    #     data = (map["last_clicked"]["latitude"], map["last_clicked"]["longitude"])
-
-    # if data is not None:
-    #     st.session_state.editor_audit_msg.append(data)
-    #...
-
-    # Location to Apply to many images
-    st.subheader("Edit Location and Date", divider='gray') 
-
-    st.sidebar.subheader('Locations', divider='gray')
+def editLocations(files, page, batch_size, row_size):        
     sindex = select_location_by_country_and_state(st.session_state.df_loc)  
 
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
     col = 0
     clear_markers()
+    
     for image in batch:
         with grid[col]:
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
@@ -265,7 +190,7 @@ def execute():
             lon = st.session_state.df.at[image, "GPSLongitude"]
             dt = st.session_state.df.at[image, "DateTimeOriginal"]
             label = os.path.basename(image)
-            #add_marker(lat, lon, label, image)
+
             if lat != "-" and lon != '-':
                 lat = round(float(st.session_state.df.at[image, "GPSLatitude"]), 6)
                 lon = round(float(st.session_state.df.at[image, "GPSLongitude"]), 6)
@@ -301,6 +226,153 @@ def execute():
             st.divider()    
 
         col = (col + 1) % row_size
+
+"""
+metadata:
+  raw_data_path: /data/raw-data/
+  static_metadata_path: /data/app-data/static-metadata/
+  static_metadata_file: static_locations.parquet
+  missing_metadata_path: /data/input-data/error/img/missing-data/
+  missing_metadata_file: missing-metadata-wip.csv
+  missing_metadata_filter_file: missing-metadata-filter-wip.csv
+  missing_metadata_edit_file: missing-matadata-edits.csv
+  home_latitude: 32.968700
+  home_longitude: -117.184200
+"""
+def execute():
+
+    (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon) = get_env()
+
+    if 'global_user_source' not in st.session_state:
+        st.session_state['global_user_source'] = ""
+
+    st.sidebar.subheader("Storage Source", divider="gray")
+    user_source_selected = st.sidebar.selectbox(
+        "data source folder",
+        options=ss.extract_user_raw_data_folders(rdp),
+        label_visibility="collapsed",
+        #on_change=remove_initialization_on_device_change()
+    )
+    print('---->', user_source_selected)
+    if st.session_state['global_user_source'] != user_source_selected:
+        print(f"--->:{st.session_state['global_user_source']} : {user_source_selected}")
+        st.session_state["global_user_source"] = user_source_selected
+        #print(f"--->:{user_device} : {user_source_selected}")
+        remove_initialization_on_device_change()
+
+    show_missing = st.sidebar.checkbox(label='missing metadata images')
+
+    mmfile = mmff if show_missing else mmf
+
+    initialize(smp, smf, mmp, mmfile, mmef, hlat, hlon, user_source_selected)
+
+    files = pd.read_csv(os.path.join(mmp, user_source_selected, mmfile))['SourceFile']
+
+    st.sidebar.subheader("Display Criteria",divider="gray")
+
+    cb,cr,cp = st.sidebar.columns([1,1,1])
+    with cb:
+        batch_size = st.select_slider("Batch Size:", range(10, 500, 10))
+    with cr:   
+        row_size = st.select_slider("Row Size:", range(1, 10), value=7)   
+        num_batches = ceil(len(files) / batch_size)
+    with cp:   
+        page = st.selectbox("Page Number:", range(1, num_batches + 1))
+
+    st.sidebar.subheader('Edited Images', divider="gray")
+    config = {
+        'SourceFile' : st.column_config.TextColumn('image', width='small', required=True),       
+        'GPSLatitude' : st.column_config.NumberColumn('latitude', min_value=-90.0, max_value=90.0, required=True),
+        'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
+        'DateTimeOriginal' : st.column_config.TextColumn('datetime', width="small", required=False)}
+    
+    st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
+
+    save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) 
+    if save_btn:
+        save_metadata(os.path.join(mmp, user_source_selected), mmf, mmef)
+
+    showMap(hlat=hlat, hlon=hlon)
+    # with st.container(border=False):
+
+    #     m = fl.Map(location=[hlat, hlon], zoom_start=4, min_zoom=3, max_zoom=10)
+
+    #     fg = fl.FeatureGroup(name="zesha")
+
+    #     for marker in st.session_state["markers"]:
+    #         fg.add_child(marker)
+
+    #     m.add_child(fl.LatLngPopup())
+        
+    #     map = st_folium(m, width="100%", feature_group_to_add=fg)
+
+    # data = None
+    # if map.get("last_clicked"):
+    #     data = (map["last_clicked"]["latitude"], map["last_clicked"]["longitude"])
+
+    # if data is not None:
+    #     st.session_state.editor_audit_msg.append(data)
+    #...
+
+    # Location to Apply to many images
+    st.subheader("Edit Location and Date", divider='gray') 
+
+    st.sidebar.subheader('Locations', divider='gray')
+
+    editLocations(files, page, batch_size, row_size)
+
+    # sindex = select_location_by_country_and_state(st.session_state.df_loc)  
+
+    # batch = files[(page - 1) * batch_size : page * batch_size]
+    # grid = st.columns(row_size, gap="small", vertical_alignment="top")
+    # col = 0
+    # clear_markers()
+    
+    # for image in batch:
+    #     with grid[col]:
+    #         c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
+    #         #print(image)
+    #         st.session_state.df.reset_index()
+    #         lat = st.session_state.df.at[image, "GPSLatitude"]
+    #         lon = st.session_state.df.at[image, "GPSLongitude"]
+    #         dt = st.session_state.df.at[image, "DateTimeOriginal"]
+    #         label = os.path.basename(image)
+
+    #         if lat != "-" and lon != '-':
+    #             lat = round(float(st.session_state.df.at[image, "GPSLatitude"]), 6)
+    #             lon = round(float(st.session_state.df.at[image, "GPSLongitude"]), 6)
+    #             c2.empty()
+    #             c2.text_input(value=lat, label=f"Lat_{image}", label_visibility="collapsed")  
+    #             c2.empty()
+    #             c2.text_input(value=lon, label=f"Lon_{image}", label_visibility="collapsed") 
+    #             c2.empty()
+    #             c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
+    #             add_marker(lat, lon, label, image)
+    #         else:
+    #             clk = c2.checkbox(label=f"location_{image}", label_visibility="collapsed")
+    #             if clk:
+    #                 update_latitude_longitude(image, sindex['latitude'], sindex['longitude'], sindex['name'])
+    #                 n_row = pd.Series({"SourceFile": image, "GPSLatitude": sindex["latitude"], "GPSLongitude": sindex['longitude'], "DateTimeOriginal": dt, 'name': sindex['name']})
+    #                 #print(n_row)
+    #                 st.session_state.edited_image_attributes = pd.concat([st.session_state.edited_image_attributes, pd.DataFrame([n_row], columns=n_row.index)]).reset_index(drop=True)
+    #             c2.text("")
+    #             c2.text("")
+    #             c2.text("")
+    #             c2.text("")
+    #             c2.text("")
+    #             # r = c2.selectbox(label=f"location_{image}", label_visibility="collapsed",  options=st.session_state.df_loc.name.values, index=None, on_change=update_all_latlon())
+    #             # if r:
+    #             #     st.session_state["updated_location_list"].append((image, col, r))
+    #             c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt')) 
+                
+    #         image = Image.open(image)  
+    #         image.thumbnail((200,200), Image.Resampling.LANCZOS)
+    #         c1.image(image, caption=label, output_format="JPG")
+    #         # if lat != "-":
+    #         #     add_marker(lat, lon, label, image)
+    #         st.divider()    
+
+    #     col = (col + 1) % row_size
 
 if __name__ == "__main__":
     execute()
