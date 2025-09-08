@@ -18,13 +18,13 @@ def get_env():
     (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon, bsmx,rszp) = config.editor_config_load()
     return (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon, bsmx, rszp)
 
-#@st.cache_resource
+@st.cache_resource
 def metadata_initialize(mmp,us,mmf):
        df = pd.read_csv (os.path.join(mmp, us, mmf)) #('metadata.csv')
        df.set_index("SourceFile", inplace=True)
        return df
 
-#@st.cache_resource
+@st.cache_resource
 def location_initialize(smp,user_source, smf):
     try:
         df = fpu.read_parquet_file(os.path.join(smp, user_source, smf))
@@ -159,7 +159,7 @@ def save_metadata( mmp, mmf, mmef):
 
     st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0)
 
-#@st.fragment
+@st.fragment
 def showMap(hlat, hlon):
     with st.container(border=False):
 
@@ -174,7 +174,7 @@ def showMap(hlat, hlon):
         
         map = st_folium(m, width="100%", feature_group_to_add=fg)
 
-
+#@st.fragment
 def editLocations(files, page, batch_size, row_size):        
     sindex = select_location_by_country_and_state(st.session_state.df_loc)  
 
