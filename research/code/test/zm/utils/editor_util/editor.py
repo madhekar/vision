@@ -5,7 +5,7 @@ import os
 import folium as fl
 from streamlit_folium import st_folium
 from streamlit_folium import folium_static
-from folium.plugins import FastMarkerCluster
+from folium.plugins import FastMarkerCluster  #!!! to do
 from utils.config_util import config
 from utils.util import location_util as lu 
 from utils.util import storage_stat as ss
@@ -58,6 +58,9 @@ def initialize(smp, smf, mmp, mmf, mmef, hlat, hlon, user_source):
 
         # if "updated_location_list" not in st.session_state:
         #     st.session_state["updated_location_list"] = []
+
+        if 'zoom' not in st.session_state:
+            st.session_state['zoom'] =4
 
         if "updated_datetime_list" not in st.session_state:
             st.session_state["updated_datetime_list"] = []   
@@ -163,7 +166,7 @@ def save_metadata( mmp, mmf, mmef):
 def showMap(hlat, hlon):
     with st.container(border=False):
 
-        m = fl.Map(location=[hlat, hlon], zoom_start=4, min_zoom=3, max_zoom=10)
+        m = fl.Map(location=[hlat, hlon], zoom_start=st.session_state['zoom'], min_zoom=3, max_zoom=10)
 
         fg = fl.FeatureGroup(name="zesha")
 
@@ -173,6 +176,8 @@ def showMap(hlat, hlon):
         m.add_child(fl.LatLngPopup())
         
         map = st_folium(m, width="100%", feature_group_to_add=fg)
+
+        st.session_state['zoom'] = map['zoom']
 
 #@st.fragment
 def editLocations(files, page, batch_size, row_size):        
