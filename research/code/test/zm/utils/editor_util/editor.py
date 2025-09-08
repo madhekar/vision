@@ -15,8 +15,8 @@ from utils.util import fast_parquet_util as fpu
 
 user_device = st.empty()
 def get_env():
-    (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon) = config.editor_config_load()
-    return (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon)
+    (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon, bsmx,rszp) = config.editor_config_load()
+    return (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon, bsmx, rszp)
 
 #@st.cache_resource
 def metadata_initialize(mmp,us,mmf):
@@ -240,10 +240,12 @@ metadata:
   missing_metadata_edit_file: missing-matadata-edits.csv
   home_latitude: 32.968700
   home_longitude: -117.184200
+  batch_size_max: 250
+  row_size_preset: 7
 """
 def execute():
 
-    (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon) = get_env()
+    (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon, bsmx, rszp) = get_env()
 
     if 'global_user_source' not in st.session_state:
         st.session_state['global_user_source'] = ""
@@ -274,9 +276,9 @@ def execute():
 
     cb,cr,cp = st.sidebar.columns([1,1,1])
     with cb:
-        batch_size = st.select_slider("Batch Size:", range(10, 250, 10))
+        batch_size = st.select_slider("Batch Size:", range(10,int(bsmx), 10))
     with cr:   
-        row_size = st.select_slider("Row Size:", range(1, 10), value=7)   
+        row_size = st.select_slider("Row Size:", range(1, 10), value= int(rszp))   
         num_batches = ceil(len(files) / batch_size)
     with cp:   
         page = st.selectbox("Page Number:", range(1, num_batches + 1))
