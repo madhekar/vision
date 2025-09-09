@@ -19,10 +19,10 @@ btn_labels = [
     "PURGE BAD QUALITY",
     "VALIDATE METADATA"
 ]
-unpressed_color = "#5a5255"#"#636B2F"  # colors = ["#BAC095", "#636B2F"]
+unpressed_color = "#949494"#"#636B2F"  # colors = ["#BAC095", "#636B2F"]
 success_color = '#559e83' #"#BAC095"
 failure_color = '#ae5a41' #"#6B2F45"
-wip_color = "#1b85b8"#"#998E1A"
+wip_color = "#c0df13"#"#998E1A"
 
 colors = ["#ae5a41", "#1b85b8"]#["#636B2F", "#BAC095"]
 
