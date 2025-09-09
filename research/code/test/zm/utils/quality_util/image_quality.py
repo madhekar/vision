@@ -92,16 +92,9 @@ def archive_images(image_path, archive_path, bad_quality_path_list):
         sm.add_messages("quality", "w| no bad quality images Found.")
 
 
-def iq_work_flow(image_dir_path, archive_path, threshold):
+def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
 
-    #lock = asyncio.Lock()
-    chunk_size = int(mp.cpu_count()) // 4
-    queue_count =  chunk_size 
-
-    
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
-    length = len(img_iterator)
-    print(f'---->number of images: {length}')
 
     result = []
     #with st.status("Generating LLM responses...", expanded=True) as status:
@@ -128,20 +121,27 @@ def iq_work_flow(image_dir_path, archive_path, threshold):
 """
 def execute(source_name):
 
-    aiomp.set_start_method("fork")
+    mp.set_start_method("fork")
     (input_image_path, archive_quality_path,image_quality_threshold) = config.image_quality_config_load()
 
     input_image_path_updated = os.path.join(input_image_path,source_name)
+
+
     
     arc_folder_name = mu.get_foldername_by_datetime()  
     
     archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
 
+    chunk_size = int(mp.cpu_count()) // 4
+    queue_count =  chunk_size 
+
     start = time.time()
     iq_work_flow(
             input_image_path_updated,
             archive_quality_path,
-            image_quality_threshold
+            image_quality_threshold,
+            chunk_size,
+            queue_count
         )
     processing_duration = int(time.time() - start)
     print(f'processing duration: {processing_duration}')
