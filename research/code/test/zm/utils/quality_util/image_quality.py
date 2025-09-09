@@ -94,11 +94,12 @@ async def iq_work_flow(image_dir_path, archive_path, threshold):
 
     #lock = asyncio.Lock()
     chunk_size = int(mp.cpu_count())
-    queue_count = chunk_size // 4
+    queue_count =  chunk_size - 2 #chunk_size // 4
 
     
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
     length = len(img_iterator)
+    print(f'number of images: {length}')
 
     result = []
     #with st.status("Generating LLM responses...", expanded=True) as status:

@@ -9,7 +9,9 @@ from utils.util import model_util as mu
 from utils.util import statusmsg_util as sm
 from utils.util import storage_stat as ss
 
-# /home/madhekar/work/home-media-app/data/input-data/img/AnjaliBackup/c5fdad7b-5b98-5890-956d-f0faef0f38bd/IMG_4367.PNG
+"""
+            print(f'{img} :: {h}:{w} :: {fscore}')
+"""
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 transform = ToTensor()
@@ -43,8 +45,6 @@ class Quality():
             im_tensor = transform(im).unsqueeze(0).to(device)
             score = metric(im_tensor)
             fscore = score.item()
-
-            print(f'{img} :: {h}:{w} :: {fscore}')
 
             return fscore < threshold
         else:
