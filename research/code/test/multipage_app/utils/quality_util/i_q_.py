@@ -44,7 +44,7 @@ class Quality():
             score = metric(im_tensor)
             fscore = score.item()
 
-            print(f'{img} :: {h}:{w} :: {fscore}')
+            #print(f'{img} :: {h}:{w} :: {fscore}')
 
             return fscore < threshold
         else:

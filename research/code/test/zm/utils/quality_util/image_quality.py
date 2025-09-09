@@ -10,11 +10,12 @@ from utils.util import model_util as mu
 from utils.util import statusmsg_util as sm
 from utils.util import storage_stat as ss
 
-import asyncio
+#import asyncio
 import multiprocessing as mp
+from multiprocessing import Pool
 #import aiofiles
-import aiomultiprocess as aiomp
-from aiomultiprocess import Pool
+#import aiomultiprocess as aiomp
+#from aiomultiprocess import Pool
 from functools import partial
 import streamlit as st
 
@@ -29,8 +30,6 @@ Graphics:
     v: 4.6 Mesa 23.2.1-1ubuntu3.1~22.04.3
 
      pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/rocm6.4/
-
-
 """
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -43,7 +42,7 @@ def create_metric():
 
 iqa_metric = create_metric()
 
-async def is_valid_size_and_score(args, img):
+def is_valid_size_and_score(args, img):
       threshold = args
       try:  
         if img is not None and os.path.getsize(img) > 512:
@@ -57,6 +56,9 @@ async def is_valid_size_and_score(args, img):
             score = iqa_metric(im_tensor)
             f_score = score.item()
 
+            sm.add_messages(f'quality s| {img} :: {h}:{w} :: {f_score}')
+            print(f'quality s| {img} :: {h}:{w} :: {f_score}')
+
             res = img if f_score > threshold else ""
             return res
         else:
@@ -68,7 +70,7 @@ async def is_valid_size_and_score(args, img):
 """
 Archive quality images
 """
-async def archive_images(image_path, archive_path, bad_quality_path_list):                
+def archive_images(image_path, archive_path, bad_quality_path_list):                
     if len(bad_quality_path_list) != 0:
         space_saved = 0
         image_cnt =0 
@@ -90,34 +92,29 @@ async def archive_images(image_path, archive_path, bad_quality_path_list):
         sm.add_messages("quality", "w| no bad quality images Found.")
 
 
-async def iq_work_flow(image_dir_path, archive_path, threshold):
+def iq_work_flow(image_dir_path, archive_path, threshold):
 
     #lock = asyncio.Lock()
-    chunk_size = int(mp.cpu_count())
-    queue_count =  chunk_size - 2 #chunk_size // 4
+    chunk_size = int(mp.cpu_count()) // 4
+    queue_count =  chunk_size 
 
     
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
     length = len(img_iterator)
-    print(f'number of images: {length}')
+    print(f'---->number of images: {length}')
 
     result = []
     #with st.status("Generating LLM responses...", expanded=True) as status:
-    async with Pool(processes=chunk_size, queuecount=queue_count) as pool , tqdm(total = length) as pbar: 
-        #count = 0
-        res = [] 
-        for il in img_iterator:
-            if len(il) > 0:
-                res = await asyncio.gather(
-                   pool.map(partial(is_valid_size_and_score, threshold), il),
-                )
-                pbar.update()
-                pbar.refresh()
-                result.append(res)
+    with Pool(processes=chunk_size, queuecount=queue_count) as pool , tqdm(total = 3000) as pbar: 
+        for res in pool.imap(partial(is_valid_size_and_score, threshold), img_iterator):
+            pbar.update(chunk_size)
+            pbar.refresh()
+            result.append(res)
+    pbar.close()        
+    pool.close()
+    pool.join()
 
-
-
-    await archive_images(
+    archive_images(
         image_dir_path,
         archive_path,
         [e for sb1 in result for sb2 in sb1 for e in sb2 if not e == ""]
@@ -141,13 +138,11 @@ def execute(source_name):
     archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
 
     start = time.time()
-    asyncio.run(
-        iq_work_flow(
+    iq_work_flow(
             input_image_path_updated,
             archive_quality_path,
             image_quality_threshold
         )
-    )
     processing_duration = int(time.time() - start)
     print(f'processing duration: {processing_duration}')
     sm.add_messages("quality", f"w| processing duration: {processing_duration}.")
@@ -156,3 +151,69 @@ def execute(source_name):
     
 if __name__ == "__main__":
     execute(source_name="")
+
+
+'''
+async def iq_work_flow(image_dir_path, archive_path, threshold):
+
+#lock = asyncio.Lock()
+chunk_size = int(mp.cpu_count())
+queue_count =  chunk_size - 2 #chunk_size // 4
+
+
+img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
+length = len(img_iterator)
+print(f'number of images: {length}')
+
+result = []
+#with st.status("Generating LLM responses...", expanded=True) as status:
+async with Pool(processes=chunk_size, queuecount=queue_count) as pool , tqdm(total = length) as pbar: 
+    #count = 0
+    res = [] 
+    for il in img_iterator:
+        if len(il) > 0:
+            res = await asyncio.gather(
+                pool.map(partial(is_valid_size_and_score, threshold), il),
+            )
+            pbar.update()
+            pbar.refresh()
+            result.append(res)
+
+await archive_images(
+    image_dir_path,
+    archive_path,
+    [e for sb1 in result for sb2 in sb1 for e in sb2 if not e == ""]
+)
+
+"""
+input_image_path,
+archive_quality_path,
+image_quality_threshold,
+
+"""
+def execute(source_name):
+
+aiomp.set_start_method("fork")
+(input_image_path, archive_quality_path,image_quality_threshold) = config.image_quality_config_load()
+
+input_image_path_updated = os.path.join(input_image_path,source_name)
+
+arc_folder_name = mu.get_foldername_by_datetime()  
+
+archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
+
+start = time.time()
+asyncio.run(
+    iq_work_flow(
+        input_image_path_updated,
+        archive_quality_path,
+        image_quality_threshold
+    )
+)
+processing_duration = int(time.time() - start)
+print(f'processing duration: {processing_duration}')
+sm.add_messages("quality", f"w| processing duration: {processing_duration}.")
+
+ss.remove_empty_files_and_folder
+
+'''

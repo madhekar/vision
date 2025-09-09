@@ -56,7 +56,7 @@ async def is_valid_size_and_score(args, img):
             score = iqa_metric(im_tensor)
             f_score = score.item()
 
-            print(f'{img} :: {h}:{w} :: {f_score}')
+            #print(f'{img} :: {h}:{w} :: {f_score}')
 
             res = img if f_score > threshold else ""
             return res

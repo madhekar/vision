@@ -46,6 +46,8 @@ class Quality():
             score = metric(im_tensor)
             fscore = score.item()
 
+            
+
             return fscore < threshold
         else:
             sm.add_messages('quality', 'e| unable to load - NULL / Invalid image')
