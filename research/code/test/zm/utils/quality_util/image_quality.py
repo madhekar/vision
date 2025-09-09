@@ -99,11 +99,12 @@ async def iq_work_flow(image_dir_path, archive_path, threshold):
     queue_count = chunk_size // 4
 
     
-    img_iterator, lmax = mu.getRecursive(image_dir_path,  chunk_size)
+    img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
+    length = len(img_iterator)
 
     result = []
     #with st.status("Generating LLM responses...", expanded=True) as status:
-    async with Pool(processes=chunk_size, queuecount=queue_count) as pool , tqdm(total = 2000) as pbar: 
+    async with Pool(processes=chunk_size, queuecount=queue_count) as pool , tqdm(total = length) as pbar: 
         #count = 0
         res = [] 
         for il in img_iterator:

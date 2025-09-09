@@ -101,15 +101,6 @@ def execute():
         #st.subheader("VALIDATE TASKS", divider="gray")
         c0, c1, c2, c3 = st.columns((1, 1, 1, 1), gap="small")
         with c0:
-            st.button(
-                btn_labels[0],
-                key="g0",
-                on_click=btn_pressed_callback,
-                args=(0,user_source_selected),
-                use_container_width=True,
-            )
-            st.divider()
-
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(raw_data_path, user_source_selected))
 
             c01, c02, c03, c04 = st.columns([1,1,1,1], gap="small")
@@ -154,6 +145,14 @@ def execute():
                     color=colors,  # colors=["#D4DE95", "#BAC095"],  # ,
                 )
             st.divider()
+            st.button(
+                btn_labels[0],
+                key="g0",
+                on_click=btn_pressed_callback,
+                args=(0,user_source_selected),
+                use_container_width=True,
+            )
+            st.divider()
             status_load = st.status("**load data task msgs...**", expanded=True, state="running")
             with status_load:
                 #print(st.session_state.msgs['load'])
@@ -168,8 +167,6 @@ def execute():
                           st.error(str(v))   
 
         with c1:
-            st.button(btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,user_source_selected), use_container_width=True)
-            st.divider()
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(duplicate_data_path)
             st.caption('**Duplicate Images Archived**')
             st.bar_chart(
@@ -179,6 +176,8 @@ def execute():
                 use_container_width=True,
                 color=colors,
             )
+            st.divider()           
+            st.button(btn_labels[1], key="g1", on_click=btn_pressed_callback, args=(1,user_source_selected), use_container_width=True)
             st.divider()
             status_duplicate = st.status('**de-duplicate data task msgs...**', expanded=True)
             with status_duplicate:
@@ -194,8 +193,7 @@ def execute():
 
 
         with c2:
-            st.button(btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2, user_source_selected), use_container_width=True)
-            st.divider()
+
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(quality_data_path)
             st.caption('**Bad Quality Images Archived**')
             st.bar_chart(
@@ -205,6 +203,8 @@ def execute():
                 use_container_width=True,
                 color=colors,
             )
+            st.divider()            
+            st.button(btn_labels[2], key="g2", on_click=btn_pressed_callback, args=(2, user_source_selected), use_container_width=True)
             st.divider()
             status_quality = st.status("**data quality check task msgs...**", expanded=True, state="running")
             with status_quality:
@@ -220,8 +220,7 @@ def execute():
 
 
         with c3:
-            st.button(btn_labels[3], key="g3", on_click=btn_pressed_callback, args=(3,user_source_selected), use_container_width=True)
-            st.divider()
+
             st.caption("**Images With Missing Metadata**")
             if os.path.exists(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file)):       
                dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file))
@@ -239,6 +238,8 @@ def execute():
                )
             else:
                 st.error(f"s| missing metadata file not present {missing_metadata_file}.")   
+            st.divider()
+            st.button(btn_labels[3], key="g3", on_click=btn_pressed_callback, args=(3,user_source_selected), use_container_width=True)
             st.divider()
             status_metadata = st.status("**metadata check task msgs...**", expanded=True)
             with status_metadata:
