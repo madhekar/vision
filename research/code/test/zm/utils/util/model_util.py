@@ -26,12 +26,13 @@ default_date_time = ["2000","01","01","2000:01:01 01:01:01"]
 # recursive call to get all image filenames
 def getRecursive(rootDir, chunk_size=10):
     f_list=[]
-    
+
     for fn in glob.iglob(rootDir + "/**/*", recursive=True):
         if not os.path.isdir(os.path.abspath(fn)):
-            f_list.append(os.path.abspath(fn))    
+            f_list.append(os.path.abspath(fn))   
+  
     for i in range(0, len(f_list), chunk_size):
-        yield f_list[i:i+chunk_size]        
+        yield f_list[i:i+chunk_size]     
       
 def drop_except(df, columns_to_keep):
     columns_to_drop = [col for col in df.columns if col not in columns_to_keep] 

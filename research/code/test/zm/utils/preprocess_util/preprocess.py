@@ -9,6 +9,7 @@ import json
 import glob
 import pandas as pd
 import streamlit as st
+import tqdm
 from utils.config_util import config
 from utils.util import location_util as lu
 from utils.util import model_util as mu
@@ -194,7 +195,7 @@ async def run_workflow(
         async with Pool(processes=chunk_size,  queuecount=queue_size, maxtasksperchild=1) as pool:  #initializer=pool_init, initargs=(bfs,),
             count = 0
             res = []
-            for ilist in img_iterator:
+            for ilist in tqdm(img_iterator):
                 rlist = mu.is_processed_batch(ilist, df)
                 print(rlist)
                 if len(rlist) > 0:

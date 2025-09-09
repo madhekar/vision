@@ -3,6 +3,7 @@ import time
 from PIL import Image
 import pyiqa
 import torch
+from tqdm import tqdm
 from torchvision.transforms import ToTensor
 from utils.config_util import config
 from utils.util import model_util as mu
@@ -56,7 +57,7 @@ async def is_valid_size_and_score(args, img):
             score = iqa_metric(im_tensor)
             f_score = score.item()
 
-            print(f'{img} :: {h}:{w} :: {f_score}')
+            sm.add_messages(f'quality w| {img} :: {h}:{w} :: {f_score}')
 
             res = img if f_score > threshold else ""
             return res
@@ -73,7 +74,7 @@ async def archive_images(image_path, archive_path, bad_quality_path_list):
     if len(bad_quality_path_list) != 0:
         space_saved = 0
         image_cnt =0 
-        for quality in bad_quality_path_list:
+        for quality in tqdm.tqdm(bad_quality_path_list, desc='images with quality issues'):
                 space_saved += os.path.getsize(os.path.join(quality))
                 image_cnt += 1
                 #uuid_path = mu.create_uuid_from_string(quality[0]) 
@@ -97,18 +98,24 @@ async def iq_work_flow(image_dir_path, archive_path, threshold):
     chunk_size = int(mp.cpu_count())
     queue_count = chunk_size // 4
 
-    img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
+    
+    img_iterator, lmax = mu.getRecursive(image_dir_path,  chunk_size)
+
     result = []
     #with st.status("Generating LLM responses...", expanded=True) as status:
-    async with Pool(processes=chunk_size, queuecount=queue_count) as pool: 
+    async with Pool(processes=chunk_size, queuecount=queue_count) as pool , tqdm(total = 2000) as pbar: 
         #count = 0
         res = [] 
         for il in img_iterator:
             if len(il) > 0:
                 res = await asyncio.gather(
-                   pool.map(partial(is_valid_size_and_score, threshold), il)
+                   pool.map(partial(is_valid_size_and_score, threshold), il),
                 )
+                pbar.update()
+                pbar.refresh()
                 result.append(res)
+
+
 
     await archive_images(
         image_dir_path,
