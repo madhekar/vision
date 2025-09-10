@@ -4,7 +4,7 @@ from aiomultiprocess import Pool
 from multiprocessing import Manager
 
 # A function to run in a separate process
-def my_worker_task(task_id, progress_queue):
+async def my_worker_task(task_id, progress_queue):
     total_steps = 10
     for i in range(total_steps):
         time.sleep(0.5)  # Simulate a time-consuming step
