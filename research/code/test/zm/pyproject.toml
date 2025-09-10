@@ -36,6 +36,7 @@ dependencies = [
     "python-exiv2>=0.11.0",
     "PyYAML==6.0.2",
     "scikit_learn==1.7.1",
+    "stqdm>=0.0.5",
     "streamlit==1.39.0",
     "streamlit_folium==0.22.1",
     "streamlit_image_select==0.6.0",
@@ -45,6 +46,7 @@ dependencies = [
     "tf-keras>=2.16.0",
     "torch==2.3.1",
     "torchvision==0.18.1",
+    "tqdm>=4.67.1",
     "transformers==4.37.2",
 ]
 [tool.setuptools.packages.find]

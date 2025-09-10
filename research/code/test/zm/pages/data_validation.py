@@ -54,7 +54,7 @@ def ChkBtnStatusAndAssigncolor():
     for i in range(len(btn_labels)):
         ChangeButtoncolor(btn_labels[i], st.session_state.btn_prsd_status[i])
 
-
+@st.fragment
 def btn_pressed_callback(i, user_source):
     print(i, st.session_state, st.session_state.btn_prsd_status[i - 1])
     #if st.session_state.btn_prsd_status[i - 1] == 1 or i == 0:

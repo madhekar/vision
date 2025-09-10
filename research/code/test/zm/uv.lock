@@ -4305,6 +4305,19 @@ wheels = [
 ]
 
 [[package]]
+name = "stqdm"
+version = "0.0.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "streamlit" },
+    { name = "tqdm" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/6b/f4/770b463dd67fb3bd0204bd3d35423c838e58a5f78f97bf98730b9b1cb991/stqdm-0.0.5.tar.gz", hash = "sha256:1bed78e60068da3afc7c6d87a5388006036633aa2fe2e19fa7db46483ef1227e", size = 7406, upload-time = "2023-01-05T08:58:51.097Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/08/e3/63cf2a221dc4c5894c2e42a7916ddcde8e5846f9551c2e9ed83024934fa3/stqdm-0.0.5-py3-none-any.whl", hash = "sha256:3177858c1ce5244821f13cc7cbd88a6dc8f154ef1bd12d2fa3342f2a9caf8843", size = 11123, upload-time = "2023-01-05T08:58:49.878Z" },
+]
+
+[[package]]
 name = "streamlit"
 version = "1.39.0"
 source = { registry = "https://pypi.org/simple" }
@@ -5341,6 +5354,7 @@ dependencies = [
     { name = "python-exiv2" },
     { name = "pyyaml" },
     { name = "scikit-learn" },
+    { name = "stqdm" },
     { name = "streamlit" },
     { name = "streamlit-folium" },
     { name = "streamlit-image-select" },
@@ -5350,6 +5364,7 @@ dependencies = [
     { name = "tf-keras" },
     { name = "torch" },
     { name = "torchvision" },
+    { name = "tqdm" },
     { name = "transformers" },
 ]
 
@@ -5386,6 +5401,7 @@ requires-dist = [
     { name = "python-exiv2", specifier = ">=0.11.0" },
     { name = "pyyaml", specifier = "==6.0.2" },
     { name = "scikit-learn", specifier = "==1.7.1" },
+    { name = "stqdm", specifier = ">=0.0.5" },
     { name = "streamlit", specifier = "==1.39.0" },
     { name = "streamlit-folium", specifier = "==0.22.1" },
     { name = "streamlit-image-select", specifier = "==0.6.0" },
@@ -5395,5 +5411,6 @@ requires-dist = [
     { name = "tf-keras", specifier = ">=2.16.0" },
     { name = "torch", specifier = "==2.3.1" },
     { name = "torchvision", specifier = "==0.18.1" },
+    { name = "tqdm", specifier = ">=4.67.1" },
     { name = "transformers", specifier = "==4.37.2" },
 ]

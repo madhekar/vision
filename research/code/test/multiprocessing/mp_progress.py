@@ -23,7 +23,7 @@ async def manage_progress(total_tasks, progress_queue):
             percent_complete = (completed_tasks / total_tasks) * 100
             progress_bar.progress(int(percent_complete), text=f"Processing... {completed_tasks}/{total_tasks}")
         
-        await time.sleep(0.1) # Yield to allow the Streamlit UI to update
+        time.sleep(0.5) # Yield to allow the Streamlit UI to update
 
     progress_bar.progress(100, text="All tasks completed!")
     return "All tasks finished."
