@@ -42,8 +42,8 @@ def create_metric():
 
 iqa_metric = create_metric()
 
-def is_valid_size_and_score(args, img):
-      threshold = args
+def is_valid_size_and_score(img):
+      threshold = 5.0 #args
       try:  
         if img is not None and os.path.getsize(img) > 512:
             im = Image.open(img).convert("RGB")
@@ -92,27 +92,22 @@ def archive_images(image_path, archive_path, bad_quality_path_list):
         sm.add_messages("quality", "w| no bad quality images Found.")
 
 
-def iq_work_flow(image_dir_path, archive_path, threshold):
+def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
 
-    #lock = asyncio.Lock()
-    chunk_size = int(mp.cpu_count()) // 4
-    queue_count =  chunk_size 
-
-    
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
-    length = len(img_iterator)
-    print(f'---->number of images: {length}')
 
     result = []
     #with st.status("Generating LLM responses...", expanded=True) as status:
     with Pool(processes=chunk_size, queuecount=queue_count) as pool , tqdm(total = 3000) as pbar: 
-        for res in pool.imap(partial(is_valid_size_and_score, threshold), img_iterator):
+        for res in pool.imap(partial(is_valid_size_and_score, threshold), img_iterator):  #(partial(is_valid_size_and_score, threshold), img_iterator):
             pbar.update(chunk_size)
             pbar.refresh()
             result.append(res)
     pbar.close()        
     pool.close()
     pool.join()
+    
+    print('---->')
 
     archive_images(
         image_dir_path,
@@ -128,20 +123,24 @@ def iq_work_flow(image_dir_path, archive_path, threshold):
 """
 def execute(source_name):
 
-    aiomp.set_start_method("fork")
+    mp.set_start_method("fork")
     (input_image_path, archive_quality_path,image_quality_threshold) = config.image_quality_config_load()
 
     input_image_path_updated = os.path.join(input_image_path,source_name)
-    
     arc_folder_name = mu.get_foldername_by_datetime()  
     
     archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
+
+    chunk_size = int(mp.cpu_count()) // 4
+    queue_count =  chunk_size 
 
     start = time.time()
     iq_work_flow(
             input_image_path_updated,
             archive_quality_path,
-            image_quality_threshold
+            image_quality_threshold,
+            chunk_size,
+            queue_count
         )
     processing_duration = int(time.time() - start)
     print(f'processing duration: {processing_duration}')
