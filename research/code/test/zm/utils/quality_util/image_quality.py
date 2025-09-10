@@ -57,8 +57,7 @@ async def is_valid_size_and_score(args, img):
             f_score = score.item()
 
             #sm.add_messages(f'quality s| {img} :: {h}:{w} :: {f_score}')
-            await print(f'quality s| {img} :: {h}:{w} :: {f_score}')
-
+            print(f'{img} :: {h}:{w} :: {f_score}')
 
             res = img if f_score > threshold else ""
             return res
@@ -95,8 +94,8 @@ async def archive_images(image_path, archive_path, bad_quality_path_list):
 
 async def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
 
-    # progress_generation = st.sidebar.empty()
-    # bar = st.sidebar.progress(0)
+    progress_generation = st.sidebar.empty()
+    bar = st.sidebar.progress(0)
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
 
     result = []
@@ -107,17 +106,16 @@ async def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queu
                    res = await asyncio.gather( pool.map(partial(is_valid_size_and_score, threshold), il))
                    result.append(res)
 
+                   #
+                   progress_generation.text(f"{len(il)} files processed out-of {300} => {int((100 / 300) * len(il))}% processed")
+                   bar.progress(int((100 / 300) * len(il)))
+
     await archive_images( image_dir_path, archive_path, [e for sb1 in result for sb2 in sb1 for e in sb2 if not e == ""])
 
-"""
-    input_image_path,
-    archive_quality_path,
-    image_quality_threshold,
-
-"""
+    pool.close()
+    pool.join()
 
 def execute(source_name):
-
 
     aiomp.set_start_method("fork")
     (input_image_path, archive_quality_path,image_quality_threshold) = config.image_quality_config_load()
@@ -127,7 +125,7 @@ def execute(source_name):
     
     archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
 
-    chunk_size = int(mp.cpu_count()) // 4
+    chunk_size = int(mp.cpu_count()) // 2
     queue_count =  chunk_size 
 
     start = time.time()
