@@ -42,8 +42,8 @@ def create_metric():
 
 iqa_metric = create_metric()
 
-def is_valid_size_and_score(args, img):
-      threshold = args
+def is_valid_size_and_score(img):
+      threshold = 5.0 #args
       try:  
         if img is not None and os.path.getsize(img) > 512:
             im = Image.open(img).convert("RGB")
@@ -99,13 +99,15 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_coun
     result = []
     #with st.status("Generating LLM responses...", expanded=True) as status:
     with Pool(processes=chunk_size, queuecount=queue_count) as pool , tqdm(total = 3000) as pbar: 
-        for res in pool.imap(partial(is_valid_size_and_score, threshold), img_iterator):
+        for res in pool.imap(partial(is_valid_size_and_score, threshold), img_iterator):  #(partial(is_valid_size_and_score, threshold), img_iterator):
             pbar.update(chunk_size)
             pbar.refresh()
             result.append(res)
     pbar.close()        
     pool.close()
     pool.join()
+    
+    print('---->')
 
     archive_images(
         image_dir_path,
@@ -125,9 +127,6 @@ def execute(source_name):
     (input_image_path, archive_quality_path,image_quality_threshold) = config.image_quality_config_load()
 
     input_image_path_updated = os.path.join(input_image_path,source_name)
-
-
-    
     arc_folder_name = mu.get_foldername_by_datetime()  
     
     archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
