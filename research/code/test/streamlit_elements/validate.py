@@ -19,68 +19,49 @@ def worker_function(item):
     time.sleep(0.1)  # Simulate some work
     return item * 2
 
-
+@st.fragment
 def test_validate_sqdm(npar):
-    items = list(range(500))
+    items = list(range(100))
     with mp.Pool(npar) as pool:
-        # Use stqdm to wrap the results from the multiprocessing pool
-        st.write('validation started...')
-        results = list(stqdm(pool.imap(worker_function, items), total=len(items), desc="Processing items"))
-    st.write("Processing complete...")
-    st.write(f"Results: {results[:10]}...")  # Display first 10 results
+        results = list(stqdm(pool.imap(worker_function, items), total=len(items), desc="processing images"))
+    st.write("validation check complete...")
+    st.write(f"results: {results[:5]}...")  # Display first 10 results
+    pool.close()
+    pool.join()
     return results
 
-
+@st.fragment
 def test_duplicate_sqdm(npar):
     items = list(range(100))
-
-
     with mp.Pool(npar) as pool:
-        # Use stqdm to wrap the results from the multiprocessing pool
-        results = list(
-            stqdm(
-                pool.imap(worker_function, items),
-                total=len(items),
-                desc="Processing items",
-            )
-        )
-    st.write("Processing complete!")
-    st.write(f"Results: {results[:10]}...")  # Display first 10 results
+        results = list(stqdm(pool.imap(worker_function, items), total=len(items), desc="processing images"))
+    st.write("duplicate check complete!")
+    st.write(f"results: {results[:5]}...")  # Display first 10 results
+    pool.close()
+    pool.join()
+    return results
 
-
+@st.fragment
 def test_quality_sqdm(npar):
     items = list(range(100))
-
     with mp.Pool(npar) as pool:
-        # Use stqdm to wrap the results from the multiprocessing pool
-        results = list(
-            stqdm(
-                pool.imap(worker_function, items),
-                total=len(items),
-                desc="Processing items",
-            )
-        )
-    st.write("Processing complete!")
-    st.write(f"Results: {results[:10]}...")  # Display first 10 results
+        results = list(stqdm(pool.imap(worker_function, items),total=len(items), desc="processing items"))
+    st.write("quality check complete!")
+    st.write(f"results: {results[:5]}...")  # Display first 10 results
+    pool.close()
+    pool.join()
+    return results
 
+@st.fragment
 def test_metadata_sqdm(npar):
-    #st.subheader("Multiprocessing with stqdm in Streamlit")
-
     items = list(range(100))
-
-    if st.button("Metadata Processing"):
-        with mp.Pool(npar) as pool:
-            # Use stqdm to wrap the results from the multiprocessing pool
-            results = list(
-                stqdm(
-                    pool.imap(worker_function, items),
-                    total=len(items),
-                    desc="Processing items",
-                )
-            )
-        st.write("Processing complete!")
-        st.write(f"Results: {results[:10]}...")  # Display first 10 results
-      
+    with mp.Pool(npar) as pool:
+            results = list(stqdm(pool.imap(worker_function, items),total=len(items),desc="processing items"))
+    st.write("metadata check complete!")
+    st.write(f"results: {results[:10]}...")  # Display first 10 results
+    pool.close()
+    pool.join()
+    return results  
 
 def execute(npar):
 
@@ -89,52 +70,66 @@ def execute(npar):
         ca.container(border=False)
 
     with cb:
-        cb.container(border=True)
+        cb.container(border=False)
 
     with cc:
-        cc.container(border=True)
+        cc.container(border=False)
 
     with cd:
-        cd.container(border=True)            
+        cd.container(border=False)            
 
     st.divider()    
     
     ###
+
     c1, c2, c3, c4 = st.columns([1, 1, 1, 1], gap="small")
     with c1:
         c1c = c1.container(border=False)
         with c1c:
-            with st.status('validate', expanded=True) as sc1c:
-                if st.button("Validation Check"):
-                    st.write('validation start')
+            if st.button("Validation Check", use_container_width=True):
+                with st.status('validate', expanded=True) as sc1c:
+                    st.write('validation check start')
                     results = test_validate_sqdm(npar)
                     if results:
-                        sc1c.update(label='Validation complete...', state='complete')
+                        sc1c.update(label='validation complete...', state='complete')
                     else:
-                        sc1c.update(label='Validation failed...', state='error')   
+                        sc1c.update(label='validation failed...', state='error')   
 
     with c2:
-        c2c= c2.container(border=True)
+        c2c= c2.container(border=False)
         with c2c:
-          with st.status('duplicate', expanded=True) as sc2c:
-            st.button("Duplicate Check", use_container_width=True)
-            results = test_duplicate_sqdm(npar)
-            if results:
-                sc2c.update(label='Duplicate complete...', state='complete')
-            else:
-                sc2c.update(label='Duplicate failed...', state='error')  
+            if  st.button("Duplicate Check", use_container_width=True):
+                with st.status('duplicate', expanded=True) as sc2c:
+                    st.write('duplicate image check start')
+                    results = test_duplicate_sqdm(npar)
+                    if results:
+                        sc2c.update(label='duplicate complete...', state='complete')
+                    else:
+                        sc2c.update(label='duplicate failed...', state='error')  
 
     with c3:
-        c3c= c3.container(border=True)
-        with c3c:
-            st.button("Quality Check", use_container_width=True)
-            test_quality_sqdm(npar)
+        c3c= c3.container(border=False)
+        with c3c:            
+            if st.button("Quality Check", use_container_width=True):
+              with st.status(label='quality', expanded=True) as sc3c:
+                st.write('quality check start')
+                results = test_quality_sqdm(npar)
+                if results:
+                    sc3c.update(label='quality complete', state='complete')
+                else:
+                    sc3c.update(label='quality failed', state='error')      
 
     with c4:
-        c4c = c4.container(border=True)
+        c4c = c4.container(border=False)
         with c4c:
-            st.button("Metadata Check", use_container_width=True)
-            test_metadata_sqdm(npar)
+            if st.button("Metadata Check", use_container_width=True):
+                with st.status(label='quality', expanded=True) as sc4c:
+                   st.write('metadata check start')
+                   results = test_metadata_sqdm(npar)
+                   if results:
+                       sc4c.update(label='metadata complete', state='complete')
+                   else:
+                       sc4c.update(label='metadata failed', state='error')  
 
 
 if __name__=='__main__':
