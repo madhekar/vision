@@ -94,12 +94,14 @@ async def archive_images(image_path, archive_path, bad_quality_path_list):
 
 async def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
 
+    stqdm_container = st.container()
     progress_generation = st.sidebar.empty()
     bar = st.sidebar.progress(0)
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
 
     result = []
-    async with Pool(processes=chunk_size, queuecount=queue_count) as pool:
+    with stqdm_container:
+      async with Pool(processes=chunk_size, queuecount=queue_count) as pool:
          res=[]
          for il in img_iterator:
               if len(il) > 0:
