@@ -6,6 +6,11 @@ import multiprocessing as mp
 import pandas as pd
 from utils.config_util import config
 from utils.util import storage_stat as ss
+from utils.missing_util import missing_metadata as mm
+from multipage_app.utils.quality_util import image_quality as iq
+from utils.dedup_util.md5 import dedup_imgs as di
+from utils.dedup_util.phash import KDduplicates as kdd
+from utils.dataload_util import dataload as dl
 
 # st.set_page_config(
 #     page_title="zesha: Media Portal (MP)",
@@ -198,7 +203,7 @@ def execute():
             if st.button("Validation Check", use_container_width=True):
                 with st.status('validate', expanded=True) as sc1c:
                     st.write('validation check start')
-                    results = test_validate_sqdm(npar)
+                    results = dl.execute(user_source_selected) #test_validate_sqdm(npar)
                     if results:
                         sc1c.update(label='validation complete...', state='complete')
                     else:
@@ -210,7 +215,7 @@ def execute():
             if  st.button("Duplicate Check", use_container_width=True):
                 with st.status('duplicate', expanded=True) as sc2c:
                     st.write('duplicate image check start')
-                    results = test_duplicate_sqdm(npar)
+                    results = kdd.execute(user_source_selected)#test_duplicate_sqdm(npar)
                     if results:
                         sc2c.update(label='duplicate complete...', state='complete')
                     else:
@@ -220,25 +225,25 @@ def execute():
         c3c= c3.container(border=False)
         with c3c:            
             if st.button("Quality Check", use_container_width=True):
-              with st.status(label='quality', expanded=True) as sc3c:
-                st.write('quality check start')
-                results = test_quality_sqdm(npar)
-                if results:
-                    sc3c.update(label='quality complete', state='complete')
-                else:
-                    sc3c.update(label='quality failed', state='error')      
+                with st.status(label="quality", expanded=True) as sc3c:
+                    st.write("quality check start")
+                    results = iq.execute(user_source_selected)  # test_quality_sqdm(npar)
+                    if results:
+                        sc3c.update(label="quality complete", state="complete")
+                    else:
+                        sc3c.update(label="quality failed", state="error")      
 
     with c4:
         c4c = c4.container(border=False)
         with c4c:
             if st.button("Metadata Check", use_container_width=True):
                 with st.status(label='quality', expanded=True) as sc4c:
-                   st.write('metadata check start')
-                   results = test_metadata_sqdm(npar)
-                   if results:
-                       sc4c.update(label='metadata complete', state='complete')
-                   else:
-                       sc4c.update(label='metadata failed', state='error')  
+                    st.write("metadata check start")
+                    results = mm.execute(user_source_selected)  # test_metadata_sqdm(npar)
+                    if results:
+                        sc4c.update(label="metadata complete", state="complete")
+                    else:
+                        sc4c.update(label="metadata failed", state="error")  
 
 
 execute()
