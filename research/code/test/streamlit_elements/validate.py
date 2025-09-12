@@ -1,7 +1,9 @@
+import os
+import time
 import streamlit as st
 from stqdm import stqdm
 import multiprocessing as mp
-import time
+
 
 st.set_page_config(
     page_title="zesha: Media Portal (MP)",
@@ -65,6 +67,7 @@ def test_metadata_sqdm(npar):
 
 def execute(npar):
 
+    #(dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(raw_data_path, user_source_selected))
     ca, cb, cc, cd = st.columns([1, 1, 1, 1], gap="small")
     with ca:
         ca.container(border=False)
@@ -86,7 +89,7 @@ def execute(npar):
     with c1:
         c1c = c1.container(border=False)
         with c1c:
-            if st.button("Validation Check", use_container_width=True):
+            if st.button("Validation Check", use_container_width=True, type='primary'):
                 with st.status('validate', expanded=True) as sc1c:
                     st.write('validation check start')
                     results = test_validate_sqdm(npar)
@@ -98,7 +101,7 @@ def execute(npar):
     with c2:
         c2c= c2.container(border=False)
         with c2c:
-            if  st.button("Duplicate Check", use_container_width=True):
+            if  st.button("Duplicate Check", use_container_width=True, type='primary'):
                 with st.status('duplicate', expanded=True) as sc2c:
                     st.write('duplicate image check start')
                     results = test_duplicate_sqdm(npar)
@@ -110,7 +113,7 @@ def execute(npar):
     with c3:
         c3c= c3.container(border=False)
         with c3c:            
-            if st.button("Quality Check", use_container_width=True):
+            if st.button("Quality Check", use_container_width=True, type='primary'):
               with st.status(label='quality', expanded=True) as sc3c:
                 st.write('quality check start')
                 results = test_quality_sqdm(npar)
@@ -122,7 +125,7 @@ def execute(npar):
     with c4:
         c4c = c4.container(border=False)
         with c4c:
-            if st.button("Metadata Check", use_container_width=True):
+            if st.button("Metadata Check", use_container_width=True, type='primary'):
                 with st.status(label='quality', expanded=True) as sc4c:
                    st.write('metadata check start')
                    results = test_metadata_sqdm(npar)
