@@ -11,23 +11,31 @@ from multipage_app.utils.quality_util import image_quality as iq
 from utils.dedup_util.md5 import dedup_imgs as di
 from utils.dedup_util.phash import KDduplicates as kdd
 from utils.dataload_util import dataload as dl
+from utils.util import statusmsg_util as sm
 
-# st.set_page_config(
-#     page_title="zesha: Media Portal (MP)",
-#     #page_icon="../assets/zesha-high-resolution-logo.jpeg",  # check
-#     initial_sidebar_state="expanded",
-#     layout="wide",
-#     menu_items={
-#         "About": "Zesha PC is created by Bhalchandra Madhekar",
-#         "Get Help": "https://www.linkedin.com/in/bmadhekar",
-#     },
-# )
+sm.init()
+
+
 colors = ["#ae5a41", "#1b85b8"]
 
-# def worker_function(item):
-#     """A function to be executed in a separate process."""
-#     time.sleep(0.1)  # Simulate some work
-#     return item * 2
+def color_selectbox(n_element: int, color: str):
+    js = f"""
+    <script>
+    // Find all the selectboxes
+    var selectboxes = window.parent.document.getElementsByClassName("stSelectbox");
+    
+    // Select one of them
+    var selectbox = selectboxes[{n_element}];
+    
+    // Select only the selection div
+    var selectregion = selectbox.querySelector('[data-baseweb="select"]');
+    
+    // Modify the color
+    selectregion.style.backgroundColor = '{color}';
+    </script>
+    """
+    st.components.v1.html(js, height=0)
+
 
 @st.fragment
 def test_validate_sqdm(npar):
@@ -90,13 +98,14 @@ def execute():
         vectordb_path,
     ) = config.data_validation_config_load()
     st.sidebar.subheader("SELECT DATA SOURCE", divider="gray")
-    user_source_selected = st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders(raw_data_path),label_visibility="collapsed")
+    user_source_selected = st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders(raw_data_path),label_visibility="collapsed", index=1)
+    color_selectbox(0, "red")
     cn = mp.cpu_count()
     npar = cn // 2
 
     (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(raw_data_path, user_source_selected))
 
-    print(cn)
+    st.subheader('Data Load', divider='gray')
     ca, cb, cc, cd = st.columns([1, 1, 1, 1], gap="small")
 
     with ca:
@@ -200,7 +209,7 @@ def execute():
     with c1:
         c1c = c1.container(border=False)
         with c1c:
-            if st.button("Validation Check", use_container_width=True):
+            if st.button("Validation Check", use_container_width=True, type='primary'):
                 with st.status('validate', expanded=True) as sc1c:
                     st.write('validation check start')
                     results = dl.execute(user_source_selected) #test_validate_sqdm(npar)
@@ -209,10 +218,20 @@ def execute():
                     else:
                         sc1c.update(label='validation failed...', state='error')   
 
+                    msgs = sm.get_message_by_type("load")  
+                    if msgs:
+                        for k,v in msgs.items():
+                            if k == 's':
+                              st.info(str(v))
+                            elif k == 'w':
+                              st.warning(str(v))   
+                            else:
+                              st.error(str(v))      
+
     with c2:
         c2c= c2.container(border=False)
         with c2c:
-            if  st.button("Duplicate Check", use_container_width=True):
+            if  st.button("Duplicate Check", use_container_width=True, type='primary'):
                 with st.status('duplicate', expanded=True) as sc2c:
                     st.write('duplicate image check start')
                     results = kdd.execute(user_source_selected)#test_duplicate_sqdm(npar)
@@ -220,11 +239,20 @@ def execute():
                         sc2c.update(label='duplicate complete...', state='complete')
                     else:
                         sc2c.update(label='duplicate failed...', state='error')  
+                    msgs = sm.get_message_by_type("duplicate")
+                    if msgs:
+                      for k, v in msgs.items():
+                        if k == "s":
+                            st.info(str(v))
+                        elif k == "w":
+                            st.warning(str(v))
+                        else:
+                            st.error(str(v))
 
     with c3:
         c3c= c3.container(border=False)
         with c3c:            
-            if st.button("Quality Check", use_container_width=True):
+            if st.button("Quality Check", use_container_width=True, type="primary"):
                 with st.status(label="quality", expanded=True) as sc3c:
                     st.write("quality check start")
                     results = iq.execute(user_source_selected)  # test_quality_sqdm(npar)
@@ -232,11 +260,20 @@ def execute():
                         sc3c.update(label="quality complete", state="complete")
                     else:
                         sc3c.update(label="quality failed", state="error")      
+                    msgs = sm.get_message_by_type("quality")
+                    if msgs:
+                      for k, v in msgs.items():
+                        if k == "s":
+                            st.info(str(v))
+                        elif k == "w":
+                            st.warning(str(v))
+                        else:
+                            st.error(str(v))
 
     with c4:
         c4c = c4.container(border=False)
         with c4c:
-            if st.button("Metadata Check", use_container_width=True):
+            if st.button("Metadata Check", use_container_width=True, type="primary"):
                 with st.status(label='quality', expanded=True) as sc4c:
                     st.write("metadata check start")
                     results = mm.execute(user_source_selected)  # test_metadata_sqdm(npar)
@@ -244,6 +281,15 @@ def execute():
                         sc4c.update(label="metadata complete", state="complete")
                     else:
                         sc4c.update(label="metadata failed", state="error")  
+                    msgs = sm.get_message_by_type("metadata")
+                    if msgs:
+                      for k, v in msgs.items():
+                        if k == "s":
+                            st.info(str(v))
+                        elif k == "w":
+                            st.warning(str(v))
+                        else:
+                            st.error(str(v))
 
 
 execute()

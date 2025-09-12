@@ -3,7 +3,7 @@ import time
 from PIL import Image
 import pyiqa
 import torch
-#from stqdm import stqdm
+from stqdm import stqdm
 from torchvision.transforms import ToTensor
 from utils.config_util import config
 from utils.util import model_util as mu
@@ -74,7 +74,7 @@ async def archive_images(image_path, archive_path, bad_quality_path_list):
     if len(bad_quality_path_list) != 0:
         space_saved = 0
         image_cnt =0 
-        for quality in bad_quality_path_list:
+        for quality in stqdm(bad_quality_path_list, total=len(bad_quality_path_list)):
                 space_saved += os.path.getsize(os.path.join(quality))
                 image_cnt += 1
                 #uuid_path = mu.create_uuid_from_string(quality[0]) 
