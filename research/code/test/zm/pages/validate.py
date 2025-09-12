@@ -3,31 +3,32 @@ import time
 import streamlit as st
 from stqdm import stqdm
 import multiprocessing as mp
-from zm.utils.config_util import config
-from zm.utils.util import storage_stat as ss
+import pandas as pd
+from utils.config_util import config
+from utils.util import storage_stat as ss
 
-st.set_page_config(
-    page_title="zesha: Media Portal (MP)",
-    #page_icon="../assets/zesha-high-resolution-logo.jpeg",  # check
-    initial_sidebar_state="expanded",
-    layout="wide",
-    menu_items={
-        "About": "Zesha PC is created by Bhalchandra Madhekar",
-        "Get Help": "https://www.linkedin.com/in/bmadhekar",
-    },
-)
+# st.set_page_config(
+#     page_title="zesha: Media Portal (MP)",
+#     #page_icon="../assets/zesha-high-resolution-logo.jpeg",  # check
+#     initial_sidebar_state="expanded",
+#     layout="wide",
+#     menu_items={
+#         "About": "Zesha PC is created by Bhalchandra Madhekar",
+#         "Get Help": "https://www.linkedin.com/in/bmadhekar",
+#     },
+# )
 colors = ["#ae5a41", "#1b85b8"]
 
-def worker_function(item):
-    """A function to be executed in a separate process."""
-    time.sleep(0.1)  # Simulate some work
-    return item * 2
+# def worker_function(item):
+#     """A function to be executed in a separate process."""
+#     time.sleep(0.1)  # Simulate some work
+#     return item * 2
 
 @st.fragment
 def test_validate_sqdm(npar):
     items = list(range(100))
     with mp.Pool(npar) as pool:
-        results = list(stqdm(pool.imap(worker_function, items), total=len(items), desc="processing images"))
+        results = list(stqdm(pool.imap(ss.worker_function, items), total=len(items), desc="processing images"))
     st.write("validation check complete...")
     st.write(f"results: {results[:5]}...")  # Display first 10 results
     pool.close()
@@ -38,7 +39,7 @@ def test_validate_sqdm(npar):
 def test_duplicate_sqdm(npar):
     items = list(range(100))
     with mp.Pool(npar) as pool:
-        results = list(stqdm(pool.imap(worker_function, items), total=len(items), desc="processing images"))
+        results = list(stqdm(pool.imap(ss.worker_function, items), total=len(items), desc="processing images"))
     st.write("duplicate check complete!")
     st.write(f"results: {results[:5]}...")  # Display first 10 results
     pool.close()
@@ -49,7 +50,7 @@ def test_duplicate_sqdm(npar):
 def test_quality_sqdm(npar):
     items = list(range(100))
     with mp.Pool(npar) as pool:
-        results = list(stqdm(pool.imap(worker_function, items),total=len(items), desc="processing items"))
+        results = list(stqdm(pool.imap(ss.worker_function, items),total=len(items), desc="processing items"))
     st.write("quality check complete!")
     st.write(f"results: {results[:5]}...")  # Display first 10 results
     pool.close()
@@ -60,62 +61,18 @@ def test_quality_sqdm(npar):
 def test_metadata_sqdm(npar):
     items = list(range(100))
     with mp.Pool(npar) as pool:
-            results = list(stqdm(pool.imap(worker_function, items),total=len(items),desc="processing items"))
+            results = list(stqdm(pool.imap(ss.worker_function, items),total=len(items),desc="processing items"))
     st.write("metadata check complete!")
     st.write(f"results: {results[:10]}...")  # Display first 10 results
     pool.close()
     pool.join()
     return results  
 
+# get immediate child folders
+def extract_user_raw_data_folders(pth):
+    return next(os.walk(pth))[1]
 
-"""
-            (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(raw_data_path, user_source_selected))
-
-            c01, c02, c03, c04 = st.columns([1,1,1,1], gap="small")
-            with c01:
-                st.caption("**Images Loaded**")
-                st.bar_chart(
-                    dfi,
-                    horizontal=False,
-                    stack=True,
-                    #y_label="total size(MB) & count of images",
-                    use_container_width=True,
-                    color=colors, #, "#636B2F", "#3D4127"] # colors
-                    )
-            with c02:
-                st.caption("**Videos Loaded**")
-                st.bar_chart(
-                    dfv,
-                    horizontal=False,
-                    stack=True,
-                    # y_label="total size(MB) & count of images",
-                    use_container_width=True,
-                    color=colors,  # , "#636B2F", "#3D4127"] # colors
-                )
-            with c03:
-                st.caption("**Documents Loaded**")
-                st.bar_chart(
-                    dfd,
-                    horizontal=False,
-                    stack=True,
-                    # y_label="total size(MB) & count of images",
-                    use_container_width=True,
-                    color=colors,  # , "#636B2F", "#3D4127"] # colors
-                )
-            with c04:
-                st.caption("**Others Loaded**")
-                st.bar_chart(
-                    dfn,
-                    horizontal=False,
-                    stack=True,
-                    # y_label="total size(MB) & count of images",
-                    use_container_width=True,
-                    color=colors,  # colors=["#D4DE95", "#BAC095"],  # ,
-                )
-
-
-"""
-def execute(user_source_selected):
+def execute():
     (
         raw_data_path,
         duplicate_data_path,
@@ -127,11 +84,16 @@ def execute(user_source_selected):
         static_metadata_file_path,
         vectordb_path,
     ) = config.data_validation_config_load()
+    st.sidebar.subheader("SELECT DATA SOURCE", divider="gray")
+    user_source_selected = st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders(raw_data_path),label_visibility="collapsed")
     cn = mp.cpu_count()
     npar = cn // 2
 
     (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(raw_data_path, user_source_selected))
+
+    print(cn)
     ca, cb, cc, cd = st.columns([1, 1, 1, 1], gap="small")
+
     with ca:
         cac= ca.container(border=False)
         with cac:
@@ -178,13 +140,52 @@ def execute(user_source_selected):
                 )
 
     with cb:
-        cb.container(border=False)
+        cbc = cb.container(border=False)
+        with cbc:
+            (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(duplicate_data_path, user_source_selected))
+            st.caption("**Duplicate Images Archived**")
+            st.bar_chart(
+                dfi,
+                horizontal=False,
+                stack=True,
+                use_container_width=True,
+                color=colors,
+            )
+
 
     with cc:
-        cc.container(border=False)
+        ccc= cc.container(border=False)
+        with ccc:
+            (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(quality_data_path, user_source_selected))
+            st.caption("**Bad Quality Images Archived**")
+            st.bar_chart(
+                dfi,
+                horizontal=False,
+                stack=True,
+                use_container_width=True,
+                color=colors,
+            )
+      
 
     with cd:
-        cd.container(border=False)            
+        cdc= cd.container(border=False)        
+        with cdc:
+            if os.path.exists(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file)):       
+               dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file))
+               #print(dict)
+               df = pd.DataFrame.from_dict(dict, orient='index',columns=['number'])
+              #print(df)
+            
+               st.bar_chart(
+                    df,
+                    horizontal=False,
+                    stack=True,
+                    y_label="number of images",
+                    use_container_width=True,
+                    color= ['#ae5a41']#,'#1b85b8','#559e83']#,'#c3cb71']#['#c09b95','#bac095','#95bac0','#9b95c0']#["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
+               )
+            else:
+                st.error(f"s| missing metadata file not present {missing_metadata_file}.")     
 
     st.divider()    
     
@@ -240,6 +241,7 @@ def execute(user_source_selected):
                        sc4c.update(label='metadata failed', state='error')  
 
 
-if __name__=='__main__':
-    cn = mp.cpu_count()
-    execute(cn // 2)
+execute()
+# if __name__=='__main__':
+#     cn = mp.cpu_count()
+#     execute(cn // 2)
