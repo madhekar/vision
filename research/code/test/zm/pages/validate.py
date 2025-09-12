@@ -213,7 +213,7 @@ def execute():
                 with st.status('validate', expanded=True) as sc1c:
                     st.write('validation check start')
                     results = dl.execute(user_source_selected) #test_validate_sqdm(npar)
-                    if results:
+                    if results == "success":
                         sc1c.update(label='validation complete...', state='complete')
                     else:
                         sc1c.update(label='validation failed...', state='error')   
@@ -235,7 +235,7 @@ def execute():
                 with st.status('duplicate', expanded=True) as sc2c:
                     st.write('duplicate image check start')
                     results = kdd.execute(user_source_selected)#test_duplicate_sqdm(npar)
-                    if results:
+                    if results == "success":
                         sc2c.update(label='duplicate complete...', state='complete')
                     else:
                         sc2c.update(label='duplicate failed...', state='error')  
@@ -256,7 +256,8 @@ def execute():
                 with st.status(label="quality", expanded=True) as sc3c:
                     st.write("quality check start")
                     results = iq.execute(user_source_selected)  # test_quality_sqdm(npar)
-                    if results:
+                    print(results)
+                    if results == 'success':
                         sc3c.update(label="quality complete", state="complete")
                     else:
                         sc3c.update(label="quality failed", state="error")      
@@ -277,7 +278,7 @@ def execute():
                 with st.status(label='quality', expanded=True) as sc4c:
                     st.write("metadata check start")
                     results = mm.execute(user_source_selected)  # test_metadata_sqdm(npar)
-                    if results:
+                    if results == "success":
                         sc4c.update(label="metadata complete", state="complete")
                     else:
                         sc4c.update(label="metadata failed", state="error")  
