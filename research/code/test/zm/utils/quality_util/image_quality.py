@@ -56,7 +56,7 @@ async def is_valid_size_and_score(args, img):
             score = iqa_metric(im_tensor)
             f_score = score.item()
 
-            #sm.add_messages(f'quality s| {img} :: {h}:{w} :: {f_score}')
+            sm.add_messages(f'quality s| {img} :: {h}:{w} :: {f_score}')
             print(f'{img} :: {h}:{w} :: {f_score}')
 
             res = img if f_score > threshold else ""
@@ -95,22 +95,23 @@ async def archive_images(image_path, archive_path, bad_quality_path_list):
 async def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
 
     stqdm_container = st.container()
-    progress_generation = st.sidebar.empty()
-    bar = st.sidebar.progress(0)
+    # progress_generation = st.sidebar.empty()
+    # bar = st.sidebar.progress(0)
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
 
     result = []
     with stqdm_container:
       async with Pool(processes=chunk_size, queuecount=queue_count) as pool:
          res=[]
-         for il in img_iterator:
+         for il in stqdm(img_iterator, total=3000):
               if len(il) > 0:
                    res = await asyncio.gather( pool.map(partial(is_valid_size_and_score, threshold), il))
                    result.append(res)
 
                    #
-                   progress_generation.text(f"{len(il)} files processed out-of {300} => {int((100 / 300) * len(il))}% processed")
-                   bar.progress(int((100 / 300) * len(il)))
+                   sm.add_messages('quality, w|Processes {il}')
+                #    progress_generation.text(f"{len(il)} files processed out-of {300} => {int((100 / 300) * len(il))}% processed")
+                #    bar.progress(int((100 / 300) * len(il)))
 
     await archive_images( image_dir_path, archive_path, [e for sb1 in result for sb2 in sb1 for e in sb2 if not e == ""])
 
