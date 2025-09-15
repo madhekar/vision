@@ -12,10 +12,10 @@ from utils.util import storage_stat as ss
 
 import asyncio
 import multiprocessing as mp
-#from multiprocessing import Pool
+from multiprocessing import Pool
 #import aiofiles
-import aiomultiprocess as aiomp
-from aiomultiprocess import Pool
+#import aiomultiprocess as aiomp
+#from aiomultiprocess import Pool
 from functools import partial
 import streamlit as st
 
@@ -42,7 +42,7 @@ def create_metric():
 
 iqa_metric = create_metric()
 
-async def is_valid_size_and_score(args, img):
+def is_valid_size_and_score(args, img):
       threshold = args
       try:  
         if img is not None and os.path.getsize(img) > 512:
@@ -56,7 +56,7 @@ async def is_valid_size_and_score(args, img):
             score = iqa_metric(im_tensor)
             f_score = score.item()
 
-            sm.add_messages(f'quality s| {img} :: {h}:{w} :: {f_score}')
+            #sm.add_messages(f'quality s| {img} :: {h}:{w} :: {f_score}')
             print(f'{img} :: {h}:{w} :: {f_score}')
 
             res = img if f_score > threshold else ""
@@ -70,7 +70,7 @@ async def is_valid_size_and_score(args, img):
 """
 Archive quality images
 """
-async def archive_images(image_path, archive_path, bad_quality_path_list):                
+def archive_images(image_path, archive_path, bad_quality_path_list):                
     if len(bad_quality_path_list) != 0:
         space_saved = 0
         image_cnt =0 
@@ -92,69 +92,63 @@ async def archive_images(image_path, archive_path, bad_quality_path_list):
         sm.add_messages("quality", "w| no bad quality images Found.")
 
 
-async def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
+def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
 
-    stqdm_container = st.container()
-    # progress_generation = st.sidebar.empty()
-    # bar = st.sidebar.progress(0)
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
-
     result = []
-    with stqdm_container:
-      async with Pool(processes=chunk_size, queuecount=queue_count) as pool:
+
+    with Pool(processes=chunk_size, queue_count=queue_count) as pool:
          res=[]
-         for il in tqdm(img_iterator, total=3000):
+         for il in img_iterator:
               if len(il) > 0:
-                   res = await asyncio.gather( pool.map(partial(is_valid_size_and_score, threshold), il))
+                   res = pool.map(partial(is_valid_size_and_score, threshold), il)
                    result.append(res)
-
-                   #
-                   sm.add_messages('quality, w|Processes {il}')
-                #    progress_generation.text(f"{len(il)} files processed out-of {300} => {int((100 / 300) * len(il))}% processed")
-                #    bar.progress(int((100 / 300) * len(il)))
-
-    await archive_images( image_dir_path, archive_path, [e for sb1 in result for sb2 in sb1 for e in sb2 if not e == ""])
-
     pool.close()
     pool.join()
 
+    archive_images( image_dir_path, archive_path, [e for sb1 in result for sb2 in sb1 for e in sb2 if not e == ""])
+
 def execute(source_name):
-  result ='success'
-  try:
-    aiomp.set_start_method("fork")
-    (input_image_path, archive_quality_path,image_quality_threshold) = config.image_quality_config_load()
+    print('----> in execute')
+    result = "success"
+    try:
+        mp.set_start_method("fork")
+        mp.freeze_support()
+        (input_image_path, archive_quality_path, image_quality_threshold) = config.image_quality_config_load()
 
-    input_image_path_updated = os.path.join(input_image_path,source_name)
-    arc_folder_name = mu.get_foldername_by_datetime()  
-    
-    archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
+        input_image_path_updated = os.path.join(input_image_path, source_name)
+        arc_folder_name = mu.get_foldername_by_datetime()     
+        archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
+        sm.add_messages('quality', f'w| input images path: {input_image_path} out archive path: {archive_quality_path}')
 
-    chunk_size = int(mp.cpu_count()) // 2
-    queue_count =  chunk_size 
+        chunk_size = int(mp.cpu_count()) // 2
+        queue_count = chunk_size
 
-    print(f'processes: {chunk_size} queue count: {queue_count}')
-    start = time.time()
-    asyncio.run(iq_work_flow(
+        sm.add_messages("quality", f"w| {chunk_size} queue count: {queue_count}")
+        print(f"processes: {chunk_size} queue count: {queue_count}")
+
+        start = time.time()
+        iq_work_flow(
             input_image_path_updated,
             archive_quality_path,
             image_quality_threshold,
             chunk_size,
-            queue_count
-        ))
-    processing_duration = int(time.time() - start)
-    print(f'processing duration: {processing_duration}')
-    sm.add_messages("quality", f"w| processing duration: {processing_duration}.")
+            queue_count,
+        )
+        processing_duration = int(time.time() - start)
+        print(f"processing duration: {processing_duration}")
+        sm.add_messages("quality", f"w| processing duration: {processing_duration}.")
 
-    ss.remove_empty_files_and_folders(input_image_path_updated)
+        ss.remove_empty_files_and_folders(input_image_path_updated)
 
-  except Exception as e:
-      sm.add_messages("quality", f'e | Exception occurred {e}')
-      result = 'failed' 
-  print(result)    
-  return result 
+    except Exception as e:
+        sm.add_messages("quality", f"e | Exception occurred {e}")
+        result = "failed"
+    print('----result--->', result)
+    return result 
 
     
     
 if __name__ == "__main__":
-    execute(source_name="")
+    execute(source_name="madhekar")
 

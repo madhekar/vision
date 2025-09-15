@@ -13,10 +13,9 @@ from utils.dedup_util.phash import KDduplicates as kdd
 from utils.dataload_util import dataload as dl
 from utils.util import statusmsg_util as sm
 
+colors = ["#FF6961", "#7AD7F0"]
+
 sm.init()
-
-
-colors = ["#ae5a41", "#1b85b8"]
 
 def color_selectbox(n_element: int, color: str):
     js = f"""
@@ -36,56 +35,11 @@ def color_selectbox(n_element: int, color: str):
     """
     st.components.v1.html(js, height=0)
 
-
-@st.fragment
-def test_validate_sqdm(npar):
-    items = list(range(100))
-    with mp.Pool(npar) as pool:
-        results = list(stqdm(pool.imap(ss.worker_function, items), total=len(items), desc="processing images"))
-    st.write("validation check complete...")
-    st.write(f"results: {results[:5]}...")  # Display first 10 results
-    pool.close()
-    pool.join()
-    return results
-
-@st.fragment
-def test_duplicate_sqdm(npar):
-    items = list(range(100))
-    with mp.Pool(npar) as pool:
-        results = list(stqdm(pool.imap(ss.worker_function, items), total=len(items), desc="processing images"))
-    st.write("duplicate check complete!")
-    st.write(f"results: {results[:5]}...")  # Display first 10 results
-    pool.close()
-    pool.join()
-    return results
-
-@st.fragment
-def test_quality_sqdm(npar):
-    items = list(range(100))
-    with mp.Pool(npar) as pool:
-        results = list(stqdm(pool.imap(ss.worker_function, items),total=len(items), desc="processing items"))
-    st.write("quality check complete!")
-    st.write(f"results: {results[:5]}...")  # Display first 10 results
-    pool.close()
-    pool.join()
-    return results
-
-@st.fragment
-def test_metadata_sqdm(npar):
-    items = list(range(100))
-    with mp.Pool(npar) as pool:
-            results = list(stqdm(pool.imap(ss.worker_function, items),total=len(items),desc="processing items"))
-    st.write("metadata check complete!")
-    st.write(f"results: {results[:10]}...")  # Display first 10 results
-    pool.close()
-    pool.join()
-    return results  
-
 # get immediate child folders
 def extract_user_raw_data_folders(pth):
     return next(os.walk(pth))[1]
 
-def execute():
+def exe():
     (
         raw_data_path,
         duplicate_data_path,
@@ -97,11 +51,13 @@ def execute():
         static_metadata_file_path,
         vectordb_path,
     ) = config.data_validation_config_load()
+
     st.sidebar.subheader("SELECT DATA SOURCE", divider="gray")
+
     user_source_selected = st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders(raw_data_path),label_visibility="collapsed", index=1)
     color_selectbox(0, "red")
-    cn = mp.cpu_count()
-    npar = cn // 2
+    # cn = mp.cpu_count()
+    # npar = cn // 2
 
     (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(raw_data_path, user_source_selected))
 
@@ -196,7 +152,7 @@ def execute():
                     stack=True,
                     y_label="number of images",
                     use_container_width=True,
-                    color= ['#ae5a41']#,'#1b85b8','#559e83']#,'#c3cb71']#['#c09b95','#bac095','#95bac0','#9b95c0']#["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
+                    color= colors[0] #['#ae5a41']#,'#1b85b8','#559e83']#,'#c3cb71']#['#c09b95','#bac095','#95bac0','#9b95c0']#["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
                )
             else:
                 st.error(f"s| missing metadata file not present {missing_metadata_file}.")     
@@ -250,17 +206,18 @@ def execute():
                             st.error(str(v))
 
     with c3:
-        c3c= c3.container(border=False)
+        c3c = c3.container(border=False)
         with c3c:            
             if st.button("Quality Check", use_container_width=True, type="primary"):
                 with st.status(label="quality", expanded=True) as sc3c:
                     st.write("quality check start")
                     results = iq.execute(user_source_selected)  # test_quality_sqdm(npar)
-                    print(results)
+                    print('---quality-->', results)
                     if results == 'success':
                         sc3c.update(label="quality complete", state="complete")
                     else:
-                        sc3c.update(label="quality failed", state="error")      
+                        sc3c.update(label="quality failed", state="error")    
+
                     msgs = sm.get_message_by_type("quality")
                     if msgs:
                       for k, v in msgs.items():
@@ -293,7 +250,7 @@ def execute():
                             st.error(str(v))
 
 
-execute()
+exe()
 # if __name__=='__main__':
 #     cn = mp.cpu_count()
 #     execute(cn // 2)

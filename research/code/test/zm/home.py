@@ -65,7 +65,7 @@ data_trim = st.Page(
     icon=":material/group_work:",
 )
 
-data_validate = st.Page(
+data_validation = st.Page(
     page='pages/validate.py',
     title="VALIDATE",
     icon=":material/group_work:",
@@ -106,7 +106,7 @@ multimodal_search = st.Page(
 pg = st.navigation(
     {
         "OVERVIEW": [overview],
-        "DATA": [data_extadd, data_trim, data_validate],      
+        "DATA": [data_extadd, data_trim, data_validation],      
         "METADATA: STATIC": [static_metadata_loader],
         "METADATA: DYNAMIC": [data_correction, metadata_creater, metadata_loader],
         "SEARCH": [multimodal_search],

@@ -245,7 +245,7 @@ def image_quality_config_load():
     return (
         os.path.join(dr, *input_image_path.split(os.sep)[1:]),
         os.path.join(dr, *archive_quality_path.split(os.sep)[1:]),
-        image_quality_threshold,
+        image_quality_threshold
     )
 
 
