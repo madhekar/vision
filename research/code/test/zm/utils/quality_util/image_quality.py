@@ -95,14 +95,16 @@ def archive_images(image_path, archive_path, bad_quality_path_list):
 def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
 
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
+    pbar = st.sidebar.progress(0, text='Quality Files')
     result = []
 
     with Pool(processes=chunk_size, queue_count=queue_count) as pool:
          res=[]
          for il in img_iterator:
               if len(il) > 0:
-                   res = pool.map_async(partial(is_valid_size_and_score, threshold), il)
+                   res = pool.map(partial(is_valid_size_and_score, threshold), il)
                    result.append(res)
+                   pbar.progress(len(il))
     pool.close()
     pool.join()
 
@@ -119,7 +121,7 @@ def execute(source_name):
         input_image_path_updated = os.path.join(input_image_path, source_name)
         arc_folder_name = mu.get_foldername_by_datetime()     
         archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
-        sm.add_messages('quality', f'w| input images path: {input_image_path} out archive path: {archive_quality_path}')
+        sm.info(f'w| input images path: {input_image_path} out archive path: {archive_quality_path}')
 
         chunk_size = int(mp.cpu_count()) // 2
         queue_count = chunk_size
