@@ -20,7 +20,7 @@ def update(*a):
 
 for i in range(pbar.total):
     pool.apply_async(myfunc, args=(i,), callback=update)
-# tqdm.write('scheduled')
+tqdm.write('scheduled')
 
 pool.close()
 pool.join()

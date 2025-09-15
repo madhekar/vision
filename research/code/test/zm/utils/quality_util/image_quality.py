@@ -101,7 +101,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_coun
          res=[]
          for il in img_iterator:
               if len(il) > 0:
-                   res = pool.map(partial(is_valid_size_and_score, threshold), il)
+                   res = pool.map_async(partial(is_valid_size_and_score, threshold), il)
                    result.append(res)
     pool.close()
     pool.join()
