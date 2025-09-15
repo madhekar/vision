@@ -6,6 +6,7 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
+from stqdm import stqdm
 
 from utils.dedup_util.phash import ImgUtils as iu
 

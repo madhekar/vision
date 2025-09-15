@@ -66,7 +66,7 @@ data_trim = st.Page(
 )
 
 data_validate = st.Page(
-    page='pages/data_validation.py',
+    page='pages/validate.py',
     title="VALIDATE",
     icon=":material/group_work:",
 )

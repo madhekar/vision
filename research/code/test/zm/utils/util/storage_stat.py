@@ -5,6 +5,7 @@ import collections
 import shutil
 from PIL import Image
 import pandas as pd
+import time
 import streamlit as st
 from .file_type_ext import image_types, video_types, audio_types, document_types, non_media_types 
 
@@ -268,6 +269,11 @@ def create_folder(cpath):
         os.makedirs(cpath, exist_ok=True)
     except OSError as e:
         print(f' Error  creating folder {cpath} : {e}')    
+
+def worker_function(item):
+    """A function to be executed in a separate process."""
+    time.sleep(0.1)  # Simulate some work
+    return item * 2        
 
 if __name__ == '__main__':
     extract_all_folder_stats("/home/madhekar/work/home-media-app/data/raw-data")
