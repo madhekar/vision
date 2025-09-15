@@ -95,7 +95,7 @@ def archive_images(image_path, archive_path, bad_quality_path_list):
 def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
 
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
-    pbar = st.sidebar.progress(0, text='Quality Files')
+
     result = []
 
     with Pool(processes=chunk_size, queue_count=queue_count) as pool:
@@ -104,7 +104,6 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_coun
               if len(il) > 0:
                    res = pool.map(partial(is_valid_size_and_score, threshold), il)
                    result.append(res)
-                   pbar.progress(len(il))
     pool.close()
     pool.join()
 
