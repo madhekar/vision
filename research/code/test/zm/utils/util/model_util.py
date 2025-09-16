@@ -23,6 +23,14 @@ default_home_loc = (32.968699774829794, -117.18420145463236)
 default_date_time = ["2000","01","01","2000:01:01 01:01:01"] 
 # def_date_time = "2000:01:01 01:01:01"
 
+def getFiles(rootDir):
+    f_list=[]
+
+    for fn in glob.iglob(rootDir + "/**/*", recursive=True):
+        if not os.path.isdir(os.path.abspath(fn)):
+            f_list.append(os.path.abspath(fn)) 
+    return f_list        
+
 # recursive call to get all image filenames
 def getRecursive(rootDir, chunk_size=10):
     f_list=[]

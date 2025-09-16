@@ -94,20 +94,18 @@ def archive_images(image_path, archive_path, bad_quality_path_list):
 
 def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
     stqdm_container = st.container()
+    nfiles = len(mu.getFiles(image_dir_path))
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
-    pbar = stqdm(total=50, unit='B', unit_scale=True)
+    pbar = stqdm(total=nfiles, unit='B', unit_scale=True)
     result = []
     with stqdm_container:
         with Pool(processes=chunk_size) as pool:
             res=[]
             for il in img_iterator:
                   if len(il) > 0:
-                       res = pool.map(partial(is_valid_size_and_score, threshold), il)
-                       result.append(res)
-                       pbar.update(len(il))
-            # for res in stqdm(pool.imap(partial(is_valid_size_and_score, threshold), img_iterator.__next__), total=100):
-            #     result.append(res)
-                
+                     pool.map(partial(is_valid_size_and_score, threshold),il)
+                     result.append(res)
+                     pbar.update(len(il))
         pool.close()
         pool.join()
 
