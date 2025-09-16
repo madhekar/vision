@@ -163,8 +163,8 @@ def exe():
 
     c1, c2, c3, c4 = st.columns([1, 1, 1, 1], gap="small")
     with c1:
-        c1c = c1.container(border=False)
-        with c1c:
+        # c1c = c1.container(border=False)
+        # with c1c:
             if st.button("Validation Check", use_container_width=True, type='primary'):
                 with st.status('validate', expanded=True) as sc1c:
                     st.write('validation check start')
@@ -185,8 +185,8 @@ def exe():
                               st.error(str(v))      
 
     with c2:
-        c2c= c2.container(border=False)
-        with c2c:
+        # c2c= c2.container(border=False)
+        # with c2c:
             if  st.button("Duplicate Check", use_container_width=True, type='primary'):
                 with st.status('duplicate', expanded=True) as sc2c:
                     st.write('duplicate image check start')
@@ -206,8 +206,8 @@ def exe():
                             st.error(str(v))
 
     with c3:
-        c3c = c3.container(border=False)
-        with c3c:            
+        # c3c = c3.container(border=False)
+        # with c3c:            
             if st.button("Quality Check", use_container_width=True, type="primary"):
                 with st.status(label="quality", expanded=True) as sc3c:
                     st.write("quality check start")
@@ -229,8 +229,8 @@ def exe():
                             st.error(str(v))
 
     with c4:
-        c4c = c4.container(border=False)
-        with c4c:
+        # c4c = c4.container(border=False)
+        # with c4c:
             if st.button("Metadata Check", use_container_width=True, type="primary"):
                 with st.status(label='quality', expanded=True) as sc4c:
                     st.write("metadata check start")
