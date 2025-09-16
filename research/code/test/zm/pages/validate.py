@@ -212,6 +212,7 @@ def exe():
                 with st.status(label="quality", expanded=True) as sc3c:
                     st.write("quality check starting...")
                     results = iq.execute(user_source_selected)  # test_quality_sqdm(npar)
+                    print('--->', results)
                     if results == 'success':
                         sc3c.update(label="quality complete", state="complete")
                     else:
