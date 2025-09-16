@@ -5,7 +5,8 @@ from utils.config_util import config
 from utils.util import model_util as mu
 
 # https://www.color-hex.com/color-palette/164
-colors = ["#ae5a41", "#1b85b8"]#["#636B2F","#BAC095"] #["#9EB8A0", "#58855c"]#['#58855c','#0D3311']#["#BAC095", "#636B2F"]
+colors = ['#847577','#cfd2cd']#['#f07162','#0081a7']#['#f97171','#8ad6cc']
+#["#ae5a41", "#1b85b8"]#["#636B2F","#BAC095"] #["#9EB8A0", "#58855c"]#['#58855c','#0D3311']#["#BAC095", "#636B2F"]
 
 def extract_folder_paths():
     raw_data_path, input_data_path, app_data_path, final_data_path = (
