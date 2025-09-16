@@ -3,7 +3,7 @@ import time
 from PIL import Image
 import pyiqa
 import torch
-from tqdm import tqdm
+from stqdm import stqdm
 from torchvision.transforms import ToTensor
 from utils.config_util import config
 from utils.util import model_util as mu
@@ -74,7 +74,7 @@ def archive_images(image_path, archive_path, bad_quality_path_list):
     if len(bad_quality_path_list) != 0:
         space_saved = 0
         image_cnt =0 
-        for quality in tqdm(bad_quality_path_list, total=len(bad_quality_path_list)):
+        for quality in stqdm(bad_quality_path_list, total=len(bad_quality_path_list)):
                 space_saved += os.path.getsize(os.path.join(quality))
                 image_cnt += 1
                 #uuid_path = mu.create_uuid_from_string(quality[0]) 
@@ -86,26 +86,29 @@ def archive_images(image_path, archive_path, bad_quality_path_list):
                 sm.add_messages("quality", f"s| file {quality} moved successfully.")
 
         print(f"\n\n saved {round(space_saved / 1000000)} mb of Space, {image_cnt} images archived.")
-        sm.add_messages("quality",f"w| saved {round(space_saved / 1000000)} mb of Space, {image_cnt} images archived.")
+        sm.add_messages("quality",f"s| saved {round(space_saved / 1000000)} mb of Space, {image_cnt} images archived.")
     else:
         print("No bad quality images Found :)")
-        sm.add_messages("quality", "w| no bad quality images Found.")
+        sm.add_messages("quality", "s| no bad quality images Found.")
 
 
 def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
-
+    stqdm_container = st.container()
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
-
     result = []
+    with stqdm_container:
+        with Pool(processes=chunk_size) as pool:
+            res=[]
+            for il in stqdm(img_iterator, total=30):
+                  if len(il) > 0:
+                       res = pool.map(partial(is_valid_size_and_score, threshold), il)
+                       result.append(res)
 
-    with Pool(processes=chunk_size, queue_count=queue_count) as pool:
-         res=[]
-         for il in img_iterator:
-              if len(il) > 0:
-                   res = pool.map(partial(is_valid_size_and_score, threshold), il)
-                   result.append(res)
-    pool.close()
-    pool.join()
+            # for res in stqdm(pool.imap(partial(is_valid_size_and_score, threshold), img_iterator.__next__), total=100):
+            #     result.append(res)
+                
+        pool.close()
+        pool.join()
 
     archive_images( image_dir_path, archive_path, [e for sb1 in result for sb2 in sb1 for e in sb2 if not e == ""])
 
@@ -113,19 +116,19 @@ def execute(source_name):
     print('----> in execute')
     result = "success"
     try:
-        mp.set_start_method("fork")
+        #mp.set_start_method("fork")
         mp.freeze_support()
         (input_image_path, archive_quality_path, image_quality_threshold) = config.image_quality_config_load()
 
         input_image_path_updated = os.path.join(input_image_path, source_name)
         arc_folder_name = mu.get_foldername_by_datetime()     
         archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
-        sm.info(f'w| input images path: {input_image_path} out archive path: {archive_quality_path}')
+        # sm.info(f's| input images path: {input_image_path} out archive path: {archive_quality_path}')
 
         chunk_size = int(mp.cpu_count()) // 2
         queue_count = chunk_size
 
-        sm.add_messages("quality", f"w| {chunk_size} queue count: {queue_count}")
+        sm.add_messages("quality", f"s| {chunk_size} queue count: {queue_count}")
         print(f"processes: {chunk_size} queue count: {queue_count}")
 
         start = time.time()
@@ -138,12 +141,12 @@ def execute(source_name):
         )
         processing_duration = int(time.time() - start)
         print(f"processing duration: {processing_duration}")
-        sm.add_messages("quality", f"w| processing duration: {processing_duration}.")
+        sm.add_messages("quality", f"s| processing duration: {processing_duration}.")
 
         ss.remove_empty_files_and_folders(input_image_path_updated)
 
     except Exception as e:
-        sm.add_messages("quality", f"e | Exception occurred {e}")
+        sm.add_messages("quality", f"e| Exception occurred {e}")
         result = "failed"
     print('----result--->', result)
     return result 

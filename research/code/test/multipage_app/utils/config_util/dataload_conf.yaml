@@ -1,6 +1,0 @@
-dataload:
-  raw_data_path: /data/raw-data
-  input_image_path: /data/input-data/img/
-  input_video_path: /data/input-data/video/
-  input_txt_path: /data/input-data/txt/
-  input_audio_path: /data/input-data/audio/

@@ -1,5 +1,0 @@
-missing-metadata:
-  input_image_path: /data/input-data/img
-  missing_metadata_path: /data/input-data/error/img/missing-data/
-  missing_metadata_file: missing-metadata-wip.csv
-  missing_metadata_filter_file: missing-metadata-filter-wip.csv

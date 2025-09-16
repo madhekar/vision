@@ -7,7 +7,7 @@ import pandas as pd
 from utils.config_util import config
 from utils.util import storage_stat as ss
 from utils.missing_util import missing_metadata as mm
-from multipage_app.utils.quality_util import image_quality as iq
+from utils.quality_util import image_quality as iq
 from utils.dedup_util.md5 import dedup_imgs as di
 from utils.dedup_util.phash import KDduplicates as kdd
 from utils.dataload_util import dataload as dl
@@ -178,11 +178,11 @@ def exe():
                     if msgs:
                         for k,v in msgs.items():
                             if k == 's':
-                              st.info(str(v))
+                              st.info(str(v) + '\n')
                             elif k == 'w':
-                              st.warning(str(v))   
+                              st.warning(str(v) + '\n')   
                             else:
-                              st.error(str(v))      
+                              st.error(str(v) + '\n')      
 
     with c2:
         # c2c= c2.container(border=False)
@@ -210,9 +210,8 @@ def exe():
         # with c3c:            
             if st.button("Quality Check", use_container_width=True, type="primary"):
                 with st.status(label="quality", expanded=True) as sc3c:
-                    st.write("quality check start")
+                    st.write("quality check starting...")
                     results = iq.execute(user_source_selected)  # test_quality_sqdm(npar)
-                    print('---quality-->', results)
                     if results == 'success':
                         sc3c.update(label="quality complete", state="complete")
                     else:
@@ -221,6 +220,7 @@ def exe():
                     msgs = sm.get_message_by_type("quality")
                     if msgs:
                       for k, v in msgs.items():
+                        print(k, ':', v)
                         if k == "s":
                             st.info(str(v))
                         elif k == "w":
@@ -243,9 +243,11 @@ def exe():
                     if msgs:
                       for k, v in msgs.items():
                         if k == "s":
-                            st.info(str(v))
+                            for ev in list(v):
+                              st.info(str(ev))
                         elif k == "w":
-                            st.warning(str(v))
+                            for ev in list(v):
+                              st.warning(str(ev))
                         else:
                             st.error(str(v))
 

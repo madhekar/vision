@@ -15,8 +15,9 @@ def add_messages(msg_type, message):
 def get_message_by_type(tmsg):
     d = defaultdict(set)
     for ele in st.session_state.msgs[tmsg]:
-        print(ele)
+        print('---->', ele)
         k, v =  ele.split("|")
         d[k].add(v)
+    print('$$$', d)    
     return d
 
