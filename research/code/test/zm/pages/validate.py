@@ -13,7 +13,7 @@ from utils.dedup_util.phash import KDduplicates as kdd
 from utils.dataload_util import dataload as dl
 from utils.util import statusmsg_util as sm
 
-colors = ["#FF6961", "#7AD7F0"]
+colors = ["#6d765b", "#A5BFA6"]#["#847577", "#cfd2cd"] #["#FF6961", "#7AD7F0"]
 
 sm.init()
 
@@ -55,7 +55,7 @@ def exe():
     st.sidebar.subheader("SELECT DATA SOURCE", divider="gray")
 
     user_source_selected = st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders(raw_data_path),label_visibility="collapsed", index=1)
-    color_selectbox(0, "#FF6961")
+    color_selectbox(0, color=colors[0])
     # cn = mp.cpu_count()
     # npar = cn // 2
 
