@@ -9,6 +9,7 @@ from stqdm import stqdm
 
 from utils.dedup_util.phash import ImgUtils as iu
 from utils.util import statusmsg_util as sm
+import streamlit as st
 
 
 class NearDuplicateImageFinder(object):
@@ -133,7 +134,13 @@ class NearDuplicateImageFinder(object):
         # keep = [0, 4, 7]
         # remove = [1, 2, 3, 5, 6, 8]
 
-        with stqdm(total=len(dict_image_to_duplicates.items())) as pbar:
+        """
+        len(dict_image_to_duplicates.items())
+        """
+        stqdm_con = st.container()
+        pbar = pbar = stqdm(total=len(dict_image_to_duplicates.items()), unit='files', unit_scale=True, unit_divisor=1)
+        #with stqdm(total=len(dict_image_to_duplicates.items())) as pbar:
+        with stqdm_con:
             for k, (key, value) in enumerate(dict_image_to_duplicates.items()):
                 if k == 0:
                     if key not in keep:
