@@ -7,6 +7,7 @@ from PIL import Image
 import pandas as pd
 import time
 import streamlit as st
+from tqdm import tqdm
 from .file_type_ext import image_types, video_types, audio_types, document_types, non_media_types 
 
 
@@ -185,15 +186,21 @@ other unknown files
 def trim_unknown_files(image_path):
     cnt = 0
     mac_file_pattern = "._"
-    for root, dirs, files in os.walk(image_path):
-        for file in files:
-            if file.startswith(mac_file_pattern):
-                try:
-                    os.remove(os.path.join(root, file))
-                    print(f'removed {os.path.join(root, file)}')
-                    cnt += 1
-                except OSError as e:
-                    print(f"exception: {e} removing empty file {file}.")
+    # total files
+    total_items = 0
+    for dp, dns, fns in os.walk(image_path):
+        total_items += len(dns) + len(fns)
+    with tqdm(total=total_items, desc=f'processing: {image_path}') as pbar:
+        for root, dirs, files in os.walk(image_path):
+            for file in files:
+                if file.startswith(mac_file_pattern):
+                    try:
+                        os.remove(os.path.join(root, file))
+                        print(f'removed {os.path.join(root, file)}')
+                        cnt += 1
+                    except OSError as e:
+                        print(f"exception: {e} removing empty file {file}.")
+                pbar.update(1)        
     return cnt
 
 def remove_all_files_by_type(root_folder, type):

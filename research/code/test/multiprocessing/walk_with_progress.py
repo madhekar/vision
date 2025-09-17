@@ -26,3 +26,5 @@ def walk_with_progress(root_dir):
             #     filepath = os.path.join(dirpath, filename)
             #     # Perform operations on filepath
             #     pbar.update(1) # Update after processing each file
+
+walk_with_progress("/home/madhekar/work/home-media-app/data/input-data/img/madhekar")            
