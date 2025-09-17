@@ -167,51 +167,27 @@ def exe():
         # with c1c:
             if st.button("Validation Check", use_container_width=True, type='primary'):
                 with st.status('validate', expanded=True) as sc1c:
-                    st.write('validation check start')
+                    st.write('validation check starting...')
                     results = dl.execute(user_source_selected) #test_validate_sqdm(npar)
                     if results == "success":
-                        sc1c.update(label='validation complete...', state='complete')
+                        sc1c.update(label='validation complete', state='complete')
                     else:
-                        sc1c.update(label='validation failed...', state='error')   
+                        sc1c.update(label='validation failed', state='error')
 
-                    msgs = sm.get_message_by_type("load")
-                    if msgs:
-                        for k, v in msgs.items():
-                            print(k, ":", v)
-                            if k == "s":
-                                for ev in list(v):
-                                    st.info(str(ev))
-                            elif k == "w":
-                                for ev in list(v):
-                                    st.warning(str(ev))
-                            else:
-                                for ev in list(v):
-                                    st.error(str(ev))     
+                    sm.show_all_msgs_by_type("validate")     
 
     with c2:
         # c2c= c2.container(border=False)
         # with c2c:
             if  st.button("Duplicate Check", use_container_width=True, type='primary'):
                 with st.status('duplicate', expanded=True) as sc2c:
-                    st.write('duplicate image check start')
+                    st.write('duplicate check starting...')
                     results = kdd.execute(user_source_selected)#test_duplicate_sqdm(npar)
                     if results == "success":
-                        sc2c.update(label='duplicate complete...', state='complete')
+                        sc2c.update(label='duplicate complete', state='complete')
                     else:
-                        sc2c.update(label='duplicate failed...', state='error')  
-                    msgs = sm.get_message_by_type("duplicate")
-                    if msgs:
-                        for k, v in msgs.items():
-                            print(k, ":", v)
-                            if k == "s":
-                                for ev in list(v):
-                                    st.info(str(ev))
-                            elif k == "w":
-                                for ev in list(v):
-                                    st.warning(str(ev))
-                            else:
-                                for ev in list(v):
-                                    st.error(str(ev))
+                        sc2c.update(label='duplicate failed', state='error')  
+                    sm.show_all_msgs_by_type("duplicate")
 
     with c3:
         # c3c = c3.container(border=False)
@@ -219,8 +195,7 @@ def exe():
             if st.button("Quality Check", use_container_width=True, type="primary"):
                 with st.status(label="quality", expanded=True) as sc3c:
                     st.write("quality check starting...")
-                    results = iq.execute(user_source_selected)  # test_quality_sqdm(npar)
-                    print('--->', results)
+                    results = iq.execute(user_source_selected)
                     if results == 'success':
                         sc3c.update(label="quality complete", state="complete")
                     else:
@@ -233,13 +208,13 @@ def exe():
         # with c4c:
             if st.button("Metadata Check", use_container_width=True, type="primary"):
                 with st.status(label='metadata', expanded=True) as sc4c:
-                    st.write("metadata check start")
+                    st.write("metadata check starting...")
                     results = mm.execute(user_source_selected)  # test_metadata_sqdm(npar)
                     if results == "success":
                         sc4c.update(label="metadata complete", state="complete")
                     else:
                         sc4c.update(label="metadata failed", state="error")  
-                    msgs = sm.show_all_msgs_by_type("metadata")
+                    sm.show_all_msgs_by_type('metadata')
 
 
 

@@ -111,7 +111,6 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_coun
     archive_images( image_dir_path, archive_path, [e for sb1 in result for sb2 in sb1 for e in sb2 if not e == ""])
 
 def execute(source_name):
-    print('----> in execute')
     result = "success"
     try:
         #mp.set_start_method("fork")
@@ -121,13 +120,11 @@ def execute(source_name):
         input_image_path_updated = os.path.join(input_image_path, source_name)
         arc_folder_name = mu.get_foldername_by_datetime()     
         archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
-        # sm.info(f's| input images path: {input_image_path} out archive path: {archive_quality_path}')
 
         chunk_size = int(mp.cpu_count()) // 2
         queue_count = chunk_size
 
-        sm.add_messages("quality", f"s| processes {chunk_size}")
-        print(f"processes: {chunk_size} queue count: {queue_count}")
+        sm.add_messages("quality", f"s| number of parallel processes {chunk_size}")
 
         start = time.time()
         iq_work_flow(
@@ -138,15 +135,14 @@ def execute(source_name):
             queue_count,
         )
         processing_duration = int(time.time() - start)
-        print(f"processing duration: {processing_duration}")
-        sm.add_messages("quality", f"s| processing duration: {processing_duration}.")
+        print(f"processing duration: {processing_duration} seconds")
+        sm.add_messages("quality", f"s| processing duration: {processing_duration} seconds")
 
         ss.remove_empty_files_and_folders(input_image_path_updated)
 
     except Exception as e:
         sm.add_messages("quality", f"e| Exception occurred {e}")
         result = "failed"
-    print('----result--->', result)
     return result 
 
     

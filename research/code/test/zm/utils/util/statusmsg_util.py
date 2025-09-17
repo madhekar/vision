@@ -6,7 +6,7 @@ def init():
         st.session_state.btn_prsd_status = [0] * 4
 
     if "msgs" not in st.session_state:
-        st.session_state.msgs = {"load": [], "duplicate": [], "quality": [], "metadata": []}
+        st.session_state.msgs = {"validate": [], "duplicate": [], "quality": [], "metadata": []}
 
 
 def add_messages(msg_type, message):
