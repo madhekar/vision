@@ -1,14 +1,14 @@
-import multiprocessing
+import multiprocessing as mp
 import os
 import sys
 import time
 
 import matplotlib.pyplot as plt
 import numpy as np
-from tqdm import tqdm
 from stqdm import stqdm
 
 from utils.dedup_util.phash import ImgUtils as iu
+from utils.util import statusmsg_util as sm
 
 
 class NearDuplicateImageFinder(object):
@@ -23,7 +23,7 @@ class NearDuplicateImageFinder(object):
         self.tree = None
 
         if self.parallel:
-            number_of_cpu = multiprocessing.cpu_count()
+            number_of_cpu = mp.cpu_count()
 
             if number_of_cpu >= 2:
                 self.number_of_cpu = number_of_cpu
@@ -50,23 +50,14 @@ class NearDuplicateImageFinder(object):
         raise NotImplementedError("subclasses must override find_all()!")
 
     def find_near_duplicates(self, image_id, nearest_neighbors=5, threshold=10):
-        """Find duplicates and near duplicates of an image.
-        Parameters
-        ----------
-        image_id
-        nearest_neighbors
-        threshold
+        """Find duplicates and near duplicates of an image."""
 
-        Returns
-        -------
-
-        """
-        print("Finding duplicates...")
+        sm.add_messages(f"duplicate s| Finding duplicates... for {image_id}")
         start_time = time.time()
 
         distances, indices = self._find(image_id, nearest_neighbors, threshold)
         max_distance = distances.max()
-        print("\t Max distance: {}".format(max_distance))
+        sm.add_messages(f"duplicate s| Max distance: {max_distance}")
         # Find the indices of distances elements that are greater than or equal to zero and less or equal to
         # threshold_in.
         above_threshold_idx = np.argwhere((distances <= threshold) & (distances >= 0))
@@ -81,27 +72,14 @@ class NearDuplicateImageFinder(object):
 
         end_time = time.time()
 
-        print(
-            "{0} duplicates or near duplicates has been founded in {1} seconds".format(
-                len(above_threshold_indices), end_time - start_time
-            )
-        )
+        print("{0} duplicates or near duplicates has been founded in {1} seconds".format(len(above_threshold_indices), end_time - start_time))
+
         return above_threshold_distances, above_threshold_indices
 
     def find_all_near_duplicates(self, nearest_neighbors=5, threshold=10):
-        """Find all duplicate and/or near duplicated images.
+        """Find all duplicate and/or near duplicated images."""
 
-        Parameters
-        ----------
-        nearest_neighbors
-        threshold
-
-        Returns
-        -------
-
-        """
-
-        print("Finding duplicates and/or near duplicates...")
+        sm.add_messages("duplicate s|Finding duplicates and/or near duplicates... no nearest neighbors:{nearest_neighbors} threshold: {threshold} ")
         start_time = time.time()
 
         dict_image_to_duplicates = dict()
@@ -113,9 +91,9 @@ class NearDuplicateImageFinder(object):
         # For each image it contains an array containing the indices of k-nearest neighbors.
         distances, indices = self._find_all(nearest_neighbors, threshold)
         max_distance = distances.max()
-        print("\t Max distance: {}".format(max_distance))
+        sm.add_messages(f"duplicate s| Max distance: {max_distance}")
         min_distance = distances.min()
-        print("\t Min distance: {}".format(min_distance))
+        sm.add_messages(f"duplicate s| Min distance: {min_distance}")
         # Find the indices of distances elements that are greater than or equal to zero and less or equal to
         # threshold_in.
         above_threshold_idx = np.argwhere((distances <= threshold) & (distances >= 0))
@@ -155,7 +133,7 @@ class NearDuplicateImageFinder(object):
         # keep = [0, 4, 7]
         # remove = [1, 2, 3, 5, 6, 8]
 
-        with tqdm(total=len(dict_image_to_duplicates.items())) as pbar:
+        with stqdm(total=len(dict_image_to_duplicates.items())) as pbar:
             for k, (key, value) in enumerate(dict_image_to_duplicates.items()):
                 if k == 0:
                     if key not in keep:
@@ -177,17 +155,13 @@ class NearDuplicateImageFinder(object):
                 pbar.update(1)
 
         files_to_remove = [f for f in list(self.df_dataset.iloc[remove]["file"])]
-        print("\t number of files to remove: {}".format(len(files_to_remove)))
+        sm.add_messages(f"duplicate s| number of files to remove: {len(files_to_remove)}")
 
         files_to_keep = [f for f in list(self.df_dataset.iloc[keep]["file"])]
-        print("\t number of files to keep: {}".format(len(files_to_keep)))
+        sm.add_messages(f"duplicate s|number of files to keep: {len(files_to_keep)}")
 
         end_time = time.time()
-        print(
-            "{0} duplicates or near duplicates has been founded in {1} seconds".format(
-                len(files_to_remove), end_time - start_time
-            )
-        )
+        sm.add_messages(f"duplicate s|{len(files_to_remove)} duplicates or near duplicates has been founded in {end_time - start_time} seconds")
 
         return files_to_keep, files_to_remove, dict_image_to_duplicates
 
