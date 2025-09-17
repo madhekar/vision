@@ -52,12 +52,12 @@ class NearDuplicateImageFinder(object):
     def find_near_duplicates(self, image_id, nearest_neighbors=5, threshold=10):
         """Find duplicates and near duplicates of an image."""
 
-        sm.add_messages(f"duplicate s| Finding duplicates... for {image_id}")
+        sm.add_messages("duplicate", f"s| Finding duplicates... for {image_id}")
         start_time = time.time()
 
         distances, indices = self._find(image_id, nearest_neighbors, threshold)
         max_distance = distances.max()
-        sm.add_messages(f"duplicate s| Max distance: {max_distance}")
+        sm.add_messages("duplicate" f"s| Max distance: {max_distance}")
         # Find the indices of distances elements that are greater than or equal to zero and less or equal to
         # threshold_in.
         above_threshold_idx = np.argwhere((distances <= threshold) & (distances >= 0))
@@ -72,14 +72,14 @@ class NearDuplicateImageFinder(object):
 
         end_time = time.time()
 
-        print("{0} duplicates or near duplicates has been founded in {1} seconds".format(len(above_threshold_indices), end_time - start_time))
+        sm.add_messages("duplicate", f"s| {len(above_threshold_indices)} duplicates or near duplicates has been founded in {end_time - start_time} seconds")
 
         return above_threshold_distances, above_threshold_indices
 
     def find_all_near_duplicates(self, nearest_neighbors=5, threshold=10):
         """Find all duplicate and/or near duplicated images."""
 
-        sm.add_messages("duplicate s|Finding duplicates and/or near duplicates... no nearest neighbors:{nearest_neighbors} threshold: {threshold} ")
+        sm.add_messages("duplicate", f"s|Finding duplicates and/or near duplicates... no nearest neighbors:{nearest_neighbors} threshold: {threshold} ")
         start_time = time.time()
 
         dict_image_to_duplicates = dict()
@@ -91,9 +91,9 @@ class NearDuplicateImageFinder(object):
         # For each image it contains an array containing the indices of k-nearest neighbors.
         distances, indices = self._find_all(nearest_neighbors, threshold)
         max_distance = distances.max()
-        sm.add_messages(f"duplicate s| Max distance: {max_distance}")
+        sm.add_messages("duplicate", f"s| Max distance: {max_distance}")
         min_distance = distances.min()
-        sm.add_messages(f"duplicate s| Min distance: {min_distance}")
+        sm.add_messages("duplicate" ,f"s| Min distance: {min_distance}")
         # Find the indices of distances elements that are greater than or equal to zero and less or equal to
         # threshold_in.
         above_threshold_idx = np.argwhere((distances <= threshold) & (distances >= 0))
@@ -155,13 +155,13 @@ class NearDuplicateImageFinder(object):
                 pbar.update(1)
 
         files_to_remove = [f for f in list(self.df_dataset.iloc[remove]["file"])]
-        sm.add_messages(f"duplicate s| number of files to remove: {len(files_to_remove)}")
+        sm.add_messages("duplicate", f"s| number of files to remove: {len(files_to_remove)}")
 
         files_to_keep = [f for f in list(self.df_dataset.iloc[keep]["file"])]
-        sm.add_messages(f"duplicate s|number of files to keep: {len(files_to_keep)}")
+        sm.add_messages("duplicate", f"s|number of files to keep: {len(files_to_keep)}")
 
         end_time = time.time()
-        sm.add_messages(f"duplicate s|{len(files_to_remove)} duplicates or near duplicates has been founded in {end_time - start_time} seconds")
+        sm.add_messages("duplicate", f"s|{len(files_to_remove)} duplicates or near duplicates has been founded in {end_time - start_time} seconds")
 
         return files_to_keep, files_to_remove, dict_image_to_duplicates
 

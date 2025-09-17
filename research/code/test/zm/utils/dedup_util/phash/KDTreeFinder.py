@@ -1,6 +1,6 @@
 from sklearn.neighbors import KDTree
 from utils.dedup_util.phash import NearDuplicateImageFinder #as NearDuplicateImageFinder
-
+from utils.util import statusmsg_util as sm
 
 class KDTreeFinder(NearDuplicateImageFinder.NearDuplicateImageFinder):
     # https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.DistanceMetric.html
@@ -19,7 +19,7 @@ class KDTreeFinder(NearDuplicateImageFinder.NearDuplicateImageFinder):
         super().__init__(img_file_list, leaf_size, parallel, batch_size, verbose)
 
     def build_tree(self):
-        print("Building the KDTree...")
+        sm.add_messages('duplicate', 's| Building the KDTree...')
         assert self.distance_metric in self.valid_metrics, (
             "{} isn't a valid metric for KDTree.".format(self.distance_metric)
         )

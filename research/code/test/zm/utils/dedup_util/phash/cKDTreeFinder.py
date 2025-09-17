@@ -1,5 +1,6 @@
 from scipy.spatial import cKDTree
 from utils.dedup_util.phash import NearDuplicateImageFinder
+from utils.util import statusmsg_util as sm
 
 
 class cKDTreeFinder(NearDuplicateImageFinder.NearDuplicateImageFinder):
@@ -18,10 +19,8 @@ class cKDTreeFinder(NearDuplicateImageFinder.NearDuplicateImageFinder):
         super().__init__(img_file_list, leaf_size, parallel, batch_size, verbose)
 
     def build_tree(self):
-        print("Building the cKDTree...")
-        assert self.distance_metric in self.valid_metrics, (
-            "{} isn't a valid metric for cKDTree.".format(self.distance_metric)
-        )
+        sm.add_messages('duplicate', 's| Building the cKDTree...')
+        assert self.distance_metric in self.valid_metrics, ("{} isn't a valid metric for cKDTree.".format(self.distance_metric))
 
         hash_str_len = len(self.df_dataset.at[0, "hash_list"])
         self.tree = cKDTree(
@@ -49,8 +48,8 @@ class cKDTreeFinder(NearDuplicateImageFinder.NearDuplicateImageFinder):
         # 'indices' is a matrix NxM where N is the number of images and M is the value of nearest_neighbors_in.
         # For each image it contains an array containing the indices of k-nearest neighbors.
         if self.parallel:
-            print("\tCPU: {}".format(self.number_of_cpu))
-            n_jobs = self.number_of_cpu
+           sm.add_messages('duplicate' f's| CPU: {self.number_of_cpu}')
+           n_jobs = self.number_of_cpu
 
         distances, indices = self.tree.query(
             self.df_dataset[[str(i) for i in range(0, hash_str_len)]],

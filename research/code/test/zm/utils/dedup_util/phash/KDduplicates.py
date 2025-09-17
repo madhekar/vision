@@ -40,8 +40,8 @@ def execute(source_name):
     archive_dup_path_update = os.path.join(
         archive_dup_path, source_name, arc_folder_name_dt
     )
-    sm.add_messages("duplicate", f"w| Images input Folder Path: {input_image_path}")
-    sm.add_messages("duplicate", f"w| Images archive folder path: {archive_dup_path_update}")
+    sm.add_messages("duplicate", f"s| Images input Folder Path: {input_image_path}")
+    sm.add_messages("duplicate", f"s| Images archive folder path: {archive_dup_path_update}")
     ss.create_folder(archive_dup_path_update)
 
     remove_duplicates(input_image_path, archive_dup_path_update)

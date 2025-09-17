@@ -19,7 +19,7 @@ def search(df_dataset,output_path,tree_type,distance_metric,nearest_neighbors,le
     # Get the image's id
     df_image = df_dataset[df_dataset["file"] == query]
     if df_image.empty:
-        sm.add_messages("duplicate w|The image doesn't have near duplicates.")
+        sm.add_messages("duplicate" ,"w| The image doesn't have near duplicates.")
         return [], []
     else:
         image_id = df_image.index.values.astype(int)[0]
@@ -30,7 +30,7 @@ def search(df_dataset,output_path,tree_type,distance_metric,nearest_neighbors,le
         # Show the near duplicates
         if len(distances) > 0 and len(indices) > 0:
             for distance, idx in zip(distances, indices):
-                print("{0} distance:{1}".format(df_dataset.iloc[idx]["file"], distance))
+                sm.add_messages('duplicate', f's| {df_dataset.iloc[idx]["file"]} distance:{distance}')
 
             image_path = df_dataset.iloc[image_id]["file"]
             files_to_show = []
@@ -57,5 +57,5 @@ def search(df_dataset,output_path,tree_type,distance_metric,nearest_neighbors,le
             plt.close()
             return distances, indices
         else:
-            sm.add_messages("duplicate s|The image doesn't have near duplicates.")
+            sm.add_messages("duplicate", 's|The image doesnot have near duplicates.')
             return [], []

@@ -1,6 +1,7 @@
 import os
 import shutil
 from pathlib import Path
+from utils.util import statusmsg_util as sm
 
 
 class FileSystem(object):
@@ -10,7 +11,7 @@ class FileSystem(object):
             try:
                 os.makedirs(directory)
             except OSError as e:
-                print("Error: %s - %s." % (e.filename, e.strerror))
+                sm.add_messages('duplicate', f'e| Error: {e.filename} - {e.strerror}')
 
     @staticmethod
     def remove_dir_if_exist(directory):
@@ -19,6 +20,7 @@ class FileSystem(object):
                 try:
                     shutil.rmtree(directory)
                 except OSError as e:
+                    sm.add_messages("duplicate', f'e| Error: {e.filename} - {e.strerror}")
                     print("Error: %s - %s." % (e.filename, e.strerror))
 
     @staticmethod
@@ -26,6 +28,7 @@ class FileSystem(object):
         try:
             os.remove(file_path)
         except OSError as e:
+            sm.add_messages("duplicate', f'e| Error: {e.filename} - {e.strerror}")
             print("Error: %s - %s." % (e.filename, e.strerror))
 
     @staticmethod
@@ -34,6 +37,7 @@ class FileSystem(object):
             try:
                 shutil.copy(file_path, dest_path)
             except IOError as e:
+                sm.add_messages("duplicate" f"e| Unable to copy file {e}")
                 print("Unable to copy file. %s" % e)
 
     @staticmethod

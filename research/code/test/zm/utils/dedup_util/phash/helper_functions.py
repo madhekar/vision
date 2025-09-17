@@ -1,12 +1,12 @@
 import os
 
 import pandas as pd
-from tqdm import tqdm
+from stqdm import stqdm
 
 from utils.dedup_util.phash import KDTreeFinder as kdt
 from utils.dedup_util.phash import cKDTreeFinder as ckdt
 from utils.dedup_util.phash.filesystem import FileSystem
-
+from utils.util import statusmsg_util as sm
 
 def backup_images(df_results, output_path_in, column):
     """Backup the images into a folder.
@@ -17,8 +17,8 @@ def backup_images(df_results, output_path_in, column):
     Returns
     -------
     """
-    print("Backuping images...")
-    with tqdm(total=len(df_results)) as pbar:
+    sm.add_messages('duplicate' ,'s| Backuping images...')
+    with stqdm(total=len(df_results)) as pbar:
         for index, row in df_results.iterrows():
             full_file_name = row[column]
             d = os.path.dirname(full_file_name)
@@ -44,8 +44,8 @@ def delete_images(df_results, column):
     -------
 
     """
-    print("Deleting images...")
-    with tqdm(total=len(df_results)) as pbar:
+    sm.add_messages('duplicate','s| Deleting images...')
+    with stqdm(total=len(df_results)) as pbar:
         for index, row in df_results.iterrows():
             full_file_name = row[column]
             FileSystem.remove_file(full_file_name)

@@ -6,6 +6,7 @@ import pandas as pd
 from PIL import Image
 # from natsort import natsorted
 from tqdm import tqdm
+from utils.util import statusmsg_util as sm
 
 hash_algo_dict = {
     "average_hash": imagehash.average_hash,
@@ -76,12 +77,12 @@ class ImageToHash(object):
         Build the dataset.
         """
 
-        print("Building the dataset...")
+        sm.add_messages('duplicate','s| Building the dataset...')
 
         if parallel:
-            print("\tParallel mode has been enabled...")
+            sm.add_messages('duplicate', 's| Parallel mode has been enabled...')
             number_of_cpu = multiprocessing.cpu_count()
-            print("\tCPU: {}".format(number_of_cpu))
+            sm.add_messages('duplicate', f's| CPU: {number_of_cpu}')
 
             if number_of_cpu >= 2:
                 self.number_of_cpu = number_of_cpu
@@ -140,11 +141,8 @@ class ImageToHash(object):
 
             if hash_code in dict_hash_to_images:
                 if self.verbose == 2:
-                    print(
-                        image,
-                        "  already exists as",
-                        " ".join(dict_hash_to_images[hash_code]),
-                    )
+                    v = " ".join(dict_hash_to_images[hash_code])
+                    sm.add_messages("duplicate",f"w| {image} already exists as: {v}")
                 already_exist_counter += 1
 
             dict_hash_to_images[hash_code] = dict_hash_to_images.get(hash_code, []) + [
@@ -152,7 +150,7 @@ class ImageToHash(object):
             ]
 
         # Are there any duplicates in terms of hashes of size 'hash_size'?
-        print("{0} out to {1}".format(already_exist_counter, len(self.img_file_list)))
+        sm.add_messages("duplicate",f"w| {already_exist_counter} out to {self.img_file_list}")
         # TODO warning
         # assert already_exist_counter == 0, "it actually can only represent 16^" + str(self.hash_size) + \
         #                                  " values let's try with a bigger hash."
@@ -194,7 +192,7 @@ class ImageToHash(object):
         # initialise the pool outside the loop
         pool = multiprocessing.Pool(processes=self.number_of_cpu)
         # For each image calculate the phash and store it in a DataFrame
-        print("\tdelegate work...")
+        sm.add_messages("duplicate","s| delegate work...")
         for i in tqdm(range(0, len(self.img_file_list), batch_size)):
             # delegate work inside the loop
             r = pool.apply_async(
@@ -209,7 +207,7 @@ class ImageToHash(object):
 
         # get the results
         time.sleep(0.01)
-        print("\tget the results...")
+        sm.add_messages('duplicate', 's|tget the results...')
         with tqdm(total=len(result_list)) as pbar:
             for i, sublist in enumerate(result_list):
                 row = sublist.get()
