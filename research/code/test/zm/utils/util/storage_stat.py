@@ -196,7 +196,7 @@ def trim_unknown_files(image_path):
                 if file.startswith(mac_file_pattern):
                     try:
                         os.remove(os.path.join(root, file))
-                        print(f'removed {os.path.join(root, file)}')
+                        #print(f'removed {os.path.join(root, file)}')
                         cnt += 1
                     except OSError as e:
                         print(f"exception: {e} removing empty file {file}.")
@@ -210,7 +210,7 @@ def remove_all_files_by_type(root_folder, type):
             if os.path.splitext(file)[1].lower() in dtype:
                 try:
                     os.remove(os.path.join(root_folder, file))
-                    print(f'removed {os.path.join(root_folder, file)}')
+                    #print(f'removed {os.path.join(root_folder, file)}')
                     cnt += 1
                 except OSError as e:
                     print(f"exception: {e} removing empty file {file}.")

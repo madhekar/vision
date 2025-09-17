@@ -2,7 +2,8 @@ import subprocess
 import os
 import glob
 import pandas as pd
-
+from tqdm import tqdm
+from utils.util import model_util as mu
 
 class ExifTool(object):
     sentinel = "{ready}\n"
@@ -50,21 +51,21 @@ class ExifTool(object):
 
 
 # recursive call to get all image filenames, to be replaced by parquet generator
-def getRecursive(rootDir, chunk_size=10):
-    f_list = []
-    for fn in glob.iglob(rootDir + "/**/*", recursive=True):
-        if not os.path.isdir(os.path.abspath(fn)):
-            f_list.append(os.path.abspath(fn))
-    for i in range(0, len(f_list), chunk_size):
-        yield f_list[i : i + chunk_size]
+# def getRecursive(rootDir, chunk_size=10):
+#     f_list = []
+#     for fn in glob.iglob(rootDir + "/**/*", recursive=True):
+#         if not os.path.isdir(os.path.abspath(fn)):
+#             f_list.append(os.path.abspath(fn))
+#     for i in range(0, len(f_list), chunk_size):
+#         yield f_list[i : i + chunk_size]
 
 
 def create_missing_metadata(fname, root):
     if os.path.exists(fname):
         os.remove(fname)
-
-    img_iterator = getRecursive(root, chunk_size=100)
-
+    img_iterator = mu.getRecursive(root, chunk_size=100)
+    nfiles = len(mu.getFiles(rootDir=root))
+    
     with open(fname, "a") as f:
         for ilist in img_iterator:
             with ExifTool() as et:
