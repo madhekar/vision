@@ -243,7 +243,7 @@ def remove_empty_files_and_folders(root_folder):
                     try:
                         os.remove(fp)
                         fc +=1
-                        print(f'removed empty file: {fp}')
+                        #print(f'removed empty file: {fp}')
                     except (OSError, SyntaxError) as e:
                         print(f'error removing file {fp}: {e}')  
             except (OSError, SyntaxError) as e:
@@ -253,7 +253,7 @@ def remove_empty_files_and_folders(root_folder):
             try:
                 os.rmdir(dpath)
                 dc +=1
-                print(f'removed empty folder: {dpath}')
+                #print(f'removed empty folder: {dpath}')
             except OSError as e:
                 print(f'error removing folder{dpath}: {e}')    
     return dc, fc

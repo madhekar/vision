@@ -71,7 +71,7 @@ def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
         for root, dirnames, items in os.walk(src_dir):
             if not dirnames:
                 if len(items) > 0:
-                    print(root + " - " + str(dirnames) + " - " + str(items))
+                    #print(root + " - " + str(dirnames) + " - " + str(items))
                     img_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.image_types]
                     vid_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.video_types]
                     txt_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.document_types]
