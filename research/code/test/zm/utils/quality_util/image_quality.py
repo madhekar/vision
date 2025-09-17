@@ -56,7 +56,6 @@ def is_valid_size_and_score(args, img):
             score = iqa_metric(im_tensor)
             f_score = score.item()
 
-            #sm.add_messages(f'quality s| {img} :: {h}:{w} :: {f_score}')
             print(f'{img} :: {h}:{w} :: {f_score}')
 
             res = img if f_score > threshold else ""
@@ -96,7 +95,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_coun
     stqdm_container = st.container()
     nfiles = len(mu.getFiles(image_dir_path))
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
-    pbar = stqdm(total=nfiles, unit='B', unit_scale=True)
+    pbar = stqdm(total=nfiles, unit='files', unit_scale=True, colour='blue')
     result = []
     with stqdm_container:
         with Pool(processes=chunk_size) as pool:
@@ -127,7 +126,7 @@ def execute(source_name):
         chunk_size = int(mp.cpu_count()) // 2
         queue_count = chunk_size
 
-        sm.add_messages("quality", f"s| {chunk_size} queue count: {queue_count}")
+        sm.add_messages("quality", f"s| processes {chunk_size}")
         print(f"processes: {chunk_size} queue count: {queue_count}")
 
         start = time.time()
