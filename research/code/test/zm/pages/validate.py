@@ -174,15 +174,19 @@ def exe():
                     else:
                         sc1c.update(label='validation failed...', state='error')   
 
-                    msgs = sm.get_message_by_type("load")  
+                    msgs = sm.get_message_by_type("load")
                     if msgs:
-                        for k,v in msgs.items():
-                            if k == 's':
-                              st.info(str(v) + '\n')
-                            elif k == 'w':
-                              st.warning(str(v) + '\n')   
+                        for k, v in msgs.items():
+                            print(k, ":", v)
+                            if k == "s":
+                                for ev in list(v):
+                                    st.info(str(ev))
+                            elif k == "w":
+                                for ev in list(v):
+                                    st.warning(str(ev))
                             else:
-                              st.error(str(v) + '\n')      
+                                for ev in list(v):
+                                    st.error(str(ev))     
 
     with c2:
         # c2c= c2.container(border=False)
@@ -197,13 +201,17 @@ def exe():
                         sc2c.update(label='duplicate failed...', state='error')  
                     msgs = sm.get_message_by_type("duplicate")
                     if msgs:
-                      for k, v in msgs.items():
-                        if k == "s":
-                            st.info(str(v))
-                        elif k == "w":
-                            st.warning(str(v))
-                        else:
-                            st.error(str(v))
+                        for k, v in msgs.items():
+                            print(k, ":", v)
+                            if k == "s":
+                                for ev in list(v):
+                                    st.info(str(ev))
+                            elif k == "w":
+                                for ev in list(v):
+                                    st.warning(str(ev))
+                            else:
+                                for ev in list(v):
+                                    st.error(str(ev))
 
     with c3:
         # c3c = c3.container(border=False)
@@ -217,40 +225,22 @@ def exe():
                         sc3c.update(label="quality complete", state="complete")
                     else:
                         sc3c.update(label="quality failed", state="error")    
+                    sm.show_all_msgs_by_type('quality')
 
-                    msgs = sm.get_message_by_type("quality")
-                    if msgs:
-                      for k, v in msgs.items():
-                        print(k, ':', v)
-                        if k == "s":
-                            st.info(str(v))
-                        elif k == "w":
-                            st.warning(str(v))
-                        else:
-                            st.error(str(v))
 
     with c4:
         # c4c = c4.container(border=False)
         # with c4c:
             if st.button("Metadata Check", use_container_width=True, type="primary"):
-                with st.status(label='quality', expanded=True) as sc4c:
+                with st.status(label='metadata', expanded=True) as sc4c:
                     st.write("metadata check start")
                     results = mm.execute(user_source_selected)  # test_metadata_sqdm(npar)
                     if results == "success":
                         sc4c.update(label="metadata complete", state="complete")
                     else:
                         sc4c.update(label="metadata failed", state="error")  
-                    msgs = sm.get_message_by_type("metadata")
-                    if msgs:
-                      for k, v in msgs.items():
-                        if k == "s":
-                            for ev in list(v):
-                              st.info(str(ev))
-                        elif k == "w":
-                            for ev in list(v):
-                              st.warning(str(ev))
-                        else:
-                            st.error(str(v))
+                    msgs = sm.show_all_msgs_by_type("metadata")
+
 
 
 exe()

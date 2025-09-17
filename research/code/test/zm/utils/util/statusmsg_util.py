@@ -15,9 +15,34 @@ def add_messages(msg_type, message):
 def get_message_by_type(tmsg):
     d = defaultdict(set)
     for ele in st.session_state.msgs[tmsg]:
-        print('---->', ele)
         k, v =  ele.split("|")
-        d[k].add(v)
-    print('$$$', d)    
+        d[k].add(v)  
     return d
 
+def show_info_msgs_by_type(tmsg):
+    for e in st.session_state.msgs[tmsg]:
+        k, v = e.split('|')
+        if k == 's':
+            st.info(str(v))
+
+def show_warn_msgs_by_type(tmsg):
+    for e in st.session_state.msgs[tmsg]:
+        k, v = e.split("|")
+        if k == "w":
+            st.warning(str(v))        
+
+def show_err_msgs_by_type(tmsg):
+    for e in st.session_state.msgs[tmsg]:
+        k, v = e.split("|")
+        if k == "e":
+            st.error(str(v))                
+
+def show_all_msgs_by_type(tmsg):
+    for e in st.session_state.msgs[tmsg]:
+        k, v = e.split("|")
+        if k == "e":
+            st.error(str(v))
+        elif k == 'w':
+            st.warning(str(v))    
+        else:
+            st.info(str(v))    

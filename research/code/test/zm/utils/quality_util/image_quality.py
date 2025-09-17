@@ -95,7 +95,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_coun
     stqdm_container = st.container()
     nfiles = len(mu.getFiles(image_dir_path))
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
-    pbar = stqdm(total=nfiles, unit='files', unit_scale=True, colour='blue')
+    pbar = stqdm(total=nfiles, unit='files', unit_scale=True, unit_divisor=chunk_size)
     result = []
     with stqdm_container:
         with Pool(processes=chunk_size) as pool:
