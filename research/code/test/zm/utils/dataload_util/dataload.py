@@ -97,6 +97,7 @@ def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
                         handle_copy_media_files(root, fdest_audio, uuid_path, adu_items)   
                         pbar.update(len(adu_items))  
             else:
+                print(root)
                 pbar.update(1)        
 '''
   input_image_path: '/home/madhekar/work/home-media-app/data/input-data/img/'
@@ -135,7 +136,7 @@ def execute(source_name):
     vpath = os.path.join(input_video_path, source_name)
     apath = os.path.join(input_audio_path, source_name)
 
-    copy_files_only(raw_data_path, ipath, tpath, vpath, apath)
+    copy_files_only(os.path.join(raw_data_path, source_name), ipath, tpath, vpath, apath)
 
     clean_unknown_files_folders(ipath, tpath, vpath, apath)
     # source_list = []
