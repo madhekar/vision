@@ -304,7 +304,7 @@ def execute(user_source_selected):
     # bcreate_metadata = st.button("start metadata creation")
     # if bcreate_metadata:
 
-    # print(df)
+    print(df)
 
     try:
         asyncio.run(run_workflow(
