@@ -15,7 +15,7 @@ from utils.util import location_util as lu
 from utils.util import model_util as mu
 from utils.util import fast_parquet_util as fpu
 from utils.util import storage_stat as ss
-from multipage_app.utils.face_util import base_face_predict as bft
+from utils.face_util import base_face_predict as bft
 
 import asyncio
 import multiprocessing as mp
