@@ -56,7 +56,7 @@ def is_valid_size_and_score(args, img):
             score = iqa_metric(im_tensor)
             f_score = score.item()
 
-            print(f'{img} :: {h}:{w} :: {f_score}')
+            #print(f'{img} :: {h}:{w} :: {f_score}')
 
             res = img if f_score > threshold else ""
             return res
@@ -73,7 +73,7 @@ def archive_images(image_path, archive_path, bad_quality_path_list):
     if len(bad_quality_path_list) != 0:
         space_saved = 0
         image_cnt =0 
-        for quality in tqdm(bad_quality_path_list, total=len(bad_quality_path_list)):
+        for quality in tqdm(bad_quality_path_list, total=len(bad_quality_path_list), desc='poor quality files'):
                 space_saved += os.path.getsize(os.path.join(quality))
                 image_cnt += 1
                 #uuid_path = mu.create_uuid_from_string(quality[0]) 
@@ -96,7 +96,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_coun
     nfiles = len(mu.getFiles(image_dir_path))
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
     result = []
-    with tqdm(total=nfiles) as pbar:
+    with tqdm(total=nfiles, desc='detecting poor quality files', unit='items', unit_scale=True) as pbar:
         with Pool(processes=chunk_size) as pool:
             res=[]
             for il in img_iterator:

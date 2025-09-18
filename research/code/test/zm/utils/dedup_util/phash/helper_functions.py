@@ -20,7 +20,7 @@ def backup_images(df_results, output_path_in, column):
     """
     sm.add_messages('duplicate' ,'s| Backuping images...')
 
-    with tqdm(total=len(df_results)) as pbar:
+    with tqdm(total=len(df_results),desc='dataframe items', unit='items', unit_scale=True) as pbar:
         for index, row in df_results.iterrows():
             full_file_name = row[column]
             d = os.path.dirname(full_file_name)
@@ -47,7 +47,7 @@ def delete_images(df_results, column):
 
     """
     sm.add_messages('duplicate','s| Deleting images...')
-    with tqdm(total=len(df_results)) as pbar:
+    with tqdm(total=len(df_results), desc='dataframe results', unit='items', unit_scale=True) as pbar:
         for index, row in df_results.iterrows():
             full_file_name = row[column]
             FileSystem.remove_file(full_file_name)

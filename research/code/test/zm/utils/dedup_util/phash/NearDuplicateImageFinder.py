@@ -138,8 +138,7 @@ class NearDuplicateImageFinder(object):
         len(dict_image_to_duplicates.items())
         """
         stqdm_con = st.container()
-        pbar = pbar = stqdm(total=len(dict_image_to_duplicates.items()), unit='files', unit_scale=True, unit_divisor=1)
-        #with stqdm(total=len(dict_image_to_duplicates.items())) as pbar:
+        pbar = stqdm(total=len(dict_image_to_duplicates.items()), desc='dupicate files', unit='files', unit_scale=True, unit_divisor=1)
         with stqdm_con:
             for k, (key, value) in enumerate(dict_image_to_duplicates.items()):
                 if k == 0:

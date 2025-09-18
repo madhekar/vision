@@ -194,7 +194,7 @@ class ImageToHash(object):
         pool = multiprocessing.Pool(processes=self.number_of_cpu)
         # For each image calculate the phash and store it in a DataFrame
         sm.add_messages("duplicate","s| delegate work...")
-        for i in tqdm(range(0, len(self.img_file_list), batch_size)):
+        for i in tqdm(range(0, len(self.img_file_list), batch_size), desc='duplicates', unit='items', unit_scale=True):
             # delegate work inside the loop
             r = pool.apply_async(
                 self.multiprocessing_img_hash,
@@ -208,8 +208,8 @@ class ImageToHash(object):
 
         # get the results
         time.sleep(0.01)
-        sm.add_messages('duplicate', 's|tget the results...')
-        with tqdm(total=len(result_list)) as pbar:
+        sm.add_messages('duplicate', 's|target the results...')
+        with tqdm(total=len(result_list), desc='duplicate target results', unit='items', unit_scale=True) as pbar:
             for i, sublist in enumerate(result_list):
                 row = sublist.get()
                 if i == 0:
