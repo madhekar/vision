@@ -190,7 +190,7 @@ def trim_unknown_files(image_path):
     total_items = 0
     for dp, dns, fns in os.walk(image_path):
         total_items += len(dns) + len(fns)
-    with tqdm(total=total_items, desc=f'processing: {image_path}') as pbar:
+    with tqdm(total=total_items, desc=f'trim unknow files: {image_path}') as pbar:
         for root, dirs, files in os.walk(image_path):
             for file in files:
                 if file.startswith(mac_file_pattern):

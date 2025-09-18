@@ -67,7 +67,7 @@ def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
     for dp, dns, fns in os.walk(src_dir):
         total_items += len(dns) + len(fns)
 
-    with tqdm(total=total_items, desc=f'processing: {src_dir}') as pbar:
+    with tqdm(total=total_items, desc=f'copy files: {src_dir}', unit='files',unit_scale=True) as pbar:
         for root, dirnames, items in os.walk(src_dir):
             if not dirnames:
                 if len(items) > 0:
@@ -83,17 +83,21 @@ def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
                     # handle image items
                     if len(img_items) > 0:
                         handle_copy_media_files(root, fdest_image, uuid_path, img_items)
+                        pbar.update(len(img_items))
 
                     if len(vid_items) > 0:
                         handle_copy_media_files(root, fdest_video, uuid_path, vid_items)    
+                        pbar.update(len(vid_items))
 
                     if len(txt_items) > 0:
                         handle_copy_media_files(root, fdest_txt, uuid_path, txt_items)
+                        pbar.update(len(txt_items))
 
                     if len(adu_items) > 0:
-                        handle_copy_media_files(root, fdest_audio, uuid_path, adu_items)     
-                    
-                    pbar.update(len(items))
+                        handle_copy_media_files(root, fdest_audio, uuid_path, adu_items)   
+                        pbar.update(len(adu_items))  
+            else:
+                pbar.update(1)        
 '''
   input_image_path: '/home/madhekar/work/home-media-app/data/input-data/img/'
   input_video_path: '/home/madhekar/work/home-media-app/data/input-data/video/'
