@@ -48,9 +48,6 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
     """
     train SVC
     """
-    st.info('creating new model to classify faces...')
-    detector = MTCNN()
-
     model = SVC(kernel="rbf", probability=True)
     model.fit(embedded_x, y)
     ss.create_folder(faces_svc_path)
@@ -58,7 +55,10 @@ def bface_train(faces_dir,  class_embeddings_folder, class_embeddings, label_enc
 
     '''
     single face inference test, disabled due to path issue!!!
-    '''
+    '''   
+    st.info('creating new model to classify faces...')
+    detector = MTCNN()
+
     # t_im = cv.imread(sample_test_image)
     # t_im = cv.cvtColor(t_im, cv.COLOR_BGR2RGB)
     # x, y, w, h = detector.detect_faces(t_im)[0]["box"]
