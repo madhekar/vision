@@ -2,6 +2,7 @@ import numpy as np
 from keras_facenet import FaceNet
 
 
+
 class base_facenet:
     def __init__(self):
         self.embed = FaceNet()
