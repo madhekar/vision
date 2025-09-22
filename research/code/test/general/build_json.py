@@ -11,4 +11,7 @@ def build_json(img_root):
    with open(os.path.join(qa_metadata_path, qa_metadata_file), "w") as f:
       json.dump(test_data, f, indent=2)
 
+
+def load_json_test(json_file):
+   with open()
 build_json(img_root)
