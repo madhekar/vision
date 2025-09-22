@@ -43,7 +43,8 @@ class infer_faces:
                     x, y, w, h = d["box"]
                     face = tin[y : y + h, x : x + w]
                     face_arr = cv.resize(face, (160, 160))
-                    key = f"face_{cnt}"
+                    print('--->', str(x), str(y))
+                    key = f"{str(x)}:{str(y)}"
                     dict[key] = face_arr
                     cnt += 1
         except Exception as e:
@@ -80,7 +81,7 @@ class infer_faces:
         try:
             if img:
                 dict = self.extract_faces(img)
-
+                #print('---->', dict)
                 if dict and len(dict.keys()) > 0:
                     nfaces= len(dict.keys())
                     names = []
@@ -91,7 +92,9 @@ class infer_faces:
                         ypred = self.faces_model_svc.predict(test_im)
                         names.append(''.join(literal_eval(str(self.faces_label_enc.inverse_transform(ypred)))))
                     names = self.replace_duplicates_and_missing(nfaces, names)
+                    print('--->', names)
         except Exception as e:
             print(f'Excetion : {e} ')
         return nfaces, names        
+
 

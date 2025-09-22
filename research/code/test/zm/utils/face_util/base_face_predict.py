@@ -38,6 +38,9 @@ class base_face_res:
         _,names =  self.faces_infer_obj.predict_names(img)    
         return ', '.join(names)
 
+    # def pred_names_list(self, img):
+    #     _,names = self.faces_infer_obj.predict_names(img)
+    #     return names
 def init():
     (
         faces_dir,
@@ -63,6 +66,7 @@ def group_attribute_into_ranges(data, ranges_dict):
 
 def compute_aggregate_msg(in_arr):
     str_age, str_emo, str_gen, str_race = "","","",""
+    emo = []
     age_ranges = {'infant':(0,2), 'toddler': (3,5), 'child':(6,9), 'adolescent':(10,24), 'young adult':(25,39), 'middle adult':(40,64), 'elderly':(65,120)}
     #print(in_arr)
     if in_arr:
@@ -78,7 +82,8 @@ def compute_aggregate_msg(in_arr):
 
             #common emotion
             emotion_data = df["emotion"].values.tolist()
-            #print(emotion_data)
+            #emo_str = ','.join(str(item) for item in emotion_data)
+            print(emotion_data)
             #emo_cnt = Counter(emotion_data)
             str_emo = Counter(emotion_data).most_common(1)[0][0]
             #str_emo = ', '.join([f'{v} {k}' for k, v in emo_cnt.items()])
@@ -95,7 +100,7 @@ def compute_aggregate_msg(in_arr):
             # race_cnt = Counter(race_data)
             # str_race = ", ".join([f"{v} {k}" for k, v in race_cnt.items()])
             #print(f'-->{str_race}')
-    return str_emo #str_age + ' ' + str_emo + ' ' + str_gen + ' ' + str_race
+    return  str_emo  #str_age + ' ' + str_emo + ' ' + str_gen + ' ' + str_race
 
 def detect_human_attributs(img_path):
     people= []
@@ -116,20 +121,25 @@ def detect_human_attributs(img_path):
                     emotion = preds[nf]['dominant_emotion']
                     #gender = preds[nf]["dominant_gender"]
                     #race = preds[nf]["dominant_race"]
-                    #print(f'{img_path}: {nf} of {num_faces} age: {age} - emotion: {emotion} - gender: {gender} - race: {race}')
+                    #print(f'{img_path}: {nf} of {num_faces} age: {age} - emotion: {emotion} - gender: {gender}')
                     #people.append({'age':age, 'emotion': emotion, 'gender': gender, 'race': race})    
                     people.append({"emotion": emotion})
-                #print(f'---->{people}')
+                print(f'---->{people}')
     except Exception as e:
         st.error(f'Error occurred in emotion detection: {e}')
+    #print('--->', people)    
     return people  
+
 
 def process_dataframe_urls_in_batch(ibtf, df):
     df["people"] = df.apply(lambda row: ibtf.pred_names_of_people(row["uri"]), axis=1)
     df["attribute"] = df.apply(lambda row: compute_aggregate_msg(detect_human_attributs(row["uri"])), axis=1)
+    
     # print(df)
     # df.to_parquet("./image_people.parquet")
     # df.to_json("./image_people_names_emotions.json", orient="records")
+    #process_urls_generate_LLM_partial_prompt(ibtf)
+    print(df.head(10))
     return df
 
 """
