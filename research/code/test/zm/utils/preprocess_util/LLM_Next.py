@@ -17,7 +17,7 @@ def fetch_llm_text(imUrl, pipe, question, people, attrib, location):
     
     prompt = """<|im_start|>system
     A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. 
-    The assistant does not hallucinate and gives extreamly very close attention to the details and take time to process information if necessary, please produce response avoiding emojis in text format.
+    The assistant does not hallucinate and gives extreamly very close attention to the details and take time to process information if necessary, please produce response avoiding emojis or lists in text format.
     <|im_end|>
     <|im_start|>user
     <image>"{question}" It is stremly important that, you "MUST" include person names "{people}" with "{attrib}" emotion and the location details "{location}" in the response.
