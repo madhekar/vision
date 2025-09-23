@@ -15,7 +15,8 @@
           "opacity": 0.75
         },
         "shot-generator": {
-          "url": "board-1-KNK44-shot-generator.png"
+          "url": "board-1-KNK44-shot-generator.png",
+          "opacity": 0.75
         },
         "fill": {
           "url": "board-1-KNK44-fill.png"
