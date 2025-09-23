@@ -194,7 +194,7 @@ def process_images_in_batch(ibtf, parquet_file, img_dir, batch_size=1):
     # return num_imgs, 'Done!'
 """
 static-metadata:
-      faces_metadata_path: /data/app-data/static-metadata/faces
+      faces_metadata_path: /data/app-data/static-metadata/faces 
       faces_of_people_parquet_path: /data/app-data/static-metadata
       faces_of_people_parquet: image_people.parquet
 image-data:
