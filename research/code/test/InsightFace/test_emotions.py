@@ -2,7 +2,7 @@ import insightface
 import numpy as np
 import cv2
 from sklearn.svm import SVC  # Example classifier
-
+from deepface import DeepFace
 """
 
 Emotion Classification (using landmarks).
