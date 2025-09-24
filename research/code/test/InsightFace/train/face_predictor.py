@@ -32,6 +32,14 @@ def determine_derived(age, gender):
             txt = "man"   
     return txt            
 
+# def count_types(df):
+#     boy_cnt = 0
+#     girl_cnt = 0
+#     man_cnt = 0
+#     woman_cnt = 0
+#     for index, row in df.iterrows():
+
+
 def create_partial_llm_prompt(df):
     llm_prompt = ""
     for index, row in df.iterrows():
