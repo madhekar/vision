@@ -68,7 +68,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # Initialize and train the SVM classifier
 print("Training SVM classifier...")
-svm_classifier = SVC(kernel="linear", probability=True)
+svm_classifier = SVC(kernel="rbf", probability=True)
 svm_classifier.fit(X_train, y_train)
 print("Training complete.")
 
