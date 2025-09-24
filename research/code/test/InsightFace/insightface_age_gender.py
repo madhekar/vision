@@ -38,7 +38,7 @@ else:
             #print(f"  Bounding Box: {bbox}")
             # Draw bounding box on the image
             cv2.rectangle(img, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (0, 255, 0), 2)
-            person['loc'] = bbox
+            person['loc'] = (bbox[0], bbox[1])
             # Keypoints (landmarks)
             kps = face.kps.astype(int)
             #print(f"  Keypoints: {kps}")
@@ -76,5 +76,5 @@ else:
         print('--->', people)
         #Display the image with detections
         cv2.imshow("Detected Faces", img)
-        if cv2.waitKey(10000) & 0xFF == ord('q'):
+        if cv2.waitKey(60000) & 0xFF == ord('q'):
             cv2.destroyAllWindows()
