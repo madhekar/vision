@@ -1,6 +1,11 @@
 import os
 import cv2
 import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import classification_report
+from sklearn.preprocessing import LabelEncoder
+import pickle
 import insightface
 from insightface.app import FaceAnalysis
 
@@ -54,16 +59,9 @@ y = np.array(labels_list)
 print(f"Generated {len(X)} embeddings for training.")
 print(f"The unique classes are: {class_names}")
 
-
-from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC
-from sklearn.metrics import classification_report
-from sklearn.preprocessing import LabelEncoder
-import pickle
-
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42, stratify=y
+    X, y, test_size=0.1, random_state=42, stratify=y
 )
 
 # Initialize and train the SVM classifier
