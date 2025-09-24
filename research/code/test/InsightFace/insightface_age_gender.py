@@ -28,16 +28,17 @@ else:
         print("No faces detected in the image.")
     else:
         people = []
+
         print(f"Detected {len(faces)} face(s).")
         for i, face in enumerate(faces):
             print(f"\nFace {i + 1}:")
-
+            person = {}
             # Bounding box
             bbox = face.bbox.astype(int)
             #print(f"  Bounding Box: {bbox}")
             # Draw bounding box on the image
             cv2.rectangle(img, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (0, 255, 0), 2)
-
+            person['loc'] = bbox
             # Keypoints (landmarks)
             kps = face.kps.astype(int)
             #print(f"  Keypoints: {kps}")
@@ -49,6 +50,8 @@ else:
             if "gender" in face and "age" in face:
                 gender = "Male" if face.gender == 1 else "Female"
                 print(f"  Gender: {gender}, Age: {face.age}")
+                person['age'] = face.age
+                person['gender'] = gender
 
             # Face embeddings (for face recognition/comparison)
             embedding = face.normed_embedding
@@ -65,10 +68,13 @@ else:
             #detector_backend='retinaface',
             enforce_detection=False
             )
-            people.append(em[0]['dominant_emotion'])
-            print('***', em)
+            #people.append(em[0]['dominant_emotion'])
+            #person += f" emotion: {em[0]['dominant_emotion']}"
+            #print('***', em)
+            person["emotion"] = em[0]["dominant_emotion"]
+            people.append(person)
         print('--->', people)
-        # Display the image with detections
-        # cv2.imshow("Detected Faces", img)
-        # cv2.waitKey(0)
-        # cv2.destroyAllWindows()
+        #Display the image with detections
+        cv2.imshow("Detected Faces", img)
+        if cv2.waitKey(10000) & 0xFF == ord('q'):
+            cv2.destroyAllWindows()
