@@ -1,0 +1,181 @@
+To perform face recognition with InsightFace and an SVM classifier, you'll follow a two-stage process: first, use InsightFace to extract numerical feature vectors (embeddings) for each face in your dataset, then train a Support Vector Machine (SVM) on these embeddings to classify the identities
+. 
+This approach is beneficial for building a face recognition system for a small to medium number of known individuals, as it can be more computationally efficient than a full end-to-end deep learning model for the final classification step. 
+Step 1: Install required libraries
+Before you begin, ensure you have the necessary libraries installed. 
+sh
+
+pip install insightface==0.7.0 # or latest version
+pip install onnxruntime
+pip install scikit-learn
+pip install opencv-python
+pip install matplotlib
+
+Step 2: Prepare your dataset
+Organize your images into a structured directory, where each subdirectory represents a unique person. For example: 
+
+dataset/
+├── person_a/
+│   ├── 01.jpg
+│   ├── 02.jpg
+│   └── ...
+├── person_b/
+│   ├── 01.jpg
+│   ├── 02.jpg
+│   └── ...
+└── ...
+
+Step 3: Get face embeddings with InsightFace
+The InsightFace library provides an app.FaceAnalysis class to detect faces and extract their embeddings.
+python
+
+import os
+import cv2
+import numpy as np
+import insightface
+from insightface.app import FaceAnalysis
+
+# Initialize InsightFace model
+app = FaceAnalysis(allowed_modules=['detection', 'recognition'])
+app.prepare(ctx_id=0, det_size=(640, 640)) # Use ctx_id=0 for GPU, -1 for CPU
+
+# Prepare lists for embeddings and labels
+embeddings_list = []
+labels_list = []
+class_names = []
+image_path_list = []
+
+# Loop through the dataset directory to get embeddings
+dataset_path = 'dataset'
+for class_label, person_name in enumerate(sorted(os.listdir(dataset_path))):
+    person_path = os.path.join(dataset_path, person_name)
+    if not os.path.isdir(person_path):
+        continue
+
+    class_names.append(person_name)
+
+    for image_file in os.listdir(person_path):
+        image_path = os.path.join(person_path, image_file)
+        if not os.path.isfile(image_path):
+            continue
+
+        try:
+            img = cv2.imread(image_path)
+            if img is None:
+                continue
+
+            # Get faces from the image
+            faces = app.get(img)
+
+            # Ensure a face is detected
+            if faces:
+                # The recognition model returns one embedding per face
+                embedding = faces[0].embedding
+                embeddings_list.append(embedding)
+                labels_list.append(class_label)
+                image_path_list.append(image_path)
+
+        except Exception as e:
+            print(f"Could not process image {image_path}: {e}")
+
+# Convert lists to numpy arrays
+X = np.array(embeddings_list)
+y = np.array(labels_list)
+
+print(f"Generated {len(X)} embeddings for training.")
+print(f"The unique classes are: {class_names}")
+
+Code Explanation:
+
+    insightface.app.FaceAnalysis: This class loads the necessary models for face detection and recognition.
+    app.prepare(): Configures the model. The ctx_id specifies whether to use the GPU (0) or CPU (-1).
+    app.get(img): Processes an input image (img) and returns a list of detected Face objects.
+    face.embedding: Each Face object has an embedding attribute, which is the 512-dimensional vector used for recognition. 
+
+Step 4: Train the SVM classifier
+Once you have the embeddings, you can train a Support Vector Machine using scikit-learn. 
+python
+
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import classification_report
+from sklearn.preprocessing import LabelEncoder
+import pickle
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+# Initialize and train the SVM classifier
+print("Training SVM classifier...")
+svm_classifier = SVC(kernel='linear', probability=True)
+svm_classifier.fit(X_train, y_train)
+print("Training complete.")
+
+# Evaluate the classifier
+y_pred = svm_classifier.predict(X_test)
+print("Classification Report:")
+print(classification_report(y_test, y_pred, target_names=class_names))
+
+# Save the trained model and label encoder for future use
+print("Saving model and label encoder...")
+with open('svm_recognizer.pkl', 'wb') as f:
+    pickle.dump(svm_classifier, f)
+    
+le = LabelEncoder()
+le.fit(y)
+with open('le_recognizer.pkl', 'wb') as f:
+    pickle.dump(le, f)
+print("Model saved successfully.")
+
+Step 5: Recognize a new face
+To use your trained model, you'll repeat the process of getting an embedding for a new image and then pass it to the SVM for classification.
+python
+
+import cv2
+import pickle
+import numpy as np
+from insightface.app import FaceAnalysis
+
+# Load the trained SVM model and label encoder
+with open('svm_recognizer.pkl', 'rb') as f:
+    svm_classifier = pickle.load(f)
+
+with open('le_recognizer.pkl', 'rb') as f:
+    le = pickle.load(f)
+
+# Initialize InsightFace model
+app = FaceAnalysis(allowed_modules=['detection', 'recognition'])
+app.prepare(ctx_id=0, det_size=(640, 640))
+
+# Load a new image for recognition
+new_image_path = 'test_image.jpg'
+new_img = cv2.imread(new_image_path)
+
+# Get face embedding
+faces = app.get(new_img)
+if faces:
+    new_embedding = faces[0].embedding
+    
+    # Predict the identity using the trained SVM
+    prediction = svm_classifier.predict([new_embedding])[0]
+    class_probabilities = svm_classifier.predict_proba([new_embedding])[0]
+    
+    # Get the predicted class label
+    predicted_person = le.inverse_transform([prediction])[0]
+    confidence = np.max(class_probabilities)
+
+    print(f"Recognized as: {predicted_person} with confidence: {confidence:.2f}")
+
+    # Display the image with the prediction
+    bbox = faces[0].bbox.astype(int)
+    cv2.rectangle(new_img, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (0, 255, 0), 2)
+    text = f"{predicted_person}: {confidence:.2f}"
+    cv2.putText(new_img, text, (bbox[0], bbox[1]-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
+    
+    cv2.imshow("Recognized Face", new_img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+else:
+    print("No face detected in the image.")
