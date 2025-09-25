@@ -53,8 +53,8 @@ app = FaceAnalysis(name="buffalo_l")
 app.prepare(ctx_id=-1, det_size=(640, 640))
 
 # Load a new image for recognition
-new_image_path = "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/7e9a4cc3-b380-40ff-a391-8bf596f8cd27.jpg"
-#"/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/f6b572ec-a56f-4d66-b900-fa61b48ce005.jpg"
+new_image_path = "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/f6b572ec-a56f-4d66-b900-fa61b48ce005.jpg"
+#"/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/7e9a4cc3-b380-40ff-a391-8bf596f8cd27.jpg"
 #"/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/5e144618-aea4-4365-95ad-375ae00a1133.jpg"
 new_img = cv2.imread(new_image_path)
 people = []
@@ -71,6 +71,17 @@ if faces:
             # detect age and gender for the face
             person['age'] = face.age
             person['gender'] = gender
+            if face.age > 21:
+                if gender == "Female":
+                    person["cnoun"] = "woman"
+                else:
+                    person["cnoun"] = "man"  
+            else:
+                if gender == "Female":
+                    person["cnoun"] = "girl"
+                else:
+                    person["cnoun"] = "boy"    
+
 
         new_embedding = faces[i].embedding
 
