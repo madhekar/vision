@@ -18,35 +18,82 @@ with open("svm_recognizer.pkl", "rb") as f:
 with open("le_recognizer.pkl", "rb") as f:
     le = pickle.load(f)
 
-def determine_derived(age, gender):
+def count_people(ld):
+    cnt_man = 0
+    cnt_woman = 0
+    cnt_boy = 0
+    cnt_girl = 0
+    face_kn = 0
+    agg_person = []
+    for d in ld:
+        if d["name"] == "unknown":
+            if d["cnoun"] == "man":
+                cnt_man += 1
+            if d["cnoun"] == "woman":
+                cnt_woman += 1
+            if d["cnoun"] == "boy":
+                cnt_boy += 1
+            if d["cnoun"] == "girl":
+                cnt_girl += 1
+        else:
+            agg_person.append(
+                {
+                    "type": "known",
+                    "name": d["name"],
+                    "cnoun": d["cnoun"],
+                    "emotion": d["emotion"],
+                    "loc": d["loc"],
+                }
+            )
+            face_kn += 1
+    agg_person.append(
+        {
+            "type": "unknown",
+            "cman": cnt_man,
+            "cwoman": cnt_woman,
+            "cboy": cnt_boy,
+            "cgirl": cnt_girl,
+        }
+    )
+
+    return agg_person
+
+
+def create_partial_prompt(agg):
     txt = ""
-    if age < 21:
-        if gender == 'Female':
-           txt = "girl"
-        else:
-            txt = "boy"
-    else:
-        if gender == 'Female':
-           txt = "woman"
-        else:
-            txt = "man"   
-    return txt            
+    for d in agg:
+        if d["type"] == "known":
+            s = f'Face at coordinates {d["loc"]} is of "{d["name"]}", a "{d["cnoun"]}" is expressing "{d["emotion"]}" emotion. '
+            txt += s
+        if d["type"] == "unknown":
+            if d["cman"] > 0:
+                if d["cman"] > 1:
+                    s = f"other {d['cman']} men in the image. "
+                else:
+                    s = "other one  man in the image. "
+                txt += s
 
-# def count_types(df):
-#     boy_cnt = 0
-#     girl_cnt = 0
-#     man_cnt = 0
-#     woman_cnt = 0
-#     for index, row in df.iterrows():
+            if d["cwoman"] > 0:
+                if d["cwoman"] > 1:
+                    s = f"other {d['cwoman']}  women in the image. "
+                else:
+                    s = "other one  woman in the image. "
+                txt += s
 
+            if d["cboy"] > 0:
+                if d["cman"] > 1:
+                    s = f"other {d['cboy']} boys in the image. "
+                else:
+                    s = "other one  boy in the image. "
+                txt += s
 
-# def create_partial_llm_prompt(df):
-#     llm_prompt = ""
-#     for index, row in df.iterrows():
-#         if row['name'] != "unknown":
-#             llm_prompt += f"A face at cocordinates {row["loc"]} of {row["name"]} appreas to be {row["age"]} years {gender} and expressing {row["emotion"]} emotion. "
-
-
+            if d["cgirl"] > 0:
+                if d["cgirl"] > 1:
+                    s = f"other {d['cgirl']}  girls in the image. "
+                else:
+                    s = "other one girl in the image. "
+                txt += s
+    return txt
 # Initialize InsightFace model
 app = FaceAnalysis(name="buffalo_l")
 #app = FaceAnalysis(allowed_modules=["detection", "recognition"])
@@ -124,8 +171,14 @@ if faces:
         )
         people.append(person)
     print(people)
-    df = pd.DataFrame(people)
-    print(df.head())
+
+    agg_cnt = count_people(people)
+
+    llm_partial_pmt = create_partial_prompt(agg_cnt)
+
+    print(llm_partial_pmt)
+    # df = pd.DataFrame(people)
+    # print(df.head())
     cv2.imshow("Recognized Face", new_img)
     if cv2.waitKey(100000) & 0xFF == ord('q'):
         cv2.destroyAllWindows()
