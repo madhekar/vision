@@ -1,12 +1,12 @@
 import os
 import cv2
+import joblib
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 from sklearn.metrics import classification_report
 from sklearn.preprocessing import LabelEncoder
 import pickle
-import insightface
 from insightface.app import FaceAnalysis
 
 # Initialize InsightFace model
@@ -74,6 +74,28 @@ print("Training complete.")
 y_pred = svm_classifier.predict(X_test)
 print("Classification Report:")
 print(classification_report(y_test, y_pred, target_names=class_names))
+
+'''
+
+    """
+    Label encoder
+    """
+    st.info('creating new labels for faces...')
+    encoder = LabelEncoder()
+    encoder.fit(y)
+    y = encoder.transform(y)
+    ss.create_folder(label_encoder_path)
+    joblib.dump(encoder, filename=os.path.join(label_encoder_path, label_encoder))
+
+    """
+    train SVC
+    """
+    model = SVC(kernel="rbf", probability=True)
+    model.fit(embedded_x, y)
+    ss.create_folder(faces_svc_path)
+    joblib.dump(model, filename=os.path.join(faces_svc_path, faces_svc))
+
+'''
 
 # Save the trained model and label encoder for future use
 print("Saving model and label encoder...")

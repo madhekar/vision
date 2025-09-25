@@ -23,7 +23,7 @@ def count_people(ld):
     cnt_woman = 0
     cnt_boy = 0
     cnt_girl = 0
-    face_kn = 0
+
     agg_person = []
     for d in ld:
         if d["name"] == "unknown":
@@ -36,25 +36,9 @@ def count_people(ld):
             if d["cnoun"] == "girl":
                 cnt_girl += 1
         else:
-            agg_person.append(
-                {
-                    "type": "known",
-                    "name": d["name"],
-                    "cnoun": d["cnoun"],
-                    "emotion": d["emotion"],
-                    "loc": d["loc"],
-                }
-            )
-            face_kn += 1
-    agg_person.append(
-        {
-            "type": "unknown",
-            "cman": cnt_man,
-            "cwoman": cnt_woman,
-            "cboy": cnt_boy,
-            "cgirl": cnt_girl,
-        }
-    )
+            agg_person.append({"type": "known", "name": d["name"], "cnoun": d["cnoun"],"emotion": d["emotion"], "loc": d["loc"]})
+
+    agg_person.append({"type": "unknown","cman": cnt_man, "cwoman": cnt_woman,"cboy": cnt_boy,"cgirl": cnt_girl})
 
     return agg_person
 
@@ -94,6 +78,7 @@ def create_partial_prompt(agg):
                     s = "other one girl in the image. "
                 txt += s
     return txt
+
 # Initialize InsightFace model
 app = FaceAnalysis(name="buffalo_l")
 #app = FaceAnalysis(allowed_modules=["detection", "recognition"])
