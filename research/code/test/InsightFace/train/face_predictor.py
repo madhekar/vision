@@ -8,7 +8,7 @@ from ast import literal_eval
 
 
 p = ['Anjali', 'Asha', 'Bhalchandra', 'Bhiman', 'Chandrakant', 'Esha', 'Kumar', 'Sachi', 'Sanvi', 'Shibangi', 'Shoma']
-template_1 = "A face at cocordinates {loc} of {name} appreas to be {age} years {gender} and expressing {emotion} emotion. "
+#template_1 = "A face at cocordinates {loc} of {name} appreas to be {age} years {gender} and expressing {emotion} emotion. "
 #template_2 = "Another face at cocordinates {loc} of {name} appreas to be {age} years {gender} and expressing {emotion} emotion. "
 
 # Load the trained SVM model and label encoder
@@ -40,11 +40,11 @@ def determine_derived(age, gender):
 #     for index, row in df.iterrows():
 
 
-def create_partial_llm_prompt(df):
-    llm_prompt = ""
-    for index, row in df.iterrows():
-        if row['name'] != "unknown":
-            llm_prompt += f"A face at cocordinates {row["loc"]} of {row["name"]} appreas to be {row["age"]} years {gender} and expressing {row["emotion"]} emotion. "
+# def create_partial_llm_prompt(df):
+#     llm_prompt = ""
+#     for index, row in df.iterrows():
+#         if row['name'] != "unknown":
+#             llm_prompt += f"A face at cocordinates {row["loc"]} of {row["name"]} appreas to be {row["age"]} years {gender} and expressing {row["emotion"]} emotion. "
 
 
 # Initialize InsightFace model
