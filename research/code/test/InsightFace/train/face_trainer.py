@@ -55,7 +55,7 @@ for class_label, person_name in enumerate(sorted(os.listdir(dataset_path))):
 # Convert lists to numpy arrays
 X = np.array(embeddings_list)
 y = np.array(labels_list)
-
+print('--->', y)
 print(f"Generated {len(X)} embeddings for training.")
 print(f"The unique classes are: {class_names}")
 
@@ -102,8 +102,14 @@ print("Saving model and label encoder...")
 with open("svm_recognizer.pkl", "wb") as f:
     pickle.dump(svm_classifier, f)
 
+joblib.dump(svm_classifier, filename="faces_model_svc.joblib")
+
+
 le = LabelEncoder()
 le.fit(y)
 with open("le_recognizer.pkl", "wb") as f:
     pickle.dump(le, f)
+
+
+joblib.dump(le, filename="faces_label_enc.joblib")    
 print("Model saved successfully.")

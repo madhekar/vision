@@ -3,8 +3,6 @@ import pprint
 import yaml
 import streamlit as st
 
-
-
 """
 metadata:
   static_metadata_path: /data/app-data/static-metadata/

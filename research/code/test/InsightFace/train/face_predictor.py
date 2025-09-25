@@ -1,5 +1,7 @@
 import cv2
 import pickle
+from ast import literal_eval
+import joblib
 import pandas as pd
 import numpy as np
 from insightface.app import FaceAnalysis
@@ -12,11 +14,15 @@ p = ['Anjali', 'Asha', 'Bhalchandra', 'Bhiman', 'Chandrakant', 'Esha', 'Kumar', 
 #template_2 = "Another face at cocordinates {loc} of {name} appreas to be {age} years {gender} and expressing {emotion} emotion. "
 
 # Load the trained SVM model and label encoder
-with open("svm_recognizer.pkl", "rb") as f:
-    svm_classifier = pickle.load(f)
+# with open("svm_recognizer.pkl", "rb") as f:
+#     svm_classifier = pickle.load(f)
 
-with open("le_recognizer.pkl", "rb") as f:
-    le = pickle.load(f)
+svm_classifier = joblib.load("faces_model_svc.joblib")
+
+# with open("le_recognizer.pkl", "rb") as f:
+#     le = pickle.load(f)
+
+le = joblib.load("faces_label_enc.joblib")
 
 def count_people(ld):
     cnt_man = 0
@@ -85,7 +91,8 @@ app = FaceAnalysis(name="buffalo_l")
 app.prepare(ctx_id=-1, det_size=(640, 640))
 
 # Load a new image for recognition
-new_image_path = "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/f6b572ec-a56f-4d66-b900-fa61b48ce005.jpg"
+new_image_path = '/home/madhekar/work/home-media-app/data/input-data/img/madhekar/2596441a-e02f-588c-8df4-dc66a133fc99/af23fb36-9e89-4b81-9990-020b02fe1056.jpg'
+#"/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/f6b572ec-a56f-4d66-b900-fa61b48ce005.jpg"
 #"/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/7e9a4cc3-b380-40ff-a391-8bf596f8cd27.jpg"
 #"/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/5e144618-aea4-4365-95ad-375ae00a1133.jpg"
 new_img = cv2.imread(new_image_path)
@@ -120,9 +127,11 @@ if faces:
         # Predict the identity using the trained SVM
         prediction = svm_classifier.predict([new_embedding])[0]
         class_probabilities = svm_classifier.predict_proba([new_embedding])[0]
-
+        
+        print('+++', prediction)
         # Get the predicted class label
         predicted_person = le.inverse_transform([prediction])[0]
+        #literal_eval(str(le.inverse_transform([prediction])[0]).strip())
         confidence = np.max(class_probabilities)
         if confidence < 0.6:
             predicted_person = "unknown"
