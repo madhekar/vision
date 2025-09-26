@@ -1,3 +1,4 @@
+import os
 import cv2
 import pickle
 from ast import literal_eval
@@ -6,21 +7,10 @@ import pandas as pd
 import numpy as np
 from insightface.app import FaceAnalysis
 from deepface import DeepFace
-from ast import literal_eval
+from utils.config_util import config
 
 
-p = ['Anjali', 'Asha', 'Bhalchandra', 'Bhiman', 'Chandrakant', 'Esha', 'Kumar', 'Sachi', 'Sanvi', 'Shibangi', 'Shoma']
 
-# Load the trained SVM model and label encoder
-# with open("svm_recognizer.pkl", "rb") as f:
-#     svm_classifier = pickle.load(f)
-
-svm_classifier = joblib.load("faces_model_svc.joblib")
-
-# with open("le_recognizer.pkl", "rb") as f:
-#     le = pickle.load(f)
-
-le = joblib.load("faces_label_enc.joblib")
 
 def count_people(ld):
     cnt_man = 0
@@ -96,7 +86,7 @@ def init_predictor():
 '''
 predict known and unknown faces
 '''
-def predic_img_faces(app, new_image_path):
+def predic_img_faces(app, new_image_path, svm_classifier, le):
 
     new_img = cv2.imread(new_image_path)
     people = []
@@ -183,13 +173,41 @@ def predic_img_faces(app, new_image_path):
         print("No face detected in the image.")
 
 
-if __name__=='__main__':
+def execute():
+    (
+        faces_dir,
+        input_image_path,
+        class_embeddings_folder,
+        class_embeddings,
+        label_encoder_path,
+        label_encoder,
+        faces_svc_path,
+        faces_svc,
+        faces_of_people_parquet_path,
+        faces_of_people_parquet,
+    ) = config.faces_config_load()
+
+    label_encoder_store = os.path.join(label_encoder_path, label_encoder)
+    svc_model_store = os.path.join(faces_svc_path, faces_svc)
+
+    svm_classifier = joblib.load(svc_model_store)
+    le = joblib.load(label_encoder_store)
+
+
     # Load a new image for recognition
     img = "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/2596441a-e02f-588c-8df4-dc66a133fc99/af23fb36-9e89-4b81-9990-020b02fe1056.jpg"
     # "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/f6b572ec-a56f-4d66-b900-fa61b48ce005.jpg"
     # "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/7e9a4cc3-b380-40ff-a391-8bf596f8cd27.jpg"
     # "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/5e144618-aea4-4365-95ad-375ae00a1133.jpg"
 
+    # init train model
     app = init_predictor()
 
-    predic_img_faces(app, img)
+    # train model using faces dataset
+    predic_img_faces(app, img, svm_classifier, le)
+
+
+if __name__ == "__main__":
+    execute()
+
+

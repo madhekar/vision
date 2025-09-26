@@ -2,11 +2,13 @@ import os
 import cv2
 import joblib
 import numpy as np
+import streamlit as st
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 from sklearn.metrics import classification_report
 from sklearn.preprocessing import LabelEncoder
 from insightface.app import FaceAnalysis
+from utils.config_util import config
 
 def init_model():
     # Initialize InsightFace model
@@ -15,7 +17,7 @@ def init_model():
     return app
 
 
-def train_model(app, img_dataset_path):
+def train_model(app, img_dataset_path, model_store, label_store):
     # Prepare lists for embeddings and labels
     embeddings_list = []
     labels_list = []
@@ -78,17 +80,35 @@ def train_model(app, img_dataset_path):
 
     # Save the trained model and label encoder for future use
     print("Saving model and label encoder...")
-    joblib.dump(svm_classifier, filename="faces_model_svc.joblib")
+    joblib.dump(svm_classifier, filename=model_store)
 
     le = LabelEncoder()
     le.fit_transform(class_names)
-    joblib.dump(le, filename="faces_label_enc.joblib")    
+    joblib.dump(le, filename=label_store)    
     print("Model saved successfully.")
 
-if __name__=='__main__':    
-    img_dataset_path = "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces"
+def execute():
+    (
+        faces_dir,
+        input_image_path,
+        class_embeddings_folder,
+        class_embeddings,
+        label_encoder_path,
+        label_encoder,
+        faces_svc_path,
+        faces_svc,
+        faces_of_people_parquet_path, 
+        faces_of_people_parquet
+    ) = config.faces_config_load()
+
+    label_encoder_store = os.path.join(label_encoder_path, label_encoder)
+    svc_model_store = os.path.join(faces_svc_path, faces_svc)
 
     # init train model
     app = init_model()
 
-    train_model(app, img_dataset_path)
+    # train model using faces dataset
+    train_model(app, faces_dir, svc_model_store, label_encoder_store)
+
+if __name__=='__main__':    
+    execute()
