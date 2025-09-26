@@ -85,13 +85,17 @@ def create_partial_prompt(agg):
             txt += "in the image."
     return txt
 
+''' 
+Initialize InsightFace model
+'''
 def init_predictor():
-    # Initialize InsightFace model
     app = FaceAnalysis(name="buffalo_l")
-    #app = FaceAnalysis(allowed_modules=["detection", "recognition"])
     app.prepare(ctx_id=-1, det_size=(640, 640))
     return app
 
+'''
+predict known and unknown faces
+'''
 def predic_img_faces(app, new_image_path):
 
     new_img = cv2.imread(new_image_path)
@@ -127,7 +131,6 @@ def predic_img_faces(app, new_image_path):
             prediction = svm_classifier.predict([new_embedding])[0]
             class_probabilities = svm_classifier.predict_proba([new_embedding])[0]
             
-            print('+++', prediction)
             # Get the predicted class label
             predicted_person = le.inverse_transform([prediction])[0]
             #literal_eval(str(le.inverse_transform([prediction])[0]).strip())
@@ -170,14 +173,12 @@ def predic_img_faces(app, new_image_path):
         llm_partial_pmt = create_partial_prompt(agg_cnt)
 
         print(llm_partial_pmt)
-        # df = pd.DataFrame(people)
-        # print(df.head())
+
         cv2.imshow("Recognized Face", new_img)
         if cv2.waitKey(70000) & 0xFF == ord('q'):
             cv2.destroyAllWindows()
     else:
         print("No face detected in the image.")
-
 
 
 if __name__=='__main__':

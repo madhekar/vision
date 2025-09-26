@@ -90,7 +90,13 @@ class infer_faces:
                         test_im = [test_im]
 
                         ypred = self.faces_model_svc.predict(test_im)
-                        names.append(''.join(literal_eval(str(self.faces_label_enc.inverse_transform(ypred)))))
+                        probs = self.faces_model_svc.predict_proba(test_im)
+                        confidence  = np.max(probs)
+                        if confidence < 0.6:
+                            predicted_person = "unknown"
+                        else:
+                            predicted_person = literal_eval(str(self.faces_label_enc.inverse_transform(ypred)))
+                        names.append(''.join(predicted_person))
                     names = self.replace_duplicates_and_missing(nfaces, names)
                     print('--->', names)
         except Exception as e:
