@@ -8,7 +8,8 @@ from utils.config_util import config
 from utils.util import storage_stat as ss
 from utils.missing_util import missing_metadata as mm
 from utils.quality_util import image_quality as iq
-from utils.dedup_util.md5 import dedup_imgs as di
+#from utils.dedup_util.md5 import dedup_imgs as di
+from utils.face_detection_util import face_trainer
 from utils.dedup_util.phash import KDduplicates as kdd
 from utils.dataload_util import dataload as dl
 from utils.util import statusmsg_util as sm

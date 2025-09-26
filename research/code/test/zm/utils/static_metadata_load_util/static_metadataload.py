@@ -7,6 +7,7 @@ from utils.util import storage_stat as ss
 from utils.static_metadata_load_util import user_static_loc as usl
 from utils.preprocess_util import preprocess as pp
 from utils.face_util import base_face_train as bft_train
+from utils.face_detection_util import face_trainer as ft
 from utils.face_util import base_face_predict as bft_predict
 import streamlit as st
 from utils.util import folder_chart as fc
@@ -168,7 +169,7 @@ def execute():
             if cc_metadata:
                     cc_status.info("starting to create face model.")
                     st.info('step: - 1: train know faces for search...')
-                    bft_train.exec()
+                    ft.execute()
                     cc_status.update(label="face detection model complete!", state="complete", expanded=False) 
 if __name__ == "__main__":
     execute()
