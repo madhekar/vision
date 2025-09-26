@@ -14,6 +14,7 @@ def init_model():
     app.prepare(ctx_id=-1, det_size=(640, 640))  # Use ctx_id=0 for GPU, -1 for CPU
     return app
 
+
 def train_model(app, img_dataset_path):
     # Prepare lists for embeddings and labels
     embeddings_list = []
