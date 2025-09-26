@@ -82,7 +82,7 @@ def create_partial_prompt(agg):
                 else:
                     s = " one girl  "
                 txt += s 
-                txt += "in the image."
+            txt += "in the image."
     return txt
 
 def init_predictor():
@@ -173,7 +173,7 @@ def predic_img_faces(app, new_image_path):
         # df = pd.DataFrame(people)
         # print(df.head())
         cv2.imshow("Recognized Face", new_img)
-        if cv2.waitKey(100000) & 0xFF == ord('q'):
+        if cv2.waitKey(70000) & 0xFF == ord('q'):
             cv2.destroyAllWindows()
     else:
         print("No face detected in the image.")
