@@ -95,7 +95,7 @@ class infer_faces:
                         if confidence < 0.6:
                             predicted_person = "unknown"
                         else:
-                            predicted_person = literal_eval(str(self.faces_label_enc.inverse_transform(ypred)))
+                            predicted_person = ''.join(self.faces_label_enc.inverse_transform(ypred)) #literal_eval(str(self.faces_label_enc.inverse_transform(ypred)))
                         names.append(''.join(predicted_person))
                     names = self.replace_duplicates_and_missing(nfaces, names)
                     print('--->', names)
