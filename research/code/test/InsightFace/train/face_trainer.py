@@ -7,7 +7,38 @@ from sklearn.svm import SVC
 from sklearn.metrics import classification_report
 from sklearn.preprocessing import LabelEncoder
 from insightface.app import FaceAnalysis
+import albumentations as A
 
+"""
+https://medium.com/data-science/building-a-face-recognition-system-using-scikit-learn-in-python-163fd423513b
+https://github.com/V-Sher/Face-Search
+"""
+# Define an augmentation pipeline that includes random roll
+transform = A.Compose(
+    [
+        A.Rotate(
+            limit=(-30, 30), p=0.5
+        ),  # Rotate by -30 to +30 degrees with 50% probability
+        # Other augmentations like RandomBrightnessContrast, HorizontalFlip, etc.
+    ]
+)
+"""
+import albumentations as A
+import cv2
+
+# Define an augmentation pipeline that includes random roll
+transform = A.Compose([
+    A.Rotate(limit=(-30, 30), p=0.5),  # Rotate by -30 to +30 degrees with 50% probability
+    # Other augmentations like RandomBrightnessContrast, HorizontalFlip, etc.
+])
+
+# During training, for each image:
+image = cv2.imread("path/to/your/image.jpg")
+augmented_image = transform(image=image)["image"]
+
+# Now, process augmented_image for training (e.g., pass through InsightFace's preprocessing and then to the model)
+
+"""
 def init_model():
     # Initialize InsightFace model
     app = FaceAnalysis(allowed_modules=["detection", "recognition"])
