@@ -37,7 +37,7 @@ for class_label, person_name in enumerate(sorted(os.listdir(dataset_path))):
             img = cv2.imread(image_path)
             if img is None:
                 continue
-
+            print('--->', image_path)
             # Get faces from the image
             faces = app.get(img)
 
@@ -106,10 +106,10 @@ joblib.dump(svm_classifier, filename="faces_model_svc.joblib")
 
 
 le = LabelEncoder()
-le.fit(y)
+print('--->', y)
+le.fit_transform(class_names)
 with open("le_recognizer.pkl", "wb") as f:
     pickle.dump(le, f)
-
 
 joblib.dump(le, filename="faces_label_enc.joblib")    
 print("Model saved successfully.")

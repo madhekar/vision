@@ -132,7 +132,7 @@ def predic_img_faces(app, new_image_path):
             prediction = svm_classifier.predict([new_embedding])[0]
             class_probabilities = svm_classifier.predict_proba([new_embedding])[0]
             
-            print('--->',prediction, '::',le.inverse_transform([prediction]))
+            #print('--->',prediction, '::',le.inverse_transform([prediction]), ':', le.classes_)
             # Get the predicted class label
             predicted_person = le.inverse_transform([prediction])[0]
             #literal_eval(str(le.inverse_transform([prediction])[0]).strip())
@@ -140,7 +140,7 @@ def predic_img_faces(app, new_image_path):
             if confidence < 0.6:
                 predicted_person = "unknown"
             else:
-                predicted_person = p[predicted_person]
+                predicted_person = predicted_person
 
             # name for face in the image
             person['name'] = predicted_person
