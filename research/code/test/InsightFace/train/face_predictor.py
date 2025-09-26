@@ -70,7 +70,7 @@ def create_partial_prompt(agg):
                 txt += s
 
             if d["cboy"] > 0:
-                if d["cman"] > 1:
+                if d["cboy"] > 1:
                     s = f" {d['cboy']} boys  "
                 else:
                     s = " one  boy  "
@@ -111,9 +111,10 @@ def predic_img_faces(app, new_image_path):
             if "gender" in face and "age" in face:
                 gender = "Male" if face.gender == 1 else "Female"
                 # detect age and gender for the face
-                person['age'] = face.age
+                age = face.age - 10
+                person['age'] = age
                 person['gender'] = gender
-                if face.age > 21:
+                if age > 21:
                     if gender == "Female":
                         person["cnoun"] = "woman"
                     else:
@@ -131,6 +132,7 @@ def predic_img_faces(app, new_image_path):
             prediction = svm_classifier.predict([new_embedding])[0]
             class_probabilities = svm_classifier.predict_proba([new_embedding])[0]
             
+            print('--->',prediction, '::',le.inverse_transform([prediction]))
             # Get the predicted class label
             predicted_person = le.inverse_transform([prediction])[0]
             #literal_eval(str(le.inverse_transform([prediction])[0]).strip())
