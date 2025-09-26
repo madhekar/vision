@@ -51,10 +51,10 @@ def create_partial_prompt(agg):
     txt = ""
     for d in agg:
         if d["type"] == "known":
-            s = f'Face at coordinates {d["loc"]} is of "{d["name"]}", a "{d["cnoun"]}" is expressing "{d["emotion"]}" emotion. '
+            s = f'Face at coordinates {d["loc"]} is of "{d["name"]}", a "{d["cnoun"]}" expressing "{d["emotion"]}" emotion. '
             txt += s
         if d["type"] == "unknown":
-            txt += "other "
+            txt += "And "
             if d["cman"] > 0:
                 if d["cman"] > 1:
                     s = f" {d['cman']} men  "
