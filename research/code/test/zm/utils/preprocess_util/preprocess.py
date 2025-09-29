@@ -16,7 +16,7 @@ from utils.util import model_util as mu
 from utils.util import fast_parquet_util as fpu
 from utils.util import storage_stat as ss
 from utils.face_util import base_face_predict as bft
-from utils.face_detection_util import face_predictor as fp
+from utils.face_detection_util import face_predictor as fpr
 
 import asyncio
 import multiprocessing as mp
@@ -30,6 +30,7 @@ from functools import partial
 d_latitude, d_longitude = 32.968689, -117.184243
 d_loc = 'Madhekar residence in Carmel Valley'
 #m, t, p = LLM.setLLM()
+ap, fmodel, fle = fpr.init_predictor_module()
 p = LLM_Next.setLLM()
 #btree = st.empty()
 #ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
@@ -64,24 +65,25 @@ def get_loc_name_by_latlon(latlon):
 
 # uuid4 id for vector database
 async def generateId(args):
-    uri, names, emo = args
+    uri= args
     return [uri, str(uuid.uuid4())]
 
 
 # convert image date time to timestamp
 async def timestamp(args):
-    uri, names, emo = args
+    uri = args
     #print(f'ts--{uri}')
     ts = lu.getTimestamp(uri)
     return [str(ts)]
 
 async def faces_partial_prompt(args):
     uri = args
-    
-
+    txt = fpr.predict_img_faces(ap, uri, fmodel, fle) 
+    return [txt]
+   
 # get location details as: (latitude, longitude) and address
 async def locationDetails(args, lock):
-    uri, names, emo = args
+    uri = args
     async with lock:
       try:  
         #print(f"-->> {uri}")
@@ -192,6 +194,8 @@ async def run_workflow(
     num_files = len(glob.glob(os.path.join(image_dir_path,'/**/*')))
     num = num_files - num
 
+    
+
     lock = asyncio.Lock()
     img_iterator = mu.getRecursive(image_dir_path, chunk_size=chunk_size)
 
@@ -204,12 +208,13 @@ async def run_workflow(
                 print(rlist)
                 if len(rlist) > 0:
                     # prep names and emotion
-                    df_rl = pd.DataFrame(rlist, columns=['uri'])
-                    df_r = bft.exec_process(df_rl)
-                    rlist = df_r.values.tolist()
-                    print(rlist)
+                    # df_rl = pd.DataFrame(rlist, columns=['uri'])
+                    # df_r = bft.exec_process(df_rl)
+                    # rlist = df_r.values.tolist()
+                    # print(rlist)
 
                     res = await asyncio.gather(
+                        pool.map(faces_partial_prompt, rlist),
                         pool.map(generateId, rlist),
                         pool.map(timestamp, rlist),
                         pool.map(partial(locationDetails, lock=lock), rlist)
@@ -217,6 +222,7 @@ async def run_workflow(
                     
                     res.append(rlist)
 
+                    print('--->', res)
                     rflist, oflist = new_xform(res)
 
                     res1 = await asyncio.gather(pool.map(describeImage,  rflist))
@@ -282,7 +288,7 @@ def execute(user_source_selected):
 
     #btree = location_initialize(static_metadata_path, static_metadata_file)    
 
-    chunk_size = int(mp.cpu_count() // 4)
+    chunk_size = 1 #int(mp.cpu_count() // 4)
     queue_size = chunk_size
     st.sidebar.subheader("Metadata Generation")
     st.sidebar.divider()

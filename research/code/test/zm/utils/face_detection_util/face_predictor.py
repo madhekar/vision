@@ -105,7 +105,7 @@ def init_predictor_module():
 '''
 predict known and unknown faces
 '''
-def predic_img_faces(app, new_image_path, svm_classifier, le):
+def predict_img_faces(app, new_image_path, svm_classifier, le):
 
     new_img = cv2.imread(new_image_path)
     people = []
@@ -176,7 +176,7 @@ def predic_img_faces(app, new_image_path, svm_classifier, le):
         #     cv2.destroyAllWindows()
     else:
         print("No face detected in the image.")
-
+    return llm_partial_pmt
 
 
 def execute():
