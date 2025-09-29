@@ -74,3 +74,6 @@ augmented_image = augmented_image / 255.0 # Normalize to [0, 1] range
    # Fixed-size input: InsightFace models, like ArcFace, typically require a fixed input size (e.g., 112x112). Ensure your final augmentation step includes a resize operation to meet this requirement.
    # Face alignment: InsightFace often expects aligned face images as input. The augmentation should be applied to the aligned face to avoid disrupting critical features.
    # Augmentation strength: Start with a standard set of augmentations and increase their intensity if needed. Aggressive augmentations can sometimes remove too much identity information, especially with small images. 
+
+
+   [[['Face at coordinates (125, 327) is of "Kumar", a "man" expressing "neutral" emotion. And  one  man  in the image.']], [['/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/IMG_3141.JPG', 'abfb3968-b7fe-4da0-8c64-b481929c20dd']], [['1572728241.0']], [['(18.325447, 72.9561)', 'Usar']], ['/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/IMG_3141.JPG']]
