@@ -107,9 +107,9 @@ async def locationDetails(args, lock):
      
 # get image description from LLM
 async def describeImage(args):
-    uri, location, names, attrib = args
+    uri, ppt, location = args
     print(args)
-    d= LLM_Next.fetch_llm_text(imUrl=uri, pipe=p, question="Please take time to describe the picture with thoughtful insights ", people=names, attrib=attrib, location=location)
+    d= LLM_Next.fetch_llm_text(imUrl=uri, pipe=p, question="Please take time to describe the picture with thoughtful insights ", partial_prompt=ppt, location=location)
     # d =  LLM_Next.fetch_llm_text(
     #     imUrl=uri,
     #     model=m,
