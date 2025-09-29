@@ -101,7 +101,7 @@ def get_loc_name_by_latlon(latlon):
 # uuid4 id for vector database
 async def generateId(args):
     uri= args
-    return [str(uuid.uuid4())] #[uri, str(uuid.uuid4())]
+    return str(uuid.uuid4()) #[uri, str(uuid.uuid4())]
 
 
 # convert image date time to timestamp
@@ -109,12 +109,12 @@ async def timestamp(args):
     uri = args
     #print(f'ts--{uri}')
     ts = lu.getTimestamp(uri)
-    return [str(ts)]
+    return str(ts)
 
 async def faces_partial_prompt(args):
     uri = args
     txt = fpr.predict_img_faces(ap, uri, fmodel, fle) 
-    return [txt]
+    return txt
    
 # get location details as: (latitude, longitude) and address
 async def locationDetails(args, lock):
@@ -136,7 +136,7 @@ async def locationDetails(args, lock):
             loc = lu.getLocationDetails(lat_lon, max_retires=3)
       except Exception as e:
         st.error(f'exception: {e} occurred in getting lat/ lon or location details for {uri}')
-      return [str(lat_lon), loc]
+      return str(lat_lon), loc
      
 # get image description from LLM
 async def describeImage(args):
@@ -171,10 +171,11 @@ def getRecursive(rootDir, chunk_size=10):
 
 def new_xform(res):
     ll = [list(x) for x in zip(*res)]
+    print('+-+->', ll)
     lr = [list(it.chain(*item)) for item in ll]
-    #print('-->', res, '\n', lr)
+    print('+++>', lr)
     df = pd.DataFrame(lr, columns=["uri", "id", "ts", "latlon", "loc", "url2", "names", "attrib"])
-    #print(df.head(5))
+    print(df.head(5))
     df1 = df.drop(columns=["url2", "id", "ts", "latlon"], axis=1)
     dfo = df.drop(columns=["url2"], axis=1)
     lst = df1.to_numpy().tolist()
@@ -249,15 +250,15 @@ async def run_workflow(
                     # print(rlist)
 
                     res = await asyncio.gather(
-                        pool.map(faces_partial_prompt, rlist),
                         pool.map(generateId, rlist),
                         pool.map(timestamp, rlist),
+                        pool.map(faces_partial_prompt, rlist),
                         pool.map(partial(locationDetails, lock=lock), rlist)
                     )
                     
                     res.append(rlist)
 
-                    print('--->', res)
+                    print('===>', res)
                     rflist, oflist = new_xform(res)
 
                     res1 = await asyncio.gather(pool.map(describeImage,  rflist))
@@ -323,7 +324,7 @@ def execute(user_source_selected):
 
     #btree = location_initialize(static_metadata_path, static_metadata_file)    
 
-    chunk_size = 1 #int(mp.cpu_count() // 4)
+    chunk_size = int(mp.cpu_count() // 4)
     queue_size = chunk_size
     st.sidebar.subheader("Metadata Generation")
     st.sidebar.divider()
