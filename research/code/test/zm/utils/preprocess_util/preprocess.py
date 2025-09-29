@@ -16,6 +16,7 @@ from utils.util import model_util as mu
 from utils.util import fast_parquet_util as fpu
 from utils.util import storage_stat as ss
 from utils.face_util import base_face_predict as bft
+from utils.face_detection_util import face_predictor as fp
 
 import asyncio
 import multiprocessing as mp
@@ -74,6 +75,9 @@ async def timestamp(args):
     ts = lu.getTimestamp(uri)
     return [str(ts)]
 
+async def faces_partial_prompt(args):
+    uri = args
+    
 
 # get location details as: (latitude, longitude) and address
 async def locationDetails(args, lock):
@@ -199,7 +203,6 @@ async def run_workflow(
                 rlist = mu.is_processed_batch(ilist, df)
                 print(rlist)
                 if len(rlist) > 0:
-
                     # prep names and emotion
                     df_rl = pd.DataFrame(rlist, columns=['uri'])
                     df_r = bft.exec_process(df_rl)
@@ -216,9 +219,7 @@ async def run_workflow(
 
                     rflist, oflist = new_xform(res)
 
-                    res1 = await asyncio.gather(
-                        pool.map(describeImage,  rflist)
-                    )
+                    res1 = await asyncio.gather(pool.map(describeImage,  rflist))
 
                     zlist = [oflist[i] + [res1[0][i]]  for i in range(len(oflist))]
 

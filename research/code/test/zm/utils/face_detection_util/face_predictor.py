@@ -8,9 +8,7 @@ import numpy as np
 from insightface.app import FaceAnalysis
 from deepface import DeepFace
 from utils.config_util import config
-
-
-
+import streamlit as st
 
 def count_people(ld):
     cnt_man = 0
@@ -75,13 +73,34 @@ def create_partial_prompt(agg):
             txt += "in the image."
     return txt
 
-''' 
+""" 
 Initialize InsightFace model
-'''
-def init_predictor():
+"""
+@st.cache_resource(ttl=36000, show_spinner=True)
+def init_predictor_module():
+    (
+        faces_dir,
+        input_image_path,
+        class_embeddings_folder,
+        class_embeddings,
+        label_encoder_path,
+        label_encoder,
+        faces_svc_path,
+        faces_svc,
+        faces_of_people_parquet_path,
+        faces_of_people_parquet,
+    ) = config.faces_config_load()
+
+    label_encoder_store = os.path.join(label_encoder_path, label_encoder)
+    svc_model_store = os.path.join(faces_svc_path, faces_svc)
+
+    svm_classifier = joblib.load(svc_model_store)
+    le = joblib.load(label_encoder_store)
+
     app = FaceAnalysis(name="buffalo_l")
     app.prepare(ctx_id=-1, det_size=(640, 640))
-    return app
+
+    return app, svm_classifier, le
 
 '''
 predict known and unknown faces
@@ -96,7 +115,6 @@ def predic_img_faces(app, new_image_path, svm_classifier, le):
         print(f"Detected {len(faces)} face(s).")
         for i, face in enumerate(faces):
             person = {}
-
 
             if "gender" in face and "age" in face:
                 gender = "Male" if face.gender == 1 else "Female"
@@ -114,7 +132,6 @@ def predic_img_faces(app, new_image_path, svm_classifier, le):
                         person["cnoun"] = "girl"
                     else:
                         person["cnoun"] = "boy"    
-
 
             new_embedding = faces[i].embedding
 
@@ -145,18 +162,6 @@ def predic_img_faces(app, new_image_path, svm_classifier, le):
             # face emotion 
             person["emotion"] = em[0]["dominant_emotion"]
 
-            # Display the image with the prediction
-            cv2.rectangle(new_img, (x1, y1), (x2, y2), (0, 255, 0), 2)
-            text = f"{predicted_person}: {confidence:.2f}"
-            cv2.putText(
-                new_img,
-                str(text),
-                (x1, y1 - 10),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                0.9,
-                (255, 0, 0),
-                2,
-            )
             people.append(person)
         print(people)
 
@@ -166,33 +171,15 @@ def predic_img_faces(app, new_image_path, svm_classifier, le):
 
         print(llm_partial_pmt)
 
-        cv2.imshow("Recognized Face", new_img)
-        if cv2.waitKey(70000) & 0xFF == ord('q'):
-            cv2.destroyAllWindows()
+        # cv2.imshow("Recognized Face", new_img)
+        # if cv2.waitKey(70000) & 0xFF == ord('q'):
+        #     cv2.destroyAllWindows()
     else:
         print("No face detected in the image.")
 
 
+
 def execute():
-    (
-        faces_dir,
-        input_image_path,
-        class_embeddings_folder,
-        class_embeddings,
-        label_encoder_path,
-        label_encoder,
-        faces_svc_path,
-        faces_svc,
-        faces_of_people_parquet_path,
-        faces_of_people_parquet,
-    ) = config.faces_config_load()
-
-    label_encoder_store = os.path.join(label_encoder_path, label_encoder)
-    svc_model_store = os.path.join(faces_svc_path, faces_svc)
-
-    svm_classifier = joblib.load(svc_model_store)
-    le = joblib.load(label_encoder_store)
-
 
     # Load a new image for recognition
     img = "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/2596441a-e02f-588c-8df4-dc66a133fc99/af23fb36-9e89-4b81-9990-020b02fe1056.jpg"
@@ -201,7 +188,7 @@ def execute():
     # "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/5e144618-aea4-4365-95ad-375ae00a1133.jpg"
 
     # init train model
-    app = init_predictor()
+    app, svm_classifier, le = init_predictor_module()
 
     # train model using faces dataset
     predic_img_faces(app, img, svm_classifier, le)
