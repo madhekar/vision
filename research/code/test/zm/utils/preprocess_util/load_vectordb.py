@@ -164,11 +164,9 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
     # create unique uuids for each image
     df_ids = df_data["id"]
 
-    df_metadatas = df_data[["ts", "latlon", "loc", "names", "attrib", "text"]].T.to_dict().values()
+    df_metadatas = df_data[["ts", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
 
     collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadatas), uris=df_urls.tolist())
-
-    #st.info(f"id: \n {df_ids.head()} \n metadata: \n {df_metadatas} \n url: \n {df_urls.head()} ")
 
     st.info(f"Info: Done adding number of images: {len(df_urls)}")
 
@@ -179,33 +177,36 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
     #if text_collection_name not in collections_list:
 
     text_pth = fileList(text_folder)
-    #st.info("text paths: \n", "\n".join(text_pth))
+    if len(text_pth) > 0:
+        #st.info("text paths: \n", "\n".join(text_pth))
 
-    list_of_text = []
+        list_of_text = []
 
-    for text_f in text_pth:
-        if os.path.isfile(text_f):
-            try:  
-              with open(text_f, 'r', encoding="ascii") as f:
-                content = f.read()
-                list_of_text.append(content)   
-            except UnicodeDecodeError as e:
-                st.error(f'error: ignoring the text file, could not decode file as ascii: {e}')      
-            except FileNotFoundError:
-                st.error(f'error: text file not found: {text_f}')          
+        for text_f in text_pth:
+            if os.path.isfile(text_f):
+                try:  
+                  with open(text_f, 'r', encoding="ascii") as f:
+                    content = f.read()
+                    list_of_text.append(content)   
+                except UnicodeDecodeError as e:
+                    st.error(f'error: ignoring the text file, could not decode file as ascii: {e}')      
+                except FileNotFoundError:
+                    st.error(f'error: text file not found: {text_f}')          
 
-    ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
+        ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
 
-    batches = create_batches(api=client,ids=ids_txt_list, documents=list_of_text)
+        batches = create_batches(api=client,ids=ids_txt_list, documents=list_of_text)
 
-    st.info(f"number of ids: {len(ids_txt_list)}")
-    st.info(f'number of documents: {len(list_of_text)}')
-    st.info(f"starting to add documents in number of batches: {len(batches)}")
+        st.info(f"number of ids: {len(ids_txt_list)}")
+        st.info(f'number of documents: {len(list_of_text)}')
+        st.info(f"starting to add documents in number of batches: {len(batches)}")
 
-    for batch in batches:
-        collection_text.add(ids=batch[0], documents=batch[3])
+        for batch in batches:
+            collection_text.add(ids=batch[0], documents=batch[3])
 
-    st.info(f"done adding documents: {len(list_of_text)}")
+        st.info(f"done adding documents: {len(list_of_text)}")
+    else:
+        st.warning(f'no text documents found in {text_folder}')    
 
     client.clear_system_cache()
 

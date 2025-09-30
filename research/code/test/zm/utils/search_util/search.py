@@ -205,8 +205,8 @@ def search_fn(client, cImgs, cTxts):
             st.session_state["meta"].append(
                 "Desc:["
                 + mdata.get("text")
-                + "] ) People: ["
-                + mdata.get("names")
+                # + "] ) People: ["
+                # + mdata.get("names")
                 + "] Location: ["
                 + mdata.get("loc")
                 + "] Date: ["
@@ -273,7 +273,7 @@ def search_fn(client, cImgs, cTxts):
                     cImgs,
                     id=st.session_state["imgs"]["ids"][0][index],
                     desc=st.session_state["imgs"]["metadatas"][0][1:][index]["text"],
-                    names=st.session_state["imgs"]["metadatas"][0][1:][index]["names"],
+                    #names=st.session_state["imgs"]["metadatas"][0][1:][index]["names"],
                     dt=st.session_state["imgs"]["metadatas"][0][1:][index]["ts"],
                     loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"],
                 )
@@ -281,7 +281,7 @@ def search_fn(client, cImgs, cTxts):
             c2.markdown(o_desc, unsafe_allow_html=True)
 
             c2.write("<p class='big-font-subh'>People</p>", unsafe_allow_html=True)
-            o_names = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["attrib"]} - {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
+            o_names = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["ppt"]} </p>' #- {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
             c2.markdown(o_names, unsafe_allow_html=True)
 
             c2.write("<p class='big-font-subh'>Date Time</p>", unsafe_allow_html=True)

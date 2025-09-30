@@ -281,3 +281,44 @@
         "text": "\n 1. A man in a blue shirt is standing next to a woman in a red dress.\n 2. The woman is wearing a red dress with gold accents.\n 3. The man is wearing a blue shirt and sunglasses.\n 4. They are standing on a brick walkway.\n 5. There are trees in the background.\n 6. The sky is cloudy.\n 7. The location is Solapur.\n 8. The people are happy.\n 9. The man is holding a white paper.\n 10. The woman is holding a red bag.\n 11. The man is wearing a watch.\n 12. The woman is wearing a necklace.\n 13. The man is smiling.\n 14. The woman is smiling.\n 15. The man is bald.\n 16. The",
     },
 ]
+
+###
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/f6b572ec-a56f-4d66-b900-fa61b48ce005.jpg",
+        "id": "3d0efef5-e541-4ca4-ad36-006da0545ffd",
+        "ts": "1758226900.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": '"Kumar", a man expressing angry emotion. "Asha", a man expressing fear emotion. . And 2 men 2 women one girl in the image.',
+        "text": "\n 1. A man named Kumar, wearing a white shirt, is standing in the background with a serious expression on his face.\n2. A woman named Asha, wearing a pink sari, is sitting in the background with a worried expression on her face.\n3. A man named Ravi, wearing a blue shirt, is standing in the background with a smile on his face.\n4. A woman named Priya, wearing a green sari, is sitting in the background with a smile on her face.\n5. A man named Sameer, wearing a pink shirt, is standing in the background with his arms crossed.\n6. A woman named Nandini, wearing a blue sari, is sitting in the background with her hands folded.\n7. A man named Raj, wearing a white shirt, is standing in the background with his hands in his pockets.\n8",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/b8cb49e0-9977-4761-b9b6-5b8c9a4e2ae0.jpg",
+        "id": "208f9b59-30b5-4fd4-ae04-5f4edf172f29",
+        "ts": "1758227061.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": '"Kumar", a man expressing neutral emotion. . And one man one girl in the image.',
+        "text": "\n 1. A man in a pink shirt is sitting next to a young girl in a yellow dress.\n 2. The man is smiling and the girl is looking at the camera.\n 3. The photo was taken at Sadaphuli Society in Pune.\n 4. The man is wearing a watch and the girl is wearing a necklace.\n 5. The man is holding the girl's hand.\n 6. The girl is wearing a traditional Indian outfit.\n 7. The man is sitting on a couch.\n 8. The girl is sitting on the man's lap.\n 9. The man is looking at the camera.\n 10. The girl is looking at the camera.\n 11. The man is wearing glasses.\n 12. The girl is wearing glasses.\n 13. The man is wearing a ring.\n",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/60328c95-2c9b-497a-8125-04269da714a4.jpg",
+        "id": "d07921c2-875a-4ed6-8e1b-aef800a0e5fa",
+        "ts": "1758227063.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": '"Kumar", a man expressing neutral emotion. . And 2 men in the image.',
+        "text": "\n 1. A man wearing a blue shirt and a white hat is sitting in a chair. He is looking directly at the camera.\n 2. Another man, wearing a purple shirt and a white hat, is sitting in a chair. He is looking to the side.\n 3. A third man, wearing a white shirt and a white hat, is sitting in a chair. He is looking directly at the camera.\n 4. The setting is a room with a television and a computer monitor on a desk. The room appears to be located in Sadaphuli Society in Pune.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/b0e60fad-33c9-499c-92f6-130d553af72b.jpg",
+        "id": "3a1506c2-f8dc-4de4-8f70-c6fe78d6b1e9",
+        "ts": "1758227355.0",
+        "latlon": "(18.507399, 73.807648)",
+        "loc": "",
+        "ppt": '"Kumar", a man expressing neutral emotion. . And one woman in the image.',
+        "text": "\n \nIn the image, there are two individuals in a room with a red wall and a white ceiling. The man, named Kumar, is wearing a yellow and white striped shirt and blue pants. He is holding a bouquet of flowers in a red and white striped vase. The woman, whose name is not provided, is wearing a black and white patterned dress. She is holding a black and white striped scarf. Both of them are standing in front of a red couch. Kumar appears to be in a neutral emotional state, while the woman's emotions are not discernible from the image. The room they are in has a simple and clean design, with the red wall and white ceiling providing a contrast to their colorful attire and the vibrant bouquet of flowers.",
+    },
+]

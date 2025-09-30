@@ -16,13 +16,16 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
     image = Image.open(imUrl).convert("RGB")
     
     prompt = """<|im_start|>system
-    Do not hallucinate and gives very close attention to the details and takes time to process information provided, produce plain text response " strictly avoid emojis or lists" in response.
+    A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. 
+    Do not hallucinate and gives very close attention to the details and takes time to process information provided, produce plain text response STRICTLY AVOID EMOJI'S or LISTS in the response.
     <|im_end|>
     <|im_start|>user
-    <image>"{question}" It is extremely important that, response MUST include the people name and emotion details provided "{partial_prompt}" and the location details "{location}" in the response.
+    <image>"{question}" It is extremely important that, response "MUST" include the NAMES OF PEOPLE and EMOTIONS provided "{partial_prompt}" and the location details "{location}" in the response.
     <|im_end|> 
     <|im_start|>assistant
-    """.format(question=question, partial_prompt=partial_prompt, location=location)  # , article=st.session_state["document"])
+    """.format(
+        question=question, partial_prompt=partial_prompt, location=location
+    )  # , article=st.session_state["document"])
  
     outputs = pipe(image, prompt=prompt, generate_kwargs={"max_new_tokens": 200})
 
