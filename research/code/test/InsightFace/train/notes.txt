@@ -77,3 +77,16 @@ augmented_image = augmented_image / 255.0 # Normalize to [0, 1] range
 
 
    [[['Face at coordinates (125, 327) is of "Kumar", a "man" expressing "neutral" emotion. And  one  man  in the image.']], [['/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/IMG_3141.JPG', 'abfb3968-b7fe-4da0-8c64-b481929c20dd']], [['1572728241.0']], [['(18.325447, 72.9561)', 'Usar']], ['/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/IMG_3141.JPG']]
+
+
+### prompt
+
+ prompt = """<|im_start|>system
+    A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. 
+    The assistant does not hallucinate and gives extreamly very close attention to the details and take time to process information if necessary, please produce plain text response " strictly avoid emojis or lists" in response.
+    <|im_end|>
+    <|im_start|>user
+    <image>"{question}" It is extremely important that, response MUST include the people name and emotion details "{partial_prompt}" and the location details "{location}" in the response.
+    <|im_end|> 
+    <|im_start|>assistant
+    """.format(question=question, partial_prompt=partial_prompt, location=location)  # , article=st.session_state["document"])
