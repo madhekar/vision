@@ -240,3 +240,44 @@
         "text": "\n 2 men are standing in a room. The man on the left is wearing a blue vest and holding a bouquet of red and white flowers. The man on the right is wearing a blue and white striped shirt and is smiling. The room they are in has a beige curtain and a picture on the wall. The man on the left is wearing glasses. The man on the right is bald. The man on the left is holding the flowers in his left hand. The man on the right is holding a purple object in his right hand. The man on the left is wearing a gold bracelet. The man on the right is wearing a gold ring. The man on the left is wearing a gold watch. The man on the right is wearing a gold necklace. The man on the left is wearing a gold earring. The man on the right is wearing a gold ring on his left hand. The man",
     },
 ]
+
+###
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/4db3fd34-7dd1-4125-936c-4f414a41cfc5-1.jpg",
+        "id": "87009c9c-3eca-4968-a2f9-71c415cc8892",
+        "ts": "1758226912.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": 'Face at coordinates (881, 402) is of "Kumar", a "man" expressing "neutral" emotion. And one man one girl in the image.',
+        "text": "\n 1. A man in a pink shirt is sitting on a couch.\n 2. A woman in an orange shirt is sitting on a couch.\n 3. A man in a blue shirt is sitting on a couch.\n 4. The couch is located in a living room.\n 5. The living room is located in Sadaphuli Society in Pune.\n 6. The man in the pink shirt is looking at the woman in the orange shirt.\n 7. The woman in the orange shirt is looking at the man in the blue shirt.\n 8. The man in the blue shirt is looking at his phone.\n 9. The woman in the orange shirt is looking at the man in the blue shirt.\n 10. The man in the pink shirt is looking at the woman in the orange shirt.\n 11. The woman",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/04ae0748-3aed-4f3b-b12d-35d4cb009af3-1.jpg",
+        "id": "390f5545-34ec-4f69-b76f-b4328dd5a1b7",
+        "ts": "1758226979.0",
+        "latlon": "(17.65992, 75.906387)",
+        "loc": "Solapur",
+        "ppt": 'Face at coordinates (379, 197) is of "Kumar", a "man" expressing "happy" emotion. Face at coordinates (588, 262) is of "Asha", a "woman" expressing "sad" emotion. And in the image.',
+        "text": "\n \nThe image captures a serene moment between two individuals, a man and a woman, standing on a balcony that overlooks a breathtaking view of a valley. The man, donned in a blue striped shirt and sunglasses, stands to the left of the woman, who is elegantly dressed in a red sari. Their faces are lit up with smiles, reflecting a sense of joy and contentment. The balcony, adorned with a white railing, serves as a perfect vantage point to soak in the beauty of the valley below. The sky above them is a clear blue, adding to the overall tranquility of the scene. The image does not contain any discernible text. The relative positions of the objects and the people in the image suggest a harmonious coexistence with nature. The man and woman appear to be the only human figures in the image, further emphasizing the",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/5d1fbc96-849b-4716-a835-2615ddb21830.jpg",
+        "id": "d64b24f2-0be6-4e10-93d3-8d987bb2863e",
+        "ts": "1758226903.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": 'Face at coordinates (889, 414) is of "Kumar", a "man" expressing "angry" emotion. And one man one woman in the image.',
+        "text": '\n 1. A family of three is sitting on a couch in a living room. The man in the pink shirt is holding a phone to his ear, while the woman in the yellow dress is looking at him. The man in the blue shirt is sitting next to them. The room is decorated with various objects, including a clock on the wall and a statue on a shelf. The text "Mi Note 9 pro" and "Jad Camera" can be seen in the image.\n 2. A family of three is sitting on a couch in a living room. The man in the pink shirt is holding a phone to his ear, while the woman in the yellow dress is looking at him. The man in the blue shirt is sitting next to them. The room is decorated with various objects, including a clock on the wall and a statue on a shelf. The text "Mi Note 9 pro" and "J',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/c4259126-46c1-4557-ae06-6b982db0c056-1.jpg",
+        "id": "6ae61a33-8c03-4e1f-868a-a50b3ae85a05",
+        "ts": "1758226957.0",
+        "latlon": "(17.65992, 75.906387)",
+        "loc": "Solapur",
+        "ppt": 'Face at coordinates (333, 548) is of "Kumar", a "man" expressing "happy" emotion. Face at coordinates (245, 572) is of "Asha", a "woman" expressing "neutral" emotion. And one man in the image.',
+        "text": "\n 1. A man in a blue shirt is standing next to a woman in a red dress.\n 2. The woman is wearing a red dress with gold accents.\n 3. The man is wearing a blue shirt and sunglasses.\n 4. They are standing on a brick walkway.\n 5. There are trees in the background.\n 6. The sky is cloudy.\n 7. The location is Solapur.\n 8. The people are happy.\n 9. The man is holding a white paper.\n 10. The woman is holding a red bag.\n 11. The man is wearing a watch.\n 12. The woman is wearing a necklace.\n 13. The man is smiling.\n 14. The woman is smiling.\n 15. The man is bald.\n 16. The",
+    },
+]
