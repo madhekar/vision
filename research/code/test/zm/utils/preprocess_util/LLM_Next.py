@@ -24,7 +24,7 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
     <|im_start|>assistant
     """.format(question=question, partial_prompt=partial_prompt, location=location)  # , article=st.session_state["document"])
  
-    outputs = pipe(image, prompt=prompt, generate_kwargs={"max_new_tokens": 300})
+    outputs = pipe(image, prompt=prompt, generate_kwargs={"max_new_tokens": 200})
 
     result = outputs[0]["generated_text"].partition("<|im_start|>assistant")[2]
 
