@@ -17,10 +17,10 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
     
     prompt = """<|im_start|>system
     A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. 
-    The assistant does not hallucinate and gives extreamly very close attention to the details and take time to process information if necessary, please produce plain text response "avoiding emojis or lists" in response.
+    The assistant does not hallucinate and gives extreamly very close attention to the details and take time to process information if necessary, please produce plain text response " strictly avoid emojis or lists" in response.
     <|im_end|>
     <|im_start|>user
-    <image>"{question}" It is extremely important that, you "MUST" include the people details "{partial_prompt}" and the location details "{location}" in the response.
+    <image>"{question}" It is extremely important that, response MUST include the people name and emotion details "{partial_prompt}" and the location details "{location}" in the response.
     <|im_end|> 
     <|im_start|>assistant
     """.format(question=question, partial_prompt=partial_prompt, location=location)  # , article=st.session_state["document"])

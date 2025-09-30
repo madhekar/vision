@@ -199,3 +199,44 @@
         "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/7b0b6775-e5a4-4cad-b0bc-ab1af3bebe72.jpg",
     ],
 ]
+
+### final 
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/IMG_3141.JPG",
+        "id": "0f968fbf-b0b0-4846-b1ee-b2755db199c3",
+        "ts": "1572728241.0",
+        "latlon": "(18.325447, 72.9561)",
+        "loc": "Usar",
+        "ppt": 'Face at coordinates (125, 327) is of "Kumar", a "man" expressing "neutral" emotion. And one man in the image.',
+        "text": "\n 2 men standing on a beach wearing sunglasses and a striped shirt. One of them is wearing a blue shirt. The sky is blue and there are waves in the water. There are also people in the background. The man on the left is wearing sunglasses and a striped shirt. The man on the right is wearing sunglasses and a blue shirt. The man on the left is wearing a blue shirt. The man on the right is wearing sunglasses and a blue shirt. The man on the left is wearing sunglasses and a striped shirt. The man on the right is wearing sunglasses and a blue shirt. The man on the left is wearing sunglasses and a striped shirt. The man on the right is wearing sunglasses and a blue shirt. The man on the left is wearing",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/6c58a231-3369-4b46-867d-39e31985d313-1.jpg",
+        "id": "9ce9809b-9e72-46ff-bc65-7d0172da69e2",
+        "ts": "1758227006.0",
+        "latlon": "(19.101053, 74.740677)",
+        "loc": "Ahmednagar",
+        "ppt": 'Face at coordinates (178, 84) is of "Kumar", a "man" expressing "neutral" emotion. Face at coordinates (336, 505) is of "Asha", a "woman" expressing "neutral" emotion. And in the image.',
+        "text": "\n 1. The image captures a serene moment between a man and a woman at a waterfall in Ahmednagar.\n 2. The man, dressed in a white shirt and black pants, stands behind the woman, holding a red and white checkered towel.\n 3. The woman, wearing a white sari, sits on the rocks, her gaze directed towards the camera.\n 4. The waterfall, located in the background, adds a dynamic element to the otherwise tranquil scene.\n 5. The overall composition of the image suggests a peaceful outing or a leisurely day spent in nature.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/74eb3d57-326b-43d3-9e46-0e3205d6564e.jpg",
+        "id": "6ebc8a10-13a3-4156-bf25-c112cfa38ca2",
+        "ts": "1758226925.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": 'Face at coordinates (252, 140) is of "Esha", a "woman" expressing "happy" emotion. Face at coordinates (804, 243) is of "Kumar", a "man" expressing "sad" emotion. And one girl in the image.',
+        "text": "\n 1. A man in a blue shirt is cutting a chocolate cake on a glass table.\n 2. A woman in a green dress is sitting on the left side of the table.\n 3. A girl in a pink dress is sitting on the right side of the table.\n 4. A cat is lying on the floor next to the table.\n 5. The location is the Sadaphuli Society in Pune.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/7b0b6775-e5a4-4cad-b0bc-ab1af3bebe72.jpg",
+        "id": "f433e0b9-7c5f-4712-901c-b7a55389dc7a",
+        "ts": "1758227046.0",
+        "latlon": "(18.50989, 73.807182)",
+        "loc": "Kothrud Pune",
+        "ppt": 'Face at coordinates (795, 245) is of "Kumar", a "man" expressing "happy" emotion. And one man in the image.',
+        "text": "\n 2 men are standing in a room. The man on the left is wearing a blue vest and holding a bouquet of red and white flowers. The man on the right is wearing a blue and white striped shirt and is smiling. The room they are in has a beige curtain and a picture on the wall. The man on the left is wearing glasses. The man on the right is bald. The man on the left is holding the flowers in his left hand. The man on the right is holding a purple object in his right hand. The man on the left is wearing a gold bracelet. The man on the right is wearing a gold ring. The man on the left is wearing a gold watch. The man on the right is wearing a gold necklace. The man on the left is wearing a gold earring. The man on the right is wearing a gold ring on his left hand. The man",
+    },
+]
