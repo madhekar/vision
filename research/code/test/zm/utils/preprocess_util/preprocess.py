@@ -141,6 +141,7 @@ def new_xform(res):
     print('+-+->', ll)
     #lr = [list(it.chain(*item)) for item in ll]
     lr = [[row[2], row[3][1], row[4]] for row in ll]
+    lf = [[row[4], row[0],row[1],row[3][0], row[3][1], row[2]] for row in ll]
     print('+++>', lr)
     # df = pd.DataFrame(lr, columns=["uri", "id", "ts", "latlon", "loc", "url2", "names", "attrib"])
     # print(df.head(5))
@@ -148,11 +149,11 @@ def new_xform(res):
     # dfo = df.drop(columns=["url2"], axis=1)
     # lst = df1.to_numpy().tolist()
     #print('...>', lst)
-    return lr, ll
+    return lr, lf
 
 def final_xform(alist):
     #print('--->', alist)
-    keys = [ 'uri', 'id', 'ts','latlon', 'loc', 'names', 'attrib', 'text']
+    keys = [ 'uri', 'id', 'ts','latlon', 'loc', 'ppt', 'text']
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
 # appends json rows to file
@@ -232,7 +233,7 @@ async def run_workflow(
                     res1 = await asyncio.gather(pool.map(describeImage,  rflist))
 
                     print('****', res1)
-                    
+
                     zlist = [oflist[i] + [res1[0][i]]  for i in range(len(oflist))]
 
                     fdictlist = final_xform(zlist)
