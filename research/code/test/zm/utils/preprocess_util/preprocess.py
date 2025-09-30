@@ -107,7 +107,7 @@ async def locationDetails(args, lock):
      
 # get image description from LLM
 async def describeImage(args):
-    uri, ppt, location = args
+    ppt, location, uri = args
     print(args)
     d= LLM_Next.fetch_llm_text(imUrl=uri, pipe=p, question="Please take time to describe the picture with thoughtful insights ", partial_prompt=ppt, location=location)
     # d =  LLM_Next.fetch_llm_text(
@@ -139,15 +139,16 @@ def getRecursive(rootDir, chunk_size=10):
 def new_xform(res):
     ll = [list(x) for x in zip(*res)]
     print('+-+->', ll)
-    lr = [list(it.chain(*item)) for item in ll]
+    #lr = [list(it.chain(*item)) for item in ll]
+    lr = [[row[2], row[3][1], row[4]] for row in ll]
     print('+++>', lr)
-    df = pd.DataFrame(lr, columns=["uri", "id", "ts", "latlon", "loc", "url2", "names", "attrib"])
-    print(df.head(5))
-    df1 = df.drop(columns=["url2", "id", "ts", "latlon"], axis=1)
-    dfo = df.drop(columns=["url2"], axis=1)
-    lst = df1.to_numpy().tolist()
+    # df = pd.DataFrame(lr, columns=["uri", "id", "ts", "latlon", "loc", "url2", "names", "attrib"])
+    # print(df.head(5))
+    # df1 = df.drop(columns=["url2", "id", "ts", "latlon"], axis=1)
+    # dfo = df.drop(columns=["url2"], axis=1)
+    # lst = df1.to_numpy().tolist()
     #print('...>', lst)
-    return [tuple(e) for e in lst], dfo.to_numpy().tolist()
+    return lr, ll
 
 def final_xform(alist):
     #print('--->', alist)
