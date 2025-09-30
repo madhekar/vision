@@ -226,11 +226,13 @@ async def run_workflow(
                     
                     res.append(rlist)
 
-                    print('===>', res)
+                    # print('===>', res)
                     rflist, oflist = new_xform(res)
 
                     res1 = await asyncio.gather(pool.map(describeImage,  rflist))
 
+                    print('****', res1)
+                    
                     zlist = [oflist[i] + [res1[0][i]]  for i in range(len(oflist))]
 
                     fdictlist = final_xform(zlist)
