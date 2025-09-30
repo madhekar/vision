@@ -322,3 +322,44 @@
         "text": "\n \nIn the image, there are two individuals in a room with a red wall and a white ceiling. The man, named Kumar, is wearing a yellow and white striped shirt and blue pants. He is holding a bouquet of flowers in a red and white striped vase. The woman, whose name is not provided, is wearing a black and white patterned dress. She is holding a black and white striped scarf. Both of them are standing in front of a red couch. Kumar appears to be in a neutral emotional state, while the woman's emotions are not discernible from the image. The room they are in has a simple and clean design, with the red wall and white ceiling providing a contrast to their colorful attire and the vibrant bouquet of flowers.",
     },
 ]
+
+###
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/e8828925-b35c-4779-a62e-1adcb11a156c.jpg",
+        "id": "67302add-0882-4e77-9abb-8031576aa663",
+        "ts": "1758226952.0",
+        "latlon": "(17.65992, 75.906387)",
+        "loc": "Solapur",
+        "ppt": 'neutral woman, namely "Kumar" at (718, 276) sad woman, namely "Asha" at (571, 301) and one man in the image.',
+        "text": "\n 3 people are walking on a dirt path in a forest. The person on the left is wearing a white and orange outfit and has a white bag. The person in the middle is wearing a red and white outfit and has a red bag. The person on the right is wearing a red and black outfit and has a black bag. They are all smiling and looking ahead. The path they are walking on is surrounded by trees and bushes. The sky is clear and blue. The location is Solapur.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/a61f1a03-158b-4b2f-a3f6-81a1acbbb67a.jpg",
+        "id": "11e8d153-e3b3-4f67-9a92-e305303b7e36",
+        "ts": "1758226974.0",
+        "latlon": "(17.65992, 75.906387)",
+        "loc": "Solapur",
+        "ppt": 'neutral man, namely "Kumar" at (883, 274) neutral woman, namely "Asha" at (673, 224) and 2 women in the image.',
+        "text": "\n 1. A group of three people, two women and one man, are sitting at a green table.\n 2. The woman on the left is eating a piece of food with her fingers.\n 3. The woman in the middle is holding a plate of food.\n 4. The man on the right is eating a piece of food with a spoon.\n 5. There is a gray bag on the table.\n 6. The table is located outdoors.\n 7. The background consists of a tree and a fence.\n 8. The location is Solapur.\n 9. The people are enjoying their meal together.\n 10. The atmosphere is relaxed and casual.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/8010a431-f5a1-438a-84ad-e395100574ed.jpg",
+        "id": "d1c8e892-421f-4a9b-b191-7515be37cc1f",
+        "ts": "1758227323.0",
+        "latlon": "(15.364708, 75.123955)",
+        "loc": "Hubballi",
+        "ppt": 'sad man, namely "Asha" at (684, 340) and 2 men 2 women 2 girls in the image.',
+        "text": "\n 1. A woman in a pink sari holding a baby.\n 2. A woman in a blue sari with her arms crossed.\n 3. A woman in a green sari holding a book.\n 4. A woman in an orange sari sitting next to a woman in a pink sari.\n 5. A woman in a yellow sari sitting next to a woman in a pink sari.\n 6. A woman in a blue sari sitting next to a woman in a pink sari.\n 7. A woman in a green sari sitting next to a woman in a pink sari.\n 8. A woman in a pink sari sitting next to a woman in a blue sari.\n 9. A woman in a pink sari sitting next to a woman in a green sari.\n 10. A woman in a pink sari sitting next to a",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/a7849eb3-3548-40e0-b004-5d030fd0a374.jpg",
+        "id": "7c2da262-057a-4950-88fc-95a5a8f147f6",
+        "ts": "1758227107.0",
+        "latlon": "(18.507399, 73.807648)",
+        "loc": "",
+        "ppt": 'happy woman, namely "Asha" at (695, 159) angry man, namely "Kumar" at (924, 116) and one man one woman in the image.',
+        "text": "\n 1. A man with a mustache is wearing a blue shirt and is smiling.\n 2. A woman is wearing a floral dress and is smiling.\n 3. An elderly woman is wearing a sari and is smiling.\n 4. A man in a white shirt is standing next to the woman in the sari.\n 5. The setting is indoors, with a wooden cabinet and a painting on the wall.\n 6. The woman in the sari is holding a newspaper.\n 7. The man in the blue shirt is standing next to the woman in the floral dress.\n 8. The elderly woman in the sari is standing next to the man in the white shirt.\n 9. The man in the blue shirt is standing next to the woman in the floral dress.\n 10. The woman in the sari is standing next",
+    },
+]
