@@ -39,7 +39,7 @@ def create_partial_prompt(agg):
     txt = ""
     for d in agg:
         if d["type"] == "known":
-            s = f' "{d["name"]}"({d["cnoun"]}) looks {d["emotion"]}, at {d["loc"]} '  #f'Face at coordinates {d["loc"]} is of "{d["name"]}", a "{d["cnoun"]}" expressing "{d["emotion"]}" emotion. '
+            s = f' "{d["name"]}"-{d["cnoun"]} looks {d["emotion"]}, at {d["loc"]} '  #f'Face at coordinates {d["loc"]} is of "{d["name"]}", a "{d["cnoun"]}" expressing "{d["emotion"]}" emotion. '
             txt += s
         if d["type"] == "unknown":
             txt += " and "
