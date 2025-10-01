@@ -20,7 +20,7 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
         prompt = """<|im_start|>system
         A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. 
         Do not hallucinate and gives very close attention to the details and takes time to process information provided, your response must be entirely in prose. Absolutely no lists, bullet points, or numbered items should be used. 
-        Ensure the information flows seamlessly within paragraphs.
+        Ensure the information flows seamlessly within paragraphs. Ensure that all double and single quotes are escaped with backslash: "This is a \"quoted\" pharse." or 'I\'m going now'.
         <|im_end|>
         <|im_start|>user
         <image>"{question}" It is extremely important that, response "MUST" include the NAMES OF PEOPLE and EMOTIONS provided "{partial_prompt}" and the location details "{location}" in the response.

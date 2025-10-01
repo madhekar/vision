@@ -663,5 +663,205 @@
 ]
 
 ##
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8548.PNG",
+        "id": "2181e414-f3c8-4ec6-bcbd-6d9156dad8ec",
+        "ts": "1727049371.0",
+        "latlon": "(34.118225, -118.300636)",
+        "loc": "Glendale",
+        "ppt": "",
+        "text": '\n \nThe image captures a breathtaking view of the city of Glendale, California. From a high vantage point, the city sprawls out below, a testament to human ingenuity and urban planning. The cityscape is a mix of buildings of varying heights, their colors muted under the bright sunlight. The buildings are densely packed, indicating a bustling city life.\n\nThe city is nestled amidst nature, with trees and hills forming a natural boundary. The greenery provides a stark contrast to the concrete jungle, reminding us of the coexistence of urban development and nature. The clear blue sky overhead is devoid of clouds, suggesting a sunny day.\n\nThe image does not provide specific details about the landmark "sa_1690". However, based on the search results, "sa_1690" could refer to a property located at 169',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8632.PNG",
+        "id": "4ec13c20-1fa3-463e-ace3-2773416b7070",
+        "ts": "1728694266.0",
+        "latlon": "(32.967686, -117.188989)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n \nThe image captures a serene scene of a wooden boardwalk leading towards a sunset. The boardwalk, constructed from wooden planks, meanders through a field of tall grass and shrubs, inviting one to take a leisurely stroll. The sun, partially obscured by the horizon, casts a warm, golden glow over the entire scene, enhancing the tranquil ambiance. The sky, painted in hues of orange, serves as a stunning backdrop to the setting sun. The perspective of the image is from the ground, looking up at the boardwalk, giving a sense of depth and inviting the viewer to imagine walking along this path. The image does not provide any specific details about the "Madhekar Residence Home in San Diego". The overall composition of the image suggests a peaceful and relaxing environment, perfect for a quiet evening walk.',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8517.PNG",
+        "id": "9d6bda42-dfbb-42d8-9a83-18107b5e98e3",
+        "ts": "1726765234.0",
+        "latlon": "(32.968764, -117.184067)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n 1. Data formats:\n\t* (SHP) - geometry, (kml) - geographic information system (GIS) data, (gml) - geographic information system (GIS) data, (geojson) - geographic information system (GIS) data, (geojson) - geographic information system (GIS) data, (geojson) - geographic information system (GIS) data, (geojson) - geographic information system (GIS) data, (geojson) - geographic information system (GIS) data, (geojson) - geographic information system (GIS) data, (geojson) - geographic information system (GIS) data, (geojson) - geographic information system (GIS) data, (geojson) - geographic information system (GIS) data, (geojson) - geographic information system (GIS) data, (geojson) -",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8216.PNG",
+        "id": "f4ec1a29-b157-473f-a8e2-6535442bcb8a",
+        "ts": "1717625401.0",
+        "latlon": "(32.968875, -117.184067)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n 1. "Juicy, big, layered with toppings of choice, topped with cheese and bacon on a multigrain bun."\n 2. "A triple burger with all the fixings, lettuce, cheese, tomato, onion, and special sauce or mayonnaise."\n 3. "Nutrition Facts"\n 4. "Calories: 500"\n 5. "Calories from fat: 250"\n 6. "Sodium: 1200 mg"\n 7. "Total Carbohydrate: 50 g"\n 8. "Dietary Fiber: 10 g"\n 9. "Sugars: 5 g"\n 10. "Protein: 25 g"\n 11. "Vitamin A: 2',
+    },
+]
 
-[{'uri': '/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8589.PNG', 'id': '2fff897b-31f2-44bd-a664-949d67c4f47e', 'ts': '1727748682.0', 'latlon': '(32.968906, -117.184233)', 'loc': 'Madhekar Residence Home in San Diego', 'ppt': '', 'text': '\n \nThe image you provided shows a close-up of a bathroom fixture. The fixture is made of white porcelain and has a silver metal pipe attached to it. The pipe is connected to a white plastic connector, which is secured with a silver metal clamp. The pipe is also connected to a beige rope-like hose, which is secured with a silver metal ring. The background of the image is blurred, but it appears to be a bathroom wall. The image does not provide any information about the location of the bathroom or the residence it is in. The term "Madhekar Residence Home in San Diego" does not appear to be related to the image. I'm sorry, but I don't have enough information to provide a detailed description of the image. Can you please provide more context or clarify your question?The image you provided shows a close-up of a bathroom fixture. The fixture is made of white porcelain and has a silver metal pipe attached to it. The pipe is connected to a white plastic connector, which is secured with a silver metal clamp.'}, {'uri': '/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8481.PNG', 'id': '50dceb37-8fda-4d1d-a0ce-3a3c796d76aa', 'ts': '1725997816.0', 'latlon': '(32.968628, -117.18425)', 'loc': 'Madhekar Residence Home in San Diego', 'ppt': ' "Anjali", a sad woman, at (2918, 802) and 3 women in the image.', 'text': '\n \nAnjali, a woman with dark hair, stands in front of a table adorned with a pink tablecloth and various offerings. She is dressed in a traditional Indian outfit, her hands clasped together in front of her. The table is decorated with a variety of items, including a statue of a deity, a vase of flowers, and a bowl of fruit. The background features a wall with a red curtain and a statue of a deity. The scene is set in the Madhekar Residence Home in San Diego. Anjali appears to be in a state of sadness, her gaze directed downwards. The offerings on the table suggest a religious or spiritual ceremony. The deity statues and the vase of flowers indicate a reverence for the divine. The bowl of fruit adds a touch of color and life to the otherwise solemn scene. The red curtain in the background provides a vibrant contrast to the pink tablecloth and the various offerings on the table. Overall, the image captures a moment of quiet reflection and devotion. \n'}, {'uri': '/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8120.PNG', 'id': '6acfca9a-1566-4aaa-b0f6-becd50c83461', 'ts': '1715192593.0', 'latlon': '(32.968778, -117.184181)', 'loc': 'Madhekar Residence Home in San Diego', 'ppt': ' and one man in the image.', 'text': '\n 1. Fine-tuning begins with high-quality training data.\n2. Multiple paths to high-quality training data: curated, assembled, human generated, synthetically generated.\n3. Training data must represent ground truth.\n4. Training data must also adopt consistency for desired style/tone/format.\n5. If synthetically generated, explore validating and refining training data qua.\n6. Align Your AI: Best Practices for LLM & ML Models.\n7. Anthony Bushong, Chloe Condon.\n8. Madhekar Residence Home in San Diego.\n9. Anthony Bushong is a software engineer and Chloe Condon is a data scientist.\n10. Anthony and Chloe are excited about the potential of AI and are eager to learn more about the best practices for LLM and ML models.\n11. They are located in San Diego, which is known for its thriving tech industry.\n12. Anthony and Chloe are both passionate about using AI to solve real-world problems and are committed to staying up-to-date with the'}, {'uri': '/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8338.PNG', 'id': '9e1ec520-a2e5-43d7-8d4c-918ba560e13e', 'ts': '1720111885.0', 'latlon': '(32.96865, -117.184106)', 'loc': 'Madhekar Residence Home in San Diego', 'ppt': '', 'text': "\n \nThe image captures a vibrant scene from the Madhekar Residence Home in San Diego. A lush green plant with large leaves and yellow flowers is growing on the side of a beige wall. The plant is thriving, with its leaves reaching out towards the sky, as if trying to touch the clouds. The yellow flowers are in full bloom, adding a pop of color to the green leaves. The beige wall provides a neutral backdrop that allows the plant to stand out. The perspective of the image is from the ground, looking up at the plant, giving a sense of scale and grandeur to the plant. The image is a beautiful representation of nature's resilience and beauty. The image showcases a beautiful scene from the Madhekar Residence Home in San Diego. The main focus of the image is a lush green plant with large leaves and yellow flowers. The plant is growing on the side of a beige wall, creating a striking contrast between the vibrant green of the plant and the neutral beige of the wall. The leaves of the plant are large and spread out, reaching towards the sky as if trying to touch the clouds. The"}]
+###
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8600.PNG",
+        "id": "110afdb2-7e64-4f46-845e-2a01491ae86b",
+        "ts": "1727979479.0",
+        "latlon": "(32.968772, -117.18415)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n 1. Introduction\n2. Programming languages used\n3. Tools used\n4. Databases used\n5. Memory management\n6. File management\n7. Networking\n8. Security\n9. User interface\n10. Summary\n11. References\n12. Appendix\n13. My App\n14. My App - Introduction\n15. My App - Programming languages used\n16. My App - Tools used\n17. My App - Databases used\n18. My App - Memory management\n19. My App - File management\n20. My App - Networking\n21. My App - Security\n22. My App - User interface\n23. My App - Summary\n24. My App - References\n25. My App - Appendix\n26. My App - Introduction\n27. My App - Programming languages used\n28",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8544.PNG",
+        "id": "7e09bce7-a449-42b4-be79-72ae032217da",
+        "ts": "1727039295.0",
+        "latlon": "(34.044619, -118.565492)",
+        "loc": "Topanga State Park-Topanga",
+        "ppt": ' "Anjali", a neutral man, at (1414, 2127) and in the image.',
+        "text": "\n \nAnjali, a woman with long dark hair, stands in front of a large, circular pool. She is wearing a bright yellow shirt and blue jeans. The pool is surrounded by lush greenery and a statue of a lion. The building behind her is a large, white structure with a red roof and columns. The sky above is a clear blue with a few clouds. The location appears to be Topanga State Park. Anjali seems to be enjoying her time at the park.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8232.PNG",
+        "id": "6f5e5d4c-f4fa-4f71-8c8f-e34c0b2c59f7",
+        "ts": "1717708751.0",
+        "latlon": "(32.968717, -117.183961)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n \nThe image displays a computer screen showcasing a webpage for a course on "Vector Database". The webpage is designed with a clean white background and is adorned with a red header at the top. The header contains the title "Vector Database" and a navigation bar with links to different courses.\n\nThe main content of the webpage is a diagram illustrating the process of creating a vector database. The diagram is neatly divided into two sections. The left section represents the "Query" and the right section represents the "Process with Imm". The diagram is interactive with buttons that allow users to pick the n or m of the query and to pick the n or m of the process.\n\nThe webpage also includes a footer with copyright information. The text "The original vector code can be found in the LM" is visible, indicating that the course provides access to original vector code.\n\nThe overall layout of the webpage is user-friendly and informative,',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8332.PNG",
+        "id": "c82f8581-0a1c-474e-ae8b-91440602e430",
+        "ts": "946717261.0",
+        "latlon": "(32.968689, -117.184243)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": " and one man in the image.",
+        "text": "\n एवं संज्ञानि संज्ञानि संज्ञानि संज्ञानि संज्ञानि संज्ञानि संज्ञानि संज्ञानि संज्ञानि संज्ञानि संज्ञानि संज्ञानि संज्ञानि संज्ञानि संज्ञानि संज्ञानि संज्ञानि संज्ञ",
+    },
+]
+
+##
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8246.PNG",
+        "id": "b800b227-b9cc-4c4d-84bc-084d21e16de0",
+        "ts": "1718062143.0",
+        "latlon": "(32.968772, -117.184167)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": ' "Esha", a happy woman, at (1202, 1316) and in the image.',
+        "text": '\n Esha, a young woman with long dark hair, is sitting at a table in the Madhekar Residence Home in San Diego. She is wearing a blue t-shirt that says "Berkeley" and is holding a black mug with a gold design. The mug is filled with a hot beverage, and she is smiling as she takes a sip. The table in front of her has a white plate with a blue napkin on it. The background is a beige wall with a painting hanging on it. The painting is of a flower. Esha seems to be enjoying her time at the residence, and her smile suggests that she is in a good mood.',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8488.PNG",
+        "id": "63b001ef-a689-41d1-858d-760d037df528",
+        "ts": "1726116567.0",
+        "latlon": "(32.968794, -117.184083)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": " and one man in the image.",
+        "text": "\n 11 Restaurants, 1 Hotel, 1 Thing to do, 1 Trip to do, 1 Parking, 1 Observatory, 1 Business, 1 Attraction, 1 Activity, 1 Nearby, 1 Share, 1 Send to, 1 Share to, 1 Share with, 1 Share on, 1 Share on Facebook, 1 Share on Twitter, 1 Share on LinkedIn, 1 Share on Pinterest, 1 Share on Google+, 1 Share on YouTube, 1 Share on Vimeo, 1 Share on TikTok, 1 Share on Snapchat, 1 Share on Instagram, 1 Share on Flickr, 1 Share on Reddit, 1 Share on Quora, 1 Share on Medium, 1 Share on BuzzFeed, 1 Share on HuffPost, 1 Share on GQ,",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8196.PNG",
+        "id": "34e52188-f7a2-4427-8ac8-4ca1f9c6962c",
+        "ts": "1717619613.0",
+        "latlon": "(32.968778, -117.184181)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n 1. The image is a screenshot of a presentation slide.\n 2. The slide is titled "How do GPT Models Work?".\n 3. The slide has a white background with black text.\n 4. The slide contains a diagram with green boxes and arrows.\n 5. The diagram is labeled "Token Probability".\n 6. The diagram shows the flow of information from the input to the output.\n 7. The slide also contains text that explains the process.\n 8. The slide is displayed on a computer monitor.\n 9. The monitor is located in a room.\n 10. The room is the "Madhekar Residence Home in San Diego".\n 11. The slide is part of a presentation.\n 12. The presentation is about GPT models.\n 13. The slide is informative and educational.\n 14. The slide is well',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8188.PNG",
+        "id": "76399752-99ea-4088-b247-0dad2c1d7f64",
+        "ts": "1717547224.0",
+        "latlon": "(32.968869, -117.184119)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n \nThe image you provided is a screenshot of a webpage that is titled "Understanding Contrastive Learning for Multimodal Data". The webpage is designed with a clean, white background and is framed by a red border. The title is prominently displayed at the top of the page in a bold, blue font.\n\nThe main content of the webpage is a diagram that illustrates the concept of contrastive learning for multimodal data. The diagram is composed of several shapes and arrows, each representing a different aspect of the learning process. The shapes are colored in shades of green and purple, while the arrows are depicted in black and red.\n\nThe diagram is neatly organized and each element is clearly labeled, making it easy to understand the flow of information. The webpage also includes a footer that contains the text "Science Education at San Diego" and a copyright notice for DeepLearning.AI.\n\n',
+    },
+]
+
+##
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8493.PNG",
+        "id": "961019cb-2285-46fb-aa3a-bdd767a75cca",
+        "ts": "1726277167.0",
+        "latlon": "(32.971256, -117.179428)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n \nThe image captures a serene scene of a sunset over a residential area in San Diego, California. The sun is descending behind the houses, casting a warm, golden glow across the sky. The sky itself is a beautiful blend of orange and blue hues, with a few clouds scattered in the distance.\n\nThe perspective of the image is from a wooden fence that runs along the left side, leading the viewer's eye towards the houses in the background. The fence, made of wooden posts and rails, adds a rustic charm to the scene.\n\nThe houses in the background are nestled among lush green trees and bushes, creating a harmonious blend of nature and architecture. The colors in the image are predominantly orange, blue, and green, reflecting the warmth of the setting sun and the coolness of the evening sky.\n\nThe image does not contain any discernible text or",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8463.PNG",
+        "id": "8d907698-24c2-4305-ac9c-b10a96f984a7",
+        "ts": "1725679560.0",
+        "latlon": "(32.968772, -117.184144)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n \nThe image captures a vibrant and colorful scene from a traditional Indian celebration. The centerpiece of the image is a statue of the Hindu deity, Ganesha, who is depicted with four arms, each holding a different object. Ganesha is seated on a red and gold throne, which is adorned with a green and gold canopy. The throne is placed on a table covered with a pink and gold tablecloth, adding to the festive atmosphere.\n\nIn front of the statue, there are two plates of food. One plate contains white dumplings, while the other has red dumplings. These plates are placed on the table, ready to be offered to the deity.\n\nThe background of the image features a blue and gold curtain, which is decorated with white and gold tassels. This curtain adds a touch of elegance to the scene.\n",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8230.PNG",
+        "id": "c2623001-7ccd-48fc-9af7-fb005d51d750",
+        "ts": "1717708697.0",
+        "latlon": "(32.968764, -117.184114)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n \nThe image displays a computer screen showing a diagram of a vector database. The diagram is composed of several elements, including a red rectangle, a blue rectangle, and a green rectangle. These rectangles are connected by lines, forming a network-like structure. The rectangles are labeled with numbers and letters, indicating different components of the database.\n\nThe diagram also includes a text box with the title "Vector Database" and a note that reads "Next Lesson". This suggests that the diagram is part of an educational resource, possibly for teaching about vector databases.\n\nThe screen is set against a red background, which contrasts with the white text and makes the diagram stand out. The overall layout of the diagram and the accompanying text is clear and organized, making it easy to understand the concept being presented.\n\nThe image does not provide any specific information about the location "Madhekar Residence Home in San Diego". However, the presence of the "Next Less',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8381.PNG",
+        "id": "7e037a67-e169-4728-ae5d-536c55e6a57a",
+        "ts": "1721704027.0",
+        "latlon": "(32.968783, -117.184167)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n \nThe image you've sent is a whiteboard with red writing. It appears to be a list of ingredients for a recipe. The recipe is for Peanut Butter Ketchup, and it includes ingredients such as peanut butter, ketchup, and sugar. The list also includes instructions for how to make the ketchup, such as mixing the ingredients together and adjusting the sweetness to taste. The whiteboard is located in a kitchen, and the text on it is written in red marker. The overall impression is that someone has been experimenting with different recipes and has decided to try making their own version of Peanut Butter Ketchup. It's a fun and creative way to enjoy a classic condiment with a twist. I'm sorry, but I don't have enough information to identify the specific landmark you're referring to. Could you please",
+    },
+]
+
+#
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8652.PNG",
+        "id": "f0d801f4-8f32-42c6-b941-86f75a4386d0",
+        "ts": "1729298794.0",
+        "latlon": "(32.970683, -117.181433)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n \nThe image captures a serene scene of a sunset at the Madhekar Residence Home in San Diego. The sun, a radiant orb of light, is descending behind a cluster of trees, casting a warm, golden glow across the sky. The sky itself is a breathtaking canvas of orange and yellow hues, reflecting the sun's last rays of the day.\n\nIn the foreground, a wooden fence stands guard, its rustic charm adding to the overall tranquility of the scene. Beyond the fence, a dirt path meanders through the landscape, inviting one to take a leisurely stroll and soak in the beauty of the surroundings.\n\nThe perspective of the image is from the ground, looking up at the sunset. This angle gives a sense of awe and wonder, as if one is standing at the foot of a mountain, gazing up",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8618.PNG",
+        "id": "7d8d9028-4338-46bd-975b-739d27c583bd",
+        "ts": "1728434712.0",
+        "latlon": "(32.970872, -117.178681)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n \nThe image captures a serene scene at the Madhekar Residence Home in San Diego. A dirt path, lined with lush green bushes and trees, meanders through the landscape, inviting one to explore its tranquility. The path is bordered by a sturdy wooden fence on the right, adding a rustic charm to the scene.\n\nThe sun is setting in the background, casting a warm, golden glow over the entire scene. The sky above is a clear blue, providing a beautiful contrast to the earthy tones of the path and the surrounding vegetation.\n\nOn the left side of the path, there's a house that appears to be part of the Madhekar Residence Home. Its architecture blends harmoniously with the natural surroundings, enhancing the overall peaceful ambiance of the scene.\n\nThe image is taken from a low angle, which emphasizes the",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8193.PNG",
+        "id": "e3748965-10d2-4303-8e6b-17151529cb0f",
+        "ts": "1717548149.0",
+        "latlon": "(32.968778, -117.184181)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n 3. Offers\n 4. Review items and shipping\n Arriving June 10, 2024\n Items shipped from Amazon.com\n Minimum Purchase: 4.99\nMinimumOrderQuantity:1\nMinimumOrderValue:4.99\nMinimumOrderQuantity:1\nMinimumOrderValue:4.99\n Shipping: Free\n Free Delivery: Yes\n Free Shipping: Yes\n Free Shipping on Orders Over 35\nFreeShippingonOrdersOver35\nFreeShippingonOrdersOver49\n Free Shipping on Orders Over 59\nFreeShippingonOrdersOver59\nFreeShippingonOrdersOver69\n Free Shipping on Orders Over 79\nFreeShippingonOrdersOver79\nFreeShippingonOrdersOver89\n Free Shipping on Orders Over 99\nFreeShippingonOrdersOver99\nFreeShippingonOrdersOver109\n Free Shipping on Orders Over $11",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8318.PNG",
+        "id": "838d60db-5a85-45e1-8ac2-771ab46b2019",
+        "ts": "1719707870.0",
+        "latlon": "(32.92355, -117.258644)",
+        "loc": "Torrey Pines State Reserve San Diego",
+        "ppt": "",
+        "text": '\n \nThe image captures a scene from the Torrey Pines State Reserve in San Diego, California. The main focus is a rectangular wooden plaque, weathered by time and elements, nestled in a bed of dry grass and shrubs. The plaque is slightly tilted, adding a sense of depth and perspective to the image.\n\nThe plaque bears the inscription "Torrey Pines State Reserve San Diego", indicating its location. The text is clear and legible, standing out against the natural backdrop. The surrounding vegetation, a mix of dry grass and shrubs, adds a rustic charm to the scene.\n\nThe image is taken from a slightly elevated angle, providing a comprehensive view of the plaque and its surroundings. This perspective allows for a detailed observation of the plaque\'s condition, the state of the vegetation, and the overall setting.\n\nThe colors in the image are muted',
+    },
+]
