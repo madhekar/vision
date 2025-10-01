@@ -865,3 +865,42 @@
         "text": '\n \nThe image captures a scene from the Torrey Pines State Reserve in San Diego, California. The main focus is a rectangular wooden plaque, weathered by time and elements, nestled in a bed of dry grass and shrubs. The plaque is slightly tilted, adding a sense of depth and perspective to the image.\n\nThe plaque bears the inscription "Torrey Pines State Reserve San Diego", indicating its location. The text is clear and legible, standing out against the natural backdrop. The surrounding vegetation, a mix of dry grass and shrubs, adds a rustic charm to the scene.\n\nThe image is taken from a slightly elevated angle, providing a comprehensive view of the plaque and its surroundings. This perspective allows for a detailed observation of the plaque\'s condition, the state of the vegetation, and the overall setting.\n\nThe colors in the image are muted',
     },
 ]
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8201.PNG",
+        "id": "83d737a9-0e38-4344-9a31-8fe924a759ee",
+        "ts": "1717621485.0",
+        "latlon": "(32.968778, -117.184181)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n \nThe image you provided is a screenshot of a computer screen displaying a text document. The document appears to be a tutorial or guide on how to use a figure in a LaTeX document. The text is written in black and is displayed on a white background. The document is well-structured and organized, with clear headings and subheadings. The text is written in a formal and academic tone, indicating that it is intended for a professional or educational audience. The document is well-formatted, with clear paragraphs and bullet points, making it easy to read and understand. The document is well-cited, with references to other sources, indicating that it is well-researched and reliable. The document is well-designed, with a clear layout and a consistent font and style throughout. The document is well-written, with clear and concise language, making it easy to follow and understand. The document is well-structured, with a clear introduction, body,",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8621.PNG",
+        "id": "37afd58d-54f8-4dbc-9d76-1fb772b41978",
+        "ts": "1728521248.0",
+        "latlon": "(32.970867, -117.179017)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene scene at the Madhekar Residence in San Diego. The main focus is a wooden boardwalk that meanders through a lush landscape. The boardwalk, constructed from wooden planks, is bordered by a sturdy wooden railing on the right side, providing a sense of safety and direction. \n\nThe boardwalk is nestled amidst an abundance of greenery, with trees and bushes flanking it on both sides, their leaves rustling gently in the breeze. The vegetation is dense and appears well-maintained, adding to the tranquility of the scene.\n\nThe sky above is a clear blue, with the sun setting in the background, casting a warm, golden glow over the entire scene. The sun's position suggests it's either early evening or late morning.\n\nIn the distance, partially obscured by the foliage, are houses",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8667.PNG",
+        "id": "cbadcf99-8f7d-4fb5-a5d2-d84afec4e671",
+        "ts": "1729558479.0",
+        "latlon": "(32.968656, -117.187142)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n \nThe image captures a serene scene of a sunset over a residential area. The sun, partially obscured by clouds, is setting behind a row of houses. The houses, painted in shades of white and beige, are topped with black roofs. They are nestled amidst lush greenery, with trees and bushes adding to the tranquility of the scene.\n\nIn the foreground, a wooden fence made of posts and rails can be seen. The fence, with its rustic charm, adds a touch of warmth to the scene. The sky, painted in hues of orange and yellow, creates a beautiful backdrop for the setting sun.\n\nThe image is taken from a low angle, which gives a unique perspective to the viewer. It makes the viewer feel as if they are standing right there, looking up at the houses and the setting sun. The image does not contain any text or other disc",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8371.PNG",
+        "id": "15b2b90a-8644-401a-a96a-a62f2640b692",
+        "ts": "1720971083.0",
+        "latlon": "(32.929072, -117.259828)",
+        "loc": "Torrey Pines State Reserve San Diego",
+        "ppt": ' "Anjali", a neutral woman, at (1661, 1046) and in the image.',
+        "text": "\n \nAnjali, a neutral woman, is sitting on a large rock at Torrey Pines State Reserve in San Diego. She is wearing a pink and maroon patterned sweater, blue pants, and gray sneakers. Her arms are crossed and she is looking off into the distance, possibly enjoying the view of the ocean. The sky is cloudy and the ocean is visible in the background. The image captures a peaceful moment of solitude and reflection.",
+    },
+]
