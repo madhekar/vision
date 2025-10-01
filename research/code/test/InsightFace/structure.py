@@ -363,3 +363,44 @@
         "text": "\n 1. A man with a mustache is wearing a blue shirt and is smiling.\n 2. A woman is wearing a floral dress and is smiling.\n 3. An elderly woman is wearing a sari and is smiling.\n 4. A man in a white shirt is standing next to the woman in the sari.\n 5. The setting is indoors, with a wooden cabinet and a painting on the wall.\n 6. The woman in the sari is holding a newspaper.\n 7. The man in the blue shirt is standing next to the woman in the floral dress.\n 8. The elderly woman in the sari is standing next to the man in the white shirt.\n 9. The man in the blue shirt is standing next to the woman in the floral dress.\n 10. The woman in the sari is standing next",
     },
 ]
+
+###
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/5e144618-aea4-4365-95ad-375ae00a1133.jpg",
+        "id": "c252a40b-f2f9-4e5c-8b9f-71647dbabbe9",
+        "ts": "1758227104.0",
+        "latlon": "(18.507399, 73.807648)",
+        "loc": "",
+        "ppt": ' "Asha", a woman looks happy, at (291, 276) and 2 men 2 women one boy in the image.',
+        "text": "\n 1. Asha, a woman with red hair, is wearing a vibrant red and gold sari. She is smiling and has a necklace around her neck.\n 2. A man in a white shirt is standing next to Asha. He is looking directly at the camera.\n 3. In the background, there are other people present, but their details are not clearly visible.\n 4. The setting appears to be indoors, possibly at a social gathering or event.\n 5. Asha and the man in the white shirt seem to be the main subjects of the photo.\n 6. Asha's expression and attire suggest that she might be celebrating a special occasion or participating in a cultural event.\n 7. The man in the white shirt appears to be posing for the photo with Asha.\n 8. The overall atmosphere of the photo seems to be cheerful and",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/dedde329-910e-4176-ba3c-92afa234c07a.JPG",
+        "id": "36bd74ae-0e34-4fa4-8c39-54be5ae3ebdd",
+        "ts": "1758226998.0",
+        "latlon": "(19.101053, 74.740677)",
+        "loc": "Ahmednagar",
+        "ppt": " and one woman in the image.",
+        "text": "\n 1. A woman with long black hair is standing in front of a blue wall.\n 2. The woman is wearing a blue and green sari.\n 3. The woman is standing with her arms crossed.\n 4. The woman is looking directly at the camera.\n 5. The woman is wearing a necklace.\n 6. The woman is wearing gold bangles on her wrists.\n 7. The woman is wearing gold earrings.\n 8. The woman is wearing a gold nose ring.\n 9. The woman is wearing a gold anklet.\n 10. The woman is wearing a gold bangle on her left wrist.\n 11. The woman is wearing a gold bangle on her right wrist.\n 12. The woman is wearing a gold bangle on her left wrist.\n 13. The woman",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/c97523c0-64db-4f68-94e5-59984427fbaf.jpg",
+        "id": "6a11191e-7e3f-4abf-864a-7751a6dc2df4",
+        "ts": "1758227122.0",
+        "latlon": "(17.65992, 75.906387)",
+        "loc": "Solapur",
+        "ppt": ' "Kumar", a man looks neutral, at (729, 65) "Asha", a woman looks neutral, at (192, 201) and in the image.',
+        "text": "\n \nThe image captures a serene moment in a park in Solapur. A man and a woman are seated on a blue bench, engaged in what appears to be a quiet conversation. The man, dressed in a red plaid shirt and gray pants, sits on the right side of the bench. His companion, a woman in a pink and white patterned dress, is seated on the left side of the bench.\n\nA few feet away from the bench, a cat is peacefully lying on the ground, seemingly undisturbed by the presence of the humans. The park itself is lush with greenery, with trees and bushes forming a natural backdrop to this tranquil scene. The overall atmosphere suggests a calm and relaxed day out in the park.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/f2ab6bfb-5adf-495c-9518-470af9dce1cf.jpg",
+        "id": "80d8f770-ee61-4ad9-80c5-2640d8a6d2eb",
+        "ts": "1758227098.0",
+        "latlon": "(18.507399, 73.807648)",
+        "loc": "",
+        "ppt": ' "Asha", a woman looks neutral, at (555, 186) and one woman in the image.',
+        "text": "\n 2 women are standing in front of a wall with a floral pattern. The woman on the left is wearing a red and gold sari and has a blue scarf draped over her shoulder. She is smiling at the camera. The woman on the right is wearing a blue and gold sari and has a necklace around her neck. She is looking directly at the camera. The wall behind them has a floral pattern and there is a white electrical outlet on the wall. The women are standing close together and appear to be posing for the photo.",
+    },
+]
