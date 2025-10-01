@@ -106,6 +106,7 @@ def init_predictor_module():
 predict known and unknown faces
 '''
 def predict_img_faces(app, new_image_path, svm_classifier, le):
+    llm_partial_pmt = ""
 
     new_img = cv2.imread(new_image_path)
     people = []
@@ -166,14 +167,10 @@ def predict_img_faces(app, new_image_path, svm_classifier, le):
         print(people)
 
         agg_cnt = count_people(people)
-
-        llm_partial_pmt = create_partial_prompt(agg_cnt)
-
-        print(llm_partial_pmt)
-
-        # cv2.imshow("Recognized Face", new_img)
-        # if cv2.waitKey(70000) & 0xFF == ord('q'):
-        #     cv2.destroyAllWindows()
+        
+        if agg_cnt != "":
+          llm_partial_pmt = create_partial_prompt(agg_cnt)
+          print(llm_partial_pmt)
     else:
         print("No face detected in the image.")
     return llm_partial_pmt
@@ -191,7 +188,7 @@ def execute():
     app, svm_classifier, le = init_predictor_module()
 
     # train model using faces dataset
-    predic_img_faces(app, img, svm_classifier, le)
+    predict_img_faces(app, img, svm_classifier, le)
 
 
 if __name__ == "__main__":

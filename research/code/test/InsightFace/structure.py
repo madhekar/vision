@@ -580,3 +580,84 @@
         "The image does not provide any additional details about their actions or the context of their interaction.",
     },
 ]
+####
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/588dc47f-0a7e-4ade-a114-df3754a46f4c.jpg",
+        "id": "0b360b25-8728-4be3-b31d-c559d37988db",
+        "ts": "1758227066.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": ' "Asha", a happy man, at (1145, 454) and 2 women in the image.',
+        "text": "\n 3 women are sitting on a couch in a room. The woman in the center is wearing a blue and green sari and is smiling. The woman on the left is wearing a pink and green sari and is smiling. The woman on the right is wearing a red and gold sari and is smiling. The room they are in is decorated with a painting on the wall. The painting is of a flower. The painting is hanging above the couch. The couch is brown. The women are sitting on the couch. The woman in the center is sitting between the other two women. The woman on the left is sitting to the left of the woman in the center. The woman on the right is sitting to the right of the woman in the center. The woman in the center is wearing a blue and green sari. The woman on the left is wearing a pink and green sari. The woman on the right",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/c31dc958-b569-4ce5-8645-ae094a42c7cf.jpg",
+        "id": "35a35b19-23ef-46e4-85bb-f19856a083b0",
+        "ts": "1758226943.0",
+        "latlon": "(17.65992, 75.906387)",
+        "loc": "Solapur",
+        "ppt": ' "Kumar", a happy man, at (903, 280) "Asha", a neutral woman, at (702, 226) and one woman in the image.',
+        "text": "\n \nThis image captures a heartwarming scene of three individuals enjoying a meal together at an outdoor restaurant in Solapur. The table, draped in a vibrant green tablecloth, is adorned with plates of food and a white bag, suggesting a shared meal.\n\nOn the left, a woman dressed in a white and orange striped dress is seen holding a fork, perhaps ready to savor her next bite. In the middle, another woman, wearing a pink and white dress, is also holding a fork, indicating her participation in the meal.\n\nOn the right, a man in a red plaid shirt is seen holding a spoon, possibly enjoying his meal. The background features a tree and a bamboo fence, adding to the outdoor ambiance of the setting.\n\nThe image exudes a sense of camaraderie and enjoyment,",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/337aef1b-7c83-4e19-8081-1215e2cded83-1.jpg",
+        "id": "ef282d44-1715-4212-ac3d-3243fa5ff851",
+        "ts": "1758227094.0",
+        "latlon": "(18.507399, 73.807648)",
+        "loc": "",
+        "ppt": ' "Asha", a happy woman, at (308, 480) "Asha", a sad man, at (115, 559) "Esha", a happy woman, at (1378, 570) and one man one woman in the image.',
+        "text": "\n \nThe image captures a heartwarming scene of a family of four enjoying a meal together at a restaurant. The family is seated around a table, which is adorned with a pristine white tablecloth and an array of dishes. The table is set with metal plates, bowls, and cups, each filled with a variety of delicious food.\n\nOn the left side of the table, a woman in a vibrant green sari is seen holding a plate of food, her face lit up with a smile. Next to her, a young girl in a pink dress is also holding a plate of food, her eyes sparkling with joy.\n\nOn the right side of the table, another woman in a striking red sari is seen holding a plate of food. Beside her, a man in a crisp white shirt is also holding a plate of food, his face reflecting contentment.\n",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/fce7616e-d485-403b-ba29-e33d5b80df09.jpg",
+        "id": "eb5bb617-1860-4cc9-ba74-285791f7c71e",
+        "ts": "1758226970.0",
+        "latlon": "(17.65992, 75.906387)",
+        "loc": "Solapur",
+        "ppt": ' "Asha", a sad woman, at (256, 480) "Kumar", a neutral man, at (425, 352) and one man one woman in the image.',
+        "text": "\n \nThe image captures a heartwarming moment in a field of tall, green plants. Four individuals are present, each exhibiting a unique emotion and attire. \n\nOn the left, a woman with vibrant red hair is seen wearing a pink and white patterned dress. She stands next to a man who is bald and dressed in a red plaid shirt. Their proximity suggests a close relationship.\n\nIn the center, an elderly woman with gray hair is holding a white scarf. Her calm demeanor contrasts with the lively energy of the others.\n\nTo the right, a man with glasses is smiling, his joy infectious. His position and expression suggest he might be the life of the gathering.\n\nIn the background, a statue of a man in a white robe stands tall, adding a historical or cultural significance to the scene. The statue's location and attire",
+    },
+]
+
+###
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/85e6e4c0-b0ce-5bdd-98d9-93fce0ea9e17/IMG_7262.PNG",
+        "id": "c014d829-bdae-491e-99aa-7a2714c05b7d",
+        "ts": "1689204935.0",
+        "latlon": "(32.968769, -117.184189)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n \nThe image you provided is a close-up of a wooden chair leg. The leg is made of dark wood and has a gold-colored metal bolt in the center. The bolt is surrounded by a gold-colored metal chain, which is wrapped around the bolt and the leg. The leg is resting on a bed of clear plastic bags. The background is blurred, but it appears to be a room with a wooden floor and a window. The image does not provide any information about the Madhekar Residence Home in San Diego.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8164.PNG",
+        "id": "5c4bb3ec-a6dc-49e4-83ab-38d556d1ac23",
+        "ts": "1717537423.0",
+        "latlon": "(32.968778, -117.184181)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n 18.98.3 18.98.2 18.98.1 18.98 18.97.9 18.97.8 18.97.7 18.97.6 18.97.5 18.97.4 18.97.3 18.97.2 18.97.1 18.96.9 18.96.8 18.96.7 18.96.6 18.96.5 18.96.4 18.96.3 18.96.2 18.96.1 18.95.9 18.95.8 18.95.7 18.95.6 18.95.5 18.95.4 18.95.3 18.95.2 18.95.1 18.9",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8434.PNG",
+        "id": "f5050b0c-4ceb-484c-8062-56904881eaad",
+        "ts": "1724977280.0",
+        "latlon": "(32.968778, -117.18415)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n \nThe image shows a computer screen displaying a webpage with the title "Example" in blue text. The webpage has two sections, one in black text and the other in green text. The black text section contains a list of instructions, while the green text section contains a list of options. The webpage is open on a MacBook Pro, which is placed on a desk in a room with a window. The window is located on the left side of the desk, and there is a plant on the right side of the desk. The room appears to be well-lit, with natural light coming in through the window. The MacBook Pro is the only electronic device visible in the image. The webpage seems to be related to programming or coding, as it contains technical terms and instructions. The green text section may contain options or choices for the user to select, while the black text section provides detailed instructions for completing a task. The overall layout of the webpage is clean and organized, with clear headings and bullet points. The colors used in the webpage are simple and easy to read, with a contrast between the black and green text and the white background. The webpage appears to be professionally designed, with a focus on clarity',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8203.PNG",
+        "id": "3fd2140d-d5b8-4652-8842-e94663d47491",
+        "ts": "1717623584.0",
+        "latlon": "(32.968778, -117.184181)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n 1. The image is a screenshot of a presentation slide.\n 2. The slide is titled "Vision Transformers".\n 3. The slide has a blue background with white text.\n 4. The slide contains a diagram of a Vision Transformer.\n 5. The diagram consists of a series of rectangles and arrows.\n 6. The rectangles are labeled "Vect" and the arrows are labeled "Vect".\n 7. The diagram is arranged in a grid with 3 rows and 7 columns.\n 8. The diagram is colored in shades of blue and green.\n 9. The slide is set against a white background.\n 10. The slide is displayed on a computer screen.\n 11. The slide is part of a presentation.\n 12. The slide is intended to explain the concept of Vision Transformers.\n 13. The slide is designed to be informative and visually appealing.\n 14. The slide is intended to be easy to understand.\n 15. The slide is intended to be informative and visually appealing.\n ',
+    },
+]
