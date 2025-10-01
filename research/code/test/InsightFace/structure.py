@@ -404,3 +404,85 @@
         "text": "\n 2 women are standing in front of a wall with a floral pattern. The woman on the left is wearing a red and gold sari and has a blue scarf draped over her shoulder. She is smiling at the camera. The woman on the right is wearing a blue and gold sari and has a necklace around her neck. She is looking directly at the camera. The wall behind them has a floral pattern and there is a white electrical outlet on the wall. The women are standing close together and appear to be posing for the photo.",
     },
 ]
+
+###
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/ef8cefec-7bd1-4f27-ac44-2e0187991ebd-1.jpg",
+        "id": "b3801436-55cb-473f-ad20-a93fc79253f9",
+        "ts": "1758227039.0",
+        "latlon": "(18.50989, 73.807182)",
+        "loc": "Kothrud Pune",
+        "ppt": ' "Kumar"-man looks angry, at (786, 66) and 4 men one woman one boy in the image.',
+        "text": "\n \nThe image captures a lively scene in Kothrud, Pune. A group of people, including a man, a woman, and a boy, are gathered around a tree. The man, dressed in a blue striped shirt, stands with his arms crossed, exuding an air of confidence. The woman, adorned in a vibrant yellow sari, sits comfortably on a bench, her posture relaxed. The boy, wearing a crisp white shirt, is seated on the ground, his attention seemingly captivated by something off-camera.\n\nIn the background, a red car is in motion, adding a dynamic element to the otherwise serene setting. The tree under which the group has congregated is lush with green leaves, providing a stark contrast to the urban surroundings. The image beautifully encapsulates a moment of camaraderie and tranquility amid",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/54b76fbf-140b-4d99-b18c-9c30716d1872-1.jpg",
+        "id": "85022d28-38ba-4b23-a1e9-018bd761fd06",
+        "ts": "1758226882.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": " and 2 men one boy in the image.",
+        "text": "\n \nThe image captures a tender moment between a young child and an older woman in a room. The child, dressed in a blue onesie adorned with white polka dots, is being held by the woman. The woman, clad in a green sari, is seated on a chair. The room they are in is simple, with a white wall serving as the backdrop. The woman's face is partially obscured by her sari, adding an air of mystery to the scene. The child's attention is drawn to something off-camera, their gaze fixed on it with curiosity. The image does not contain any discernible text. The relative positions of the objects suggest a close interaction between the woman and the child, with the woman holding the child securely. The overall atmosphere of the image is one of warmth and care.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/826d8b0d-38f3-4e64-b7ff-a98502049c45.jpg",
+        "id": "790b22b9-e644-4445-9c69-a44b2ac02c24",
+        "ts": "1758226889.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": ' "Kumar"-man looks angry, at (401, 137) and 3 men in the image.',
+        "text": "\n \nThe image captures a moment of camaraderie among four men in Sadaphuli Society in Pune. They are seated on a vibrant red mat, which contrasts with the white curtain in the background. The man on the far left, clad in a blue shirt, is looking down, perhaps deep in thought. Next to him, a man in a green shirt gazes towards the right, his attention seemingly caught by something off-frame. The third man, wearing a blue shirt like the first, is looking towards the left, creating a sense of balance in the composition. The fourth man, also in a blue shirt, is looking straight ahead, his gaze steady and focused.\n\nIn front of them is a table adorned with a fruit basket and a small statue, adding a touch of cultural richness to the scene. The fruit basket is filled with various fruits, their colors adding to the overall",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/7e9a4cc3-b380-40ff-a391-8bf596f8cd27.jpg",
+        "id": "54a2b41e-67d9-4058-8a44-1015ec3c304d",
+        "ts": "1758226884.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": ' "Asha"-girl looks sad, at (288, 283) "Kumar"-man looks sad, at (834, 123) and in the image.',
+        "text": "\n \nThe image captures a moment between two individuals, Asha and Kumar, at the Sadaphuli Society in Pune. Asha, adorned in a vibrant blue sari, is seen wearing a gold necklace that adds a touch of elegance to her attire. Her gaze is directed towards the camera, her expression reflecting a sense of sadness. \n\nOn the other side, Kumar, dressed in a casual gray shirt, is seen looking directly at Asha. His expression mirrors Asha's, adding a sense of depth to the image. The backdrop of the image is a simple beige curtain, which contrasts with the colorful attire of the individuals and brings them into focus. \n\nThe image is a beautiful representation of a moment shared between two individuals, their expressions speaking volumes about their emotions. The location, the Sadaphuli Society in Pune, adds a cultural",
+    },
+]
+
+###
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/IMG_3141.JPG",
+        "id": "81f2e81b-b272-4543-b4f4-7c399c25624d",
+        "ts": "1572728241.0",
+        "latlon": "(18.325447, 72.9561)",
+        "loc": "Usar",
+        "ppt": ' "Kumar", a man expressing neutral, at (125, 327) and one man in the image.',
+        "text": "\n \nIn the image, two men are standing on a beach, both wearing sunglasses and smiling. The man on the left is bald and wearing a blue and white striped shirt. The man on the right has a mustache and is wearing a white shirt. They are both looking directly at the camera, their smiles suggesting they are enjoying their time at the beach.\n\nIn the background, there are other people also enjoying their time on the beach. The sky above them is clear and blue, suggesting a sunny day. The ocean can be seen in the distance, its waves crashing against the shore.\n\nThe two men are standing close to each other, suggesting they might be friends or family. Their body language and expressions indicate they are having a good time together.\n\nOverall, the image captures a moment of joy and relaxation at the beach, with the two men as the main subjects.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/6c58a231-3369-4b46-867d-39e31985d313-1.jpg",
+        "id": "286ebf47-636e-4f48-b180-bdb41dd96136",
+        "ts": "1758227006.0",
+        "latlon": "(19.101053, 74.740677)",
+        "loc": "Ahmednagar",
+        "ppt": ' "Kumar", a man expressing neutral, at (178, 84) "Asha", a woman expressing neutral, at (336, 505) and in the image.',
+        "text": "\n \nThe image captures a serene moment between a man and a woman at a waterfall in Ahmednagar. The man, dressed in a white shirt and black pants, stands behind the woman, who is adorned in a white sari. He holds a red and white striped towel in his hand, perhaps to dry off after a dip in the water. The woman, seated on a rock, gazes at the camera with a neutral expression. The backdrop of the image is a breathtaking view of a waterfall cascading down rocks, adding to the tranquility of the scene. The image exudes a sense of calm and relaxation, as if inviting the viewer to join in and enjoy the beauty of nature.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/74eb3d57-326b-43d3-9e46-0e3205d6564e.jpg",
+        "id": "73d0c702-1584-4fdf-833e-efbb3223258a",
+        "ts": "1758226925.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": ' "Esha", a woman expressing happy, at (252, 140) "Kumar", a man expressing sad, at (804, 243) and one girl in the image.',
+        "text": "\n \nThe image captures a heartwarming scene in a living room. A man, dressed in a blue shirt, is seated on a couch, his attention focused on a chocolate cake placed on a glass table in front of him. The cake, adorned with white frosting and sprinkles, seems to be the center of his attention.\n\nBeside him, a young girl in a pink dress is seated, her gaze fixed on the cake. Her expression is one of anticipation, perhaps eager to taste the delicious treat.\n\nOn the other side of the glass table, a woman in a green dress is seated. She appears to be looking at the man, her expression reflecting a sense of happiness.\n\nThe room they are in is cozy and inviting. A television set is visible in the background, along with a vase of flowers that adds a touch of fresh",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/7b0b6775-e5a4-4cad-b0bc-ab1af3bebe72.jpg",
+        "id": "3318dcde-3ea9-4ad3-9cb5-6ae9fa49318b",
+        "ts": "1758227046.0",
+        "latlon": "(18.50989, 73.807182)",
+        "loc": "Kothrud Pune",
+        "ppt": ' "Kumar", a man expressing happy, at (795, 245) and one man in the image.',
+        "text": "\n \nIn the image, two men are standing in a room with a beige curtain in the background. The man on the left is wearing a blue vest and holding a bouquet of red and white roses. He is smiling and appears to be happy. The man on the right is wearing a blue and white striped shirt and is also smiling, seemingly enjoying the moment. The room they are in appears to be located in Kothrud, Pune.",
+    },
+]
