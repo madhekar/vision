@@ -36,14 +36,14 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
         Ensure the information flows seamlessly within paragraphs.
         <|im_end|>
         <|im_start|>user
-        <image>"{question}" please use the location details "{location}" in the response.
+        <image>"{question}" please use the location details "{location}" in the response if appropriate.
         <|im_end|> 
         <|im_start|>assistant
         """.format(
             question=question, location=location
         )  # , article=st.session_state["document"])
 
-    outputs = pipe(image, prompt=prompt, generate_kwargs={"max_new_tokens": 250})
+    outputs = pipe(image, prompt=prompt, generate_kwargs={"max_new_tokens": 200})
 
     result = outputs[0]["generated_text"].partition("<|im_start|>assistant")[2]
 
