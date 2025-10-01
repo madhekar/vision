@@ -1,6 +1,7 @@
 from transformers import pipeline
 from PIL import Image
 import streamlit as st
+import re
 
 @st.cache_resource(ttl=36000, show_spinner=True)
 def setLLM():
@@ -14,13 +15,13 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
     st.info("calling LLM...")
 
     image = Image.open(imUrl).convert("RGB")
-
+    # Ensure that all double and single quotes are escaped with backslash: "This is a \"quoted\" pharse." or 'I\'m going now'.
     if partial_prompt != '':
     
         prompt = """<|im_start|>system
         A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. 
         Do not hallucinate and gives very close attention to the details and takes time to process information provided, your response must be entirely in prose. Absolutely no lists, bullet points, or numbered items should be used. 
-        Ensure the information flows seamlessly within paragraphs. Ensure that all double and single quotes are escaped with backslash: "This is a \"quoted\" pharse." or 'I\'m going now'.
+        Ensure the information flows seamlessly within paragraphs.
         <|im_end|>
         <|im_start|>user
         <image>"{question}" It is extremely important that, response "MUST" include the NAMES OF PEOPLE and EMOTIONS provided "{partial_prompt}" and the location details "{location}" in the response.
@@ -46,8 +47,18 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
     outputs = pipe(image, prompt=prompt, generate_kwargs={"max_new_tokens": 200})
 
     result = outputs[0]["generated_text"].partition("<|im_start|>assistant")[2]
-
-    return result
+    rr = result.translate(str.maketrans({
+                                        #   "-":  r"\-",
+                                        #   "]":  r"\]",
+                                        #   "\\": r"\\",
+                                        #   "^":  r"\^",
+                                        #   "$":  r"\$",
+                                        #   "*":  r"\*",
+                                        #   ".":  r"\.",
+                                          "'":  r"\'",
+                                          '"':  r"\""
+                                          }))
+    return re.escape(rr)
     
 if __name__=='__main__':
     url= '/home/madhekar/work/home-media-app/data/input-data/img/20130324-3I3A4652-X2.jpg'
