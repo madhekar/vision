@@ -119,7 +119,7 @@ def predict_img_faces(app, new_image_path, svm_classifier, le):
             if "gender" in face and "age" in face:
                 gender = "Male" if face.gender == 1 else "Female"
                 # detect age and gender for the face
-                age = face.age - 10
+                age = face.age
                 person['age'] = age
                 person['gender'] = gender
                 if age > 21:

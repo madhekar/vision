@@ -196,9 +196,10 @@ async def run_workflow(
         num=0
     else:
       num = 0
+     
     num_files = len(glob.glob(os.path.join(image_dir_path,'/**/*')))
     num = num_files - num
-
+    print(f'processing files in: {image_dir_path} total files: {num_files}') 
     
 
     lock = asyncio.Lock()
@@ -212,12 +213,6 @@ async def run_workflow(
                 rlist = mu.is_processed_batch(ilist, df)
                 print(rlist)
                 if len(rlist) > 0:
-                    # prep names and emotion
-                    # df_rl = pd.DataFrame(rlist, columns=['uri'])
-                    # df_r = bft.exec_process(df_rl)
-                    # rlist = df_r.values.tolist()
-                    # print(rlist)
-
                     res = await asyncio.gather(
                         pool.map(generateId, rlist),
                         pool.map(timestamp, rlist),

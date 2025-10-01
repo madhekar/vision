@@ -486,3 +486,97 @@
         "text": "\n \nIn the image, two men are standing in a room with a beige curtain in the background. The man on the left is wearing a blue vest and holding a bouquet of red and white roses. He is smiling and appears to be happy. The man on the right is wearing a blue and white striped shirt and is also smiling, seemingly enjoying the moment. The room they are in appears to be located in Kothrud, Pune.",
     },
 ]
+## improved prompt not to include lists
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/5e144618-aea4-4365-95ad-375ae00a1133.jpg",
+        "id": "3c252614-8a40-46e5-909b-214d5679f310",
+        "ts": "1758227104.0",
+        "latlon": "(18.507399, 73.807648)",
+        "loc": "",
+        "ppt": ' "Asha", a happy woman, at (291, 276) and 2 men 2 women one boy in the image.',
+        "text": "\n \nThe image captures a heartwarming moment between an elderly woman and a young man. The woman, adorned in a vibrant red sari, is seated on the left side of the frame. Her face is lit up with a warm smile, reflecting her contentment. On the right side of the image, a young man in a crisp white shirt is seen. He is looking directly at the camera, his expression neutral.\n\nThe background of the image is filled with other people, suggesting that this moment is taking place in a social gathering or event. The exact number of people is not discernible from the image. The precise location of the event is not identifiable from the image.\n\nThe image does not contain any text or specific objects that can be counted or whose actions can be described. The relative positions of the people in the image suggest a casual setting, with the woman and the man being the main subjects",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/dedde329-910e-4176-ba3c-92afa234c07a.JPG",
+        "id": "d939badb-0afb-4937-bcbf-ae1cf357f17a",
+        "ts": "1758226998.0",
+        "latlon": "(19.101053, 74.740677)",
+        "loc": "Ahmednagar",
+        "ppt": " and one woman in the image.",
+        "text": "\n \nThe image features a woman standing in front of a blue wall. She is wearing a blue and green sari, which is adorned with a floral pattern. The sari is complemented by a gold necklace and bangles. Her hair is neatly tied up in a bun. She is looking directly at the camera with a serious expression on her face. The wall behind her has a picture of a mountain landscape. The woman appears to be the only person in the image. The location is not specified, but the presence of the blue wall and the mountain landscape picture might suggest a place with natural scenery. The woman's attire and the setting suggest that the image might have been taken in a region where traditional clothing is worn. The image does not contain any text.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/c97523c0-64db-4f68-94e5-59984427fbaf.jpg",
+        "id": "e482b679-74c0-4d1e-8cbf-21563fe5d724",
+        "ts": "1758227122.0",
+        "latlon": "(17.65992, 75.906387)",
+        "loc": "Solapur",
+        "ppt": ' "Kumar", a neutral man, at (729, 65) "Asha", a neutral woman, at (192, 201) and in the image.',
+        "text": "\n \nThe image captures a serene moment in a park in Solapur. A man and a woman are seated on a blue bench, engaged in what appears to be a deep conversation. The man, dressed in a red plaid shirt and gray pants, is seated to the right of the woman. The woman, wearing a pink and white patterned dress, is seated to the left. \n\nA gray cat is comfortably lying on the ground in front of them, adding to the tranquility of the scene. The bench is positioned on a striped rug, which adds a touch of color to the setting. \n\nIn the background, there are trees and a blue tent, suggesting that this might be a designated area for relaxation or events. The overall atmosphere of the image is peaceful and calm, with the man, woman, and cat all seemingly enjoying a quiet moment together in the park.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/f2ab6bfb-5adf-495c-9518-470af9dce1cf.jpg",
+        "id": "04a57ffa-7229-4763-866c-46dbec917acd",
+        "ts": "1758227098.0",
+        "latlon": "(18.507399, 73.807648)",
+        "loc": "",
+        "ppt": ' "Asha", a neutral woman, at (555, 186) and one woman in the image.',
+        "text": "\n \nThe image features two women, Asha and another woman, who are sitting together. Asha is wearing a vibrant red sari, while the other woman is adorned in a blue sari. Both women are smiling, indicating a positive emotion. They are positioned in front of a wall that is decorated with a floral pattern. The wall also has a white electrical outlet located on the right side. The women appear to be engaged in a friendly conversation, creating a warm and welcoming atmosphere. The image captures a moment of joy and camaraderie between the two women.",
+    },
+]
+
+###
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/ef8cefec-7bd1-4f27-ac44-2e0187991ebd-1.jpg",
+        "id": "b437ff25-724f-4649-82b3-c36c903f4bb6",
+        "ts": "1758227039.0",
+        "latlon": "(18.50989, 73.807182)",
+        "loc": "Kothrud Pune",
+        "ppt": ' "Kumar", a angry man, at (786, 66) and 4 men one woman one boy in the image.',
+        "text": "\n \nThe image captures a lively scene in Kothrud, Pune. A group of people, including a man in a blue striped shirt, a woman in a yellow sari, and a boy, are gathered around a tree. "
+        "The man in the blue striped shirt stands with his arms crossed, exuding an air of confidence. The woman in the yellow sari sits comfortably, her posture relaxed. "
+        "The boy, standing next to the woman, seems to be enjoying the company of the others.\n\nIn the background, a red car is in motion, adding a dynamic element to the scene. "
+        "The car's vibrant color contrasts with the more muted tones of the people and the tree, drawing the viewer's attention.\n\nThe image is rich in detail and color, providing a glimpse into the lives of the people in this location. "
+        "The precise positioning of the people and",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/54b76fbf-140b-4d99-b18c-9c30716d1872-1.jpg",
+        "id": "a75a1dd1-7d27-4a98-a98c-b86c87a80591",
+        "ts": "1758226882.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": " and 2 men one boy in the image.",
+        "text": "\n \nThe image captures a tender moment between a young child and an older woman in a room. The child, dressed in a blue onesie adorned with white polka dots, is being held by the woman. The woman, clad in a green sari, is seated on a chair. "
+        "The room they are in is simple, with a white wall serving as the backdrop. The woman's face is partially obscured by her sari, adding an air of mystery to the scene. The child's attention is drawn to something off-camera, their gaze fixed on it with curiosity. "
+        "The image does not contain any discernible text. The relative positions of the objects suggest a close interaction between the woman and the child, with the woman holding the child securely. The overall atmosphere of the image is one of warmth and care.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/826d8b0d-38f3-4e64-b7ff-a98502049c45.jpg",
+        "id": "5da34bbd-e668-485a-b788-3c1eedfdd3df",
+        "ts": "1758226889.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": ' "Kumar", a angry man, at (401, 137) and 3 men in the image.',
+        "text": "\n \nThe image captures a moment of camaraderie among four men in Sadaphuli Society in Pune. They are seated on a vibrant red mat, which contrasts with the white curtain in the background. "
+        "The man on the far left, clad in a blue shirt, is engrossed in a book, his attention seemingly captured by the words on the page. \n\nIn the center, a man in a green shirt is holding a plate of food, perhaps sharing a meal with his companions. "
+        "To his right, a man in a gray shirt is holding a cup of tea, the steam from the tea possibly curling up into the air. \n\nOn the far right, another man in a blue shirt is holding a book, possibly engrossed in a story or a piece of information. "
+        "The table before them is adorned with a plate of fruit and a bowl of water, suggesting a",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/7e9a4cc3-b380-40ff-a391-8bf596f8cd27.jpg",
+        "id": "62e01e20-09f4-4508-b0a4-01dd29c7212a",
+        "ts": "1758226884.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": ' "Asha", a sad girl, at (288, 283) "Kumar", a sad man, at (834, 123) and in the image.',
+        "text": "\n \nThe image captures a moment between two individuals, Asha and Kumar, in Sadaphuli Society in Pune. "
+        "Asha, with her vibrant red hair, is adorned in a blue sari, adding a splash of color to the scene. Kumar, on the other hand, sports a gray shirt and glasses, exuding a calm demeanor. "
+        "Both of them are seen wearing expressions of sadness, their faces reflecting a sense of melancholy. The backdrop of the image is a simple beige curtain, providing a neutral canvas that allows the subjects to stand out. "
+        "The image does not contain any text or other discernible objects. The relative positions of Asha and Kumar suggest they are standing close to each other, possibly engaged in a conversation or sharing a moment of solitude. "
+        "The image does not provide any additional details about their actions or the context of their interaction.",
+    },
+]
