@@ -2,13 +2,13 @@
 pip install transformers torch Pillow
 '''
 
-from transformers import LLaVAForConditionalGeneration, LLaVATokenizer
+from transformers import LlavaForConditionalGeneration, LlamaTokenizer
 import torch
 
 # Load the model and tokenizer
 model_id = "llava-hf/llama3-llava-next-8b-hf"
-model = LLaVAForConditionalGeneration.from_pretrained(model_id, torch_dtype=torch.float16, low_cpu_mem_usage=True)
-tokenizer = LLaVATokenizer.from_pretrained(model_id)
+model = LlavaForConditionalGeneration.from_pretrained(model_id, torch_dtype=torch.float16, low_cpu_mem_usage=True)
+tokenizer = LlamaTokenizer.from_pretrained("llava-hf/llama3-llava-next-8b-hf")
 
 # Example for a text-only input (replace with image loading for actual use)
 # A more complex example would involve image pre-processing
