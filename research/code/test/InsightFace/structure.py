@@ -945,3 +945,44 @@
         "text": '\n \nThe image captures a serene scene of a sunset over a residential area in San Diego, California. The sun is setting behind the houses, casting a warm, golden glow over the entire scene. The sky is a clear blue, with a few wispy clouds scattered across it. The houses, made of brick, are lined up along the street, their rooftops bathed in the soft light of the setting sun. A wooden fence runs along the side of the street, adding a rustic charm to the scene. The perspective of the image is from a pedestrian\'s viewpoint, looking down the street towards the horizon. The landmark information "sa_15624" does not provide additional details about this location.',
     },
 ]
+
+###
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8439.PNG",
+        "id": "9b8eea26-7fd4-47e9-8dbc-d937e6a71950",
+        "ts": "1724979121.0",
+        "latlon": "(32.968778, -117.18415)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n \nThe image displays a presentation slide on a MacBook Air laptop. The slide is titled "Slide credits and references" and contains two bullet points. The first bullet point provides a URL for YouTube, while the second bullet point provides a URL for OpenStreetMap. The slide is displayed on a white background with black text. The laptop is placed on a desk in a room with a window. The window is located on the left side of the desk and is closed. The room appears to be well-lit, with a lamp on the right side of the desk. The lamp is turned on and is casting a soft glow on the desk. The desk is made of wood and has a dark finish. The laptop is placed on a white mouse pad, which is located on the right side of the desk. The mouse pad is white with a black border. The laptop is placed on a white keyboard, which is located on the left side of the',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8623.PNG",
+        "id": "3de86d3d-35ee-4958-b55b-85c72a413bd6",
+        "ts": "1728580319.0",
+        "latlon": "(32.968778, -117.184158)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n \nThe image you\'ve sent is a screenshot of a presentation slide. The slide is titled "Boosted Tree" and is divided into two columns. The left column contains text, while the right column contains a diagram.\n\nThe text on the left column reads: "Decision Tree 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 5',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8243.PNG",
+        "id": "ef34a969-c060-4b71-bb0f-e2d06240e10e",
+        "ts": "1717873886.0",
+        "latlon": "(32.968808, -117.184083)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n \nThe image captures a serene residential scene. Dominating the foreground is a vibrant garden, teeming with a variety of plants and flowers. The garden is a riot of colors, with red and yellow flowers standing out against the greenery. The plants are arranged in a seemingly haphazard manner, creating a natural and organic look.\n\nIn the background, a house can be seen. It's a typical suburban home, complete with a garage and a driveway. The house is partially obscured by the lush foliage of the garden, adding a sense of depth to the image.\n\nThe sky overhead is filled with clouds, suggesting an overcast day. Despite this, the garden appears lush and well-maintained, indicating that it might be a rainy day.\n\nOverall, the image paints a picture of a peaceful suburban neighborhood, where nature and residential",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8158.PNG",
+        "id": "431475d8-51d2-4942-a453-8eefda63a6e5",
+        "ts": "1717522524.0",
+        "latlon": "(32.968778, -117.184181)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n 1. The chair is constructed with a 5-wheel plastic coated alu minum base and features a pneumatic chair adjustment for easy and comfortable use.\n2. The base finish options are available in several options of shell col or and base finishes to suit your style. Choose from plant, glossy, or matte black, gloss white, or chrome.\n3. The chair is available in 10 fabric and 6 leather options.\n4. Measuring at a width of 53 cm, depth of 51 cm, and height of 5 cm, this chair is designed for ultimate comfort. You can choose between soft or hard-flor-floor caster options and t wo choices of shell base glider is made of ca rbon fiber with a flame retardant finish.\n5. The armrests are available in either an armless or 8 position P",
+    },
+]
