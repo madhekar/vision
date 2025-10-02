@@ -47,6 +47,7 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
     outputs = pipe(image, prompt=prompt, generate_kwargs={"max_new_tokens": 200})
 
     result = outputs[0]["generated_text"].partition("<|im_start|>assistant")[2]
+    #rr = repr(result)
     rr = result.translate(str.maketrans({
                                         #   "-":  r"\-",
                                         #   "]":  r"\]",
@@ -56,9 +57,9 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
                                         #   "*":  r"\*",
                                         #   ".":  r"\.",
                                           "'":  r"\'",
-                                          '"':  r"\""
+                                        #  '"':  r"\""
                                           }))
-    return re.escape(rr)
+    return rr
     
 if __name__=='__main__':
     url= '/home/madhekar/work/home-media-app/data/input-data/img/20130324-3I3A4652-X2.jpg'
