@@ -3,10 +3,30 @@ from PIL import Image
 import streamlit as st
 import re
 
+"""
+from transformers import pipeline
+from PIL import Image    
+
+
+model_id = "xtuner/llava-llama-3-8b-v1_1-transformers"
+pipe = pipeline("image-to-text", model=model_id, device="cpu")
+img = "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/2596441a-e02f-588c-8df4-dc66a133fc99/IMG_5156.PNG"
+#"/home/madhekar/work/home-media-app/data/input-data/img/madhekar/2596441a-e02f-588c-8df4-dc66a133fc99/IMG_5466.PNG"#"http://images.cocodataset.org/val2017/000000039769.jpg"
+
+image = Image.open(img)#requests.get(url, stream=True).raw)
+prompt = (
+    "<|start_header_id|>user<|end_header_id|>\n\n<image>\nPlease take time to describe the image with thoughtful insights<|eot_id|>"
+    "<|start_header_id|>assistant<|end_header_id|>\n\n"
+)
+outputs = pipe(image, prompt=prompt, generate_kwargs={"max_new_tokens": 200})
+print(outputs)
+[{'generated_text': 'user\n\n\nWhat are these?assistant\n\nThese are two cats, one brown and one gray, lying on a pink blanket. sleep. brown and gray cat sleeping on a pink blanket.'}]
+
+"""
 @st.cache_resource(ttl=36000, show_spinner=True)
 def setLLM():
 
-    model_id = "xtuner/llava-phi-3-mini-hf" #"xtuner/llava-llama-3-8b-hf"
+    model_id = "xtuner/llava-llama-3-8b-v1_1-transformers" #"xtuner/llava-phi-3-mini-hf" #"xtuner/llava-llama-3-8b-hf"
     pipe = pipeline("image-to-text", model=model_id, device="cpu")
     return pipe
 
