@@ -1,8 +1,18 @@
-from transformers import pipeline
+#from transformers import pipeline
+
+from transformers import LlavaForConditionalGeneration, LlamaTokenizer
+import torch
+
+# Load the model and tokenizer
+model_id = "llava-hf/llama3-llava-next-8b-hf"
+model = LlavaForConditionalGeneration.from_pretrained(
+    model_id, torch_dtype=torch.float16, low_cpu_mem_usage=True
+)
+tokenizer = LlamaTokenizer.from_pretrained(model_id)
 
 # Initialize the pipeline for the image-text-to-text task.
 # This downloads and configures the `llava-hf/llama3-llava-next-8b-hf` model.
-pipe = pipeline("image-text-to-text", model="llava-hf/llama3-llava-next-8b-hf")
+pipe = pipeline("image-text-to-text", model="llava-hf/llama3-llava-next-8b-hf") 
 
 # Define the messages, which must be in a specific chat format.
 # The `content` is a list that can contain both image and text objects.

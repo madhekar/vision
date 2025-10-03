@@ -986,3 +986,85 @@
         "text": "\n 1. The chair is constructed with a 5-wheel plastic coated alu minum base and features a pneumatic chair adjustment for easy and comfortable use.\n2. The base finish options are available in several options of shell col or and base finishes to suit your style. Choose from plant, glossy, or matte black, gloss white, or chrome.\n3. The chair is available in 10 fabric and 6 leather options.\n4. Measuring at a width of 53 cm, depth of 51 cm, and height of 5 cm, this chair is designed for ultimate comfort. You can choose between soft or hard-flor-floor caster options and t wo choices of shell base glider is made of ca rbon fiber with a flame retardant finish.\n5. The armrests are available in either an armless or 8 position P",
     },
 ]
+
+###
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8209.PNG",
+        "id": "f21c3966-b013-445e-9804-83b69b74c06b",
+        "ts": "1717624110.0",
+        "latlon": "(32.968819, -117.184158)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image you\'ve sent is a diagram illustrating a process for storing and retrieving relevant images, text, and video. The diagram is divided into three steps, each represented by a box with a unique icon and label.\n\nThe first step, labeled "Step 1", is depicted by a speaker icon and the label "Audio". This step likely represents the process of storing audio files.\n\nThe second step, labeled "Step 2", is represented by a camera icon and the label "Image". This step likely represents the process of storing image files.\n\nThe third step, labeled "Step 3", is represented by a video icon and the label "Video". This step likely represents the process of storing video files.\n\nThe diagram also includes a text box at the top that reads "Store and retrieve relevant images, text, video". This text provides a general description of the process depicted in the diagram.\n\nThe diagram does not provide any specific details about the location of the objects or their relative positions. However,',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8437.PNG",
+        "id": "c1bce519-2a72-4a36-83dc-907118e1ed04",
+        "ts": "1724979020.0",
+        "latlon": "(32.968778, -117.18415)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image you\'ve shared is a screenshot of a presentation slide on the topic of "Direct Preference Optimization". The slide is set against a black background, with the title "DPO" prominently displayed at the top in white text. \n\nBelow the title, there\'s a white box containing black text that explains the concept of "Direct Preference Optimization". The text reads: "Direct Preference Optimization is a method for learning a model that predicts the user\'s preferences over a set of items, given a set of observations of the user\'s ratings on a subset of those items."\n\nFurther down, there\'s a white box containing black text that provides an example of how the algorithm works. The text reads: "For example, suppose we have a set of movies and a set of users, and we want to learn a model that predicts the user\'s rating for a movie based on the movie\'s title, genre, and other features. We can use DPO to learn this model."\n\nIn the bottom right corner of',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8685.PNG",
+        "id": "df2acf91-3de6-46f9-820f-3efedb856b43",
+        "ts": "1729784120.0",
+        "latlon": "(32.968789, -117.184158)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image you\'ve shared is a screenshot of a presentation slide. The slide is set against a black background, with the text in white and red. The title of the slide is "Fast Gradient Attack" and "Pros & Cons". \n\nThe slide contains two bullet points, one under the heading "Pros" and the other under the heading "Cons". The first bullet point under the "Pros" heading states "A simple and fast gradient-based method is used to adversarial examples to minimize the maximum amount of perturbation added to any pixel of the image to cause misclassification." This suggests that the method is efficient and can be used to create adversarial examples that minimize the amount of perturbation needed to cause misclassification.\n\nThe second bullet point under the "Cons" heading states "Pros comparatively efficient computing times. Cons: Perturbations are added to every feature." This suggests that the method has some drawbacks, such as the need to add perturbations to every feature, which may be comput',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8666.PNG",
+        "id": "09688dd6-1eaa-4c25-9ec4-444b2d200fbe",
+        "ts": "1729558202.0",
+        "latlon": "(32.970153, -117.183303)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene scene of a sunset over the Madhekar Residence Home in San Diego. The sun, a radiant orb of light, is setting behind a line of trees, casting a warm, golden glow that illuminates the sky. The sky itself is a canvas of colors, transitioning from a deep blue at the zenith to a soft orange near the horizon. \n\nThe Madhekar Residence Home, a symbol of tranquility and comfort, is nestled amidst lush greenery. The trees, standing tall and proud, form a natural boundary around the home, their leaves rustling gently in the evening breeze. \n\nA dirt path, worn by the passage of time and countless footsteps, leads up to the home. The path is bordered by a wooden fence, its rustic charm adding to the overall aesthetic of the scene. \n\nThe perspective of the image is from the side of the path, looking towards the home. This viewpoint allows for a comprehensive view of the home and its surroundings, capturing the",
+    },
+]
+
+###
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8557.PNG",
+        "id": "91810d95-4f20-46a2-99d4-d112de3c0a4d",
+        "ts": "1727055302.0",
+        "latlon": "(34.118667, -118.300828)",
+        "loc": "Glendale",
+        "ppt": ' "Anjali", a angry woman, at (1894, 1829) and 5 men one woman in the image.',
+        "text": "\n The image captures a group of people standing on a balcony at sunset. The sky is painted with hues of orange and yellow, and the sun is setting behind a distant mountain range. The people are silhouetted against the vibrant backdrop, adding a sense of depth and scale to the scene. \n\nAnjali, an angry woman, stands in the foreground, her figure stark against the warm glow of the setting sun. She is dressed in a black jacket and blue jeans, her arms crossed over her chest in a defensive stance. \n\nBehind her, a group of 5 men and 1 woman are gathered. They are all dressed in casual attire, their relaxed postures contrasting with Anjali's tense demeanor. Their attention seems to be focused on the stunning view before them, their faces turned towards the horizon.\n\nThe balcony they are standing on is made of concrete, its solid, unyielding surface a stark contrast to the fluidity of the sky. A metal railing encloses the",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8257.PNG",
+        "id": "ca43e726-1277-45dc-94fb-e4e4e458587e",
+        "ts": "1718213385.0",
+        "latlon": "(32.968764, -117.184106)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a close-up view of a vibrant green leaf, adorned with numerous small water droplets, suggesting a recent rainfall or morning dew. The leaf is the main focus of the image, with its intricate details sharply in focus. \n\nIn the background, a garden bed teems with life. A variety of plants and rocks create a natural tapestry, their colors and textures adding depth to the scene. The garden bed is located in the Madhekar Residence Home in San Diego, a place known for its warm climate and lush greenery. \n\nThe image is a testament to the beauty of nature, captured in the midst of a serene garden setting. The droplets on the leaf, the variety of plants in the background, and the overall composition of the image create a sense of tranquility and harmony with nature. ||||||||||||||||",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8569.PNG",
+        "id": "4b2f79f7-1b14-4386-ade3-40be9a1874fb",
+        "ts": "1727369913.0",
+        "latlon": "(32.968739, -117.184136)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image you've shared is a screenshot of a code snippet for a Python program. The code is written in black text against a white background. The code is indented with four spaces, and the text is in a monospaced font. The code appears to be for a travel itinerary program. It includes functions for reading and writing data, as well as functions for calculating distances and latitudes. The code also includes a function for returning a cartographic view of the itinerary. The code is written in a Python style, with comments and docstrings included. The code is well-organized and appears to be well-maintained. The code is written in a text editor, with the text appearing in a monospaced font. The code is written in a Python style, with comments and docstrings included. The code is well-organized and appears to be well-maintained. The code is written in a text editor, with the text appearing in a monospaced font. The code",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8474.PNG",
+        "id": "46360ba5-f878-4d84-9d19-a1674380411d",
+        "ts": "1725992408.0",
+        "latlon": "(32.968772, -117.184144)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": ' "Anjali", a neutral woman, at (1491, 627) and one woman in the image.',
+        "text": "\n Anjali, a neutral woman, is standing in front of a house. She is holding a small statue of a woman in her hands. The statue is dressed in a vibrant red and gold sari, and is adorned with a gold headpiece. Anjali is wearing a matching red and gold sari, and a gold necklace. The house behind her is surrounded by a lush garden, filled with a variety of plants and trees. The sky above is a clear blue, and the sun is shining brightly. Anjali appears to be in a peaceful and serene environment.||||||||||||||||||||||||||||||||||||||||||||||||||||",
+    },
+]
