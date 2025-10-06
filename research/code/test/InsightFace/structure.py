@@ -1258,7 +1258,7 @@
     },
 ]
 
-# TEST 12
+# TEST 13
 
 [
     {
@@ -1306,5 +1306,46 @@
         "This is achieved by reducing the number of map tasks, which in turn reduces the amount of data that needs to be processed by the map tasks. \n\n The Refine section, situated in the middle, demonstrates how the MapReduce framework can be optimized by refining the data that is being processed. "
         "This is done by refining the data into smaller chunks, which can then be processed more efficiently by the map tasks. \n\n The Map(rank) section, positioned at the bottom, shows how the MapReduce framework can be optimized by ranking the data based on its importance. "
         "This is done by ranking the data based on its importance, which allows",
+    },
+]
+
+# test 14
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8571.PNG",
+        "id": "9b514c4b-b02e-42ef-80cf-fed3f55280fd",
+        "ts": "1727398310.0",
+        "latlon": "(32.970806, -117.178917)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene scene of a residential area in San Diego, California. The viewer's perspective is from a wooden walkway that meanders through the neighborhood. The walkway, lined with a sturdy wooden fence on the right, guides the viewer's eye towards the horizon. \n\nOn the left, the walkway is bordered by a lush expanse of greenery, with trees and bushes adding a touch of nature to the urban setting. The houses, painted in a variety of colors, line the walkway, their architecture typical of residential homes in the area. \n\nThe sky above is a clear blue, with the sun shining brightly, casting a warm glow over the scene. The image is taken from a low angle, which emphasizes the length of the walkway and the distance to the horizon. The overall composition of the image suggests a peaceful and idyllic residential area in San Diego. ",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8205.PNG",
+        "id": "b98d061e-886b-453c-88ba-66ce7381840e",
+        "ts": "1717624036.0",
+        "latlon": "(32.968778, -117.184181)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question?im_end>im_start> I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question?im_end>im_start> I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question?im_end>im_start> I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question?im_end>im_start> I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question?im_end>im_start> I'm sorry, I'm not sure what",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8378.PNG",
+        "id": "e747b4b4-e8fd-43bf-a68f-ed5408f814b1",
+        "ts": "1721415490.0",
+        "latlon": "(32.968711, -117.184114)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene scene in a garden. Dominating the frame is a tree, its branches adorned with large, vibrant green leaves. Nestled among these leaves are three apples, their skin a mix of green and yellow hues, indicating they are ripe and ready to be picked. The apples are clustered together, suggesting they are part of the same tree. The background is a soft blur of more leaves and branches, providing a sense of depth and continuity to the image. The overall composition of the image suggests a peaceful, natural setting, possibly a home garden or a local orchard. The image does not contain any text or discernible actions. The relative positions of the objects indicate that the apples are closer to the viewer than the leaves and branches in the background. The image does not provide any information that allows for a confident count of the objects beyond what has been described. The colors in the image are predominantly green and yellow, with the green of the leaves and apples contrasting with the yellow of",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8160.PNG",
+        "id": "f77bee2b-e947-4c55-ad46-714d7b33d4b1",
+        "ts": "1717528988.0",
+        "latlon": "(32.968778, -117.184181)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image is a screenshot of a webpage that is displaying a flowchart. The flowchart is designed to illustrate the process of how temperature affects the type of food one might prefer. \n\nThe flowchart begins with a starting point labeled "Temperature". From there, it branches out into three different paths, each representing a different type of food: pizza, sushi, and tacos. \n\nThe first path, labeled "Pizza", shows a decrease in temperature and a corresponding decrease in the number of people who prefer pizza. This suggests that as the temperature decreases, the preference for pizza also decreases.\n\nThe second path, labeled "Sushi", shows an increase in temperature and a corresponding increase in the number of people who prefer sushi. This suggests that as the temperature increases, the preference for sushi also increases.\n\nThe third path, labeled "Tacos", shows a decrease in temperature and a corresponding decrease in the number of people who prefer tacos. This is consistent with the first path, reinforcing the idea that as the',
     },
 ]
