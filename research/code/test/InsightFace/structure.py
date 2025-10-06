@@ -1116,3 +1116,51 @@
         "Anthony Bushong, Chloe Condon\nMUST include the location details: Madhekar Residence Home in San Diego\nMUST ensure the information flows seamlessly within paragraphs.||||||||||||||||||||||||||||||||||||||||||",
     },
 ]
+
+##Test 10
+
+{
+    "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8337.PNG",
+    "id": "8b97cc2f-270b-4ebd-b35c-5c6f13c0e877",
+    "ts": "1720030915.0",
+    "latlon": "(32.968783, -117.184075)",
+    "loc": "Madhekar Residence Home in San Diego",
+    "ppt": "",
+    "text": "\n         The image captures a vibrant scene in a garden. Dominating the frame is a single, fully bloomed petunia flower, its petals a striking shade of pink. The center of the flower is a bright yellow, providing a delightful contrast to the pink petals. The flower is situated on a small bush, which is adorned with green leaves. The bush is nestled in a garden bed, surrounded by a scattering of rocks. The background of the image is blurred, drawing focus to the petunia flower in the foreground. The image does not contain any discernible text. The relative position of the objects is such that the petunia flower is in the center, with the green-leaved bush beneath it and the rocks scattered around the base of the bush. The blurred background appears to be a continuation of the garden bed. The image does not depict any actions, as it is a still life capture of a garden scene. The number of objects in the image is limited to the petunia",
+}
+{
+    "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8658.PNG",
+    "id": "b3ba5fec-588f-44be-af17-3a146660a751",
+    "ts": "1729372409.0",
+    "latlon": "(32.968631, -117.184181)",
+    "loc": "Madhekar Residence Home in San Diego",
+    "ppt": " and  one man in the image.",
+    "text": "\n         The image captures a serene moment in a garden. A man, dressed in a blue shirt, stands under a tree adorned with vibrant red and yellow apples. The tree, with its lush green leaves, is the main focus of the image. The man is positioned to the left of the tree, his gaze directed upwards towards the apples. The garden in the background, enclosed by a white fence, adds to the tranquil ambiance of the scene. The image does not contain any text. The relative positions of the objects are such that the man is in the foreground, the tree is in the middle ground, and the garden forms the background. The colors in the image are vivid, with the red and yellow apples standing out against the green leaves and the blue shirt of the man. The white fence in the background provides a stark contrast to the colorful scene. The image does not contain any other discernible objects or people. The overall composition of the image suggests a peaceful day spent in the garden.",
+}
+{
+    "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8350.PNG",
+    "id": "01ec6b68-908d-42ce-8772-6d3cfa87c026",
+    "ts": "1720233263.0",
+    "latlon": "(32.914956, -117.246575)",
+    "loc": "Torrey Pines State Reserve San Diego",
+    "ppt": "",
+    "text": "\n         The image captures a serene scene at the Torrey Pines State Reserve in San Diego. The sky, painted in hues of orange, serves as a stunning backdrop to the setting sun that is partially obscured by a few clouds. The sun\\'s descent casts a warm glow over the landscape, highlighting the lush greenery of the reserve. The reserve itself is a vibrant mix of green and brown, with various types of vegetation dotting the landscape. A road, appearing in the foreground, adds depth to the image, leading the viewer\\'s eye towards the horizon. The image is a beautiful representation of the natural beauty and tranquility that the Torrey Pines State Reserve offers.                                                                                                                                                                                                                                ",
+}
+{
+    "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8603.PNG",
+    "id": "99c5aaae-1a83-44a5-9e59-1c8738ca1713",
+    "ts": "1727979645.0",
+    "latlon": "(32.968758, -117.184144)",
+    "loc": "Madhekar Residence Home in San Diego",
+    "ppt": "",
+    "text": "\n         Question: How do I select the most suitable model for my application?\n        Answer: Understanding how your model behaves in production is crucial. Start by understanding the cost of the model, the cost of training, and the cost of deployment. Understanding how your model behaves in production is crucial. Start by understanding the cost of the model, the cost of training, and the cost of deployment. Understanding how your model behaves in production is crucial. Start by understanding the cost of the model, the cost of training, and the cost of deployment. Understanding how your model behaves in production is crucial. Start by understanding the cost of the model, the cost of training, and the cost of deployment. Understanding how your model behaves in production is crucial. Start by understanding the cost of the model, the cost of training, and the cost of deployment. Understanding how your model behaves in production is crucial. Start by understanding the cost of the model, the cost of training, and the cost of deployment. Understanding how your",
+}
+{
+    "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8626.PNG",
+    "id": "709a3312-ec4a-4b6e-b6f1-6d968d634715",
+    "ts": "1728580500.0",
+    "latlon": "(32.968761, -117.18415)",
+    "loc": "Madhekar Residence Home in San Diego",
+    "ppt": "",
+    "text": '\n         The image you\\\'ve sent is a screenshot of a chat between a human and an artificial intelligence assistant. The assistant is an expert in people, emotions, and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. The chat is taking place on a computer screen, which is set against a black background with yellow text. The title of the chat is "Deberta". The chat is about the classification of deberta-v3-base and deberta-v3-base_cohen_kappa_score. The assistant explains that deberta-v3-base is a base model for deberta-v3, and deberta-v3_cohen_kappa_score is a score for deberta-v3_cohen_kappa_score. The assistant also mentions that deberta-v3_cohen_kappa_score is a metric for deberta-v3_cohen_kappa_score. The chat is a great example of how artificial intelligence can assist in understanding complex concepts.|||',
+}
