@@ -51,7 +51,7 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
         7. Maintain clearity and information.
         <|im_end|>
         <|im_start|>user
-        <image>"{question}" It is critically important to include the NAMES OF PEOPLE and EMOTIONS if provided "{partial_prompt}" and the location details "{location}" in the response if appropriate.  
+        <image>"{question}" It is CRITICALLY important to include the NAMES OF PEOPLE and EMOTIONS if provided "{partial_prompt}" and the location details "{location}" in the response if appropriate.  
         <|im_end|> 
         <|im_start|>assistant
         """.format(

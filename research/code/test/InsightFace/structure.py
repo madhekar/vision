@@ -1453,3 +1453,88 @@
         'This step is important as it involves understanding the performance of the Chevy Bolt car',
     },
 ]
+
+# test 17
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8181.PNG",
+        "id": "80a804ec-c8ea-4495-b4e7-0a0a9b1d0f66",
+        "ts": "1717543540.0",
+        "latlon": "(32.968778, -117.184181)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image is a slide from a presentation on sampling. The slide is divided into two sections. The upper section is a title in black text that reads "Sampling is slow". The lower section is a detailed explanation of the process of sampling. The text is in black and is set against a white background. The slide also contains a diagram that illustrates the process of sampling. The diagram is a flowchart with arrows connecting different boxes. The boxes are colored in shades of blue and green. The diagram is located in the lower right corner of the slide. The slide does not contain any other objects or text. The slide is simple and clear, effectively conveying the concept of sampling.im_end>im_start> The slide is a clear and effective educational tool for understanding the concept of sampling. The use of a flowchart diagram helps to visually represent the process of sampling, making it easier for the viewer to understand. The use of color in the diagram adds a',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8584.PNG",
+        "id": "c35e6b68-defb-4edb-861f-b1648c593ae4",
+        "ts": "1727668787.0",
+        "latlon": "(32.968717, -117.184144)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a close-up view of a pipe fitting on the ceiling of the Madhekar Residence Home in San Diego. The pipe fitting, which is the main focus of the image, is silver in color and has a gold-colored screw on top. Attached to the pipe fitting is a white rope with a gold-colored hook. The background of the image is blurred, drawing attention to the pipe fitting and the attached rope. The image does not contain any text. The pipe fitting and the rope are the only objects in the image, and their relative position is such that the rope is attached to the pipe fitting. The image does not provide any information about the location of the objects beyond what has been described. The image does not contain any other objects or actions. The image does not contain any text. The image does not contain any other objects or actions. The image does not contain any text. The image does not contain any other objects or actions. The image does not contain any text. The",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8401.PNG",
+        "id": "13a35b59-8eb6-40f1-bcd0-a48c198a5b26",
+        "ts": "1722876792.0",
+        "latlon": "(32.968808, -117.184189)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image presents a detailed diagram of a model for a video conferencing system. The model is divided into four main sections: representation, attention, context, and output. \n\nThe representation section is depicted in a vibrant shade of purple and is labeled as "Model". It is connected to the attention section through a blue line, indicating the flow of information from the representation to the attention.\n\nThe attention section is shown in a striking red color and is labeled as "Proposals". It is connected to the context section through a green line, indicating the flow of information from the proposals to the context.\n\nThe context section is depicted in a bold black color and is labeled as "Proposals". It is connected to the output section through a yellow line, indicating the flow of information from the proposals to the output.\n\nThe output section is shown in a bright orange color and is labeled as "Output". It is connected to the representation section through a blue line, indicating the flow of information from the output back to',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8553.PNG",
+        "id": "442b7948-7077-4906-b419-39a4a9449fd4",
+        "ts": "1727053408.0",
+        "latlon": "(34.118253, -118.300658)",
+        "loc": "Glendale",
+        "ppt": ' "Bhalchandra", a happy man, at (1862, 1099) and one man in the image.',
+        "text": '\n The image features a bronze statue of the renowned physicist, Albert Einstein, seated on a bench. The statue is positioned in front of a gray wall, which has a window. Einstein is depicted in a relaxed pose, with his left arm resting on the back of the bench and his right arm extended upwards, as if in the midst of a gesture. He is dressed in a suit and tie, and his face carries a slight smile. \n\nNext to Einstein, a man is seated on the bench. He is wearing a blue shirt and has a name tag on his shirt that reads "Bhalchandra". His gaze is directed towards the camera, and he is smiling. The precise location of the objects is as follows: the bronze statue of Einstein is on the left side of the bench, while the man is on the right side. The gray wall with the window is directly behind the bench. The relative positions of the objects are such that the man is to the right of the statue, and',
+    },
+]
+
+# test 18
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8551.PNG",
+        "id": "de17e71d-f7fe-48ba-80bd-6e08af83f38d",
+        "ts": "1727049419.0",
+        "latlon": "(34.118233, -118.300653)",
+        "loc": "Glendale",
+        "ppt": ' "Anjali", a neutral woman, at (948, 2766) and 4 men in the image.',
+        "text": "\n The image captures a moment at the Griffith Observatory in Los Angeles, California. The observatory, a white structure with a black dome, stands majestically against the backdrop of a clear blue sky. "
+        "A group of people are gathered on the balcony, their figures silhouetted against the sky. In the foreground, a woman in a yellow dress adds a splash of color to the scene. The observatory is nestled amidst lush greenery, with palm trees swaying gently in the background. "
+        "The image is a beautiful blend of architecture and nature, capturing the essence of this iconic landmark.The observatory is located in Glendale, California.The observatory is a white structure with a black dome.The observatory is surrounded by greenery, including palm trees."
+        "A group of people are on the balcony of the observatory.A woman in a yellow dress is standing in front of the observatory.The sky is clear and blue.The",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8698.PNG",
+        "id": "59742d52-ed05-4ffb-b6ca-3b8022db4561",
+        "ts": "1729903986.0",
+        "latlon": "(32.968589, -117.186792)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene sunset at the Madhekar Residence Home in San Diego. The sun is setting behind a hill, casting a warm, golden glow that illuminates the scene. The sky is a deep blue, providing a stark contrast to the vibrant colors of the sunset. \n\nThe photo is taken from a wooden deck, which is enclosed by a wooden fence. The deck overlooks a garden filled with lush greenery and towering palm trees. The perspective of the photo is from the ground, looking up at the sunset, giving a sense of grandeur to the scene. The colors in the photo are predominantly orange and blue, with some green from the trees and brown from the wooden deck and fence. \n\nThe Madhekar Residence Home is a beautiful location, and the sunset adds to the overall tranquility of the scene. The photo captures the essence of a peaceful evening at home, with the warm glow of the sunset and the cool blue of the sky. It's a snapshot of a",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8625.PNG",
+        "id": "41facabc-214d-412e-a3ea-285c9d703914",
+        "ts": "1728580415.0",
+        "latlon": "(32.968778, -117.184158)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image you\'ve sent is a screenshot of a chat between a human and an artificial intelligence assistant. The assistant is an expert in people, emotions, and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. The chat is taking place on a platform called "Prabu Palanisamy (presenting)".\n\nThe human is asking about the classification of a macro file. The assistant responds by providing a metric for the classification of TID vectors. The metric is called "Parameter Optimization: AutoML". The private score of this metric is 0.37587. The Notebook Link for this metric is also provided.\n\nThe chat is taking place on a platform called "Notebook Link". The platform is used for sharing knowledge and collaborating on projects. The Notebook Link is a tool that allows users to create, share, and collaborate on documents, presentations, and other types of content. It is a popular platform for remote work and collaboration, especially in the era',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8514.PNG",
+        "id": "ca584300-657d-44cd-8bbc-46db95a01315",
+        "ts": "1726761230.0",
+        "latlon": "(32.968769, -117.184144)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image is a screenshot of a chat between a user and a chatbot. The chatbot is an expert in people, emotions, and locations. The user is asking the chatbot about the best way to start with level up boot camp. The chatbot is providing a detailed and helpful response, suggesting that the user should start with level up boot camp. The chatbot also mentions that the user should read the book "Why" by Simon Sinker and the book "Level Up" by Seth Godin. The chatbot also mentions that the user should read the book "The Power of Now" by Eckhart Tolle. The chatbot also mentions that the user should read the book "The 7 Habits of Highly Effective People" by Stephen Covey. The chatbot also mentions that the user should read the book "The Art of War" by Sun Tzu. The chatbot also mentions that the user should read the book "The Alchemist" by Paulo Coelho.',
+    },
+]
