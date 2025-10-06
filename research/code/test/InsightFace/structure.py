@@ -1164,3 +1164,44 @@
     "ppt": "",
     "text": '\n         The image you\\\'ve sent is a screenshot of a chat between a human and an artificial intelligence assistant. The assistant is an expert in people, emotions, and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. The chat is taking place on a computer screen, which is set against a black background with yellow text. The title of the chat is "Deberta". The chat is about the classification of deberta-v3-base and deberta-v3-base_cohen_kappa_score. The assistant explains that deberta-v3-base is a base model for deberta-v3, and deberta-v3_cohen_kappa_score is a score for deberta-v3_cohen_kappa_score. The assistant also mentions that deberta-v3_cohen_kappa_score is a metric for deberta-v3_cohen_kappa_score. The chat is a great example of how artificial intelligence can assist in understanding complex concepts.|||',
 }
+
+##test11
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8339.PNG",
+        "id": "87c361b8-0871-4b95-8d36-745cbe4065b1",
+        "ts": "1720111936.0",
+        "latlon": "(32.968661, -117.184089)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene garden scene. Dominating the frame is a robust green plant, its leaves a vibrant shade of green. The plant is adorned with a single fruit, a cucumber, which hangs from one of its branches, adding a touch of nature's bounty to the scene.\n\nThe plant is rooted in a bed of soil, a testament to the nurturing environment it thrives in. The soil's earthy tones contrast with the plant's lush greenery, creating a harmonious balance of colors.\n\nIn the background, a wooden fence stands guard, its rustic charm adding a touch of homeliness to the scene. The fence's presence suggests that this garden is part of a larger property, perhaps a home or a small farm.\n\nThe image is taken from a low angle, looking up at the plant. This perspective gives the viewer a sense of being in the garden, looking up at the plant as if standing right there. It's a simple yet powerful image, a snapshot of nature's beauty",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8145.PNG",
+        "id": "3b41c912-2684-4bf6-9f9d-18949fd481be",
+        "ts": "1717259699.0",
+        "latlon": "(32.968803, -117.184128)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene moment in a garden. Dominating the scene are two large, vibrant green leaves, their surfaces glistening with water droplets, suggesting a recent rainfall. The leaves are attached to a thin, brown stem, which is firmly rooted in the soil. The soil itself is a rich, dark brown, providing a stark contrast to the bright green of the leaves. Scattered throughout the soil are small rocks, adding a touch of ruggedness to the otherwise smooth landscape. The image is taken from a top-down perspective, giving a bird's eye view of the scene. The leaves, stem, and soil are the main elements in the image, with no text or other objects present. The relative position of the objects is such that the leaves are on top of the stem, which is in turn embedded in the soil. The rocks are dispersed randomly throughout the soil. The image does not contain any discernible actions or movements. It's a still life representation of a garden scene,",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8590.PNG",
+        "id": "a1c14dfc-cc97-4163-abb0-4ef6ecf5f792",
+        "ts": "1727829909.0",
+        "latlon": "(32.970883, -117.178833)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene scene of a residential area at sunset. The main focus is a winding dirt path that cuts through the heart of the image, inviting the viewer to imagine a journey along this tranquil route. The path is bordered by a sturdy wooden fence on the right, adding a rustic charm to the scene. \n\nOn the left, the path is lined with houses, their rooftops peeking over the tops of trees, suggesting a close-knit community. The houses, trees, and path all contribute to a sense of depth and perspective in the image.\n\nThe sky above is a clear blue, with the sun setting in the distance, casting a warm, golden glow over the entire scene. This light illuminates the path, the houses, and the trees, enhancing their colors and details.\n\nThe image does not contain any discernible text or countable objects. The relative positions of the objects suggest a well-planned residential layout, with the path serving as a central feature. The image does",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8538.PNG",
+        "id": "86c27496-5ff4-426f-a540-1c292ca9c89f",
+        "ts": "1727039171.0",
+        "latlon": "(34.044608, -118.565614)",
+        "loc": "Topanga State Park-Topanga",
+        "ppt": " and one man in the image.",
+        "text": "\n The image captures a serene moment at the Topanga State Park in Topanga, California. A woman, clad in a vibrant yellow shirt and blue jeans, stands on a red and white checkered floor. She is positioned between two sturdy columns, their beige color contrasting with the clear blue sky above. The park is lush with greenery, with trees and bushes forming a tranquil backdrop. The woman's gaze is directed towards the camera, her expression one of curiosity and wonder. The image exudes a sense of calm and invites the viewer to explore the beauty of the park.|||||||||||||||||||||||||||||||||||||||||",
+    },
+]
