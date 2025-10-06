@@ -1349,3 +1349,48 @@
         "text": '\n The image is a screenshot of a webpage that is displaying a flowchart. The flowchart is designed to illustrate the process of how temperature affects the type of food one might prefer. \n\nThe flowchart begins with a starting point labeled "Temperature". From there, it branches out into three different paths, each representing a different type of food: pizza, sushi, and tacos. \n\nThe first path, labeled "Pizza", shows a decrease in temperature and a corresponding decrease in the number of people who prefer pizza. This suggests that as the temperature decreases, the preference for pizza also decreases.\n\nThe second path, labeled "Sushi", shows an increase in temperature and a corresponding increase in the number of people who prefer sushi. This suggests that as the temperature increases, the preference for sushi also increases.\n\nThe third path, labeled "Tacos", shows a decrease in temperature and a corresponding decrease in the number of people who prefer tacos. This is consistent with the first path, reinforcing the idea that as the',
     },
 ]
+
+# test 15
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8123.PNG",
+        "id": "1ed08192-6b57-4122-b9f8-77ceca70a345",
+        "ts": "1715193694.0",
+        "latlon": "(32.968778, -117.184181)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image is a screenshot of a flowchart that provides a visual representation of the processes involved in finding model responses with facts. The flowchart is divided into three main sections: pre-step, internal data, and external data.'
+        '\n\nThe pre-step section is the first part of the flowchart and contains a single box that reads "Pre-step: Internal data". This box is the starting point of the flowchart and sets the stage for the subsequent steps.'
+        '\n\nThe internal data section is the second part of the flowchart and contains three boxes. The first box reads "1. Appenese natural language question", which represents the initial input to the model. The second box reads '
+        '"2. Semantic search", which represents the process of searching for relevant information in the database. The third box reads "3. Database search", which represents the process of searching for relevant information in the database.'
+        '\n\nThe external data section is the third part of the flowchart and contains two boxes. The first box reads "4.',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8245.PNG",
+        "id": "68518ad6-f227-4442-9ad1-bcad25a6add5",
+        "ts": "1717959831.0",
+        "latlon": "(32.968794, -117.184106)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene garden scene at the Madhekar Residence Home in San Diego. The garden is a lush oasis, teeming with a variety of plants and flowers. A white gazebo, adorned with columns, stands as a focal point in the garden, offering a tranquil retreat amidst the verdant surroundings. The perspective of the image is from a low angle, inviting the viewer to look up and appreciate the architectural beauty of the gazebo and the towering trees that surround it. The colors in the image are vibrant and natural, with the green of the plants contrasting beautifully with the white of the gazebo. The image exudes a sense of peace and tranquility, characteristic of a well-maintained garden. The Madhekar Residence Home in San Diego is clearly a place where nature and architecture come together to create a harmonious living space. ",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8561.PNG",
+        "id": "1e3592ec-3951-4144-9418-bc17f2d7187d",
+        "ts": "1727226365.0",
+        "latlon": "(32.970981, -117.180031)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene scene of a residential area at sunset. The main focus is a winding road that meanders through the neighborhood. The road, made of asphalt, is lined with a wooden fence on the right side, adding a rustic charm to the scene. \n\nOn the left side of the road, there are houses nestled among lush green trees, their colors muted in the soft glow of the setting sun. The houses and trees are bathed in the warm hues of the sunset, creating a picturesque view.\n\nThe sky above is a beautiful canvas of orange and yellow, with the sun setting behind the houses, casting long shadows and bathing everything in a warm, golden light. The image is taken from a low angle, which emphasizes the winding nature of the road and the houses in the background.\n\nThe overall scene is peaceful and idyllic, a snapshot of everyday life in a residential neighborhood. The image does not contain any text or discernible actions. The relative positions of the objects suggest a",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8409.PNG",
+        "id": "4cda8f24-fa3b-444e-9227-2515aab9ace4",
+        "ts": "1723673978.0",
+        "latlon": "(32.968789, -117.18415)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image is a screenshot of a chat between a user and an AI assistant. The AI assistant is named "Rainy Winchell Chat (W/F)" and is presenting a project outcome. The chat is displayed on a computer screen with a dark background and white text. The text is neatly organized into paragraphs and includes bullet points for clarity. The chat is about a project outcome and the AI assistant is providing details about the project. The AI assistant is also providing advice on how to follow up with the project. The chat is informative and helpful, providing detailed information about the project outcome. The AI assistant is knowledgeable and provides accurate information. The chat is a good example of how AI can assist in providing information and guidance. The chat is a valuable resource for anyone looking for information on the project outcome. The chat is a great example of how AI can assist in providing information and guidance. The chat is a valuable resource for anyone looking for information on the project outcome. The chat is a great example',
+    },
+]
