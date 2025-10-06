@@ -1394,3 +1394,62 @@
         "text": '\n The image is a screenshot of a chat between a user and an AI assistant. The AI assistant is named "Rainy Winchell Chat (W/F)" and is presenting a project outcome. The chat is displayed on a computer screen with a dark background and white text. The text is neatly organized into paragraphs and includes bullet points for clarity. The chat is about a project outcome and the AI assistant is providing details about the project. The AI assistant is also providing advice on how to follow up with the project. The chat is informative and helpful, providing detailed information about the project outcome. The AI assistant is knowledgeable and provides accurate information. The chat is a good example of how AI can assist in providing information and guidance. The chat is a valuable resource for anyone looking for information on the project outcome. The chat is a great example of how AI can assist in providing information and guidance. The chat is a valuable resource for anyone looking for information on the project outcome. The chat is a great example',
     },
 ]
+
+# test 16
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8445.PNG",
+        "id": "eec34324-21cd-4003-a723-6e1078f30099",
+        "ts": "1725037027.0",
+        "latlon": "(32.968778, -117.18415)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": " and one man in the image.",
+        "text": "\n Language Models Using Reinforcement Learning with Human Feedback\n=======================================================================\n\nRole of KL p\n------------\n\nDaniel M. Ziegler et al. "
+        "Fine-Tuning BERT for Named Entity Recognition in Biomedical Literature. arXiv preprint arXiv/2106.14737 (2021) Paper\n\n* "
+        "The role of KL p is to measure the difference between the predicted and actual probabilities of a model.\n* KL p is used to evaluate the performance of a model."
+        "\n* KL p is used to measure the difference between the predicted and actual probabilities of a model.\n* KL p is used to evaluate the performance of a model."
+        "\n* KL p is used to measure the difference between the predicted and actual probabilities of a model.\n* KL p is used to evaluate the performance of a model."
+        "\n* KL p is used to measure the difference between the predicted and actual probabilities of a model.\n* KL p is used",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8353.PNG",
+        "id": "adb7318c-fdcc-4b45-be56-fc5cb8db60d5",
+        "ts": "1720234288.0",
+        "latlon": "(32.926781, -117.2585)",
+        "loc": "Torrey Pines State Reserve San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene scene at the Torrey Pines State Reserve in San Diego. The vantage point is high, overlooking a large parking lot filled with cars. "
+        "The lot is bustling with activity, with cars moving in and out, adding a dynamic element to the otherwise tranquil setting.\n\nBeyond the parking lot, the vast expanse of the ocean stretches out, its surface shimmering under the setting sun. "
+        "The sky is painted in hues of orange and pink, casting a warm glow over the entire scene. The sun is setting over the ocean, its rays reflecting off the water and creating a beautiful spectacle.\n\nThe reserve itself is lush with greenery. "
+        "Trees and shrubs dot the landscape, their leaves rustling in the sea breeze. The contrast between the greenery and the blue of the ocean and sky creates a visually stunning image."
+        "\n\nOverall, the image beautifully encapsulates a typical day at the Torrey Pines State Reserve, with the hustle and bustle of the parking lot, the vast",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8669.PNG",
+        "id": "87f7691d-df38-4c84-bd09-e0c8e56919ad",
+        "ts": "1729559723.0",
+        "latlon": "(32.968361, -117.187217)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image captures a serene moment in a park during sunset. A man, dressed in a blue shirt and jeans, is seen walking his black dog on a dirt path. '
+        'The path is bordered by a wooden fence on the left and a stone wall on the right, adding a rustic charm to the scene. The sky above is painted in hues of pink and orange, casting a warm glow over the entire landscape. '
+        'In the distance, the silhouette of a house can be seen, adding depth to the image. The landmark identifier "sa_17619" doesn\'t provide any additional information about the location. '
+        'The image is a beautiful representation of a peaceful evening in a suburban park.The image captures a serene moment in a park during sunset. A man, dressed in a blue shirt and jeans, is seen walking his black dog on a dirt path. '
+        'The path is bordered by a wooden fence on the left and a stone wall on the right, adding a rustic charm to the scene.',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8229.PNG",
+        "id": "d378ab94-238d-4475-9917-95376bcfb958",
+        "ts": "1717708671.0",
+        "latlon": "(32.968778, -117.184172)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image is a screenshot of a computer monitor displaying a flowchart. The flowchart is designed to explain the process of embedding a vector image into a document. '
+        'It\'s a step-by-step guide, with each step represented by a box and connected by arrows to indicate the flow of the process.\n\nThe first step is to "Embedding vector captures content/meaning". '
+        'This step is crucial as it involves understanding the content or meaning of the vector image. The second step is to "Text with similar content/meaning". '
+        'This step is important as it involves selecting text that has a similar meaning or content to the vector image.\n\nThe third step is to "My dog Rover likes to chase squirrels". '
+        'This step is important as it involves understanding the behavior of the dog, Rover, and how it interacts with squirrels.\n\nThe fourth step is to "The Chevy Bolt accelerates to 60 mph in 7.5 seconds". '
+        'This step is important as it involves understanding the performance of the Chevy Bolt car',
+    },
+]

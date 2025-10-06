@@ -42,7 +42,8 @@ def create_partial_prompt(agg):
             s = f' "{d["name"]}", a {d["emotion"]} {d["cnoun"]}, at {d["loc"]} '  #f'Face at coordinates {d["loc"]} is of "{d["name"]}", a "{d["cnoun"]}" expressing "{d["emotion"]}" emotion. '
             txt += s
         if d["type"] == "unknown":
-            txt += " and "
+            if txt != "":
+              txt += " and "
             if d["cman"] > 0:
                 if d["cman"] > 1:
                     s = f" {d['cman']} men "
