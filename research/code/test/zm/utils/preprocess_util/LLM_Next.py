@@ -29,7 +29,9 @@ def setLLM():
     model_id = "xtuner/llava-llama-3-8b-v1_1-transformers" #"xtuner/llava-phi-3-mini-hf" #"xtuner/llava-llama-3-8b-hf"
     pipe = pipeline("image-to-text", model=model_id, device="cpu")
     return pipe
-
+"""
+Describe the image with thoughtful insights using additional information provided. It is CRITICALLY important to include the NAMES OF PEOPLE and EMOTIONS if available in "{partial_prompt}" and the location details if available in "{location}" in the response if appropriate. 
+"""
 def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
 
     st.info("calling LLM...")
@@ -52,7 +54,7 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
         7. Maintain clearity and information.
         <|im_end|>
         <|im_start|>user
-        <image>"{question}" It is CRITICALLY important to include the NAMES OF PEOPLE and EMOTIONS if provided "{partial_prompt}" and the location details "{location}" in the response if appropriate.  
+        <image>"{question}" It is CRITICALLY important to include the NAMES OF PEOPLE and EMOTIONS if available in "{partial_prompt}" and the location details if available in "{location}" in the response.  
         <|im_end|> 
         <|im_start|>assistant
         """.format(
