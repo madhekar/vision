@@ -1205,3 +1205,106 @@
         "text": "\n The image captures a serene moment at the Topanga State Park in Topanga, California. A woman, clad in a vibrant yellow shirt and blue jeans, stands on a red and white checkered floor. She is positioned between two sturdy columns, their beige color contrasting with the clear blue sky above. The park is lush with greenery, with trees and bushes forming a tranquil backdrop. The woman's gaze is directed towards the camera, her expression one of curiosity and wonder. The image exudes a sense of calm and invites the viewer to explore the beauty of the park.|||||||||||||||||||||||||||||||||||||||||",
     },
 ]
+
+# test12
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8666.PNG",
+        "id": "20a2ba67-5575-47bd-8f9a-5489585598f3",
+        "ts": "1729558202.0",
+        "latlon": "(32.970153, -117.183303)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image captures a serene scene of a sunset over a path in a park. The path, made of dirt, is lined with a wooden fence on the right side, adding a rustic charm to the scene. The sun, a bright orange orb, is setting behind a hill in the distance, casting a warm glow over the entire landscape. The sky above is a beautiful blend of orange and blue hues, with wispy clouds scattered across it. The perspective of the image is from the ground level, looking up at the sunset, giving a sense of scale and grandeur to the scene. The landmark information "Madhekar Residence Home in San Diego" does not provide any additional details about the location of this park. The image does not contain any identifiable landmarks or distinctive features that could be used to determine its exact location. The overall composition of the image suggests a peaceful and tranquil setting, perfect for a leisurely stroll or a quiet moment of reflection.|||',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8557.PNG",
+        "id": "2c55136b-4e2b-4624-b28b-4c77fde4755c",
+        "ts": "1727055302.0",
+        "latlon": "(34.118667, -118.300828)",
+        "loc": "Glendale",
+        "ppt": ' "Anjali", a angry woman, at (1894, 1829) and 5 men one woman in the image.',
+        "text": "\n The image captures a group of people standing on a balcony at sunset. The sky is painted with hues of orange and yellow, and the sun is setting behind a distant mountain range. "
+        "The people are silhouetted against the vibrant backdrop, adding a sense of depth and scale to the scene. \n\nOne person, standing in the foreground, is wearing a black jacket and has their hands on their hips, perhaps in a stance of defiance or anticipation. "
+        "The rest of the group is dressed in casual attire, suggesting a relaxed and informal gathering. \n\nThe balcony they're standing on is made of metal and has a railing, indicating a safe and secure location for the gathering. "
+        "The precise location of the scene is not discernible from the image, but the presence of mountains in the background suggests a hilly or mountainous region.\n\nThe image does not contain any discernible text. "
+        "The relative positions of the people suggest a casual gathering, with no apparent formation or alignment. The image does not provide enough detail",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8257.PNG",
+        "id": "00dd3807-8ac7-4507-971e-d1ba754faf32",
+        "ts": "1718213385.0",
+        "latlon": "(32.968764, -117.184106)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a close-up view of a vibrant green leaf, adorned with numerous small water droplets, suggesting a recent rainfall or morning dew. The leaf is the main focus of the image, with its intricate details sharply in focus. "
+        "\n\nIn the background, a garden bed teems with life. A variety of plants and rocks create a natural tapestry, their colors and textures adding depth to the scene. The garden bed is slightly blurred, drawing the viewer's attention back to the leaf in the foreground. "
+        "\n\nThe image does not contain any discernible text or countable objects. The relative positions of the objects suggest a well-maintained and thoughtfully designed garden space. The leaf, being the closest to the viewer, appears larger than the plants and rocks in the background. "
+        "\n\nThis image is a testament to the beauty of nature, captured in a single, stunning frame. It's a snapshot of a moment, frozen in time, that speaks volumes about the world around us. ",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8569.PNG",
+        "id": "7adb0e8c-50ff-46a1-90ee-4c27f78207c7",
+        "ts": "1727369913.0",
+        "latlon": "(32.968739, -117.184136)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image you've shared is a screenshot of a Python code snippet. The code is written in a monospaced font and is displayed in a text editor. The code is indented with four spaces and is written in a dark gray color. "
+        "The code is about a Python script that reads a file and extracts information from it. The file contains a list of latitude and longitude coordinates. "
+        "The code uses the pandas library to read the file and the geopy library to convert the latitude and longitude coordinates to a point on a map. The code also uses the folium library to create a map of the points. "
+        "The code is written in a dark gray color and is displayed in a text editor. The code is about a Python script that reads a file and extracts information from it. The file contains a list of latitude and longitude coordinates. "
+        "The code uses the pandas library to read the file and the geopy library to convert the latitude and longitude",
+    },
+]
+
+# TEST 12
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8476.PNG",
+        "id": "6f45d019-bbff-42e8-9a0c-8cbf46984e6b",
+        "ts": "1725992505.0",
+        "latlon": "(32.968631, -117.184228)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": ' "Anjali", a fear woman, at (1569, 823) and one woman in the image.',
+        "text": "\n Anjali, a fear woman, stands in front of a house named Madhekar Residence Home in San Diego. She is dressed in a traditional Indian saree, which is a vibrant mix of red and green. In her hands, she holds a silver tray that cradles a statue of a Hindu goddess. "
+        "The goddess, depicted in red and gold, is adorned with a green and gold headdress. Anjali's gaze is directed towards the camera, her expression one of concern. The house behind her is painted white and features a green door. "
+        "A tree stands guard in front of the house, its leaves a lush green. The scene is one of tranquility and reverence.||||||||||||||||||||||||||||||||||||||",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8319.PNG",
+        "id": "bce36102-58b6-4aff-acdd-0c017a68000c",
+        "ts": "1719708496.0",
+        "latlon": "(32.925106, -117.2584)",
+        "loc": "Torrey Pines State Reserve San Diego",
+        "ppt": "",
+        "text": "\n The image captures the breathtaking view of the Torrey Pines State Reserve in San Diego, California. The vantage point is high, providing a panoramic view of the beach and the ocean. "
+        "The beach is a vibrant mix of sand and rocks, with a few cars parked along the side, indicating the presence of visitors. The ocean, a deep blue, is alive with white waves crashing onto the shore, creating a dynamic and lively scene. "
+        "The sky above is a clear blue, dotted with a few clouds, adding to the serene atmosphere. The image is a beautiful representation of the natural beauty and tranquility of the Torrey Pines State Reserve. ",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8477.PNG",
+        "id": "8f131691-3a55-4390-9ca6-ae01f88071f1",
+        "ts": "1725992512.0",
+        "latlon": "(32.968628, -117.184211)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": ' "Anjali", a fear woman, at (1296, 570) and one woman in the image.',
+        "text": "\n Anjali, a fear woman, stands in front of a house named Madhekar Residence Home in San Diego. She is dressed in a traditional Indian saree, which is predominantly red and gold. "
+        "In her hands, she holds a small statue of a Hindu deity, also red and gold. The house behind her is painted white and features a blue door. A garden can be seen in the background, filled with various plants and trees. "
+        "Anjali's gaze is directed towards the camera, and she appears to be in a state of fear. The overall scene suggests a cultural or religious event taking place at the Madhekar Residence Home.||||||||||||||||||||||||||||||||||||||||||||",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8234.PNG",
+        "id": "83c18558-6e41-4050-b119-d5d703cb55b5",
+        "ts": "1717710688.0",
+        "latlon": "(32.968706, -117.184144)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image presents a flowchart that illustrates three additional methods for reducing the MapReduce framework's latency. "
+        "The flowchart is neatly divided into three sections, each representing a different method: Map, Refine, and Map(rank). \n\n The Map section, located at the top, shows how the MapReduce framework can be optimized by reducing the number of map tasks. "
+        "This is achieved by reducing the number of map tasks, which in turn reduces the amount of data that needs to be processed by the map tasks. \n\n The Refine section, situated in the middle, demonstrates how the MapReduce framework can be optimized by refining the data that is being processed. "
+        "This is done by refining the data into smaller chunks, which can then be processed more efficiently by the map tasks. \n\n The Map(rank) section, positioned at the bottom, shows how the MapReduce framework can be optimized by ranking the data based on its importance. "
+        "This is done by ranking the data based on its importance, which allows",
+    },
+]

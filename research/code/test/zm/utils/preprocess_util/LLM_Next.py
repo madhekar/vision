@@ -44,7 +44,7 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
         Ensure the information flows seamlessly within paragraphs.
         <|im_end|>
         <|im_start|>user
-        <image>"{question}" It is utmost important to include the NAMES OF PEOPLE and EMOTIONS if provided "{partial_prompt}" and the location details "{location}" in the response if appropriate.
+        <image>"{question}" It is critically important to include the NAMES OF PEOPLE and EMOTIONS if provided "{partial_prompt}" and the location details "{location}" in the response if appropriate.
         <|im_end|> 
         <|im_start|>assistant
         """.format(
@@ -76,7 +76,8 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
                                         #   "$":  r"\$",
                                         #   "*":  r"\*",
                                         #   ".":  r"\.",
-                                          "'":  r"\'",
+                                          "'" :  r"\'",
+                                          "|":  r""
                                         #  '"':  r"\""
                                           }))
     return rr
