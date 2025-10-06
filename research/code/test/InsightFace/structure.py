@@ -1538,3 +1538,52 @@
         "text": '\n The image is a screenshot of a chat between a user and a chatbot. The chatbot is an expert in people, emotions, and locations. The user is asking the chatbot about the best way to start with level up boot camp. The chatbot is providing a detailed and helpful response, suggesting that the user should start with level up boot camp. The chatbot also mentions that the user should read the book "Why" by Simon Sinker and the book "Level Up" by Seth Godin. The chatbot also mentions that the user should read the book "The Power of Now" by Eckhart Tolle. The chatbot also mentions that the user should read the book "The 7 Habits of Highly Effective People" by Stephen Covey. The chatbot also mentions that the user should read the book "The Art of War" by Sun Tzu. The chatbot also mentions that the user should read the book "The Alchemist" by Paulo Coelho.',
     },
 ]
+
+# test 19
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8482.PNG",
+        "id": "9bbb5f03-a25a-4675-a71a-6c34312c42e0",
+        "ts": "1725997848.0",
+        "latlon": "(32.968772, -117.184144)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": " 3 women in the image.",
+        "text": "\n The image captures a vibrant scene of a Hindu altar, rich in color and symbolism. Dominating the center of the altar is a golden statue of the Hindu deity, Ganesha. "
+        "The statue is adorned with a pink flower on its head, adding a touch of color to the golden hue. \n\nSurrounding Ganesha are various offerings, each with its own significance. "
+        "To the left of Ganesha, there's a small statue of a Hindu deity, its presence adding to the spiritual ambiance of the scene. On the right side of Ganesha, a small statue of a cow is placed, a common symbol in Hinduism representing abundance and prosperity."
+        "\n\nThe altar itself is draped in a red and gold cloth, colors often associated with wealth and power in Hindu culture. Adding to the festive atmosphere, strings of flowers hang from the top of the altar, their delicate petals adding a touch of nature to the man-made structure."
+        "\n\nThe backdrop to this scene is a purple wall, providing a",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/90399121-0124-4b2d-a37e-3db9a9c95bad.jpg",
+        "id": "8bf99fcc-35d9-47dd-8b70-b7b875175c9a",
+        "ts": "946717261.0",
+        "latlon": "(32.968689, -117.184243)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": ' "Bhalchandra", a angry man, at (747, 194) and in the image.',
+        "text": "\n A man is holding a golden statue of an elephant. The elephant is adorned with a pink flower on its head and a red cloth draped over its body. The man is wearing a blue and white striped shirt. "
+        "The statue is being held in front of a wall that has a blue and gold banner hanging on it. The banner is decorated with white flowers. The man is smiling and appears to be happy. "
+        "The statue is the main focus of the image, with the man and the banner serving as the background. The colors in the image are vibrant, with the golden color of the statue contrasting against the blue and white of the man's shirt and the banner. "
+        "The pink flower on the elephant's head adds a touch of color to the scene. The man's smile suggests that he is proud of the statue. The banner on the wall behind him suggests that the location could be a place of worship or a cultural center. "
+        "The white flowers on the banner add a touch of elegance to the scene. The",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8673.PNG",
+        "id": "13909ecf-d4b9-4724-9c09-47af9a125eda",
+        "ts": "1729644656.0",
+        "latlon": "(32.969161, -117.185875)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene scene at sunset. The main focus is a wooden fence that runs along the left side of the frame. The fence, made of wooden posts and rails, adds a rustic charm to the scene. \n\nOn the right side of the image, a tree stands tall, its leaves rustling in the evening breeze. The tree's position provides a natural contrast to the man-made fence.\n\nThe background is dominated by a breathtaking sunset. The sun, partially obscured by the tree, casts a warm, golden glow across the sky. This light illuminates the scene, highlighting the textures of the fence and the tree.\n\nIn the distance, beyond the tree, there's a building. Its details are not clear, but it adds another layer of depth to the image.\n\nOverall, the image beautifully captures a tranquil moment at sunset, with the wooden fence, the tree, and the distant building all contributing to a sense of peace and serenity.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8503.PNG",
+        "id": "c779af4b-319e-421d-8f91-5d8a2ff8955f",
+        "ts": "1726544595.0",
+        "latlon": "(32.968636, -117.184167)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image captures a serene scene of a golden statue of the Hindu deity, Ganesha, nestled in a room. The statue, resplendent in gold, is adorned with a red and white garland, adding a touch of color to the otherwise monochromatic figure. In its four hands, it holds a golden bowl, a golden noose, a golden discus, and a golden mace, symbols often associated with the deity. The statue is surrounded by an array of flowers and pumpkins, their vibrant colors contrasting with the golden hue of the statue. The backdrop is a red curtain, providing a warm and inviting atmosphere to the scene. The image is taken from a low angle, looking up at the statue, giving it a sense of grandeur and reverence. The perspective also allows for a detailed view of the statue and its surroundings. The image does not provide any information about the location, but the code "Madhekar Residence Home in San Diego" suggests that this could',
+    },
+]

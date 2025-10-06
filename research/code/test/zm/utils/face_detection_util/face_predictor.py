@@ -71,7 +71,7 @@ def create_partial_prompt(agg):
                 else:
                     s = " one girl "
                 txt += s 
-            txt += "in the image."
+            #txt += "in the image."
     return txt
 
 """ 
