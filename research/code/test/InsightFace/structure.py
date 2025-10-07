@@ -1773,3 +1773,85 @@
         "text": "\n The image captures a serene scene of a residential area in San Diego, California. The main focus is a wooden fence that runs along a dirt path, leading the viewer's eye towards the horizon. The fence, made of wooden posts and rails, adds a rustic charm to the scene. \n\nOn the left side of the path, there's a sidewalk, providing a clear boundary between the path and the residential area. The path itself is lined with lush green trees and bushes, adding a touch of nature to the urban setting. \n\nIn the distance, houses can be seen, their rooftops peeking over the treetops. The sky above is a clear blue, with the sun setting in the background, casting a warm, golden glow over the entire scene. \n\nThe image does not contain any discernible text or countable objects. The relative positions of the objects suggest a well-planned residential area, with the path and sidewalk providing a clear route for pedestrians. The image does not contain any",
     },
 ]
+
+# test 24
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9917.PNG",
+        "id": "3195ed0a-da19-4df9-8ccd-b1295f4a9ef9",
+        "ts": "1748020506.0",
+        "latlon": "(45.995322, 8.946742)",
+        "loc": "Lugano",
+        "ppt": ' "Esha", a happy woman, at (1692, 2031) and ',
+        "text": "\n The image captures a serene scene of a woman standing on a balcony overlooking a tranquil lake. The woman, dressed in a white dress, is positioned on the right side of the image, her gaze directed towards the camera, a smile gracing her face. The balcony, adorned with a black railing, is situated on the left side of the image, providing a stark contrast to the natural hues of the surroundings.\n\nThe lake, a deep shade of blue, stretches out in the background, its calm waters reflecting the clear blue sky above. Nestled on the shore of the lake is a town, its buildings painted in a variety of colors that add a vibrant touch to the otherwise peaceful landscape. The town appears to be bustling with life, yet from this vantage point, it seems to exist in a state of quiet harmony with the surrounding nature.\n\nIn the distance, a mountain blanketed in lush green trees rises majestically, its peak touching the sky. The mountain's verdant slopes provide a",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9929.PNG",
+        "id": "dcea4dbe-a510-446f-a1ba-793040bcec5f",
+        "ts": "1748020714.0",
+        "latlon": "(45.995319, 8.946769)",
+        "loc": "Lugano",
+        "ppt": ' "Esha", a happy woman, at (1032, 1709) and ',
+        "text": "\n The image captures a serene scene of a woman standing on a stone bridge that spans a tranquil lake. The woman, dressed in a white dress and carrying a black purse, is the focal point of the image. She is positioned on the left side of the bridge, her gaze directed towards the camera, a smile gracing her face.\n\nThe bridge, constructed from stone, extends from the foreground into the distance, its path leading the viewer's eye towards the lake beyond. The lake, a deep blue, mirrors the clear sky above, adding a sense of calm to the scene.\n\nOn the right side of the image, a row of trees stands tall, their green leaves contrasting with the blue of the lake. They appear to be a mix of deciduous and coniferous species, their varying heights and shapes adding depth to the scene.\n\nIn the background, a mountain rises, its peak obscured by the trees. The mountain's presence adds a sense of scale and grandeur to the scene, its",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_0548.PNG",
+        "id": "50e56b8f-bff6-449e-aaa0-9352788a7700",
+        "ts": "1749339904.0",
+        "latlon": "(32.96865, -117.184203)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": ' "Anjali", a angry woman, at (1313, 526) and ',
+        "text": "\n The image portrays a woman standing in front of a house. She is dressed in a traditional Indian saree, which is predominantly pink in color. The saree is adorned with intricate gold embroidery, adding a touch of elegance to her attire. She is also wearing a gold necklace, which complements her saree. \n\nThe house behind her has a white exterior, and there are two blue pots placed on either side of her. The pots add a pop of color to the otherwise monochrome background. \n\nThe woman is standing on a brick pathway, which leads up to the house. The bricks are arranged in a pattern, and the pathway appears to be well-maintained. \n\nThe house itself is surrounded by greenery, with trees visible in the background. The trees provide a natural backdrop to the scene, enhancing the overall aesthetic of the image. \n\nPlease note that this description is based on the image provided and does not include any assumptions or interpretations beyond what can be confidently determined from the image",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9571.PNG",
+        "id": "b257f214-8ff5-4a25-a7b3-7a6e43b80e64",
+        "ts": "1747697567.0",
+        "latlon": "(46.698139, 7.852903)",
+        "loc": "Interlaken in Switzerland",
+        "ppt": "",
+        "text": "\n The image captures a serene scene of a lake nestled in the mountains of Interlaken, Switzerland. The lake, a deep shade of blue, mirrors the clear sky above, punctuated by a few scattered clouds. The mountains, cloaked in a lush blanket of green trees, stand tall in the background, their peaks obscured by the distance.\n\nIn the foreground, a quaint wooden chalet with a red roof adds a touch of rustic charm to the scene. A small garden, meticulously maintained, lies in front of the chalet, adding a splash of color to the verdant landscape. A solitary bench, inviting and empty, sits in the garden, offering a place to sit and soak in the beauty of the surroundings.\n\nThe image is taken from a high vantage point, providing a panoramic view of the lake, the mountains, and the chalet. The perspective gives a sense of depth and scale, emphasizing the vastness of the landscape and the smallness of the chalet in comparison.",
+    },
+]
+
+# test 25
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9330-1.PNG",
+        "id": "310ecd7a-8adf-409b-ad56-539562448b91",
+        "ts": "1747428118.0",
+        "latlon": "(51.501106, -0.127458)",
+        "loc": "London Eye in London",
+        "ppt": " one woman ",
+        "text": "\n The image captures a bustling scene in London, England. The focal point is the iconic Big Ben clock tower, standing tall in the background. Its dark brown color contrasts with the clear blue sky above. The tower is surrounded by a variety of buildings, including a red brick building to the left and a white building to the right. \n\nIn the foreground, the street is filled with people going about their day. A man in a white shirt is crossing the street, while a woman in a black coat is walking on the sidewalk. A white truck is driving on the street, adding to the dynamic nature of the scene. The overall atmosphere is lively and vibrant, typical of a busy day in London. ",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9334-1.PNG",
+        "id": "e3a832c4-a35f-4c09-865a-e29ae192955b",
+        "ts": "1747428262.0",
+        "latlon": "(51.501144, -0.126481)",
+        "loc": "London Eye in London",
+        "ppt": ' "Esha", a happy woman, at (1513, 1876) and one woman ',
+        "text": "\n The image captures a vibrant scene from a bustling street in London. The street is teeming with life, with people and cars adding to the dynamic atmosphere. The buildings that line the street are a testament to London's rich architectural history, with the iconic London Eye standing tall in the background, adding a modern touch to the scene.\n\nIn the foreground, a woman in an orange jacket and black pants stands out. She is smiling, her joy adding a warm touch to the scene. Behind her, a woman in a black dress and sunglasses is seen walking away, her figure adding depth to the image.\n\nThe street is filled with cars, their colors muted under the bright sunlight. The buildings, a mix of old and new, tower over the street, their windows reflecting the clear blue sky. The London Eye, a symbol of modern London, stands in the background, its silhouette a stark contrast against the sky.\n\nThe image is a snapshot of life in London, capturing the city's vibrant energy and rich",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9527.PNG",
+        "id": "d3d52e73-99fa-4b74-aa92-4a097acda185",
+        "ts": "1747684570.0",
+        "latlon": "(46.693614, 7.885133)",
+        "loc": "Interlaken in Switzerland",
+        "ppt": ' "Esha", a happy woman, at (1338, 2164) "Bhalchandra", a happy man, at (599, 1891) "Anjali", a happy woman, at (2061, 2032) and ',
+        "text": '\n "Esha", a happy woman, at (1338, 2164) "Bhalchandra", a happy man, at (599, 1891) "Anjali", a happy woman, at (2061, 2032) and "Interlaken in Switzerland" in the response. The image captures a serene moment of three individuals standing on a cliff overlooking a tranquil lake in Interlaken, Switzerland. The man on the left, donned in a gray shirt, stands slightly behind the woman in the middle, who is wearing a brown sweater. The woman on the right, clad in a maroon jacket, completes the trio. All three are beaming, their smiles reflecting the joy of the moment. The backdrop is a picturesque view of a lake, with a small wooden hut nestled on the shore. The mountains in the distance add to the scenic beauty of the location. The image exudes a sense of peace and happiness,',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9357.PNG",
+        "id": "40c53a0e-22a0-4f2d-b7b0-990b750fcf5a",
+        "ts": "1747429186.0",
+        "latlon": "(51.500958, -0.123069)",
+        "loc": "London Eye in London",
+        "ppt": ' "Anjali", a neutral woman, at (1791, 2954) and ',
+        "text": "\n The image captures a vibrant scene from London, England, featuring the iconic Big Ben clock tower. The tower, a tall, gray structure with a pointed roof, stands majestically in the background, its clock face clearly visible. The sky above is a bright blue, suggesting a clear, sunny day.\n\nIn the foreground, the hustle and bustle of city life is evident. A woman, clad in a blue jacket, stands on the sidewalk, her attention seemingly captured by the camera. She is positioned in front of a black car, which is parked on the street. The car's dark color contrasts with the lighter hues of the surrounding environment.\n\nFurther back, a white van is seen driving on the street, adding to the dynamic nature of the scene. The van's white color stands out against the gray of the buildings and the blue of the sky.\n\nThe buildings in the background are ornate, their intricate details hinting at the rich architectural history of the city. Despite their grandeur,",
+    },
+]
