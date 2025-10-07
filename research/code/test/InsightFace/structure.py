@@ -1773,3 +1773,44 @@
         "text": "\n The image captures a serene scene of a residential area in San Diego, California. The main focus is a wooden fence that runs along a dirt path, leading the viewer's eye towards the horizon. The fence, made of wooden posts and rails, adds a rustic charm to the scene. \n\nOn the left side of the path, there's a sidewalk, providing a clear boundary between the path and the residential area. The path itself is lined with lush green trees and bushes, adding a touch of nature to the urban setting. \n\nIn the distance, houses can be seen, their rooftops peeking over the treetops. The sky above is a clear blue, with the sun setting in the background, casting a warm, golden glow over the entire scene. \n\nThe image does not contain any discernible text or countable objects. The relative positions of the objects suggest a well-planned residential area, with the path and sidewalk providing a clear route for pedestrians. The image does not contain any",
     },
 ]
+
+# test 24
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9917.PNG",
+        "id": "3195ed0a-da19-4df9-8ccd-b1295f4a9ef9",
+        "ts": "1748020506.0",
+        "latlon": "(45.995322, 8.946742)",
+        "loc": "Lugano",
+        "ppt": ' "Esha", a happy woman, at (1692, 2031) and ',
+        "text": "\n The image captures a serene scene of a woman standing on a balcony overlooking a tranquil lake. The woman, dressed in a white dress, is positioned on the right side of the image, her gaze directed towards the camera, a smile gracing her face. The balcony, adorned with a black railing, is situated on the left side of the image, providing a stark contrast to the natural hues of the surroundings.\n\nThe lake, a deep shade of blue, stretches out in the background, its calm waters reflecting the clear blue sky above. Nestled on the shore of the lake is a town, its buildings painted in a variety of colors that add a vibrant touch to the otherwise peaceful landscape. The town appears to be bustling with life, yet from this vantage point, it seems to exist in a state of quiet harmony with the surrounding nature.\n\nIn the distance, a mountain blanketed in lush green trees rises majestically, its peak touching the sky. The mountain's verdant slopes provide a",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9929.PNG",
+        "id": "dcea4dbe-a510-446f-a1ba-793040bcec5f",
+        "ts": "1748020714.0",
+        "latlon": "(45.995319, 8.946769)",
+        "loc": "Lugano",
+        "ppt": ' "Esha", a happy woman, at (1032, 1709) and ',
+        "text": "\n The image captures a serene scene of a woman standing on a stone bridge that spans a tranquil lake. The woman, dressed in a white dress and carrying a black purse, is the focal point of the image. She is positioned on the left side of the bridge, her gaze directed towards the camera, a smile gracing her face.\n\nThe bridge, constructed from stone, extends from the foreground into the distance, its path leading the viewer's eye towards the lake beyond. The lake, a deep blue, mirrors the clear sky above, adding a sense of calm to the scene.\n\nOn the right side of the image, a row of trees stands tall, their green leaves contrasting with the blue of the lake. They appear to be a mix of deciduous and coniferous species, their varying heights and shapes adding depth to the scene.\n\nIn the background, a mountain rises, its peak obscured by the trees. The mountain's presence adds a sense of scale and grandeur to the scene, its",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_0548.PNG",
+        "id": "50e56b8f-bff6-449e-aaa0-9352788a7700",
+        "ts": "1749339904.0",
+        "latlon": "(32.96865, -117.184203)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": ' "Anjali", a angry woman, at (1313, 526) and ',
+        "text": "\n The image portrays a woman standing in front of a house. She is dressed in a traditional Indian saree, which is predominantly pink in color. The saree is adorned with intricate gold embroidery, adding a touch of elegance to her attire. She is also wearing a gold necklace, which complements her saree. \n\nThe house behind her has a white exterior, and there are two blue pots placed on either side of her. The pots add a pop of color to the otherwise monochrome background. \n\nThe woman is standing on a brick pathway, which leads up to the house. The bricks are arranged in a pattern, and the pathway appears to be well-maintained. \n\nThe house itself is surrounded by greenery, with trees visible in the background. The trees provide a natural backdrop to the scene, enhancing the overall aesthetic of the image. \n\nPlease note that this description is based on the image provided and does not include any assumptions or interpretations beyond what can be confidently determined from the image",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9571.PNG",
+        "id": "b257f214-8ff5-4a25-a7b3-7a6e43b80e64",
+        "ts": "1747697567.0",
+        "latlon": "(46.698139, 7.852903)",
+        "loc": "Interlaken in Switzerland",
+        "ppt": "",
+        "text": "\n The image captures a serene scene of a lake nestled in the mountains of Interlaken, Switzerland. The lake, a deep shade of blue, mirrors the clear sky above, punctuated by a few scattered clouds. The mountains, cloaked in a lush blanket of green trees, stand tall in the background, their peaks obscured by the distance.\n\nIn the foreground, a quaint wooden chalet with a red roof adds a touch of rustic charm to the scene. A small garden, meticulously maintained, lies in front of the chalet, adding a splash of color to the verdant landscape. A solitary bench, inviting and empty, sits in the garden, offering a place to sit and soak in the beauty of the surroundings.\n\nThe image is taken from a high vantage point, providing a panoramic view of the lake, the mountains, and the chalet. The perspective gives a sense of depth and scale, emphasizing the vastness of the landscape and the smallness of the chalet in comparison.",
+    },
+]
