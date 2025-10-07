@@ -1587,3 +1587,97 @@
         "text": '\n The image captures a serene scene of a golden statue of the Hindu deity, Ganesha, nestled in a room. The statue, resplendent in gold, is adorned with a red and white garland, adding a touch of color to the otherwise monochromatic figure. In its four hands, it holds a golden bowl, a golden noose, a golden discus, and a golden mace, symbols often associated with the deity. The statue is surrounded by an array of flowers and pumpkins, their vibrant colors contrasting with the golden hue of the statue. The backdrop is a red curtain, providing a warm and inviting atmosphere to the scene. The image is taken from a low angle, looking up at the statue, giving it a sense of grandeur and reverence. The perspective also allows for a detailed view of the statue and its surroundings. The image does not provide any information about the location, but the code "Madhekar Residence Home in San Diego" suggests that this could',
     },
 ]
+
+# test 20
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8549.PNG",
+        "id": "06a25084-1621-4aeb-8e40-710f692d8be0",
+        "ts": "1727049397.0",
+        "latlon": "(34.118247, -118.300653)",
+        "loc": "Glendale",
+        "ppt": ' "Anjali", a happy woman, at (2381, 1470) and ',
+        "text": "\n Anjali, a happy woman, stands on a balcony overlooking the city of Glendale. She is dressed in a vibrant yellow blouse and holds a black purse in her hand. The cityscape unfolds beneath her, a mix of towering buildings and sprawling structures nestled amidst verdant trees. "
+        "The sky above is a clear blue, adding to the serene atmosphere. Anjali's smile radiates warmth as she takes in the view, her joy palpable even in the stillness of the image. "
+        "The balcony, a silent observer, frames her perfectly against the backdrop of the city, creating a harmonious blend of human emotion and urban architecture. Anjali, a happy woman, stands on a balcony overlooking the city of Glendale. "
+        "She is dressed in a vibrant yellow blouse and holds a black purse in her hand. The cityscape unfolds beneath her, a mix of towering buildings and sprawling structures nestled amidst verdant trees. The sky above is a clear blue, adding",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8645.PNG",
+        "id": "61ea42ed-c6b0-4d37-a96f-9f7751d1adfc",
+        "ts": "1729212992.0",
+        "latlon": "(32.969014, -117.186194)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene sunset at the Madhekar Residence Home in San Diego. The sky, awash with hues of orange and pink, is dotted with a few scattered clouds. The setting sun casts a warm glow over the landscape, highlighting the lush greenery of the trees and bushes that surround the house. The house itself is nestled amidst this verdant setting, its details obscured by the distance. A wooden fence, weathered by time, stands in the foreground, adding a rustic charm to the scene. The perspective of the image is from a high vantage point, offering a panoramic view of the house and its surroundings. The image exudes a sense of tranquility and peace, characteristic of a quiet evening at home. ",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8217.PNG",
+        "id": "939ffc22-a498-4d2e-82bc-cbccec1b1e72",
+        "ts": "1717625410.0",
+        "latlon": "(32.968831, -117.184136)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image you\'ve shared is a slide from a presentation on specialized embedding models. The slide is titled "Specialized Embedding Models" and has a red background with white text. \n\nThe slide contains three images and three pieces of text. \n\nThe first image is a photo of a burger with lettuce and tomato. The text next to this image reads "Image Encoder". \n\nThe second image is a photo of a green circle with a white camera icon inside. The text next to this image reads "Text Encoder". \n\nThe third image is a photo of a green circle with a white image icon inside. The text next to this image reads "Nutrition Encoder". \n\nThe slide also contains a table with the following columns: "Model", "Description", and "Nutrition Encoder". The table is empty and the slide does not provide any information about the models or their descriptions. \n\nPlease note that this description is based on the information provided and does not include any assumptions or interpretations.',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8162.PNG",
+        "id": "2b92ce85-aab8-4553-8e96-082349d048e5",
+        "ts": "1717530201.0",
+        "latlon": "(32.968778, -117.184181)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image you\'ve shared is a screenshot of a chat between a human and an artificial intelligence assistant. The assistant is an expert in people, emotions, and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. \n\nThe chat is taking place on a messaging platform, with the human\'s messages appearing in a text box and the assistant\'s responses in a separate text box. The human\'s first message reads "Role", and the assistant responds with a list of roles that the human can assume. The human then asks "Why did the chicken cross the road?", and the assistant responds with a joke. The human then asks "What is the system\'s behavior of assistant?", and the assistant explains that the system\'s behavior is to assist the user. The human then asks "What model is the user?", and the assistant responds with a model of the user. \n\nThe screenshot is set against a white background, with the text boxes appearing in black and the user\'s messages appearing',
+    },
+]
+
+# test 21
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8221.PNG",
+        "id": "60f45aff-c2a5-49f5-bfde-7de3047f1d22",
+        "ts": "1717633865.0",
+        "latlon": "(32.968778, -117.184181)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n Additional Memory Types\n Vector data memory\n Stores text (from conversation or elsewhere) in a vector database and retrieves the most relevant blocks of text. \n Entity memories\n Using LLM. It remembers details about specific entities. \n You can also use multiple memories at one time. \n E.g. Conversation memory + Entity memory to recall individuals. \n You can also store the conversation in a conventional database (such as key-value store or SQL)AI: Additional Memory Types\nVector data memory is a type of memory that stores text from conversations or elsewhere in a vector database and retrieves the most relevant blocks of text. Entity memories are a type of memory that uses LLM to remember details about specific entities. You can also use multiple memories at one time, such as conversation memory and entity memory to recall individuals. You can also store the conversation in a conventional database, such as a key-value store or SQL.im_end>im",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8299.PNG",
+        "id": "c7c0bcca-46c0-4b5b-8825-5e2812d2b780",
+        "ts": "1718988176.0",
+        "latlon": "(32.968789, -117.184158)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image you've shared is a screenshot of a code file, specifically a Python script, titled \"How to Integrate Machine Learning to Streamlit - Part 3\". The code is written in black text against a white background, and it's displayed in a monospaced font. The code appears to be a Streamlit app that uses a machine learning model to predict the number of houses sold in San Diego, California. The model is trained on data from the San Diego real estate market. The code includes a Streamlit app that allows users to input their own data and see the predictions made by the model. The code also includes a Streamlit app that allows users to view the performance of the model. The code is well-organized and includes comments that explain the different parts of the code. The code is written in a clear and concise manner, making it easy to understand and use. The code is a good example of how to integrate machine learning into a Streamlit app.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8240.PNG",
+        "id": "a6cc6b02-d313-4285-8ab5-d5ce08d07022",
+        "ts": "1717803768.0",
+        "latlon": "(32.968778, -117.184172)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image is a screenshot of a webpage that provides a detailed explanation of how to use a research.critique tool. The tool is designed to assist users in generating research papers. The webpage is divided into four sections, each representing a different stage of the research process: plan, research.plan, generate, and reflect. \n\nThe plan section is the first stage of the research process. It provides a step-by-step guide on how to create a research plan. The plan is a roadmap for the research process, outlining the objectives, methods, and expected outcomes of the research. It also includes a list of search queries that will be used to gather information for the research.\n\nThe research.plan section is followed by the research.plan section. This section provides a detailed explanation of how to use the research.critique tool to plan a research project. It includes a list of search queries that will be used to gather information for the research project.\n\nThe generate section is the third stage of the research process. It",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8572.PNG",
+        "id": "17e8d3bf-3b84-498f-aa08-f46d6f5dde0a",
+        "ts": "1727406829.0",
+        "latlon": "(32.968639, -117.184181)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": ' "Bhalchandra", a sad man, at (666, 1046) and ',
+        "text": "\n The image captures a moment in the life of a man named Bhalchandra, who is standing in front of a white door. He is dressed in a striped shirt, adding a touch of casual elegance to his appearance. "
+        "His hair is disheveled, suggesting a moment of relaxation or perhaps a busy day. His expression is serious, indicating that he is deep in thought or perhaps contemplating something of importance. "
+        "The door behind him is white, providing a stark contrast to his dark hair and striped shirt. The background is a beige wall, adding a warm and inviting atmosphere to the scene. "
+        "The image does not provide any additional information about the location or the context of the moment.",
+    },
+]
+
+# test 22
+
+### exception: Traceback (most recent call last): File "/home/madhekar/work/vision/research/code/test/zm/.venv/lib/python3.10/site-packages/aiomultiprocess/pool.py", line 110, in run result = future.result() 
+# File "/home/madhekar/work/vision/research/code/test/zm/utils/preprocess_util/preprocess.py", line 83, in faces_partial_prompt txt = fpr.predict_img_faces(ap, uri, fmodel, fle) 
+# File "/home/madhekar/work/vision/research/code/test/zm/utils/face_detection_util/face_predictor.py", line 165, in predict_img_faces person["emotion"] = em[0]["dominant_emotion"] IndexError: list index out of range occred in async main function

@@ -29,6 +29,7 @@ def setLLM():
     model_id = "xtuner/llava-llama-3-8b-v1_1-transformers" #"xtuner/llava-phi-3-mini-hf" #"xtuner/llava-llama-3-8b-hf"
     pipe = pipeline("image-to-text", model=model_id, device="cpu")
     return pipe
+
 """
 Describe the image with thoughtful insights using additional information provided. It is CRITICALLY important to include the NAMES OF PEOPLE and EMOTIONS if available in "{partial_prompt}" and the location details if available in "{location}" in the response if appropriate. 
 """

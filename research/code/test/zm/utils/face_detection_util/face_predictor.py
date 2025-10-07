@@ -161,8 +161,11 @@ def predict_img_faces(app, new_image_path, svm_classifier, le):
             person['loc'] = (x1, y1)
 
             em = DeepFace.analyze(cropped_face,actions=['emotion'],enforce_detection=False)
-            # face emotion 
-            person["emotion"] = em[0]["dominant_emotion"]
+            if em:
+              # face emotion 
+              person["emotion"] = em[0]["dominant_emotion"]
+            else:
+              person["emotion"] = "neutral"    
 
             people.append(person)
         print(people)
