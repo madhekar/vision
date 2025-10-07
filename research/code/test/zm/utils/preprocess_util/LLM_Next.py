@@ -46,13 +46,14 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
         Do not hallucinate and gives very close attention to the details and takes time to process information provided in Image and text format, your response must be entirely in prose. Absolutely no lists, bullet points, or numbered items should be used. 
         Ensure the information flows seamlessly within paragraphs. Adhere strictly to these guidelines:
         1. Only provide answer and no extra commentry, additional context or information request.
-        2. Eliminate unclear excessive symbols or gibberish.
-        3. Include addition information provided about people names and places or locations.
-        3. Shorten text while preserving information.
-        4. Preserve clear text as is.
-        5. Skip text that is too unclear or ambiguous.
-        6. Exclude non-factual elements.
-        7. Maintain clearity and information.
+        2. Do not reuse the same sentence structure more than once in responce.
+        3. Eliminate unclear excessive symbols or gibberish.
+        4. Include addition information provided about people names and places or locations.
+        5. Shorten text while preserving information.
+        6. Preserve clear text as is.
+        7. Skip text that is too unclear or ambiguous.
+        8. Exclude non-factual elements.
+        9. Maintain clearity and information.
         <|im_end|>
         <|im_start|>user
         <image>"{question}" It is CRITICALLY important to include the NAMES OF PEOPLE and EMOTIONS if available in "{partial_prompt}" and the location details if available in "{location}" in the response.  

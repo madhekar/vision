@@ -1732,3 +1732,44 @@
     },
 ]
 
+# test 23
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8300.PNG",
+        "id": "89bd07bf-9228-4886-b28b-78f906e6dd8f",
+        "ts": "1719323454.0",
+        "latlon": "(32.968794, -117.184172)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question? UGAI: I'm sorry, I'm not sure what you're asking. "
+        "Can you please provide more context or clarify your question? UGAI: I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question? UGAI: I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question? UGAI: I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question? UGAI: I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question? UGAI: I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question?",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8455.PNG",
+        "id": "84661240-1f6e-420c-a846-566cf664d945",
+        "ts": "1725552567.0",
+        "latlon": "(32.968772, -117.184144)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": " one man one woman ",
+        "text": "\n Who is whose parent? Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n Information Gain\n",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8214.PNG",
+        "id": "2d368763-8603-40b9-bf0c-581caaaa3124",
+        "ts": "1717625366.0",
+        "latlon": "(32.968803, -117.184106)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image is a screenshot of a webpage titled "Search vs Recommendation". The webpage is designed with a clean, white background and a vibrant red header. The main content of the webpage is a flowchart that illustrates the difference between a search and a recommendation. \n\nThe flowchart is composed of three distinct sections, each representing a different scenario. The first section, labeled "Basketball jersey", depicts a scenario where a user is searching for a basketball jersey. The second section, labeled "Who\'s asking?", represents a scenario where the user is unsure who is asking for the basketball jersey. The third section, labeled "Player 33", signifies a scenario where the user is looking for a basketball jersey for a player named "Player 33".\n\nEach section of the flowchart is accompanied by a set of icons and text, providing a visual representation of the corresponding scenario. The icons are simple and clear, making it easy for the user to understand the different scenarios. The text is concise and informative, providing',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8607.PNG",
+        "id": "9c97268c-f583-4e8a-8d35-55a2ab6b4dd9",
+        "ts": "1728002832.0",
+        "latlon": "(32.970919, -117.178781)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene scene of a residential area in San Diego, California. The main focus is a wooden fence that runs along a dirt path, leading the viewer's eye towards the horizon. The fence, made of wooden posts and rails, adds a rustic charm to the scene. \n\nOn the left side of the path, there's a sidewalk, providing a clear boundary between the path and the residential area. The path itself is lined with lush green trees and bushes, adding a touch of nature to the urban setting. \n\nIn the distance, houses can be seen, their rooftops peeking over the treetops. The sky above is a clear blue, with the sun setting in the background, casting a warm, golden glow over the entire scene. \n\nThe image does not contain any discernible text or countable objects. The relative positions of the objects suggest a well-planned residential area, with the path and sidewalk providing a clear route for pedestrians. The image does not contain any",
+    },
+]
