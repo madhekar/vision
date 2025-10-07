@@ -1681,3 +1681,54 @@
 ### exception: Traceback (most recent call last): File "/home/madhekar/work/vision/research/code/test/zm/.venv/lib/python3.10/site-packages/aiomultiprocess/pool.py", line 110, in run result = future.result() 
 # File "/home/madhekar/work/vision/research/code/test/zm/utils/preprocess_util/preprocess.py", line 83, in faces_partial_prompt txt = fpr.predict_img_faces(ap, uri, fmodel, fle) 
 # File "/home/madhekar/work/vision/research/code/test/zm/utils/face_detection_util/face_predictor.py", line 165, in predict_img_faces person["emotion"] = em[0]["dominant_emotion"] IndexError: list index out of range occred in async main function
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8199.PNG",
+        "id": "c432c91e-68dc-4726-b531-9c5a521b42d4",
+        "ts": "1717619739.0",
+        "latlon": "(32.968869, -117.184106)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image you\'ve shared is a screenshot of a slide from a presentation on visual instruction tuning. The slide is titled "Visual Instruction Tuning" and is presented by Vincent van Gogh. The slide is designed in a clean, white background with black text and red accents.\n\nThe slide is divided into three main sections. The first section is titled "Language Model fo X, Language Response X" and features a green box with a gray arrow pointing to the right. This section seems to be explaining the language model and its response.\n\nThe second section is titled "Projection W, Vision Encoder Z, Image X, Language Instruction X" and features a gray box with a black arrow pointing to the right. This section appears to be explaining the projection, vision encoder, image, and language instruction.\n\nThe third section is titled "Who drew this painting?" and features a black box with a white arrow pointing to the right. This section seems to be asking who drew the painting.\n\nThe slide also includes a source',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8499.PNG",
+        "id": "e5223d52-aea4-4b13-8ca0-75fc565d1658",
+        "ts": "1726536074.0",
+        "latlon": "(32.968647, -117.186836)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene sunset at the Madhekar Residence Home in San Diego. The sky, awash with hues of orange and yellow, is dotted with fluffy white clouds. "
+        "The sun, partially obscured by these clouds, casts a warm, golden glow over the scene.\n\nThe residence itself is a modern, single-story structure with a flat roof. "
+        "It's nestled amidst lush greenery, with trees and shrubs encircling the property, providing a sense of seclusion and tranquility. "
+        "A wooden fence, weathered by time, stands guard in the foreground, adding a rustic charm to the scene.\n\nThe perspective of the photo is from a high vantage point, looking down upon the residence and its surroundings. "
+        "This bird's-eye view allows for a comprehensive appreciation of the property and its natural surroundings. The image exudes a sense of peace and serenity, characteristic of a quiet evening at the Madhekar Residence Home in San Diego. ",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8665.PNG",
+        "id": "8fa9f8fd-9c09-4a8d-a3bd-5c85928ec45f",
+        "ts": "1729557877.0",
+        "latlon": "(32.971072, -117.179086)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image captures a serene scene of a residential area at sunset. The main focus is a winding dirt path that meanders through the neighborhood. "
+        "The path is bordered by a sturdy wooden fence on the right, providing a sense of security and boundary. \n\nOn the left side of the path, a lush green hill rises, dotted with houses that are nestled among the trees. "
+        "The houses, partially obscured by the foliage, add a sense of depth and mystery to the scene. \n\nThe sky above is a beautiful canvas of orange and blue hues, with wispy clouds scattered across it. "
+        "The sun is setting behind the hill, casting a warm, golden glow over the entire scene. \n\nThe image does not contain any discernible text or countable objects. "
+        "The relative positions of the objects suggest a peaceful coexistence between nature and human habitation. "
+        "The winding path, the wooden fence, the green hill, and the houses all contribute to a harmonious composition that speaks of a quiet, residential neighborhood at sunset",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/93140ce1-d97e-529a-a36a-778492a7149f/IMG_8429.PNG",
+        "id": "20806e7e-b27c-40cb-8529-a65ead17a7c5",
+        "ts": "1724800205.0",
+        "latlon": "(32.968778, -117.18415)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": " one man one woman ",
+        "text": "\n Classes run from Oct 29 - Nov 22. Two 90 min classes per week conducted live and virtually at globally accessible times. "
+        "Free access to Cloud Skills Boot to classes. Content progresses from beginner to advanced topics to go deeper each week. "
+        "Participants should have an interest in Gen AI applications and familiarity with Python, but no prior experience with Google Cloud is required. Find out more & register now: https://www.7wxyz.com/ <im_end>",
+    },
+]
+
