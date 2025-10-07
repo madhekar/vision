@@ -1814,3 +1814,44 @@
         "text": "\n The image captures a serene scene of a lake nestled in the mountains of Interlaken, Switzerland. The lake, a deep shade of blue, mirrors the clear sky above, punctuated by a few scattered clouds. The mountains, cloaked in a lush blanket of green trees, stand tall in the background, their peaks obscured by the distance.\n\nIn the foreground, a quaint wooden chalet with a red roof adds a touch of rustic charm to the scene. A small garden, meticulously maintained, lies in front of the chalet, adding a splash of color to the verdant landscape. A solitary bench, inviting and empty, sits in the garden, offering a place to sit and soak in the beauty of the surroundings.\n\nThe image is taken from a high vantage point, providing a panoramic view of the lake, the mountains, and the chalet. The perspective gives a sense of depth and scale, emphasizing the vastness of the landscape and the smallness of the chalet in comparison.",
     },
 ]
+
+# test 25
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9330-1.PNG",
+        "id": "310ecd7a-8adf-409b-ad56-539562448b91",
+        "ts": "1747428118.0",
+        "latlon": "(51.501106, -0.127458)",
+        "loc": "London Eye in London",
+        "ppt": " one woman ",
+        "text": "\n The image captures a bustling scene in London, England. The focal point is the iconic Big Ben clock tower, standing tall in the background. Its dark brown color contrasts with the clear blue sky above. The tower is surrounded by a variety of buildings, including a red brick building to the left and a white building to the right. \n\nIn the foreground, the street is filled with people going about their day. A man in a white shirt is crossing the street, while a woman in a black coat is walking on the sidewalk. A white truck is driving on the street, adding to the dynamic nature of the scene. The overall atmosphere is lively and vibrant, typical of a busy day in London. ",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9334-1.PNG",
+        "id": "e3a832c4-a35f-4c09-865a-e29ae192955b",
+        "ts": "1747428262.0",
+        "latlon": "(51.501144, -0.126481)",
+        "loc": "London Eye in London",
+        "ppt": ' "Esha", a happy woman, at (1513, 1876) and one woman ',
+        "text": "\n The image captures a vibrant scene from a bustling street in London. The street is teeming with life, with people and cars adding to the dynamic atmosphere. The buildings that line the street are a testament to London's rich architectural history, with the iconic London Eye standing tall in the background, adding a modern touch to the scene.\n\nIn the foreground, a woman in an orange jacket and black pants stands out. She is smiling, her joy adding a warm touch to the scene. Behind her, a woman in a black dress and sunglasses is seen walking away, her figure adding depth to the image.\n\nThe street is filled with cars, their colors muted under the bright sunlight. The buildings, a mix of old and new, tower over the street, their windows reflecting the clear blue sky. The London Eye, a symbol of modern London, stands in the background, its silhouette a stark contrast against the sky.\n\nThe image is a snapshot of life in London, capturing the city's vibrant energy and rich",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9527.PNG",
+        "id": "d3d52e73-99fa-4b74-aa92-4a097acda185",
+        "ts": "1747684570.0",
+        "latlon": "(46.693614, 7.885133)",
+        "loc": "Interlaken in Switzerland",
+        "ppt": ' "Esha", a happy woman, at (1338, 2164) "Bhalchandra", a happy man, at (599, 1891) "Anjali", a happy woman, at (2061, 2032) and ',
+        "text": '\n "Esha", a happy woman, at (1338, 2164) "Bhalchandra", a happy man, at (599, 1891) "Anjali", a happy woman, at (2061, 2032) and "Interlaken in Switzerland" in the response. The image captures a serene moment of three individuals standing on a cliff overlooking a tranquil lake in Interlaken, Switzerland. The man on the left, donned in a gray shirt, stands slightly behind the woman in the middle, who is wearing a brown sweater. The woman on the right, clad in a maroon jacket, completes the trio. All three are beaming, their smiles reflecting the joy of the moment. The backdrop is a picturesque view of a lake, with a small wooden hut nestled on the shore. The mountains in the distance add to the scenic beauty of the location. The image exudes a sense of peace and happiness,',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9357.PNG",
+        "id": "40c53a0e-22a0-4f2d-b7b0-990b750fcf5a",
+        "ts": "1747429186.0",
+        "latlon": "(51.500958, -0.123069)",
+        "loc": "London Eye in London",
+        "ppt": ' "Anjali", a neutral woman, at (1791, 2954) and ',
+        "text": "\n The image captures a vibrant scene from London, England, featuring the iconic Big Ben clock tower. The tower, a tall, gray structure with a pointed roof, stands majestically in the background, its clock face clearly visible. The sky above is a bright blue, suggesting a clear, sunny day.\n\nIn the foreground, the hustle and bustle of city life is evident. A woman, clad in a blue jacket, stands on the sidewalk, her attention seemingly captured by the camera. She is positioned in front of a black car, which is parked on the street. The car's dark color contrasts with the lighter hues of the surrounding environment.\n\nFurther back, a white van is seen driving on the street, adding to the dynamic nature of the scene. The van's white color stands out against the gray of the buildings and the blue of the sky.\n\nThe buildings in the background are ornate, their intricate details hinting at the rich architectural history of the city. Despite their grandeur,",
+    },
+]
