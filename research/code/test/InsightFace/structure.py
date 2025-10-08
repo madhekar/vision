@@ -1855,3 +1855,88 @@
         "text": "\n The image captures a vibrant scene from London, England, featuring the iconic Big Ben clock tower. The tower, a tall, gray structure with a pointed roof, stands majestically in the background, its clock face clearly visible. The sky above is a bright blue, suggesting a clear, sunny day.\n\nIn the foreground, the hustle and bustle of city life is evident. A woman, clad in a blue jacket, stands on the sidewalk, her attention seemingly captured by the camera. She is positioned in front of a black car, which is parked on the street. The car's dark color contrasts with the lighter hues of the surrounding environment.\n\nFurther back, a white van is seen driving on the street, adding to the dynamic nature of the scene. The van's white color stands out against the gray of the buildings and the blue of the sky.\n\nThe buildings in the background are ornate, their intricate details hinting at the rich architectural history of the city. Despite their grandeur,",
     },
 ]
+
+#test 26
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9366.PNG",
+        "id": "846dcc8f-bd7e-433f-9a3d-63b8cda12d34",
+        "ts": "1747429294.0",
+        "latlon": "(51.500978, -0.123061)",
+        "loc": "London Eye in London",
+        "ppt": ' "Esha", a fear woman ',
+        "text": "\n The image captures a moment on a bustling street in London, England. The focal point is a young woman, clad in an orange sweater, who is walking towards the camera. She is passing by a large, ornate building with a clock tower, which is a notable landmark in the city. The building is the Palace of Westminster, also known as the Houses of Parliament. The woman's path is a busy street, with cars and buses adding to the urban atmosphere. The sky above is a clear blue, suggesting a bright and sunny day. The woman's orange sweater stands out against the more muted colors of the cityscape, drawing the viewer's attention to her. The image does not contain any text. The relative positions of the objects suggest that the woman is moving away from the Palace of Westminster, further down the street. The image does not provide any information about the woman's emotions or additional details about her. The image is a snapshot of a moment in time, capturing the everyday life and",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9641.PNG",
+        "id": "2353965e-10ae-43b2-aeb9-acf71e0bdb0c",
+        "ts": "1747782415.0",
+        "latlon": "(46.414756, 10.013075)",
+        "loc": "Davos",
+        "ppt": "",
+        "text": "\n The image captures a breathtaking view of the Davos lake in Switzerland. The vantage point is high, providing a panoramic view of the lake and the surrounding mountains. The lake, a deep blue, is encircled by snow-covered mountains, their peaks shrouded in a blanket of white. The sky overhead is a canvas of clouds, adding a sense of tranquility to the scene. The perspective of the image is from the side of the lake, offering a view that stretches across the water towards the mountains. The image is a testament to the natural beauty of Switzerland, captured in a moment of serene stillness.Davos is a town and municipality located in the Graubünden canton in the eastern part of Switzerland. It is situated on the shores of Lake Constance, a large lake that lies on the border with Germany. The town is known for its picturesque scenery, which includes the snow-covered mountains that surround the lake. The image captures the essence of Dav",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_9513.PNG",
+        "id": "198ba71e-4e48-4a96-a8cb-2f69f3ffd086",
+        "ts": "1747680570.0",
+        "latlon": "(46.692444, 7.872581)",
+        "loc": "Interlaken in Switzerland",
+        "ppt": ' "Anjali", a sad woman ',
+        "text": "\n Anjali, a sad woman, stands on a gravel path next to a serene lake in Interlaken, Switzerland. She is dressed in a gray sweater and blue jeans, with a white scarf wrapped around her neck. The lake, a beautiful shade of turquoise, is surrounded by lush green trees and rolling mountains. In the distance, you can see quaint houses nestled among the mountains. The sky above is a clear blue, adding to the tranquility of the scene. Anjali appears to be lost in thought, perhaps contemplating the beauty of nature around her. The image captures a moment of quiet reflection in a stunning natural setting. Anjali, a sad woman, stands on a gravel path next to a serene lake in Interlaken, Switzerland. She is dressed in a gray sweater and blue jeans, with a white scarf wrapped around her neck. The lake, a beautiful shade of turquoise, is surrounded by lush green trees and rolling mountains. In the",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/cc2af672-0277-5d32-ad7d-2dfac3662e7b/IMG_0003.PNG",
+        "id": "73e301e0-b2ef-4ee4-955c-348e88509d7d",
+        "ts": "1748022757.0",
+        "latlon": "(45.994308, 8.9464)",
+        "loc": "Lugano",
+        "ppt": ' "Esha", a happy woman ',
+        "text": '\n "Esha", a happy woman, is sitting on a red bench in a park. She is wearing a white dress and has a black purse on her lap. The park is filled with trees and there are people walking in the background. The location is Lugano.Esha, a happy woman, is sitting on a red bench in a park. She is wearing a white dress and has a black purse on her lap. The park is filled with trees and there are people walking in the background. The location is Lugano. ',
+    },
+]
+
+#test 27
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2983-2.JPG",
+        "id": "6634d973-4beb-4eb9-9051-c9fbe0f11daa",
+        "ts": "1535382188.0",
+        "latlon": "(32.96885, -117.184319)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n The image you've shared is a screenshot of a flowchart that illustrates the process of setting up a server and email configuration for a sub-job. The flowchart is set against a white background and is framed by a gray border. It's divided into two main sections: a table and a diagram.\n\nThe table, which is located on the left side of the flowchart, contains a list of steps that need to be taken. The steps are numbered from 1 to 4 and include setting up a server, creating an email account, and configuring parameters. The text in the table is black, and the background of the table is white.\n\nOn the right side of the flowchart, there's a diagram that shows the flow of the process. The diagram is a series of boxes connected by arrows, each box representing a different step in the process. The boxes are colored in shades of green and blue, and the arrows are black. The diagram is set against a white background, and the text",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/8a31fb9b-a7b7-44ab-8e58-979c752366f0-1.jpg",
+        "id": "43ae6dcb-24a9-475d-b3fc-c22dd93f4454",
+        "ts": "1759524904.0",
+        "latlon": "(18.67756, 73.89868)",
+        "loc": "Gyaneshwar Samadhi Alandi",
+        "ppt": ' "Bhalchandra", a happy man 2 men ',
+        "text": "\n The image captures a moment between two men in India. The man on the left, named Bhalchandra, is holding a bunch of green plants. He is wearing a pink shirt and has a warm smile on his face. On the right, another man is seen wearing a blue shirt and has a mustache. "
+        "He is holding a bunch of green plants in his hand. They are standing in front of a building named \"Gyaneshwar Samadhi Alandi\". The men seem to be in a joyful mood, possibly discussing the plants they are holding. The building in the background suggests that they might be in a park or a garden. "
+        "The image does not contain any text other than the names of the men and the building. The colors in the image are vibrant, with the green of the plants contrasting against the men's colorful shirts. "
+        "The men's actions and expressions suggest a sense of camaraderie and shared interest in the plants they are holding. The image does not contain any",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/ef8cefec-7bd1-4f27-ac44-2e0187991ebd-1.jpg",
+        "id": "a8d06b0c-86f2-4da6-9ab6-cc7c9ccb2303",
+        "ts": "1759525030.0",
+        "latlon": "(18.516726, 73.856255)",
+        "loc": "Pune",
+        "ppt": ' "Kumar", a angry man 5 men one woman ',
+        "text": "\n The image captures a moment of camaraderie among a group of five individuals, seated on a bench in a park. The man on the far left, clad in a blue shirt, is engaged in a conversation with the others. The man in the center, wearing a purple shirt, is attentively listening. To his right, a man in a red shirt is also part of the discussion. On the far right, a woman in a yellow sari is present, while another man in a blue shirt is seated at the far end of the bench. The backdrop of the scene is a tree and a building, adding to the serene ambiance of the park. The image exudes a sense of warmth and friendship among the group. Kumar, a man in a purple shirt, is seated on a bench in a park, engaged in a conversation with four other individuals. The man on the far left, wearing a blue shirt, is part of the discussion. To his right,",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2881.JPG",
+        "id": "26b18413-2785-4c3f-a523-e48b80c9d9b0",
+        "ts": "1533765686.0",
+        "latlon": "(32.968933, -117.184144)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image you\'ve shared is a screenshot of a whiteboard that contains a flowchart for a search algorithm. The flowchart is a visual representation of the steps involved in the algorithm, with each step represented as a box and the relationships between the steps represented as arrows. The boxes are labeled with text, and the arrows connect these boxes to indicate the flow of the algorithm. The text in the boxes includes terms such as "in", "a", "visit", "visit a", "visit a visit", "visit a visit a", "visit a visit a visit", "visit a visit a visit a", "visit a visit a visit a visit", "visit a visit a visit a visit a", "visit a visit a visit a visit a visit", "visit a visit a visit a visit a visit a", "visit a visit a visit a visit a visit a visit", "visit a visit a visit a visit a visit a visit a", "visit a visit a visit a visit',
+    },
+]
