@@ -5,6 +5,39 @@ import re
 
 """
 from transformers import pipeline
+import torch
+from PIL import Image
+import requests
+
+# 1. Instantiate the pipeline without the unsupported argument
+# Replace "path/to/your/model" with your actual model name
+pipe = pipeline("image-to-text", model="Salesforce/blip-image-captioning-base")
+
+# Load your image
+# Using a sample image from the internet. Replace with your image.
+image_url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+image = Image.open(requests.get(image_url, stream=True).raw).convert("RGB")
+
+# 2. Get the underlying model and tokenizer from the pipeline
+model = pipe.model
+processor = pipe.tokenizer
+
+# 3. Preprocess the image and generate text directly using model.generate()
+# Process the image with the pipeline's processor
+inputs = processor(images=image, return_tensors="pt")
+
+# Generate the caption, passing the repetition_penalty to the model.generate() function
+outputs = model.generate(**inputs, repetition_penalty=1.5)
+
+# Decode the generated tokens to get the text
+caption = processor.batch_decode(outputs, skip_special_tokens=True)[0]
+print(caption)
+
+"""
+
+
+"""
+from transformers import pipeline
 from PIL import Image    
 
 
@@ -76,22 +109,16 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
             question=question, location=location
         )  # , article=st.session_state["document"])
 
-    outputs = pipe(image, prompt=prompt, generate_kwargs={"max_new_tokens": 200})
+    outputs = pipe(
+        image,
+        prompt=prompt,
+        repetition_penalty=2.0,
+        generate_kwargs={"max_new_tokens": 200},
+    )
 
     result = outputs[0]["generated_text"].partition("<|im_start|>assistant")[2]
     #rr = repr(result)
-    rr = result.translate(str.maketrans({
-                                        #   "-":  r"\-",
-                                        #   "]":  r"\]",
-                                        #   "\\": r"\\",
-                                        #   "^":  r"\^",
-                                        #   "$":  r"\$",
-                                        #   "*":  r"\*",
-                                        #   ".":  r"\.",
-                                          "'" :  r"\'",
-                                          "|":  r""
-                                        #  '"':  r"\""
-                                          }))
+    rr = result.translate(str.maketrans({"'" :  r"\'", "|":  r""}))
     return rr
     
 if __name__=='__main__':

@@ -1984,3 +1984,100 @@
         'The portrait appears to be well-preserved, indicating that it holds some significance or value. The man\'s expression and posture suggest that he was posing for the portrait, perhaps for a special occasion or milestone. The portrait serves as a visual record of Dhan',
     },
 ]
+
+# test 29 - wired letters
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_6285.jpg",
+        "id": "290c336d-7f82-4214-a339-b9c281346167",
+        "ts": "1555795831.0",
+        "latlon": "(36.626031, -121.916069)",
+        "loc": "Monterey",
+        "ppt": ' "Esha", a happy woman ',
+        "text": "\n \"Esha\", a happy woman, is standing on a beach in Monterey. She is wearing a gray dress and is smiling at the camera. The beach is sandy and the water is a light blue color. There are no other people visible in the image. The sky is clear and the sun is shining. The photo was taken during the day. The woman appears to be alone on the beach, enjoying the beautiful day. The location is Monterey, a coastal city in California. The woman's dress is made of a soft fabric and she is wearing earrings. The beach is not crowded, giving her plenty of space to enjoy her time. The water is calm and the waves are small. The woman's smile suggests that she is having a good time. The image does not contain any text. The woman's position on the beach is central and she is facing the camera. The beach is located on the coast of Monterey. The woman's dress is long and she is wearing a necklace. The photo",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/23b38c0e-b406-4d20-9e5d-8ab73da47f91-1.jpg",
+        "id": "7f4e762d-4745-41fc-b1af-d91c55ae8e43",
+        "ts": "1757362766.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": "",
+        "text": "\n The image you've shared is a certificate issued by the Forest Trails Athashiri Sahakari Cooperative Society Ltd. in Pune, India. The certificate is dated January 18, 2018, and it's numbered 66. The certificate is issued to Manohar Sharad Manohar Sharad. The certificate is worth a value of 50,000 Indian Rupees. The certificate is signed by the company secretary of the society. The certificate is printed on a white background with red text. The certificate is given under the Common Seal of the said Society at Pune, on this date. The certificate is issued under the Maharashtra Co-operative Societies Act, 1960. The certificate is registered under the Maharashtra Co-operative Societies Act, 1960. The certificate is issued under the Maharashtra Co-operative Societies Act, 1960. The certificate is registered under the Maharashtra Co-operative Societies Act, 1960. The certificate is issued under the Maharashtra Co-operative Societies",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2683-2.JPG",
+        "id": "921ee796-c01f-4380-828c-b7541e5f4a50",
+        "ts": "1532560288.0",
+        "latlon": "(32.96885, -117.184167)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image you\'ve shared is a screenshot of a table that provides distances for binary data. The table is divided into two columns labeled "Similarity-based metrics" and "Distance-based metrics". \n\nThe "Similarity-based metrics" column lists four different types of similarity metrics: "Married?", "Smoker?", "Manager?", and "Carrier?". Each of these metrics is associated with a distance value, which is represented by a color-coded bar graph. The colors used in the graph are red, orange, and yellow.\n\nThe "Distance-based metrics" column lists four different types of distance metrics: "Euclidean Distance", "Jaguar\'s coefficient", "Cartesian Distance", and "Manhattan Distance". Each of these metrics is associated with a distance value, which is represented by a color-coded bar graph. The colors used in the graph are blue, green, and purple.\n\nThe table also includes a note at the bottom that reads "For 2-categories, distance = 0',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_8197-2.JPG",
+        "id": "cb51a19d-19de-419c-a07c-ba18e57a5a81",
+        "ts": "946717261.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": "",
+        "text": "\n The signal z is the convolution of two rectangular pulses. Determine the values of the two rectangular pulses. The signal z is given by: z(t) = 2t + 2t^2 + 2t^3 + 2t^4 + 2t^5 + 2t^6 + 2t^7 + 2t^8 + 2t^9 + 2t^10 + 2t^11 + 2t^12 + 2t^13 + 2t^14 + 2t^15 + 2t^16 + 2t^17 + 2t^18 + 2t^19 + 2t^20 + 2t^21 + 2t^22. + 2t^23. The signal z is the convolution of two rectangular pulses. Determine the values of the two rectangular pulses. The signal z is given by: z(t) = ",
+    },
+]
+
+# test 30 - repetition_penalty
+
+### exception: Traceback (most recent call last): File "/home/madhekar/work/vision/research/code/test/zm/.venv/lib/python3.10/site-packages/aiomultiprocess/pool.py", line 110, in run result = future.result() File "/home/madhekar/work/vision/research/code/test/zm/utils/preprocess_util/preprocess.py", line 112, in describeImage d= LLM_Next.fetch_llm_text(imUrl=uri, pipe=p, question="Describe the image with thoughtful insights using additional information provided. ", partial_prompt=ppt, location=location) File "/home/madhekar/work/vision/research/code/test/zm/utils/preprocess_util/LLM_Next.py", 
+# line 79, in fetch_llm_text outputs = pipe( File "/home/madhekar/work/vision/research/code/test/zm/.venv/lib/python3.10/site-packages/transformers/pipelines/image_to_text.py", line 111, in call return super().call(images, **kwargs) File "/home/madhekar/work/vision/research/code/test/zm/.venv/lib/python3.10/site-packages/transformers/pipelines/base.py", line 1114, in call preprocess_params, forward_params, postprocess_params = self._sanitize_parameters(**kwargs) 
+# TypeError: ImageToTextPipeline._sanitize_parameters() got an unexpected keyword argument 'repetition_penalty' occred in async main function
+
+"""
+The
+TypeError: ImageToTextPipeline._sanitize_parameters() got an unexpected keyword argument 'repetition_penalty' occurs because the ImageToTextPipeline from the Hugging Face transformers library does not support the repetition_penalty argument directly. This argument is typically used for text generation pipelines, but ImageToTextPipeline has a different process and does not expect it. 
+Why this happens
+
+    Pipeline mismatch: repetition_penalty is a parameter for the text decoder part of a model, instructing it to penalize repeated tokens during generation. The ImageToTextPipeline manages both the image encoder and text decoder components, and its public interface doesn't expose all possible text-generation arguments. The pipeline has a hardcoded, sanitized list of parameters it accepts, and repetition_penalty is not on that list.
+    Encapsulation: The transformers library uses pipelines to simplify complex model interactions. This means the pipeline handles the nitty-gritty details of running the model. However, this also means that some advanced, model-specific generation arguments are not accessible directly through the pipeline's top-level function call. 
+
+How to fix the error
+To use the repetition_penalty argument, you must access the model's generation function directly, bypassing the high-level pipeline __call__ method.
+
+    Instantiate the pipeline without the repetition_penalty argument. First, create your ImageToTextPipeline as you normally would.
+    Access the underlying model. Get the model instance from the pipeline.
+    Use model.generate() directly. Call the generate() method on the model, passing your image (or the encoded image features) and the repetition_penalty argument. 
+
+Here is an example demonstrating the correct approach:
+python
+
+from transformers import pipeline
+import torch
+from PIL import Image
+import requests
+
+# 1. Instantiate the pipeline without the unsupported argument
+# Replace "path/to/your/model" with your actual model name
+pipe = pipeline("image-to-text", model="Salesforce/blip-image-captioning-base")
+
+# Load your image
+# Using a sample image from the internet. Replace with your image.
+image_url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+image = Image.open(requests.get(image_url, stream=True).raw).convert("RGB")
+
+# 2. Get the underlying model and tokenizer from the pipeline
+model = pipe.model
+processor = pipe.tokenizer
+
+# 3. Preprocess the image and generate text directly using model.generate()
+# Process the image with the pipeline's processor
+inputs = processor(images=image, return_tensors="pt")
+
+# Generate the caption, passing the repetition_penalty to the model.generate() function
+outputs = model.generate(**inputs, repetition_penalty=1.5)
+
+# Decode the generated tokens to get the text
+caption = processor.batch_decode(outputs, skip_special_tokens=True)[0]
+print(caption)
+
+This workaround gives you full control over the generation parameters, avoiding the TypeError caused by the pipeline's parameter sanitization.
+"""
