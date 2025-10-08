@@ -1940,3 +1940,47 @@
         "text": '\n The image you\'ve shared is a screenshot of a whiteboard that contains a flowchart for a search algorithm. The flowchart is a visual representation of the steps involved in the algorithm, with each step represented as a box and the relationships between the steps represented as arrows. The boxes are labeled with text, and the arrows connect these boxes to indicate the flow of the algorithm. The text in the boxes includes terms such as "in", "a", "visit", "visit a", "visit a visit", "visit a visit a", "visit a visit a visit", "visit a visit a visit a", "visit a visit a visit a visit", "visit a visit a visit a visit a", "visit a visit a visit a visit a visit", "visit a visit a visit a visit a visit a", "visit a visit a visit a visit a visit a visit", "visit a visit a visit a visit a visit a visit a", "visit a visit a visit a visit',
     },
 ]
+
+# test 28 - hindi words
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2979-1.JPG",
+        "id": "b64c8b81-dbf7-41aa-8d28-a263c39e15d6",
+        "ts": "1535381106.0",
+        "latlon": "(32.968808, -117.184136)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": '\n The image you\'ve sent is a screenshot of a presentation slide titled "May\'s Attempt". The slide is divided into two main sections. \n\nThe first section is a title slide that reads "May\'s Attempt". Below the title, there\'s a subtitle that reads "Review of Logs". \n\nThe second section of the slide is a flowchart that illustrates the process of running jobs on a Spark cluster. The flowchart is a visual representation of the steps involved in the process. \n\nThe flowchart starts with a box labeled "Start". From there, it leads to a box labeled "SSH Scoop Command". This box is connected to a box labeled "AEL Spark Transformation". \n\nThe flowchart also includes a box labeled "Success", indicating the final outcome of the process. \n\nThe slide also includes a text that reads "Running 5 Jobs (2 UCI, 3 UCC)". This text provides additional information about the number of jobs being run on the Spark cluster. \n\nOverall',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/492b8d71-5f8e-4afc-abbd-c76769ae4b7d-1.jpg",
+        "id": "a935c28f-0a7f-475e-b116-2c0418f91075",
+        "ts": "1757362079.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": "",
+        "text": "\n The image captures a vibrant scene in front of the Sadaphuli Society in Pune, India. The main focus is a tree adorned with clusters of purple flowers, standing tall against the backdrop of a clear blue sky. The tree is positioned on the left side of the image, its branches reaching out towards the right. \n\nIn the distance, the sign of the Sadaphuli Society can be seen, indicating the location of the scene. The sky above is a bright blue, with a few clouds scattered across it, adding depth to the image. The overall composition of the image suggests a peaceful and serene atmosphere.Sadaphuli Society in Pune, India is a well-known landmark in the city. It is a residential society located in the heart of Pune, India. The society is known for its well-maintained infrastructure, modern amenities, and a strong sense of community among its residents. It is a popular choice for families and individuals looking for a comfortable and secure living environment in the",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/1f373b46-d2e3-41fa-ac2d-b756cf0d421d.jpg",
+        "id": "9c9b662f-9b3d-46b4-ab37-182203f5d4c5",
+        "ts": "1759525011.0",
+        "latlon": "(18.516726, 73.856255)",
+        "loc": "Pune",
+        "ppt": " one man ",
+        "text": '\n A young man is sitting on a stone wall, looking out over a snowy mountain range. He is wearing a red sweatshirt with the word "GAP" written on it. He is holding a red phone in his hand. The mountains in the background are covered in snow. The sky is clear and blue. The man appears to be alone, enjoying the view. The stone wall he is sitting on is located in a park. The park is covered in snow, and there are trees scattered around. The man is sitting on the right side of the wall. The mountains are in the distance, beyond the park. The man is looking out over the mountains, taking in the view. The sky is clear and blue, suggesting it is a cold, crisp day. The man seems to be in a peaceful, serene location, enjoying the beauty of nature. The image does not contain any text other than the word "GAP" on the man\'s sweatshirt. The man\'s position on the',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/817e93ba-312d-4eb0-828f-07c6adadb8f4.jpg",
+        "id": "c4a1170e-0e11-4aa9-9f35-d14f1d162e1f",
+        "ts": "1757361385.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": " one man ",
+        "text": '\n The image is a black and white portrait of a man named Dhanpati Lal. He is wearing a white suit and a black cap. The portrait is framed in a gold frame with a red border. The frame has text in Hindi that reads "धनपति लाल" and "सदापुली सोसिय". '
+        'The man\'s gaze is directed towards the camera, giving the portrait a sense of direct engagement with the viewer. The monochrome color scheme adds a timeless quality to the image. '
+        'The man\'s attire and the text on the frame suggest that this could be a formal portrait, possibly taken in a professional studio. The red border of the frame adds a pop of color to the otherwise black and white image. '
+        'The portrait appears to be well-preserved, indicating that it holds some significance or value. The man\'s expression and posture suggest that he was posing for the portrait, perhaps for a special occasion or milestone. The portrait serves as a visual record of Dhan',
+    },
+]
