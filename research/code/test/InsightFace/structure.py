@@ -2081,3 +2081,8 @@ print(caption)
 
 This workaround gives you full control over the generation parameters, avoiding the TypeError caused by the pipeline's parameter sanitization.
 """
+
+# exception: Traceback (most recent call last): File "/home/madhekar/work/vision/research/code/test/zm/.venv/lib/python3.10/site-packages/aiomultiprocess/pool.py", 
+# line 110, in run result = future.result() File "/home/madhekar/work/vision/research/code/test/zm/utils/preprocess_util/preprocess.py", line 112, in describeImage d= LLM_Next.fetch_llm_text(imUrl=uri, pipe=p, question="Describe the image with thoughtful insights using additional information provided. ", 
+# partial_prompt=ppt, location=location) File "/home/madhekar/work/vision/research/code/test/zm/utils/preprocess_util/LLM_Next.py", line 127, in fetch_llm_text inputs = processor(images=image, prompt=prompt, return_tensors="pt") File "/home/madhekar/work/vision/research/code/test/zm/.venv/lib/python3.10/site-packages/transformers/tokenization_utils_base.py", 
+# line 2797, in call raise ValueError("You need to specify either text or text_target.") ValueError: You need to specify either text or text_target. occred in async main function

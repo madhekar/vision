@@ -1,6 +1,7 @@
 from transformers import pipeline
 from PIL import Image
 import streamlit as st
+import torch
 import re
 
 """
@@ -70,7 +71,14 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
 
     st.info("calling LLM...")
 
+    #
+    model = pipe.model
+    processor = pipe.tokenizer
+    #
+
     image = Image.open(imUrl).convert("RGB")
+    
+
     # Ensure that all double and single quotes are escaped with backslash: "This is a \"quoted\" pharse." or 'I\'m going now'.
     if partial_prompt != '':
     
@@ -109,12 +117,17 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
             question=question, location=location
         )  # , article=st.session_state["document"])
 
-    outputs = pipe(
-        image,
-        prompt=prompt,
-        repetition_penalty=2.0,
-        generate_kwargs={"max_new_tokens": 200},
-    )
+    # outputs = pipe(
+    #     image,
+    #     prompt=prompt,
+    #     repetition_penalty=2.0,
+    #     generate_kwargs={"max_new_tokens": 200},
+    # )
+
+    #
+    inputs = processor(prompt, image, return_tensors="pt").to(0, torch.float16)
+    #
+    outputs = model.generate(**inputs, max_new_tokens=200 , do_sample=False, repetition_penalty=1.5)
 
     result = outputs[0]["generated_text"].partition("<|im_start|>assistant")[2]
     #rr = repr(result)
