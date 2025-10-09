@@ -4,6 +4,21 @@ from PIL import Image
 import torch
 from transformers import AutoProcessor, LlavaForConditionalGeneration
 
+"""
+The scene displays a computer screen that has been turned upside down. The content of this inverted display is an equation, possibly related to physics or data analysis involving graphs and diagrams.
+There are three main sections in each section: one at about 0% on top left corner; another occupying most parts from around mid-height towards bottom right side (with some text overlapping it); 
+finally, there's something more centered but not fully visible near middle-right part of frame). 
+
+In addition to these primary components within the central area where you can see both red curve line & blue horizontal bar graph-like element), 
+various other elements appear throughout such as arrows pointing upwards along edges like borders between different areas or even vertical lines connecting them together.
+ 
+A few smaller details include two people partially seen close up above center-left portion of screen, presumably observing what appears to be important work being done here! 
+And also just below their heads could potentially indicate they're working closely for support purposes too!
+  
+Overall impression would suggest someone was
+
+"""
+
 model_id = "xtuner/llava-llama-3-8b-transformers"
 
 # torch.cuda.current_device()
