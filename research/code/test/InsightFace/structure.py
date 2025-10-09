@@ -2086,3 +2086,81 @@ This workaround gives you full control over the generation parameters, avoiding 
 # line 110, in run result = future.result() File "/home/madhekar/work/vision/research/code/test/zm/utils/preprocess_util/preprocess.py", line 112, in describeImage d= LLM_Next.fetch_llm_text(imUrl=uri, pipe=p, question="Describe the image with thoughtful insights using additional information provided. ", 
 # partial_prompt=ppt, location=location) File "/home/madhekar/work/vision/research/code/test/zm/utils/preprocess_util/LLM_Next.py", line 127, in fetch_llm_text inputs = processor(images=image, prompt=prompt, return_tensors="pt") File "/home/madhekar/work/vision/research/code/test/zm/.venv/lib/python3.10/site-packages/transformers/tokenization_utils_base.py", 
 # line 2797, in call raise ValueError("You need to specify either text or text_target.") ValueError: You need to specify either text or text_target. occred in async main function
+
+# Notes on scaling and accelerating inferance
+
+
+'''
+Using
+Accelerate with bitsandbytes is the standard method for scaling LLaVA inference, especially for fitting larger models onto consumer-grade GPUs. 
+This combination quantizes the model's weights to lower precision (typically 4-bit or 8-bit), drastically reducing the VRAM footprint and enabling inference on resource-constrained hardware. 
+
+How the process works
+
+    Quantization with bitsandbytes: This library converts the model's weights from their original 32-bit (float32) precision to a lower-precision format like 8-bit (int8) or 4-bit (NF4). This shrinks the model size and its memory requirements on the GPU. 
+    During inference, the weights are de-quantized on-the-fly for computation.
+
+    Efficient Device Management with Accelerate: The Hugging Face Accelerate library manages the distribution of the model across available hardware. When used with bitsandbytes, Accelerate automatically maps the quantized model to the GPU, handling the device placement efficiently. 
+    The device_map="auto" argument is a key feature that lets Accelerate determine the best way to load the model (e.g., loading some parts to the CPU if needed).
+    Loading the LLaVA Model: By using the from_pretrained method from Hugging Face's transformers library with a BitsAndBytesConfig, you tell the framework to load and quantize the model in a single step. 
+
+Step-by-step implementation for LLaVA inference
+1. Setup the environment
+Install the necessary libraries:
+bash
+
+pip install accelerate bitsandbytes transformers
+
+For optimal performance, it is recommended to use the latest versions, which often include the newest optimizations for bitsandbytes. 
+2. Load the LLaVA model with quantization
+Use the BitsAndBytesConfig to define your quantization parameters. For maximum memory savings, load the model in 4-bit (NF4). 
+python
+
+import torch
+from transformers import AutoProcessor, LlavaForConditionalGeneration, BitsAndBytesConfig
+
+# Define the quantization configuration
+quantization_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_compute_dtype=torch.float16  # Use float16 for faster computation
+)
+
+# Specify the LLaVA model ID
+model_id = "llava-hf/llava-1.5-7b-hf" # Or another version like llava-v1.6-vicuna-7b-hf
+
+# Load the model and processor from Hugging Face, applying the quantization
+processor = AutoProcessor.from_pretrained(model_id)
+model = LlavaForConditionalGeneration.from_pretrained(
+    model_id,
+    quantization_config=quantization_config,
+    device_map="auto" # Let Accelerate handle device mapping
+)
+
+3. Perform inference
+With the model loaded and quantized, you can perform scaled-down inference just as you would with the full-precision version. The process remains the same, but the memory usage is significantly lower. 
+python
+
+from PIL import Image
+import requests
+
+# Load an image
+image_url = "https://www.ilankelman.org/stopsigns/australia.jpg"
+image = Image.open(requests.get(image_url, stream=True).raw)
+
+# Prepare the prompt and the image for the model
+prompt = "What is shown in this image?"
+inputs = processor(text=prompt, images=image, return_tensors="pt").to("cuda")
+
+# Generate the response
+output = model.generate(**inputs, max_new_tokens=200)
+
+# Decode and print the result
+print(processor.decode(output[0], skip_special_tokens=True))
+
+Advanced considerations
+
+    Model version: While the example above uses LLaVA 1.5, the process applies to newer versions like LLaVA 1.6 (LLaVA-NeXT). Make sure to specify the correct model ID (e.g., llava-hf/llava-v1.6-vicuna-7b-hf).
+    Batching: To improve throughput, LLaVA supports batched inference. For better results, especially with padding, set processor.tokenizer.padding_side = "left".
+    Alternative Optimizations: Other quantization libraries, such as GPTQ and AWQ, can also be used for further speed and memory efficiency, and can be integrated similarly through the transformers library. 
+
+'''    
