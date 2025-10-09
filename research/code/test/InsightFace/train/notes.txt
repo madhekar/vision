@@ -104,3 +104,63 @@ prompt = """<|im_start|>system
     """.format(
         question=question, partial_prompt=partial_prompt, location=location
     )  # , article=st.session_state["document"])  
+
+
+# acceleration inferance notes
+
+'''
+Running a
+LlavaForConditionalGeneration model on a CPU is possible, but it will be significantly slower and potentially memory-intensive compared to using a GPU. 
+Optimized frameworks like Ollama, llama.cpp, and Intel's intel-extension-for-pytorch are necessary to make CPU inference practical. 
+Factors affecting CPU performance
+
+    Model size: LLaVA models, like the 13B and 34B versions, have billions of parameters. Larger models require more memory and more calculations, which is particularly taxing on a CPU. A 7B model can take up to 40 minutes for a single inference on a CPU without optimization.
+    System RAM: The model must fit into your computer's system memory (RAM). The larger the model, the more RAM is needed. Insufficient RAM will cause your system to use slower virtual memory, further degrading performance.
+    Optimization: Running the standard floating-point (FP32) version of the model on a CPU is extremely slow. Optimized inference is achieved through techniques like:
+        Quantization: Reducing the precision of the model's weights from 32-bit floating-point (FP32) to smaller integer types (e.g., 4-bit or 8-bit). This drastically cuts memory usage and speeds up calculations. Frameworks like llama.cpp and bitsandbytes are used for this.
+        Backend Accelerators: Using hardware-specific libraries to accelerate tensor operations. Intel, for example, provides intel-extension-for-pytorch and OpenVINO, which are optimized for their CPUs. 
+
+Methods for running LLaVA on a CPU
+1. Ollama
+Ollama is a popular, user-friendly tool for running large language models locally. It supports LLaVA and automatically handles the necessary optimizations for your hardware, including CPU-only systems. 
+
+    Installation: ollama run llava will download and set up the model.
+    Requirements: Can run on consumer-grade CPUs with as little as 8GB of RAM. 
+
+2. Llamafile
+This tool, developed by Mozilla, packages the model and runtime into a single, executable file. It is built on llama.cpp and includes highly optimized matrix multiplication kernels for various CPUs, which can significantly speed up inference on ARM and modern Intel/AMD processors. 
+3. Hugging Face with optimizations
+To get the best performance with the standard Hugging Face transformers library, use optimizations for CPU inference.
+Using low_cpu_mem_usage and quantization:
+
+    You can load a quantized version of the model directly from the Hub and set low_cpu_mem_usage=True to minimize RAM consumption.
+    The bitsandbytes library is also being updated with support for Intel CPUs. 
+
+Example using low_cpu_mem_usage:
+python
+
+import torch
+from transformers import LlavaForConditionalGeneration, AutoProcessor
+
+model_id = "llava-hf/llava-1.5-7b-hf"
+processor = AutoProcessor.from_pretrained(model_id)
+
+# Load the model with optimizations for CPU memory usage
+model = LlavaForConditionalGeneration.from_pretrained(
+    model_id,
+    low_cpu_mem_usage=True,
+    torch_dtype=torch.float32  # CPU operations typically use float32
+)
+
+# Move the model to the CPU explicitly
+model.to('cpu')
+
+# Inference code goes here
+
+Note: You must explicitly send the model to the CPU (.to('cpu')) or let device_map handle it if you don't have a GPU. 
+4. OpenVINO (Intel CPUs)
+If you are running on an Intel CPU, using OpenVINO can provide significant performance gains.
+
+    Process: Download the PyTorch model, convert it to the OpenVINO format, and apply weight compression to optimize it for Intel hardware.
+    Tutorial: Intel provides tutorials demonstrating how to use OpenVINO with LLaVA for the best CPU performance. 
+'''
