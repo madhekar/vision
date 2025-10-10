@@ -4,12 +4,17 @@ from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
+#import matplotlib
+#matplotlib.use("Qt5Agg")
+#print(matplotlib.get_backend())
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 # Define directories
-train_dir = 'img_classify/train'
-validation_dir = 'img_classify/validation'
+base_path = '/home/madhekar/work/home-media-app/models'
+train_dir = os.path.join(base_path, 'img_classify/train')
+validation_dir = os.path.join(base_path, 'img_classify/validate')
 image_size = (224, 224)
 batch_size = 32
 
@@ -72,6 +77,7 @@ history = model.fit(
     validation_data=validation_generator
 )
 
+model.save('img_cl.keras')
 # Optional: Unfreeze and fine-tune the model for better accuracy
 # base_model.trainable = True
 # model.compile(...)
@@ -84,19 +90,21 @@ loss = history.history['loss']
 val_loss = history.history['val_loss']
 epochs_range = range(len(acc))
 
-plt.figure(figsize=(10, 5))
-plt.subplot(1, 2, 1)
-plt.plot(epochs_range, acc, label='Training Accuracy')
-plt.plot(epochs_range, val_acc, label='Validation Accuracy')
-plt.legend(loc='lower right')
-plt.title('Training and Validation Accuracy')
+# plt.figure(figsize=(10, 5))
+# plt.subplot(1, 2, 1)
 
-plt.subplot(1, 2, 2)
-plt.plot(epochs_range, loss, label='Training Loss')
-plt.plot(epochs_range, val_loss, label='Validation Loss')
-plt.legend(loc='upper right')
-plt.title('Training and Validation Loss')
-plt.show()
+# plt.plot(epochs_range, acc, label='Training Accuracy')
+# plt.plot(epochs_range, val_acc, label='Validation Accuracy')
+# plt.legend(loc='lower right')
+# plt.title('Training and Validation Accuracy')
+
+# plt.subplot(1, 2, 2)
+# plt.plot(epochs_range, loss, label='Training Loss')
+# plt.plot(epochs_range, val_loss, label='Validation Loss')
+# plt.legend(loc='upper right')
+# plt.title('Training and Validation Loss')
+#plt.savefig("test")
+#plt.show()
 
 # Make a prediction on a new image
 def predict_image(image_path, model, class_names):

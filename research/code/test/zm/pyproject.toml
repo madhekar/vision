@@ -39,6 +39,7 @@ dependencies = [
     "plotly==5.24.1",
     "py3exiv2==0.12.0",
     "pyiqa==0.1.13",
+    "pyqt5>=5.15.11",
     "python-exiv2>=0.11.0",
     "PyYAML==6.0.2",
     "scikit_learn==1.7.1",
