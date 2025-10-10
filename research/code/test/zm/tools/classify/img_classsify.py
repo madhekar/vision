@@ -133,6 +133,13 @@ img_list = [
     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/107e99ff-289f-4d92-b2e6-c4943dccbccd.jpg", "label": "document"},
     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/91f2dc11-cffd-4d08-8575-7d437ef31774.jpg", "label": "scenic"},
     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/121b15b7-81b3-4792-b654-c95aa2ee4b49-1.jpg", "label": "scenic"},
+    {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2835-2.JPG", "label": "document"}, 
+    {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2838.JPG", "label": "document"}, 
+    {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2842-2.JPG", "label": "document"}, 
+    {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2860.JPG", "label": "document"}, 
+    {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2861.JPG", "label": "document"}, 
+    {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2864.JPG", "label": "document"}, 
+    {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2874-2.JPG", "label": "document"}
 
 ]
 for d in img_list:
