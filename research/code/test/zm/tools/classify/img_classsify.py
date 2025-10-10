@@ -74,7 +74,7 @@ model.compile(optimizer=Adam(learning_rate=0.0001),
 # Train the model
 history = model.fit(
     train_generator,
-    epochs=10,
+    epochs=100,
     validation_data=validation_generator
 )
 
@@ -120,10 +120,25 @@ def predict_image(image_path, model, class_names):
 
     print(f"Image: {image_path}")
     print(f"Predicted class: {predicted_class} with confidence {confidence:.2f}")
+    return predicted_class
 
 # Example usage (assuming you have a test image named 'test_image.jpg')
 class_names = list(train_generator.class_indices.keys())
-# predict_image('path/to/your/test_image.jpg', model, class_names)
+img_list = [
+    {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/76b281d8-f830-4f24-9b45-ec02e88b52ac.jpg", "label": "people"},
+    {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/8109e957-ce86-4283-96aa-11c55d2fba62-1.jpg", "label": "people"},
+    {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/129c39e4-e7bf-4cfd-9bdd-0eb541bf9a60.jpg", "label": "scenic"},
+    {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/679e1665-6c43-4018-8a8f-ffb2f33739b6-1.jpg", "label": "scenic"},
+    {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/7f5a9544-f625-4bbf-ad25-e0b874a4e5fd-1.jpg", "label": "document"},
+    {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/107e99ff-289f-4d92-b2e6-c4943dccbccd.jpg", "label": "document"},
+    {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/91f2dc11-cffd-4d08-8575-7d437ef31774.jpg", "label": "scenic"},
+    {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/121b15b7-81b3-4792-b654-c95aa2ee4b49-1.jpg", "label": "scenic"},
+
+]
+for d in img_list:
+  p_class = predict_image(d["img"], model, class_names)
+  print(f'predicted: {p_class} actual: {d["label"]}' )
+
 
 
 # Assume you have a new image named 'new_image.jpg' in the project directory
