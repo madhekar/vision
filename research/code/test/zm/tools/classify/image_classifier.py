@@ -18,7 +18,7 @@ batch_size = 32
 train_ds = image_dataset_from_directory(
     data_dir,
     validation_split=0.2,
-    subset="train",
+    subset="training",
     seed=123,
     image_size=(img_height, img_width),
     batch_size=batch_size
@@ -27,7 +27,7 @@ train_ds = image_dataset_from_directory(
 val_ds = image_dataset_from_directory(
     data_dir,
     validation_split=0.2,
-    subset="validate",
+    subset="validation",
     seed=123,
     image_size=(img_height, img_width),
     batch_size=batch_size
@@ -80,7 +80,7 @@ history = model.fit(
 
 
 # Assume you have a new image named 'new_image.jpg' in the project directory
-new_image_path = 'new_image.jpg'
+new_image_path = '/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/6465dc91-6216-4b0e-81ee-3ad87eabe623-4.jpg'
 
 img = load_img(new_image_path, target_size=(img_height, img_width))
 img_array = img_to_array(img)

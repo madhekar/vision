@@ -4,17 +4,18 @@ from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.utils import load_img, img_to_array
 #import matplotlib
 #matplotlib.use("Qt5Agg")
 #print(matplotlib.get_backend())
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
 import os
 
 # Define directories
 base_path = '/home/madhekar/work/home-media-app/models'
-train_dir = os.path.join(base_path, 'img_classify/train')
-validation_dir = os.path.join(base_path, 'img_classify/validate')
+train_dir = os.path.join(base_path, 'img_classify/training')
+validation_dir = os.path.join(base_path, 'img_classify/validation')
 image_size = (224, 224)
 batch_size = 32
 
@@ -123,3 +124,20 @@ def predict_image(image_path, model, class_names):
 # Example usage (assuming you have a test image named 'test_image.jpg')
 class_names = list(train_generator.class_indices.keys())
 # predict_image('path/to/your/test_image.jpg', model, class_names)
+
+
+# Assume you have a new image named 'new_image.jpg' in the project directory
+new_image_path = "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/6465dc91-6216-4b0e-81ee-3ad87eabe623-4.jpg"
+
+img = load_img(new_image_path, target_size=image_size)
+img_array = img_to_array(img)
+img_array = tf.expand_dims(img_array, 0)  # Create a batch
+
+predictions = model.predict(img_array)
+score = tf.nn.softmax(predictions[0])
+
+print(
+    "This image most likely belongs to {} with a {:.2f} percent confidence.".format(
+        class_names[np.argmax(score)], 100 * np.max(score)
+    )
+)
