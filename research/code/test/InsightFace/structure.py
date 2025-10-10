@@ -2164,3 +2164,44 @@ Advanced considerations
     Alternative Optimizations: Other quantization libraries, such as GPTQ and AWQ, can also be used for further speed and memory efficiency, and can be integrated similarly through the transformers library. 
 
 '''    
+
+#test 31
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/77688baa-d76c-49ca-b647-052fc55772ee.jpg",
+        "id": "d89bb68a-ff51-4bf7-b82d-d49189e8063f",
+        "ts": "1759525958.0",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": "",
+        "text": '\n The image presents a serene scene of a flock of flamingos, painted in a watercolor style. The flamingos, with their distinctive pink and white feathers, are the main subjects of the image. They are standing on one leg, a common resting position for these birds, and are facing towards the right side of the image. The background of the image is a light blue color, with a subtle hint of green in the top left corner, suggesting the presence of water or sky. The painting is signed "Sadaphuli Society in Pune" in the bottom right corner, indicating the artist or the place where the painting was created. The overall composition of the image, with the flamingos in the foreground and the blue background, creates a sense of depth and perspective. The image does not contain any text or other discernible objects. The relative positions of the flamingos suggest they are in close proximity to each other, indicating a social gathering or a resting group. The image does not provide any information',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_0043-1.JPG",
+        "id": "84be2a1d-8f1d-4646-8a97-1b18e22dda3c",
+        "ts": "1418514794.0",
+        "latlon": "(32.968689, -117.184243)",
+        "loc": "Madhekar residence in Carmel Valley",
+        "ppt": " 2 women ",
+        "text": "\n The image captures a heartwarming moment between a mother and her daughter in the iconic city of Seattle, Washington. The mother, clad in a blue jacket, is seated on a stone wall, her arm affectionately wrapped around her daughter. The daughter, dressed in a pink jacket, is nestled comfortably in her mother's lap. Their smiles radiate pure joy as they gaze into the distance, taking in the breathtaking view of the city skyline. The Space Needle, a renowned landmark, punctuates the skyline, standing tall against the backdrop of a clear blue sky dotted with fluffy white clouds. The image is a beautiful representation of a mother-daughter bond, set against the stunning backdrop of Seattle's skyline. mother, daughter, seattle, space needle, stone wall, blue sky, white clouds, The image captures a heartwarming moment between a mother and her daughter in the iconic city of Seattle, Washington. The mother, clad in",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_0124-1.PNG",
+        "id": "d7f02e20-76f9-471d-9a64-c84b0caf72e7",
+        "ts": "1703124375.0",
+        "latlon": "(32.968689, -117.184243)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": ' "Esha", a happy woman "Anjali", a neutral woman ',
+        "text": '\n "Esha" is a happy woman. "Anjali" is a neutral woman. The location details are "Madhekar Residence Home in San Diego".Esha is a happy woman. Anjali is a neutral woman. The location details are Madhekar Residence Home in San Diego. ',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2793-2.JPG",
+        "id": "904c377b-6ad1-47c4-82a7-409c5f9889c5",
+        "ts": "1533245467.0",
+        "latlon": "(32.968808, -117.184097)",
+        "loc": "Madhekar Residence Home in San Diego",
+        "ppt": "",
+        "text": "\n I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question? Spark-2016 (SPARK-13369)im_end>im_start> I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question? Spark-2016 (SPARK-13369)im_end>im_start> I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question? Spark-2016 (SPARK-13369)im_end>im_start> I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question? Spark-2016 (SPARK-13369)im_end>im_start>",
+    },
+]
