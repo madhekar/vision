@@ -5,6 +5,7 @@ from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.utils import load_img, img_to_array
+from tensorflow.keras.callbacks import EarlyStopping
 #import matplotlib
 #matplotlib.use("Qt5Agg")
 #print(matplotlib.get_backend())
@@ -140,11 +141,38 @@ model.compile(optimizer=Adam(learning_rate=0.0001),
               loss='categorical_crossentropy',
               metrics=['accuracy'])
 
+'''
+# 4. Define the EarlyStopping callback with patience
+# Monitor 'val_loss' and wait for 5 epochs without improvement before stopping
+early_stopping_callback = EarlyStopping(
+    monitor='val_loss',  # Metric to monitor
+    patience=5,          # Number of epochs with no improvement after which training will be stopped
+    restore_best_weights=True, # Restore model weights from the epoch with the best value of the monitored metric
+    verbose=1            # Print messages when early stopping is triggered
+)
+
+# 5. Train the model with early stopping
+history = model.fit(
+    x_train, y_train,
+    epochs=50,  # Set a sufficiently large number of epochs, as early stopping will manage the actual stopping point
+    validation_data=(x_val, y_val),
+    callbacks=[early_stopping_callback]
+)
+'''
+# Monitor 'val_loss' and wait for 5 epochs without improvement before stopping
+early_stopping_callback = EarlyStopping(
+    monitor='val_loss',  # Metric to monitor
+    patience=5,          # Number of epochs with no improvement after which training will be stopped
+    restore_best_weights=True, # Restore model weights from the epoch with the best value of the monitored metric
+    verbose=1            # Print messages when early stopping is triggered
+)
+
 # Train the model
 history = model.fit(
     train_generator,
     epochs=100,
-    validation_data=validation_generator
+    validation_data=validation_generator,
+    callbacks =[early_stopping_callback]
 )
 
 model.save('img_cl.keras')
