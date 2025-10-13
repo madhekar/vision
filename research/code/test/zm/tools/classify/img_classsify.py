@@ -6,83 +6,12 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.utils import load_img, img_to_array
 from tensorflow.keras.callbacks import EarlyStopping
-#import matplotlib
-#matplotlib.use("Qt5Agg")
-#print(matplotlib.get_backend())
-#import matplotlib.pyplot as plt
 import numpy as np
 import os
 
 '''
 try if needed ViT : https://github.com/sanjay-dutta/Computer-Vision-Practice/tree/main/Vit_flower
 '''
-"""
-Epoch 100/100
-11/11 ━━━━━━━━━━━━━━━━━━━━ 27s 2s/step - accuracy: 0.9764 - loss: 0.0438 - val_accuracy: 0.8333 - val_loss: 0.1350
-1/1 ━━━━━━━━━━━━━━━━━━━━ 1s 543ms/step
-Image: /home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/76b281d8-f830-4f24-9b45-ec02e88b52ac.jpg
-Predicted class: people with confidence 0.91
-predicted: people actual: people
-1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 28ms/step
-Image: /home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/8109e957-ce86-4283-96aa-11c55d2fba62-1.jpg
-Predicted class: people with confidence 0.60
-predicted: people actual: people
-1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 30ms/step
-Image: /home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/129c39e4-e7bf-4cfd-9bdd-0eb541bf9a60.jpg
-Predicted class: scenic with confidence 0.99
-predicted: scenic actual: scenic
-1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step
-Image: /home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/679e1665-6c43-4018-8a8f-ffb2f33739b6-1.jpg
-Predicted class: scenic with confidence 0.74
-predicted: scenic actual: scenic
-1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step
-Image: /home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/7f5a9544-f625-4bbf-ad25-e0b874a4e5fd-1.jpg
-Predicted class: document with confidence 0.97
-predicted: document actual: document
-1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step
-Image: /home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/107e99ff-289f-4d92-b2e6-c4943dccbccd.jpg
-Predicted class: document with confidence 0.94
-predicted: document actual: document
-1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step
-Image: /home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/91f2dc11-cffd-4d08-8575-7d437ef31774.jpg
-Predicted class: scenic with confidence 1.00
-predicted: scenic actual: scenic
-1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step
-Image: /home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/121b15b7-81b3-4792-b654-c95aa2ee4b49-1.jpg
-Predicted class: scenic with confidence 0.98
-predicted: scenic actual: scenic
-1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step
-Image: /home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2835-2.JPG
-Predicted class: document with confidence 1.00
-predicted: document actual: document
-1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step
-Image: /home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2838.JPG
-Predicted class: document with confidence 1.00
-predicted: document actual: document
-1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step
-Image: /home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2842-2.JPG
-Predicted class: document with confidence 0.99
-predicted: document actual: document
-1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 24ms/step
-Image: /home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2860.JPG
-Predicted class: document with confidence 1.00
-predicted: document actual: document
-1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 24ms/step
-Image: /home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2861.JPG
-Predicted class: document with confidence 1.00
-predicted: document actual: document
-1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step
-Image: /home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2864.JPG
-Predicted class: document with confidence 1.00
-predicted: document actual: document
-1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 24ms/step
-Image: /home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2874-2.JPG
-Predicted class: document with confidence 1.00
-predicted: document actual: document
-1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step
-This image most likely belongs to scenic with a 52.67 percent confidence.
-
-"""
 
 # Define directories
 base_path = '/home/madhekar/work/home-media-app/models'
@@ -143,24 +72,6 @@ model.compile(optimizer=Adam(learning_rate=0.0001),
               loss='categorical_crossentropy',
               metrics=['accuracy'])
 
-'''
-# 4. Define the EarlyStopping callback with patience
-# Monitor 'val_loss' and wait for 5 epochs without improvement before stopping
-early_stopping_callback = EarlyStopping(
-    monitor='val_loss',  # Metric to monitor
-    patience=5,          # Number of epochs with no improvement after which training will be stopped
-    restore_best_weights=True, # Restore model weights from the epoch with the best value of the monitored metric
-    verbose=1            # Print messages when early stopping is triggered
-)
-
-# 5. Train the model with early stopping
-history = model.fit(
-    x_train, y_train,
-    epochs=50,  # Set a sufficiently large number of epochs, as early stopping will manage the actual stopping point
-    validation_data=(x_val, y_val),
-    callbacks=[early_stopping_callback]
-)
-'''
 # Monitor 'val_loss' and wait for 5 epochs without improvement before stopping
 early_stopping_callback = EarlyStopping(
     monitor='val_loss',        # Metric to monitor
@@ -203,8 +114,8 @@ epochs_range = range(len(acc))
 # plt.plot(epochs_range, val_loss, label='Validation Loss')
 # plt.legend(loc='upper right')
 # plt.title('Training and Validation Loss')
-#plt.savefig("test")
-#plt.show()
+# plt.savefig("test")
+# plt.show()
 
 # Make a prediction on a new image
 def predict_image(image_path, model, class_names):
