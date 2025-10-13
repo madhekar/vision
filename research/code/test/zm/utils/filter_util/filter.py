@@ -16,22 +16,27 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.utils import load_img, img_to_array
 from tensorflow.keras.callbacks import EarlyStopping
 import numpy as np
+import json
 import os
 
 
 def load_init_params():
     # Define directories
     
-    (filter_model_path, 
-    train_data_path,
-    validation_data_path,
-    filter_model_name,
-    filter_model_classes,
-    image_size,
-    batch_size) = config.filer_config_load()
-    return filter_model_path, train_data_path, validation_data_path, filter_model_name, filter_model_classes, image_size, batch_size
+    (
+        filter_model_path,
+        train_data_path,
+        validation_data_path,
+        traing_data_path,
+        trainging_map_file,
+        filter_model_name,
+        filter_model_classes,
+        image_size,
+        batch_size,
+    ) = config.filer_config_load()
+    return filter_model_path, train_data_path, validation_data_path, traing_data_path, trainging_map_file, filter_model_name, filter_model_classes, image_size, batch_size
 
-def train_filter_model(filter_model_path, train_dir, validation_dir, model_file, classes_file, image_size, batch_size):
+def train_filter_model(train_dir, validation_dir, model_file, classes_file, image_size, batch_size):
     # Use ImageDataGenerator to load and augment images
     train_datagen = ImageDataGenerator(
         rescale=1.0 / 255,
@@ -102,15 +107,65 @@ def train_filter_model(filter_model_path, train_dir, validation_dir, model_file,
         callbacks=[early_stopping_callback],
     )
 
-    model.save(os.path.join(filter_model_path,model_file))
+    model.save(model_file)
 
-    np.save(os.path.join(filter_model_path, classes_file), train_generator.class_indices)
+    np.save( classes_file, train_generator.class_indices)
     #return list(train_generator.class_indices.keys())
+
+# Make a prediction on a new image
+def predict_image(image_path, model, class_names, image_size):
+    img = tf.keras.preprocessing.image.load_img(image_path, target_size=image_size)
+    img_array = tf.keras.preprocessing.image.img_to_array(img)
+    img_array = tf.expand_dims(img_array, 0) # Create a batch
+    img_array = img_array / 255.0 # Rescale pixels
+
+    predictions = model.predict(img_array)
+    predicted_class = class_names[np.argmax(predictions)]
+    confidence = np.max(predictions)
+
+    print(f"Image: {image_path}")
+    print(f"Predicted class: {predicted_class} with confidence {confidence:.2f}")
+    return predicted_class
+
+# Example usage (assuming you have a test image named 'test_image.jpg')
+#class_names = list(train_generator.class_indices.keys())
+def test_model(model, class_names, testing_path, Testing_map_file):
+
+    with open(os.path.join(testing_path, Testing_map_file)) as f:
+        df = json.load(f)
+        print('--->', df)
+        for d in df.tolist():
+            p_class = predict_image(d["img"], model, class_names)
+            print(f'predicted: {p_class} actual: {d["label"]}' )  
+    # img_list = [
+    #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/76b281d8-f830-4f24-9b45-ec02e88b52ac.jpg", "label": "people"},
+    #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/8109e957-ce86-4283-96aa-11c55d2fba62-1.jpg", "label": "people"},
+    #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/129c39e4-e7bf-4cfd-9bdd-0eb541bf9a60.jpg", "label": "scenic"},
+    #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/679e1665-6c43-4018-8a8f-ffb2f33739b6-1.jpg", "label": "scenic"},
+    #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/7f5a9544-f625-4bbf-ad25-e0b874a4e5fd-1.jpg", "label": "document"},
+    #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/107e99ff-289f-4d92-b2e6-c4943dccbccd.jpg", "label": "document"},
+    #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/91f2dc11-cffd-4d08-8575-7d437ef31774.jpg", "label": "scenic"},
+    #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/121b15b7-81b3-4792-b654-c95aa2ee4b49-1.jpg", "label": "scenic"},
+    #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2835-2.JPG", "label": "document"}, 
+    #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2838.JPG", "label": "document"}, 
+    #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2842-2.JPG", "label": "document"}, 
+    #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2860.JPG", "label": "document"}, 
+    #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2861.JPG", "label": "document"}, 
+    #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2864.JPG", "label": "document"}, 
+    #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/IMG_2874-2.JPG", "label": "document"}
+
+    # ]
+  
 
 
 def execute():
-    fmp, tdp, vdp, fmn, fmc,isz, bsz = load_init_params()
 
-    
+    fmp, trdp, vdp, tsdp, tmf, fmn, fmc,isz, bsz = load_init_params()
 
-    # filter_model_path, train_data_path, validation_data_path, filter_model_name, filter_model_classes, image_size, batch_size
+    train_filter_model(trdp, vdp, os.path.join(fmp, fmn), os.path.join(fmp, fmc), isz, bsz)
+
+    model = 
+
+    class_names = 
+
+   

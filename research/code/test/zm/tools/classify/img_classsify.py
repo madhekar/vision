@@ -165,8 +165,8 @@ def static_test_model():
         print(f'predicted: {p_class} actual: {d["label"]}' )
 
 
-def execute():
-    
+
+
 
 
 

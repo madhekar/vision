@@ -449,6 +449,8 @@ filter-model:
   filter_model_path: /models/image_classify_filter
   train_data_path: /models/image_classify_filter/training
   validation_data_path: /models/image_classify_filter/validation
+  testing_data_path: /models/image_classify_filter/testing
+  testing_data_map_file: map.json  
   filter_model_name: filter_images_Model.keras
   filter_model_classes: class_names.joblib
   image_size: (224, 224)
@@ -469,6 +471,8 @@ def filer_config_load():
         base_model_path = dict["filter-model"]["filter_model_path"]
         train_data_path = dict["filter-model"]["train_data_path"]
         validation_data_path = dict["filter-model"]["validation_data_path"]
+        testing_data_path = dict["filter-model"]["testing_data_path"]
+        testing_data_map_file = dict["filter-model"]["testing_data_map_file"]
         filter_model_name = dict["filter-model"]["filter_model_name"]
         filter_model_classes = dict["filter-model"]["filter_model_classes"]
         image_size = dict["filter-model"]["image_size"]
@@ -478,6 +482,8 @@ def filer_config_load():
         os.path.join(dr, *base_model_path.split(os.sep)[1:]),
         os.path.join(dr, *train_data_path.split(os.sep)[1:]),
         os.path.join(dr, *validation_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *testing_data_path.split(os.sep)[1:]),
+        testing_data_map_file,
         filter_model_name,
         filter_model_classes,
         image_size,
