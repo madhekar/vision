@@ -13,6 +13,11 @@ from tensorflow.keras.callbacks import EarlyStopping
 import numpy as np
 import os
 
+<<<<<<< HEAD
+'''
+try if needed ViT : https://github.com/sanjay-dutta/Computer-Vision-Practice/tree/main/Vit_flower
+'''
+=======
 """
 Epoch 100/100
 11/11 ━━━━━━━━━━━━━━━━━━━━ 27s 2s/step - accuracy: 0.9764 - loss: 0.0438 - val_accuracy: 0.8333 - val_loss: 0.1350
@@ -81,6 +86,11 @@ This image most likely belongs to scenic with a 52.67 percent confidence.
 
 """
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f71cd98c41feb6fdaeb93342238b32748f9a615c
+>>>>>>> 0b04e3a1578ddddd7275fbaa5466c0a9cff0e8c6
 # Define directories
 base_path = '/home/madhekar/work/home-media-app/models'
 train_dir = os.path.join(base_path, 'img_classify/training')
