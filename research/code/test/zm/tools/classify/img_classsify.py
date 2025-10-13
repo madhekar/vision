@@ -13,6 +13,9 @@ from tensorflow.keras.callbacks import EarlyStopping
 import numpy as np
 import os
 
+'''
+try if needed ViT : https://github.com/sanjay-dutta/Computer-Vision-Practice/tree/main/Vit_flower
+'''
 # Define directories
 base_path = '/home/madhekar/work/home-media-app/models'
 train_dir = os.path.join(base_path, 'img_classify/training')
