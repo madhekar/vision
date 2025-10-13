@@ -84,7 +84,6 @@ This image most likely belongs to scenic with a 52.67 percent confidence.
 
 """
 
-
 # Define directories
 base_path = '/home/madhekar/work/home-media-app/models'
 train_dir = os.path.join(base_path, 'img_classify/training')
@@ -164,10 +163,10 @@ history = model.fit(
 '''
 # Monitor 'val_loss' and wait for 5 epochs without improvement before stopping
 early_stopping_callback = EarlyStopping(
-    monitor='val_loss',  # Metric to monitor
-    patience=5,          # Number of epochs with no improvement after which training will be stopped
+    monitor='val_loss',        # Metric to monitor
+    patience=5,                # Number of epochs with no improvement after which training will be stopped
     restore_best_weights=True, # Restore model weights from the epoch with the best value of the monitored metric
-    verbose=1            # Print messages when early stopping is triggered
+    verbose=1                  # Print messages when early stopping is triggered
 )
 
 # Train the model
