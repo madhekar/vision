@@ -1,12 +1,6 @@
 import os
-import getpass
-from utils.config_util import config
-import streamlit as st
-from utils.util import adddata_util as adu
-from streamlit_tree_select import tree_select
-from utils.util import model_util as mu
-from utils.util import storage_stat as ss
-
+import numpy as np
+import json
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.applications import MobileNetV2
@@ -15,14 +9,10 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.utils import load_img, img_to_array
 from tensorflow.keras.callbacks import EarlyStopping
-import numpy as np
-import json
-import os
+from utils.config_util import config
 
-
+    # Define directories, files, params
 def load_init_params():
-    # Define directories
-    
     (
         filter_model_path,
         train_data_path,
@@ -130,11 +120,10 @@ def predict_image(image_path, model, class_names, image_size):
 # Example usage (assuming you have a test image named 'test_image.jpg')
 #class_names = list(train_generator.class_indices.keys())
 def test_model(model, class_names, testing_path, Testing_map_file):
-
     with open(os.path.join(testing_path, Testing_map_file)) as f:
-        df = json.load(f)
-        print('--->', df)
-        for d in df.tolist():
+        dlist = json.load(f)
+        print('--->', dlist)
+        for d in dlist:
             p_class = predict_image(d["img"], model, class_names)
             print(f'predicted: {p_class} actual: {d["label"]}' )  
     # img_list = [
@@ -164,8 +153,10 @@ def execute():
 
     train_filter_model(trdp, vdp, os.path.join(fmp, fmn), os.path.join(fmp, fmc), isz, bsz)
 
-    model = 
+    model = Model.load(os.path.join(fmp, fmn))
 
     class_names = 
-
+    
+    test_model(model, class_names, tsdp, tmf)
    
+  

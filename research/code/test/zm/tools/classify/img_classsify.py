@@ -124,7 +124,7 @@ def transfer_learn_train(train_dir, validation_dir, image_size, batch_size):
 # plt.show()
 
 # Make a prediction on a new image
-def predict_image(image_path, model, class_names):
+def predict_image(image_path, model, class_names, image_size):
     img = tf.keras.preprocessing.image.load_img(image_path, target_size=image_size)
     img_array = tf.keras.preprocessing.image.img_to_array(img)
     img_array = tf.expand_dims(img_array, 0) # Create a batch
