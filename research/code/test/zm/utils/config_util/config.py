@@ -445,10 +445,12 @@ def faces_config_load():
         )
     
 """    
-filter:
-  base_model_path: /models
-  train_data_path: /image_classify/training
-  validation_data_path: /image_classify/validation
+filter-model:
+  filter_model_path: /models/image_classify_filter
+  train_data_path: /models/image_classify_filter/training
+  validation_data_path: /models/image_classify_filter/validation
+  filter_model_name: filter_images_Model.keras
+  filter_model_classes: class_names.joblib
   image_size: (224, 224)
   batch_size: 32
       
@@ -460,22 +462,26 @@ def filer_config_load():
     with open("utils/config_util/filter_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
-        pprint.pprint("* * *  filter archive properties * * *")
+        pprint.pprint("* * *  filter model archive properties * * *")
         pprint.pprint(dict)
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * * *")
 
-        base_model_path = dict["filter"]["base_model_path"]
-        train_data_path = dict["filter"]["train_data_path"]
-        validation_data_path = dict["filter"]["validation_data_path"]
-        image_size = dict["filter"]["image_size"]
-        batch_size = dict["filter"]["batch_size"]
+        base_model_path = dict["filter-model"]["filter_model_path"]
+        train_data_path = dict["filter-model"]["train_data_path"]
+        validation_data_path = dict["filter-model"]["validation_data_path"]
+        filter_model_name = dict["filter-model"]["filter_model_name"]
+        filter_model_classes = dict["filter-model"]["filter_model_classes"]
+        image_size = dict["filter-model"]["image_size"]
+        batch_size = dict["filter-model"]["batch_size"]
 
     return (
         os.path.join(dr, *base_model_path.split(os.sep)[1:]),
         os.path.join(dr, *train_data_path.split(os.sep)[1:]),
         os.path.join(dr, *validation_data_path.split(os.sep)[1:]),
-        os.path.join(dr, *image_size.split(os.sep)[1:]),
-        os.path.join(dr, *batch_size.split(os.sep)[1:])
+        filter_model_name,
+        filter_model_classes,
+        image_size,
+        batch_size,
     )
 
 '''    
