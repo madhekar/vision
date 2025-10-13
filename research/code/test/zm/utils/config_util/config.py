@@ -405,7 +405,7 @@ model-path:
       faces_label_enc: faces_label_enc.joblib
       faces_svc_path: /models/faces_svc
       faces_svc: faces_model_svc.joblib
-
+ 
 """
 @st.cache_resource
 def faces_config_load():
@@ -444,6 +444,40 @@ def faces_config_load():
             faces_of_people_parquet
         )
     
+"""    
+filter:
+  base_model_path: /models
+  train_data_path: /image_classify/training
+  validation_data_path: /image_classify/validation
+  image_size: (224, 224)
+  batch_size: 32
+      
+"""
+
+@st.cache_resource
+def filer_config_load():
+    dr, _ = app_config_load()
+    with open("utils/config_util/filter_conf.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        pprint.pprint("* * *  filter archive properties * * *")
+        pprint.pprint(dict)
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * * *")
+
+        base_model_path = dict["filter"]["base_model_path"]
+        train_data_path = dict["filter"]["train_data_path"]
+        validation_data_path = dict["filter"]["validation_data_path"]
+        image_size = dict["filter"]["image_size"]
+        batch_size = dict["filter"]["batch_size"]
+
+    return (
+        os.path.join(dr, *base_model_path.split(os.sep)[1:]),
+        os.path.join(dr, *train_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *validation_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *image_size.split(os.sep)[1:]),
+        os.path.join(dr, *batch_size.split(os.sep)[1:])
+    )
+
 '''    
     app-config:
       appdata_root_path: 
