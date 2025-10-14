@@ -27,6 +27,8 @@ def load_init_params():
     return filter_model_path, train_data_path, validation_data_path, traing_data_path, trainging_map_file, filter_model_name, filter_model_classes, image_size, batch_size
 
 def train_filter_model(train_dir, validation_dir, model_file, classes_file, image_size, batch_size):
+
+    print(f'{train_dir}:{validation_dir}:{model_file}:{classes_file}:{image_size}:{batch_size}')
     # Use ImageDataGenerator to load and augment images
     train_datagen = ImageDataGenerator(
         rescale=1.0 / 255,
@@ -43,22 +45,20 @@ def train_filter_model(train_dir, validation_dir, model_file, classes_file, imag
 
     train_generator = train_datagen.flow_from_directory(
         train_dir,
-        target_size=image_size,
-        batch_size=batch_size,
+        target_size=(224,224),
+        batch_size=int(batch_size),
         class_mode="categorical",
     )
 
     validation_generator = validation_datagen.flow_from_directory(
         validation_dir,
-        target_size=image_size,
-        batch_size=batch_size,
+        target_size=(224, 224),
+        batch_size=int(batch_size),
         class_mode="categorical",
     )
 
     # Load the pre-trained MobileNetV2 model (without the top classification layer)
-    base_model = MobileNetV2(
-        input_shape=(224, 224, 3), include_top=False, weights="imagenet"
-    )
+    base_model = MobileNetV2(input_shape=(224, 224, 3), include_top=False, weights="imagenet")
 
     # Freeze the base model layers to prevent re-training
     base_model.trainable = False
@@ -80,7 +80,7 @@ def train_filter_model(train_dir, validation_dir, model_file, classes_file, imag
         loss="categorical_crossentropy",
         metrics=["accuracy"],
     )
-
+    print(model)
     # Monitor 'val_loss' and wait for 5 epochs without improvement before stopping
     early_stopping_callback = EarlyStopping(
         monitor="val_loss",  # Metric to monitor
@@ -88,7 +88,11 @@ def train_filter_model(train_dir, validation_dir, model_file, classes_file, imag
         restore_best_weights=True,  # Restore model weights from the epoch with the best value of the monitored metric
         verbose=1,  # Print messages when early stopping is triggered
     )
-
+    """
+    /home/madhekar/work/home-media-app/models/image_classify_filter/training
+    /home/madhekar/work/home-media-app/models/image_classify_filter/training
+    /home/madhekar/work/home-media-app/models/image_classify_filter/validation
+    """
     # Train the model
     history = model.fit(
         train_generator,
