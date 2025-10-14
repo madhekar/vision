@@ -96,7 +96,7 @@ def execute():
     # paths to import static location files
     final_user_metadata_storage_path = os.path.join(user_location_metadata_path, final_user_location_metadata_file)
 
-    c1, c2, c3 = st.columns([.5, .3, .5], gap="medium")
+    c1, c2, c3, c4 = st.columns([.3, .3, .3, .3], gap="medium")
  
     with c1:
         st.subheader("Static Metadata", divider='gray')
@@ -118,21 +118,25 @@ def execute():
         print(dfl['count'], dfa['count'])
         c2a, c2b = st.columns([1,1], gap="small")
         with c2a:
-            st.subheader("Locations", divider='blue')
+            st.subheader("Locations", divider='gray')
             st.metric("Number of location files", sum(dfl['count']))
             st.metric("Total size of location files (MB)", round(dfl["size"]/(pow(1024,2)), 2),delta=.23)
         with c2b:
-            st.subheader("User Locations", divider='red')
+            st.subheader("User Locations", divider='gray')
             st.metric("Number of user location files", int(count))
             st.metric("Total size of user locations files (MB)",  int(size))
 
     with c3:
-        st.subheader('Number of Images / Person', divider='rainbow') 
+        st.subheader('Number of Images / Person', divider='gray') 
         df = fc.sub_file_count( faces_metadata_path) #"/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces")
-        st.bar_chart(df, x="person", y="number of images", color=["#c3cb71"], horizontal=True)
+        st.bar_chart(df, x="person", y="number of images", color=["#1b85b8"], horizontal=True)
+
+    with c4:
+        st.subheader('Image Classifier Filter')    
+
     st.divider()
  
-    ca, cb, cc = st.columns([0.4, 0.4, 0.5], gap="small", vertical_alignment="top")
+    ca, cb, cc, cd = st.columns([0.3, 0.3, 0.3, 0.3], gap="small", vertical_alignment="top")
    
     with ca:            
         ca_create = st.button("**user specific locations**", use_container_width=True, type="primary")
@@ -171,5 +175,16 @@ def execute():
                     st.info('step: - 1: train know faces for search...')
                     ft.execute()
                     cc_status.update(label="face detection model complete!", state="complete", expanded=False) 
+
+    with cd:
+        cd_filter = st.button("**Refresh image filter model**", use_container_width=True, type="primary")
+        cd_status = st.status('filter image model ', state='running', expanded=True)  
+        with cd_status:
+            if cd_filter:
+                    cd_status.info("starting to image filter model.")
+                    st.info('step: - 1: train image filter for search...')
+                    ft.execute()
+                    cd_status.update(label="Image filter model complete!", state="complete", expanded=False)             
+
 if __name__ == "__main__":
     execute()
