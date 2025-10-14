@@ -26,16 +26,15 @@ def load_init_params():
         image_size,
         batch_size,
     ) = config.filer_config_load()
-    return filter_model_path, train_data_path, validation_data_path, traing_data_path, trainging_map_file, filter_model_name, filter_model_classes, image_size, batch_size
+
+    batch_size_int = int(batch_size)
+    sz = ast.literal_eval(image_size)
+    image_size_int = (int(sz[0]), int(sz[1]))
+    return filter_model_path, train_data_path, validation_data_path, traing_data_path, trainging_map_file, filter_model_name, filter_model_classes, image_size_int, batch_size_int
 
 def train_filter_model(train_dir, validation_dir, model_file, classes_file, image_size, batch_size):
 
     print(f'{train_dir}:{validation_dir}:{model_file}:{classes_file}:{image_size}:{batch_size}')
-    batch_size_int = int(batch_size)
-    sz = ast.literal_eval(image_size)
-    x, y = sz[0], sz[1]
-    print(x, y)
-    image_size_int = (int(x), int(y))
 
     # Use ImageDataGenerator to load and augment images
     train_datagen = ImageDataGenerator(
@@ -53,15 +52,15 @@ def train_filter_model(train_dir, validation_dir, model_file, classes_file, imag
 
     train_generator = train_datagen.flow_from_directory(
         train_dir,
-        target_size=image_size_int,
-        batch_size=batch_size_int,
+        target_size=image_size,
+        batch_size=batch_size,
         class_mode="categorical",
     )
 
     validation_generator = validation_datagen.flow_from_directory(
         validation_dir,
-        target_size=image_size_int,
-        batch_size=batch_size_int,
+        target_size=image_size,
+        batch_size=batch_size,
         class_mode="categorical",
     )
 
@@ -132,12 +131,13 @@ def predict_image(image_path, model, class_names, image_size):
 
 # Example usage (assuming you have a test image named 'test_image.jpg')
 #class_names = list(train_generator.class_indices.keys())
-def test_model(model, class_names, testing_path, Testing_map_file):
+def test_model(model, class_names, testing_path, Testing_map_file, image_size):
+    inverted_classes = dict(zip(class_names.values(), class_names.keys()))
     with open(os.path.join(testing_path, Testing_map_file)) as f:
         dlist = json.load(f)
         print('--->', dlist)
         for d in dlist:
-            p_class = predict_image(d["img"], model, class_names)
+            p_class = predict_image(os.path.join(testing_path,d["img"]), model, inverted_classes, image_size)
             print(f'predicted: {p_class} actual: {d["label"]}' )  
     # img_list = [
     #     {"img": "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/767bfd11-78fa-573e-ac47-cb74883dc6c9/76b281d8-f830-4f24-9b45-ec02e88b52ac.jpg", "label": "people"},
@@ -164,7 +164,7 @@ def execute():
 
     fmp, trdp, vdp, tsdp, tmf, fmn, fmc,isz, bsz = load_init_params()
 
-    train_filter_model(trdp, vdp, os.path.join(fmp, fmn), os.path.join(fmp, fmc), isz, bsz)
+    # train_filter_model(trdp, vdp, os.path.join(fmp, fmn), os.path.join(fmp, fmc), isz, bsz)
 
     model = load_model(os.path.join(fmp, fmn))
 
@@ -172,6 +172,6 @@ def execute():
 
     print(class_names)
     
-    test_model(model, class_names, tsdp, tmf)
+    test_model(model, class_names, tsdp, tmf, isz)
    
   
