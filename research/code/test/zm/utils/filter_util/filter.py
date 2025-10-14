@@ -1,11 +1,13 @@
 import os
+import ast
 import numpy as np
 import json
+import joblib
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
-from tensorflow.keras.models import Model
+from tensorflow.keras.models import Model, load_model
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.utils import load_img, img_to_array
 from tensorflow.keras.callbacks import EarlyStopping
@@ -29,6 +31,12 @@ def load_init_params():
 def train_filter_model(train_dir, validation_dir, model_file, classes_file, image_size, batch_size):
 
     print(f'{train_dir}:{validation_dir}:{model_file}:{classes_file}:{image_size}:{batch_size}')
+    batch_size_int = int(batch_size)
+    sz = ast.literal_eval(image_size)
+    x, y = sz[0], sz[1]
+    print(x, y)
+    image_size_int = (int(x), int(y))
+
     # Use ImageDataGenerator to load and augment images
     train_datagen = ImageDataGenerator(
         rescale=1.0 / 255,
@@ -45,15 +53,15 @@ def train_filter_model(train_dir, validation_dir, model_file, classes_file, imag
 
     train_generator = train_datagen.flow_from_directory(
         train_dir,
-        target_size=(224,224),
-        batch_size=int(batch_size),
+        target_size=image_size_int,
+        batch_size=batch_size_int,
         class_mode="categorical",
     )
 
     validation_generator = validation_datagen.flow_from_directory(
         validation_dir,
-        target_size=(224, 224),
-        batch_size=int(batch_size),
+        target_size=image_size_int,
+        batch_size=batch_size_int,
         class_mode="categorical",
     )
 
@@ -103,7 +111,8 @@ def train_filter_model(train_dir, validation_dir, model_file, classes_file, imag
 
     model.save(model_file)
 
-    np.save( classes_file, train_generator.class_indices)
+    joblib.dump(train_generator.class_indices, classes_file)
+    #np.save( classes_file, train_generator.class_indices)
     #return list(train_generator.class_indices.keys())
 
 # Make a prediction on a new image
@@ -157,9 +166,11 @@ def execute():
 
     train_filter_model(trdp, vdp, os.path.join(fmp, fmn), os.path.join(fmp, fmc), isz, bsz)
 
-    model = Model.load(os.path.join(fmp, fmn))
+    model = load_model(os.path.join(fmp, fmn))
 
-    class_names = np.load(os.path.join(fmp, fmc))
+    class_names = joblib.load(os.path.join(fmp, fmc))
+
+    print(class_names)
     
     test_model(model, class_names, tsdp, tmf)
    
