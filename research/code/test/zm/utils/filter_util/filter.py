@@ -155,7 +155,7 @@ def execute():
 
     model = Model.load(os.path.join(fmp, fmn))
 
-    class_names = 
+    class_names = np.load(os.path.join(fmp, fmc))
     
     test_model(model, class_names, tsdp, tmf)
    
