@@ -4,6 +4,7 @@ import numpy as np
 import json
 import joblib
 import tensorflow as tf
+from sklearn.metrics import classification_report
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
@@ -125,19 +126,24 @@ def predict_image(image_path, model, class_names, image_size):
 # Example usage (assuming you have a test image named 'test_image.jpg')
 #class_names = list(train_generator.class_indices.keys())
 def test_model(model, class_names, testing_path, Testing_map_file, image_size):
+    y_src = []
+    y_tar = []
     inverted_classes = dict(zip(class_names.values(), class_names.keys()))
     with open(os.path.join(testing_path, Testing_map_file)) as f:
         dlist = json.load(f)
         print('--->', dlist)
         for d in dlist:
             p_class = predict_image(os.path.join(testing_path,d["img"]), model, inverted_classes, image_size)
+            y_src.append(d['label'])
+            y_tar.append(p_class)
             print(f'predicted: {p_class} actual: {d["label"]}' )  
+    print(classification_report(y_src, y_tar))
 
 def execute():
 
     fmp, trdp, vdp, tsdp, tmf, fmn, fmc,isz, bsz = load_init_params()
 
-    train_filter_model(trdp, vdp, os.path.join(fmp, fmn), os.path.join(fmp, fmc), isz, bsz)
+    #train_filter_model(trdp, vdp, os.path.join(fmp, fmn), os.path.join(fmp, fmc), isz, bsz)
 
     model = load_model(os.path.join(fmp, fmn))
 
