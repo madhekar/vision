@@ -1,0 +1,11 @@
+filter-model:
+  filter_model_path: /models/image_classify_filter
+  train_data_path: /app-data/static-metadata/filter/training
+  validation_data_path: /app-data/static-metadata/filter/validation
+  testing_data_path: /app-data/static-metadata/filter/testing
+  testing_data_map_file: map.json  
+  filter_model_name: filter_images_Model.keras
+  filter_model_classes: filter_class_names.joblib
+  image_size: (224, 224)
+  batch_size: 32
+
