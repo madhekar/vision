@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import pandas as pd
+from sklearn.metrics import classification_report
 from utils.config_util import config
 from utils.util import fast_parquet_util as fpu
 from utils.util import storage_stat as ss
@@ -187,7 +188,8 @@ def execute():
             if cd_filter:
                     cd_status.info("starting to image filter model.")
                     st.info('step: - 1: train image filter for search...')
-                    f.execute()
+                    ys, yt = f.execute()
+                    cd_status.info(classification_report(ys,yt))
                     cd_status.update(label="Image filter model complete!", state="complete", expanded=False)             
 
 if __name__ == "__main__":

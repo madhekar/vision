@@ -138,12 +138,13 @@ def test_model(model, class_names, testing_path, Testing_map_file, image_size):
             y_tar.append(p_class)
             print(f'predicted: {p_class} actual: {d["label"]}' )  
     print(classification_report(y_src, y_tar))
+    return y_src, y_tar
 
 def execute():
 
     fmp, trdp, vdp, tsdp, tmf, fmn, fmc,isz, bsz = load_init_params()
 
-    #train_filter_model(trdp, vdp, os.path.join(fmp, fmn), os.path.join(fmp, fmc), isz, bsz)
+    train_filter_model(trdp, vdp, os.path.join(fmp, fmn), os.path.join(fmp, fmc), isz, bsz)
 
     model = load_model(os.path.join(fmp, fmn))
 
@@ -151,6 +152,10 @@ def execute():
 
     print(class_names)
     
-    test_model(model, class_names, tsdp, tmf, isz)
+    ys,yt = test_model(model, class_names, tsdp, tmf, isz)
+
+    return ys, yt
+
+
    
   
