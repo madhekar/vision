@@ -17,6 +17,7 @@ from utils.util import fast_parquet_util as fpu
 from utils.util import storage_stat as ss
 from utils.face_util import base_face_predict as bft
 from utils.face_detection_util import face_predictor as fpr
+from utils.filter_util import filter_inferance as fi
 
 import asyncio
 import multiprocessing as mp
@@ -31,6 +32,8 @@ d_latitude, d_longitude = 32.968689, -117.184243
 d_loc = 'Madhekar residence in Carmel Valley'
 #m, t, p = LLM.setLLM()
 ap, fmodel, fle = fpr.init_predictor_module()
+fm, fc,isz = fi.init_filter_model()
+
 p = LLM_Next.setLLM()
 #btree = st.empty()
 #ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
@@ -82,6 +85,11 @@ async def faces_partial_prompt(args):
     uri = args
     txt = fpr.predict_img_faces(ap, uri, fmodel, fle) 
     return txt
+
+async def img_type_detection(args):
+    uri = args
+    itype = fi.predict_image(image_path=uri, model=fm, class_names=fc, image_size=isz)
+    return itype
    
 # get location details as: (latitude, longitude) and address
 async def locationDetails(args, lock):
@@ -153,7 +161,7 @@ def new_xform(res):
 
 def final_xform(alist):
     #print('--->', alist)
-    keys = [ 'uri', 'id', 'ts','latlon', 'loc', 'ppt', 'text']
+    keys = [ 'uri', 'id', 'ts','latlon', 'type' ,'loc', 'ppt', 'text']
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
 # appends json rows to file
@@ -217,6 +225,7 @@ async def run_workflow(
                         pool.map(generateId, rlist),
                         pool.map(timestamp, rlist),
                         pool.map(faces_partial_prompt, rlist),
+                        pool.map(img_type_detection, rlist),
                         pool.map(partial(locationDetails, lock=lock), rlist)
                     )
                     
