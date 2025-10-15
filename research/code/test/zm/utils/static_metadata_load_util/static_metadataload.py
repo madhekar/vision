@@ -71,6 +71,7 @@ def execute():
         raw_data_path,
         static_metadata_path,
         faces_metadata_path,
+        filter_metadata_path,
         default_location_metadata_path,
         user_location_metadata_path,
         user_location_metadata_file,
@@ -133,7 +134,9 @@ def execute():
         st.bar_chart(df, x="person", y="number of images", color=["#1b85b8"], horizontal=True)
 
     with c4:
-        st.subheader('Image Classifier Filter')    
+        st.subheader('Image Classifier Filter', divider='gray')    
+        df = fc.sub_file_count(filter_metadata_path)
+        st.bar_chart(df, x="person", y="number of images", color=["#1b85b8"], horizontal=True)
 
     st.divider()
  

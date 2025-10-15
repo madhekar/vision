@@ -5,6 +5,8 @@ static-metadata:
   static_metadata_path: /data/app-data/static-metadata  
 static-faces: 
   faces_metadata_path: /data/app-data/static-metadata/faces
+static-filter:
+  filter_metadata_path: /models/image_classify_filter/training  
 static-locations:
   default_location_metadata_path: /data/app-data/static-metadata/locations/default
   user_location_metadata_path: /data/app-data/static-metadata/locations/user-specific

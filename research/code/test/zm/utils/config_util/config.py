@@ -100,6 +100,8 @@ static-metadata:
   static_metadata_path: /data/app-data/static-metadata  
 static-faces: 
   faces_metadata_path: /data/app-data/static-metadata/faces
+static-filter:
+  filter_metadata_path: /models/image_classify_filter/training  
 static-locations:
   default_location_metadata_path: /data/app-data/static-metadata/locations/default
   user_location_metadata_path: /data/app-data/static-metadata/locations/user-specific
@@ -126,6 +128,8 @@ def static_metadata_config_load():
         static_metadata_path = dict['static-metadata']['static_metadata_path']
 
         faces_metadata_path = dict['static-faces']['faces_metadata_path']
+  
+        filter_metadata_path = dict['static-filter']['filter_metadata_path']
 
         default_location_metadata_path = dict["static-locations"]["default_location_metadata_path"]
         user_location_metadata_path = dict["static-locations"]["user_location_metadata_path"]
@@ -141,6 +145,7 @@ def static_metadata_config_load():
         os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
         os.path.join(dr, *static_metadata_path.split(os.sep)[1:]),
         os.path.join(dr, *faces_metadata_path.split(os.sep)[1:]),
+        os.path.join(dr, *filter_metadata_path.split(os.sep)[1:]),
         os.path.join(dr, *default_location_metadata_path.split(os.sep)[1:]),
         os.path.join(dr, *user_location_metadata_path.split(os.sep)[1:]),
         user_location_metadata_file,
