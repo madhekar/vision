@@ -137,7 +137,7 @@ def execute():
 
     fmp, trdp, vdp, tsdp, tmf, fmn, fmc,isz, bsz = load_init_params()
 
-    # train_filter_model(trdp, vdp, os.path.join(fmp, fmn), os.path.join(fmp, fmc), isz, bsz)
+    train_filter_model(trdp, vdp, os.path.join(fmp, fmn), os.path.join(fmp, fmc), isz, bsz)
 
     model = load_model(os.path.join(fmp, fmn))
 
