@@ -1,10 +1,12 @@
 import os
 import ast
+import cv2
 import numpy as np
 import json
 import joblib
 import tensorflow as tf
 from tensorflow.keras.models import load_model
+from PIL import Image
 from utils.config_util import config
 
 
@@ -29,15 +31,24 @@ def init_filter_model():
     class_names = joblib.load(os.path.join(filter_model_path, filter_model_classes))    
     
     inverted_classes = dict(zip(class_names.values(), class_names.keys()))
-
+    print(f'---* {inverted_classes}: {image_size}')
     return model,inverted_classes, image_size_int
 
 def predict_image(image_path, model, class_names, image_size):
+    print(f'in ---{image_path}: {image_size}: {class_names}')
+
     img = tf.keras.preprocessing.image.load_img(image_path, target_size=image_size)
     img_array = tf.keras.preprocessing.image.img_to_array(img)
     img_array = tf.expand_dims(img_array, 0)  # Create a batch
     img_array = img_array / 255.0  # Rescale pixels
 
+    img = Image.open(image_path)
+    img = img.resize(image_size)
+    img_array = np.array(img)
+    img_array = np.expand_dims(img_array, 0)
+    img_array = img_array / 255.0
+
+    print(f'---*&* {img_array}')
     predictions = model.predict(img_array)
     predicted_class = class_names[np.argmax(predictions)]
     confidence = np.max(predictions)

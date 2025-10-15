@@ -2,6 +2,8 @@ import os
 import uuid
 import logging
 import itertools as it
+import cv2
+import numpy as np
 from utils.preprocess_util import awaitUtil
 #from utils.preprocess_util import entities as en
 from utils.preprocess_util import LLM_Next
@@ -18,6 +20,8 @@ from utils.util import storage_stat as ss
 from utils.face_util import base_face_predict as bft
 from utils.face_detection_util import face_predictor as fpr
 from utils.filter_util import filter_inferance as fi
+import tensorflow as tf
+from tensorflow.keras.models import load_model
 
 import asyncio
 import multiprocessing as mp
@@ -87,9 +91,32 @@ async def faces_partial_prompt(args):
     return txt
 
 async def img_type_detection(args):
-    uri = args
-    itype = fi.predict_image(image_path=uri, model=fm, class_names=fc, image_size=isz)
-    return itype
+    url = args
+    print(f"***{url}")
+    # itype = fi.predict_image(uri, fm, fc, isz)
+    img = tf.keras.preprocessing.image.load_img(url, target_size=isz)
+    img_array = tf.keras.preprocessing.image.img_to_array(img)
+    img_array = tf.expand_dims(img_array, 0)  # Create a batch
+    img_array = img_array / 255.0  # Rescale pixels
+
+    # img = Image.open(image_path)
+    # img = img.resize(image_size)
+    # img_array = np.array(img)
+    # img_array = np.expand_dims(img_array, 0)
+    # img_array = img_array / 255.0
+
+    print(f"---*&* {img_array}")
+    predictions = fm.odel.predict(img_array)
+    predicted_class = fc[np.argmax(predictions)]
+    confidence = np.max(predictions)
+
+    print(f"Image: {url}")
+    print(f"Predicted class: {predicted_class} with confidence {confidence:.2f}")
+    return predicted_class
+
+
+    # print(f'***{itype}')
+    # return itype
    
 # get location details as: (latitude, longitude) and address
 async def locationDetails(args, lock):
@@ -160,7 +187,7 @@ def new_xform(res):
     return lr, lf
 
 def final_xform(alist):
-    #print('--->', alist)
+    print('-#-->', alist)
     keys = [ 'uri', 'id', 'ts','latlon', 'type' ,'loc', 'ppt', 'text']
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
