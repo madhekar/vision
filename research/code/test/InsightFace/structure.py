@@ -2205,3 +2205,61 @@ Advanced considerations
         "text": "\n I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question? Spark-2016 (SPARK-13369)im_end>im_start> I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question? Spark-2016 (SPARK-13369)im_end>im_start> I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question? Spark-2016 (SPARK-13369)im_end>im_start> I'm sorry, I'm not sure what you're asking. Can you please provide more context or clarify your question? Spark-2016 (SPARK-13369)im_end>im_start>",
     },
 ]
+
+# test 32
+
+"""
+
+When PIL.Image.resize() appears to hang within a Python multiprocessing context, it often points to issues related to how processes handle shared resources or memory management. Here are common causes and solutions:
+1. Shared State and Forking Issues:
+
+    Problem:
+    In Unix-like systems, multiprocessing often defaults to the "fork" start method, where child processes inherit the parent's memory space. If the parent process has already loaded large image data or has internal state from PIL/Pillow, this inherited state can lead to deadlocks or unexpected behavior in child processes, especially when they try to modify or access these resources concurrently.
+    Solution:
+    Explicitly set the start method to "spawn" or "forkserver" at the very beginning of your main script, before any other multiprocessing imports or usage. This ensures child processes start fresh, without inheriting the parent's memory. 
+
+Python
+
+    from multiprocessing import set_start_method
+
+    if __name__ == '__main__':
+        set_start_method("spawn", force=True) # Or "forkserver"
+        # Your multiprocessing code follows
+
+2. Memory Leaks and Excessive Memory Usage:
+
+    Problem:
+    Resizing many images, especially large ones, can be memory-intensive. If image objects are not properly closed or garbage collected, memory usage can steadily increase, leading to performance degradation and eventual hangs as the system struggles to allocate memory.
+    Solution:
+        Process image data in chunks: Instead of passing entire Image objects between processes, send only the image file paths or raw pixel data. Let each worker process open, resize, and save the image independently.
+        Explicitly close image objects: After processing an image, ensure you call image.close() if you opened it within the worker process.
+        Consider generators: For very large datasets, use generators to yield image paths or data one by one, preventing all data from being loaded into memory at once. 
+
+3. Pickling Issues with Image Objects:
+
+    Problem:
+    multiprocessing relies on pickling to serialize and deserialize objects when passing them between processes. PIL.Image.Image objects are not always easily picklable, especially across different Python versions or environments.
+    Solution:
+        Pass filenames: As mentioned above, pass the image filenames to worker processes and let them open the images themselves. This avoids pickling the Image object directly.
+        Serialize image data: If you must pass image data directly, convert the Image object to raw bytes (e.g., using Image.tobytes()) and reconstruct it in the worker process using Image.frombytes(), along with the necessary metadata (size, mode). 
+
+4. External Library Conflicts (e.g., NumPy, OpenCV):
+
+    Problem:
+    If your code also uses other libraries that perform image manipulation or numerical operations (like NumPy or OpenCV), there might be conflicts or unexpected interactions with PIL within a multiprocessing environment.
+    Solution:
+        Isolate operations: Try to isolate the PIL resizing operations within dedicated functions or modules to minimize potential conflicts.
+        Consider alternatives: If PIL consistently causes issues, explore using the image resizing capabilities of other libraries like OpenCV (cv2.resize()) within your multiprocessing setup. 
+
+Debugging Tips:
+
+    Simplify your code:
+    Create a minimal reproducible example that demonstrates the hanging behavior. This helps pinpoint the exact cause.
+    Monitor memory usage:
+    Use tools like htop or Python's resource module to monitor memory consumption during execution.
+    Add logging:
+    Include logging statements in your worker processes to track their progress and identify where the hang occurs. 
+
+
+
+"""
