@@ -35,7 +35,7 @@ def init_filter_model():
     return model,inverted_classes, image_size_int
 
 def predict_image(image_path, model, class_names, image_size):
-    print(f'in ---{image_path}: {image_size}: {class_names}')
+    #print(f'in ---{image_path}: {image_size}: {class_names}')
 
     img = tf.keras.preprocessing.image.load_img(image_path, target_size=image_size)
     img_array = tf.keras.preprocessing.image.img_to_array(img)
@@ -48,12 +48,12 @@ def predict_image(image_path, model, class_names, image_size):
     img_array = np.expand_dims(img_array, 0)
     img_array = img_array / 255.0
 
-    print(f'---*&* {img_array}')
+    #print(f'---*&* {img_array}')
     predictions = model.predict(img_array)
     predicted_class = class_names[np.argmax(predictions)]
     confidence = np.max(predictions)
 
-    print(f"Image: {image_path}")
+    #print(f"Image: {image_path}")
     print(f"Predicted class: {predicted_class} with confidence {confidence:.2f}")
     return predicted_class
 

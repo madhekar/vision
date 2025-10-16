@@ -10,7 +10,7 @@ from utils.util import model_util as mu
 from utils.util import statusmsg_util as sm
 from utils.util import storage_stat as ss
 from utils.filter_util import filter_inferance as fi
-
+from ast import literal_eval
 import asyncio
 import multiprocessing as mp
 from multiprocessing import Pool
@@ -75,11 +75,16 @@ def is_valid_size_and_score(args, img):
                 sm.add_messages("quality", f"e| error: {e} occurred while opening the image: {os.path.join(img[0], img[1])}")
       return img    
 
-def is_vaild_file_type(img):
-
-    img_type = fi.predict_image(img, m, cn, isz)
-
-    print(f'{img}->{img_type}')
+def is_vaild_file_type(img, filter_types):
+    ret_img=""
+    print(filter_types)
+    try:
+        img_type = fi.predict_image(img, m, cn, isz)
+        if img_type in filter_types:
+             ret_img = img
+    except Exception as e:
+        print(f'exception in is_valid_file_type {e}')
+    return ret_img    
 
 """
 Archive quality images
@@ -106,24 +111,28 @@ def archive_images(image_path, archive_path, bad_quality_path_list):
         sm.add_messages("quality", "s| no bad quality images Found.")
 
 
-def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
+def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count, filter_list):
 
+    str_filter = ' '.join(map(str, filter_list))
     nfiles = len(mu.getFiles(image_dir_path))
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
     result = []
     with tqdm(total=nfiles, desc='detecting poor quality files', unit='items', unit_scale=True) as pbar:
         #async with Pool(processes=chunk_size) as pool:
+
             res=[]
             for il in img_iterator:
                   if len(il) > 0:
                      
-                     map(is_vaild_file_type, il)
+                    res0 = list(map(partial(is_vaild_file_type, str_filter), il))
 
-                     res = map(partial(is_valid_size_and_score, threshold),il)
-                     result.append(res)
+                    res1 = list(map(partial(is_valid_size_and_score, threshold),il))
 
-                     
-                     pbar.update(len(il))
+                    if res1 != '' or res0 != '':
+                      result.append(res)
+
+                    print(f'---> {res}')
+                    pbar.update(len(il))
         #pool.close()
         #pool.join()
 
@@ -132,6 +141,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_coun
 def execute(source_name, filter_list):
     result = "success"
     try:
+        print(filter_list)
         #mp.set_start_method("fork")
         #mp.freeze_support()
         (input_image_path, archive_quality_path, image_quality_threshold) = config.image_quality_config_load()
@@ -153,6 +163,7 @@ def execute(source_name, filter_list):
                 image_quality_threshold,
                 chunk_size,
                 queue_count,
+                filter_list
             )
         except Exception as e:
             st.error(f'exception: {e} occred in async main function') 
