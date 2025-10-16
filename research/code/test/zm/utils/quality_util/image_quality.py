@@ -9,6 +9,7 @@ from utils.config_util import config
 from utils.util import model_util as mu
 from utils.util import statusmsg_util as sm
 from utils.util import storage_stat as ss
+from utils.filter_util import filter_inferance as fi
 
 import asyncio
 import multiprocessing as mp
@@ -35,6 +36,11 @@ Graphics:
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 transform = ToTensor()
 
+def create_model():
+     model,inverted_classes, image_size_int = fi.init_filter_model()
+     print(inverted_classes)
+     return model,inverted_classes, image_size_int
+
 def create_metric():
     print(pyiqa.list_models())
     iqa_metric = pyiqa.create_metric("niqe", device=device)
@@ -42,11 +48,14 @@ def create_metric():
 
 iqa_metric = create_metric()
 
-async def is_valid_size_and_score(args, img):
+m, cn, isz = create_model()
+
+def is_valid_size_and_score(args, img):
       threshold = args
       try:  
         if img is not None and os.path.getsize(img) > 512:
             im = Image.open(img).convert("RGB")
+
             h, w = im.size
 
             if w < 512 or h < 512:
@@ -56,7 +65,7 @@ async def is_valid_size_and_score(args, img):
             score = iqa_metric(im_tensor)
             f_score = score.item()
 
-            #print(f'{img} :: {h}:{w} :: {f_score}')
+            print(f'{img} :: {h}:{w} :: {f_score}')
 
             res = img if f_score > threshold else ""
             return res
@@ -66,10 +75,16 @@ async def is_valid_size_and_score(args, img):
                 sm.add_messages("quality", f"e| error: {e} occurred while opening the image: {os.path.join(img[0], img[1])}")
       return img    
 
+def is_vaild_file_type(img):
+
+    img_type = fi.predict_image(img, m, cn, isz)
+
+    print(f'{img}->{img_type}')
+
 """
 Archive quality images
 """
-async def archive_images(image_path, archive_path, bad_quality_path_list):                
+def archive_images(image_path, archive_path, bad_quality_path_list):                
     if len(bad_quality_path_list) != 0:
         space_saved = 0
         image_cnt =0 
@@ -91,49 +106,56 @@ async def archive_images(image_path, archive_path, bad_quality_path_list):
         sm.add_messages("quality", "s| no bad quality images Found.")
 
 
-async def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
+def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
 
     nfiles = len(mu.getFiles(image_dir_path))
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
     result = []
     with tqdm(total=nfiles, desc='detecting poor quality files', unit='items', unit_scale=True) as pbar:
-        async with Pool(processes=chunk_size) as pool:
+        #async with Pool(processes=chunk_size) as pool:
             res=[]
             for il in img_iterator:
                   if len(il) > 0:
-                     res = await asyncio.gather(
-                     pool.map(partial(is_valid_size_and_score, threshold),il))
+                     
+                     map(is_vaild_file_type, il)
+
+                     res = map(partial(is_valid_size_and_score, threshold),il)
                      result.append(res)
+
+                     
                      pbar.update(len(il))
-        pool.close()
-        pool.join()
+        #pool.close()
+        #pool.join()
 
     archive_images( image_dir_path, archive_path, [e for sb1 in result for sb2 in sb1 for e in sb2 if not e == ""])
 
-def execute(source_name):
+def execute(source_name, filter_list):
     result = "success"
     try:
         #mp.set_start_method("fork")
-        mp.freeze_support()
+        #mp.freeze_support()
         (input_image_path, archive_quality_path, image_quality_threshold) = config.image_quality_config_load()
 
         input_image_path_updated = os.path.join(input_image_path, source_name)
         arc_folder_name = mu.get_foldername_by_datetime()     
         archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
 
-        chunk_size = int(mp.cpu_count()) // 2
+        chunk_size = int(mp.cpu_count()) // 4
         queue_count = chunk_size
 
         sm.add_messages("quality", f"s| number of parallel processes {chunk_size}")
 
         start = time.time()
-        iq_work_flow(
-            input_image_path_updated,
-            archive_quality_path,
-            image_quality_threshold,
-            chunk_size,
-            queue_count,
-        )
+        try:
+            iq_work_flow(
+                input_image_path_updated,
+                archive_quality_path,
+                image_quality_threshold,
+                chunk_size,
+                queue_count,
+            )
+        except Exception as e:
+            st.error(f'exception: {e} occred in async main function') 
         processing_duration = int(time.time() - start)
         print(f"processing duration: {processing_duration} seconds")
         sm.add_messages("quality", f"s| processing duration: {processing_duration} seconds")

@@ -15,7 +15,7 @@ from utils.dataload_util import dataload as dl
 from utils.util import statusmsg_util as sm
 
 colors = ["#6d765b", "#A5BFA6"]#["#847577", "#cfd2cd"] #["#FF6961", "#7AD7F0"]
-
+filter_selection = []
 sm.init()
 
 def color_selectbox(n_element: int, color: str):
@@ -136,7 +136,13 @@ def exe():
                 use_container_width=True,
                 color=colors,
             )
-      
+            options = ['people','scenic','document']
+            filter_selection = st.multiselect(
+                'select image types to filter out:',
+                options=options,
+                default=['document']
+            )
+        
 
     with cd:
         cdc= cd.container(border=False)        
@@ -192,11 +198,11 @@ def exe():
 
     with c3:
         # c3c = c3.container(border=False)
-        # with c3c:            
+        # with c3c:           
             if st.button("Quality Check", use_container_width=True, type="primary"):
                 with st.status(label="quality", expanded=True) as sc3c:
                     st.write("quality check starting...")
-                    results = iq.execute(user_source_selected)
+                    results = iq.execute(user_source_selected, filter_selection)
                     if results == 'success':
                         sc3c.update(label="quality complete", state="complete")
                     else:
