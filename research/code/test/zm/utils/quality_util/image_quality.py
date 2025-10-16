@@ -65,7 +65,7 @@ def is_valid_size_and_score(args, img):
             score = iqa_metric(im_tensor)
             f_score = score.item()
 
-            print(f'{img} :: {h}:{w} :: {f_score}')
+            #print(f'{img} :: {h}:{w} :: {f_score}')
 
             res = img if f_score > threshold else ""
             return res
@@ -75,9 +75,8 @@ def is_valid_size_and_score(args, img):
                 sm.add_messages("quality", f"e| error: {e} occurred while opening the image: {os.path.join(img[0], img[1])}")
       return img    
 
-def is_vaild_file_type(img, filter_types):
+def is_vaild_file_type(filter_types, img):
     ret_img=""
-    print(filter_types)
     try:
         img_type = fi.predict_image(img, m, cn, isz)
         if img_type in filter_types:
