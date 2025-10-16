@@ -76,13 +76,17 @@ def is_valid_size_and_score(args, img):
       return img    
 
 def is_vaild_file_type(filter_types, img):
+
     ret_img=""
     try:
         img_type = fi.predict_image(img, m, cn, isz)
+
         if img_type in filter_types:
-             ret_img = img
+          ret_img = img        
+          
     except Exception as e:
         print(f'exception in is_valid_file_type {e}')
+    #print(f'***{filter_types} key {img_type} {img} {ret_img}')    
     return ret_img    
 
 """
@@ -111,8 +115,8 @@ def archive_images(image_path, archive_path, bad_quality_path_list):
 
 
 def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count, filter_list):
-
-    str_filter = ' '.join(map(str, filter_list))
+    print(f"%%% {filter_list}")
+    str_filter = ' '.join(filter_list)
     nfiles = len(mu.getFiles(image_dir_path))
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
     result = []
@@ -127,14 +131,17 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_coun
 
                     res1 = list(map(partial(is_valid_size_and_score, threshold),il))
 
-                    if res1 != '' or res0 != '':
-                      result.append(res)
+                    print(f'res0 {res0} res1 {res1}')
+                    for r1, r2 in zip(res0, res1):
+                      r = r1 or r2 or ""
+                      if r != "":
+                        result.append(r)
 
                     print(f'---> {res}')
                     pbar.update(len(il))
         #pool.close()
         #pool.join()
-
+    print(result)
     archive_images( image_dir_path, archive_path, [e for sb1 in result for sb2 in sb1 for e in sb2 if not e == ""])
 
 def execute(source_name, filter_list):
