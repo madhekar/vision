@@ -36,7 +36,7 @@ d_latitude, d_longitude = 32.968689, -117.184243
 d_loc = 'Madhekar residence in Carmel Valley'
 #m, t, p = LLM.setLLM()
 ap, fmodel, fle = fpr.init_predictor_module()
-fm, fc,isz = fi.init_filter_model()
+#fm, fc,isz = fi.init_filter_model()
 
 p = LLM_Next.setLLM()
 #btree = st.empty()
@@ -90,29 +90,30 @@ async def faces_partial_prompt(args):
     txt = fpr.predict_img_faces(ap, uri, fmodel, fle) 
     return txt
 
-async def img_type_detection(args):
-    url = args
-    print(f"***{url}")
-    # itype = fi.predict_image(uri, fm, fc, isz)
-    img = tf.keras.preprocessing.image.load_img(url, target_size=isz)
-    img_array = tf.keras.preprocessing.image.img_to_array(img)
-    img_array = tf.expand_dims(img_array, 0)  # Create a batch
-    img_array = img_array / 255.0  # Rescale pixels
+# async def img_type_detection(args, lock):
+#     url = args
 
-    # img = Image.open(image_path)
-    # img = img.resize(image_size)
-    # img_array = np.array(img)
-    # img_array = np.expand_dims(img_array, 0)
-    # img_array = img_array / 255.0
+#     print(f"***{url}")
+#     # itype = fi.predict_image(uri, fm, fc, isz)
+#     img = tf.keras.preprocessing.image.load_img(url, target_size=isz)
+#     img_array = tf.keras.preprocessing.image.img_to_array(img)
+#     img_array = tf.expand_dims(img_array, 0)  # Create a batch
+#     img_array = img_array / 255.0  # Rescale pixels
 
-    print(f"---*&* {img_array}")
-    predictions = fm.odel.predict(img_array)
-    predicted_class = fc[np.argmax(predictions)]
-    confidence = np.max(predictions)
+#     # img = Image.open(image_path)
+#     # img = img.resize(image_size)
+#     # img_array = np.array(img)
+#     # img_array = np.expand_dims(img_array, 0)
+#     # img_array = img_array / 255.0
 
-    print(f"Image: {url}")
-    print(f"Predicted class: {predicted_class} with confidence {confidence:.2f}")
-    return predicted_class
+#     print(f"---*&* {img_array}")
+#     predictions = fm.predict(img_array)
+#     predicted_class = fc[np.argmax(predictions)]
+#     confidence = np.max(predictions)
+
+#     print(f"Image: {url}")
+#     print(f"Predicted class: {predicted_class} with confidence {confidence:.2f}")
+#     return predicted_class
 
 
     # print(f'***{itype}')
@@ -188,7 +189,7 @@ def new_xform(res):
 
 def final_xform(alist):
     print('-#-->', alist)
-    keys = [ 'uri', 'id', 'ts','latlon', 'type' ,'loc', 'ppt', 'text']
+    keys = [ 'uri', 'id', 'ts','latlon' ,'loc', 'ppt', 'text']
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
 # appends json rows to file
@@ -252,7 +253,7 @@ async def run_workflow(
                         pool.map(generateId, rlist),
                         pool.map(timestamp, rlist),
                         pool.map(faces_partial_prompt, rlist),
-                        pool.map(img_type_detection, rlist),
+                        #pool.map(partial(img_type_detection,lock=lock), rlist),
                         pool.map(partial(locationDetails, lock=lock), rlist)
                     )
                     
