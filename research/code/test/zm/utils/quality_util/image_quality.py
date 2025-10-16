@@ -42,7 +42,7 @@ def create_metric():
 
 iqa_metric = create_metric()
 
-def is_valid_size_and_score(args, img):
+async def is_valid_size_and_score(args, img):
       threshold = args
       try:  
         if img is not None and os.path.getsize(img) > 512:
@@ -69,7 +69,7 @@ def is_valid_size_and_score(args, img):
 """
 Archive quality images
 """
-def archive_images(image_path, archive_path, bad_quality_path_list):                
+async def archive_images(image_path, archive_path, bad_quality_path_list):                
     if len(bad_quality_path_list) != 0:
         space_saved = 0
         image_cnt =0 
@@ -91,17 +91,18 @@ def archive_images(image_path, archive_path, bad_quality_path_list):
         sm.add_messages("quality", "s| no bad quality images Found.")
 
 
-def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
+async def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count):
 
     nfiles = len(mu.getFiles(image_dir_path))
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
     result = []
     with tqdm(total=nfiles, desc='detecting poor quality files', unit='items', unit_scale=True) as pbar:
-        with Pool(processes=chunk_size) as pool:
+        async with Pool(processes=chunk_size) as pool:
             res=[]
             for il in img_iterator:
                   if len(il) > 0:
-                     pool.map(partial(is_valid_size_and_score, threshold),il)
+                     res = await asyncio.gather(
+                     pool.map(partial(is_valid_size_and_score, threshold),il))
                      result.append(res)
                      pbar.update(len(il))
         pool.close()
