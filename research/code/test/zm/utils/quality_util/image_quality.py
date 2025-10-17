@@ -101,6 +101,7 @@ def archive_images(image_path, archive_path, bad_quality_path_list):
                 image_cnt += 1
                 #uuid_path = mu.create_uuid_from_string(quality[0]) 
                 uuid_path = mu.extract_subpath(image_path, os.path.dirname(quality))
+                print(uuid_path)
                 if not os.path.exists(os.path.join(archive_path, uuid_path)):
                     os.makedirs(os.path.join(archive_path, uuid_path))
                 os.rename( quality, os.path.join(archive_path, uuid_path, os.path.basename(quality)))
@@ -122,7 +123,6 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_coun
     result = []
     with tqdm(total=nfiles, desc='detecting poor quality files', unit='items', unit_scale=True) as pbar:
         #async with Pool(processes=chunk_size) as pool:
-
             res=[]
             for il in img_iterator:
                   if len(il) > 0:
@@ -142,7 +142,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_coun
         #pool.close()
         #pool.join()
     print(result)
-    archive_images( image_dir_path, archive_path, [e for sb1 in result for sb2 in sb1 for e in sb2 if not e == ""])
+    archive_images( image_dir_path, archive_path, result) #[e for sb1 in result for sb2 in sb1 for e in sb2 if not e == ""])
 
 def execute(source_name, filter_list):
     result = "success"

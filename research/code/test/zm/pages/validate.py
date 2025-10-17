@@ -138,7 +138,7 @@ def exe():
             )
             options = ['people','scenic','document']
             filter_selection = st.multiselect(
-                'select image types to filter out:',
+                '**select image types to filter out**',
                 options=options,
                 default=['document']
             )
