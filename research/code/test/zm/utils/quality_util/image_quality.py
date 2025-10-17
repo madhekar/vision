@@ -65,7 +65,7 @@ def is_valid_size_and_score(args, img):
             score = iqa_metric(im_tensor)
             f_score = score.item()
 
-            #print(f'{img} :: {h}:{w} :: {f_score}')
+            print(f'{img} :: {h}:{w} :: {f_score}')
 
             res = img if f_score > threshold else ""
             return res
@@ -73,7 +73,7 @@ def is_valid_size_and_score(args, img):
             sm.add_messages('quality', 'e| unable to load - NULL / Invalid image')
       except Exception as e:
                 sm.add_messages("quality", f"e| error: {e} occurred while opening the image: {os.path.join(img[0], img[1])}")
-      return img    
+      return ""    
 
 def is_vaild_file_type(filter_types, img):
 
@@ -83,10 +83,9 @@ def is_vaild_file_type(filter_types, img):
         img_type = fi.predict_image(img, m, cn, isz)
 
         if img_type in filter_types:
-          ret_img['img'] =  img   
+          ret_img =  img   
         else:
-            store_type = img
-            store_type += '::' + img_type
+          store_type = img + "::" + img_type
 
     except Exception as e:
         print(f"exception in is_valid_file_type {e}")
@@ -132,12 +131,14 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
                   if len(il) > 0:
                      
                     fres = list(map(partial(is_vaild_file_type, str_filter), il))
-                    print(fres)
+                    #print(fres)
                     rfes = [e[0] for e in fres]
-                    sfes = [{'img': e[1].split("::")[0], 'type': e[1].split("::")[1]} for e in fres ]
-                    qres = list(map(partial(is_valid_size_and_score, threshold),il))
+                    #sfes = [{'img': e[1].split("::")[0], 'type': e[1].split("::")[1]} for e in fres ]
 
-                    print(f'filter {rfes}:{sfes} quality {qres}')
+                    print(rfes)
+                    qres = list(map(partial(is_valid_size_and_score, threshold),il))
+                    print(qres) 
+                    #print(f'filter {rfes}:{sfes} quality {qres}')
                     for fr, qr in zip(rfes, qres):
                       comr = fr or qr or ""
                       if comr != "":

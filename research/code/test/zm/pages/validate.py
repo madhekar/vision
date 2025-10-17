@@ -128,7 +128,7 @@ def exe():
         ccc= cc.container(border=False)
         with ccc:
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(quality_data_path, user_source_selected))
-            st.caption("**Bad Quality Images Archived**")
+            st.caption("**Inferior Quality Images Found**")
             st.bar_chart(
                 dfi,
                 horizontal=False,
@@ -136,9 +136,10 @@ def exe():
                 use_container_width=True,
                 color=colors,
             )
+   
             options = ['people','scenic','document']
             filter_selection = st.multiselect(
-                '**select image types to filter out**',
+                '**Purge: Select Image Types**',
                 options=options,
                 default=['document']
             )
