@@ -92,11 +92,11 @@ def is_vaild_file_type(filter_types, img):
 """
 Archive quality images
 """
-def archive_images(image_path, archive_path, bad_quality_path_list):                
-    if len(bad_quality_path_list) != 0:
+def archive_images(image_path, archive_path, quality_filter_img_list):                
+    if len(quality_filter_img_list) != 0:
         space_saved = 0
         image_cnt =0 
-        for quality in tqdm(bad_quality_path_list, total=len(bad_quality_path_list), desc='poor quality files'):
+        for quality in tqdm(quality_filter_img_list, total=len(quality_filter_img_list), desc='quality filter files'):
                 space_saved += os.path.getsize(os.path.join(quality))
                 image_cnt += 1
                 #uuid_path = mu.create_uuid_from_string(quality[0]) 
@@ -111,8 +111,8 @@ def archive_images(image_path, archive_path, bad_quality_path_list):
         print(f"\n\n saved {round(space_saved / 1000000)} mb of Space, {image_cnt} images archived.")
         sm.add_messages("quality",f"s| saved {round(space_saved / 1000000)} mb of Space, {image_cnt} images archived.")
     else:
-        print("No bad quality images Found :)")
-        sm.add_messages("quality", "s| no bad quality images Found.")
+        print("no quality or filtered images Found.:)")
+        sm.add_messages("quality", "s| no quality or filtered images Found.")
 
 
 def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count, filter_list):
@@ -127,22 +127,22 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_coun
             for il in img_iterator:
                   if len(il) > 0:
                      
-                    res0 = list(map(partial(is_vaild_file_type, str_filter), il))
+                    fres = list(map(partial(is_vaild_file_type, str_filter), il))
 
-                    res1 = list(map(partial(is_valid_size_and_score, threshold),il))
+                    qres = list(map(partial(is_valid_size_and_score, threshold),il))
 
-                    print(f'res0 {res0} res1 {res1}')
-                    for r1, r2 in zip(res0, res1):
-                      r = r1 or r2 or ""
-                      if r != "":
-                        result.append(r)
+                    print(f'filter {fres} quality {qres}')
+                    for fr, qr in zip(fres, qres):
+                      comr = fr or qr or ""
+                      if comr != "":
+                        result.append(comr)
 
-                    print(f'---> {res}')
+                    print(f'combined (quality & filtered): {res}')
                     pbar.update(len(il))
         #pool.close()
         #pool.join()
     print(result)
-    archive_images( image_dir_path, archive_path, result) #[e for sb1 in result for sb2 in sb1 for e in sb2 if not e == ""])
+    archive_images( image_dir_path, archive_path, result)
 
 def execute(source_name, filter_list):
     result = "success"
