@@ -78,16 +78,20 @@ def is_valid_size_and_score(args, img):
 def is_vaild_file_type(filter_types, img):
 
     ret_img=""
+    store_type = ""
     try:
         img_type = fi.predict_image(img, m, cn, isz)
 
         if img_type in filter_types:
-          ret_img = img        
-          
+          ret_img['img'] =  img   
+        else:
+            store_type = img
+            store_type += '::' + img_type
+
     except Exception as e:
-        print(f'exception in is_valid_file_type {e}')
+        print(f"exception in is_valid_file_type {e}")
     #print(f'***{filter_types} key {img_type} {img} {ret_img}')    
-    return ret_img    
+    return (ret_img, store_type)    
 
 """
 Archive quality images
@@ -115,7 +119,7 @@ def archive_images(image_path, archive_path, quality_filter_img_list):
         sm.add_messages("quality", "s| no quality or filtered images Found.")
 
 
-def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_count, filter_list):
+def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_list):
     print(f"%%% {filter_list}")
     str_filter = ' '.join(filter_list)
     nfiles = len(mu.getFiles(image_dir_path))
@@ -128,11 +132,13 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, queue_coun
                   if len(il) > 0:
                      
                     fres = list(map(partial(is_vaild_file_type, str_filter), il))
-
+                    print(fres)
+                    rfes = [e[0] for e in fres]
+                    sfes = [{'img': e[1].split("::")[0], 'type': e[1].split("::")[1]} for e in fres ]
                     qres = list(map(partial(is_valid_size_and_score, threshold),il))
 
-                    print(f'filter {fres} quality {qres}')
-                    for fr, qr in zip(fres, qres):
+                    print(f'filter {rfes}:{sfes} quality {qres}')
+                    for fr, qr in zip(rfes, qres):
                       comr = fr or qr or ""
                       if comr != "":
                         result.append(comr)
@@ -156,10 +162,10 @@ def execute(source_name, filter_list):
         arc_folder_name = mu.get_foldername_by_datetime()     
         archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
 
-        chunk_size = int(mp.cpu_count()) // 4
-        queue_count = chunk_size
+        chunk_size = int(mp.cpu_count() * 3)
+        # queue_count = chunk_size
 
-        sm.add_messages("quality", f"s| number of parallel processes {chunk_size}")
+        # sm.add_messages("quality", f"s| number of parallel processes {chunk_size}")
 
         start = time.time()
         try:
@@ -168,11 +174,10 @@ def execute(source_name, filter_list):
                 archive_quality_path,
                 image_quality_threshold,
                 chunk_size,
-                queue_count,
                 filter_list
             )
         except Exception as e:
-            st.error(f'exception: {e} occred in async main function') 
+            st.error(f'exception: {e} occred in execute function') 
         processing_duration = int(time.time() - start)
         print(f"processing duration: {processing_duration} seconds")
         sm.add_messages("quality", f"s| processing duration: {processing_duration} seconds")
