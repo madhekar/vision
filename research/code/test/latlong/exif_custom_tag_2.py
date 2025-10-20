@@ -14,7 +14,7 @@ def add_custom_xmp_tag(image_path, tag_name, tag_value):
     # -XMP-dc:YourTagNamespace:TagName=Value is the format for XMP custom tags
     command = [
         "exiftool",
-        "-config ./ExifTool_config.config.config"
+        "-config ExifTool_config.config",
         "-overwrite_original_in_place",
         f"-XMP-dc:{tag_name}={tag_value}",
         image_path
@@ -25,7 +25,7 @@ def add_custom_xmp_tag(image_path, tag_name, tag_value):
         result = subprocess.run(command, capture_output=True, text=True, check=True)
         print(f"Successfully added custom tag '{tag_name}' with value '{tag_value}' to '{image_path}'.")
         print("ExifTool Output:")
-        print(result.stdout)
+        print(result, ':', result.stdout)
     except subprocess.CalledProcessError as e:
         print(f"Error adding custom tag: {e}")
         print("ExifTool Error Output:")
