@@ -34,9 +34,9 @@ def add_custom_xmp_tag(image_path, tag_name, tag_value):
 
 # Example usage:
 if __name__ == "__main__":
-    image_file = "path/to/your/image.jpg"  # Replace with your image path
-    custom_tag_name = "MyProjectID"
-    custom_tag_value = "ProjectAlpha123"
+    image_file = "/Users/emadhekar/Pictures/E5B16BC6-0DF1-4D08-9F4C-77F74349C1C6.jpeg"  # Replace with your image path
+    custom_tag_name = "zeshImgType"
+    custom_tag_value = "document"
 
     add_custom_xmp_tag(image_file, custom_tag_name, custom_tag_value)
 
