@@ -178,7 +178,7 @@ def execute(source_name, filter_list):
                 filter_list
             )
         except Exception as e:
-            st.error(f'exception: {e} occred in execute function') 
+            st.error(f'exception: {e} occurred in execute function') 
         processing_duration = int(time.time() - start)
         print(f"processing duration: {processing_duration} seconds")
         sm.add_messages("quality", f"s| processing duration: {processing_duration} seconds")
