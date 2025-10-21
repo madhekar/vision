@@ -242,13 +242,17 @@ def image_quality_config_load():
 
         input_image_path = dict["quality"]["input_image_path"]
         archive_quality_path = dict["quality"]["archive_quality_path"]
+        exif_data_filter_path = dict["exif_filter"]["exif_data_filter_path"]
+        exif_data_filter_config = dict["exif_filter"]["exif_data_config"]
         image_quality_threshold = dict["quality"]["image_quality_threshold"]
 
 
     return (
         os.path.join(dr, *input_image_path.split(os.sep)[1:]),
         os.path.join(dr, *archive_quality_path.split(os.sep)[1:]),
-        image_quality_threshold
+        os.path.join(dr, *exif_data_filter_path.split(os.sep)[1:]),
+        image_quality_threshold,
+        exif_data_filter_config
     )
 
 
