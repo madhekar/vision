@@ -157,7 +157,7 @@ def execute(source_name, filter_list):
         print(filter_list)
         #mp.set_start_method("fork")
         #mp.freeze_support()
-        (input_image_path, archive_quality_path, image_quality_threshold) = config.image_quality_config_load()
+        (input_image_path, archive_quality_path, exif_data_filter_path, image_quality_threshold, exif_conf_path) = config.image_quality_config_load()
 
         input_image_path_updated = os.path.join(input_image_path, source_name)
         arc_folder_name = mu.get_foldername_by_datetime()     
@@ -190,8 +190,6 @@ def execute(source_name, filter_list):
         result = "failed"
     return result 
 
-    
-    
 if __name__ == "__main__":
     execute(source_name="madhekar")
 
