@@ -1,5 +1,12 @@
 import subprocess
-
+'''
+%Image::ExifTool::UserDefined = (
+    'Image::ExifTool::XMP::xmp' => {
+        Clarity => { Name => 'Clarity' },
+    },
+);
+1; #end
+'''
 def add_custom_xmp_tag(image_path, tag_name, tag_value):
     """
     Adds a custom XMP tag to an image using ExifTool.
