@@ -11,7 +11,7 @@ class ExifTool(object):
 
     def __enter__(self):
         self.process = subprocess.Popen(
-            [self.executable],
+            [self.executable, "-stay_open", "True", "-@", "-"],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -59,6 +59,7 @@ class ExifTool(object):
         """
         command = []
         for tag, value in metadata.items():
+            print(f"{tag} -> {value}")
             command.append(f"-{tag}={value}")
         command.append(filepath)
         
@@ -67,6 +68,7 @@ class ExifTool(object):
         command.append("-overwrite_original")
 
         output = self.execute(*command)
+        print(f"--> {output}")
         return output
 
 ### Example usage
