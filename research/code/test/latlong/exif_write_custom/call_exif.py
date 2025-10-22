@@ -1,5 +1,8 @@
 from ExifTool_helper import ExifTool
+"""
+exiftool -config exif.config /home/madhekar/temp/faces/Anjali/Anjali61.png
 
+"""
 fs = [
     "/home/madhekar/temp/faces/Anjali/Anjali60.png",
     "/home/madhekar/temp/faces/Anjali/Anjali61.png",

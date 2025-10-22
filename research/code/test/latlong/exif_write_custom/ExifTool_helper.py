@@ -14,12 +14,11 @@ class ExifTool(object):
         self.process = subprocess.Popen(
             [
                 self.executable,
-                # "-config",
-                # "exif.config",
-                # "-zimgtype",
-                # "scenic",
-                "-stay_open",
-                "True",
+                "-config",
+                "exif.config",
+                "-EXIF:zimgtype=document",
+                # "-stay_open",
+                # "True",
                 "-@",
                 "-",
             ],
@@ -38,7 +37,7 @@ class ExifTool(object):
             print(f" A exception occurred: {exc_type.__name__}: {exc_value} -> {traceback}")
     def execute(self, *args):
         print(f'--> {args}')
-        args = args + ("-execute\n",)
+        args = args + ("-overwrite_original -execute\n",)
         self.process.stdin.write(str.join("\n", args))
         self.process.stdin.flush()
         output = ""
@@ -48,7 +47,7 @@ class ExifTool(object):
         return output[:-len(self.sentinel)]
 
     def get_metadata(self, *filenames):
-        return json.loads(self.execute("-G", "-j", "-n", *filenames))
+        return json.loads(self.execute( *filenames))
     
 filenames = ['/Users/emadhekar/Pictures/00e39dd1-e166-49ae-9f9e-e83b2546b056.JPG',
              '/Users/emadhekar/Pictures/1a5e9da6-462d-4f2f-a289-5c45e0db1176.JPG',

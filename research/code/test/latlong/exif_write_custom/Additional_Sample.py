@@ -11,7 +11,7 @@ class ExifTool(object):
 
     def __enter__(self):
         self.process = subprocess.Popen(
-            [self.executable, "-stay_open", "True", "-@", "-"],
+            [self.executable],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -74,7 +74,7 @@ class ExifTool(object):
 #To write a custom tag, such as `XMP-dc:Source`, to a JPEG file:
 
 #python
-from your_module import ExifTool # Assuming the class is in a file called your_module.py
+#from your_module import ExifTool # Assuming the class is in a file called your_module.py
 
 # Create a dummy image file for demonstration
 with open("test_image.jpg", "w") as f:
