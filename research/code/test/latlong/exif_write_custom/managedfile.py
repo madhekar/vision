@@ -17,7 +17,7 @@ class ManagedFile:
             print(f"File '{self.filename}' closed.")
         # Handle exceptions if needed (return True to suppress, False to propagate)
         if exc_type:
-            print(f"An exception occurred: {exc_val}")
+            print(f"An exception occurred: {exc_val} -> {exc_tb}")
         return False # Propagate exceptions
 
 # Using the context manager

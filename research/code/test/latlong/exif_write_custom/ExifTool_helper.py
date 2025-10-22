@@ -6,7 +6,7 @@ class ExifTool(object):
 
     sentinel = "{ready}\n"
 
-    def __init__(self, executable="/usr/local/bin/exiftool"):
+    def __init__(self, executable="/usr/bin/exiftool"):
         self.executable = executable
         self.process = None
 
@@ -23,11 +23,11 @@ class ExifTool(object):
                 "-@",
                 "-",
             ],
-            #universal_newlines=True,
+            universal_newlines=True,
             stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-        )
-
+            stdout=subprocess.PIPE)
+        return self
+        
         #self.process.wait()
     def __exit__(self, exc_type, exc_value, traceback):
         if self.process:
@@ -44,7 +44,7 @@ class ExifTool(object):
         output = ""
         fd = self.process.stdout.fileno()
         while not output.endswith(self.sentinel):
-            output += os.read(fd, 4096) #.decode('utf-8')
+            output += os.read(fd, 4096).decode('utf-8')
         return output[:-len(self.sentinel)]
 
     def get_metadata(self, *filenames):
