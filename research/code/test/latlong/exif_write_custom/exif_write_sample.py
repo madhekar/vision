@@ -21,6 +21,7 @@ class ExifTool(object):
         self.process.stdin.flush()
 
     def execute(self, *args):
+        print(f'--> {args}')
         args = args + ("-execute\n",)
         self.process.stdin.write(str.join("\n", args))
         self.process.stdin.flush()
