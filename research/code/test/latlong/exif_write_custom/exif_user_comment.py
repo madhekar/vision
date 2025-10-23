@@ -6,7 +6,7 @@ import pandas as pd
     Writes user comments from a DataFrame to image files using exiftool in batch mode.
     Args: df (pd.DataFrame): DataFrame with 'filepath' and 'comment' columns.
     """
-def batch_write_comments(df):
+def batch_write_comments(ld):
 
     command = ['exiftool', '-stay_open', 'True', '-@', '-']
     
@@ -20,7 +20,7 @@ def batch_write_comments(df):
             text=True  # Use text mode for standard streams
         )
 
-        for _, row in df.iterrows():
+        for row in ld:
             filepath = row['filepath']
             comment = row['comment']
             

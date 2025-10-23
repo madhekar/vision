@@ -74,8 +74,8 @@ def batch_write_comments(df):
         )
 
         for _, row in df.iterrows():
-            filepath = row['filepath']
-            comment = row['comment']
+            filepath = row['img']
+            comment = row['type']
             
             # Construct the arguments for each file
             # Use '-comment' to write to the standard UserComment tag
@@ -186,8 +186,9 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
                     fres = list(map(partial(is_vaild_file_type, str_filter), il))
                     #print(fres)
                     rfes = [e[0] for e in fres]
-                    #sfes = [{'img': e[1].split("::")[0], 'type': e[1].split("::")[1]} for e in fres ]
-
+                    sfes = [{'img': e[1].split("::")[0], 'type': e[1].split("::")[1]} for e in fres ]
+                    batch_write_comments()
+   
                     print(rfes)
                     qres = list(map(partial(is_valid_size_and_score, threshold),il))
                     print(qres) 
