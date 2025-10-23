@@ -56,4 +56,4 @@ if __name__=='__main__':
           {"filepath":"/Users/emadhekar/Pictures/chandrakant9.png", "comment":"people"} 
           ]
     df = pd.DataFrame(dl)
-    batch_write_comments(df)
+    batch_write_comments(dl)
