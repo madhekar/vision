@@ -18,7 +18,7 @@ headers_infos = """
 class ExifTool(object):
     sentinel = "{ready}\n"
     def __init__(self):
-        self.executable         = "/usr/local/bin/exiftool"
+        self.executable         = "/usr/bin/exiftool"
         self.metadata_lookup    = {}
 
     def  __exit__(self, exc_type, exc_value, traceback):
@@ -42,12 +42,13 @@ class ExifTool(object):
         fd      = self.process.stdout.fileno()
 
         while not output.endswith(self.sentinel):
-            output += os.read(fd, 4096).decode('utf-8')
-
+            output += os.read(fd, 4096).decode('utf-8', errors='replace')
+        print(output)
         return output[:-len(self.sentinel)]
 
+
     def get_metadata(self, *FileLoc):
-        return json.loads(self.execute("-G", "-j", "-n", *FileLoc))
+        return self.execute("-G", "-j", "-n", *FileLoc)
 
     def load_metadata_lookup(self, locDir):
         self.metadata_lookup = {}
@@ -63,4 +64,5 @@ class ExifTool(object):
                 print(json.dumps(self.metadata_lookup, indent=3))
 
 e = ExifTool()
-e.load_metadata_lookup('/Users/emadhekar/Pictures')
+#e.load_metadata_lookup('/home/madhekar/temp/faces/Bhiman')
+print(e.get_metadata("/home/madhekar/temp/faces/Bhiman"))

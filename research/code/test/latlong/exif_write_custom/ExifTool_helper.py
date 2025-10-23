@@ -4,7 +4,7 @@ import json
 
 class ExifTool(object):
 
-    sentinel = "{ready}\n"
+    sentinel = "{ready}\r\n"
 
     def __init__(self, executable="/usr/bin/exiftool"):
         self.executable = executable

@@ -34,12 +34,14 @@ class ExifTool(object):
             raise RuntimeError("ExifTool process is not running.")
             
         cmd = [str(arg) for arg in args] + ["\n"]
+        print(f"->> {cmd}")
         self.process.stdin.write("\n".join(cmd))
         self.process.stdin.flush()
         
         output = ""
         while True:
             line = self.process.stdout.readline()
+            print(f"-line-> {line}")
             if line.strip() == "{ready}":
                 break
             output += line
@@ -59,7 +61,7 @@ class ExifTool(object):
         """
         command = []
         for tag, value in metadata.items():
-            print(f"{tag} -> {value}")
+            print(f"--> {tag} -> {value}")
             command.append(f"-{tag}={value}")
         command.append(filepath)
         
@@ -79,7 +81,7 @@ class ExifTool(object):
 #from your_module import ExifTool # Assuming the class is in a file called your_module.py
 
 # Create a dummy image file for demonstration
-with open("test_image.jpg", "w") as f:
+with open("/home/madhekar/temp/faces/Bhiman/bhiman3.png", "w") as f:
     f.write("This is not a real JPEG file, but exiftool will add metadata.")
 
 # Define the custom metadata to write
@@ -91,7 +93,7 @@ custom_metadata = {
 try:
     with ExifTool() as et:
         # Use the context manager to ensure the exiftool process is handled correctly
-        print(f"Writing metadata to test_image.jpg...")
+        print("Writing metadata to test_image.jpg...")
         output = et.write_metadata("test_image.jpg", custom_metadata)
         print(output)
         
