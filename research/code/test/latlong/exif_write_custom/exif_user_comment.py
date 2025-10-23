@@ -11,7 +11,6 @@ def batch_write_comments(df):
     Args:
         df (pd.DataFrame): DataFrame with 'filepath' and 'comment' columns.
     """
-    # ExifTool command in stay_open mode
     exiftool_command = ['exiftool', '-stay_open', 'True', '-@', '-']
     
     try:
@@ -54,9 +53,10 @@ def batch_write_comments(df):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-# Call the function with your DataFrame
-dl = [{"filepath":"/Users/emadhekar/Pictures/chandrakant8.png", "comment":"people"},
-      {"filepath":"/Users/emadhekar/Pictures/chandrakant9.png", "comment":"people"} 
-    ]
-df = pd.DataFrame(dl)
-batch_write_comments(df)
+if __name__=='__main__':
+    # Call the function with your DataFrame
+    dl = [{"filepath":"/Users/emadhekar/Pictures/chandrakant8.png", "comment":"people"},
+        {"filepath":"/Users/emadhekar/Pictures/chandrakant9.png", "comment":"people"} 
+        ]
+    df = pd.DataFrame(dl)
+    batch_write_comments(df)
