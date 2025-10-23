@@ -1,5 +1,8 @@
 import os
 import time
+import subprocess
+import shlex
+import pandas as pd
 from PIL import Image
 import pyiqa
 import torch
@@ -49,6 +52,56 @@ def create_metric():
 iqa_metric = create_metric()
 
 m, cn, isz = create_model()
+
+
+
+"""
+    Writes user comments from a DataFrame to image files using exiftool in batch mode.
+    Args: df (pd.DataFrame): DataFrame with 'filepath' and 'comment' columns.
+    """
+def batch_write_comments(dl):
+
+    command = ['exiftool', '-stay_open', 'True', '-@', '-']
+    
+    try:
+        # Start the persistent ExifTool process
+        proc = subprocess.Popen(
+            command,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True  # Use text mode for standard streams
+        )
+
+        for row in dl:
+            filepath = row['img']
+            comment = row['type']
+            
+            # Construct the arguments for each file
+            # Use '-comment' to write to the standard UserComment tag
+            args = [f'-comment={comment}', '-overwrite_original', filepath]
+            
+            # Send arguments to the ExifTool process's stdin, followed by '-execute'
+            arg_string = '\n'.join(shlex.quote(arg) for arg in args) + '\n-execute\n'
+            proc.stdin.write(arg_string)
+            proc.stdin.flush()
+            
+            # Wait for the output from ExifTool and check for errors
+            output_line = proc.stdout.readline()
+            if "error" in output_line.lower():
+                print(f"Error writing to {filepath}: {output_line}")
+            else:
+                print(f"Successfully wrote comment to {filepath}")
+
+        # Close the persistent exiftool process
+        proc.stdin.write('-stay_open\nFalse\n')
+        proc.stdin.flush()
+        proc.wait(timeout=5)
+
+    except FileNotFoundError:
+        print("Error: exiftool not found. Make sure it's installed and in your PATH.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 def is_valid_size_and_score(args, img):
       threshold = args
@@ -133,8 +186,9 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
                     fres = list(map(partial(is_vaild_file_type, str_filter), il))
                     #print(fres)
                     rfes = [e[0] for e in fres]
-                    #sfes = [{'img': e[1].split("::")[0], 'type': e[1].split("::")[1]} for e in fres ]
-
+                    sfes = [{'img': e[1].split("::")[0], 'type': e[1].split("::")[1]} for e in fres ]
+                    batch_write_comments()
+   
                     print(rfes)
                     qres = list(map(partial(is_valid_size_and_score, threshold),il))
                     print(qres) 
@@ -189,6 +243,8 @@ def execute(source_name, filter_list):
         sm.add_messages("quality", f"e| Exception occurred {e}")
         result = "failed"
     return result 
+
+    
 
 if __name__ == "__main__":
     execute(source_name="madhekar")
