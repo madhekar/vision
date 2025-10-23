@@ -1,3 +1,9 @@
+import subprocess
+import shlex
+import os
+import glob
+import pandas as pd
+
 def batch_write_comments(df):
     """
     Writes user comments from a DataFrame to image files using exiftool in batch mode.
@@ -49,4 +55,8 @@ def batch_write_comments(df):
         print(f"An error occurred: {e}")
 
 # Call the function with your DataFrame
+dl = [{"filepath":"/Users/emadhekar/Pictures/chandrakant8.png", "comment":"people"},
+      {"filepath":"/Users/emadhekar/Pictures/chandrakant9.png", "comment":"people"} 
+    ]
+df = pd.DataFrame(dl)
 batch_write_comments(df)
