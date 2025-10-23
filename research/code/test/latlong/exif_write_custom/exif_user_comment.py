@@ -1,22 +1,19 @@
 import subprocess
 import shlex
-import os
-import glob
 import pandas as pd
 
-def batch_write_comments(df):
-    """
+"""
     Writes user comments from a DataFrame to image files using exiftool in batch mode.
-    
-    Args:
-        df (pd.DataFrame): DataFrame with 'filepath' and 'comment' columns.
+    Args: df (pd.DataFrame): DataFrame with 'filepath' and 'comment' columns.
     """
-    exiftool_command = ['exiftool', '-stay_open', 'True', '-@', '-']
+def batch_write_comments(df):
+
+    command = ['exiftool', '-stay_open', 'True', '-@', '-']
     
     try:
         # Start the persistent ExifTool process
         proc = subprocess.Popen(
-            exiftool_command,
+            command,
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -36,7 +33,7 @@ def batch_write_comments(df):
             proc.stdin.write(arg_string)
             proc.stdin.flush()
             
-            # Wait for the output from exiftool and check for errors
+            # Wait for the output from ExifTool and check for errors
             output_line = proc.stdout.readline()
             if "error" in output_line.lower():
                 print(f"Error writing to {filepath}: {output_line}")
@@ -56,7 +53,7 @@ def batch_write_comments(df):
 if __name__=='__main__':
     # Call the function with your DataFrame
     dl = [{"filepath":"/Users/emadhekar/Pictures/chandrakant8.png", "comment":"people"},
-        {"filepath":"/Users/emadhekar/Pictures/chandrakant9.png", "comment":"people"} 
-        ]
+          {"filepath":"/Users/emadhekar/Pictures/chandrakant9.png", "comment":"people"} 
+          ]
     df = pd.DataFrame(dl)
     batch_write_comments(df)
