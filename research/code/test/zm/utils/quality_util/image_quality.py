@@ -53,8 +53,6 @@ iqa_metric = create_metric()
 
 m, cn, isz = create_model()
 
-
-
 """
     Writes user comments from a DataFrame to image files using exiftool in batch mode.
     Args: df (pd.DataFrame): DataFrame with 'filepath' and 'comment' columns.
@@ -187,7 +185,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
                     #print(fres)
                     rfes = [e[0] for e in fres]
                     sfes = [{'img': e[1].split("::")[0], 'type': e[1].split("::")[1]} for e in fres ]
-                    batch_write_comments()
+                    batch_write_comments(sfes)
    
                     print(rfes)
                     qres = list(map(partial(is_valid_size_and_score, threshold),il))
