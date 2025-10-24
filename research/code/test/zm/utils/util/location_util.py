@@ -29,7 +29,7 @@ See Dependences on page Developers
 """
 
 import pyexiv2
-from PIL import Image
+from PIL import Image, ExifTags
 import streamlit as st
 from math import cos,asin,sqrt,radians,sin
 from GPSPhoto import gpsphoto
@@ -197,6 +197,32 @@ def setGpsInfo(fn, lat, lon):
     photo = gpsphoto.GPSPhoto(fn)
     info = gpsphoto.GPSInfo((round(float(lat), 6), round(float(lon), 6)))
     photo.modGPSData(info, fn)
+
+
+def get_image_exif_info(image_path):
+    user_comment, datetime_original = "",""
+    try:
+        img = Image.open(image_path)
+        exif_data = img.getexif()
+
+        decoded_exif = {}
+        for tag_id, value in exif_data.items():
+            tag_name = ExifTags.TAGS.get(tag_id, tag_id)
+            decoded_exif[tag_name] = value
+
+        user_comment = decoded_exif.get("UserComment")
+        datetime_original = decoded_exif.get("DateTimeOriginal")
+
+        print(f"Image: {image_path}")
+        print(f"User Comment: {user_comment}")
+        print(f"Original Date and Time: {datetime_original}")
+
+    except FileNotFoundError:
+        print(f"Error: Image not found at {image_path}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        
+    return datetime_original, user_comment    
 
 # get timestamp from image file
 def getTimestamp(img):
