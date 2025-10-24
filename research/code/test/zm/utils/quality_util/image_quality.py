@@ -77,7 +77,7 @@ def batch_write_comments(dl):
             
             # Construct the arguments for each file
             # Use '-comment' to write to the standard UserComment tag
-            args = [f'-comment={comment}', '-overwrite_original', filepath]
+            args = [f'-UserComment={comment}', '-overwrite_original', filepath]
             
             # Send arguments to the ExifTool process's stdin, followed by '-execute'
             arg_string = '\n'.join(shlex.quote(arg) for arg in args) + '\n-execute\n'

@@ -26,7 +26,7 @@ def batch_write_comments(ld):
             
             # Construct the arguments for each file
             # Use '-comment' to write to the standard UserComment tag
-            args = [f'-comment={comment}', '-overwrite_original', filepath]
+            args = [f'-UserComment={comment}', '-overwrite_original', filepath]
             
             # Send arguments to the ExifTool process's stdin, followed by '-execute'
             arg_string = '\n'.join(shlex.quote(arg) for arg in args) + '\n-execute\n'
@@ -52,8 +52,8 @@ def batch_write_comments(ld):
 
 if __name__=='__main__':
     # Call the function with your DataFrame
-    dl = [{"filepath":"/Users/emadhekar/Pictures/chandrakant8.png", "comment":"people"},
-          {"filepath":"/Users/emadhekar/Pictures/chandrakant9.png", "comment":"people"} 
+    dl = [{"filepath":"/home/madhekar/temp/faces/Sachi/saach5.jpg", "comment":"people"},
+          {"filepath":"/home/madhekar/temp/faces/Sachi/saachi.png", "comment":"people"} 
           ]
     df = pd.DataFrame(dl)
     batch_write_comments(dl)
