@@ -209,7 +209,7 @@ def getTimestamp(img):
     if exifdata:
 
         date_time = exifdata.get(306)
-        user_comment = exifdata.get(0x9286)
+        user_comment = exifdata.get(37510)
         # print(date_time)
         if date_time:
             date_time = str(date_time).replace("-", ":")
