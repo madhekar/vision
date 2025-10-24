@@ -82,8 +82,8 @@ async def generateId(args):
 async def timestamp(args):
     uri = args
     #print(f'ts--{uri}')
-    ts = lu.getTimestamp(uri)
-    return str(ts)
+    ts,uc = lu.getTimestamp(uri)
+    return str(ts), str(uc)
 
 async def faces_partial_prompt(args):
     uri = args
@@ -145,7 +145,7 @@ async def locationDetails(args, lock):
 async def describeImage(args):
     ppt, location, uri = args
     print(args)
-    d= LLM_Next.fetch_llm_text(imUrl=uri, pipe=p, question="Describe the image with thoughtful insights using additional information provided. ", partial_prompt=ppt, location=location)
+    d = LLM_Next.fetch_llm_text(imUrl=uri, pipe=p, question="Describe the image with thoughtful insights using additional information provided. ", partial_prompt=ppt, location=location)
     # d =  LLM_Next.fetch_llm_text(
     #     imUrl=uri,
     #     model=m,
@@ -259,7 +259,7 @@ async def run_workflow(
                     
                     res.append(rlist)
 
-                    # print('===>', res)
+                    print('===>', res)
                     rflist, oflist = new_xform(res)
 
                     res1 = await asyncio.gather(pool.map(describeImage,  rflist))

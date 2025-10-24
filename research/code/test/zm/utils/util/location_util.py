@@ -202,22 +202,26 @@ def setGpsInfo(fn, lat, lon):
 def getTimestamp(img):
     print(f"-> {img}")
     value = ""
+    user_comment = ""
     image = Image.open(img)
     # extracting the exif metadata
     exifdata = image.getexif()
-    date_time = exifdata.get(306)
-    # print(date_time)
-    if date_time:
-        date_time = str(date_time).replace("-", ":")
-        value = datetime.datetime.timestamp(
-            datetime.datetime.strptime(date_time, "%Y:%m:%d %H:%M:%S")
-        )
-    else:
-        value = datetime.datetime.timestamp(
-            datetime.datetime.strptime(def_date_time, "%Y:%m:%d %H:%M:%S")
-        )
+    if exifdata:
 
-    return value
+        date_time = exifdata.get(306)
+        user_comment = exifdata.get(0x9286)
+        # print(date_time)
+        if date_time:
+            date_time = str(date_time).replace("-", ":")
+            value = datetime.datetime.timestamp(
+                datetime.datetime.strptime(date_time, "%Y:%m:%d %H:%M:%S")
+            )
+        else:
+            value = datetime.datetime.timestamp(
+                datetime.datetime.strptime(def_date_time, "%Y:%m:%d %H:%M:%S")
+            )
+
+    return value, user_comment
 
 # collect all metadata
 def getMetadata(img):
