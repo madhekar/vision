@@ -65,4 +65,4 @@ class ExifTool(object):
 
 e = ExifTool()
 #e.load_metadata_lookup('/home/madhekar/temp/faces/Bhiman')
-print(e.get_metadata("/home/madhekar/temp/faces/Bhiman"))
+print(e.get_metadata("/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de"))

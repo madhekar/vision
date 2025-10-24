@@ -2,6 +2,3 @@ quality:
   input_image_path: /data/input-data/img/
   archive_quality_path: /data/input-data/error/img/quality
   image_quality_threshold: 6.0
-exif_filter:
-  exif data_filter_path: /data/app-data/static-metadata/filter/exif_config
-  exif_data_filter_config: exif.config
