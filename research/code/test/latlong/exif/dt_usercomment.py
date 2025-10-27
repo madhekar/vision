@@ -11,15 +11,27 @@ How to use them in Python with Pillow
 When retrieving EXIF data with Pillow, you should prioritize tag 36867 to get the original date a photo was taken. You can fall back to tag 306 if 36867 is not present, but be aware that it may not be the original capture time. 
 """
 
+def make_string_uc(seq) -> str:
+    """
+    Special version to deal with the code in the first 8 bytes of a user comment.
+    First 8 bytes gives coding system e.g. ASCII vs. JIS vs Unicode.
+    """
+    if not isinstance(seq, str):
+        seq = seq[8:]
+    # Of course, this is only correct if ASCII, and the standard explicitly
+    # allows JIS and Unicode.
+    return seq
+
 def get_date_taken(path):
     exif = Image.open(path)._getexif()
-    print(exif)
+    # print(exif)
 
-    for t, v in exif.items():
-       print(f" tag: {t} value: {v}")
+    # for t, v in exif.items():
+    #    print(f" tag: {t} value: {v}")
     if not exif:
         raise Exception("Image {0} does not have EXIF data.".format(path))
-    return exif[36867]
+    #print(f"+++{exif[37510]}")
+    return exif[0x9286], make_string_uc(exif[37510].decode('utf-8')), exif[36867]
 
 
 print(get_date_taken("/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/fce7616e-d485-403b-ba29-e33d5b80df09.jpg"))
