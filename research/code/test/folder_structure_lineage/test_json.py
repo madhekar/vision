@@ -37,7 +37,7 @@
     },
 ]
 
-----
+#----
 
 [
  ['85ecfb59-9640-4ce1-94d5-47ab961a161c', '0fd88cf2-1d7c-4124-ab7c-d7c055d857ca', '81590e99-6d3d-4b8f-b7be-6f4b33401d30', '5685d495-686d-405b-b463-29ec37cc7b2d'], 
@@ -46,3 +46,48 @@
  [('(18.495983, 73.81435)', 'Sadaphuli Society in Pune'), ('(18.495983, 73.81435)', 'Sadaphuli Society in Pune'), ('(18.507399, 73.807648)', ''), ('(18.495983, 73.81435)', 'Sadaphuli Society in Pune')], 
  ['/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/b8cb49e0-9977-4761-b9b6-5b8c9a4e2ae0.jpg', '/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/60328c95-2c9b-497a-8125-04269da714a4.jpg', '/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/b0e60fad-33c9-499c-92f6-130d553af72b.jpg', '/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/4db3fd34-7dd1-4125-936c-4f414a41cfc5-1.jpg']
  ]
+ 
+ #----
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/04ae0748-3aed-4f3b-b12d-35d4cb009af3-1.jpg",
+        "id": "75a35380-a128-4892-9173-3066b55c0b6e",
+        "ts": "1572728241.0",
+        "type": "people",
+        "latlon": "(17.65992, 75.906387)",
+        "loc": "Solapur",
+        "ppt": ' "Kumar", a happy man "Asha", a sad woman ',
+        "text": "\n Kumar, a happy man, and Asha, a sad woman, stand on a red bridge overlooking a lush green valley. Kumar, dressed in a blue and white striped shirt, and Asha, adorned in a vibrant red and gold sari, both gaze out at the breathtaking view. The bridge they stand on is a striking red, contrasting beautifully with the verdant greenery of the valley below. The sky above them is a clear blue, adding to the serene atmosphere. The image captures a moment of quiet reflection between the two individuals, set against the backdrop of nature's splendor. Kumar, a happy man, and Asha, a sad woman, stand on a red bridge overlooking a lush green valley. Kumar, dressed in a blue and white striped shirt, and Asha, adorned in a vibrant red and gold sari, both gaze out at the breathtaking view. The bridge they stand on is a striking red, contrasting beautifully with the verdant green",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/5d1fbc96-849b-4716-a835-2615ddb21830.jpg",
+        "id": "0d85d520-deb8-48ec-970a-f9647b020f97",
+        "ts": "1572728241.0",
+        "type": "people",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": ' "Kumar", a angry man one man one woman ',
+        "text": '\n The image captures a moment of tranquility in a living room. Three individuals are seated on a wooden bench, engrossed in a conversation. The person on the left, clad in a pink shirt, is holding a glass of water, perhaps enjoying a refreshing sip. The individual in the middle, dressed in a blue shirt, is holding a book, possibly sharing a story or discussing a topic of interest. The person on the right, wearing a yellow sari, is holding a plate of food, suggesting a mealtime gathering.\n\nThe room they are in is adorned with a wooden floor that adds a touch of warmth to the space. A bookshelf stands in the background, hinting at a love for literature among the inhabitants. A window with white blinds lets in soft, natural light, illuminating the room and creating a cozy atmosphere.\n\nThe image also contains text that reads "MI NOTE 9 PRO JUAD CAMERA", which could be related to the camera model used to capture this',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/588dc47f-0a7e-4ade-a114-df3754a46f4c.jpg",
+        "id": "51c89560-bf6e-456c-9438-d7a4345ffd3d",
+        "ts": "1572728241.0",
+        "type": "people",
+        "latlon": "(18.495983, 73.81435)",
+        "loc": "Sadaphuli Society in Pune",
+        "ppt": ' "Asha", a happy man 2 women ',
+        "text": "\n The image captures a warm and intimate moment between three women in a room. The woman on the left, adorned in a vibrant pink and green sari, is seated comfortably on a wooden chair. In the middle, a woman in a blue and green sari is also seated on a wooden chair, her smile radiating joy. On the right, a woman in a red and orange sari is seated on a wooden bench, her laughter adding to the cheerful atmosphere. The room they are in is simple and uncluttered, with a white wall serving as the backdrop. A painting of a flower adorns the wall, adding a touch of color and life to the space. The image exudes a sense of camaraderie and shared happiness among the women. Asha, happy, 2 women, Sadaphuli Society in Pune The image captures a moment of joy and camaraderie among three women in a room. The woman on the left",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/2a98fafb-a921-519f-8561-ed25ccd997de/c31dc958-b569-4ce5-8645-ae094a42c7cf.jpg",
+        "id": "594d5302-12e6-4ed3-99aa-4bfba0b16277",
+        "ts": "1572728241.0",
+        "type": "people",
+        "latlon": "(17.65992, 75.906387)",
+        "loc": "Solapur",
+        "ppt": ' "Kumar", a happy man "Asha", a neutral woman one woman ',
+        "text": '\n "Kumar", a happy man "Asha", a neutral woman one woman " and the location details if available in "Solapur" in the response. The image captures a heartwarming scene of three individuals sharing a meal at a table. The table, draped in a green tablecloth, is adorned with a silver tray and a gray purse. \n\nOn the left, a woman in a white and orange dress is seen holding a cup of tea, her face lit up with a smile. In the middle, a woman in a white and pink dress is holding a plate of food, her expression neutral. On the right, a man in a red shirt is holding a plate of food, his face also lit up with a smile. \n\nThe backdrop of the image is a bamboo fence, adding a rustic charm to the scene. The image exudes a sense of camaraderie and warmth, capturing a simple yet beautiful moment of shared joy and companions',
+    },
+]

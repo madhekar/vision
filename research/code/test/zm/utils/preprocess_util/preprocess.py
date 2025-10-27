@@ -146,18 +146,6 @@ async def describeImage(args):
     ppt, location, uri = args
     print(args)
     d = LLM_Next.fetch_llm_text(imUrl=uri, pipe=p, question="Describe the image with thoughtful insights using additional information provided. ", partial_prompt=ppt, location=location)
-    # d =  LLM_Next.fetch_llm_text(
-    #     imUrl=uri,
-    #     model=m,
-    #     processor=p,
-    #     top=0.9,
-    #     temperature=0.95,
-    #     question="Please take time to describe the picture with thoughtful insights ",
-    #     people=names,
-    #     attrib = attrib,
-    #     location=location,
-    # )
-    # st.info(d)
     return d
 
 """
@@ -171,32 +159,14 @@ def getRecursive(rootDir, chunk_size=10):
             f_list.append(os.path.abspath(fn))
     for i in range(0, len(f_list), chunk_size):
         yield f_list[i : i + chunk_size]
-"""
-[
- ['85ecfb59-9640-4ce1-94d5-47ab961a161c', '0fd88cf2-1d7c-4124-ab7c-d7c055d857ca', '81590e99-6d3d-4b8f-b7be-6f4b33401d30', '5685d495-686d-405b-b463-29ec37cc7b2d'], 
- [('1572728241.0', 'people'), ('1572728241.0', 'people'), ('1572728241.0', 'people'), ('1572728241.0', 'people')], 
- [' "Kumar", a neutral man  one man  one  woman  ', ' "Kumar", a neutral man  2 men ', ' "Kumar", a neutral man  one  woman  ', ' "Kumar", a neutral man  one man  one  woman  '], 
- [('(18.495983, 73.81435)', 'Sadaphuli Society in Pune'), ('(18.495983, 73.81435)', 'Sadaphuli Society in Pune'), ('(18.507399, 73.807648)', ''), ('(18.495983, 73.81435)', 'Sadaphuli Society in Pune')], 
- ['/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/b8cb49e0-9977-4761-b9b6-5b8c9a4e2ae0.jpg', '/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/60328c95-2c9b-497a-8125-04269da714a4.jpg', '/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/b0e60fad-33c9-499c-92f6-130d553af72b.jpg', '/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/4db3fd34-7dd1-4125-936c-4f414a41cfc5-1.jpg']
- ]
-"""
+
 def new_xform(res):
     ll = [list(x) for x in zip(*res)]
-    print('+-+->', ll)
-    #lr = [list(it.chain(*item)) for item in ll]
     lr = [[row[2], row[3][1], row[4]] for row in ll]
     lf = [[row[4], row[0],row[1][0], row[1][1],row[3][0], row[3][1], row[2]] for row in ll]
-    print('+++>', lr)
-    # df = pd.DataFrame(lr, columns=["uri", "id", "ts", "latlon", "loc", "url2", "names", "attrib"])
-    # print(df.head(5))
-    # df1 = df.drop(columns=["url2", "id", "ts", "latlon"], axis=1)
-    # dfo = df.drop(columns=["url2"], axis=1)
-    # lst = df1.to_numpy().tolist()
-    #print('...>', lst)
     return lr, lf
 
 def final_xform(alist):
-    print('-#-->', alist)
     keys = [ 'uri', 'id', 'ts','type','latlon' ,'loc', 'ppt', 'text']
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
