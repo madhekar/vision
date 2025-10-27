@@ -164,7 +164,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
     # create unique uuids for each image
     df_ids = df_data["id"]
 
-    df_metadatas = df_data[["ts", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
+    df_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
 
     collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadatas), uris=df_urls.tolist())
 
