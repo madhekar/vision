@@ -225,18 +225,26 @@ def get_image_exif_info(image_path):
     return datetime_original, user_comment    
 
 # get timestamp from image file
+"""
+def read_metadata(img, ipath):
+    exif = img._getexif()
+    if not exif:
+        raise Exception(f"Image {ipath} does not have EXIF data.")
+    
+    stype = exif[0x9286].decode("utf-8")
+    return exif[0x9286], exif[0x9286].decode("utf-8").replace("ASCII\x00\x00\x00",""), exif[36867]
+"""
 def getTimestamp(img):
     print(f"-> {img}")
     value = ""
     user_comment = ""
     image = Image.open(img)
     # extracting the exif metadata
-    exifdata = image.getexif()
+    exifdata = image._getexif()
     print(f"-->{exifdata}")
     if exifdata:
-        date_time = exifdata[306]
-        user_comment = exifdata[37510]
-        # print(date_time)
+        date_time = exifdata[36867]
+        user_comment = exifdata[0x9286]
         if date_time:
             date_time = str(date_time).replace("-", ":")
             value = datetime.datetime.timestamp(
@@ -246,8 +254,10 @@ def getTimestamp(img):
             value = datetime.datetime.timestamp(
                 datetime.datetime.strptime(def_date_time, "%Y:%m:%d %H:%M:%S")
             )
+        if user_comment:
+            s_user_comment =  user_comment.decode('utf-8').replace("ASCII\x00\x00\x00","")   
 
-    return value, user_comment
+    return value, s_user_comment
 
 # collect all metadata
 def getMetadata(img):

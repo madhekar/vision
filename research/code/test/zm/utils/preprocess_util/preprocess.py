@@ -81,8 +81,8 @@ async def generateId(args):
 # convert image date time to timestamp
 async def timestamp(args):
     uri = args
-    #print(f'ts--{uri}')
-    ts,uc = lu.get_image_exif_info(uri) #lu.getTimestamp(uri)
+    print(f'ts--{uri}')
+    ts,uc = lu.getTimestamp(uri) #lu.get_image_exif_info(uri) 
     return str(ts), str(uc)
 
 async def faces_partial_prompt(args):
