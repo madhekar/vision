@@ -36,3 +36,13 @@
         "text": "\n The image captures a moment of tranquility in a room bathed in soft light. Three individuals are seated on a beige couch, their positions suggesting a casual gathering. \n\nOn the left, a man in a pink shirt is engrossed in his phone, his fingers deftly navigating the screen. In the middle, another man, dressed in a blue shirt, is also engrossed in his phone, his attention riveted to the device. To the right, a woman in a yellow shirt is looking off to the side, her gaze directed away from the camera.\n\nThe room they're in is softly lit, with a window dressed in white curtains allowing a gentle stream of light to filter in. A wooden railing can be seen in the background, adding a touch of rustic charm to the scene. The image is taken from a slightly elevated angle, providing a comprehensive view of the scene. \n\nPlease note that this description is based on the information provided and does not include any speculative or imaginary",
     },
 ]
+
+----
+
+[
+ ['85ecfb59-9640-4ce1-94d5-47ab961a161c', '0fd88cf2-1d7c-4124-ab7c-d7c055d857ca', '81590e99-6d3d-4b8f-b7be-6f4b33401d30', '5685d495-686d-405b-b463-29ec37cc7b2d'], 
+ [('1572728241.0', 'people'), ('1572728241.0', 'people'), ('1572728241.0', 'people'), ('1572728241.0', 'people')], 
+ [' "Kumar", a neutral man  one man  one  woman  ', ' "Kumar", a neutral man  2 men ', ' "Kumar", a neutral man  one  woman  ', ' "Kumar", a neutral man  one man  one  woman  '], 
+ [('(18.495983, 73.81435)', 'Sadaphuli Society in Pune'), ('(18.495983, 73.81435)', 'Sadaphuli Society in Pune'), ('(18.507399, 73.807648)', ''), ('(18.495983, 73.81435)', 'Sadaphuli Society in Pune')], 
+ ['/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/b8cb49e0-9977-4761-b9b6-5b8c9a4e2ae0.jpg', '/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/60328c95-2c9b-497a-8125-04269da714a4.jpg', '/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/b0e60fad-33c9-499c-92f6-130d553af72b.jpg', '/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/4db3fd34-7dd1-4125-936c-4f414a41cfc5-1.jpg']
+ ]
