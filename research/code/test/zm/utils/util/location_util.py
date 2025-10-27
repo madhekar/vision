@@ -221,7 +221,7 @@ def get_image_exif_info(image_path):
         print(f"Error: Image not found at {image_path}")
     except Exception as e:
         print(f"An error occurred: {e}")
-        
+
     return datetime_original, user_comment    
 
 # get timestamp from image file
@@ -232,10 +232,10 @@ def getTimestamp(img):
     image = Image.open(img)
     # extracting the exif metadata
     exifdata = image.getexif()
+    print(f"-->{exifdata}")
     if exifdata:
-
-        date_time = exifdata.get(306)
-        user_comment = exifdata.get(37510)
+        date_time = exifdata[306]
+        user_comment = exifdata[37510]
         # print(date_time)
         if date_time:
             date_time = str(date_time).replace("-", ":")
