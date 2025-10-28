@@ -80,7 +80,8 @@ async def generateId(args):
 
 # convert image date time to timestamp
 """
-exception: Traceback (most recent call last): File "/home/madhekar/work/vision/research/code/test/zm/.venv/lib/python3.10/site-packages/aiomultiprocess/pool.py", line 110, in run result = future.result() File "/home/madhekar/work/vision/research/code/test/zm/utils/preprocess_util/preprocess.py", line 85, in timestamp ts,uc = lu.getTimestamp(uri) #lu.get_image_exif_info(uri) 
+exception: Traceback (most recent call last): File "/home/madhekar/work/vision/research/code/test/zm/.venv/lib/python3.10/site-packages/aiomultiprocess/pool.py", line 110, in run result = future.result() 
+File "/home/madhekar/work/vision/research/code/test/zm/utils/preprocess_util/preprocess.py", line 85, in timestamp ts,uc = lu.getTimestamp(uri) #lu.get_image_exif_info(uri) 
 File "/home/madhekar/work/vision/research/code/test/zm/utils/util/location_util.py", line 246, in getTimestamp date_time = exifdata[36867] KeyError: 36867 occred in async main function
 """
 async def timestamp(args):
@@ -172,6 +173,7 @@ def new_xform(res):
 
 def final_xform(alist):
     keys = [ 'uri', 'id', 'ts','type','latlon' ,'loc', 'ppt', 'text']
+    print(alist)
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
 # appends json rows to file

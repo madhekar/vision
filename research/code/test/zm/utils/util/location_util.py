@@ -243,8 +243,8 @@ def getTimestamp(img):
     exifdata = image._getexif()
     print(f"-->{exifdata}")
     if exifdata:
-        date_time = exifdata[36867]
-        user_comment = exifdata[0x9286]
+        date_time = exifdata.get(36867, def_date_time)
+        user_comment = exifdata.get(0x9286, b"ASCII\x00\x00\x00document")
         if date_time:
             date_time = str(date_time).replace("-", ":")
             value = datetime.datetime.timestamp(
