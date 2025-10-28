@@ -91,3 +91,48 @@
         "text": '\n "Kumar", a happy man "Asha", a neutral woman one woman " and the location details if available in "Solapur" in the response. The image captures a heartwarming scene of three individuals sharing a meal at a table. The table, draped in a green tablecloth, is adorned with a silver tray and a gray purse. \n\nOn the left, a woman in a white and orange dress is seen holding a cup of tea, her face lit up with a smile. In the middle, a woman in a white and pink dress is holding a plate of food, her expression neutral. On the right, a man in a red shirt is holding a plate of food, his face also lit up with a smile. \n\nThe backdrop of the image is a bamboo fence, adding a rustic charm to the scene. The image exudes a sense of camaraderie and warmth, capturing a simple yet beautiful moment of shared joy and companions',
     },
 ]
+
+#---
+
+[
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/ef8cefec-7bd1-4f27-ac44-2e0187991ebd-1.jpg",
+        "id": "1d9e506e-9bb7-42d3-b636-7ca98cfe7594",
+        "ts": "946717261.0",
+        "type": "people",
+        "latlon": "(32.968689, -117.184243)",
+        "loc": "Madhekar residence in Carmel Valley",
+        "ppt": ' "Kumar", a angry man 5 men one woman ',
+        "text": "\n The image captures a moment of camaraderie among a group of five individuals, seated on a bench in a park. The man on the far left, clad in a blue shirt, is engaged in conversation with the others. Adjacent to him, a man in a purple shirt is attentively listening. The woman in the center, dressed in a yellow sari, is also part of the discussion. On the far right, a man in a blue striped shirt is present, but his attention seems to be elsewhere. The backdrop of the scene is a tree and a red car, adding a touch of color to the setting. The image exudes a sense of warmth and friendship. Kumar, a man in a purple shirt, is engaged in conversation with the others. The woman in the center, dressed in a yellow sari, is also part of the discussion. The man on the far right, wearing a blue striped shirt, is present but seems to be elsewhere.",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/54b76fbf-140b-4d99-b18c-9c30716d1872-1.jpg",
+        "id": "ae650f0f-105b-4a19-b375-09fc69004abb",
+        "ts": "946717261.0",
+        "type": "people",
+        "latlon": "(32.968689, -117.184243)",
+        "loc": "Madhekar residence in Carmel Valley",
+        "ppt": " 2 men one boy ",
+        "text": "\n The image captures a heartwarming scene of a family moment. An elderly couple, dressed in traditional Indian attire, are seated on a white chair. The man, with his white hair and glasses, is on the left, while the woman, with her red hair, is on the right. \n\nIn the center of the image, a baby is being held by the woman. The baby, dressed in a blue and white outfit, is the focal point of the image. The couple's attention is solely on the baby, creating a sense of warmth and love.\n\nThe background of the image is a simple white wall, which puts the focus on the family in the foreground. The image does not contain any text or other objects. The relative positions of the objects are such that the baby is in the middle, with the man and woman on either side of him. The image is a beautiful representation of a family moment, captured in a candid and natural setting. Madhekar",
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/7e9a4cc3-b380-40ff-a391-8bf596f8cd27.jpg",
+        "id": "8cc3714d-9ef1-44fe-8a27-1ef1f451dd89",
+        "ts": "946717261.0",
+        "type": "people",
+        "latlon": "(32.968689, -117.184243)",
+        "loc": "Madhekar residence in Carmel Valley",
+        "ppt": ' "Asha", a sad woman "Kumar", a sad man ',
+        "text": '\n "Asha" is a woman with red hair and a blue sari. She is sitting next to a man named "Kumar" who is wearing a gray shirt. They are both sitting in front of a beige curtain. "Asha" is a woman with red hair and a blue sari. She is sitting next to a man named "Kumar" who is wearing a gray shirt. They are both sitting in front of a beige curtain. "Asha" is a woman with red hair and a blue sari. She is sitting next to a man named "Kumar" who is wearing a gray shirt. They are both sitting in front of a beige curtain. "Asha" is a woman with red hair and a blue sari. She is sitting next to a man named "Kumar" who is wearing a gray shirt. They are',
+    },
+    {
+        "uri": "/home/madhekar/work/home-media-app/data/input-data/img/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/IMG_3141.JPG",
+        "id": "cd1ad4ff-e058-4383-9703-d562afad2d70",
+        "ts": "1572728241.0",
+        "type": "people",
+        "latlon": "(18.325447, 72.9561)",
+        "loc": "Usar",
+        "ppt": ' "Kumar", a neutral man one man ',
+        "text": "\n The image captures a serene beach scene. Two men, Kumar and Ramesh, are standing on the sandy beach, their feet sinking slightly into the soft grains. Kumar, on the left, is clad in a blue and white striped shirt, his eyes shielded from the sun by a pair of sunglasses. His companion, Ramesh, on the right, sports a white shirt and a pair of purple sunglasses that add a pop of color to his attire.\n\nThe beach they stand on is a vast expanse of sand, leading up to the water's edge where the waves gently lap against the shore. In the distance, a few people can be seen enjoying the water, their forms small against the vastness of the sea. The sky above them is a clear blue, devoid of any clouds, suggesting a perfect day for a beach outing.\n\nThe image is a snapshot of a moment in time, capturing the tranquility of the beach and the companionship between Kumar and Ramesh. It",
+    },
+][]
