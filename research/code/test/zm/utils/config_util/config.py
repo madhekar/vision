@@ -286,6 +286,25 @@ def data_validation_config_load():
         os.path.join(dr, *vectordb_path.split(os.sep)[1:])
     )
 
+@st.cache_resource
+def setup_config_load():
+    dr, _ = app_config_load()
+    with open("utils/config_util/setup_conf.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        pprint.pprint("* * * Metadata Generator Properties * * *")
+        pprint.pprint(dict)
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
+
+        ap, dp, mp =[], [], []
+        for app_pth in dict["app_paths"]:
+            ap.append(app_pth)
+
+        for data_pth in dict["data_paths"]:
+            dp.append(data_pth)
+
+            
+
 
 @st.cache_resource
 def vectordb_config_load():
