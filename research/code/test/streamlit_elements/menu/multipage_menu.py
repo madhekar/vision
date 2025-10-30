@@ -10,21 +10,21 @@ st.set_page_config(layout="wide") # Optional: for wider layout
 
 with st.sidebar:
     selected = option_menu(
-        menu_title="Main Menu",  # Required
+        menu_title="ZMedia",  # Required
         options=["Home", "Data Analysis", "Settings"],  # Required
         icons=["house", "bar-chart", "gear"],  # Optional: Bootstrap icons
         menu_icon="cast",  # Optional: Icon for the menu title
         default_index=0,  # Optional: Default selected option
         styles={
             "container": {"padding": "0!important", "background-color": "#fafafa"},
-            "icon": {"color": "orange", "font-size": "15px"},
+            "icon": {"color": "red", "font-size": "20px"},
             "nav-link": {
-                "font-size": "25px",
+                "font-size": "20px",
                 "text-align": "left",
                 "margin": "0px",
                 "--hover-color": "#eee",
             },
-            "nav-link-selected": {"background-color": "green"},
+            "nav-link-selected": {"background-color": "A5BFA6"},
         },
     )
 
