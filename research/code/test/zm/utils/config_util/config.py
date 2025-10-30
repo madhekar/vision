@@ -287,26 +287,6 @@ def data_validation_config_load():
     )
 
 @st.cache_resource
-def setup_config_load():
-    dr, _ = app_config_load()
-    with open("utils/config_util/setup_conf.yaml") as prop:
-        dict = yaml.safe_load(prop)
-
-        pprint.pprint("* * * Metadata Generator Properties * * *")
-        pprint.pprint(dict)
-        pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
-
-        ap, dp, mp =[], [], []
-        for app_pth in dict["app_paths"]:
-            ap.append(app_pth)
-
-        for data_pth in dict["data_paths"]:
-            dp.append(data_pth)
-
-            
-
-
-@st.cache_resource
 def vectordb_config_load():
     dr, _ = app_config_load()
     with open("utils/config_util/preprocess_conf.yaml") as prop:
@@ -534,3 +514,29 @@ def app_config_load():
             data_root,
             app_root
         )
+
+
+@st.cache_resource
+def setup_config_load():
+    dr, _ = app_config_load()
+    ap, dp, mp = [], [], []
+    with open("utils/config_util/setup_conf.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        pprint.pprint("* * * Metadata Generator Properties * * *")
+        pprint.pprint(dict)
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
+
+        for app_pth in dict["app_paths"]:
+            pth = os.path.join(dr, *app_pth.split(os.sep)[1:])
+            ap.append(pth)
+
+        for data_pth in dict["data_paths"]:
+            pth = os.path.join(dr, *data_pth.split(os.sep)[1:])
+            dp.append(pth)
+
+        for model_pth in dict["model_paths"]:
+            pth = os.path.join(dr, *model_pth.split(os.sep)[1:])
+            mp.append(model_pth)    
+
+    return (ap, dp, mp)            
