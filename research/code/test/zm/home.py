@@ -24,10 +24,14 @@ st.set_page_config(
 def load_app_configuration():
     root_data, root_app = config.app_config_load()
     print(f'app root: {root_app} data root: {root_data}')
-    cnt = ss.remove_all_files_by_type(root_app, 'I')
-    if cnt > 0:
-       print(f' {cnt} : number of files removed')
-    #return root_data, root_app
+    if not root_data:
+        ap,dp, mp = config.setup_config_load()
+        
+    else:    
+        cnt = ss.remove_all_files_by_type(root_app, 'I')
+        if cnt > 0:
+           print(f' {cnt} : number of files removed')
+           #return root_data, root_app
 
 def load_css(css_path):
     with open(file=css_path) as f:
