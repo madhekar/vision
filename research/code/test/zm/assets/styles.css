@@ -184,6 +184,13 @@
    font-size: 24px;
 }
 
+/* styled scollable textbox */
+.scrollable-div {
+    height: 250px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 2px;
+}
 
 /* Styled markdown */
 .custom-markdown {

@@ -4877,6 +4877,18 @@ wheels = [
 ]
 
 [[package]]
+name = "streamlit-scrollable-textbox"
+version = "0.0.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "streamlit" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/cd/c4/8dcbcbbd6109420333a06c124f771287d75ae6b328b7e3fb8d0216b32c07/streamlit_scrollable_textbox-0.0.3.tar.gz", hash = "sha256:f32c22fb28a16caa4f952f4ce6bc8ab8dc79c5adf36b188ac8938bc458905fbc", size = 497935, upload-time = "2023-02-15T01:25:00.376Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d8/4f/50ea64244fa602d514c47cb26778a80ec0cd4dec6240e7ca01d040556d1e/streamlit_scrollable_textbox-0.0.3-py3-none-any.whl", hash = "sha256:e48d57f5477491b58afde2cd6a81d6c98bdb8063570fc2467958ae286d883b5c", size = 971299, upload-time = "2023-02-15T01:24:58.681Z" },
+]
+
+[[package]]
 name = "streamlit-tree-select"
 version = "0.0.5"
 source = { registry = "https://pypi.org/simple" }
@@ -5979,6 +5991,7 @@ dependencies = [
     { name = "streamlit-folium" },
     { name = "streamlit-image-select" },
     { name = "streamlit-option-menu" },
+    { name = "streamlit-scrollable-textbox" },
     { name = "streamlit-tree-select" },
     { name = "tensorflow" },
     { name = "tensorflow-cpu" },
@@ -6034,6 +6047,7 @@ requires-dist = [
     { name = "streamlit-folium", specifier = "==0.22.1" },
     { name = "streamlit-image-select", specifier = "==0.6.0" },
     { name = "streamlit-option-menu", specifier = ">=0.4.0" },
+    { name = "streamlit-scrollable-textbox", specifier = ">=0.0.3" },
     { name = "streamlit-tree-select", specifier = "==0.0.5" },
     { name = "tensorflow", specifier = "==2.16.1" },
     { name = "tensorflow-cpu", specifier = "==2.16.1" },

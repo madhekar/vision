@@ -3,6 +3,7 @@ import streamlit as st
 from utils.util import storage_stat as ss
 from utils.config_util import config
 from utils.util import model_util as mu
+import streamlit_scrollable_textbox as stx
 
 # https://www.color-hex.com/color-palette/164
 colors = ['#6d765b','#A5BFA6']#['#847577','#cfd2cd']#['#f07162','#0081a7']#['#f97171','#8ad6cc']
@@ -79,8 +80,11 @@ def execute():
     with c1:
         efs = mu.extract_user_raw_data_folders(rdp)
         st.caption('**AVAILABLE DATA SOURCES**')
-        for ds in efs:
-            st.write(f'**{ds}**')
+        with st.container():
+           st.markdown('<div class="scrollable-div', unsafe_allow_html=True)
+           for ds in efs:
+              st.write(f'{ds}')
+           st.markdown("</div>", unsafe_allow_html=True)   
         #st.text_area(label="Data Sources", value=efs)
     with c2:
        display_storage_metrics(*ss.extract_server_stats())
