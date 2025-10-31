@@ -1,6 +1,7 @@
 import streamlit as st
 from utils.config_util import config 
 from utils.util import storage_stat as ss
+from utils.util import setup_app as sa
 import os
 import sys
 sys.path.append('..')
@@ -26,7 +27,7 @@ def load_app_configuration():
     print(f'app root: {root_app} data root: {root_data}')
     if not root_data:
         ap,dp, mp = config.setup_config_load()
-        
+        sa.create_path_hirarchy(ap, dp, mp)
     else:    
         cnt = ss.remove_all_files_by_type(root_app, 'I')
         if cnt > 0:

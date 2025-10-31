@@ -174,12 +174,14 @@ def execute():
     devices_list = get_external_devices(user=user)
 
     #show external devices in dropdown box
-    ext_source = st.sidebar.selectbox(label="EXTERNAL DATA SOURCES", options=devices_list)
+    #st.sidebar.markdown('<p style="font-size: 20px;"> External Data Sources </p>', unsafe_allow_html=True)
+    st.sidebar.write("External Data Sources")
+    ext_source = st.sidebar.selectbox(label="**External Data Sources**", options=devices_list, label_visibility="collapsed")
     
     #show data already imported data sources
     source_list = mu.extract_user_raw_data_folders(raw_data_path)
-    st.sidebar.caption("__Existing Imported Data Sources__")
-    with st.sidebar.container(key="scrollable-div", border=True):
+    st.sidebar.write("Existing Imported Data Sources")
+    with st.sidebar.container(height=100, border=True):
         for src in source_list:
             st.write(f'**{src}**')
     # s=""

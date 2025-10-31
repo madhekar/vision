@@ -82,9 +82,9 @@ def execute():
         st.caption('**AVAILABLE DATA SOURCES**')
         #with st.container(height=100, border=False):        
         #st.markdown('<div class="scrollable-div">', unsafe_allow_html=True)
-        with st.container(key="scrollable-div"):
+        with st.container(height=100, border=False):
             for ds in efs:
-                st.write(f':: {ds}')
+                st.write(f'**{ds}**')
         #st.markdown('</div>', unsafe_allow_html=True)   
         #st.text_area(label="Data Sources", value=efs)
     with c2:
