@@ -186,7 +186,7 @@
 
 /* styled scollable textbox */
 .scrollable-div {
-    height: 250px;
+    height: 150px;
     overflow-y: scroll;
     border: 1px solid #ccc;
     padding: 2px;
