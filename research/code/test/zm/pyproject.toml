@@ -46,7 +46,6 @@ dependencies = [
     "stqdm>=0.0.5",
     "streamlit==1.39.0",
     "streamlit-option-menu>=0.4.0",
-    "streamlit-scrollable-textbox>=0.0.3",
     "streamlit_folium==0.22.1",
     "streamlit_image_select==0.6.0",
     "streamlit_tree_select==0.0.5",

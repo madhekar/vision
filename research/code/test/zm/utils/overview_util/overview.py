@@ -3,7 +3,6 @@ import streamlit as st
 from utils.util import storage_stat as ss
 from utils.config_util import config
 from utils.util import model_util as mu
-import streamlit_scrollable_textbox as stx
 
 # https://www.color-hex.com/color-palette/164
 colors = ['#6d765b','#A5BFA6']#['#847577','#cfd2cd']#['#f07162','#0081a7']#['#f97171','#8ad6cc']
