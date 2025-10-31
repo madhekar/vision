@@ -80,8 +80,9 @@ def execute():
     with c1:
         efs = mu.extract_user_raw_data_folders(rdp)
         st.caption('**AVAILABLE DATA SOURCES**')
-        with st.container(height=100, border=False):        
+        #with st.container(height=100, border=False):        
         #st.markdown('<div class="scrollable-div">', unsafe_allow_html=True)
+        with st.container(key="scrollable-div"):
             for ds in efs:
                 st.write(f':: {ds}')
         #st.markdown('</div>', unsafe_allow_html=True)   
