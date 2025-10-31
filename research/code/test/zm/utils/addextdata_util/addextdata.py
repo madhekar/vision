@@ -178,13 +178,17 @@ def execute():
     
     #show data already imported data sources
     source_list = mu.extract_user_raw_data_folders(raw_data_path)
-    s=""
-    for str in source_list:
-        s += str + '\n'
+    st.sidebar.caption("__Existing Imported Data Sources__")
+    with st.sidebar.container(key="scrollable-div", border=True):
+        for src in source_list:
+            st.write(f'**{src}**')
+    # s=""
+    # for str in source_list:
+    #     s += str + '\n'
 
-    if len(source_list) > 0:
-       #st.sidebar.selectbox(label="Existing Imported Data Sources", options=source_list)
-       st.sidebar.text_area(label="EXISTING DATA SOURCES", value=s, height=100)
+    # if len(source_list) > 0:
+    #    #st.sidebar.selectbox(label="Existing Imported Data Sources", options=source_list)
+    #    st.sidebar.text_area(label="EXISTING DATA SOURCES", value=s, height=50)
 
     with st.status("Generating LLM responses...", expanded=True) as status:
         # create new path string by appending raw-data path with source-name from external device
