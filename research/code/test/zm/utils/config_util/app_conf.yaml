@@ -3,6 +3,6 @@ app-config:
   approot_path: /home/madhekar/work/vision/research/code/test/zm  
 
 zmedia-setup:
-  zmedia_path: "../zmedia-sample"
+  zmedia_path: ../zmedia-sample
   zmedia_file: zesha_media.zip  
   raw_data_path: data/raw_data
