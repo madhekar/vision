@@ -1,5 +1,6 @@
 app_paths:
-            - app/main         
+            - app/main  
+            - app/zmedia-sample       
 data_paths:
            - data/app-data/metadata
            - data/app-data/qa/face-detection/images
