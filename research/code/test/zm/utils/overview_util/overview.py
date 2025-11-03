@@ -9,10 +9,10 @@ colors = ['#6d765b','#A5BFA6']#['#847577','#cfd2cd']#['#f07162','#0081a7']#['#f9
 #["#ae5a41", "#1b85b8"]#["#636B2F","#BAC095"] #["#9EB8A0", "#58855c"]#['#58855c','#0D3311']#["#BAC095", "#636B2F"]
 
 def extract_folder_paths():
-    raw_data_path, input_data_path, app_data_path, final_data_path = (
+    raw_data_path, input_data_path, app_data_path, final_data_path, init_zmedia_path, init_zmedia_file = (
         config.overview_config_load()
     )
-    return (raw_data_path, input_data_path, app_data_path, final_data_path)
+    return (raw_data_path, input_data_path, app_data_path, final_data_path, init_zmedia_path, init_zmedia_file)
 
 def display_storage_metrics(tm, um, fm):
     c1, c2, c3 = st.columns([1.0, 1.0, 1.0])
@@ -72,7 +72,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         )
 
 def execute():
-    rdp, idp, adp, fdp = extract_folder_paths() 
+    rdp, idp, adp, fdp,zimp, zimpf = extract_folder_paths() 
     print(f'--> {rdp}')
     c1, c2 = st.columns([.25,.75])
    

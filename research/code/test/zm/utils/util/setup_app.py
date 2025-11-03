@@ -1,5 +1,6 @@
 import os
 import yaml
+import zipfile as zf
 from pathlib import Path
 
 '''
@@ -62,3 +63,20 @@ def folder_setup(root, ap, dp, mp):
     #create model folders
     for p in mp:
         create_path_hirarchy(p)
+
+def create_zmedia_sample(zpath, zfile, raw_data_folder):
+    try:
+        with zf.ZipFile(os.join.path(zpath, zfile, 'r')) as _zf:
+            _zf.extractall(raw_data_folder)
+        print(f"extracted: {zfile} to {raw_data_folder}")    
+    except zf.BadZipFile as e:
+        print(f"Error: {zfile} not valid file.")
+    except FileNotFoundError:
+        print(f"Error: Zip file {zfile} not found at: {zpath}")    
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
+
+
+
+

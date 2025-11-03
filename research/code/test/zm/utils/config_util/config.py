@@ -46,7 +46,11 @@ dataload:
 addtrim:
   raw_data_path: '/data/raw-data/'
 """
-
+"""
+zmedia-setup:
+  init_zmedia_path: /home/madhekar/work/home-media-app/app/zmedia-sample
+  init_zmedia_file: zesha_media.zip
+"""
 @st.cache_resource
 def overview_config_load():
     dr,_ = app_config_load()
@@ -62,11 +66,16 @@ def overview_config_load():
         app_data_path = dict["datapaths"]["app_data_path"]
         final_data_path = dict["datapaths"]["final_data_path"]
 
+        init_zmedia_path = dict["zmedia-setup"]["init_zmedia_path"]
+        init_zmedia_file = dict["zmedia-setup"]["init_zmedia_file"]
+
     return (
         os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
         os.path.join(dr, *input_data_path.split(os.sep)[1:]),
         os.path.join(dr, *app_data_path.split(os.sep)[1:]),
-        os.path.join(dr, *final_data_path.split(os.sep)[1:])
+        os.path.join(dr, *final_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *init_zmedia_path.split(os.sep)[1:]),
+        init_zmedia_file
     )
 
 @st.cache_resource
