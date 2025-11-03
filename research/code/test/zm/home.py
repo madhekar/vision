@@ -27,7 +27,7 @@ def load_app_configuration():
     print(f'app root: {root_app} data root: {root_data}')
     if not os.path.exists(root_data):
         ap, dp, mp = config.setup_config_load()
-        sa.create_path_hirarchy(ap, dp, mp)
+        sa.folder_setup(ap, dp, mp)
     else:    
         cnt = ss.remove_all_files_by_type(root_app, 'I')
         if cnt > 0:
