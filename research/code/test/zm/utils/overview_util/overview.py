@@ -73,7 +73,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         )
 
 def execute():
-    rdp, idp, adp, fdp,zimp, zimpf = extract_folder_paths() 
+    rdp, idp, adp, fdp = extract_folder_paths() 
     print(f'--> {rdp}')
     c1, c2 = st.columns([.25,.75])
    
