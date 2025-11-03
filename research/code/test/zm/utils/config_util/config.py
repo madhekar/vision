@@ -66,16 +66,11 @@ def overview_config_load():
         app_data_path = dict["datapaths"]["app_data_path"]
         final_data_path = dict["datapaths"]["final_data_path"]
 
-        init_zmedia_path = dict["zmedia-setup"]["init_zmedia_path"]
-        init_zmedia_file = dict["zmedia-setup"]["init_zmedia_file"]
-
     return (
         os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
         os.path.join(dr, *input_data_path.split(os.sep)[1:]),
         os.path.join(dr, *app_data_path.split(os.sep)[1:]),
-        os.path.join(dr, *final_data_path.split(os.sep)[1:]),
-        os.path.join(dr, *init_zmedia_path.split(os.sep)[1:]),
-        init_zmedia_file
+        os.path.join(dr, *final_data_path.split(os.sep)[1:])
     )
 
 @st.cache_resource
