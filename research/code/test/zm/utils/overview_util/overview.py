@@ -3,6 +3,7 @@ import streamlit as st
 from utils.util import storage_stat as ss
 from utils.config_util import config
 from utils.util import model_util as mu
+from utils.util import setup_app as sa
 
 # https://www.color-hex.com/color-palette/164
 colors = ['#6d765b','#A5BFA6']#['#847577','#cfd2cd']#['#f07162','#0081a7']#['#f97171','#8ad6cc']
@@ -12,6 +13,7 @@ def extract_folder_paths():
     raw_data_path, input_data_path, app_data_path, final_data_path, init_zmedia_path, init_zmedia_file = (
         config.overview_config_load()
     )
+    sa.create_zmedia_sample(init_zmedia_path, init_zmedia_file, raw_data_path)
     return (raw_data_path, input_data_path, app_data_path, final_data_path, init_zmedia_path, init_zmedia_file)
 
 def display_storage_metrics(tm, um, fm):
