@@ -537,15 +537,15 @@ def setup_config_load():
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
 
         for app_pth in dict["app_paths"]:
-            pth = os.path.join(dr, *app_pth.split(os.sep)[1:])
+            pth = os.path.join(dr, app_pth) # *app_pth.split(os.sep)[1:])
             ap.append(pth)
 
         for data_pth in dict["data_paths"]:
-            pth = os.path.join(dr, *data_pth.split(os.sep)[1:])
+            pth = os.path.join(dr, data_pth) # *data_pth.split(os.sep)[1:])
             dp.append(pth)
 
         for model_pth in dict["model_paths"]:
-            pth = os.path.join(dr, *model_pth.split(os.sep)[1:])
-            mp.append(model_pth)    
+            pth = os.path.join(dr, model_pth) #*model_pth.split(os.sep)[1:])
+            mp.append(pth)    
 
     return (ap, dp, mp)            
