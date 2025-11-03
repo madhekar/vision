@@ -500,12 +500,16 @@ def filer_config_load():
         batch_size,
     )
 
-'''    
-    app-config:
+"""    
+app-config:
       appdata_root_path: 
       approot_path: /home/madhekar/work/vision/research/code/test/multipage_app
+zmedia-setup:
+  init_zmedia_path: ../zmedia-sample
+  init_zmedia_file: zesha_media.zip  
+  raw_data_path: data/raw_data
       
-'''
+"""
 
 @st.cache_resource
 def app_config_load():
@@ -518,10 +522,16 @@ def app_config_load():
 
         data_root = dict["app-config"]["appdata_root_path"]
         app_root = dict["app-config"]["approot_path"]
+        zmedia_path = dict["zmedia-setup"]["zmedia_path"]
+        zmedia_file = dict["zmedia-setup"]["zmedia_file"]
+        zmedia_dest = dict["zmedia-setup"]["raw_data_path"]
 
         return(
             data_root,
-            app_root
+            app_root,
+            zmedia_path,
+            zmedia_file,
+            zmedia_dest
         )
 
 
