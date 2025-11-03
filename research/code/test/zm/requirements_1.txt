@@ -156,7 +156,7 @@ posthog==6.6.0
 pre-commit==4.3.0
 protobuf==4.25.8
 psutil==7.0.0
-py3exiv2==0.12.0
+#py3exiv2==0.12.0
 pyarrow==21.0.0
 pyasn1==0.6.1
 pyasn1-modules==0.4.2
