@@ -526,7 +526,7 @@ def app_config_load():
             app_root,
             zmedia_path,
             zmedia_file,
-            zmedia_dest
+            os.path.join(data_root, zmedia_dest)
         )
 
 
