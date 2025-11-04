@@ -40,6 +40,17 @@ from pathlib import Path
     ├── faces_svc
     └── image_classify_filter
 
+import tarfile
+
+if fname.endswith("tar.gz"):
+    tar = tarfile.open(fname, "r:gz")
+    tar.extractall()
+    tar.close()
+elif fname.endswith("tar"):
+    tar = tarfile.open(fname, "r:")
+    tar.extractall()
+    tar.close()
+
 '''
 def create_path_hirarchy(pth):
     fpth = Path(pth)
