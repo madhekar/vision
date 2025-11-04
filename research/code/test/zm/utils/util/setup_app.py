@@ -1,6 +1,6 @@
 import os
 import yaml
-import zipfile as zf
+import tarfile as tar
 from pathlib import Path
 
 '''
@@ -66,10 +66,10 @@ def folder_setup( ap, dp, mp):
 
 def create_zmedia_sample(z_path, z_file, raw_data_folder):
     try:
-        with zf.ZipFile(os.path.join(z_path, z_file), 'r') as _zf:
-            _zf.extractall(raw_data_folder)
+        with tar.ZipFile(os.path.join(z_path, z_file), 'r:gz') as _tf:
+            _tf.extractall(raw_data_folder)
         print(f"extracted: {z_file} to {raw_data_folder}")    
-    except zf.BadZipFile as e:
+    except tar.ReadError as e:
         print(f"Error: {z_file} not valid file.")
     except FileNotFoundError:
         print(f"Error: Zip file {z_file} not found at: {z_path}")    
