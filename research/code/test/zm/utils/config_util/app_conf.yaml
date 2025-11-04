@@ -4,5 +4,5 @@ app-config:
 
 zmedia-setup:
   zmedia_path: ../zmedia-sample
-  zmedia_file: zesha_media.zip  
+  zmedia_file: zesha_media.tar.gz 
   raw_data_path: data/raw-data
