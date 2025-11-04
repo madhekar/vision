@@ -66,7 +66,7 @@ def folder_setup( ap, dp, mp):
 
 def create_zmedia_sample(z_path, z_file, raw_data_folder):
     try:
-        with zf.ZipFile(os.path.join(z_path, z_file, 'r')) as _zf:
+        with zf.ZipFile(os.path.join(z_path, z_file), 'r') as _zf:
             _zf.extractall(raw_data_folder)
         print(f"extracted: {z_file} to {raw_data_folder}")    
     except zf.BadZipFile as e:

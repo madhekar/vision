@@ -53,7 +53,7 @@ zmedia-setup:
 """
 @st.cache_resource
 def overview_config_load():
-    dr,_ = app_config_load()
+    dr,*_ = app_config_load()
     with open("utils/config_util/overview_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -66,21 +66,16 @@ def overview_config_load():
         app_data_path = dict["datapaths"]["app_data_path"]
         final_data_path = dict["datapaths"]["final_data_path"]
 
-        init_zmedia_path = dict["zmedia-setup"]["init_zmedia_path"]
-        init_zmedia_file = dict["zmedia-setup"]["init_zmedia_file"]
-
     return (
         os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
         os.path.join(dr, *input_data_path.split(os.sep)[1:]),
         os.path.join(dr, *app_data_path.split(os.sep)[1:]),
-        os.path.join(dr, *final_data_path.split(os.sep)[1:]),
-        os.path.join(dr, *init_zmedia_path.split(os.sep)[1:]),
-        init_zmedia_file
+        os.path.join(dr, *final_data_path.split(os.sep)[1:])
     )
 
 @st.cache_resource
 def dataload_config_load():
-    dr,_ = app_config_load()
+    dr,*_ = app_config_load()
     with open("utils/config_util/dataload_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -124,7 +119,7 @@ missing-metadata:
 """
 @st.cache_resource
 def static_metadata_config_load():
-    dr,_ = app_config_load()
+    dr,*_ = app_config_load()
     with open("utils/config_util/static_metadata_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -166,7 +161,7 @@ def static_metadata_config_load():
 
 @st.cache_resource
 def preprocess_config_load():
-    dr,_ = app_config_load()
+    dr,*_ = app_config_load()
     with open("utils/config_util/preprocess_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -197,7 +192,7 @@ def preprocess_config_load():
 
 @st.cache_resource
 def missing_metadata_config_load():
-    dr,_ = app_config_load()
+    dr,*_ = app_config_load()
     with open("utils/config_util/missing_metadata_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -217,7 +212,7 @@ def missing_metadata_config_load():
 
 @st.cache_resource
 def dedup_config_load():
-    dr,_ = app_config_load()
+    dr,*_ = app_config_load()
     with open("utils/config_util/dedup_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -241,7 +236,7 @@ brisque-model:
 
 @st.cache_resource
 def image_quality_config_load():
-    dr,_ = app_config_load()
+    dr,*_ = app_config_load()
     with open("utils/config_util/quality_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -260,7 +255,7 @@ def image_quality_config_load():
 
 @st.cache_resource
 def data_validation_config_load():
-    dr, _ = app_config_load()
+    dr,*_ = app_config_load()
     with open("utils/config_util/data_validation_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -297,7 +292,7 @@ def data_validation_config_load():
 
 @st.cache_resource
 def vectordb_config_load():
-    dr, _ = app_config_load()
+    dr, *_ = app_config_load()
     with open("utils/config_util/preprocess_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -345,7 +340,7 @@ def vectordb_config_load():
 
 @st.cache_resource
 def editor_config_load():
-    dr, _ = app_config_load()
+    dr, *_ = app_config_load()
     with open("utils/config_util/editor_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -379,7 +374,7 @@ def editor_config_load():
 
 @st.cache_resource
 def search_config_load():
-    dr, _ = app_config_load()
+    dr, *_ = app_config_load()
     with open("utils/config_util/search_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -419,7 +414,7 @@ model-path:
 """
 @st.cache_resource
 def faces_config_load():
-    dr,_ = app_config_load()
+    dr,*_ = app_config_load()
     with open("utils/config_util/face_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -470,7 +465,7 @@ filter-model:
 
 @st.cache_resource
 def filer_config_load():
-    dr, _ = app_config_load()
+    dr, *_ = app_config_load()
     with open("utils/config_util/filter_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -531,13 +526,13 @@ def app_config_load():
             app_root,
             zmedia_path,
             zmedia_file,
-            zmedia_dest
+            os.path.join(data_root, zmedia_dest)
         )
 
 
 @st.cache_resource
 def setup_config_load():
-    dr, _ = app_config_load()
+    dr, *_ = app_config_load()
     ap, dp, mp = [], [], []
     with open("utils/config_util/setup_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
