@@ -1,0 +1,25 @@
+---
+- name: Deploy machine learning models to production
+  hosts: production
+  become: yes # Use this if you need elevated permissions to write to the destination path
+  vars:
+    local_models_dir: "./models" # Path to your models directory on the Ansible control machine
+    remote_models_dir: "/opt/app/ml_models" # Destination path on the remote production servers
+
+  tasks:
+    - name: Ensure the destination directory exists
+      ansible.builtin.file:
+        path: "{{ remote_models_dir }}"
+        state: directory
+        owner: app_user # Set appropriate owner/group
+        group: app_group
+        mode: '0755' # Set appropriate permissions
+      
+    - name: Copy models directory from local to remote hosts
+      ansible.builtin.copy:
+        src: "{{ local_models_dir }}/" # Trailing slash copies only contents of the directory
+        dest: "{{ remote_models_dir }}/"
+        owner: app_user
+        group: app_group
+        mode: '0644' # Set permissions for the files
+        backup: yes # Optional: creates a backup of existing files before overwriting

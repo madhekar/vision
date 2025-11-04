@@ -1,0 +1,25 @@
+---
+- name: Efficiently sync models to production using rsync
+  hosts: production
+  become: yes
+  vars:
+    local_models_dir: "./models"
+    remote_models_dir: "/opt/app/ml_models"
+
+  tasks:
+    - name: Synchronize models directory
+      ansible.posix.synchronize:
+        src: "{{ local_models_dir }}/"
+        dest: "{{ remote_models_dir }}/"
+        mode: push # Push from the control machine to the remote hosts
+        archive: yes # Enables recursive, links, perms, times, owner, group flags by default
+        delete: no # Optional: set to 'yes' to delete files on the remote that don't exist locally
+      # Note: The synchronize module handles file permissions, but ownership might need a follow-up task if 'become: yes' is used
+      
+    - name: Correct ownership of the synchronized files and directory
+      ansible.builtin.file:
+        path: "{{ remote_models_dir }}"
+        owner: app_user
+        group: app_group
+        recurse: yes # Apply ownership change recursively
+        state: directory # Can be file or directory
