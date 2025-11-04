@@ -1,7 +1,7 @@
 ungrouped:
 z_media_qa:
   hosts:
-    192.168.10.1:
+    192.168.68.118:
 z_media_prod:
   hosts:
-    192.168.10.2:
+    192.168.68.115:
