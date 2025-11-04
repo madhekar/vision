@@ -1,7 +1,7 @@
 import os
 import time
 import streamlit as st
-from stqdm import stqdm
+#from stqdm import stqdm
 import multiprocessing as mp
 import pandas as pd
 from utils.config_util import config
