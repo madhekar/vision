@@ -1,0 +1,28 @@
+---
+- name: Synchronize a list of folders to remote hosts
+  hosts: your_target_hosts # Replace with your inventory group or specific hosts
+  become: yes # Use sudo/root privileges on the remote host if needed
+
+  vars:
+    src_root: "/home/madhekar/work/home-media-app"
+    dest_root: "/home/madhekar/work/home-media-app"
+    folders_to_sync:
+      - src: "{{ src_root }}/models/"
+        dest: "{{ dest_root }}/models/"
+      - src: "{{ src_root }}/static-metadata/faces/"
+        dest: "{{ dest_root }}/static-metadata/faces/"
+      - src: "{{ src_root }}/static-metadata/locations/"
+        dest: "{{ dest_root }}/static-metadata/locations/"
+
+  tasks:
+    - name: Synchronize folders
+      ansible.posix.synchronize:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: push # Pushing from local to remote
+        delete: yes # Delete extraneous files on the remote side that are not in the local source
+        recursive: yes # Recursively synchronize subdirectories
+        perms: yes # Preserve permissions
+        owner: yes # Preserve owner
+        group: yes # Preserve group
+      loop: "{{ folders_to_sync }}"
