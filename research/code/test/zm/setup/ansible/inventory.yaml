@@ -1,0 +1,10 @@
+all:
+  hosts:
+   qa:
+    ansible_host: 192.168.68.118
+    ansible_user: madhekar
+    ansible_ssh_private_key_file: ~/.ssh/ansible
+   prod:
+    ansible_host: 192.168.68.114
+    ansible_user: madhekar
+    ansible_ssh_private_key_file: ~/.ssh/ansible
