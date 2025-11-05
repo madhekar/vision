@@ -1,6 +1,3 @@
-import os
-import yaml
-import tarfile as tar
 from pathlib import Path
 
 '''
@@ -40,17 +37,6 @@ from pathlib import Path
     ├── faces_svc
     └── image_classify_filter
 
-import tarfile
-
-if fname.endswith("tar.gz"):
-    tar = tarfile.open(fname, "r:gz")
-    tar.extractall()
-    tar.close()
-elif fname.endswith("tar"):
-    tar = tarfile.open(fname, "r:")
-    tar.extractall()
-    tar.close()
-
 '''
 def create_path_hirarchy(pth):
     fpth = Path(pth)
@@ -75,17 +61,6 @@ def folder_setup( ap, dp, mp):
     for p in mp:
         create_path_hirarchy(p)
 
-def create_zmedia_sample(z_path, z_file, raw_data_folder):
-    try:
-        with tar.ZipFile(os.path.join(z_path, z_file), 'r:gz') as _tf:
-            _tf.extractall(raw_data_folder)
-        print(f"extracted: {z_file} to {raw_data_folder}")    
-    except tar.ReadError as e:
-        print(f"Error: {z_file} not valid file.")
-    except FileNotFoundError:
-        print(f"Error: Zip file {z_file} not found at: {z_path}")    
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
 
 
 

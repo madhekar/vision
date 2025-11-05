@@ -517,16 +517,10 @@ def app_config_load():
 
         data_root = dict["app-config"]["appdata_root_path"]
         app_root = dict["app-config"]["approot_path"]
-        zmedia_path = dict["zmedia-setup"]["zmedia_path"]
-        zmedia_file = dict["zmedia-setup"]["zmedia_file"]
-        zmedia_dest = dict["zmedia-setup"]["raw_data_path"]
 
         return(
             data_root,
-            app_root,
-            zmedia_path,
-            zmedia_file,
-            os.path.join(data_root, zmedia_dest)
+            app_root
         )
 
 
