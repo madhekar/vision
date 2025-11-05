@@ -1,6 +1,6 @@
 ---
-  name: Synchronize a list of folders to remote hosts
-  hosts: z_media_qa # Replace with your inventory group or specific hosts
+- name: Synchronize a list of folders to remote hosts
+  hosts: qa # Replace with your inventory group or specific hosts
   become: yes # Use sudo/root privileges on the remote host if needed
 
   vars:
