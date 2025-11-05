@@ -1,21 +1,21 @@
 ---
-- name: Synchronize a list of folders to remote hosts
-  hosts: your_target_hosts # Replace with your inventory group or specific hosts
+  name: Synchronize a list of folders to remote hosts
+  hosts: z_media_qa # Replace with your inventory group or specific hosts
   become: yes # Use sudo/root privileges on the remote host if needed
 
   vars:
-    src_root: "/home/madhekar/work/home-media-app"
-    dest_root: "/home/madhekar/work/home-media-app"
+    src_root: "/Users/emadhekar/work/image_video/"
+    dest_root: "/home/madhekar/temp/"
     folders_to_sync:
-      - src: "{{ src_root }}/models/"
-        dest: "{{ dest_root }}/models/"
-      - src: "{{ src_root }}/static-metadata/faces/"
-        dest: "{{ dest_root }}/static-metadata/faces/"
-      - src: "{{ src_root }}/static-metadata/locations/"
-        dest: "{{ dest_root }}/static-metadata/locations/"
+      - src: "{{ src_root }}/zesha_media/"
+        dest: "{{ dest_root }}/"
+      # - src: "{{ src_root }}/static-metadata/faces/"
+      #   dest: "{{ dest_root }}/static-metadata/faces/"
+      # - src: "{{ src_root }}/static-metadata/locations/"
+      #   dest: "{{ dest_root }}/static-metadata/locations/"
 
   tasks:
-    - name: Synchronize folders
+      name: Synchronize folders
       ansible.posix.synchronize:
         src: "{{ item.src }}"
         dest: "{{ item.dest }}"
