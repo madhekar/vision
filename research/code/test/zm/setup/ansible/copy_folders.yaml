@@ -7,13 +7,15 @@
         src: "{{ item.src_path }}"
         dest: "{{ item.dest_path }}"
         mode: push # or pull, depending on your requirement
-        delete: no # Use with caution!
+        delete: yes # Use with caution!
       loop:
-        - { src_path: "/home/madhekar/work/home-media-app/data/static-metadata/faces/", dest_path: "/home/madhekar/work/home-media-app/data/static-metadata/faces/" }
-        - { src_path: "/home/madhekar/work/home-media-app/data/static-metadata/locations/default/", dest_path: "/home/madhekar/work/home-media-app/data/static-metadata/locations/default/" }
-        - { src_path: "/home/madhekar/work/home-media-app/data/static-metadata/locations/user-specific/", dest_path: "/home/madhekar/work/home-media-app/data/static-metadata/locations/user-specific/" }
-        - { src_path: "/home/madhekar/work/home-media-app/models/faces-embeddings/", dest_path: "/home/madhekar/work/home-media-app/models/faces-embeddings/" }
+        - { src_path: "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces/", dest_path: "/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces/" }
+        - { src_path: "/home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/default/", dest_path: "/home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/default/" }
+        - { src_path: "/home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific/", dest_path: "/home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific/" }
+        - { src_path: "/home/madhekar/work/home-media-app/models/faces_embeddings/", dest_path: "/home/madhekar/work/home-media-app/models/faces_embeddings/" }
         - { src_path: "/home/madhekar/work/home-media-app/models/faces_label_enc/", dest_path: "/home/madhekar/work/home-media-app/models/faces_label_enc/" }
         - { src_path: "/home/madhekar/work/home-media-app/models/faces_svc/", dest_path: "/home/madhekar/work/home-media-app/models/faces_svc/" }
         - { src_path: "/home/madhekar/work/home-media-app/models/image_classify_filter/", dest_path: "/home/madhekar/work/home-media-app/models/image_classify_filter/" }
+        - { src_path: "/home/madhekar/work/home-media-app/data/app-data/qa/face-detection/", dest_path: "/home/madhekar/work/home-media-app/data/app-data/qa/face-detection/" }
+
         
