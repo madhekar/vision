@@ -1,4 +1,6 @@
 qa:
+  vars:
+    ansible_user: madhekar 
   hosts:
     192.168.68.118:
 prod:
