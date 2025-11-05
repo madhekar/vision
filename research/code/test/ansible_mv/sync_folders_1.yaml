@@ -1,0 +1,13 @@
+---
+- name: Synchronize folders
+  hosts: qa
+  tasks:
+    - name: Sync individual folders
+      ansible.builtin.synchronize:
+        src: "{{ item.src_path }}"
+        dest: "{{ item.dest_path }}"
+        mode: push # or pull, depending on your requirement
+        delete: yes # Use with caution!
+      loop:
+        - { src_path: "/Users/emadhekar/work/image_video//zesha_media/", dest_path: "/home/madhekar/temp/" }
+        
