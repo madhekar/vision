@@ -9,5 +9,5 @@
         mode: push # or pull, depending on your requirement
         delete: no # Use with caution!
       loop:
-        - { src_path: "/Users/emadhekar/work/image_video//zesha_media/", dest_path: "/home/madhekar/temp/" }
+        - { src_path: "/Users/emadhekar/work/image_video/zesha_media/", dest_path: "/home/madhekar/temp/" }
         
