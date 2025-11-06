@@ -1,8 +1,3 @@
 app-config:
   appdata_root_path: /home/madhekar/work/home-media-app
   approot_path: /home/madhekar/work/vision/research/code/test/zm  
-
-zmedia-setup:
-  zmedia_path: ../zmedia-sample
-  zmedia_file: zesha_media.tar.gz 
-  raw_data_path: data/raw-data

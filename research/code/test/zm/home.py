@@ -31,12 +31,11 @@ st.set_page_config(
             zmedia_dest
 """
 def load_app_configuration():
-    root_data, root_app, zmedia_path, zmedia_file, zmedia_dest = config.app_config_load()
+    root_data, root_app = config.app_config_load()
     print(f'app root: {root_app} data root: {root_data}')
     if not os.path.exists(root_data):
         ap, dp, mp,  = config.setup_config_load()
         sa.folder_setup(ap, dp, mp)
-        sa.create_zmedia_sample(os.path.join(root_data,zmedia_path), zmedia_file, os.path.join(root_data,zmedia_dest) )
     else:    
         cnt = ss.remove_all_files_by_type(root_app, 'I')
         if cnt > 0:

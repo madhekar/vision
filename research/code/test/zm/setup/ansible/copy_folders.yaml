@@ -1,0 +1,24 @@
+---
+- name: Synchronize folders
+  hosts: prod
+  vars:
+    src_base: "/home/madhekar/work/home-media-app/"
+    dest_base: "/home/madhekar/work/home-media-app/"
+  tasks:
+    - name: Sync individual folders
+      ansible.builtin.synchronize:
+        src: "{{ item.src_path }}"
+        dest: "{{ item.dest_path }}"
+        mode: push # or pull, depending on your requirement
+        delete: yes # Use with caution!
+      loop:
+        - { src_path: "{{src_base}}/data/app-data/static-metadata/faces/", dest_path: "{{dest_base}}/data/app-data/static-metadata/faces/" }
+        - { src_path: "{{src_base}}/data/app-data/static-metadata/locations/default/", dest_path: "{{dest_base}}/data/app-data/static-metadata/locations/default/" }
+        - { src_path: "{{src_base}}/data/app-data/static-metadata/locations/user-specific/", dest_path: "{{dest_base}}/data/app-data/static-metadata/locations/user-specific/" }
+        - { src_path: "{{src_base}}/models/faces_embeddings/", dest_path: "{{dest_base}}/models/faces_embeddings/" }
+        - { src_path: "{{src_base}}/models/faces_label_enc/", dest_path: "{{dest_base}}/models/faces_label_enc/" }
+        - { src_path: "{{src_base}}/models/faces_svc/", dest_path: "{{dest_base}}/models/faces_svc/" }
+        - { src_path: "{{src_base}}/models/image_classify_filter/", dest_path: "{{dest_base}}/models/image_classify_filter/" }
+        - { src_path: "{{src_base}}/data/app-data/qa/face-detection/", dest_path: "{{dest_base}}/data/app-data/qa/face-detection/" }
+
+        
