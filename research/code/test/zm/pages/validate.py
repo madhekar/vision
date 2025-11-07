@@ -55,7 +55,7 @@ def exe():
 
     st.sidebar.subheader("SELECT DATA SOURCE", divider="gray")
 
-    user_source_selected = st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders(raw_data_path),label_visibility="collapsed", index=1)
+    user_source_selected = st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders(raw_data_path),label_visibility="collapsed", index=0)
     color_selectbox(0, color=colors[0])
     # cn = mp.cpu_count()
     # npar = cn // 2
