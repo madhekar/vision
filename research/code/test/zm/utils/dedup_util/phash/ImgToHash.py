@@ -4,6 +4,7 @@ import time
 import imagehash
 import pandas as pd
 from PIL import Image
+import cv2
 # from natsort import natsorted
 import streamlit as st
 from tqdm import tqdm
@@ -47,6 +48,8 @@ class ImageToHash(object):
         :param hash_algo: The hash algorithm.
         :return: an ImageHash.
         """
+        img =cv2.imread(image_path)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         return hash_algo_dict[hash_algo](Image.open(image_path), hash_size=hash_size)
 
     @staticmethod
