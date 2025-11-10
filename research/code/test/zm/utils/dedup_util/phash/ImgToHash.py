@@ -47,7 +47,7 @@ class ImageToHash(object):
         :param hash_algo: The hash algorithm.
         :return: an ImageHash.
         """
-
+        print(f"--> {image_path}")
         img = Image.open(image_path)
         #if img.verify():
         return hash_algo_dict[hash_algo](img, hash_size=hash_size)
