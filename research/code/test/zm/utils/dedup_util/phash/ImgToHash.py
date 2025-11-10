@@ -211,13 +211,14 @@ class ImageToHash(object):
         sm.add_messages('duplicate', 's|target the results...')
         with tqdm(total=len(result_list), desc='duplicate target results', unit='items', unit_scale=True) as pbar:
             for i, sublist in enumerate(result_list):
-                row = sublist.get()
-                if i == 0:
-                    df_hashes = pd.DataFrame(row)
-                else:
-                    temp = pd.DataFrame(row)
-                    df_hashes = pd.concat([df_hashes, temp], ignore_index=True)
-                    #df_hashes = df_hashes.append(temp, ignore_index=True)
+                if sublist.ready():
+                    row = sublist.get()
+                    if i == 0:
+                        df_hashes = pd.DataFrame(row)
+                    else:
+                        temp = pd.DataFrame(row)
+                        df_hashes = pd.concat([df_hashes, temp], ignore_index=True)
+                        #df_hashes = df_hashes.append(temp, ignore_index=True)
                 pbar.update(1)
 
         return df_hashes
