@@ -9,7 +9,7 @@ import streamlit as st
 from tqdm import tqdm
 from utils.util import statusmsg_util as sm
 
-ImageFile.LOAD_TRUNCATED_IMAGES = True
+#ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 hash_algo_dict = {
     "average_hash": imagehash.average_hash,
@@ -52,7 +52,7 @@ class ImageToHash(object):
         try:
            print(f"--> {image_path}")
            img = Image.open(image_path)
-           img.verify()
+           #img.verify()
            return hash_algo_dict[hash_algo](img, hash_size=hash_size)
         except Exception as e:
             print(f"Excetion occurred loading {image_path}: {e}")
