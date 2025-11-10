@@ -4,7 +4,6 @@ import time
 import imagehash
 import pandas as pd
 from PIL import Image
-import cv2
 # from natsort import natsorted
 import streamlit as st
 from tqdm import tqdm
@@ -48,12 +47,10 @@ class ImageToHash(object):
         :param hash_algo: The hash algorithm.
         :return: an ImageHash.
         """
-        #img =cv2.imread(image_path)
-        #img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        
+
         img = Image.open(image_path)
-        if img.verify():
-           return hash_algo_dict[hash_algo](Image.open(image_path), hash_size=hash_size)
+        #if img.verify():
+        return hash_algo_dict[hash_algo](img, hash_size=hash_size)
 
     @staticmethod
     def get_images_list(path, natural_order=True):
@@ -217,14 +214,14 @@ class ImageToHash(object):
         sm.add_messages('duplicate', 's|target the results...')
         with tqdm(total=len(result_list), desc='duplicate target results', unit='items', unit_scale=True) as pbar:
             for i, sublist in enumerate(result_list):
-                if sublist.ready():
-                    row = sublist.get()
-                    if i == 0:
-                        df_hashes = pd.DataFrame(row)
-                    else:
-                        temp = pd.DataFrame(row)
-                        df_hashes = pd.concat([df_hashes, temp], ignore_index=True)
-                        #df_hashes = df_hashes.append(temp, ignore_index=True)
+                #if sublist.ready():
+                row = sublist.get()
+                if i == 0:
+                    df_hashes = pd.DataFrame(row)
+                else:
+                    temp = pd.DataFrame(row)
+                    df_hashes = pd.concat([df_hashes, temp], ignore_index=True)
+                    #df_hashes = df_hashes.append(temp, ignore_index=True)
                 pbar.update(1)
 
         return df_hashes
