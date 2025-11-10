@@ -3,11 +3,13 @@ import os
 import time
 import imagehash
 import pandas as pd
-from PIL import Image
+from PIL import Image, ImageFile
 # from natsort import natsorted
 import streamlit as st
 from tqdm import tqdm
 from utils.util import statusmsg_util as sm
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 hash_algo_dict = {
     "average_hash": imagehash.average_hash,
@@ -47,10 +49,13 @@ class ImageToHash(object):
         :param hash_algo: The hash algorithm.
         :return: an ImageHash.
         """
-        print(f"--> {image_path}")
-        img = Image.open(image_path)
-        #if img.verify():
-        return hash_algo_dict[hash_algo](img, hash_size=hash_size)
+        try:
+           print(f"--> {image_path}")
+           img = Image.open(image_path)
+           img.verify()
+           return hash_algo_dict[hash_algo](img, hash_size=hash_size)
+        except Exception as e:
+            print(f"Excetion occurred loading {image_path}: {e}")
 
     @staticmethod
     def get_images_list(path, natural_order=True):
