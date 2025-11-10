@@ -50,7 +50,7 @@ class ImageToHash(object):
         """
         img =cv2.imread(image_path)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        return hash_algo_dict[hash_algo](Image.open(image_path), hash_size=hash_size)
+        return hash_algo_dict[hash_algo](img, hash_size=hash_size)
 
     @staticmethod
     def get_images_list(path, natural_order=True):
