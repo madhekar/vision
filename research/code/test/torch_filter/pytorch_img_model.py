@@ -5,7 +5,7 @@ import torch.optim as optim
 from torchvision import datasets, models, transforms
 from torch.utils.data import DataLoader
 
-device = (torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu"))
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 num_epochs = 50
 
 data_transforms = {
@@ -30,6 +30,7 @@ dataset_sizes = {x: len(image_datasets[x]) for x in ['training', 'validation']}
 class_names = image_datasets['training'].classes
 
 model_ft = models.mobilenet_v2(pretrained=True)
+model_ft.to(device)
 # Or for MobileNetV3:
 # model_ft = models.mobilenet_v3_large(pretrained=True)
 
