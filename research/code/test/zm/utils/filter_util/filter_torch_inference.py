@@ -35,7 +35,14 @@ def init_filter_model():
 
     inverted_classes = dict(zip(class_names.values(), class_names.keys()))
     print(f"---* {inverted_classes}: {image_size}")
-    return model, inverted_classes, image_size_int
+
+    preprocess = transforms.Compose([
+        transforms.Resize(256),
+        transforms.CenterCrop(sz),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    ])
+    return model, inverted_classes, image_size_int, preprocess
 
 def prep_img_infer(img, m, ic, isz,pp):
 
@@ -50,19 +57,15 @@ def prep_img_infer(img, m, ic, isz,pp):
     with torch.no_eval():
         out = m(input_batch)
 
-
+    probs = torch.nn.functional.softmax(out[0], dim=0)
+    top_prob, top_catid = torch.topk(probs, 1)
+    print(f"class {top_catid}, prob: {top_prob.item()}")
+    return top_catid
 
 def execute():
 
     img = "/home/madhekar/work/home-media-app/data/input-data/img/madhekar/2596441a-e02f-588c-8df4-dc66a133fc99/af23fb36-9e89-4b81-9990-020b02fe1056.jpg"
 
-    model, inverted_classes, isz = init_filter_model()
-
-    preprocess = transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(isz),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-    ])
+    model, inverted_classes, isz, preprocess = init_filter_model()
 
     prep_img_infer(img, model=model, class_names=inverted_classes, image_size=isz, preprocess=preprocess)
