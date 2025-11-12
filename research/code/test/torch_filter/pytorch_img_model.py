@@ -5,7 +5,7 @@ import torch.optim as optim
 from torchvision import datasets, models, transforms
 from torch.utils.data import DataLoader
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 num_epochs = 50
 
 data_transforms = {
@@ -35,10 +35,10 @@ model_ft.to(device)
 # model_ft = models.mobilenet_v3_large(pretrained=True)
 
 num_ftrs = model_ft.classifier[1].in_features
-model_ft.classifier[1] = nn.Linear(num_ftrs, len(class_names))
+model_ft.classifier[1] = nn.Linear(num_ftrs, len(class_names)).to(device)
 
 criterion = nn.CrossEntropyLoss().to(device)
-optimizer_ft = optim.SGD(model_ft.parameters(), lr=0.001, momentum=0.9).to(device)
+optimizer_ft = optim.SGD(model_ft.parameters(), lr=0.001, momentum=0.9 )
 
 # Example traininging loop snippet
 for epoch in range(num_epochs):
@@ -59,7 +59,6 @@ for epoch in range(num_epochs):
 
             with torch.set_grad_enabled(phase == 'train'):
                 outputs = model_ft(inputs)
-                print(f"--> {outputs}")
                 _, preds = torch.max(outputs, 1)
                 loss = criterion(outputs, labels)
 
