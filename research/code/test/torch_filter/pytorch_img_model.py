@@ -6,7 +6,7 @@ from torchvision import datasets, models, transforms
 from torch.utils.data import DataLoader
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-num_epochs = 50
+num_epochs = 500
 
 data_transforms = {
     'training': transforms.Compose([
@@ -25,7 +25,7 @@ data_transforms = {
 
 data_dir = '/home/madhekar/temp/filter' # Replace with your dataset path
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x), data_transforms[x]) for x in ['training', 'validation']}
-dataloaders = {x: DataLoader(image_datasets[x], batch_size=4, shuffle=True, num_workers=4) for x in ['training', 'validation']}
+dataloaders = {x: DataLoader(image_datasets[x], batch_size=16, shuffle=True, num_workers=4) for x in ['training', 'validation']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['training', 'validation']}
 class_names = image_datasets['training'].classes
 print(f"num classes: {class_names}")
@@ -78,3 +78,7 @@ for epoch in range(num_epochs):
         print(f'{phase} Loss: {epoch_loss:.4f} Acc: {epoch_acc:.4f}')
 
 
+torch.save(model_ft.state_dict(), "filter_model.pth")
+
+filter_model = torch.load("filter_model.pth")
+filter_model.eval()
