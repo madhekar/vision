@@ -59,6 +59,7 @@ for epoch in range(num_epochs):
 
             with torch.set_grad_enabled(phase == 'train'):
                 outputs = model_ft(inputs)
+                outputs = outputs.to(device)
                 _, preds = torch.max(outputs, 1)
                 loss = criterion(outputs, labels)
 
