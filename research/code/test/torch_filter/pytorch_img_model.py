@@ -6,7 +6,7 @@ from torchvision import datasets, models, transforms
 from torch.utils.data import DataLoader
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-num_epochs = 500
+num_epochs = 100
 
 data_transforms = {
     'training': transforms.Compose([
@@ -60,12 +60,12 @@ for epoch in range(num_epochs):
 
             optimizer_ft.zero_grad()
 
-            with torch.set_grad_enabled(phase == 'train'):
+            with torch.set_grad_enabled(phase == "training"):
                 outputs = model_ft(inputs)
                 _, preds = torch.max(outputs, 1)
                 loss = criterion(outputs, labels)
 
-                if phase == 'train':
+                if phase == "training":
                     loss.backward()
                     optimizer_ft.step()
 
