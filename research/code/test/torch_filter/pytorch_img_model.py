@@ -38,7 +38,7 @@ num_ftrs = model_ft.classifier[1].in_features
 model_ft.classifier[1] = nn.Linear(num_ftrs, len(class_names))
 
 criterion = nn.CrossEntropyLoss().to(device)
-optimizer_ft = optim.SGD(model_ft.parameters(), lr=0.001, momentum=0.9)
+optimizer_ft = optim.SGD(model_ft.parameters(), lr=0.001, momentum=0.9).to(device)
 
 # Example traininging loop snippet
 for epoch in range(num_epochs):
