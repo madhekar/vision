@@ -29,7 +29,7 @@ dataloaders = {x: DataLoader(image_datasets[x], batch_size=4, shuffle=True, num_
 dataset_sizes = {x: len(image_datasets[x]) for x in ['training', 'validation']}
 class_names = image_datasets['training'].classes
 
-model_ft = models.mobilenet_v2(pretrained=True)
+model_ft = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.IMAGENET1K_V2)
 model_ft.to(device)
 # Or for MobileNetV3:
 # model_ft = models.mobilenet_v3_large(pretrained=True)
