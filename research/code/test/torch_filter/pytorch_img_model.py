@@ -37,7 +37,7 @@ model_ft.to(device)
 num_ftrs = model_ft.classifier[1].in_features
 model_ft.classifier[1] = nn.Linear(num_ftrs, len(class_names))
 
-criterion = nn.CrossEntropyLoss()
+criterion = nn.CrossEntropyLoss().to(device)
 optimizer_ft = optim.SGD(model_ft.parameters(), lr=0.001, momentum=0.9)
 
 # Example traininging loop snippet
@@ -58,7 +58,7 @@ for epoch in range(num_epochs):
             optimizer_ft.zero_grad()
 
             with torch.set_grad_enabled(phase == 'train'):
-                outputs = model_ft(inputs).to(device)
+                outputs = model_ft(inputs)
                 print(f"--> {outputs}")
                 _, preds = torch.max(outputs, 1)
                 loss = criterion(outputs, labels)
