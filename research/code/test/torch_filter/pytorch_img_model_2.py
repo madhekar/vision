@@ -9,26 +9,35 @@ import os
 num_epochs = 50
 # 1. Load the pre-trained MobileNetV3_Large model
 # You can choose 'mobilenet_v3_small' if needed
-model_ft = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.IMAGENET1K_V1)
+#model_ft = models.mobilenet_v3_small(weights=models.MobileNet_V3_Small_Weights.IMAGENET1K_V1)
+
+model_ft = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
 
 # 2. Modify the classifier for your specific task
 # MobileNetV3's classifier is a sequential block. The last layer is the one we replace.
 # The `in_features` for the new linear layer needs to match the `out_features` of the layer before it.
-num_ftrs = model_ft.classifier[-1].in_features
-num_classes = 3 # Replace with the actual number of classes in your dataset
-model_ft.classifier[-1] = nn.Linear(num_ftrs, num_classes)
+
+# num_ftrs = model_ft.classifier[-1].in_features
+# num_classes = 3 # Replace with the actual number of classes in your dataset
+# model_ft.classifier[-1] = nn.Linear(num_ftrs, num_classes)
+
+
+num_classes = 3 # Replace with your actual number of classes
+model_ft.fc = nn.Linear(model_ft.fc.in_features, num_classes)
 
 # 3. (Optional) Freeze earlier layers
 # This is common in fine-tuning to prevent overfitting and speed up training,
 # especially when your dataset is small.
-for param in model_ft.features.parameters():
-    param.requires_grad = False
+# for param in model_ft.features.parameters():
+#     param.requires_grad = False
 
 # 4. Define your data transformations
 data_transforms = {
     'train': transforms.Compose([
         transforms.RandomResizedCrop(224),
-        transforms.RandomHorizontalFlip(),
+        transforms.RandomHorizontalFlip(p=0.5),
+        transforms.ColorJitter(brightness=0.2, contrast=0.2),
+        transforms.RandomVerticalFlip(p=0.2),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),

@@ -35,18 +35,21 @@ dataset_sizes = {x: len(image_datasets[x]) for x in ['training', 'validation']}
 class_names = image_datasets['training'].classes
 print(f"num classes: {class_names}")
 
-model_ft = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.IMAGENET1K_V2)
-
+#model_ft = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.IMAGENET1K_V2)
 # Or for MobileNetV3:
 # model_ft = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.IMAGENET1K_V1)
+
+model_ft = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
 model_ft.to(device)
 
-num_ftrs = model_ft.classifier[-1].in_features
+# num_ftrs = model_ft.classifier[-1].in_features
+# model_ft.classifier[-1] = nn.Linear(num_ftrs, len(class_names)).to(device)
 
-model_ft.classifier[-1] = nn.Linear(num_ftrs, len(class_names)).to(device)
+num_classes = 3  # Replace with your actual number of classes
+model_ft.fc = nn.Linear(model_ft.fc.in_features, num_classes)
 
-for param in model_ft.features.parameters():
-    param.requires_grad = False
+# for param in model_ft.features.parameters():
+#     param.requires_grad = False
 
 criterion = nn.CrossEntropyLoss().to(device)
 #optimizer_ft = optim.SGD(model_ft.parameters(), lr=0.00001)
