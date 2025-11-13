@@ -5,8 +5,8 @@ import torch.optim as optim
 from torchvision import datasets, models, transforms
 from torch.utils.data import DataLoader
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-num_epochs = 50
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+num_epochs = 100
 
 data_transforms = {
     'training': transforms.Compose([
@@ -25,20 +25,23 @@ data_transforms = {
 
 data_dir = '/home/madhekar/temp/filter' # Replace with your dataset path
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x), data_transforms[x]) for x in ['training', 'validation']}
-dataloaders = {x: DataLoader(image_datasets[x], batch_size=4, shuffle=True, num_workers=4) for x in ['training', 'validation']}
+dataloaders = {x: DataLoader(image_datasets[x], batch_size=16, shuffle=True, num_workers=4) for x in ['training', 'validation']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['training', 'validation']}
 class_names = image_datasets['training'].classes
+print(f"num classes: {class_names}")
 
-model_ft = models.mobilenet_v2(pretrained=True)
-model_ft.to(device)
+model_ft = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.IMAGENET1K_V2)
+
 # Or for MobileNetV3:
-# model_ft = models.mobilenet_v3_large(pretrained=True)
+model_ft = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.IMAGENET1K_V1)
+model_ft.to(device)
 
-num_ftrs = model_ft.classifier[1].in_features
-model_ft.classifier[1] = nn.Linear(num_ftrs, len(class_names))
+num_ftrs = model_ft.classifier[-1].in_features
+
+model_ft.classifier[-1] = nn.Linear(num_ftrs, len(class_names)).to(device)
 
 criterion = nn.CrossEntropyLoss().to(device)
-optimizer_ft = optim.SGD(model_ft.parameters(), lr=0.001, momentum=0.9).to(device)
+optimizer_ft = optim.SGD(model_ft.parameters(), lr=0.001, momentum=0.9 )
 
 # Example traininging loop snippet
 for epoch in range(num_epochs):
@@ -57,13 +60,12 @@ for epoch in range(num_epochs):
 
             optimizer_ft.zero_grad()
 
-            with torch.set_grad_enabled(phase == 'train'):
+            with torch.set_grad_enabled(phase == "training"):
                 outputs = model_ft(inputs)
-                print(f"--> {outputs}")
                 _, preds = torch.max(outputs, 1)
                 loss = criterion(outputs, labels)
 
-                if phase == 'train':
+                if phase == "training":
                     loss.backward()
                     optimizer_ft.step()
 
@@ -76,3 +78,7 @@ for epoch in range(num_epochs):
         print(f'{phase} Loss: {epoch_loss:.4f} Acc: {epoch_acc:.4f}')
 
 
+torch.save(model_ft.state_dict(), "filter_model.pth")
+
+filter_model = torch.load("filter_model.pth")
+filter_model.eval()
