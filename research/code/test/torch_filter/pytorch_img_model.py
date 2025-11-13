@@ -25,7 +25,7 @@ data_transforms = {
 
 data_dir = '/home/madhekar/temp/filter' # Replace with your dataset path
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x), data_transforms[x]) for x in ['training', 'validation']}
-dataloaders = {x: DataLoader(image_datasets[x], batch_size=8, shuffle=True, num_workers=4) for x in ['training', 'validation']}
+dataloaders = {x: DataLoader(image_datasets[x], batch_size=4, shuffle=True, num_workers=4) for x in ['training', 'validation']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['training', 'validation']}
 class_names = image_datasets['training'].classes
 print(f"num classes: {class_names}")
@@ -41,7 +41,7 @@ num_ftrs = model_ft.classifier[-1].in_features
 model_ft.classifier[-1] = nn.Linear(num_ftrs, len(class_names)).to(device)
 
 criterion = nn.CrossEntropyLoss().to(device)
-optimizer_ft = optim.SGD(model_ft.parameters(), lr=0.001, momentum=0.9 )
+optimizer_ft = optim.SGD(model_ft.parameters(), lr=0.00001, momentum=0.2 )
 
 # Example traininging loop snippet
 for epoch in range(num_epochs):
@@ -78,10 +78,13 @@ for epoch in range(num_epochs):
         print(f'{phase} Loss: {epoch_loss:.4f} Acc: {epoch_acc:.4f}')
 
 
-torch.save(model_ft.state_dict(), "filter_model_weights.pth")
+#torch.save(model_ft.state_dict(), "filter_model_weights.pth")
+torch.save(model_ft, "filter_model.pth")
 
-filter_model = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.IMAGENET1K_V1)
-filter_model.load_state_dict(torch.load("filter_model_weights.pth"))
+# filter_model = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.IMAGENET1K_V1)
+# filter_model.load_state_dict(torch.load("filter_model_weights.pth"))
+
+filter_model = torch.load("filter_model.pth")
 
 print(filter_model)
 
