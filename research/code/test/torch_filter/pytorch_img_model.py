@@ -8,6 +8,10 @@ from torch.utils.data import DataLoader
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 num_epochs = 50
 
+# def categorical_cross_entropy(pr, ta):
+#     epsilon = 1e-08
+
+
 data_transforms = {
     'training': transforms.Compose([
         transforms.RandomResizedCrop(224),
@@ -30,18 +34,22 @@ dataset_sizes = {x: len(image_datasets[x]) for x in ['training', 'validation']}
 class_names = image_datasets['training'].classes
 print(f"num classes: {class_names}")
 
-# model_ft = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.IMAGENET1K_V2)
+model_ft = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.IMAGENET1K_V2)
 
 # Or for MobileNetV3:
-model_ft = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.IMAGENET1K_V1)
+# model_ft = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.IMAGENET1K_V1)
 model_ft.to(device)
 
 num_ftrs = model_ft.classifier[-1].in_features
 
 model_ft.classifier[-1] = nn.Linear(num_ftrs, len(class_names)).to(device)
 
+for param in model_ft.features.parameters():
+    param.requires_grad = False
+
 criterion = nn.CrossEntropyLoss().to(device)
-optimizer_ft = optim.SGD(model_ft.parameters(), lr=0.00001, momentum=0.2 )
+#optimizer_ft = optim.SGD(model_ft.parameters(), lr=0.00001)
+optimizer_ft = optim.Adam(model_ft.parameters(), lr=0.001, betas=(0.9, 0.99), eps=1e-08)
 
 # Example traininging loop snippet
 for epoch in range(num_epochs):
