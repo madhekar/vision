@@ -15,7 +15,7 @@ model_ft = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.I
 # MobileNetV3's classifier is a sequential block. The last layer is the one we replace.
 # The `in_features` for the new linear layer needs to match the `out_features` of the layer before it.
 num_ftrs = model_ft.classifier[-1].in_features
-num_classes = 10 # Replace with the actual number of classes in your dataset
+num_classes = 3 # Replace with the actual number of classes in your dataset
 model_ft.classifier[-1] = nn.Linear(num_ftrs, num_classes)
 
 # 3. (Optional) Freeze earlier layers
@@ -83,7 +83,7 @@ dataloaders = {
     x: DataLoader(image_datasets[x], batch_size=16, shuffle=True, num_workers=4)
     for x in ['train', 'val']
 }
-
+#print(image_datasets)
 # 6. Define loss function and optimizer
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model_ft.parameters(), lr=0.001) # Or selectively optimize only the new layer
@@ -94,6 +94,8 @@ model_ft = model_ft.to(device)
 
 for epoch in range(num_epochs):
     # Training phase
+    epoch_loss = 0.0
+    running_loss = 0.0
     model_ft.train()
     for inputs, labels in dataloaders['train']:
         inputs, labels = inputs.to(device), labels.to(device)
@@ -103,6 +105,10 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
 
+        running_loss += loss.item() * inputs.size(0)
+    epoch_loss = running_loss / 16   
+    print(f"epoch {epoch} / {num_epochs} loss: {epoch_loss}")
+
     # Validation phase
     model_ft.eval()
     with torch.no_grad():
@@ -110,3 +116,4 @@ for epoch in range(num_epochs):
             inputs, labels = inputs.to(device), labels.to(device)
             outputs = model_ft(inputs)
             # Calculate validation metrics
+            loss = criterion(outputs, labels)

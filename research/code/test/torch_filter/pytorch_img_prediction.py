@@ -4,7 +4,49 @@ import torch
 import torchvision.transforms as transforms
 from PIL import Image
 import torch.nn.functional as F
+"""
 
+Calculating validation metrics involves assessing the performance of a model or system against a defined set of criteria. 
+The specific metrics and calculation methods depend on the nature of the task (e.g., classification, regression, or data validation) and the desired insights.
+For Machine Learning Model Validation:
+1. Classification Metrics:
+
+    Accuracy: (True Positives + True Negatives) / Total Samples
+    Precision: True Positives / (True Positives + False Positives)
+    Recall (Sensitivity): True Positives / (True Positives + False Negatives)
+    F1-Score: 2 * (Precision * Recall) / (Precision + Recall)
+    ROC AUC: Area Under the Receiver Operating Characteristic curve, measuring the trade-off between True Positive Rate and False Positive Rate at various thresholds.
+    Confusion Matrix: A table summarizing the counts of True Positives, True Negatives, False Positives, and False Negatives. 
+
+2. Regression Metrics:
+
+    Mean Absolute Error (MAE): Average of the absolute differences between predicted and actual values.
+    Mean Squared Error (MSE): Average of the squared differences between predicted and actual values.
+    Root Mean Squared Error (RMSE): Square root of the MSE.
+    R-squared: Proportion of variance in the dependent variable predictable from the independent variables. 
+
+3. Cross-Validation:
+
+    Divide the dataset into K folds.
+    Train the model on K-1 folds and validate on the remaining fold.
+    Repeat this process K times, using each fold once for validation.
+    Average the metrics across all folds to get a robust estimate of model performance. 
+
+For Data Validation or System Validation:
+
+    Error Rate: Number of failing elements or instances divided by the total number of elements or instances.
+    Compliance Rate: Number of compliant elements or instances divided by the total.
+    Specific Rule-Based Metrics: Define metrics based on the specific validation rules being applied (e.g., number of missing values, number of values outside a specified range). 
+
+General Steps for Calculation:
+
+    Define the Validation Criteria: Clearly specify what constitutes a "correct" or "valid" outcome.
+    Obtain Validation Data: Use a separate dataset (test set) or employ cross-validation techniques to evaluate performance on unseen data.
+    Apply the Model/System: Generate predictions or results on the validation data.
+    Compare to Ground Truth: Compare the predictions/results to the actual known outcomes or predefined standards.
+    Calculate Metrics: Apply the relevant formulas to quantify the performance based on the comparisons.
+    Analyze and Interpret: Evaluate the calculated metrics to understand the strengths and weaknesses of the model or system.
+"""
 def load_filter_model():
     # 1. Load a pre-trained model (e.g., ResNet18)
     # For a custom model, you would define your model architecture and load its state_dict
@@ -56,7 +98,7 @@ def predict_type(img_path, class_name, filter_model, preprocess):
 
 if __name__=="__main__":
     m, p = load_filter_model()
-    testing_root = r"/home/madhekar/temp/filter/testing/"
+    testing_root = "/home/madhekar/temp/filter/testing/"
     try:
         entries =os.listdir(testing_root)
         print(entries)
