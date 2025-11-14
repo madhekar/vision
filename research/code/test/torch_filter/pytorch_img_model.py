@@ -42,7 +42,7 @@ print(f"num classes: {class_names} class to idx: {class_mappings}")
 
 #model_ft = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.IMAGENET1K_V2)
 # Or for MobileNetV3:
-model_ft = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.IMAGENET1K_V2)
+model_ft = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.IMAGENET1K_V1)
 
 # model_ft = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V2)
 model_ft.to(device)
