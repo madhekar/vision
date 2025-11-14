@@ -99,7 +99,7 @@ torch.save(class_mappings, "label_mappings.pth")
 # filter_model = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.IMAGENET1K_V1)
 # filter_model.load_state_dict(torch.load("filter_model_weights.pth"))
 
-filter_model = torch.load("filter_model.pth")
+filter_model = torch.load("filter_model.pth", weights_only=False)
 
 class_map = torch.load("label_mappings.pth")
 

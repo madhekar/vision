@@ -50,7 +50,7 @@ General Steps for Calculation:
 def load_filter_model():
     # 1. Load a pre-trained model (e.g., ResNet18)
     # For a custom model, you would define your model architecture and load its state_dict
-    filter_model = torch.load("filter_model.pth")
+    filter_model = torch.load("filter_model.pth", weights_only=False)
     class_mapping = torch.load("label_mappings.pth")
     class_mapping =  ast.literal_eval(class_mapping)
     print(class_mapping)
