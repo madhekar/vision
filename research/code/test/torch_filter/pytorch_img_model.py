@@ -47,7 +47,7 @@ model_ft.to(device)
 # model_ft.classifier[-1] = nn.Linear(num_ftrs, len(class_names)).to(device)
 
 num_classes = 3  # Replace with your actual number of classes
-model_ft.fc = nn.Linear(model_ft.fc.in_features, num_classes)
+model_ft.fc = nn.Linear(model_ft.fc.in_features, num_classes).to(device)
 
 # for param in model_ft.features.parameters():
 #     param.requires_grad = False
