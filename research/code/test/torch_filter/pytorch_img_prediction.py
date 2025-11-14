@@ -4,8 +4,9 @@ import torch
 import torchvision.transforms as transforms
 from PIL import Image
 import torch.nn.functional as F
-"""
 
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+"""
 Calculating validation metrics involves assessing the performance of a model or system against a defined set of criteria. 
 The specific metrics and calculation methods depend on the nature of the task (e.g., classification, regression, or data validation) and the desired insights.
 For Machine Learning Model Validation:
@@ -51,6 +52,7 @@ def load_filter_model():
     # 1. Load a pre-trained model (e.g., ResNet18)
     # For a custom model, you would define your model architecture and load its state_dict
     filter_model = torch.load("filter_model.pth", weights_only=False)
+    filter_model.to(device)
     class_mapping = torch.load("label_mappings.pth")
     #class_mapping =  ast.literal_eval(class_mapping)
     print(class_mapping)
@@ -77,7 +79,7 @@ def predict_type(img_path, class_name, filter_model, preprocess):
 
     # 4. Make a prediction
     with torch.no_grad(): # Disable gradient calculation for inference
-        output = filter_model(input_batch)
+        output = filter_model(input_batch.to(device))
 
     # 5. Interpret the output
     # For ImageNet, there are 1000 classes.
