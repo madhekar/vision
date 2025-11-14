@@ -69,7 +69,7 @@ def load_filter_model():
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
-    return filter_model, preprocess
+    return filter_model, preprocess, class_mapping
 
 def predict_type(img_path, class_name, class_map,  filter_model, preprocess):
     # 3. Load and preprocess the image
@@ -102,7 +102,7 @@ def predict_type(img_path, class_name, class_map,  filter_model, preprocess):
     print(f"actual class: {class_name}")
 
 if __name__=="__main__":
-    m, p = load_filter_model()
+    m, p, class_map = load_filter_model()
     
     testing_root = "/home/madhekar/temp/filter/testing/"
     try:
@@ -122,7 +122,7 @@ if __name__=="__main__":
                     img_file = os.path.join(loc_path,  file)
                     class_name = type
                     print(img_file, class_name)
-                    predict_type(img_file, class_name, m, p)
+                    predict_type(img_file, class_name, class_map, m, p)
 
     except Exception as e:
         print(f"failed with : {e}")                
