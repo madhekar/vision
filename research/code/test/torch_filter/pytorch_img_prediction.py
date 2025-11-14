@@ -71,7 +71,7 @@ def load_filter_model():
     ])
     return filter_model, preprocess
 
-def predict_type(img_path, class_name, filter_model, preprocess):
+def predict_type(img_path, class_name, class_map,  filter_model, preprocess):
     # 3. Load and preprocess the image
     # Replace 'path/to/your/image.jpg' with the actual path to your image
     input_image = Image.open(img_path).convert('RGB')
@@ -94,11 +94,11 @@ def predict_type(img_path, class_name, filter_model, preprocess):
     # Example:
     # with open("imagenet_classes.txt", "r") as f:
     #     imagenet_classes = [line.strip() for line in f.readlines()]
-    # predicted_class_name = imagenet_classes[predicted_class_idx.item()]
+    predicted_class_name = class_map[predicted_class_idx.item()]
 
     print(f"Predicted class index: {predicted_class_idx.item()}")
     print(f"Predicted probability: {predicted_probability.item():.4f}")
-    # print(f"Predicted class name: {predicted_class_name}") # If class names are available
+    print(f"Predicted class name: {predicted_class_name}") # If class names are available
     print(f"actual class: {class_name}")
 
 if __name__=="__main__":
