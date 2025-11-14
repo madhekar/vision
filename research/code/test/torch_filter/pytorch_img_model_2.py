@@ -11,7 +11,10 @@ num_epochs = 50
 # You can choose 'mobilenet_v3_small' if needed
 #model_ft = models.mobilenet_v3_small(weights=models.MobileNet_V3_Small_Weights.IMAGENET1K_V1)
 
-model_ft = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
+#model_ft = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
+
+model_ft = models.alexnet(pretrained=True)
+model_ft.classifier[6] = torch.nn.Linear(model_ft.classifier[6].in_features, 3)
 
 # 2. Modify the classifier for your specific task
 # MobileNetV3's classifier is a sequential block. The last layer is the one we replace.
@@ -22,8 +25,8 @@ model_ft = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
 # model_ft.classifier[-1] = nn.Linear(num_ftrs, num_classes)
 
 
-num_classes = 3 # Replace with your actual number of classes
-model_ft.fc = nn.Linear(model_ft.fc.in_features, num_classes)
+#num_classes = 3 # Replace with your actual number of classes
+#model_ft.fc = nn.Linear(model_ft.fc.in_features, num_classes)
 
 # 3. (Optional) Freeze earlier layers
 # This is common in fine-tuning to prevent overfitting and speed up training,
