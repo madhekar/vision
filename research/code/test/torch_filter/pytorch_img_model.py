@@ -33,13 +33,14 @@ print(image_datasets)
 dataloaders = {x: DataLoader(image_datasets[x], batch_size=4, shuffle=True, num_workers=4) for x in ['training', 'validation']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['training', 'validation']}
 class_names = image_datasets['training'].classes
-print(f"num classes: {class_names}")
+class_mappings =  image_datasets['training'].class_to_idx
+print(f"num classes: {class_names} class to idx: {class_mappings}")
 
 #model_ft = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.IMAGENET1K_V2)
 # Or for MobileNetV3:
 # model_ft = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.IMAGENET1K_V1)
 
-model_ft = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
+model_ft = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V2)
 model_ft.to(device)
 
 # num_ftrs = model_ft.classifier[-1].in_features
@@ -93,10 +94,16 @@ for epoch in range(num_epochs):
 #torch.save(model_ft.state_dict(), "filter_model_weights.pth")
 torch.save(model_ft, "filter_model.pth")
 
+torch.save(class_mappings, "label_mappings.pth")
+
 # filter_model = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.IMAGENET1K_V1)
 # filter_model.load_state_dict(torch.load("filter_model_weights.pth"))
 
 filter_model = torch.load("filter_model.pth")
+
+class_map = torch.load("label_mappings.pth")
+
+print(class_mappings)
 
 print(filter_model)
 

@@ -1,5 +1,5 @@
 import os
-import glob
+import ast
 import torch
 import torchvision.transforms as transforms
 from PIL import Image
@@ -51,7 +51,9 @@ def load_filter_model():
     # 1. Load a pre-trained model (e.g., ResNet18)
     # For a custom model, you would define your model architecture and load its state_dict
     filter_model = torch.load("filter_model.pth")
-
+    class_mapping = torch.load("label_mappings.pth")
+    class_mapping =  ast.literal_eval(class_mapping)
+    print(class_mapping)
     print(filter_model)
 
     filter_model.eval()# Set the model to evaluation mode
@@ -94,10 +96,11 @@ def predict_type(img_path, class_name, filter_model, preprocess):
     print(f"Predicted class index: {predicted_class_idx.item()}")
     print(f"Predicted probability: {predicted_probability.item():.4f}")
     # print(f"Predicted class name: {predicted_class_name}") # If class names are available
-    print(f"actuial class: {class_name}")
+    print(f"actual class: {class_name}")
 
 if __name__=="__main__":
     m, p = load_filter_model()
+    
     testing_root = "/home/madhekar/temp/filter/testing/"
     try:
         entries =os.listdir(testing_root)
