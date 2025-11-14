@@ -74,7 +74,7 @@ class CustomDataset(Dataset):
         img_path = self.image_paths[idx]
         image = Image.open(img_path).convert('RGB')
         label = self.labels[idx]
-        print(f"--->img: {img_path} lbl: {label}")
+        #print(f"--->img: {img_path} lbl: {label}")
         if self.transform:
             image = self.transform(image)
         return image, label
