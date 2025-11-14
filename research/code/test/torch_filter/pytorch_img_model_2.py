@@ -13,7 +13,7 @@ num_epochs = 50
 
 #model_ft = models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
 
-model_ft = models.alexnet(pretrained=True)
+model_ft = models.alexnet(weights=models.AlexNet_Weights.DEFAULT)
 model_ft.classifier[6] = torch.nn.Linear(model_ft.classifier[6].in_features, 3)
 
 # 2. Modify the classifier for your specific task
