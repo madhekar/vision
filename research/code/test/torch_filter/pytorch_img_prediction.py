@@ -54,6 +54,7 @@ def load_filter_model():
     filter_model = torch.load("filter_model.pth", weights_only=False)
     filter_model.to(device)
     class_mapping = torch.load("label_mappings.pth")
+    class_mapping = {v:k for k, v in class_mapping.items() }
     #class_mapping =  ast.literal_eval(class_mapping)
     print(class_mapping)
     print(filter_model)
