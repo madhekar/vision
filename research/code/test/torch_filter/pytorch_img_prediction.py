@@ -53,7 +53,7 @@ def load_filter_model():
     filter_model = torch.load("filter_model.pth", weights_only=False)
     class_mapping = torch.load("label_mappings.pth")
     #class_mapping =  ast.literal_eval(class_mapping)
-    print(class_mapping, class_mapping[0])
+    print(class_mapping)
     print(filter_model)
 
     filter_model.eval()# Set the model to evaluation mode
