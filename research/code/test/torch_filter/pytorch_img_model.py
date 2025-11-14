@@ -8,10 +8,6 @@ from torch.utils.data import DataLoader
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 num_epochs = 50
 
-# def categorical_cross_entropy(pr, ta):
-#     epsilon = 1e-08
-
-
 data_transforms = {
     "training": transforms.Compose(
         [
@@ -98,21 +94,22 @@ for epoch in range(num_epochs):
 
         print(f'{phase} Loss: {epoch_loss:.4f} Acc: {epoch_acc:.4f}')
 
-
-#torch.save(model_ft.state_dict(), "filter_model_weights.pth")
+# save model
 torch.save(model_ft, "filter_model.pth")
 
+# save mapping labels
 torch.save(class_mappings, "label_mappings.pth")
 
 # filter_model = models.mobilenet_v3_large(weights=models.MobileNet_V3_Large_Weights.IMAGENET1K_V1)
 # filter_model.load_state_dict(torch.load("filter_model_weights.pth"))
 
+# load model
 filter_model = torch.load("filter_model.pth", weights_only=False)
 
+# load mapping labels
 class_map = torch.load("label_mappings.pth")
 
 print(class_mappings)
-
 print(filter_model)
 
 filter_model.eval()
