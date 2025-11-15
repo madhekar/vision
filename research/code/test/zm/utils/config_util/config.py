@@ -450,17 +450,13 @@ def faces_config_load():
         )
     
 """    
-filter-model:
+img-filter-model:
   filter_model_path: /models/image_classify_filter
-  train_data_path: /models/image_classify_filter/training
-  validation_data_path: /models/image_classify_filter/validation
-  testing_data_path: /models/image_classify_filter/testing
-  testing_data_map_file: map.json  
-  filter_model_name: filter_images_Model.keras
-  filter_model_classes: class_names.joblib
+  data_path: /data/app-data/static-metadata/filter
+  filter_model_name: filter_img_model.plt
+  filter_model_classes: filter_class_map.plt
   image_size: (224, 224)
-  batch_size: 32
-      
+  batch_size: 16
 """
 
 @st.cache_resource
@@ -473,22 +469,16 @@ def filer_config_load():
         pprint.pprint(dict)
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * * *")
 
-        base_model_path = dict["filter-model"]["filter_model_path"]
-        train_data_path = dict["filter-model"]["train_data_path"]
-        validation_data_path = dict["filter-model"]["validation_data_path"]
-        testing_data_path = dict["filter-model"]["testing_data_path"]
-        testing_data_map_file = dict["filter-model"]["testing_data_map_file"]
-        filter_model_name = dict["filter-model"]["filter_model_name"]
-        filter_model_classes = dict["filter-model"]["filter_model_classes"]
-        image_size = dict["filter-model"]["image_size"]
-        batch_size = dict["filter-model"]["batch_size"]
+        base_model_path = dict["img-filter-model"]["filter_model_path"]
+        data_path = dict["img-filter-model"]["data_path"]
+        filter_model_name = dict["img-filter-model"]["filter_model_name"]
+        filter_model_classes = dict["img-filter-model"]["filter_model_classes"]
+        image_size = dict["img-filter-model"]["image_size"]
+        batch_size = dict["img-filter-model"]["batch_size"]
 
     return (
         os.path.join(dr, *base_model_path.split(os.sep)[1:]),
-        os.path.join(dr, *train_data_path.split(os.sep)[1:]),
-        os.path.join(dr, *validation_data_path.split(os.sep)[1:]),
-        os.path.join(dr, *testing_data_path.split(os.sep)[1:]),
-        testing_data_map_file,
+        os.path.join(dr, *data_path.split(os.sep)[1:]),
         filter_model_name,
         filter_model_classes,
         image_size,
