@@ -129,3 +129,23 @@ def torch_model(data_dir_path, filter_model_path, filter_model_name, filter_mode
 
     # save mapping labels
     torch.save(class_mappings, os.path.join(filter_model_path, filter_model_classes)) 
+
+
+def execute():
+    (
+        filter_model_path,
+        data_path,
+        filter_model_name,
+        filter_model_classes,
+        image_size_int,
+        batch_size_int,
+    ) = load_init_params()
+
+    torch_model(
+        data_path,
+        filter_model_path,
+        filter_model_name,
+        filter_model_classes,
+        image_size_int,
+        batch_size_int,
+    )
