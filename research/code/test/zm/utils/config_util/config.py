@@ -457,6 +457,7 @@ img-filter-model:
   filter_model_classes: filter_class_map.plt
   image_size: (224, 224)
   batch_size: 16
+  number_of_epocs: 100
 """
 
 @st.cache_resource
@@ -475,6 +476,7 @@ def filer_config_load():
         filter_model_classes = dict["img-filter-model"]["filter_model_classes"]
         image_size = dict["img-filter-model"]["image_size"]
         batch_size = dict["img-filter-model"]["batch_size"]
+        num_epocs = dict["img-filter-model"]["number_of_epocs"]
 
     return (
         os.path.join(dr, *base_model_path.split(os.sep)[1:]),
@@ -483,6 +485,7 @@ def filer_config_load():
         filter_model_classes,
         image_size,
         batch_size,
+        num_epocs
     )
 
 """    

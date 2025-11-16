@@ -5,4 +5,5 @@ img-filter-model:
   filter_model_classes: filter_class_map.plt
   image_size: (224, 224)
   batch_size: 16
+  number_of_epocs: 100
 

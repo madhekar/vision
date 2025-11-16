@@ -7,8 +7,7 @@ from torchvision import datasets, models, transforms
 from torch.utils.data import DataLoader
 from utils.config_util import config
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-num_epochs = 50
+
 
 # Define directories, files, params
 def load_init_params():
@@ -26,7 +25,7 @@ def load_init_params():
     image_size_int = (int(sz[0]), int(sz[1]))
     return filter_model_path, data_path, filter_model_name, filter_model_classes, image_size_int, batch_size_int
 
-def torch_model(data_dir_path, filter_model_path, filter_model_name, filter_model_classes, image_size_int, batch_size_int):
+def torch_model(data_dir_path, filter_model_path, filter_model_name, filter_model_classes, image_size_int, batch_size_int, device, num_epochs):
 
     data_transforms = {
         "training": transforms.Compose(
@@ -51,7 +50,6 @@ def torch_model(data_dir_path, filter_model_path, filter_model_name, filter_mode
         ),
     }
 
-    #data_dir = "/home/madhekar/temp/filter"  # Replace with your dataset path
     image_datasets = {
         x: datasets.ImageFolder(os.path.join(data_dir_path, x), data_transforms[x])
         for x in ["training", "validation"]
@@ -132,6 +130,8 @@ def torch_model(data_dir_path, filter_model_path, filter_model_name, filter_mode
 
 
 def execute():
+
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     (
         filter_model_path,
         data_path,
@@ -139,6 +139,7 @@ def execute():
         filter_model_classes,
         image_size_int,
         batch_size_int,
+        num_epochs
     ) = load_init_params()
 
     torch_model(
@@ -148,4 +149,6 @@ def execute():
         filter_model_classes,
         image_size_int,
         batch_size_int,
+        device,
+        num_epochs
     )
