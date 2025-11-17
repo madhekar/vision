@@ -18,12 +18,14 @@ def load_init_params():
         filter_model_classes,
         image_size,
         batch_size,
+        epocs
     ) = config.filer_config_load()
 
     batch_size_int = int(batch_size)
     sz = ast.literal_eval(image_size)
+    epocs_int = int(epocs)
     image_size_int = (int(sz[0]), int(sz[1]))
-    return filter_model_path, data_path, filter_model_name, filter_model_classes, image_size_int, batch_size_int
+    return filter_model_path, data_path, filter_model_name, filter_model_classes, image_size_int, batch_size_int, epocs_int
 
 def torch_model(data_dir_path, filter_model_path, filter_model_name, filter_model_classes, image_size_int, batch_size_int, device, num_epochs):
 
@@ -123,15 +125,18 @@ def torch_model(data_dir_path, filter_model_path, filter_model_name, filter_mode
             print(f"{epoch}:{phase} Loss: {epoch_loss:.4f} Acc: {epoch_acc:.4f}")
 
     # save model
+    print(f"saving model {filter_model_name} at {filter_model_path}...")
     torch.save(model_ft, os.path.join(filter_model_path, filter_model_name)) 
 
     # save mapping labels
+    print(f"saving mappings {filter_model_classes} at {filter_model_path}")
     torch.save(class_mappings, os.path.join(filter_model_path, filter_model_classes)) 
 
 
 def execute():
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    
     (
         filter_model_path,
         data_path,

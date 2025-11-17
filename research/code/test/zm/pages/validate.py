@@ -137,7 +137,7 @@ def exe():
                 color=colors,
             )
    
-            options = ['people','scenic','document']
+            options = ['people','scenic','document']   # todo
             filter_selection = st.multiselect(
                 '**Purge: Select Image Types**',
                 options=options,

@@ -9,7 +9,8 @@ from utils.static_metadata_load_util import user_static_loc as usl
 from utils.preprocess_util import preprocess as pp
 from utils.face_util import base_face_train as bft_train
 from utils.face_detection_util import face_trainer as ft
-from utils.filter_util import filter as f
+from utils.filter_util import filter as fu
+from utils.filter_util import torch_filter as tfu
 from utils.face_util import base_face_predict as bft_predict
 import streamlit as st
 from utils.util import folder_chart as fc
@@ -188,7 +189,7 @@ def execute():
             if cd_filter:
                     cd_status.info("starting to image filter model.")
                     st.info('step: - 1: train image filter for search...')
-                    ys, yt = f.execute()
+                    ys, yt = tfu.execute()
                     cd_status.info(classification_report(ys,yt))
                     cd_status.update(label="Image filter model complete!", state="complete", expanded=False)             
 
