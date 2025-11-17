@@ -12,8 +12,9 @@ from utils.config_util import config
 from utils.util import model_util as mu
 from utils.util import statusmsg_util as sm
 from utils.util import storage_stat as ss
-from utils.filter_util import filter_inferance as fi
+#from utils.filter_util import filter_inferance as fi
 from utils.filter_util import filter_torch_inference as fti
+
 from ast import literal_eval
 import asyncio
 import multiprocessing as mp
@@ -40,10 +41,10 @@ Graphics:
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 transform = ToTensor()
 
-def create_model():
-     model,inverted_classes, image_size_int = fi.init_filter_model()
-     print(inverted_classes)
-     return model,inverted_classes, image_size_int
+# def create_model():
+#      model,inverted_classes, image_size_int = fi.init_filter_model()
+#      print(inverted_classes)
+#      return model,inverted_classes, image_size_int
 
 def create_metric():
     print(pyiqa.list_models())
@@ -52,7 +53,7 @@ def create_metric():
 
 iqa_metric = create_metric()
 
-m, cn, isz = create_model()
+#m, cn, isz = create_model()
 
 """
     Writes user comments from a DataFrame to image files using exiftool in batch mode.
@@ -132,7 +133,7 @@ def is_vaild_file_type(filter_types, img):
     ret_img=""
     store_type = ""
     try:
-        img_type = fi.predict_image(img, m, cn, isz)
+        img_type = fti.prep_img_infer(img)
 
         if img_type in filter_types:
           ret_img =  img   
