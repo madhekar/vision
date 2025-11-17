@@ -2,10 +2,12 @@ import os
 import ast
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, models, transforms
 from torch.utils.data import DataLoader
 from utils.config_util import config
+from PIL import Image
 
 
 
@@ -135,6 +137,32 @@ def torch_model(data_dir_path, filter_model_path, filter_model_name, filter_mode
 '''
 test model
 '''
+def prep_test_data(test_data_root):
+    test_data = []
+    try:
+        entries = os.listdir(test_data_root)
+        print(entries)
+        for entry in entries:
+            print(os.path.join(test_data_root, entry))
+            loc_path = os.path.join(test_data_root, entry)
+            print("loc", loc_path)
+            if os.path.isdir(loc_path):
+                print("--->", entry)
+                type = entry
+                print()
+                files = os.listdir(loc_path)
+                print(files)
+                for file in files:
+                    img_file = os.path.join(loc_path, file)
+                    class_name = type
+                    test_data.append([img_file, class_name])
+                    # print(img_file, class_name)
+                    # predict_type(img_file, class_name, class_map, m, p)
+    except Exception as e:
+        print(f"failed with : {e}")
+    return test_data
+
+
 def load_filter_model(fmp, fmn, fmc,isz, device):
     # 1. Load a pre-trained model (e.g., ResNet18)
     # For a custom model, you would define your model architecture and load its state_dict
@@ -160,9 +188,38 @@ def load_filter_model(fmp, fmn, fmc,isz, device):
     )
     return filter_model, preprocess, class_mapping
 
-def test_model(image_path, model, class_names, image_size, device):
-    y_src = []
-    y_tar = []
+def test_model(img_path, class_name, class_map, filter_model, preprocess, device):
+
+    # 3. Load and preprocess the image
+    # Replace 'path/to/your/image.jpg' with the actual path to your image
+    input_image = Image.open(img_path).convert('RGB')
+    input_tensor = preprocess(input_image)
+    input_batch = input_tensor.unsqueeze(0) # Create a mini-batch as expected by the model
+
+    # 4. Make a prediction
+    with torch.no_grad(): # Disable gradient calculation for inference
+        output = filter_model(input_batch.to(device))
+
+    # 5. Interpret the output
+    # For ImageNet, there are 1000 classes.
+    # The output tensor contains raw scores (logits) for each class.
+    probabilities = F.softmax(output, dim=1) # Convert logits to probabilities
+    predicted_probability, predicted_class_idx = torch.max(probabilities, 1)
+
+    # Optional: Load class labels for better interpretation
+    # You would need a list or dictionary mapping class indices to names
+    # For ImageNet, you can get the class labels from a file or a pre-defined list
+    # Example:
+    # with open("imagenet_classes.txt", "r") as f:
+    #     imagenet_classes = [line.strip() for line in f.readlines()]
+    predicted_class_name = class_map[predicted_class_idx.item()]
+
+    print(f"Predicted class index: {predicted_class_idx.item()}")
+    print(f"Predicted probability: {predicted_probability.item():.4f}")
+    print(f"Predicted class name: {predicted_class_name}") # If class names are available
+    print(f"actual class: {class_name}")
+
+    return (predicted_class_name, class_name)
 
 def execute():
 
@@ -189,6 +246,10 @@ def execute():
         num_epochs
     )
 
-    load_filter_model(filter_model_path, filter_model_name, filter_model_classes, image_size_int, device)
+    fm, pp, cm = load_filter_model(filter_model_path, filter_model_name, filter_model_classes, image_size_int, device)
 
-    test_model(filter_model_path, model, class_names, device)
+    test_data = prep_test_data()
+
+    res = [test_model(e[0], e[1], cm, fm, pp, device) for e in test_data]
+
+    return res[0], res[1]
