@@ -101,16 +101,16 @@ def predict_type(img_path, class_name, class_map,  filter_model, preprocess):
     print(f"Predicted class name: {predicted_class_name}") # If class names are available
     print(f"actual class: {class_name}")
 
-if __name__=="__main__":
-    m, p, class_map = load_filter_model()
-    
-    testing_root = "/home/madhekar/temp/filter/testing/"
+    return (predicted_class_name, class_name)
+
+def prep_test_data(test_data_root):
+    test_data = []
     try:
-        entries =os.listdir(testing_root)
+        entries = os.listdir(test_data_root)
         print(entries)
         for entry in entries:
-            print(os.path.join(testing_root, entry))
-            loc_path = os.path.join(testing_root, entry)
+            print(os.path.join(test_data_root, entry))
+            loc_path = os.path.join(test_data_root, entry)
             print("loc", loc_path)
             if os.path.isdir(loc_path):
                 print("--->", entry)
@@ -121,10 +121,24 @@ if __name__=="__main__":
                 for file in files:
                     img_file = os.path.join(loc_path,  file)
                     class_name = type
-                    print(img_file, class_name)
-                    predict_type(img_file, class_name, class_map, m, p)
-
+                    test_data.append([img_file, class_name])
+                    # print(img_file, class_name)
+                    # predict_type(img_file, class_name, class_map, m, p)
     except Exception as e:
-        print(f"failed with : {e}")                
+        print(f"failed with : {e}")
+    return test_data    
+
+if __name__=="__main__":
+    m, p, class_map = load_filter_model()
+    
+    testing_root = "/home/madhekar/temp/filter/testing/"
+
+    test_data = prep_test_data(testing_root)          
+
+    output_pa = [ predict_type(ta[0], ta[1], class_map, m, p) for ta in test_data]  
+
+    print(output_pa)
+
+    
 
 

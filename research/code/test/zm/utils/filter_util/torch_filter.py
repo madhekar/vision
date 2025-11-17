@@ -132,11 +132,42 @@ def torch_model(data_dir_path, filter_model_path, filter_model_name, filter_mode
     print(f"saving mappings {filter_model_classes} at {filter_model_path}")
     torch.save(class_mappings, os.path.join(filter_model_path, filter_model_classes)) 
 
+'''
+test model
+'''
+def load_filter_model(fmp, fmn, fmc,isz, device):
+    # 1. Load a pre-trained model (e.g., ResNet18)
+    # For a custom model, you would define your model architecture and load its state_dict
+    filter_model = torch.load(os.path.join(fmp, fmn), weights_only=False)
+    filter_model.to(device)
+    class_mapping = torch.load(os.path.join(fmp, fmc))
+    class_mapping = {v: k for k, v in class_mapping.items()}
+    # class_mapping =  ast.literal_eval(class_mapping)
+    print(class_mapping)
+    print(filter_model)
+
+    filter_model.eval()  # Set the model to evaluation mode
+
+    # 2. Define image transformations
+    # These should match the transformations used during training
+    preprocess = transforms.Compose(
+        [
+            transforms.Resize(256),
+            transforms.CenterCrop(isz),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        ]
+    )
+    return filter_model, preprocess, class_mapping
+
+def test_model(image_path, model, class_names, image_size, device):
+    y_src = []
+    y_tar = []
 
 def execute():
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    
+
     (
         filter_model_path,
         data_path,
@@ -157,3 +188,7 @@ def execute():
         device,
         num_epochs
     )
+
+    load_filter_model(filter_model_path, filter_model_name, filter_model_classes, image_size_int, device)
+
+    test_model(filter_model_path, model, class_names, device)
