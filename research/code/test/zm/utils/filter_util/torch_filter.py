@@ -156,8 +156,6 @@ def prep_test_data(test_data_root):
                     img_file = os.path.join(loc_path, file)
                     class_name = type
                     test_data.append([img_file, class_name])
-                    # print(img_file, class_name)
-                    # predict_type(img_file, class_name, class_map, m, p)
     except Exception as e:
         print(f"failed with : {e}")
     return test_data
@@ -214,11 +212,6 @@ def test_model(img_path, class_name, class_map, filter_model, preprocess, device
     #     imagenet_classes = [line.strip() for line in f.readlines()]
     predicted_class_name = class_map[predicted_class_idx.item()]
 
-    # print(f"Predicted class index: {predicted_class_idx.item()}")
-    # print(f"Predicted probability: {predicted_probability.item():.4f}")
-    # print(f"Predicted class name: {predicted_class_name}") # If class names are available
-    # print(f"actual class: {class_name}")
-
     print(f"actual -> class: {class_name} predicted -> class: {predicted_class_name} prob: {predicted_probability.item():.4f}")
 
     return (predicted_class_name, class_name)
@@ -237,16 +230,16 @@ def execute():
         num_epochs
     ) = load_init_params()
 
-    # torch_model(
-    #     data_path,
-    #     filter_model_path,
-    #     filter_model_name,
-    #     filter_model_classes,
-    #     image_size_int,
-    #     batch_size_int,
-    #     device,
-    #     num_epochs
-    # )
+    torch_model(
+        data_path,
+        filter_model_path,
+        filter_model_name,
+        filter_model_classes,
+        image_size_int,
+        batch_size_int,
+        device,
+        num_epochs
+    )
 
     fm, pp, cm = load_filter_model(filter_model_path, filter_model_name, filter_model_classes, image_size_int, device)
 
