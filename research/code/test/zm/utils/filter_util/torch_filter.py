@@ -214,10 +214,12 @@ def test_model(img_path, class_name, class_map, filter_model, preprocess, device
     #     imagenet_classes = [line.strip() for line in f.readlines()]
     predicted_class_name = class_map[predicted_class_idx.item()]
 
-    print(f"Predicted class index: {predicted_class_idx.item()}")
-    print(f"Predicted probability: {predicted_probability.item():.4f}")
-    print(f"Predicted class name: {predicted_class_name}") # If class names are available
-    print(f"actual class: {class_name}")
+    # print(f"Predicted class index: {predicted_class_idx.item()}")
+    # print(f"Predicted probability: {predicted_probability.item():.4f}")
+    # print(f"Predicted class name: {predicted_class_name}") # If class names are available
+    # print(f"actual class: {class_name}")
+
+    print(f"actual -> class: {class_name} predicted -> class: {predicted_class_name} prob: {predicted_probability.item():.4f}")
 
     return (predicted_class_name, class_name)
 
@@ -251,5 +253,5 @@ def execute():
     test_data = prep_test_data(os.path.join(data_path, "testing"))
 
     res = [test_model(e[0], e[1], cm, fm, pp, device) for e in test_data]
-
-    return res[0], res[1]
+    ys, yd = map(list, zip(*res))
+    return ys, yd

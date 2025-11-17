@@ -190,6 +190,7 @@ def execute():
                     cd_status.info("starting to image filter model.")
                     st.info('step: - 1: train image filter for search...')
                     ys, yt = tfu.execute()
+                    print(classification_report(ys, yt))
                     cd_status.info(classification_report(ys,yt))
                     cd_status.update(label="Image filter model complete!", state="complete", expanded=False)             
 
