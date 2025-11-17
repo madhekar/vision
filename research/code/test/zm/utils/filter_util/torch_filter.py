@@ -235,20 +235,20 @@ def execute():
         num_epochs
     ) = load_init_params()
 
-    torch_model(
-        data_path,
-        filter_model_path,
-        filter_model_name,
-        filter_model_classes,
-        image_size_int,
-        batch_size_int,
-        device,
-        num_epochs
-    )
+    # torch_model(
+    #     data_path,
+    #     filter_model_path,
+    #     filter_model_name,
+    #     filter_model_classes,
+    #     image_size_int,
+    #     batch_size_int,
+    #     device,
+    #     num_epochs
+    # )
 
     fm, pp, cm = load_filter_model(filter_model_path, filter_model_name, filter_model_classes, image_size_int, device)
 
-    test_data = prep_test_data()
+    test_data = prep_test_data(os.path.join(data_path, "testing"))
 
     res = [test_model(e[0], e[1], cm, fm, pp, device) for e in test_data]
 
