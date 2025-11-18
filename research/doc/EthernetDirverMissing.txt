@@ -1,0 +1,31 @@
+If your Linux Mint ethernet isn't working, start by checking the cable, router, and basic software. Try rebooting your computer and router, and reconnecting the ethernet cable. If the issue persists, use the terminal to diagnose your network adapter and driver with inxi -N or lspci | grep -i ethernet. Then, consider updating the kernel through the Update Manager or manually installing a specific driver, as some newer hardware requires a newer kernel or proprietary drivers to function correctly. 
+Initial checks
+
+    Hardware: Check that the ethernet cable is securely plugged in at both the computer and the router. Try a different ethernet cable and different ports on the router. 
+
+Router: Restart your router to clear any temporary glitches. 
+Software: Reboot your computer, as this can resolve many common issues. 
+
+Terminal diagnostics
+
+    Open the terminal by pressing Ctrl+Alt+T. 
+
+Identify your network adapter: Run inxi -N or lspci | grep -i ethernet. This will display your ethernet controller's model and may show if a driver is loaded. 
+Check for errors: Run dmesg and look for any error messages related to the network card after plugging the cable in. 
+
+Common solutions
+
+    Update the kernel:
+    Newer hardware may require a newer kernel than what is installed by default. Go to "Update Manager" > "View" > "Linux Kernels," select a newer 5.15 or newer kernel, install it, and then reboot. 
+
+Install the correct driver:
+If inxi -N shows Driver: N/A, a driver is likely missing. Go to the manufacturer's website (e.g., Realtek) to download the appropriate Linux driver for your chipset and follow their instructions for installation. 
+Reset network services:
+You can try resetting the network stack by running sudo service networking restart in the terminal and then rebooting. 
+Change power management settings:
+In some cases, the ethernet adapter may be powered off. In the terminal, run echo on | sudo tee /sys/class/net/eth0/device/power/control. This may require changing eth0 to the correct interface name if one exists. 
+Check Network Settings:
+Open "Network Settings" from your system tray network icon. Go to the "Wired" tab. If your connection is not automatically detected, click "Add" to create a new connection. 
+Use a snapshot (if available):
+If the problem started after an update or configuration change, consider using Timeshift to restore your system to a previous working state. 
+
