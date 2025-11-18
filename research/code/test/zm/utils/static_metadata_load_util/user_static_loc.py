@@ -1,7 +1,7 @@
 
 import pandas as pd
-import pyexiv2
-from PIL import Image
+#import pyexiv2
+#from PIL import Image
 import streamlit as st
 from GPSPhoto import gpsphoto
 from geopy.geocoders import Nominatim
