@@ -128,20 +128,37 @@ def is_valid_size_and_score(args, img):
                 sm.add_messages("quality", f"e| error: {e} occurred while opening the image: {os.path.join(img[0], img[1])}")
       return ""    
 
-def is_vaild_file_type(filter_types, img):
+fm, pp, cm, device = fti.load_filter_model()
 
+
+def prep_img_infer(img):
+    input_tensor = pp(img)
+    print(input_tensor)
+    input_batch = input_tensor.unsqueeze(0)
+    input_batch = input_batch.to(device)
+
+    with torch.no_eval():
+        out = fm(input_batch)
+
+    probs = torch.nn.functional.softmax(out[0], dim=0)
+    top_prob, top_catid = torch.topk(probs, 1)
+    print(f"class {top_catid}, prob: {top_prob.item()}")
+    return top_catid
+
+
+def is_vaild_file_type(filter_types, img):
     ret_img=""
     store_type = ""
     try:
-        img_type = fti.prep_img_infer(img)
-
+        img_type = prep_img_infer(img)
+        print(f"--> {img_type}")
         if img_type in filter_types:
           ret_img =  img   
         else:
           store_type = img + "::" + img_type
 
     except Exception as e:
-        print(f"exception in is_valid_file_type {e}")
+        print(f"exception in prep_img_infer: {e}")
     #print(f'***{filter_types} key {img_type} {img} {ret_img}')    
     return (ret_img, store_type)    
 

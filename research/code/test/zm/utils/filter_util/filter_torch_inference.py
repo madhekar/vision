@@ -55,7 +55,7 @@ def load_filter_model():
     )
     return filter_model, preprocess, class_mapping, device
 
-fm, pp,cm,device = load_filter_model()
+fm,pp,cm,device = load_filter_model()
 
 def prep_img_infer(img):
 
