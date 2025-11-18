@@ -48,29 +48,29 @@ def load_filter_model():
     preprocess = transforms.Compose(
         [
             transforms.Resize(256),
-            transforms.CenterCrop(isz),
+            transforms.CenterCrop(224),
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ]
     )
     return filter_model, preprocess, class_mapping, device
 
-fm,pp,cm,device = load_filter_model()
+# fm,pp,cm,device = load_filter_model()
 
-def prep_img_infer(img):
+# def prep_img_infer(img):
 
-    input_tensor = pp(img)
+#     input_tensor = pp(img)
 
-    input_batch = input_tensor.unsqueeze(0)
-    input_batch = input_batch.to(device)
+#     input_batch = input_tensor.unsqueeze(0)
+#     input_batch = input_batch.to(device)
 
-    with torch.no_eval():
-        out = fm(input_batch)
+#     with torch.no_eval():
+#         out = fm(input_batch)
 
-    probs = torch.nn.functional.softmax(out[0], dim=0)
-    top_prob, top_catid = torch.topk(probs, 1)
-    print(f"class {top_catid}, prob: {top_prob.item()}")
-    return top_catid
+#     probs = torch.nn.functional.softmax(out[0], dim=0)
+#     top_prob, top_catid = torch.topk(probs, 1)
+#     print(f"class {top_catid}, prob: {top_prob.item()}")
+#     return top_catid
 
 def execute():
 

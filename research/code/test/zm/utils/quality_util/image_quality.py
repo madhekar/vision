@@ -132,18 +132,21 @@ fm, pp, cm, device = fti.load_filter_model()
 
 
 def prep_img_infer(img):
-    input_tensor = pp(img)
+    print(f'here -> {img}')
+    img_obj = Image.open(img).convert("RGB")
+    input_tensor = pp(img_obj)
     print(input_tensor)
+
     input_batch = input_tensor.unsqueeze(0)
     input_batch = input_batch.to(device)
 
-    with torch.no_eval():
-        out = fm(input_batch)
+    out = fm(input_batch)
 
     probs = torch.nn.functional.softmax(out[0], dim=0)
     top_prob, top_catid = torch.topk(probs, 1)
+
     print(f"class {top_catid}, prob: {top_prob.item()}")
-    return top_catid
+    return cm[top_catid.item()]
 
 
 def is_vaild_file_type(filter_types, img):
@@ -151,7 +154,9 @@ def is_vaild_file_type(filter_types, img):
     store_type = ""
     try:
         img_type = prep_img_infer(img)
-        print(f"--> {img_type}")
+
+        print(f"--> {img_type} filter types {filter_types}")
+
         if img_type in filter_types:
           ret_img =  img   
         else:
