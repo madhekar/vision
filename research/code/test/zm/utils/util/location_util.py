@@ -200,6 +200,7 @@ def setImgMetadata(img_path, s_date_time_original, s_user_comment):
 
     return result
 #--
+
 def format_lat_lon(df):
     lat_lon = ['GPSLatitude','GPSLongitude'] 
     df[lat_lon] = df[lat_lon].applymap(lambda x: str(round(float(x) ,6)) if not x == '-' else x )
