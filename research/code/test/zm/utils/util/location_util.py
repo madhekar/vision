@@ -37,7 +37,7 @@ from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 from geopy.exc import GeocoderTimedOut, GeocoderUnavailable
 from utils.util import ball_tree as bt
-
+import piexif
 import datetime
 import random
 import string
@@ -166,13 +166,40 @@ def setImageDescription(fname, desc):
     exiv_image_metadata["Exif.Image.ImageDescription"] = desc
     exiv_image_metadata.write()
 
-def getImageMetadata(fname):
-    exiv_image_metadata = pyexiv2.ImageMetadata(fname)
-    exiv_image_metadata.read()
-    desc = exiv_image_metadata["Exif.Image.ImageDescription"]
-    datetimeoriginal= exiv_image_metadata["Exif.Photo.DateTimeOriginal"]
-    return (desc, datetimeoriginal)
+# def getImageMetadata(fname):
+#     exiv_image_metadata = pyexiv2.ImageMetadata(fname)
+#     exiv_image_metadata.read()
+#     desc = exiv_image_metadata["Exif.Image.ImageDescription"]
+#     datetimeoriginal= exiv_image_metadata["Exif.Photo.DateTimeOriginal"]
+#     return (desc, datetimeoriginal)
 
+#---
+def setImgMetadata(img_path, s_date_time_original, s_user_comment):
+    result = "no changed"
+    try:
+        exif_dict = piexif.load(img_path)
+
+        if s_date_time_original:
+            exif_dict["Exif"][piexif.ExifIFD.DateTimeOriginal] = (
+                s_date_time_original.encode("ascii")
+            )
+            result = "success"
+
+        if s_user_comment:
+            exif_dict["Exif"][piexif.ExifIFD.UserComment] = s_user_comment.encode(
+                "ascii"
+            )
+            result = "success"
+
+        if result == "success":
+            piexif.insert(piexif.dump(exif_dict), img_path)
+
+    except Exception as e:
+        print(f"Exception creatring datetime original and user comment in  {img_path}")
+        result = "failed"
+
+    return result
+#--
 def format_lat_lon(df):
     lat_lon = ['GPSLatitude','GPSLongitude'] 
     df[lat_lon] = df[lat_lon].applymap(lambda x: str(round(float(x) ,6)) if not x == '-' else x )
@@ -260,19 +287,19 @@ def getTimestamp(img):
     return value, s_user_comment
 
 # collect all metadata
-def getMetadata(img):
-    lat_lon = gpsInfo(img=img)
-    desc, dt = getImageMetadata(img)
-    if not desc and lat_lon:
-        desc = getLocationDetails(lat_lon)
-        if not desc:
-            desc = def_name
-    #res = getTimestamp(img)
-    # res.append(lat_lon[0])
-    # res.append(lat_lon[1])
-    # res.append(getLocationDetails(lat_lon))
-    # print(res)
-    return (desc, lat_lon, dt)
+# def getMetadata(img):
+#     lat_lon = gpsInfo(img=img)
+#     desc, dt = getImageMetadata(img)
+#     if not desc and lat_lon:
+#         desc = getLocationDetails(lat_lon)
+#         if not desc:
+#             desc = def_name
+#     #res = getTimestamp(img)
+#     # res.append(lat_lon[0])
+#     # res.append(lat_lon[1])
+#     # res.append(getLocationDetails(lat_lon))
+#     # print(res)
+#     return (desc, lat_lon, dt)
 
 def distance(lat1, lon1, lat2, lon2):
     p = 0.017453292519943295
