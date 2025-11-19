@@ -1,9 +1,11 @@
 import streamlit as st
+import torch
 from utils.config_util import config 
 from utils.util import storage_stat as ss
 from utils.util import setup_app as sa
 import os
 import sys
+torch.classes.__path__ = []
 sys.path.append('..')
 
 ########################################################################
