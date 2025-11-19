@@ -99,14 +99,14 @@ def update_latitude_longitude(image, latitude, longitude, name):
     st.session_state.df.at[image, "GPSLatitude"] =latitude
     st.session_state.df.at[image, "GPSLongitude"] = longitude
     lu.setGpsInfo(image, latitude, longitude)
-    lu.setImageDescription(image, name)
+    lu.setImgMetadata(image, "","",name)
 
 @st.fragment
 def update_all_datetime_changes(image, col):
     #print(st.session_state.df.head())
     dt = st.session_state[f"{col}_{image}"]
     st.session_state.df.at[image, "DateTimeOriginal"] = dt
-    lu.setDateTimeOriginal(image, dt)
+    lu.setImgMetadata(image, dt,"","")
 
 def select_location_by_country_and_state(rdf):
     

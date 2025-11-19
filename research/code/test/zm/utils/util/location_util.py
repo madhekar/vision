@@ -28,7 +28,7 @@ See Dependences on page Developers
 
 """
 
-import pyexiv2
+#import pyexiv2
 from PIL import Image, ExifTags
 import streamlit as st
 from math import cos,asin,sqrt,radians,sin
@@ -154,17 +154,17 @@ metadata = pe.ImageMetadata(image_path)
 metadata.read()
 
 """
-def setDateTimeOriginal(fname, dt):
-    exiv_image_metadata = pyexiv2.ImageMetadata(fname)
-    exiv_image_metadata.read()
-    exiv_image_metadata["Exif.Photo.DateTimeOriginal"] = dt
-    exiv_image_metadata.write()
+# def setDateTimeOriginal(fname, dt):
+#     exiv_image_metadata = pyexiv2.ImageMetadata(fname)
+#     exiv_image_metadata.read()
+#     exiv_image_metadata["Exif.Photo.DateTimeOriginal"] = dt
+#     exiv_image_metadata.write()
 
-def setImageDescription(fname, desc):
-    exiv_image_metadata = pyexiv2.ImageMetadata(fname)
-    exiv_image_metadata.read()
-    exiv_image_metadata["Exif.Image.ImageDescription"] = desc
-    exiv_image_metadata.write()
+# def setImageDescription(fname, desc):
+#     exiv_image_metadata = pyexiv2.ImageMetadata(fname)
+#     exiv_image_metadata.read()
+#     exiv_image_metadata["Exif.Image.ImageDescription"] = desc
+#     exiv_image_metadata.write()
 
 # def getImageMetadata(fname):
 #     exiv_image_metadata = pyexiv2.ImageMetadata(fname)
@@ -174,31 +174,34 @@ def setImageDescription(fname, desc):
 #     return (desc, datetimeoriginal)
 
 #---
-def setImgMetadata(img_path, s_date_time_original, s_user_comment):
+def setImgMetadata(img_path, s_date_time_original, s_user_comment, s_image_info):
     result = "no changed"
     try:
         exif_dict = piexif.load(img_path)
 
         if s_date_time_original:
-            exif_dict["Exif"][piexif.ExifIFD.DateTimeOriginal] = (
-                s_date_time_original.encode("ascii")
-            )
+            exif_dict["Exif"][piexif.ExifIFD.DateTimeOriginal] = (s_date_time_original.encode("utf-8"))
             result = "success"
 
         if s_user_comment:
-            exif_dict["Exif"][piexif.ExifIFD.UserComment] = s_user_comment.encode(
-                "ascii"
-            )
+            exif_dict["Exif"][piexif.ExifIFD.UserComment] = s_user_comment.encode("utf-8")
             result = "success"
+
+        if s_image_info:
+            exif_dict["0th"][piexif.ImageIFD.ImageDescription] = s_image_info.encode("utf-8")
 
         if result == "success":
             piexif.insert(piexif.dump(exif_dict), img_path)
 
     except Exception as e:
-        print(f"Exception creatring datetime original and user comment in  {img_path}")
+        print(
+            f"Exception creatring datetime original and user comment in  {img_path}: {e}"
+        )
         result = "failed"
 
     return result
+
+
 #--
 
 def format_lat_lon(df):
