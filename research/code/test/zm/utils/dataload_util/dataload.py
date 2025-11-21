@@ -8,7 +8,12 @@ from utils.util import statusmsg_util as sm
 from utils.util import storage_stat as ss
 
 def path_encode(spath):
-    return str(uuid.uuid5(uuid.NAMESPACE_DNS, spath))
+    upath =""
+    try:
+        upath = uuid.uuid5(uuid.NAMESPACE_DNS, spath)
+    except Exception as e:
+            sm.add_messages("validate", f"e|error while creating encoded folder {spath} : {e}")
+    return str(upath)
 
 '''
 restore clean target media folders
@@ -16,9 +21,13 @@ restore clean target media folders
 def clean_media_folders(folder):
     # create clean destination folders
     sm.add_messages("validate", f"s|starting to clean {folder}\n\n")
-    if os.path.exists(folder):
-        shutil.rmtree(folder, ignore_errors=True)
-        os.makedirs(folder)
+    try:
+        if os.path.exists(folder):
+            shutil.rmtree(folder, ignore_errors=True)
+            os.makedirs(folder)
+    except Exception as e:
+        sm.add_messages("validate", f"e|error cleaning folder {folder} : {e}")
+    
     sm.add_messages("validate", f"s|done to cleaning {folder}\n\n")    
 
 
@@ -51,54 +60,70 @@ def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
                 sm.add_messages("validate", f"e|exception: {e4} unknown file exception: {f_dest}.\n\n")
                 continue
 
+def total_number_files_n_folders(src_dir):
+   nfolders, nfiles = 0, 0
+   for dp, dns, fns in os.walk(src_dir):
+        nfolders += len(dns) 
+        nfiles += len(fns)
+   sm.add_messages("validate", f"s|now copying number of folders: {nfolders} total number of files: {nfiles} from {src_dir} ")
+   return nfolders, nfiles
+
 ## possible performance issue 
 def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
 
     img_items, txt_items, vid_items, adu_items = ([] for i in range(4))
-
+   
     #create clean destination folders
+    sm.add_messages("validate", f"s|beging to clean folders: {fdest_image}::{fdest_txt}::{fdest_video}::{fdest_audio}")
+
     clean_media_folders(fdest_image)
+
     clean_media_folders(fdest_txt)
+
     clean_media_folders(fdest_video)
+
     clean_media_folders(fdest_audio)
     
-    #total files
-    total_items = 0
-    for dp, dns, fns in os.walk(src_dir):
-        total_items += len(dns) + len(fns)
+    _, nfiles = total_number_files_n_folders(src_dir)
 
-    with tqdm(total=total_items, desc=f'copy files: {src_dir}', unit='files',unit_scale=True) as pbar:
-        for root, dirnames, items in os.walk(src_dir):
-            if not dirnames:
-                if len(items) > 0:
-                    #print(root + " - " + str(dirnames) + " - " + str(items))
-                    img_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.image_types]
-                    vid_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.video_types]
-                    txt_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.document_types]
-                    adu_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.audio_types]
+    with tqdm(total=nfiles, desc=f'copy files: {src_dir}', unit='files',unit_scale=True) as pbar:
+        try:
+            for root, dirnames, items in os.walk(src_dir):
+                if not dirnames:
+                    if len(items) > 0:
+                        #print(root + " - " + str(dirnames) + " - " + str(items))
+                        img_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.image_types]
+                        vid_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.video_types]
+                        txt_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.document_types]
+                        adu_items = [f for f in items if os.path.splitext(f)[1].lower() in fte.audio_types]
 
-                    #generate uuid path
-                    uuid_path = path_encode(root)
-                    
-                    # handle image items
-                    if len(img_items) > 0:
-                        handle_copy_media_files(root, fdest_image, uuid_path, img_items)
-                        pbar.update(len(img_items))
+                        #generate uuid path
+                        uuid_path = path_encode(root)
+                        
+                        # handle image items
+                        if len(img_items) > 0:
+                            handle_copy_media_files(root, fdest_image, uuid_path, img_items)
+                            pbar.update(len(img_items))
 
-                    if len(vid_items) > 0:
-                        handle_copy_media_files(root, fdest_video, uuid_path, vid_items)    
-                        pbar.update(len(vid_items))
+                        if len(vid_items) > 0:
+                            handle_copy_media_files(root, fdest_video, uuid_path, vid_items)    
+                            pbar.update(len(vid_items))
 
-                    if len(txt_items) > 0:
-                        handle_copy_media_files(root, fdest_txt, uuid_path, txt_items)
-                        pbar.update(len(txt_items))
+                        if len(txt_items) > 0:
+                            handle_copy_media_files(root, fdest_txt, uuid_path, txt_items)
+                            pbar.update(len(txt_items))
 
-                    if len(adu_items) > 0:
-                        handle_copy_media_files(root, fdest_audio, uuid_path, adu_items)   
-                        pbar.update(len(adu_items))  
-            else:
-                print(root)
-                pbar.update(1)        
+                        if len(adu_items) > 0:
+                            handle_copy_media_files(root, fdest_audio, uuid_path, adu_items)   
+                            pbar.update(len(adu_items))  
+                else:
+                    print(root)
+                    pbar.update(1)  
+        except Exception as e:
+            sm.add_messages(
+                "validate", f"e|exception: {e} occurred in copy_files_only .\n\n"
+            )
+              
 '''
   input_image_path: '/home/madhekar/work/home-media-app/data/input-data/img/'
   input_video_path: '/home/madhekar/work/home-media-app/data/input-data/video/'
@@ -139,6 +164,7 @@ def execute(source_name):
     copy_files_only(os.path.join(raw_data_path, source_name), ipath, tpath, vpath, apath)
 
     clean_unknown_files_folders(ipath, tpath, vpath, apath)
+
     # source_list = []
     # # source_list = get_external_devices(get_user())
     # source_list = mu.extract_user_raw_data_folders(raw_data_path)
