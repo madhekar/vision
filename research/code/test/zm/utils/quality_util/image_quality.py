@@ -135,7 +135,7 @@ def prep_img_infer(img):
     print(f'here -> {img}')
     img_obj = Image.open(img).convert("RGB")
     input_tensor = pp(img_obj)
-    print(input_tensor)
+    #print(input_tensor)
 
     input_batch = input_tensor.unsqueeze(0)
     input_batch = input_batch.to(device)
@@ -145,7 +145,7 @@ def prep_img_infer(img):
     probs = torch.nn.functional.softmax(out[0], dim=0)
     top_prob, top_catid = torch.topk(probs, 1)
 
-    print(f"class {top_catid}, prob: {top_prob.item()}")
+    #print(f"class {top_catid}, prob: {top_prob.item()}")
     return cm[top_catid.item()]
 
 
@@ -204,6 +204,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
             res=[]
             for il in img_iterator:
                   if len(il) > 0:
+                    
                      
                     fres = list(map(partial(is_vaild_file_type, str_filter), il))
                     #print(fres)
@@ -211,9 +212,9 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
                     sfes = [{'img': e[1].split("::")[0], 'type': e[1].split("::")[1]} for e in fres ]
                     batch_write_comments(sfes)
    
-                    print(rfes)
+                    #print(rfes)
                     qres = list(map(partial(is_valid_size_and_score, threshold),il))
-                    print(qres) 
+                    #print(qres) 
                     #print(f'filter {rfes}:{sfes} quality {qres}')
                     for fr, qr in zip(rfes, qres):
                       comr = fr or qr or ""
@@ -239,7 +240,7 @@ def execute(source_name, filter_list):
         arc_folder_name = mu.get_foldername_by_datetime()     
         archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
 
-        chunk_size = int(mp.cpu_count() * 3)
+        chunk_size = 16 #int(mp.cpu_count())
         # queue_count = chunk_size
 
         # sm.add_messages("quality", f"s| number of parallel processes {chunk_size}")
