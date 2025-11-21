@@ -259,7 +259,7 @@ def execute(source_name, filter_list):
         print(f"processing duration: {processing_duration} seconds")
         sm.add_messages("quality", f"s| processing duration: {processing_duration} seconds")
 
-        ss.remove_empty_files_and_folders(input_image_path_updated)
+        ss.remove_empty_image_files_and_folders(input_image_path_updated)
 
     except Exception as e:
         sm.add_messages("quality", f"e| Exception occurred {e}")

@@ -143,7 +143,7 @@ def execute(source_name):
     # dr.find_duplicates()
     find_and_remove_duplicates(image_path=input_image_path)
 
-    dc, fc = ss.remove_empty_files_and_folders(input_image_path)     
+    dc, fc = ss.remove_empty_image_files_and_folders(input_image_path)     
     sm.add_messages('duplicate', f'w| removed {dc} empty folders and {fc} empty riles.')
 
 if __name__=='__main__':

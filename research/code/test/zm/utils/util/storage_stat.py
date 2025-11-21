@@ -229,7 +229,7 @@ def remove_empty_folders(path_absolute):
                 print(f"exception: {e} removing empty folder {path}")
     return cnt
 
-def remove_empty_files_and_folders(root_folder):
+def remove_empty_image_files_and_folders(root_folder):
     fc, dc = 0, 0
     mac_file_pattern = '._'
     for dpath, dnames, files in os.walk(root_folder, topdown=False):
@@ -248,7 +248,8 @@ def remove_empty_files_and_folders(root_folder):
                     except (OSError, SyntaxError) as e:
                         print(f'error removing file {fp}: {e}')  
             except (OSError, SyntaxError) as e:
-                print(f'bad or currupt file{fp}: {e}')
+                print(f'bad or corrupt file{fp}: {e}')
+                os.remove(fp)
              
         if not os.listdir(dpath):
             try:
