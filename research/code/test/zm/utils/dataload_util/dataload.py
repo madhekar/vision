@@ -131,18 +131,24 @@ def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
   input_audio_path: '/home/madhekar/work/home-media-app/data/input-data/audio/'
 '''
 def clean_unknown_files_folders(fdest_image, fdest_txt, fdest_video, fdest_audio):
-    
-    ifcnt = ss.trim_unknown_files(fdest_image)        
-    tfcnt = ss.trim_unknown_files(fdest_txt)
-    vfcnt = ss.trim_unknown_files(fdest_video)
-    afcnt = ss.trim_unknown_files(fdest_audio)
-   
-    idcnt = ss.remove_empty_folders(fdest_image)
-    tdcnt = ss.remove_empty_folders(fdest_txt)
-    vdcnt = ss.remove_empty_folders(fdest_video)
-    adcnt = ss.remove_empty_folders(fdest_audio)
+    try:
 
-    sm.add_messages("validate", f"s| file:folder cleanup- image:{ifcnt}:{idcnt} text: {tfcnt}:{tdcnt} video: {vfcnt}:{vdcnt} audio: {afcnt}:{adcnt} \n\n")
+        ifcnt = ss.trim_unknown_files(fdest_image)        
+        tfcnt = ss.trim_unknown_files(fdest_txt)
+        vfcnt = ss.trim_unknown_files(fdest_video)
+        afcnt = ss.trim_unknown_files(fdest_audio)
+    
+        idcnt = ss.remove_empty_files_and_folders(fdest_image)
+        tdcnt = ss.remove_empty_files_and_folders(fdest_txt)
+        vdcnt = ss.remove_empty_files_and_folders(fdest_video)
+        adcnt = ss.remove_empty_files_and_folders(fdest_audio)
+    except Exception as e:
+            sm.add_messages(
+                "validate",
+                f"e|exception: {e} occurred in clean_unknown_files_folders .\n\n",
+            )
+
+    sm.add_messages("validate", f"s| number of <files> : <folders> cleanup- image:{ifcnt}:{idcnt} text: {tfcnt}:{tdcnt} video: {vfcnt}:{vdcnt} audio: {afcnt}:{adcnt} \n\n")
 
 def execute(source_name):
     (
