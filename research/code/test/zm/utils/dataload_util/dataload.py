@@ -33,7 +33,7 @@ def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
 
         if os.path.isfile(item_path):
             try:
-                shutil.copy(item_path, f_dest)
+                shutil.copy2(item_path, f_dest)
             except FileNotFoundError:
                 e1 = ReferenceError("Source file not found.")
                 sm.add_messages("validate",f"e|exception: {e1} Source file not found {item_path}\n\n")

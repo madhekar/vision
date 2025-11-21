@@ -9,7 +9,7 @@ import streamlit as st
 from tqdm import tqdm
 from utils.util import statusmsg_util as sm
 
-#ImageFile.LOAD_TRUNCATED_IMAGES = True
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 hash_algo_dict = {
     "average_hash": imagehash.average_hash,
@@ -80,6 +80,15 @@ class ImageToHash(object):
         #     images_file_list = natsorted(images_file_list)
 
         return images_file_list
+    
+    def lfun(x):
+        return pd.Series(
+            [
+                int(i, 16)
+                for key, i in zip(range(0, len(x["hash_list"])), x["hash_list"])
+            ]
+        )
+
 
     def build_dataset(self, parallel=False, batch_size=32):
         """
