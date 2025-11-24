@@ -245,7 +245,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
             for il in img_iterator:
                   if len(il) > 0:
                     fres = list(map(partial(is_vaild_file_type, str_filter), il))
-                    print("***", fres)
+                    #print("***", fres)
                     #
                     rfes, sfes = [], []
                     for e in fres:
