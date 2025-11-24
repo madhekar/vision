@@ -57,10 +57,13 @@ iqa_metric = create_metric()
 
 def b_write_comment(dl):
     for row in dl:
-      im =   Image.open(row['img'])
-      exif = im.getexif()
-      exif[0x9286] = row['type']
-      im.save(row['img'], exif=exif)
+     try: 
+        im =   Image.open(row['img'])
+        exif = im.getexif()
+        exif[0x9286] = row['type']
+        im.save(row['img'], exif=exif)
+     except Exception as e:
+         print(f"Exception in updating exif metadata in : {row['img']}")
       
 
 
