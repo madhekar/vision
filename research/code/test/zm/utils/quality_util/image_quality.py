@@ -55,6 +55,31 @@ iqa_metric = create_metric()
 
 #m, cn, isz = create_model()
 
+def b_write_comment(dl):
+    for row in dl:
+      im =   Image.open(row['img'])
+      exif = im.getexif()
+      exif[0x9286] = row['type']
+      im.save(row['img'], exif=exif)
+      
+
+
+def batch_write_comment(dl):
+    for row in dl:
+
+        cmd = ['exiftool', '--overwrite_original', f"--UserComment={row['type']}", f"{row['img']}"]
+
+        print(cmd)
+
+        try:
+            subprocess.run(cmd, check=True, capture_output=True, text=True)
+            print(f"user comment: {row['type']} updated for: {row['img']}")
+        except Exception as e:
+            print(f"Error updating comments for: {row['img']: row['type']} : {e.stderr}")
+
+        time.sleep(2)    
+
+
 """
     Writes user comments from a DataFrame to image files using exiftool in batch mode.
     Args: df (pd.DataFrame): DataFrame with 'filepath' and 'comment' columns.
@@ -224,7 +249,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
                     #
                     # rfes = [e[0] for e in fres]
                     # sfes = [{'img': e[1].split("::")[0], 'type': e[1].split("::")[1]} for e in fres ]
-                    batch_write_comments(sfes)
+                    b_write_comment(sfes)
    
                     print(rfes)
                     qres = list(map(partial(is_valid_size_and_score, threshold),il))
