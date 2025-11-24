@@ -57,86 +57,90 @@ iqa_metric = create_metric()
 
 def b_write_comment(dl):
     for row in dl:
-     try: 
-        im =   Image.open(row['img'])
-        exif = im.getexif()
-        exif[0x9286] = row['type']
-        im.save(row['img'], exif=exif)
-     except Exception as e:
-         print(f"Exception in updating exif metadata in : {row['img']}")
+        try:
+            im = Image.open(row["img"])
+            exif = im.getexif()
+            exif[0x9286] = row["type"]
+            im.save(row["img"], exif=exif)
+        except Exception as e:
+            print(f"Exception in updating exif metadata in : {row['img']} - {e}")
+            sm.add_messages(
+                "quality",
+                f"e| Exception in updating exif metadata in : {row['img']} - {e}",
+            )
       
 
 
-def batch_write_comment(dl):
-    for row in dl:
+# def batch_write_comment(dl):
+#     for row in dl:
 
-        cmd = ['exiftool', '--overwrite_original', f"--UserComment={row['type']}", f"{row['img']}"]
+#         cmd = ['exiftool', '--overwrite_original', f"--UserComment={row['type']}", f"{row['img']}"]
 
-        print(cmd)
+#         print(cmd)
 
-        try:
-            subprocess.run(cmd, check=True, capture_output=True, text=True)
-            print(f"user comment: {row['type']} updated for: {row['img']}")
-        except Exception as e:
-            print(f"Error updating comments for: {row['img']: row['type']} : {e.stderr}")
+#         try:
+#             subprocess.run(cmd, check=True, capture_output=True, text=True)
+#             print(f"user comment: {row['type']} updated for: {row['img']}")
+#         except Exception as e:
+#             print(f"Error updating comments for: {row['img']: row['type']} : {e.stderr}")
 
-        time.sleep(2)    
+#         time.sleep(2)    
 
 
 """
     Writes user comments from a DataFrame to image files using exiftool in batch mode.
     Args: df (pd.DataFrame): DataFrame with 'filepath' and 'comment' columns.
     """
-def batch_write_comments(dl):
+# def batch_write_comments(dl):
 
-    command = ['exiftool', '-stay_open', 'True', '-m', '-@', '-']
+#     command = ['exiftool', '-stay_open', 'True', '-m', '-@', '-']
     
-    try:
-        # Start the persistent ExifTool process
-        proc = subprocess.Popen(
-            command,
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True  # Use text mode for standard streams
-        )
+#     try:
+#         # Start the persistent ExifTool process
+#         proc = subprocess.Popen(
+#             command,
+#             stdin=subprocess.PIPE,
+#             stdout=subprocess.PIPE,
+#             stderr=subprocess.PIPE,
+#             text=True  # Use text mode for standard streams
+#         )
 
-        for row in dl:
-            print(f"comment: {row}")
-            filepath = row['img']
-            comment = row['type']
+#         for row in dl:
+#             print(f"comment: {row}")
+#             filepath = row['img']
+#             comment = row['type']
             
-            # Construct the arguments for each file
-            # Use '-comment' to write to the standard UserComment tag
-            args = ['-overwrite_original', 
-                    f'-UserComment={comment}',   
-                    filepath]
+#             # Construct the arguments for each file
+#             # Use '-comment' to write to the standard UserComment tag
+#             args = ['-overwrite_original', 
+#                     f'-UserComment={comment}',   
+#                     filepath]
             
-            # Send arguments to the ExifTool process's stdin, followed by '-execute'
-            arg_string = '\n'.join(shlex.quote(arg) for arg in args) + '\n-execute\n'
-            print('******', arg_string)
-            proc.stdin.write(arg_string)
-            proc.stdin.flush()
+#             # Send arguments to the ExifTool process's stdin, followed by '-execute'
+#             arg_string = '\n'.join(shlex.quote(arg) for arg in args) + '\n-execute\n'
+#             print('******', arg_string)
+#             proc.stdin.write(arg_string)
+#             proc.stdin.flush()
             
-            # Wait for the output from ExifTool and check for errors
-            output_line = proc.stdout.readline()
+#             # Wait for the output from ExifTool and check for errors
+#             output_line = proc.stdout.readline()
 
-            if "error" in output_line.lower():
-                print(f"Error writing to {filepath}: {output_line}")
-            else:
-                print(f"Successfully wrote comment to {filepath}")
+#             if "error" in output_line.lower():
+#                 print(f"Error writing to {filepath}: {output_line}")
+#             else:
+#                 print(f"Successfully wrote comment to {filepath}")
 
-            time.sleep(2)    
+#             time.sleep(2)    
 
-        # Close the persistent exiftool process
-        proc.stdin.write('-stay_open\nFalse\n')
-        proc.stdin.flush()
-        proc.wait(timeout=5)
+#         # Close the persistent exiftool process
+#         proc.stdin.write('-stay_open\nFalse\n')
+#         proc.stdin.flush()
+#         proc.wait(timeout=5)
 
-    except FileNotFoundError:
-        print("Error: exiftool not found. Make sure it's installed and in your PATH.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+#     except FileNotFoundError:
+#         print("Error: exiftool not found. Make sure it's installed and in your PATH.")
+#     except Exception as e:
+#         print(f"An error occurred: {e}")
 
 def is_valid_size_and_score(args, img):
       threshold = args
@@ -167,7 +171,7 @@ fm, pp, cm, device = fti.load_filter_model()
 
 
 def prep_img_infer(img):
-    print(f'here -> {img}')
+    #print(f'here -> {img}')
     img_obj = Image.open(img).convert("RGB")
     input_tensor = pp(img_obj)
     #print(input_tensor)
@@ -190,7 +194,7 @@ def is_vaild_file_type(filter_types, img):
     try:
         img_type = prep_img_infer(img)
 
-        print(f"--> {img_type} filter types {filter_types}")
+        #print(f"--> {img_type} filter types {filter_types}")
 
         if img_type in filter_types:
           ret_img =  img   
@@ -254,10 +258,10 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
                     # sfes = [{'img': e[1].split("::")[0], 'type': e[1].split("::")[1]} for e in fres ]
                     b_write_comment(sfes)
    
-                    print(rfes)
+                    #print(rfes)
                     qres = list(map(partial(is_valid_size_and_score, threshold),il))
-                    print(f"*-* {qres}") 
-                    print(f'filter {rfes}:{sfes} quality {qres}')
+                    #print(f"*-* {qres}") 
+                    #print(f'filter {rfes}:{sfes} quality {qres}')
                     for fr, qr in zip(rfes, qres):
                       comr = fr or qr or ""
                       if comr != "":
