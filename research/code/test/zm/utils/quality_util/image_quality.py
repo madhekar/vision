@@ -61,7 +61,7 @@ iqa_metric = create_metric()
     """
 def batch_write_comments(dl):
 
-    command = ['exiftool', '-stay_open', 'True', '-@', '-']
+    command = ['exiftool', '-stay_open', 'True', '-m', '-@', '-']
     
     try:
         # Start the persistent ExifTool process
@@ -80,10 +80,13 @@ def batch_write_comments(dl):
             
             # Construct the arguments for each file
             # Use '-comment' to write to the standard UserComment tag
-            args = [f'-UserComment={comment}', '-overwrite_original', filepath]
+            args = ['-overwrite_original', 
+                    f'-UserComment={comment}',   
+                    filepath]
             
             # Send arguments to the ExifTool process's stdin, followed by '-execute'
             arg_string = '\n'.join(shlex.quote(arg) for arg in args) + '\n-execute\n'
+            print('******', arg_string)
             proc.stdin.write(arg_string)
             proc.stdin.flush()
             
