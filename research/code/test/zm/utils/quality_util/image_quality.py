@@ -74,6 +74,7 @@ def batch_write_comments(dl):
         )
 
         for row in dl:
+            print(f"comment: {row}")
             filepath = row['img']
             comment = row['type']
             
@@ -88,10 +89,13 @@ def batch_write_comments(dl):
             
             # Wait for the output from ExifTool and check for errors
             output_line = proc.stdout.readline()
+
             if "error" in output_line.lower():
                 print(f"Error writing to {filepath}: {output_line}")
             else:
                 print(f"Successfully wrote comment to {filepath}")
+
+            time.sleep(2)    
 
         # Close the persistent exiftool process
         proc.stdin.write('-stay_open\nFalse\n')
@@ -197,6 +201,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
     print(f"%%% {filter_list}")
     str_filter = ' '.join(filter_list)
     nfiles = len(mu.getFiles(image_dir_path))
+    print(f'---> nfiles: {nfiles}')
     img_iterator = mu.getRecursive(image_dir_path,  chunk_size)
     result = []
     with tqdm(total=nfiles, desc='detecting poor quality files', unit='items', unit_scale=True) as pbar:
@@ -204,24 +209,30 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
             res=[]
             for il in img_iterator:
                   if len(il) > 0:
-                    
-                     
                     fres = list(map(partial(is_vaild_file_type, str_filter), il))
-                    #print(fres)
-                    rfes = [e[0] for e in fres]
-                    sfes = [{'img': e[1].split("::")[0], 'type': e[1].split("::")[1]} for e in fres ]
+                    print("***", fres)
+                    #
+                    rfes, sfes = [], []
+                    for e in fres:
+                        if e[0]:
+                            rfes.append(e[0])
+                        else:
+                            sfes.append({'img': e[1].split("::")[0], 'type': e[1].split("::")[1]})    
+                    #
+                    # rfes = [e[0] for e in fres]
+                    # sfes = [{'img': e[1].split("::")[0], 'type': e[1].split("::")[1]} for e in fres ]
                     batch_write_comments(sfes)
    
-                    #print(rfes)
+                    print(rfes)
                     qres = list(map(partial(is_valid_size_and_score, threshold),il))
-                    #print(qres) 
-                    #print(f'filter {rfes}:{sfes} quality {qres}')
+                    print(f"*-* {qres}") 
+                    print(f'filter {rfes}:{sfes} quality {qres}')
                     for fr, qr in zip(rfes, qres):
                       comr = fr or qr or ""
                       if comr != "":
                         result.append(comr)
 
-                    print(f'combined (quality & filtered): {res}')
+                    print(f'combined (quality & filtered): {res} len of batch: {len(il)}')
                     pbar.update(len(il))
         #pool.close()
         #pool.join()
