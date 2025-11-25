@@ -202,7 +202,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
                         else:
                             sfes.append({'img': e[1].split("::")[0], 'type': e[1].split("::")[1]})    
                     # update image types using exif api        
-                    batch_byte_write_comment(sfes)
+                    b_write_comment(sfes)
  
                     qres = list(map(partial(is_valid_size_and_score, threshold),il))
                     #print(f"*-* {qres}") 

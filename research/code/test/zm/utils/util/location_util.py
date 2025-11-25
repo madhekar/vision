@@ -180,7 +180,7 @@ def setImgMetadata(img_path, s_date_time_original, s_user_comment, s_image_info)
         exif_dict = piexif.load(img_path)
 
         if s_date_time_original:
-            exif_dict["Exif"][piexif.ExifIFD.DateTimeOriginal] = (s_date_time_original.encode("utf-8"))
+            exif_dict["Exif"][piexif.ExifIFD.DateTimeOriginal] = s_date_time_original.encode("utf-8")
             result = "success"
 
         if s_user_comment:
