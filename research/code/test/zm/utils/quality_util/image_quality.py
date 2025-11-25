@@ -59,16 +59,16 @@ iqa_metric = create_metric()
 user_comment_bytes = b'ASCII\x00\x00\x00' + comment_string.encode('ascii')
 exif_dict['Exif'][37510] = user_comment_bytes
 """
-def batch_byte_write_comment(dl):
-    for row in dl:
-        try:
-          lu.setImgMetadata(row['img'],"",row['type'],"")
-        except Exception as e:
-            print(f"Exception in updating exif metadata in : {row['img']} - {e}")
-            sm.add_messages(
-                "quality",
-                f"e| Exception in updating exif metadata in : {row['img']} - {e}",
-            )    
+# def batch_byte_write_comment(dl):
+#     for row in dl:
+#         try:
+#           lu.setImgMetadata(row['img'],"",row['type'],"")
+#         except Exception as e:
+#             print(f"Exception in updating exif metadata in : {row['img']} - {e}")
+#             sm.add_messages(
+#                 "quality",
+#                 f"e| Exception in updating exif metadata in : {row['img']} - {e}",
+#             )    
 
 def b_write_comment(dl):
     for row in dl:
