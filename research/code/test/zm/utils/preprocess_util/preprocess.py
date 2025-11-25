@@ -292,7 +292,7 @@ def execute(user_source_selected):
     image_dir_path = os.path.join(image_dir_path, user_source_selected)
     
     if not os.path.exists(image_dir_path):
-        st.error(f'exception: image data path for {user_source_selected} does not exixts!')
+        st.error(f'exception: image data path for {user_source_selected} does not exists!')
     metadata_path = os.path.join(metadata_path, user_source_selected)
     if not os.path.exists(metadata_path):
         os.makedirs(metadata_path)
@@ -329,7 +329,7 @@ def execute(user_source_selected):
                 df = pd.DataFrame(data)
                 df = mu.drop_except(df, ["uri"])
     except Exception as e:
-        st.error(f"exception: {e} occured in loading metadata file")
+        st.error(f"exception: {e} occurred in loading metadata file")
 
     # bcreate_metadata = st.button("start metadata creation")
     # if bcreate_metadata:
@@ -348,7 +348,7 @@ def execute(user_source_selected):
             openclip_finetuned,
         ))
     except Exception as e:
-        st.error(f'exception: {e} occred in async main function')    
+        st.error(f'exception: {e} occurred in async main function')    
 
 
 # kick-off metadata generation
