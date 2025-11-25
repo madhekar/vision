@@ -12,6 +12,7 @@ from utils.config_util import config
 from utils.util import model_util as mu
 from utils.util import statusmsg_util as sm
 from utils.util import storage_stat as ss
+from utils.util import location_util as lu
 #from utils.filter_util import filter_inferance as fi
 from utils.filter_util import filter_torch_inference as fti
 
@@ -58,12 +59,23 @@ iqa_metric = create_metric()
 user_comment_bytes = b'ASCII\x00\x00\x00' + comment_string.encode('ascii')
 exif_dict['Exif'][37510] = user_comment_bytes
 """
+def batch_byte_write_comment(dl):
+    for row in dl:
+        try:
+          lu.setImgMetadata(row['img'],"",row['type'],"")
+        except Exception as e:
+            print(f"Exception in updating exif metadata in : {row['img']} - {e}")
+            sm.add_messages(
+                "quality",
+                f"e| Exception in updating exif metadata in : {row['img']} - {e}",
+            )    
+
 def b_write_comment(dl):
     for row in dl:
         try:
             im = Image.open(row["img"])
             exif = im.getexif()
-            im_type = b'ASCII\x00\x00\x00' + row['img'].encode('ascii')
+            im_type = b'ASCII\x00\x00\x00' + row['type'].encode('ascii')
             exif[0x9286] = im_type
             im.save(row["img"], exif=exif)
         except Exception as e:
@@ -190,7 +202,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
                         else:
                             sfes.append({'img': e[1].split("::")[0], 'type': e[1].split("::")[1]})    
                     # update image types using exif api        
-                    b_write_comment(sfes)
+                    batch_byte_write_comment(sfes)
  
                     qres = list(map(partial(is_valid_size_and_score, threshold),il))
                     #print(f"*-* {qres}") 
