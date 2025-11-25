@@ -75,7 +75,7 @@ def b_write_comment(dl):
         try:
             im = Image.open(row["img"])
             exif = im.getexif()
-            im_type = b'ASCII\x00\x00\x00' + row['type'].encode('ascii')
+            im_type = b'ASCII\x00\x00\x00' + row['type'].encode('utif-8')
             exif[0x9286] = im_type
             im.save(row["img"], exif=exif)
         except Exception as e:

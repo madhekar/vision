@@ -191,11 +191,12 @@ def setImgMetadata(img_path, s_date_time_original, s_user_comment, s_image_info)
             exif_dict["0th"][piexif.ImageIFD.ImageDescription] = s_image_info.encode("utf-8")
 
         if result == "success":
-            piexif.insert(piexif.dump(exif_dict), img_path)
+            exif_bytes = piexif.dump(exif_dict)
+            piexif.insert(exif_bytes, img_path)
 
     except Exception as e:
         print(
-            f"Exception creatring datetime original and user comment in  {img_path}: {e}"
+            f"LU:Exception creatring datetime original and user comment in  {img_path}:{s_date_time_original}:{s_user_comment}:{s_image_info}: {e}"
         )
         result = "failed"
 
