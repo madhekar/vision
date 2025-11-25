@@ -41,11 +41,7 @@ Graphics:
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 transform = ToTensor()
 
-# def create_model():
-#      model,inverted_classes, image_size_int = fi.init_filter_model()
-#      print(inverted_classes)
-#      return model,inverted_classes, image_size_int
-
+@st.cache_resource
 def create_metric():
     print(pyiqa.list_models())
     iqa_metric = pyiqa.create_metric("niqe", device=device)
@@ -53,8 +49,10 @@ def create_metric():
 
 iqa_metric = create_metric()
 
-#m, cn, isz = create_model()
-
+"""
+    Writes user comments from a DataFrame to image files using exiftool in batch mode.
+    Args: df (pd.DataFrame): DataFrame with 'filepath' and 'comment' columns.
+"""
 def b_write_comment(dl):
     for row in dl:
         try:
@@ -69,79 +67,6 @@ def b_write_comment(dl):
                 f"e| Exception in updating exif metadata in : {row['img']} - {e}",
             )
       
-
-
-# def batch_write_comment(dl):
-#     for row in dl:
-
-#         cmd = ['exiftool', '--overwrite_original', f"--UserComment={row['type']}", f"{row['img']}"]
-
-#         print(cmd)
-
-#         try:
-#             subprocess.run(cmd, check=True, capture_output=True, text=True)
-#             print(f"user comment: {row['type']} updated for: {row['img']}")
-#         except Exception as e:
-#             print(f"Error updating comments for: {row['img']: row['type']} : {e.stderr}")
-
-#         time.sleep(2)    
-
-
-"""
-    Writes user comments from a DataFrame to image files using exiftool in batch mode.
-    Args: df (pd.DataFrame): DataFrame with 'filepath' and 'comment' columns.
-    """
-# def batch_write_comments(dl):
-
-#     command = ['exiftool', '-stay_open', 'True', '-m', '-@', '-']
-    
-#     try:
-#         # Start the persistent ExifTool process
-#         proc = subprocess.Popen(
-#             command,
-#             stdin=subprocess.PIPE,
-#             stdout=subprocess.PIPE,
-#             stderr=subprocess.PIPE,
-#             text=True  # Use text mode for standard streams
-#         )
-
-#         for row in dl:
-#             print(f"comment: {row}")
-#             filepath = row['img']
-#             comment = row['type']
-            
-#             # Construct the arguments for each file
-#             # Use '-comment' to write to the standard UserComment tag
-#             args = ['-overwrite_original', 
-#                     f'-UserComment={comment}',   
-#                     filepath]
-            
-#             # Send arguments to the ExifTool process's stdin, followed by '-execute'
-#             arg_string = '\n'.join(shlex.quote(arg) for arg in args) + '\n-execute\n'
-#             print('******', arg_string)
-#             proc.stdin.write(arg_string)
-#             proc.stdin.flush()
-            
-#             # Wait for the output from ExifTool and check for errors
-#             output_line = proc.stdout.readline()
-
-#             if "error" in output_line.lower():
-#                 print(f"Error writing to {filepath}: {output_line}")
-#             else:
-#                 print(f"Successfully wrote comment to {filepath}")
-
-#             time.sleep(2)    
-
-#         # Close the persistent exiftool process
-#         proc.stdin.write('-stay_open\nFalse\n')
-#         proc.stdin.flush()
-#         proc.wait(timeout=5)
-
-#     except FileNotFoundError:
-#         print("Error: exiftool not found. Make sure it's installed and in your PATH.")
-#     except Exception as e:
-#         print(f"An error occurred: {e}")
-
 def is_valid_size_and_score(args, img):
       threshold = args
       try:  
@@ -169,9 +94,12 @@ def is_valid_size_and_score(args, img):
 
 fm, pp, cm, device = fti.load_filter_model()
 
-
+'''
+  infer the image type people, scenic & document
+'''
 def prep_img_infer(img):
     #print(f'here -> {img}')
+
     img_obj = Image.open(img).convert("RGB")
     input_tensor = pp(img_obj)
     #print(input_tensor)
@@ -187,7 +115,9 @@ def prep_img_infer(img):
     #print(f"class {top_catid}, prob: {top_prob.item()}")
     return cm[top_catid.item()]
 
-
+'''
+  determine to persist or remove image types in search
+'''
 def is_vaild_file_type(filter_types, img):
     ret_img=""
     store_type = ""
@@ -253,15 +183,13 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
                             rfes.append(e[0])
                         else:
                             sfes.append({'img': e[1].split("::")[0], 'type': e[1].split("::")[1]})    
-                    #
-                    # rfes = [e[0] for e in fres]
-                    # sfes = [{'img': e[1].split("::")[0], 'type': e[1].split("::")[1]} for e in fres ]
+                    # update image types using exif api        
                     b_write_comment(sfes)
-   
-                    #print(rfes)
+ 
                     qres = list(map(partial(is_valid_size_and_score, threshold),il))
                     #print(f"*-* {qres}") 
                     #print(f'filter {rfes}:{sfes} quality {qres}')
+                    
                     for fr, qr in zip(rfes, qres):
                       comr = fr or qr or ""
                       if comr != "":
