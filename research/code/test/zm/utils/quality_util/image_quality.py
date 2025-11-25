@@ -52,13 +52,19 @@ iqa_metric = create_metric()
 """
     Writes user comments from a DataFrame to image files using exiftool in batch mode.
     Args: df (pd.DataFrame): DataFrame with 'filepath' and 'comment' columns.
+
+    comment_string = "This is my comment."
+# The first 8 bytes specify the character code (ASCII here)
+user_comment_bytes = b'ASCII\x00\x00\x00' + comment_string.encode('ascii')
+exif_dict['Exif'][37510] = user_comment_bytes
 """
 def b_write_comment(dl):
     for row in dl:
         try:
             im = Image.open(row["img"])
             exif = im.getexif()
-            exif[0x9286] = row["type"]
+            im_type = b'ASCII\x00\x00\x00' + row['img'].encode('ascii')
+            exif[0x9286] = im_type
             im.save(row["img"], exif=exif)
         except Exception as e:
             print(f"Exception in updating exif metadata in : {row['img']} - {e}")
@@ -189,7 +195,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
                     qres = list(map(partial(is_valid_size_and_score, threshold),il))
                     #print(f"*-* {qres}") 
                     #print(f'filter {rfes}:{sfes} quality {qres}')
-                    
+
                     for fr, qr in zip(rfes, qres):
                       comr = fr or qr or ""
                       if comr != "":
