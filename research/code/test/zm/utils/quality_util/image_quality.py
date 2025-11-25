@@ -286,7 +286,7 @@ def execute(source_name, filter_list):
         arc_folder_name = mu.get_foldername_by_datetime()     
         archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
 
-        chunk_size = 16 #int(mp.cpu_count())
+        chunk_size = int(mp.cpu_count())
         # queue_count = chunk_size
 
         # sm.add_messages("quality", f"s| number of parallel processes {chunk_size}")
