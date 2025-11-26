@@ -20,6 +20,7 @@ class ExifTool(object):
                 "-GPSLatitude",
                 "-GPSLongitude",
                 "-DateTimeOriginal",
+                "-UserComment",
                 "-stay_open",
                 "True",
                 "-@",
