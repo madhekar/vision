@@ -27,4 +27,4 @@ print(images)
 image_holder = st.empty()
 for item in images:
     image_holder.image(item)
-    time.sleep(5000)
+    time.sleep(1)
