@@ -20,10 +20,12 @@ def get_image_files(folder_path):
     return image_files
 
 
-image_holder = st.empty()
-images = get_image_files("/Users/emadhekar/Pictures")
+
+images = get_image_files("/home/madhekar/temp/travel/world/images")
 print(images)
 
+image_holder = st.empty()
 for item in images:
     image_holder.image(item)
-    time.sleep(5000)
+    print(f"---> {item}")
+    time.sleep(.2)
