@@ -185,8 +185,10 @@ def editLocations(files, page, batch_size, row_size):
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
     col = 0
+    
     clear_markers()
     
+    lat, lon, dt, label = "","","",""
     for image in batch:
         with grid[col]:
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
