@@ -13,6 +13,26 @@ from utils.util import storage_stat as ss
 from PIL import Image
 from utils.util import fast_parquet_util as fpu
 
+"""
+In Streamlit, you can clear elements from the screen and 
+write new ones by using st.empty() as a placeholder that you can 
+replace dynamically, or by utilizing st.session_state and st.rerun() 
+to manage the application's flow and clear inputs. 
+
+Method 1: Using st.empty() for Dynamic Replacement
+The st.empty() method creates a single container in your app that 
+can be cleared and rewritten with new elements as needed, without 
+affecting the rest of the page. 
+Using st.empty() allows you to create a placeholder that can be updated 
+with new content. 
+
+Method 2: Using st.session_state and st.rerun() for full page control
+For managing the application's flow and state, especially for clearing 
+inputs or forms, you can use st.session_state and st.rerun() to trigger a 
+full page refresh. Clearing specific input widgets can be achieved by 
+updating their values in st.session_state via a callback function. 
+"""
+
 user_device = st.empty()
 def get_env():
     (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon, bsmx,rszp) = config.editor_config_load()
