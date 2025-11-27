@@ -4042,6 +4042,15 @@ wheels = [
 ]
 
 [[package]]
+name = "python-decouple"
+version = "3.8"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/e1/97/373dcd5844ec0ea5893e13c39a2c67e7537987ad8de3842fe078db4582fa/python-decouple-3.8.tar.gz", hash = "sha256:ba6e2657d4f376ecc46f77a3a615e058d93ba5e465c01bbe57289bfb7cce680f", size = 9612, upload-time = "2023-03-01T19:38:38.143Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a2/d4/9193206c4563ec771faf2ccf54815ca7918529fe81f6adb22ee6d0e06622/python_decouple-3.8-py3-none-any.whl", hash = "sha256:d0d45340815b25f4de59c974b855bb38d03151d81b037d9e3f463b0c9f8cbd66", size = 9947, upload-time = "2023-03-01T19:38:36.015Z" },
+]
+
+[[package]]
 name = "python-dotenv"
 version = "1.1.1"
 source = { registry = "https://pypi.org/simple" }
@@ -5072,6 +5081,20 @@ wheels = [
 ]
 
 [[package]]
+name = "streamlit-aggrid"
+version = "1.2.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pandas" },
+    { name = "python-decouple" },
+    { name = "streamlit" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f2/4d/4eee8055de97c1e12a8edb637c227119aea8e9e8dd0a462c547b7adc1815/streamlit_aggrid-1.2.1.tar.gz", hash = "sha256:3d4e9e7444e5d12f4577efce129c27933c499482d87d0a77bd331f6aa65f2709", size = 5669840, upload-time = "2025-11-23T22:30:23.036Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/bb/49/abfc53612c8592de5a0760eafad2fa5265d5135e9fa486b56f37cc7cfcda/streamlit_aggrid-1.2.1-py3-none-any.whl", hash = "sha256:507a52e44913564da828fbbc4ca01d8c81a30fb8f6cce97c9dab4a30ec1e462d", size = 5733174, upload-time = "2025-11-23T22:30:14.077Z" },
+]
+
+[[package]]
 name = "streamlit-folium"
 version = "0.22.1"
 source = { registry = "https://pypi.org/simple" }
@@ -5096,6 +5119,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/15/b4/819e4c27e983955897d01e987cc91da183e58835c04613c6a0004f0ae331/streamlit-image-select-0.6.0.tar.gz", hash = "sha256:4e64913b17d86f592700f867dc640b8c8dc1282aff78162c7b2b66997a84fe17", size = 696916, upload-time = "2023-03-28T16:55:00.372Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f0/8c/10ffa4f35b0c61a23990399be10b37fd1d5a4667c8bcd378d81d822562ab/streamlit_image_select-0.6.0-py3-none-any.whl", hash = "sha256:5a87d1b0a1f9010939fea27c569c3a711a028148aa4fb7b8036bf699d9e2b9aa", size = 706724, upload-time = "2023-03-28T16:55:09.09Z" },
+]
+
+[[package]]
+name = "streamlit-imagegrid"
+version = "0.0.7"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "streamlit" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/67/77/a456bc0eca6399ce9017f66a608ad031b416bb1cc0c5ad480ef91d08b072/streamlit_imagegrid-0.0.7.tar.gz", hash = "sha256:c3abee17cec7401a89de3ef653ffdf5362e91681ef6ad537c6145976be822dd7", size = 113690, upload-time = "2024-11-23T20:10:51.08Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/17/70/b3646d7ee734f78da2a53acc3b37ff382c1a85e3e095777d8b09bc7cad31/streamlit_imagegrid-0.0.7-py3-none-any.whl", hash = "sha256:9e407b42a63a2085d13c5803ba52e87a9d432255046514742d9dabd80153eb92", size = 1058931, upload-time = "2024-11-23T20:10:49.798Z" },
 ]
 
 [[package]]
@@ -6212,8 +6247,10 @@ dependencies = [
     { name = "scikit-learn" },
     { name = "stqdm" },
     { name = "streamlit" },
+    { name = "streamlit-aggrid" },
     { name = "streamlit-folium" },
     { name = "streamlit-image-select" },
+    { name = "streamlit-imagegrid" },
     { name = "streamlit-option-menu" },
     { name = "streamlit-tree-select" },
     { name = "tensorflow" },
@@ -6268,8 +6305,10 @@ requires-dist = [
     { name = "scikit-learn", specifier = "==1.7.1" },
     { name = "stqdm", specifier = ">=0.0.5" },
     { name = "streamlit", specifier = "==1.39.0" },
+    { name = "streamlit-aggrid", specifier = ">=1.2.1" },
     { name = "streamlit-folium", specifier = "==0.22.1" },
     { name = "streamlit-image-select", specifier = "==0.6.0" },
+    { name = "streamlit-imagegrid", specifier = ">=0.0.7" },
     { name = "streamlit-option-menu", specifier = ">=0.4.0" },
     { name = "streamlit-tree-select", specifier = "==0.0.5" },
     { name = "tensorflow", specifier = "==2.16.1" },
