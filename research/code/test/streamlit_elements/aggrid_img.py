@@ -17,24 +17,28 @@ data = {'name': ['The Shawshank Redemption', 'The Godfather', 'The Godfather: Pa
                       'https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SY1000_CR0,0,675,1000_AL_.jpg']}
 df = pd.DataFrame(data)
 
-render_image = JsCode('''
-                      
-    function renderImage(params) {
-    // Create a new image element
-    var img = new Image();
+try:
+    render_image = JsCode("""
+                        
+        function renderImage(params) {
+        // Create a new image element
+        var img = new Image();
 
-    // Set the src property to the value of the cell (should be a URL pointing to an image)
-    img.src = params.value;
+        // Set the src property to the value of the cell (should be a URL pointing to an image)
+        img.src = params.value;
 
-    // Set the width and height of the image to 50 pixels
-    img.width = 50;
-    img.height = 50;
+        // Set the width and height of the image to 50 pixels
+        img.width = 50;
+        img.height = 50;
 
-    // Return the image element
-    return img;
-    }
-'''
-)
+        // Return the image element
+        return img;
+        }
+    """
+    )
+except Exception as error:
+  print("Minified React error code:", error)
+
 
 # Build GridOptions object
 options_builder = GridOptionsBuilder.from_dataframe(df)
