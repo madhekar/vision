@@ -18,7 +18,7 @@ data = {'name': ['The Shawshank Redemption', 'The Godfather', 'The Godfather: Pa
 df = pd.DataFrame(data)
 
 try:
-    render_image = JsCode("""
+    render_image = JsCode(r"""
                         
         function renderImage(params) {
         // Create a new image element
@@ -50,4 +50,4 @@ grid_options = options_builder.build()
 grid = AgGrid(df, 
                 gridOptions = grid_options,
                 allow_unsafe_jscode=True,
-                height=200, width=500, theme='streamlit')
+                height=200, width=500) #, theme='streamlit')
