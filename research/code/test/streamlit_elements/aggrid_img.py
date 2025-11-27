@@ -1,7 +1,7 @@
 import pandas as pd
 from st_aggrid import AgGrid, JsCode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
-import js2py
+
 
 # Dummy data
 data = {'name': ['The Shawshank Redemption', 'The Godfather', 'The Godfather: Part II', 'The Dark Knight'],
