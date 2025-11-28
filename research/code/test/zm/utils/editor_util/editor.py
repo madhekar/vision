@@ -248,7 +248,7 @@ def editLocations(files, page, batch_size, row_size):
                 
             image = Image.open(image)  
             image.thumbnail((200,200), Image.Resampling.LANCZOS)
-            c1.image(image, caption=label, output_format="JPG")
+            c1.image(image, caption=label,use_column_width=True, output_format="JPG")
             # if lat != "-":
             #     add_marker(lat, lon, label, image)
             st.divider()    
