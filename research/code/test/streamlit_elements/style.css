@@ -1,0 +1,44 @@
+/* style.css */
+/* Style the input with "First Name" aria-label */
+.stTextInput input[aria-label="First Name"] {
+    background-color: #f0f8ff; /* AliceBlue */
+    border: 2px solid #4169e1; /* RoyalBlue */
+    color: #000000;
+    font-size: 16px;
+}
+
+/* Style the input with "Last Name" aria-label */
+.stTextInput input[aria-label="Last Name"] {
+    background-color: #fff0f5; /* LavenderBlush */
+    border: 2px solid #ff1493; /* DeepPink */
+    color: #000000;
+    font-size: 10px;
+}
+
+/* Style the input with "Address" aria-label */
+.stTextInput input[aria-label="Address"] {
+    field-sizing: content;
+    background-color: #ffffe0; /* LightYellow */
+    border: 0px solid #ffebcd; /* BlanchedAlmond */
+    color: #000000;
+    height: 11px;
+    line-height: 12px;
+    font-size: 8px;
+}
+
+/* style.css */
+/* Selects all text inputs within the app */
+.stTextInput > div > div > input {
+    border-radius: 2px;
+    padding: 2px;
+}
+
+/* style.css */
+/* Target inputs using their unique keys */
+.st-key-first_name .stTextInput input {
+    border: 2px solid green;
+}
+
+.st-key-last_name .stTextInput input {
+    border: 2px solid red;
+}
