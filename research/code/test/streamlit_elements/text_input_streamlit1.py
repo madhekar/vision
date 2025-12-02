@@ -14,6 +14,7 @@ custom_css_1 = """
 <style>
 div[data-baseweb="base-input"]{ 
 background:linear-gradient(to bottom, #3399ff 0%,#00ffff 100%);
+min-height: 4px;
 height: 20px;
 width: 100px;
 border: 2px;
@@ -23,7 +24,7 @@ border-radius: 3px;
 input[class]{
 font-weight: bold;
 font-size:60%;
-color: white;
+color: black;
 }
 </style>
 """
