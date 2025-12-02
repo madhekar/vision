@@ -4,7 +4,7 @@ custom_css = """
 <style>
 /* This selector might need adjustment based on Streamlit version and element structure */
 div[data-baseweb="input"] > div > input {
-    width: 500px !important; /* Adjust width as needed */
+    width: 50px !important; /* Adjust width as needed */
     height: 20px !important;
     font-size: 120% !important;
 }
@@ -15,8 +15,7 @@ custom_css_1 = """
 div[data-baseweb="base-input"]{ 
 background:linear-gradient(to bottom, #3399ff 0%,#00ffff 100%);
 min-height: 4px;
-height: 20px;
-width: 100px;
+width: 50px;
 border: 2px;
 border-radius: 3px;
 }

@@ -7,7 +7,7 @@ st.markdown(
 <style>
 div[data-baseweb="base-input"] > textarea {
     min-height: 4px;
-    font-size: 10px !important;
+    font-size: 8px; !important;
     padding: 0;
 }
 </style>
