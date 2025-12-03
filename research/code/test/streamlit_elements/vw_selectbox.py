@@ -6,7 +6,7 @@ custom_css = """
 <style>
 /* Target the main container of the selectbox widget */
 div[data-testid="stSelectbox"] {
-    width: 30vw !important; /* Set width to 30% of the viewport width */
+    width: 20vw !important; /* Set width to 30% of the viewport width */
     margin: 1vw auto; /* Center the selectbox and use 1% viewport margin */
     border: 1px solid #4CAF50; /* Add a border for visibility */
     border-radius: .5vw;
@@ -15,7 +15,7 @@ div[data-testid="stSelectbox"] {
 
 /* Target the actual selection display area */
 div[data-baseweb="select"] div {
-    font-size: 1.5vw; /* Adjust font size based on viewport width */
+    font-size: .5vw; /* Adjust font size based on viewport width */
 }
 </style>
 """
