@@ -43,7 +43,10 @@ p = LLM_Next.setLLM()
 #ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
 #global_face = bft.base_face_res()
 """
+exception: Traceback (most recent call last): File "/home/madhekar/work/vision/research/code/test/zm/.venv/lib/python3.10/site-packages/aiomultiprocess/pool.py", line 110, in run result = future.result() 
+File "/home/madhekar/work/vision/research/code/test/zm/utils/preprocess_util/preprocess.py", line 90, in timestamp ts,uc = lu.getTimestamp(uri) #lu.get_image_exif_info(uri) File "/home/madhekar/work/vision/research/code/test/zm/utils/util/location_util.py", 
 
+line 292, in getTimestamp return value, s_user_comment UnboundLocalError: local variable 's_user_comment' referenced before assignment occurred in async main function
 """
 # init LLM modules
 @st.cache_resource
