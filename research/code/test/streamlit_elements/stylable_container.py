@@ -1,17 +1,19 @@
 import streamlit as st
 from streamlit_extras.stylable_container import stylable_container
 
+mh, mw, fs, h, w = 8, 100, 7, 10, 100
+
 # with stylable_container(
 #         key="comic_sans_button",
 #         css_styles=["""
 #          button {
-#             min-height: 8px;
-#             min-width: 100px;       
+#             min-height: {mh}px;
+#             min-width: {mw}px;       
 #          }
 #          """,
 #          """
 #          button > div >  p {
-#             font-size: 7px; height: 8px; width: 100px; font-family: "Comic Sans MS", "Comic Sans", cursive;
+#             font-size: {fs}px; height: {h}px; width: {w}px; font-family: "Comic Sans MS", "Comic Sans", cursive;
 #          }
 #          """
 #          ],
