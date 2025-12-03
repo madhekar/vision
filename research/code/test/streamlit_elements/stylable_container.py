@@ -7,13 +7,13 @@ mh, mw, fs, h, w = 8, 100, 7, 10, 100
 #         key="comic_sans_button",
 #         css_styles=["""
 #          button {
-#             min-height: {mh}px;
-#             min-width: {mw}px;       
+#             min-height: {mh}rem;
+#             min-width: {mw}rem;       
 #          }
 #          """,
 #          """
 #          button > div >  p {
-#             font-size: {fs}px; height: {h}px; width: {w}px; font-family: "Comic Sans MS", "Comic Sans", cursive;
+#             font-size: {fs}rem; height: {h}rem; width: {w}rem; font-family: "Comic Sans MS", "Comic Sans", cursive;
 #          }
 #          """
 #          ],
