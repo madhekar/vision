@@ -70,67 +70,68 @@ Describe the image with thoughtful insights using additional information provide
 def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
 
     st.info("calling LLM...")
-
+    rr = ""
     #
-    model = pipe.model
-    processor = pipe.tokenizer
+    #model = pipe.model
+    #processor = pipe.tokenizer
     #
+    try:
+        image = Image.open(imUrl).convert("RGB")
+        
+        # Ensure that all double and single quotes are escaped with backslash: "This is a \"quoted\" pharse." or 'I\'m going now'.
+        if partial_prompt != '':
+        
+            prompt = """<|im_start|>system
+            A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. 
+            Do not hallucinate and gives very close attention to the details and takes time to process information provided in Image and text format, your response must be entirely in prose. Absolutely no lists, bullet points, or numbered items should be used. 
+            Ensure the information flows seamlessly within paragraphs. Adhere strictly to these guidelines:
+            1. Only provide answer and no extra commentry, additional context or information request.
+            2. Do not reuse the same sentence structure more than once in responce.
+            3. Eliminate unclear excessive symbols or gibberish.
+            4. Include addition information provided about people names and places or locations.
+            5. Shorten text while preserving information.
+            6. Preserve clear text as is.
+            7. Skip text that is too unclear or ambiguous.
+            8. Exclude non-factual elements.
+            9. Maintain clearity and information.
+            <|im_end|>
+            <|im_start|>user
+            <image>"{question}" It is CRITICALLY ABSOLUTELY MUST to include the NAMES OF PEOPLE and EMOTIONS if available in "{partial_prompt}" and the location details if available in "{location}" in the response.  
+            <|im_end|> 
+            <|im_start|>assistant
+            """.format(
+                question=question, partial_prompt=partial_prompt, location=location
+            )  # , article=st.session_state["document"])
+        else:
+            prompt = """<|im_start|>system
+            A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. 
+            Do not hallucinate and gives very close attention to the details and takes time to process information provided, your response must be entirely in prose. Absolutely no lists, bullet points, or numbered items should be used. 
+            Ensure the information flows seamlessly within paragraphs.
+            <|im_end|>
+            <|im_start|>user
+            <image>"{question}" please use the location details "{location}" in the response if appropriate.
+            <|im_end|> 
+            <|im_start|>assistant
+            """.format(
+                question=question, location=location
+            )  # , article=st.session_state["document"])
 
-    image = Image.open(imUrl).convert("RGB")
-    
+        outputs = pipe(
+            image,
+            prompt=prompt,
+            generate_kwargs={"max_new_tokens": 200},
+        )
 
-    # Ensure that all double and single quotes are escaped with backslash: "This is a \"quoted\" pharse." or 'I\'m going now'.
-    if partial_prompt != '':
-    
-        prompt = """<|im_start|>system
-        A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. 
-        Do not hallucinate and gives very close attention to the details and takes time to process information provided in Image and text format, your response must be entirely in prose. Absolutely no lists, bullet points, or numbered items should be used. 
-        Ensure the information flows seamlessly within paragraphs. Adhere strictly to these guidelines:
-        1. Only provide answer and no extra commentry, additional context or information request.
-        2. Do not reuse the same sentence structure more than once in responce.
-        3. Eliminate unclear excessive symbols or gibberish.
-        4. Include addition information provided about people names and places or locations.
-        5. Shorten text while preserving information.
-        6. Preserve clear text as is.
-        7. Skip text that is too unclear or ambiguous.
-        8. Exclude non-factual elements.
-        9. Maintain clearity and information.
-        <|im_end|>
-        <|im_start|>user
-        <image>"{question}" It is CRITICALLY ABSOLUTELY MUST to include the NAMES OF PEOPLE and EMOTIONS if available in "{partial_prompt}" and the location details if available in "{location}" in the response.  
-        <|im_end|> 
-        <|im_start|>assistant
-        """.format(
-            question=question, partial_prompt=partial_prompt, location=location
-        )  # , article=st.session_state["document"])
-    else:
-        prompt = """<|im_start|>system
-        A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. 
-        Do not hallucinate and gives very close attention to the details and takes time to process information provided, your response must be entirely in prose. Absolutely no lists, bullet points, or numbered items should be used. 
-        Ensure the information flows seamlessly within paragraphs.
-        <|im_end|>
-        <|im_start|>user
-        <image>"{question}" please use the location details "{location}" in the response if appropriate.
-        <|im_end|> 
-        <|im_start|>assistant
-        """.format(
-            question=question, location=location
-        )  # , article=st.session_state["document"])
+        #
+        #inputs = processor(prompt, image, return_tensors="pt").to(0, torch.float16)
+        #
+        #outputs = model.generate(**inputs, max_new_tokens=200 , do_sample=False, repetition_penalty=1.5)
 
-    outputs = pipe(
-        image,
-        prompt=prompt,
-        generate_kwargs={"max_new_tokens": 200},
-    )
-
-    #
-    #inputs = processor(prompt, image, return_tensors="pt").to(0, torch.float16)
-    #
-    #outputs = model.generate(**inputs, max_new_tokens=200 , do_sample=False, repetition_penalty=1.5)
-
-    result = outputs[0]["generated_text"].partition("<|im_start|>assistant")[2]
-    #rr = repr(result)
-    rr = result.translate(str.maketrans({"'" :  r"\'", "|":  r""}))
+        result = outputs[0]["generated_text"].partition("<|im_start|>assistant")[2]
+        #rr = repr(result)
+        rr = result.translate(str.maketrans({"'" :  r"\'", "|":  r""}))
+    except Exception as e:
+        print(f"exception in fetch iim text: {e}")
     return rr
     
 if __name__=='__main__':
