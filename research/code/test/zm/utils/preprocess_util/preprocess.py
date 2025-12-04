@@ -49,6 +49,14 @@ File "/home/madhekar/work/vision/research/code/test/zm/utils/preprocess_util/pre
 line 90, in timestamp ts,uc = lu.getTimestamp(uri) #lu.get_image_exif_info(uri) File "/home/madhekar/work/vision/research/code/test/zm/utils/util/location_util.py", 
 
 line 292, in getTimestamp return value, s_user_comment UnboundLocalError: local variable 's_user_comment' referenced before assignment occurred in async main function
+-------
+
+exception: Traceback (most recent call last): File "/home/madhekar/work/vision/research/code/test/zm/.venv/lib/python3.10/site-packages/aiomultiprocess/pool.py", line 110,
+ in run result = future.result() File "/home/madhekar/work/vision/research/code/test/zm/utils/preprocess_util/preprocess.py", 
+ line 158, in describeImage d = LLM_Next.fetch_llm_text(imUrl=uri, pipe=p, question="Describe the image with thoughtful insights using additional information provided. ", partial_prompt=ppt, location=location) File "/home/madhekar/work/vision/research/code/test/zm/utils/preprocess_util/LLM_Next.py", 
+ line 79, in fetch_llm_text image = Image.open(imUrl).convert("RGB") File "/home/madhekar/work/vision/research/code/test/zm/.venv/lib/python3.10/site-packages/PIL/Image.py", 
+ line 916, in convert self.load() File "/home/madhekar/work/vision/research/code/test/zm/.venv/lib/python3.10/site-packages/PIL/ImageFile.py", line 266, in load raise OSError(msg) OSError: image file is truncated (0 bytes not processed) occurred in async main function
+
 """
 # init LLM modules
 @st.cache_resource
