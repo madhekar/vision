@@ -45,22 +45,7 @@ def load_app_configuration():
            print(f' {cnt} : number of files removed')
            #return root_data, root_app
 
-def add_logo():
-    """
-    Add logo to the sidebar, above multi page selection
-    """
-    st.markdown(
-        """
-        <style>
-            [data-testid="stSidebarNav"] {
-                background-image: url(IMAGE_URL);
-                background-repeat: no-repeat;
-                background-position: 20px 20px;
-            }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+
 
 def load_css(css_path):
     with open(file=css_path) as f:
