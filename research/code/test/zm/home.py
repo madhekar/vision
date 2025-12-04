@@ -45,6 +45,8 @@ def load_app_configuration():
            print(f' {cnt} : number of files removed')
            #return root_data, root_app
 
+
+
 def load_css(css_path):
     with open(file=css_path) as f:
         s = f"<style>{f.read()}</style>"

@@ -4,6 +4,39 @@ import datetime
 MIN_DT = datetime.datetime(1998, 1, 1)
 MAX_DT = datetime.datetime.now()
 
+def set_streamlit_page_config_once():
+    """
+    Set streamlit page config once
+    This is a workaround around multiple pages in streamlit
+    """
+    try:
+        st.set_page_config(...)
+        #show_pages_from_config()
+        #add_logo()
+
+    except st.errors.StreamlitAPIException as e:
+        if "can only be called once per app" in e.__str__():
+            # ignore this error
+            return
+        raise e
+
+def add_logo():
+    """
+    Add logo to the sidebar, above multi page selection
+    """
+    st.markdown(
+        """
+        <style>
+            [data-testid="stSidebarNav"] {
+                background-image: url(IMAGE_URL);
+                background-repeat: no-repeat;
+                background-position: 20px 20px;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
 def initUI():
 
     st.set_page_config(
