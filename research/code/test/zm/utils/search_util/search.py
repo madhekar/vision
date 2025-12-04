@@ -8,7 +8,7 @@ from streamlit_image_select import image_select
 from utils.config_util import config
 from PIL import Image, ImageOps
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
-import datetime
+from streamlit_extras.mandatory_date_range import date_range_picker as drp
 
 import chromadb as cdb
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
@@ -128,16 +128,17 @@ def search_fn(client, cImgs, cTxts):
         def date_change():
             st.session_state["dt_range"] = st.session_state.mySlider
 
-        date_range = st.slider(
-            label="## Date range",
-            key="mySlider",
-            value=st.session_state["dt_range"],
-            min_value=MIN_DT,
-            max_value=MAX_DT,
-            step=datetime.timedelta(days=1),
-            on_change=date_change,
-            help="search result date range",
-        )
+        date_range = drp("select date range")
+        # date_range = st.slider(
+        #     label="## Date range",
+        #     key="mySlider",
+        #     value=st.session_state["dt_range"],
+        #     min_value=MIN_DT,
+        #     max_value=MAX_DT,
+        #     step=datetime.timedelta(days=1),
+        #     on_change=date_change,
+        #     help="search result date range",
+        # )
 
         st.divider()
 

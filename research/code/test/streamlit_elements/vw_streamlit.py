@@ -12,6 +12,11 @@ st.markdown(
         border: .1vw solid blue;
         padding: 1vw;
     }
+    .my-responsive-button {
+      font-size: 3vw;
+      height: 4vw; 
+      width: 10vw;
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -22,3 +27,5 @@ st.markdown("<p class='my-responsive-text'>This text scales with viewport width.
 
 with st.container():
     st.markdown("<div class='my-responsive-container'>This container also scales.</div>", unsafe_allow_html=True)
+
+    st.markdown("<div class='my-responsive-button'> ggg</div>", unsafe_allow_html=True)
