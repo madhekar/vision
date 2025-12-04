@@ -269,7 +269,7 @@ def read_metadata(img, ipath):
 def getTimestamp(img):
     print(f"-> {img}")
     value = ""
-    user_comment = ""
+    s_user_comment = ""
     image = Image.open(img)
     # extracting the exif metadata
     exifdata = image._getexif()
