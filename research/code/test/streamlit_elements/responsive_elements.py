@@ -2,8 +2,9 @@ import streamlit as st
 
 # 1. Add your elements with unique keys
 st.text_input("Enter text", key="my_textbox")
+st.text_input("Age:", key="age_textbox")
 st.button("Click Me", key="my_button")
-st.selectbox("Choose an option", ["Option 1", "Option 2"], key="my_dropdown")
+st.selectbox("Choose an option:", ["Option 1", "Option 2"], key="my_dropdown")
 
 # 2. Inject custom CSS targeting the specific keys
 st.markdown("""
@@ -14,6 +15,8 @@ st.markdown("""
         border: 2px solid #4CAF50;
         border-radius: 5px;
     }
+            
+    .st-key-age_textbox input { background-color: #ff0000;}        
 
     /* Target the container of 'my_button' */
     .st-key-my_button button {
@@ -31,7 +34,7 @@ st.markdown("""
 
     /* Use CSS Media Queries for responsiveness in styling (e.g., small screens) */
     @media (max-width: 600px) {
-        .st-key-my_textbox input, .st-key-my_button button, .st-key-my_dropdown div[data-baseweb="select"] {
+        .st-key-my_textbox input, .st-key-age_textbox input, .st-key-my_button button, .st-key-my_dropdown div[data-baseweb="select"] {
             font-size: 8px;
         }
     }
