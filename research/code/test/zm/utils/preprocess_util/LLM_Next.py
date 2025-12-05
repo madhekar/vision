@@ -131,7 +131,7 @@ def fetch_llm_text(imUrl, pipe, question, partial_prompt, location):
         #rr = repr(result)
         rr = result.translate(str.maketrans({"'" :  r"\'", "|":  r""}))
     except Exception as e:
-        print(f"exception in fetch iim text: {e}")
+        print(f"exception in fetch llm text for image {imUrl}: {e}")
     return rr
     
 if __name__=='__main__':
