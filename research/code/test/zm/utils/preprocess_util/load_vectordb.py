@@ -185,7 +185,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
         for text_f in text_pth:
             if os.path.isfile(text_f):
                 try:  
-                  with open(text_f, 'r', encoding="ascii") as f:
+                  with open(text_f, 'r', encoding="utf-8", errors='replace') as f:
                     content = f.read()
                     list_of_text.append(content)   
                 except UnicodeDecodeError as e:
