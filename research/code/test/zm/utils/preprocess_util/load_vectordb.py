@@ -6,7 +6,7 @@ import uuid
 import chardet
 import chromadb as cdb
 import streamlit as st
-
+from PIL import ImageFile
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction as stef
 from chromadb.utils.batch_utils import create_batches
@@ -16,7 +16,7 @@ from utils.util import storage_stat as ss
 from utils.config_util import config
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
-
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 """
 UPDATE METADATA STRUCTURE:
 {
@@ -160,7 +160,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
     # create list of image urls to embedded in vector db
 
     df_urls = df_data["uri"]
-
+    print('--->', df_urls)
     # create unique uuids for each image
     df_ids = df_data["id"]
 
@@ -185,7 +185,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
         for text_f in text_pth:
             if os.path.isfile(text_f):
                 try:  
-                  with open(text_f, 'r', encoding="ascii") as f:
+                  with open(text_f, 'r', encoding="utf-8", errors='replace') as f:
                     content = f.read()
                     list_of_text.append(content)   
                 except UnicodeDecodeError as e:
@@ -213,7 +213,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
     return collection_images, collection_text
 
 '''
-ok for now!
+ok for now! todo
 '''
 def archive_metadata(metadata_path, arc_folder_name, metadata_file):
     new_archive_folder = os.path.join( metadata_path) #, arc_folder_name)

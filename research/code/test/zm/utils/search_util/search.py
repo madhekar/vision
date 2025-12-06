@@ -183,7 +183,7 @@ def search_fn(client, cImgs, cTxts):
                 n_results=10,
             )
 
-            st.write(st.session_state["imgs"]) # ---enable to debug
+            #st.write(st.session_state["imgs"]) # ---enable to debug
 
         elif modality_selected == "text":
             # execute text collection query --- TBD fix
@@ -200,9 +200,14 @@ def search_fn(client, cImgs, cTxts):
             )
 
         for img in st.session_state["imgs"]["data"][0][1:]:
+            #if img.mode in ("RGBA", "P"):
+            if img.shape[2] == 4:
+                img = img[:, :, :3]
+                #img = img.convert("RGB")
             st.session_state["timgs"].append(img)
         for mdata in st.session_state["imgs"]["metadatas"][0][1:]:
-            #st.write(mdata) #---???
+            st.write(mdata) #---???
+            tss =  mdata["ts"] if mdata["ts"]  else "1765060800.0"
             st.session_state["meta"].append(
                 "Desc:["
                 + mdata.get("text")
@@ -211,7 +216,7 @@ def search_fn(client, cImgs, cTxts):
                 + "] Location: ["
                 + mdata.get("loc")
                 + "] Date: ["
-                + str(datetime.datetime.fromtimestamp(float(mdata.get("ts"))))
+                + str(datetime.datetime.fromtimestamp(float(tss)))
                 + "]"
             )
     # Image TAB
@@ -239,6 +244,8 @@ def search_fn(client, cImgs, cTxts):
 
             # with img:
             im = Image.fromarray(st.session_state["timgs"][index])
+            # if im.mode in ("RGBA", "P"):
+            #    im = im.convert("RGB")
             nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
             imageLoc = c1.empty()
             display_im = imageLoc.image(nim, use_column_width="always")

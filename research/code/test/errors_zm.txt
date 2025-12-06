@@ -1,0 +1,185 @@
+plotly.express as px
+
+ () : /home/madhekar/work/home-media-app/data/input-data/img/Samsung USB/0f680fbe-d815-5605-b969-516f5d68c5e7/IMAG2941.jpg
+ 
+===> [['94d1ee02-1f10-4223-bf7d-97c143287a43', '4768aec2-d3ec-42d1-94d3-2256f26c72c0', '51f6dd4e-43ca-4098-b104-86ceaa2f8a70', '1cf684df-0fc0-4db5-9471-e67190ed9560'], 
+[('', ''), ('1482884071.0', 'document'), ('1376181499.0', 'document'), ('', '')], 
+[' "Anjali", a sad woman ', ' "Anjali", a angry man  2 women ', ' "Anjali", a neutral man ', ' 2 women '], [('(32.968689, -117.184243)', 'Madhekar residence in Carmel Valley'), ('(32.968689, -117.184243)', 'Madhekar residence in Carmel Valley'), ('(32.964214, -117.183022)', 'Madhekar Residence Home in San Diego'), ('(32.968689, -117.184243)', 'Madhekar residence in Carmel Valley')],
+
+ ['/home/madhekar/work/home-media-app/data/input-data/img/Samsung USB/0f680fbe-d815-5605-b969-516f5d68c5e7/IMG-20191110-WA0007.jpg', 
+ '/home/madhekar/work/home-media-app/data/input-data/img/Samsung USB/0f680fbe-d815-5605-b969-516f5d68c5e7/IMAG2941.jpg', 
+ '/home/madhekar/work/home-media-app/data/input-data/img/Samsung USB/0f680fbe-d815-5605-b969-516f5d68c5e7/IMAG1240.jpg', 
+ '/home/madhekar/work/home-media-app/data/input-data/img/Samsung USB/0f680fbe-d815-5605-b969-516f5d68c5e7/f34c7570-461c-44ae-865e-30abb983ed1f-1.jpg']]
+ 
+[' 2 women ', 'Madhekar residence in Carmel Valley', '/home/madhekar/work/home-media-app/data/input-data/img/Samsung USB/0f680fbe-d815-5605-b969-516f5d68c5e7/f34c7570-461c-44ae-865e-30abb983ed1f-1.jpg']
+[' "Anjali", a neutral man ', 'Madhekar Residence Home in San Diego', '/home/madhekar/work/home-media-app/data/input-data/img/Samsung USB/0f680fbe-d815-5605-b969-516f5d68c5e7/IMAG1240.jpg']
+
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+  Stopping...
+  Stopping...
+[' "Anjali", a sad woman ', 'Madhekar residence in Carmel Valley', '/home/madhekar/work/home-media-app/data/input-data/img/Samsung USB/0f680fbe-d815-5605-b969-516f5d68c5e7/IMG-20191110-WA0007.jpg']
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+
+
+
+----
+
+
+The OSError: image file is truncated (0 bytes not processed) error indicates that the image file being loaded is incomplete or corrupted, and the image loading library (often Pillow/PIL) encountered an issue while trying to process it. The "0 bytes not processed" specifically means the parser couldn't even start processing the image data.
+Here are potential solutions:
+
+    Check Image Integrity:
+        Verify if the image files are genuinely corrupted or incomplete. Try opening them with a standard image viewer.
+        If possible, redownload or re-acquire the images from their source. 
+    Allow Truncated Images (Pillow/PIL):
+        If using Pillow/PIL, you can instruct it to be more tolerant of truncated images by adding the following lines at the beginning of your script: 
+
+Python
+
+    from PIL import ImageFile
+    ImageFile.LOAD_TRUNCATED_IMAGES = True
+
+    This setting allows Pillow to load images even if they are incomplete, potentially filling missing parts with gray. 
+
+    Error Handling (Try-Except Block):
+        Wrap your image loading code within a try-except block to gracefully handle OSError exceptions and skip problematic images. 
+
+Python
+
+    import numpy as np
+    from tensorflow.keras.preprocessing.image import load_img, img_to_array
+
+    imported_images = []
+    bad_images = []
+    files = ["image1.jpg", "corrupted_image.png", "image2.jpeg"] # Example file list
+
+    for filename in files:
+        try:
+            original = load_img(filename, target_size=(imgs_model_width, imgs_model_height)) # Replace with your target size
+            numpy_image = img_to_array(original)
+            image_batch = np.expand_dims(numpy_image, axis=0)
+            imported_images.append(image_batch)
+        except OSError:
+            bad_images.append(filename)
+            continue
+
+    Consider Alternative Image Loading Libraries:
+        If you consistently face issues with one library, consider using another, such as OpenCV (cv2). 
+
+Python
+
+    import cv2
+    from PIL import Image
+
+    # ... (inside your loop)
+    try:
+        img_cv2 = cv2.imread(filename)
+        img_cv2 = cv2.cvtColor(img_cv2, cv2.COLOR_BGR2RGB) # Convert BGR to RGB
+        pil_img = Image.fromarray(img_cv2)
+        # ... process pil_img
+    except Exception as e: # Catch broader exceptions for cv2
+        print(f"Error loading {filename} with OpenCV: {e}")
+        bad_images.append(filename)
+        continue
+
+    Review System/Environment Factors:
+        If you are loading images in a multi-threaded or multi-process environment (e.g., using num_workers in a PyTorch DataLoader), try reducing or removing the number of workers to see if it resolves the issue.
+        Ensure there are no underlying system issues like disk corruption or insufficient memory/storage space.
+        
+        
+        -----
+        
+The error "ignoring the text file, could not decode file as ascii: 'ascii' codec can't decode byte 0xc4 in position 10: ordinal not in range(128)" indicates that a program attempted to read a text file assuming ASCII encoding, but encountered a byte (0xc4 in this case) that is outside the valid range for ASCII characters (0-127). This byte represents a character that is not part of the standard ASCII character set. 
+To resolve this issue, the file needs to be decoded using the correct encoding. Common solutions include:
+
+    Specify the correct encoding when opening the file: If the file is known to be encoded in a different character set, such as UTF-8 or Latin-1 (ISO-8859-1), explicitly specify this encoding during file operations. 
+
+Python
+
+    # Example for UTF-8 encoding
+    with open('your_file.txt', 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    # Example for Latin-1 encoding
+    with open('your_file.txt', 'r', encoding='latin-1') as f:
+        content = f.read()
+
+    Determine the file's encoding:
+    If the encoding is unknown, tools or libraries can be used to detect it. For instance, the chardet library in Python can help infer the encoding.
+    Handle decoding errors:
+    If the file might contain a mix of encodings or corrupted data, the errors parameter in the open() function or decode() method can be used to handle characters that cannot be decoded. Options include 'ignore' (to skip problematic characters), 'replace' (to substitute them with a replacement character), or 'xmlcharrefreplace' (for XML-compatible replacements). 
+
+Python
+
+    # Example with error handling
+    with open('your_file.txt', 'r', encoding='utf-8', errors='replace') as f:
+        content = f.read()
+
+    Ensure consistency in encoding: If the issue arises from data being generated or saved with an incorrect encoding, verify that all steps in the data pipeline (e.g., text editor settings, database configurations, data export settings) are using a consistent and appropriate encoding, preferably UTF-8.
+    
+    -----
+    
+    
+    The
+OSError: cannot write mode RGBA as JPEG occurs because the JPEG file format does not support the alpha channel (transparency) present in RGBA images. An RGBA image has four channels (Red, Green, Blue, Alpha), while a JPEG only supports RGB (three channels). 
+To fix this error, you can either convert the image to RGB mode (removing the transparency) or save it in a file format that supports transparency, such as PNG. 
+Solution 1: Convert the image to RGB mode (Recommended for JPEGs) 
+If you need to save the image specifically as a JPEG, you must first convert it to RGB mode using a library like Pillow (PIL) in Python. This process discards the alpha channel and fills transparent areas (usually with a white background by default, though you can specify another color). 
+python
+
+from PIL import Image
+import os
+
+# Open the image
+image_path = "your_image.png"  # Can be png or any other format
+im = Image.open(image_path)
+
+# Check if the image has an alpha channel and convert if necessary
+if im.mode in ("RGBA", "P"):
+    im = im.convert("RGB")
+
+# Define the path for the new JPEG file
+save_path = "your_image.jpg"
+
+# Save the image in JPEG format
+im.save(save_path, format="JPEG")
+print(f"Image successfully saved as {save_path}")
+
+This is a robust solution that checks the image's mode first. 
+Solution 2: Save the image in a different format 
+If preserving the transparency is important, you should save the image in a format that supports the alpha channel, such as PNG or GIF. 
+python
+
+from PIL import Image
+
+# Open the image (it's already in RGBA mode or similar)
+image_path = "your_image.png" 
+im = Image.open(image_path)
+
+# Save the image in PNG format to preserve transparency
+save_path = "your_image_with_transparency.png"
+im.save(save_path, format="PNG") 
+print(f"Image successfully saved as {save_path}")
+
+Summary of the issue
+The error is a direct result of a file format limitation: JPEGs were not designed to handle image transparency. By either removing the transparency data or using a compatible format, you can resolve the OSError
+
+ 312
+
+JPG does not support transparency - RGBA means Red, Green, Blue, Alpha - Alpha is transparency.
+
+You need to discard the Alpha Channel or save as something that supports transparency - like PNG.
+
+The Image class has a method convert which can be used to convert RGBA to RGB - after that you will be able to save as JPG.
+
+Have a look here: the image class doku
+
+python
+
+im = Image.open("audacious.png")
+rgb_im = im.convert('RGB')
+rgb_im.save('audacious.jpg')
+
+
+    
+            
