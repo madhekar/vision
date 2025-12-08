@@ -196,24 +196,62 @@
 .custom-markdown {
     font-family: 'Comic Sans MS', cursive, sans-serif;
     color: #DA70D6;
-    font-size: 34px;
+    font-size: 10rw;
 }
-
-
-[data-testid="stSidebarNav"]{
-    background-image: url(./assets/zesha_sample_logo512.png);
-    background-repeat: no-repeat;
-    padding-top: 20px;
-    background-position: 20px 20px;
-    size: 5em;
+ 
+div[data-testid="stSidebarNav"] ul {
+    font-size: 1.2rem;
 }
 
 [data-testid="stSidebarNav"]::before {
 content: "z-media";
-margin-left: 20px;
-margin-top: 0px;
-font-size: 40px;
+margin-left: 1rem;
+margin-bottom: .2rem;
+font-size: 3rem;
+font-weight: bold;
 position: relative;
 color: rgb(107, 3, 90);
-top: 0px;
+} 
+
+[data-testid="stSidebarNav"] {
+    /* background-color: #f0f2f6; */
+    padding: .5rem;
+    font-size: 3rem;
+    font-weight: bold;
+    border-radius: .5rem;
 }
+
+[data-testid="stSidebarNav"] a {
+    color: #333333;
+    text-decoration:  none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: .1rem .2rem;
+    /* display: block; */
+    border-radius: .5rem;
+}
+[data-testid="stSidebarNav"] ul li a {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+/*
+[data-testid="stSidebarNav"] a:hover {
+    background-color: #dadde6f1;
+}
+
+[data-testid="stSidebarNav"] a.active {
+    background-color: #007bff;
+    color: grey;
+} */
+
+
+ /* [data-testid="stSidebarNav"]{
+    background-image: url(./assets/zesha_sample_logo512.png);
+    background-repeat: no-repeat;
+    padding-top: 20px;
+    font-size: 40px;
+    background-position: 20px 20px;
+    size:10em;
+} */
+
