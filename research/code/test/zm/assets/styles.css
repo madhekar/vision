@@ -201,10 +201,10 @@
 
 
 [data-testid="stSidebarNav"]{
-    background-image: url(/assets/zesha-high-resolution-logo.jpeg);
+    background-image: url(./assets/zesha_sample_logo512.png);
     background-repeat: no-repeat;
-    padding-top: 0px;
-    background-position: 0px 0px;
+    padding-top: 20px;
+    background-position: 20px 20px;
     size: 5em;
 }
 
@@ -212,9 +212,8 @@
 content: "z-media";
 margin-left: 20px;
 margin-top: 0px;
-font-size: 30px;
-font-family: 'Comic Sans MS'cursive;
+font-size: 40px;
 position: relative;
-color: rgb(4, 24, 136);
+color: rgb(107, 3, 90);
 top: 0px;
 }

@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_extras.app_logo import add_logo
 import torch
 from utils.config_util import config 
 from utils.util import storage_stat as ss
@@ -63,6 +64,7 @@ load_app_configuration()
 # if 'data_root' not in st.session_state:
 #     st.session_state['data_root'] = dr
 
+#add_logo("./assets/zesha_sample_logo512.png", height=2)
 sys.dont_write_bytecode = True
 
 overview = st.Page( 
