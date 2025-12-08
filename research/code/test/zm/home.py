@@ -64,7 +64,7 @@ load_app_configuration()
 # if 'data_root' not in st.session_state:
 #     st.session_state['data_root'] = dr
 
-#add_logo("./assets/zesha_sample_logo512.png", height=2)
+
 sys.dont_write_bytecode = True
 
 overview = st.Page( 
@@ -121,8 +121,8 @@ multimodal_search = st.Page(
     title="SEARCH",
     icon=":material/search:",
 )
-
-# st.logo("assets/zesha-high-resolution-logo.jpeg")
+#add_logo("./assets/zmedia_logo.png", height=200)
+st.logo("assets/zmedia_logo.png", size="large")
 
 pg = st.navigation(
     {
