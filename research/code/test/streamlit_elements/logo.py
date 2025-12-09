@@ -15,4 +15,4 @@ def remove_background(imgPathInput, imgPathOut):
 
 if __name__=="__main__":
 
-    remove_background("./Logofield_2-10_generated.jpg", "./zmedia_logo.png")
+    remove_background("./media-seeklogo.png", "./zmedia_logo_1.png")
