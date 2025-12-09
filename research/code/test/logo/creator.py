@@ -1,12 +1,12 @@
 from PIL import Image, ImageDraw, ImageFont
 
 
-def create_logo_0(text_content, font_path):
+def create_logo_0(text_content):
     # Define the image size and the desired text/font
     img_width, img_height = 300, 150
     font_size = 50
     #text_content = "My Logo"
-    #font_path = "arial.ttf" # Use a valid font file path, 'arial.ttf' is common on Windows
+    font_path = "./Rockybilly.ttf" # Use a valid font file path, 'arial.ttf' is common on Windows
 
     try:
         fnt = ImageFont.truetype(font_path, font_size)
@@ -36,11 +36,13 @@ def create_logo_0(text_content, font_path):
 
     print(f"Created transparent logo: {output_filename}")
 
-def create_logo_1(text, font_path):
+def create_logo_1(text):
     # Create a new RGBA image (Red, Green, Blue, Alpha) with 50% transparency for background
-    img = Image.new("RGBA", (200, 100), (255, 255, 255, 127)) # White with 50% opacity
+    img = Image.new("RGBA", (140, 140), (255, 255, 255, 127)) # White with 50% opacity
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("arial.ttf", 30)
-    draw.text((10, 30), text, font=font, fill=(0, 0, 0, 255)) # Black text, fully opaque
+    font = ImageFont.truetype("./Rockybilly.ttf", 30)
+    draw.text((10, 10), text, font=font, fill=(194, 59, 34, 255)) # Black text, fully opaque
     img.save("zm_logo.png", "PNG") # Save as PNG to preserve transparency
     
+if __name__=="__main__":
+    create_logo_1("Zm")
