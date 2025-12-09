@@ -38,7 +38,7 @@ def create_logo_0(text_content):
 
 def create_logo_1(text):
     # Create a new RGBA image (Red, Green, Blue, Alpha) with 50% transparency for background
-    img = Image.new("RGBA", (140, 140), (255, 255, 255, 127)) # White with 50% opacity
+    img = Image.new("RGBA", (140, 140), (255, 255, 255, 255)) # White with 50% opacity
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("./Rockybilly.ttf", 30)
     draw.text((10, 10), text, font=font, fill=(194, 59, 34, 255)) # Black text, fully opaque

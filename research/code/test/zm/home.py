@@ -122,7 +122,7 @@ multimodal_search = st.Page(
     icon=":material/search:",
 )
 #add_logo("./assets/zmedia_logo.png", height=200)
-#st.logo("assets/zmedia_logo.png", size="large")
+st.logo("assets/zm_logo.png", size="large")
 
 pg = st.navigation(
     {
