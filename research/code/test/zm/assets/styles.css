@@ -258,7 +258,7 @@ color: rgb(107, 3, 90);
 /* Target the logo in the header and collapsed control */
     div[data-testid="stSidebarHeader"] > img, 
     div[data-testid="collapsedControl"] > img {
-        height: 5rem; /* Adjust this value for desired height */
+        height: 7rem; /* Adjust this value for desired height */
         width: auto; /* Maintain aspect ratio */
     }
     /* Ensure proper alignment if needed */
@@ -268,3 +268,4 @@ color: rgb(107, 3, 90);
     div[data-testid="collapsedControl"] > * {
         display: flex;
         align-items: center;
+    }
