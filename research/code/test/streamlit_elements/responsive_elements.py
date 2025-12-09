@@ -14,8 +14,8 @@ st.markdown("""
     /* Target the container of 'my_textbox' */
     .st-key-my_textbox input {
         background-color: #f0f8ff; /* Change textbox background */
-        border: 2px solid #4CAF50;
-        border-radius: 5px;
+        border: .2rem solid #4CAF50;
+        border-radius: .3rem;
     }
             
     .st-key-age_textbox input { background-color: #ff0000; border: .2vw; border-radius: .3vw;}        
@@ -37,7 +37,7 @@ st.markdown("""
     /* Use CSS Media Queries for responsiveness in styling (e.g., small screens) */
     @media (max-width: 600px) {
         .st-key-my_textbox input, .st-key-age_textbox input, .st-key-my_button button, .st-key-my_dropdown div[data-baseweb="select"] {
-            font-size: 8px;
+            font-size: 4px;
         }
     }
 </style>
