@@ -4,8 +4,11 @@ import streamlit as st
 c1,c2,c3,c4 = st.columns(4)
 with c1:
     st.text_input("Enter text", key="my_textbox")
+with c2:    
     st.text_input("Age:", key="age_textbox")
+with c3:    
     st.button("Click Me", key="my_button")
+with c4:    
     st.selectbox("Choose an option:", ["Option 1", "Option 2"], key="my_dropdown")
 
 # 2. Inject custom CSS targeting the specific keys
@@ -16,8 +19,8 @@ st.markdown("""
         background-color: #f0f8ff; /* Change textbox background */
         border: .2rem solid #4CAF50;
         border-radius: .3rem;
-            min-height: .2rem;
-            min-width: .8rem;
+            min-height: 1rem;
+            min-width: 5rem;
     }
             
     .st-key-age_textbox input { background-color: #ff0000; border: .2vw; border-radius: .3vw;}        
@@ -37,9 +40,11 @@ st.markdown("""
     }
 
     /* Use CSS Media Queries for responsiveness in styling (e.g., small screens) */
-    @media (max-width: 600px) {
+    @media (max-width: 800px) {
         .st-key-my_textbox input, .st-key-age_textbox input, .st-key-my_button button, .st-key-my_dropdown div[data-baseweb="select"] {
-            font-size: .4rem;
+            font-size: .2rem;
+            height: 1rem;
+            width: 5rem:
         }
     }
 </style>
