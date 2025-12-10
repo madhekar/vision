@@ -5,9 +5,10 @@ st.markdown("""
 <style>
 /* Target the main container for text input widgets */
 [data-testid="stTextInput"] {
-    width: 300px; /* Set a fixed width in pixels */
+    #width: 300px; /* Set a fixed width in pixels */
     /* Or set a specific percentage of the parent container's width */
-    /* width: 50%; */
+    width: 40%; 
+    #height: .7rem;        
 }
 
 /* Optional: Target the actual input element inside the container */
@@ -26,9 +27,9 @@ st.markdown("""
 <style>
     /* Target only the input with the key "short_input" */
     input[aria-label="Short Input"] {
-        font-size: .3rem;
+        width: 50px;
     }
 </style>
 """, unsafe_allow_html=True)
 
-st.text_input("Short Input", key="short_input", help="This input is 150px wide")
+st.text_input("Short Input", key="short_input", help="This input is 50px wide")
