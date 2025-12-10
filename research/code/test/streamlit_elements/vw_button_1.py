@@ -34,7 +34,7 @@ custom_css = """
 # Inject the custom CSS into the Streamlit app
 st.markdown(custom_css, unsafe_allow_html=True)
 
-st.title("Custom CSS with Streamlit Elements")
+st.subheader("Custom CSS with Streamlit Elements")
 
 # Example using a Streamlit button with custom CSS
 if st.button("Click Me!"):
