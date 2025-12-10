@@ -29,7 +29,7 @@ See Dependences on page Developers
 """
 
 #import pyexiv2
-from PIL import Image, ExifTags
+from PIL import Image, ExifTags, ImageFile
 import streamlit as st
 from math import cos,asin,sqrt,radians,sin
 from GPSPhoto import gpsphoto
@@ -43,6 +43,7 @@ import random
 import string
 import time
 
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 # define constants
 default_home_loc = (0.0, 0.0)
 default_date_time = ["2000", "01", "01", "2000:01:01 01:01:01"]
@@ -153,6 +154,8 @@ metadata = pe.ImageMetadata(image_path)
 # Read existing EXIF data
 metadata.read()
 
+
+
 """
 # def setDateTimeOriginal(fname, dt):
 #     exiv_image_metadata = pyexiv2.ImageMetadata(fname)
@@ -177,27 +180,33 @@ metadata.read()
 def setImgMetadata(img_path, s_date_time_original, s_user_comment, s_image_info):
     result = "no changed"
     try:
-        exif_dict = piexif.load(img_path)
+        img = Image.open(img_path)
+        """
+        image_bytes = image.tobytes()
+        new_image = Image.frombytes(image.mode, image.size, image_bytes)
+        """
+        img_bytes = img.tobytes()
+        img_new = Image.frombytes(img.mode, img.size, img_bytes)
+        exif_dict = img_new.info.get('exif')
+        #exif_dict = piexif.load(img_path)
+        if exif_dict:
+            if s_date_time_original:
+                exif_dict["Exif"][piexif.ExifIFD.DateTimeOriginal] = s_date_time_original.encode("utf-8")
+                result = "success"
 
-        if s_date_time_original:
-            exif_dict["Exif"][piexif.ExifIFD.DateTimeOriginal] = s_date_time_original.encode("utf-8")
-            result = "success"
+            if s_user_comment:
+                exif_dict["Exif"][piexif.ExifIFD.UserComment] = s_user_comment.encode("utf-8")
+                result = "success"
 
-        if s_user_comment:
-            exif_dict["Exif"][piexif.ExifIFD.UserComment] = s_user_comment.encode("utf-8")
-            result = "success"
+            if s_image_info:
+                exif_dict["0th"][piexif.ImageIFD.ImageDescription] = s_image_info.encode("utf-8")
 
-        if s_image_info:
-            exif_dict["0th"][piexif.ImageIFD.ImageDescription] = s_image_info.encode("utf-8")
-
-        if result == "success":
-            exif_bytes = piexif.dump(exif_dict)
-            piexif.insert(exif_bytes, img_path)
+            if result == "success":
+                exif_bytes = piexif.dump(exif_dict)
+                piexif.insert(exif_bytes, img_path)
 
     except Exception as e:
-        print(
-            f"LU:Exception creatring datetime original and user comment in  {img_path}:{s_date_time_original}:{s_user_comment}:{s_image_info}: {e}"
-        )
+        print(f"LU:Exception creatring datetime original and user comment in  {img_path}:{s_date_time_original}:{s_user_comment}:{s_image_info}: {e}")
         result = "failed"
 
     return result

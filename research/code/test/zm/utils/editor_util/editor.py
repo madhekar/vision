@@ -10,9 +10,10 @@ from utils.config_util import config
 from utils.util import location_util as lu 
 from utils.util import storage_stat as ss
 
-from PIL import Image
+from PIL import Image, ImageFile
 from utils.util import fast_parquet_util as fpu
 
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 """
 In Streamlit, you can clear elements from the screen and 
 write new ones by using st.empty() as a placeholder that you can 
