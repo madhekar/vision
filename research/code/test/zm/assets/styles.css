@@ -203,7 +203,7 @@ div[data-testid="stSidebarNav"] ul {
     font-size: 1.2rem;
 }
 
-/* [data-testid="stSidebarNav"]::before {
+[data-testid="stSidebarNav"]::before {
 content: "z-media";
 margin-left: 1rem;
 margin-bottom: .2rem;
@@ -211,7 +211,7 @@ font-size: 3rem;
 font-weight: bold;
 position: relative;
 color: rgb(107, 3, 90);
-}  */
+} 
 
 [data-testid="stSidebarNav"] {
     /* background-color: #f0f2f6; */

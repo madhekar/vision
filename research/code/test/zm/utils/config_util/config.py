@@ -73,6 +73,9 @@ def overview_config_load():
         os.path.join(dr, *final_data_path.split(os.sep)[1:])
     )
 
+"""
+
+"""
 @st.cache_resource
 def dataload_config_load():
     dr,*_ = app_config_load()
@@ -98,23 +101,6 @@ def dataload_config_load():
     )
 
 """
-datapaths:
-  raw_data_path: /data/raw-data/
-static-metadata:
-  static_metadata_path: /data/app-data/static-metadata  
-static-faces: 
-  faces_metadata_path: /data/app-data/static-metadata/faces
-static-filter:
-  filter_metadata_path: /models/image_classify_filter/training  
-static-locations:
-  default_location_metadata_path: /data/app-data/static-metadata/locations/default
-  user_location_metadata_path: /data/app-data/static-metadata/locations/user-specific
-  user_location_metadata_file: user-specific.csv
-  final_user_location_metadata_file: static_locations.parquet
-missing-metadata:  
-  missing_metadata_path: /data/input-data/error/img/missing-data
-  missing_metadata_file: missing-metadata-wip.csv
-  missing_metadata_filter_file: missing-metadata-filter-wip.csv
 
 """
 @st.cache_resource
@@ -159,6 +145,9 @@ def static_metadata_config_load():
         missing_metadata_filter_file,
     )    
 
+"""
+
+"""
 @st.cache_resource
 def preprocess_config_load():
     dr,*_ = app_config_load()
@@ -190,6 +179,9 @@ def preprocess_config_load():
         static_metadata_file
     )    
 
+"""
+
+"""
 @st.cache_resource
 def missing_metadata_config_load():
     dr,*_ = app_config_load()
@@ -210,6 +202,9 @@ def missing_metadata_config_load():
         missing_metadata_filter_file
     )
 
+"""
+
+"""
 @st.cache_resource
 def dedup_config_load():
     dr,*_ = app_config_load()
@@ -228,12 +223,8 @@ def dedup_config_load():
     )
 
 """
-brisque-model:
-  brisque_model_config_path: '/models/brisque'
-  brisque_model_live_file: 'brisque_model_live.yml'
-  brisque_range_live_file: 'brisque_range_live.yml'
-"""
 
+"""
 @st.cache_resource
 def image_quality_config_load():
     dr,*_ = app_config_load()
@@ -253,6 +244,9 @@ def image_quality_config_load():
         image_quality_threshold,
     )
 
+"""
+
+"""
 @st.cache_resource
 def data_validation_config_load():
     dr,*_ = app_config_load()
@@ -290,6 +284,9 @@ def data_validation_config_load():
         os.path.join(dr, *vectordb_path.split(os.sep)[1:])
     )
 
+"""
+
+"""
 @st.cache_resource
 def vectordb_config_load():
     dr, *_ = app_config_load()
@@ -337,7 +334,9 @@ def vectordb_config_load():
         os.path.join(dr, *video_final_path.split(os.sep)[1:]),
         os.path.join(dr, *audio_final_path.split(os.sep)[1:])
     )    
+"""
 
+"""
 @st.cache_resource
 def editor_config_load():
     dr, *_ = app_config_load()
@@ -371,7 +370,9 @@ def editor_config_load():
         batch_size_max,
         row_size_preset
     )
+"""
 
+"""
 @st.cache_resource
 def search_config_load():
     dr, *_ = app_config_load()
@@ -397,24 +398,13 @@ def search_config_load():
     )
 
 """
-static-metadata:
-      faces_metadata_path: /data/app-data/static-metadata/faces
-      faces_of_people_parquet_path: /data/app-data/static-metadata
-      faces_of_people_parquet: image_people.parquet
-image-data:
-      input_image_path: /data/input-data/img
-model-path:
-      faces_embeddings_path: /models/faces_embeddings
-      faces_embeddings: faces_embeddings_done_for_classes.npz
-      faces_label_enc_path: /models/faces_label_enc
-      faces_label_enc: faces_label_enc.joblib
-      faces_svc_path: /models/faces_svc
-      faces_svc: faces_model_svc.joblib
- 
 """
 @st.cache_resource
 def faces_config_load():
+
+    # global app attributes
     dr,*_ = app_config_load()
+
     with open("utils/config_util/face_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
@@ -435,7 +425,6 @@ def faces_config_load():
         faces_svc_path = dict["model-path"]["faces_svc_path"]
         faces_svc = dict["model-path"]["faces_svc"]
 
-
         return (
             os.path.join(dr, *faces_metadata_path.split(os.sep)[1:]),
             os.path.join(dr, *input_image_path.split(os.sep)[1:]),
@@ -450,16 +439,8 @@ def faces_config_load():
         )
     
 """    
-img-filter-model:
-  filter_model_path: /models/image_classify_filter
-  data_path: /data/app-data/static-metadata/filter
-  filter_model_name: filter_img_model.plt
-  filter_model_classes: filter_class_map.plt
-  image_size: (224, 224)
-  batch_size: 16
-  number_of_epocs: 100
-"""
 
+"""
 @st.cache_resource
 def filer_config_load():
     dr, *_ = app_config_load()
@@ -489,16 +470,8 @@ def filer_config_load():
     )
 
 """    
-app-config:
-      appdata_root_path: 
-      approot_path: /home/madhekar/work/vision/research/code/test/multipage_app
-zmedia-setup:
-  init_zmedia_path: ../zmedia-sample
-  init_zmedia_file: zesha_media.zip  
-  raw_data_path: data/raw_data
       
 """
-
 @st.cache_resource
 def app_config_load():
     with open("utils/config_util/app_conf.yaml") as prop:
@@ -517,6 +490,9 @@ def app_config_load():
         )
 
 
+"""
+
+"""
 @st.cache_resource
 def setup_config_load():
     dr, *_ = app_config_load()
