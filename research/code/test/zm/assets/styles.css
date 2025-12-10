@@ -222,7 +222,7 @@ color: rgb(107, 3, 90);
 }
 
 [data-testid="stSidebarNav"] a {
-    color: #333333;
+    color: #b60c0c;
     text-decoration:  none;
     font-size: 1.3rem;
     font-weight: bold;
@@ -233,6 +233,7 @@ color: rgb(107, 3, 90);
 [data-testid="stSidebarNav"] ul li a {
     font-size: 1.3rem;
     font-weight: bold;
+    color: #b60c0c;
 }
 
 /*
