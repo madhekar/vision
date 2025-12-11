@@ -213,7 +213,7 @@ def editLocations(files, page, batch_size, row_size):
     for image in batch:
         with grid[col]:
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
-            #print(image)
+
             st.session_state.df.reset_index()
             lat = st.session_state.df.at[image, "GPSLatitude"]
             lon = st.session_state.df.at[image, "GPSLongitude"]

@@ -1,109 +1,5 @@
 
-/* gray button */
-.st-key-g0 button { background-color: #efefef; border-radius: 0px; padding: 20px 20px; animation: pulse 3s;height: 5%;}
-.st-key-g0 button p {font-size: 24px; font-family: 'Comic Sans MS', sans-serif;}
-/* Hover effect for the button */
-.st-key-g0 button:hover { background-color: #E8E8E8;/* Darker gray */border: none;}
-.st-key-g0 button:hover p {color: #FFD700;/* Gold color */}
-/* Override the focus states to prevent default red border */
-.st-key-g0 button:focus {background-color: #E8E8E8;/* Keep the same as hover */border: none;}
-/* Apply the same text color during focus states */
-.st-key-g0 button:focus p {color: black;}
-/* end of gray button */
 
-/* gray button */
-.st-key-g1 button { background-color: #efefef; border-radius: 0px; padding: 20px 20px; animation: pulse 3s;height: 5%;}
-.st-key-g1 button p {font-size: 24px; font-family: 'Comic Sans MS', sans-serif;}
-/* Hover effect for the button */
-.st-key-g1 button:hover { background-color: #E8E8E8;/* Darker gray */border: none;}
-.st-key-g1 button:hover p {color: #FFD700;/* Gold color */}
-/* Override the focus states to prevent default red border */
-.st-key-g1 button:focus {background-color: #E8E8E8;/* Keep the same as hover */border: none;}
-/* Apply the same text color during focus states */
-.st-key-g1 button:focus p {color: black;}
-/* end of gray button */
-
-/* gray button */
-.st-key-g2 button { background-color: #efefef; border-radius: 0px; padding: 20px 20px; animation: pulse 3s;height: 5%;}
-.st-key-g2 button p {font-size: 24px; font-family: 'Comic Sans MS', sans-serif;}
-/* Hover effect for the button */
-.st-key-g2 button:hover { background-color: #E8E8E8;/* Darker gray */border: none;}
-.st-key-g2 button:hover p {color: #FFD700;/* Gold color */}
-/* Override the focus states to prevent default red border */
-.st-key-g2 button:focus {background-color: #E8E8E8;/* Keep the same as hover */border: none;}
-/* Apply the same text color during focus states */
-.st-key-g2 button:focus p {color: black;}
-/* end of gray button */
-
-/* gray button */
-.st-key-g3 button { background-color: #efefef; border-radius: 0px; padding: 20px 20px; animation: pulse 3s;height: 5%;}
-.st-key-g3 button p {font-size: 24px; font-family: 'Comic Sans MS', sans-serif;}
-/* Hover effect for the button */
-.st-key-g3 button:hover { background-color: #E8E8E8;/* Darker gray */border: none;}
-.st-key-g3 button:hover p {color: #FFD700;/* Gold color */}
-/* Override the focus states to prevent default red border */
-.st-key-g3 button:focus {background-color: #E8E8E8;/* Keep the same as hover */border: none;}
-/* Apply the same text color during focus states */
-.st-key-g3 button:focus p {color: black;}
-/* end of gray button */
-
-/* gray button */
-.st-key-g4 button { background-color: #efefef; border-radius: 0px; padding: 20px 20px; animation: pulse 3s;height: 5%;}
-.st-key-g4 button p {font-size: 24px; font-family: 'Comic Sans MS', sans-serif;}
-/* Hover effect for the button */
-.st-key-g4 button:hover { background-color: #E8E8E8;/* Darker gray */border: none;}
-.st-key-g4 button:hover p {color: #FFD700;/* Gold color */}
-/* Override the focus states to prevent default red border */
-.st-key-g4 button:focus {background-color: #E8E8E8;/* Keep the same as hover */border: none;}
-/* Apply the same text color during focus states */
-.st-key-g4 button:focus p {color: black;}
-/* end of gray button */
-
-/* gray button */
-.st-key-g5 button { background-color: #efefef; border-radius: 0px; padding: 20px 20px; animation: pulse 3s;height: 5%;}
-.st-key-g5 button p {font-size: 24px; font-family: 'Comic Sans MS', sans-serif;}
-/* Hover effect for the button */
-.st-key-g5 button:hover { background-color: #E8E8E8;/* Darker gray */border: none;}
-.st-key-g5 button:hover p {color: #FFD700;/* Gold color */}
-/* Override the focus states to prevent default red border */
-.st-key-g5 button:focus {background-color: #E8E8E8;/* Keep the same as hover */border: none;}
-/* Apply the same text color during focus states */
-.st-key-g5 button:focus p {color: black;}
-/* end of gray button */
-
-
-
-/* green button */
-.st-key-green button { background-color: #4CAF50; border-radius: 0px; padding: 20px 20px; animation: pulse 3s;height: 5%;}
-.st-key-green button p {font-size: 24px; font-family: 'Comic Sans MS', sans-serif;}
-/* Hover effect for the button */
-.st-key-green button:hover { background-color: #45a049;/* Darker green */border: none;}
-.st-key-green button:hover p {color: black/* Gold color */}
-/* Override the focus states to prevent default red border */
-.st-key-green button:focus {background-color: #45a049;/* Keep the same as hover */border: none;}
-/* Apply the same text color during focus states */
-.st-key-green button:focus p {color: black}
-/* end of green button */
-
-
-/* orange button */
-.st-key-orange button { background-color: #FAD5A5; border-radius: 0px; padding: 20px 20px; animation: pulse 3s;height: 5%;}
-.st-key-orange button p {font-size: 24px; font-family: 'Comic Sans MS', sans-serif;}
-/* Hover effect for the button */
-.st-key-orange button:hover { background-color: #FF7F50;/* Darker orange */border: none;}
-.st-key-orange button:hover p {color: black/* Gold color */}
-/* Override the focus states to prevent default red border */
-.st-key-orange button:focus {background-color: #FF7F50;/* Keep the same as hover */border: none;}
-/* Apply the same text color during focus states */
-.st-key-orange button:focus p {color: black}
-/* end of orange button */
-
-
-.st-key-red button { background-color: red; color: black; font-size: 24px; border-radius: 0px; padding: 50px 50px;height: 5%; font-family: 'Comic Sans MS', sans-serif;}
-.st-key-orange button { background-color: orange; color: black; font: 'Comic Sans MS', sans-serif; border-radius: 0px; padding: 50px 50px; }
-/* Animated button with pulse effect */
-.st-key-pulse button { background-color: #4CAF50; border-radius: 0px; padding: 50px 50px;animation: pulse 2s infinite;}
-.st-key-pulse button p { font-size: 24px; font-family: 'Comic Sans MS', sans-serif;}
 
 /* Hover effect for the button */
 .st-key-pulse button:hover {
@@ -199,6 +95,11 @@
     font-size: 10rw;
 }
  
+.stPageLink {
+    font-size: 1.5rem;
+    color:#8b2e86;
+}
+
 div[data-testid="stSidebarNav"] ul {
     font-size: 1.2rem;
 }
@@ -222,7 +123,7 @@ color: rgb(107, 3, 90);
 }
 
 [data-testid="stSidebarNav"] a {
-    color: #b60c0c;
+    color: rgb(107, 3, 90);
     text-decoration:  none;
     font-size: 1.3rem;
     font-weight: bold;
@@ -233,7 +134,7 @@ color: rgb(107, 3, 90);
 [data-testid="stSidebarNav"] ul li a {
     font-size: 1.3rem;
     font-weight: bold;
-    color: #b60c0c;
+    color: rgb(107, 3, 90);
 }
 
 /*
