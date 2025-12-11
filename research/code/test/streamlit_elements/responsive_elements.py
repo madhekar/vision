@@ -23,7 +23,11 @@ st.markdown("""
             min-width: 5rem;
     }
             
-    .st-key-age_textbox input { background-color: #ff0000; border: .2vw; border-radius: .3vw;}        
+    .st-key-age_textbox input { 
+            background-color: #ff0000; 
+            border: .2vw; 
+            border-radius: .3vw;
+            }        
 
     /* Target the container of 'my_button' */
     .st-key-my_button button {

@@ -27,7 +27,10 @@ st.markdown("""
 <style>
     /* Target only the input with the key "short_input" */
     input[aria-label="Short Input"] {
-        width: 50px;
+        width: 50%;
+        min-height: 8px;
+        height: 9px;
+        font-size: 5px;
     }
 </style>
 """, unsafe_allow_html=True)
