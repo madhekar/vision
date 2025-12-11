@@ -106,6 +106,7 @@ div[data-testid="stSidebarNav"] ul {
 
 [data-testid="stSidebarNav"]::before {
 content: "z-media";
+font-family: 'Comic Sans MS', cursive;
 margin-left: 1rem;
 margin-bottom: .2rem;
 font-size: 3rem;
