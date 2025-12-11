@@ -6,16 +6,16 @@ st.markdown(
 """
 <style>
 div[data-baseweb="base-input"] > textarea {
-    min-height: 12px;
+    min-height: .6rem; !important;
     min-width: 50px;
-    font-size: 10px; !important;
+    font-size: .6rem; 
     padding: 0;
 }
 </style>
 """, unsafe_allow_html=True
 )
 
-height = st.slider("Set the height of the text area", 1, 1000, 10)
+height = st.slider("Set the height of the text area", 5, 50, 1)
 
 with col1:
     st.header("Instructions")

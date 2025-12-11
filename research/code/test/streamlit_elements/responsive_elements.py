@@ -19,7 +19,7 @@ st.markdown("""
         background-color: #f0f8ff; /* Change textbox background */
         border: .2rem solid #4CAF50;
         border-radius: .3rem;
-            min-height: 1rem;
+            min-height: .5rem;
             min-width: 5rem;
     }
             
@@ -46,8 +46,9 @@ st.markdown("""
     /* Use CSS Media Queries for responsiveness in styling (e.g., small screens) */
     @media (max-width: 800px) {
         .st-key-my_textbox input, .st-key-age_textbox input, .st-key-my_button button, .st-key-my_dropdown div[data-baseweb="select"] {
-            font-size: .2rem;
-            height: 1rem;
+            font-size: .8rem;
+            height: 1rem; !important
+            line-height: 1rem; !important
             width: 5rem:
         }
     }
