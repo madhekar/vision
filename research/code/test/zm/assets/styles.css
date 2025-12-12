@@ -132,9 +132,9 @@
     text-decoration:  none;
     font-size: 1.3rem;
     font-weight: bold;
-    padding: .1rem .1rem;
+    padding: .1rem .5rem;
     display: inline-flex;
-    line-height: 2rem; 
+    line-height: 2.2rem; 
     word-wrap: normal;
     /* -webkit-font-feature-settings: "liga"; */
     border-radius: .5rem;
