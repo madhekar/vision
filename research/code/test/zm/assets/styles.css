@@ -90,29 +90,25 @@
 
 /* Styled markdown */
 .custom-markdown {
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    color: #DA70D6;
+    /* font-family: 'Comic Sans MS', cursive, sans-serif;*/
+    color: rgb(107, 3, 90);
     font-size: 10rw;
 }
  
 .stPageLink {
     font-size: 1.5rem;
-    color:#8b2e86;
-}
-
-div[data-testid="stSidebarNav"] ul {
-    font-size: 1.2rem;
+    color:rgb(107, 3, 90);
 }
 
 [data-testid="stSidebarNav"]::before {
-content: "z-media";
-font-family: 'Comic Sans MS', cursive;
-margin-left: 1rem;
-margin-bottom: .2rem;
-font-size: 3rem;
-font-weight: bold;
-position: relative;
-color: rgb(107, 3, 90);
+    content: "z - m e d i a";
+    /* font-family: 'Comic Sans MS', cursive; */
+    margin-left: 1.8rem;
+    margin-bottom: .2rem;
+    font-size: 3rem;
+    font-weight: bold;
+    position: relative;
+    color: rgb(107, 3, 90);
 } 
 
 [data-testid="stSidebarNav"] {
@@ -138,6 +134,10 @@ color: rgb(107, 3, 90);
     color: rgb(107, 3, 90);
 }
 
+div[data-testid="stSidebarNav"] ul li{
+    font-size: 1.2rem;
+    color: rgb(107, 3, 90);
+}
 /*
 [data-testid="stSidebarNav"] a:hover {
     background-color: #dadde6f1;
