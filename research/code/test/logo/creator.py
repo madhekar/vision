@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 def create_logo_0(text_content):
     # Define the image size and the desired text/font
-    img_width, img_height = 300, 150
+    img_width, img_height = 150, 150
     font_size = 50
     #text_content = "My Logo"
     font_path = "./Rockybilly.ttf" # Use a valid font file path, 'arial.ttf' is common on Windows
