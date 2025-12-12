@@ -100,20 +100,20 @@ data_correction = st.Page(
 
 metadata_creater = st.Page(
     page="pages/metadata_creater.py",
-    title="✨ GENERATE",
-    #icon=":material/engineering:",
+    title="⚙️ GENERATE",
+    # icon=":material/engineering:",
 )
 
 metadata_loader = st.Page(
     page="pages/metadata_loader.py",
-    title="🔁 LOAD",
-    #icon=":material/published_with_changes:",
+    title="🛠️ LOAD",
+    # icon=":material/published_with_changes:",
 )
 
 static_metadata_loader = st.Page(
     page="pages/static_metadata_loader.py",
-    title="🌟 CREATE",
-    #icon=":material/published_with_changes:",
+    title="🪄✨ CREATE",
+    # icon=":material/published_with_changes:",
 )
 
 multimodal_search = st.Page(
@@ -122,7 +122,7 @@ multimodal_search = st.Page(
     # icon=":material/search:",
 )
 #add_logo("./assets/zmedia_logo.png", height=200)
-st.logo("assets/zm_logo.png", size="large")
+st.logo("assets/zm_logo_2.png", size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
 
 pg = st.navigation(
     {
