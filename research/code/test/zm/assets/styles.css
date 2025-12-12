@@ -98,12 +98,18 @@
 .stPageLink {
     font-size: 1.5rem;
     color:rgb(107, 3, 90);
+    font-weight: bold;
+}
+
+.nav-icon {
+    font-size: 1.3rem;
+    font-weight: bold;
 }
 
 [data-testid="stSidebarNav"]::before {
     content: "z - m e d i a";
     /* font-family: 'Comic Sans MS', cursive; */
-    margin-left: 1.8rem;
+    margin-left: 2rem;
     margin-bottom: .2rem;
     font-size: 3rem;
     font-weight: bold;
@@ -113,10 +119,10 @@
 
 [data-testid="stSidebarNav"] {
     /* background-color: #f0f2f6; */
-    padding: .5rem;
-    font-size: 3rem;
+    padding: 1rem;
+    font-size: 1.3rem;
     font-weight: bold;
-    border-radius: .5rem;
+    border-radius: .1rem;
 }
 
 [data-testid="stSidebarNav"] a {
@@ -124,8 +130,11 @@
     text-decoration:  none;
     font-size: 1.3rem;
     font-weight: bold;
-    padding: .1rem .2rem;
-    /* display: block; */
+    padding: .1rem .1rem;
+    display: inline-flex;
+    line-height: 2rem; 
+    word-wrap: normal;
+    /* -webkit-font-feature-settings: "liga"; */
     border-radius: .5rem;
 }
 [data-testid="stSidebarNav"] ul li a {
@@ -134,29 +143,17 @@
     color: rgb(107, 3, 90);
 }
 
-div[data-testid="stSidebarNav"] ul li{
-    font-size: 1.2rem;
+[data-testid="stSidebarNav"] ul li a span[aria-hidden="true"]{
+    font-size: 1.3rem;
+    font-weight: bold;
     color: rgb(107, 3, 90);
 }
-/*
-[data-testid="stSidebarNav"] a:hover {
-    background-color: #dadde6f1;
+
+div[data-testid="stSidebarNav"] ul li{
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: rgb(107, 3, 90);
 }
-
-[data-testid="stSidebarNav"] a.active {
-    background-color: #007bff;
-    color: grey;
-} */
-
-
- /* [data-testid="stSidebarNav"]{
-    background-image: url(./assets/zesha_sample_logo512.png);
-    background-repeat: no-repeat;
-    padding-top: 20px;
-    font-size: 40px;
-    background-position: 20px 20px;
-    size:10em;
-} */
 
 /* Target the logo in the header and collapsed control */
     div[data-testid="stSidebarHeader"] > img, 
