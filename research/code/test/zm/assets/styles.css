@@ -101,9 +101,11 @@
     font-weight: bold;
 }
 
-.nav-icon {
+.sidebar .menu-icon {
     font-size: 1.3rem;
     font-weight: bold;
+    -webkit-text-stroke-width: 1.3rem;
+    -webkit-text-stroke-color: #be0e0e;
 }
 
 [data-testid="stSidebarNav"]::before {

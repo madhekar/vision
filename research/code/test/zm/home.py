@@ -69,57 +69,57 @@ sys.dont_write_bytecode = True
 
 overview = st.Page( 
     page="pages/overview.py", 
-    title="OVERVIEW", 
-    icon=":material/house:", 
+    title="🏠 OVERVIEW", 
+    #icon=":bar_chart:", 
     default=True
 
 )
 data_extadd = st.Page(
     page="pages/data_extadd.py",
-    title="ADD",
-    icon=":material/group_work:",
+    title="📥 ADD",
+    #icon=":material/group_work:",
 )
 
 data_trim = st.Page(
     page="pages/data_trim.py",
-    title="TRIM",
-    icon=":material/group_work:",
+    title="✂️ TRIM",
+    #icon=":material/group_work:",
 )
 
 data_validation = st.Page(
-    page='pages/validate.py',
-    title="VALIDATE",
-    icon=":material/group_work:",
+    page="pages/validate.py",
+    title="🧐 VALIDATE",
+    #icon=":material/group_work:",
 )
 
 data_correction = st.Page(
     page='pages/metadata_correction.py',
-    title="EDIT",
-    icon=":material/edit:"
+    title="✍️ EDIT",
+    #icon=":material/edit:"
 )
 
 metadata_creater = st.Page(
     page="pages/metadata_creater.py",
-    title="GENERATE",
-    icon=":material/engineering:",
+    title="✨ GENERATE",
+    #icon=":material/engineering:",
 )
 
 metadata_loader = st.Page(
     page="pages/metadata_loader.py",
-    title="LOAD",
-    icon=":material/published_with_changes:",
+    title="🔁 LOAD",
+    #icon=":material/published_with_changes:",
 )
 
 static_metadata_loader = st.Page(
     page="pages/static_metadata_loader.py",
-    title="CREATE",
-    icon=":material/published_with_changes:",
+    title="🌟 CREATE",
+    #icon=":material/published_with_changes:",
 )
 
 multimodal_search = st.Page(
     page="pages/multimodal_search.py",
-    title="SEARCH",
-    icon=":material/search:",
+    title="🔎 SEARCH",
+    # icon=":material/search:",
 )
 #add_logo("./assets/zmedia_logo.png", height=200)
 st.logo("assets/zm_logo.png", size="large")
