@@ -24,7 +24,7 @@ def display_storage_metrics(tm, um, fm):
             'memory': ['Total', 'Used', 'Free'],
             'size': [tm, um, fm]
         })
-        ch_mem = alt.Chart(mem).mark_arc(innerRadius=50).encode(
+        ch_mem = alt.Chart(mem).mark_arc(innerRadius=30).encode(
             theta="size",
             color='memory:N'
         ).properties(title="Memory Disk Usage Status (GB)")
@@ -188,18 +188,23 @@ def execute():
     with c2:
        display_storage_metrics(*ss.extract_server_stats())
 
-    st.subheader("STORAGE OVERVIEW", divider="gray")
+  
+    #st.subheader("STORAGE OVERVIEW", divider="gray")
 
-    st.caption('**RAW DATA** FOLDER DETAILS')
+    st.caption('### :blue[RAW DATA] FOLDER USAGE')
+    st.divider()
     display_folder_details(*ss.extract_all_folder_stats(rdp))
 
-    st.caption("**INPUT DATA** FOLDER DETAILS")
+    st.caption("### :blue[**INPUT DATA**] FOLDER USAGE")
+    st.divider()
     display_folder_details(*ss.extract_all_folder_stats(idp))
 
-    st.caption("**APP DATA** FOLDER DETAILS")
+    st.caption("### :blue[**APP DATA**] FOLDER USAGE")
+    st.divider()
     display_folder_details(*ss.extract_all_folder_stats(adp))
 
-    st.caption("**FINAL DATA** FOLDER DETAILS")
+    st.caption("### :blue[**FINAL DATA**] FOLDER USAGE")
+    st.divider()
     display_folder_details(*ss.extract_all_folder_stats(fdp))
 
 # if __name__ == "__main__":
