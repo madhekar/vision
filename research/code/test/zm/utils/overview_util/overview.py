@@ -1,5 +1,6 @@
 import os
 import streamlit as st
+import altair as alt
 from utils.util import storage_stat as ss
 from utils.config_util import config
 from utils.util import model_util as mu
@@ -27,14 +28,49 @@ def display_storage_metrics(tm, um, fm):
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):
     c1, c2, c3, c4, c5 = st.columns([1, 1, 1, 1, 1])
     with c1:
-        st.bar_chart(
-            dfi,
-            horizontal=False,
-            stack=True,
-            y_label='total size(MB) & count of image files',
-            use_container_width=True,
-            color=colors
-        )
+        # print(dfi.reset_index().head(10))
+        # ch = alt.Chart(dfi.reset_index()).mark_bar().encode(
+        #     alt.X('count', axis=alt.Axis(title='count')),
+        #     alt.Y('size', axis=alt.Axis(title="size")),
+        #     color="index",
+        #     shape="index"
+        # ).configure_axis(
+        #     labelFontSize=20,
+        #     titleFontSize=22
+        # )
+        #st.altair_chart(ch)
+        #---
+        dfi = dfi.reset_index()
+        ch_count = alt.Chart(dfi).mark_bar().encode(
+            x = alt.X('count:Q', title='File Count'),
+            y = alt.Y('index:N', title='File Type', sort='y'),
+            color=alt.Color('index:N'),
+            tooltip=['index', 'count']).properties(title='File Count')
+  
+        ch_size = alt.Chart(dfi).mark_bar().encode(
+            x = alt.X('size:Q', title='File Size'),
+            y = alt.Y('index:N', title='File Type', sort='y'),
+            color=alt.Color('index:N'),
+            tooltip=['index', 'size']).properties(title='File Size')
+        st.altair_chart(ch_count & ch_size)
+
+        # ---
+        # ch = alt.Chart(dfi.reset_index()).mark_point(filled=True).encode(
+        #     alt.X('count'),
+        #     alt.Y('size'),
+        #     #alt.Size('count'),
+        #     alt.Color('index')
+        # )
+        # st.altair_chart(ch)
+        # ---
+        # st.bar_chart(
+        #     dfi,
+        #     horizontal=False,
+        #     stack=True,
+        #     y_label='total size(MB) & count of image files',
+        #     use_container_width=True,
+        #     color=colors
+        # )
     with c2:
         st.bar_chart(
             dfv,
