@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 import streamlit as st
 import altair as alt
 from utils.util import storage_stat as ss
@@ -19,11 +20,20 @@ def extract_folder_paths():
 def display_storage_metrics(tm, um, fm):
     c1, c2, c3 = st.columns([1.0, 1.0, 1.0])
     with c1:
-        st.metric(label="TOTAL DISK SIZE (GB)", delta_color="inverse", value=tm, delta=0.1)
-    with c2:
-        st.metric(label="USED DISK SIZE (GB)", delta_color="inverse", value=um, delta=0.1)
-    with c3:
-        st.metric(label="FREE DISK SIZE (GB)",delta_color="inverse", value=fm, delta=0.1)
+        mem = pd.DataFrame({
+            'memory': ['Total', 'Used', 'Free'],
+            'size': [tm, um, fm]
+        })
+        ch_mem = alt.Chart(mem).mark_arc(innerRadius=50).encode(
+            theta="size",
+            color='memory:N'
+        ).properties(title="Memory Disk Usage Status (GB)")
+        st.altair_chart(ch_mem)
+        #st.metric(label="TOTAL DISK SIZE (GB)", delta_color="inverse", value=tm, delta=0.1)
+    # with c2:
+    #     st.metric(label="USED DISK SIZE (GB)", delta_color="inverse", value=um, delta=0.1)
+    # with c3:
+    #     st.metric(label="FREE DISK SIZE (GB)",delta_color="inverse", value=fm, delta=0.1)
 
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):
     c1, c2, c3, c4, c5 = st.columns([1, 1, 1, 1, 1])
@@ -160,19 +170,10 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         )
         st.altair_chart(ch_count & ch_size)
 
-        # st.bar_chart(
-        #     dfn,
-        #     horizontal=False,
-        #     stack=True,
-        #     y_label="total size(MB) & count of other files",
-        #     use_container_width=True,
-        #     color=colors,
-        # )
-
 def execute():
     rdp, idp, adp, fdp = extract_folder_paths() 
     print(f'--> {rdp}')
-    c1, c2 = st.columns([.25,.75])
+    c1, c2 = st.columns([.1,.9])
    
     with c1:
         efs = mu.extract_user_raw_data_folders(rdp)
