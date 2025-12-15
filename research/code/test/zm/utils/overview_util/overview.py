@@ -28,85 +28,146 @@ def display_storage_metrics(tm, um, fm):
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):
     c1, c2, c3, c4, c5 = st.columns([1, 1, 1, 1, 1])
     with c1:
-        # print(dfi.reset_index().head(10))
-        # ch = alt.Chart(dfi.reset_index()).mark_bar().encode(
-        #     alt.X('count', axis=alt.Axis(title='count')),
-        #     alt.Y('size', axis=alt.Axis(title="size")),
-        #     color="index",
-        #     shape="index"
-        # ).configure_axis(
-        #     labelFontSize=20,
-        #     titleFontSize=22
-        # )
-        #st.altair_chart(ch)
-        #---
         dfi = dfi.reset_index()
-        ch_count = alt.Chart(dfi).mark_bar().encode(
-            x = alt.X('count:Q', title='File Count'),
-            y = alt.Y('index:N', title='File Type', sort='y'),
-            color=alt.Color('index:N'),
-            tooltip=['index', 'count']).properties(title='File Count')
+        ch_count = (
+            alt.Chart(dfi)
+            .mark_bar()
+            .encode(
+                x=alt.X("count:Q", title="Images Count"),
+                y=alt.Y("index:N", title="Image Type", sort="y"),
+                color=alt.Color("index:N"),
+                tooltip=["index", "count"],
+            )
+            .properties(title="Images Count")
+        )
   
-        ch_size = alt.Chart(dfi).mark_bar().encode(
-            x = alt.X('size:Q', title='File Size'),
-            y = alt.Y('index:N', title='File Type', sort='y'),
-            color=alt.Color('index:N'),
-            tooltip=['index', 'size']).properties(title='File Size')
+        ch_size = (
+            alt.Chart(dfi)
+            .mark_bar()
+            .encode(
+                x=alt.X("size:Q", title="Images Size"),
+                y=alt.Y("index:N", title="Image Type", sort="y"),
+                color=alt.Color("index:N"),
+                tooltip=["index", "size"],
+            )
+            .properties(title="Images Size")
+        )
+        st.altair_chart(ch_count & ch_size)
+    with c2:
+        dfv = dfv.reset_index()
+        ch_count = (
+            alt.Chart(dfv)
+            .mark_bar()
+            .encode(
+                x=alt.X("count:Q", title="Videos Count"),
+                y=alt.Y("index:N", title="Video Type", sort="y"),
+                color=alt.Color("index:N"),
+                tooltip=["index", "count"],
+            )
+            .properties(title="Videos Count")
+        )
+
+        ch_size = (
+            alt.Chart(dfv)
+            .mark_bar()
+            .encode(
+                x=alt.X("size:Q", title="Videos Size"),
+                y=alt.Y("index:N", title="Video Type", sort="y"),
+                color=alt.Color("index:N"),
+                tooltip=["index", "size"],
+            )
+            .properties(title="Videos Size")
+        )
         st.altair_chart(ch_count & ch_size)
 
-        # ---
-        # ch = alt.Chart(dfi.reset_index()).mark_point(filled=True).encode(
-        #     alt.X('count'),
-        #     alt.Y('size'),
-        #     #alt.Size('count'),
-        #     alt.Color('index')
-        # )
-        # st.altair_chart(ch)
-        # ---
+    with c3:
+        dfd = dfd.reset_index()
+        ch_count = (
+            alt.Chart(dfd)
+            .mark_bar()
+            .encode(
+                x=alt.X("count:Q", title="Documents Count"),
+                y=alt.Y("index:N", title="Document Type", sort="y"),
+                color=alt.Color("index:N"),
+                tooltip=["index", "count"],
+            )
+            .properties(title="Documents Count")
+        )
+
+        ch_size = (
+            alt.Chart(dfd)
+            .mark_bar()
+            .encode(
+                x=alt.X("size:Q", title="Documents Size"),
+                y=alt.Y("index:N", title="Document Type", sort="y"),
+                color=alt.Color("index:N"),
+                tooltip=["index", "size"],
+            )
+            .properties(title="Documents Size")
+        )
+        st.altair_chart(ch_count & ch_size)
+    with c4:
+        dfa = dfa.reset_index()
+        ch_count = (
+            alt.Chart(dfa)
+            .mark_bar()
+            .encode(
+                x=alt.X("count:Q", title="Audios Count"),
+                y=alt.Y("index:N", title= "Audio Type", sort="y"),
+                color=alt.Color("index:N"),
+                tooltip=["index", "count"],
+            )
+            .properties(title="Audios Count")
+        )
+
+        ch_size = (
+            alt.Chart(dfa)
+            .mark_bar()
+            .encode(
+                x=alt.X("size:Q", title="Audios Size"),
+                y=alt.Y("index:N", title="Audio Type", sort="y"),
+                color=alt.Color("index:N"),
+                tooltip=["index", "size"],
+            )
+            .properties(title="Audio Size")
+        )
+        st.altair_chart(ch_count & ch_size)
+
+    with c5:
+        dfn = dfn.reset_index()
+        ch_count = (
+            alt.Chart(dfn)
+            .mark_bar()
+            .encode(
+                x=alt.X("count:Q", title="Other File Count"),
+                y=alt.Y("index:N", title="Other File Type", sort="y"),
+                color=alt.Color("index:N"),
+                tooltip=["index", "count"],
+            )
+            .properties(title="Other File Count")
+        )
+
+        ch_size = (
+            alt.Chart(dfn)
+            .mark_bar()
+            .encode(
+                x=alt.X("size:Q", title="Other File Size"),
+                y=alt.Y("index:N", title="Other File Type", sort="y"),
+                color=alt.Color("index:N"),
+                tooltip=["index", "size"],
+            )
+            .properties(title="Other File Size")
+        )
+        st.altair_chart(ch_count & ch_size)
+
         # st.bar_chart(
-        #     dfi,
+        #     dfn,
         #     horizontal=False,
         #     stack=True,
-        #     y_label='total size(MB) & count of image files',
+        #     y_label="total size(MB) & count of other files",
         #     use_container_width=True,
-        #     color=colors
+        #     color=colors,
         # )
-    with c2:
-        st.bar_chart(
-            dfv,
-            horizontal=False,
-            stack=True,
-            y_label="total size(MB) & count of video files",
-            use_container_width=True,
-            color=colors,
-        )
-    with c3:
-        st.bar_chart(
-            dfd,
-            horizontal=False,
-            stack=True,
-            y_label="total size(MB) & count of document files",
-            use_container_width=True,
-            color=colors,
-        )
-    with c4:
-        st.bar_chart(
-            dfa,
-            horizontal=False,
-            stack=True,
-            y_label="total size(MB) & count of audio files",
-            use_container_width=True,
-            color=colors,
-        )
-    with c5:
-        st.bar_chart(
-            dfn,
-            horizontal=False,
-            stack=True,
-            y_label="total size(MB) & count of other files",
-            use_container_width=True,
-            color=colors,
-        )
 
 def execute():
     rdp, idp, adp, fdp = extract_folder_paths() 
