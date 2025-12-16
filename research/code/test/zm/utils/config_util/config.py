@@ -50,6 +50,26 @@ addtrim:
 zmedia-setup:
   init_zmedia_path: /home/madhekar/work/home-media-app/app/zmedia-sample
   init_zmedia_file: zesha_media.zip
+
+datapaths:
+  raw_data_path: /data/raw-data
+  input_data_path: /data/input-data
+  app_data_path: /data/app-data
+  final_data_path: /data/final-data
+inputpaths:
+  image_data_path: /data/input-data/img
+  video_data_path: /data/input-data/video
+  audio_data_path: /data/input-data/audio
+  text_data_path: /data/input-data/txt
+finalpaths:
+  image_data_path: /data/final-data/img
+  video_data_path: /data/final-data/video
+  audio_data_path: /data/final-data/audio
+  text_data_path: /data/final-data/txt
+errorpaths:
+  img_dup_error_path: /data/input-data/error/img/duplicate
+  img_qua_error_path: /data/input-data/error/img/quality
+  img_mis_error_path: /data/input-data/error/img/missing-data
 """
 @st.cache_resource
 def overview_config_load():
@@ -65,6 +85,16 @@ def overview_config_load():
         input_data_path = dict["datapaths"]["input_data_path"]
         app_data_path = dict["datapaths"]["app_data_path"]
         final_data_path = dict["datapaths"]["final_data_path"]
+
+        image_data_path = dict["inputpaths"]["image_data_path"]
+        video_data_path = dict["inputpaths"]["video_data_path"]
+        text_data_path = dict["inputpaths"]["text_data_path"]
+        audio_data_path = dict["inputpaths"]["audio_data_path"]
+
+        final_image_data_path = dict["finalpaths"]["image_data_path"]
+        final_video_data_path = dict["finalpaths"]["video_data_path"]
+        final_text_data_path = dict["finalpaths"]["text_data_path"]
+        final_audio_data_path = dict["finalpaths"]["audio_data_path"]
 
     return (
         os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
