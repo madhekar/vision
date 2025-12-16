@@ -20,7 +20,8 @@ def extract_folder_paths():
 def display_storage_metrics(tm, um, fm):
     c1, c2, c3 = st.columns([1.0, 1.0, 1.0])
     with c1:
-        st.markdown(''' ##### :orange[**DISK USAGE**]''' )
+        #st.markdown(''' ##### :orange[**DISK USAGE**]''' )
+        st.markdown("""##### <span style='color:#2d4202'><u>**DISC USAGE**</u></span>""",unsafe_allow_html=True)
         mem = pd.DataFrame({
             'memory': ['Total', 'Used', 'Free'],
             'size': [tm, um, fm]
