@@ -3,10 +3,17 @@ datapaths:
   input_data_path: /data/input-data
   app_data_path: /data/app-data
   final_data_path: /data/final-data
-error-data-paths:
-  main_error_path: /data/input-data/error
-  img_error_path: /data/input-data/error/img
+errorpaths:
   img_dup_error_path: /data/input-data/error/img/duplicate
   img_qua_error_path: /data/input-data/error/img/quality
   img_mis_error_path: /data/input-data/error/img/missing-data
-
+inputpaths:
+  image_data_path: /data/input-data/img
+  video_data_path: /data/input-data/video
+  audio_data_path: /data/input-data/audio
+  text_data_path: /data/input-data/txt
+finalpaths:
+  image_data_path: /data/final-data/img
+  video_data_path: /data/final-data/video
+  audio_data_path: /data/final-data/audio
+  text_data_path: /data/final-data/txt
