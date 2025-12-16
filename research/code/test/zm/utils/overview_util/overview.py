@@ -189,22 +189,23 @@ def execute():
        display_storage_metrics(*ss.extract_server_stats())
 
   
-    #st.subheader("STORAGE OVERVIEW", divider="gray")
-
-    st.caption('### :blue[RAW DATA] FOLDER USAGE')
     st.divider()
+
+    st.markdown('''#### :blue[RAW DATA]''') 
+
+    #st.divider()
     display_folder_details(*ss.extract_all_folder_stats(rdp))
 
-    st.caption("### :blue[**INPUT DATA**] FOLDER USAGE")
-    st.divider()
+    st.markdown("#### :blue[**INPUT DATA**]")
+    #st.divider()
     display_folder_details(*ss.extract_all_folder_stats(idp))
 
-    st.caption("### :blue[**APP DATA**] FOLDER USAGE")
-    st.divider()
+    st.markdown("#### :blue[**APP DATA**]")
+    #st.divider()
     display_folder_details(*ss.extract_all_folder_stats(adp))
 
-    st.caption("### :blue[**FINAL DATA**] FOLDER USAGE")
-    st.divider()
+    st.markdown("#### :blue[**FINAL DATA**]")
+    #st.divider()
     display_folder_details(*ss.extract_all_folder_stats(fdp))
 
 # if __name__ == "__main__":
