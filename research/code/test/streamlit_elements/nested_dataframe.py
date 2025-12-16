@@ -38,17 +38,17 @@ def sample_two():
 def sample_zesha():
 
     data = {
-       'inp_stage': [ {'img_inp':{'cnt': 450, 'size': 459}},
+       'inp': [ {'img_inp':{'cnt': 450, 'size': 459}},
                       {'vid_inp':{'cnt': 450, 'size': 459}},
                       {'txt_inp':{'cnt': 450, 'size': 459}},
                       {'aud_inp':{'cnt': 450, 'size': 459}}],
-       'err_type': [  {'img_err': [ {'dup': {'cnt': 450, 'size': 459}},
+       'err': [  {'img_err': [ {'dup': {'cnt': 450, 'size': 459}},
                                     {'qua': {'cnt': 450, 'size': 459}},
                                     {'mis': {'cnt': 450, 'size': 459}} ]} ,
                       {'vid_err': {'cnt': 450, 'size': 459}},
                       {'txt_err': {'cnt': 450, 'size': 459}},
                       {'aud_err': {'cnt': 450, 'size': 459}}],
-      'fin_stage': [  {'img_fin':{'cnt': 450, 'size': 459}},
+      'fin': [  {'img_fin':{'cnt': 450, 'size': 459}},
                       {'vid_fin':{'cnt': 450, 'size': 459}},
                       {'txt_fin':{'cnt': 450, 'size': 459}},
                       {'aud_fin':{'cnt': 450, 'size': 459}}],                 
@@ -56,7 +56,9 @@ def sample_zesha():
 
     df = pd.DataFrame(data)
 
-    print(df)
+    print(df.melt())
+
+    print(df.pivot_table())
 # sample_one()
 # sample_two()   
 sample_zesha() 
