@@ -37,6 +37,8 @@ def sample_two():
 
 def sample_zesha():
 
+
+
     data = {
        'inp': [ {'img_inp':{'cnt': 450, 'size': 459}},
                       {'vid_inp':{'cnt': 450, 'size': 459}},
@@ -59,6 +61,32 @@ def sample_zesha():
     print(df.melt())
 
     print(df.pivot_table())
+
+def sample_zesha_1():
+
+    data = {
+        "input": ["img_input", "vid_input", "txt_input", "aud_input"],
+        "error": ["img_err", "vid_err", "txt_err", "aud_err"],
+        "final": ["img_fin", "vid_fin", "txt_fin", "aud_fin"],
+        "cnt_i": [120, 135, 110, 80],
+        "cnt_e": [34, 23, 11, 2],
+        "cnt_f": [200, 450, 89,256]
+        # "cnt": [(145, 34, 200), (145, 34, 200), (145, 34, 200), (145, 34, 200)],
+        # "size": [(30, 2, 24), (30, 2, 24), (30, 2, 24), (30, 2, 24)],
+    }
+
+    df = pd.DataFrame(data)
+
+    df_long = df.melt(id_vars=["input", "error", "final"]) #, var_name="Measure", value_name="Count")
+    
+    print(df_long)
+
+    df_outer = df_long.groupby("input")['value'].sum().reset_index()
+
+    print(df_outer)
+
 # sample_one()
 # sample_two()   
-sample_zesha() 
+#sample_zesha() 
+
+sample_zesha_1()
