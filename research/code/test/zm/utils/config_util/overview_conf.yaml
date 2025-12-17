@@ -7,6 +7,15 @@ errorpaths:
   img_dup_error_path: /data/input-data/error/img/duplicate
   img_qua_error_path: /data/input-data/error/img/quality
   img_mis_error_path: /data/input-data/error/img/missing-data
+  video_dup_error_path: /data/input-data/error/video/duplicate
+  video_qua_error_path: /data/input-data/error/video/quality
+  video_mis_error_path: /data/input-data/error/video/missing-data
+  txt_dup_error_path: /data/input-data/error/txt/duplicate
+  txt_qua_error_path: /data/input-data/error/txt/quality
+  txt_mis_error_path: /data/input-data/error/txt/missing-data
+  audio_dup_error_path: /data/input-data/error/audio/duplicate
+  audio_qua_error_path: /data/input-data/error/audio/quality
+  audio_mis_error_path: /data/input-data/error/audio/missing-data
 inputpaths:
   image_data_path: /data/input-data/img
   video_data_path: /data/input-data/video

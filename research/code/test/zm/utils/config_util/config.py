@@ -56,6 +56,19 @@ datapaths:
   input_data_path: /data/input-data
   app_data_path: /data/app-data
   final_data_path: /data/final-data
+errorpaths:
+  img_dup_error_path: /data/input-data/error/img/duplicate
+  img_qua_error_path: /data/input-data/error/img/quality
+  img_mis_error_path: /data/input-data/error/img/missing-data
+  video_dup_error_path: /data/input-data/error/video/duplicate
+  video_qua_error_path: /data/input-data/error/video/quality
+  video_mis_error_path: /data/input-data/error/video/missing-data
+  txt_dup_error_path: /data/input-data/error/txt/duplicate
+  txt_qua_error_path: /data/input-data/error/txt/quality
+  txt_mis_error_path: /data/input-data/error/txt/missing-data
+  audio_dup_error_path: /data/input-data/error/audio/duplicate
+  audio_qua_error_path: /data/input-data/error/audio/quality
+  audio_mis_error_path: /data/input-data/error/audio/missing-data
 inputpaths:
   image_data_path: /data/input-data/img
   video_data_path: /data/input-data/video
@@ -66,10 +79,6 @@ finalpaths:
   video_data_path: /data/final-data/video
   audio_data_path: /data/final-data/audio
   text_data_path: /data/final-data/txt
-errorpaths:
-  img_dup_error_path: /data/input-data/error/img/duplicate
-  img_qua_error_path: /data/input-data/error/img/quality
-  img_mis_error_path: /data/input-data/error/img/missing-data
 """
 @st.cache_resource
 def overview_config_load():
@@ -95,6 +104,22 @@ def overview_config_load():
         final_video_data_path = dict["finalpaths"]["video_data_path"]
         final_text_data_path = dict["finalpaths"]["text_data_path"]
         final_audio_data_path = dict["finalpaths"]["audio_data_path"]
+                        
+        img_dup_error_path  = dict["errorpaths"]["img_dup_error_path"]
+        img_qua_error_path = dict["errorpaths"]["img_qua_error_path"]
+        img_mis_error_path = dict["errorpaths"]["img_mis_error_path"]
+
+        video_dup_error_path  = dict["errorpaths"]["video_dup_error_path"]
+        video_qua_error_path = dict["errorpaths"]["video_qua_error_path"]
+        video_mis_error_path = dict["errorpaths"]["video_mis_error_path"]
+
+        txt_dup_error_path  = dict["errorpaths"]["txt_dup_error_path"]
+        txt_qua_error_path = dict["errorpaths"]["txt_qua_error_path"]
+        txt_mis_error_path = dict["errorpaths"]["txt_mis_error_path"]
+
+        audio_dup_error_path  = dict["errorpaths"]["audio_dup_error_path"]
+        audio_qua_error_path = dict["errorpaths"]["audio_qua_error_path"]
+        audio_mis_error_path = dict["errorpaths"]["audio_mis_error_path"]
 
     return (
         os.path.join(dr, *raw_data_path.split(os.sep)[1:]),

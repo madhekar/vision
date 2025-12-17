@@ -33,17 +33,26 @@ def bytes_to_gb(bytes_size):
 
 # Define the list of folders to process
 folders_to_check = [
-"/home/madhekar/work/home-media-app/data/input-data/img"
-"/home/madhekar/work/home-media-app/data/input-data/video"
-"/home/madhekar/work/home-media-app/data/input-data/txt"
-"/home/madhekar/work/home-media-app/data/input-data/audio"
-"/home/madhekar/work/home-media-app/data/input-data/error/img/duplicate"
-"/home/madhekar/work/home-media-app/data/input-data/error/img/missing-data"
-"/home/madhekar/work/home-media-app/data/input-data/error/img/quality"
-"/home/madhekar/work/home-media-app/data/final-data/img"
-"/home/madhekar/work/home-media-app/data/final-data/video"
-"/home/madhekar/work/home-media-app/data/final-data/txt"
-"/home/madhekar/work/home-media-app/data/final-data/audio"
+    "/home/madhekar/work/home-media-app/data/input-data/img",
+    "/home/madhekar/work/home-media-app/data/input-data/video",
+    "/home/madhekar/work/home-media-app/data/input-data/txt",
+    "/home/madhekar/work/home-media-app/data/input-data/audio",
+    "/home/madhekar/work/home-media-app/data/input-data/error/img/duplicate",
+    "/home/madhekar/work/home-media-app/data/input-data/error/img/missing-data",
+    "/home/madhekar/work/home-media-app/data/input-data/error/img/quality",
+    "/home/madhekar/work/home-media-app/data/input-data/error/video/duplicate",
+    "/home/madhekar/work/home-media-app/data/input-data/error/video/missing-data",
+    "/home/madhekar/work/home-media-app/data/input-data/error/video/quality",
+    "/home/madhekar/work/home-media-app/data/input-data/error/txt/duplicate",
+    "/home/madhekar/work/home-media-app/data/input-data/error/txt/missing-data",
+    "/home/madhekar/work/home-media-app/data/input-data/error/txt/quality",
+    "/home/madhekar/work/home-media-app/data/input-data/error/audio/duplicate",
+    "/home/madhekar/work/home-media-app/data/input-data/error/audio/missing-data",
+    "/home/madhekar/work/home-media-app/data/input-data/error/audio/quality",
+    "/home/madhekar/work/home-media-app/data/final-data/img",
+    "/home/madhekar/work/home-media-app/data/final-data/video",
+    "/home/madhekar/work/home-media-app/data/final-data/txt",
+    "/home/madhekar/work/home-media-app/data/final-data/audio",
 ]
 
 print(f"{'Folder':<30} | {'File Count':<15} | {'Size (GB)':<15}")
@@ -55,5 +64,5 @@ for folder in folders_to_check:
         size_gb = bytes_to_gb(size_bytes)
         print(f"{folder:<30} | {count:<15} | {size_gb:<15.4f}")
     else:
-        print(f"'{folder}' is not a valid directory or does not exist.")
-
+        print(f"{folder:<30} | {0:<15} | {0:<15.4f} ")
+        pass
