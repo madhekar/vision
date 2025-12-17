@@ -17,25 +17,32 @@ def extract_folder_paths():
     )
     return (raw_data_path, input_data_path, app_data_path, final_data_path)
 
+def disc_usage(tm, um, fm):
+
+    mem = pd.DataFrame({"disc": ["Total", "Used", "Free"], "size": [tm, um, fm]})
+
+    # This formats the value as an integer for cleaner presentation in the legend/tooltip
+    mem["legend_label"] = (mem["disc"] + "  ( " + mem["size"].astype(str) + " GB)")
+
+    # Encode theta by the value, and color by the new combined label
+    base = alt.Chart(mem).encode(
+        theta=alt.Theta("size:Q", stack=True)
+    )
+   # 4. Create the pie (arc) layer
+    pie = base.mark_arc(outerRadius=120).encode(
+        color=alt.Color("legend_label:N", legend=alt.Legend(title="Disc Usage")),
+        # Add tooltip for better interactivity, using the combined label field
+        tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N", title="Disc Usage")]
+    )
+
+    st.altair_chart(pie)
+
+
 def display_storage_metrics(tm, um, fm):
     c1, c2, c3 = st.columns([1.0, 1.0, 1.0])
     with c1:
-        #st.markdown(''' ##### :orange[**DISK USAGE**]''' )
         st.markdown("""##### <span style='color:#2d4202'><u>**DISC USAGE**</u></span>""",unsafe_allow_html=True)
-        mem = pd.DataFrame({
-            'memory': ['Total', 'Used', 'Free'],
-            'size': [tm, um, fm]
-        })
-        ch_mem = alt.Chart(mem).mark_arc(innerRadius=30).encode(
-            theta="size",
-            color='memory:N'
-        ) #.properties(title="Memory Disk Usage Status (GB)")
-        st.altair_chart(ch_mem)
-        #st.metric(label="TOTAL DISK SIZE (GB)", delta_color="inverse", value=tm, delta=0.1)
-    # with c2:
-    #     st.metric(label="USED DISK SIZE (GB)", delta_color="inverse", value=um, delta=0.1)
-    # with c3:
-    #     st.metric(label="FREE DISK SIZE (GB)",delta_color="inverse", value=fm, delta=0.1)
+        disc_usage(tm, um, fm)
 
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):
     c1, c2, c3, c4, c5 = st.columns([1, 1, 1, 1, 1])
