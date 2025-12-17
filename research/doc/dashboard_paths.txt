@@ -5,8 +5,18 @@
 /home/madhekar/work/home-media-app/data/input-data/error/img/duplicate
 /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data
 /home/madhekar/work/home-media-app/data/input-data/error/img/quality
+/home/madhekar/work/home-media-app/data/input-data/error/video/duplicate
+/home/madhekar/work/home-media-app/data/input-data/error/video/missing-data
+/home/madhekar/work/home-media-app/data/input-data/error/video/quality
+/home/madhekar/work/home-media-app/data/input-data/error/txt/duplicate
+/home/madhekar/work/home-media-app/data/input-data/error/txt/missing-data
+/home/madhekar/work/home-media-app/data/input-data/error/txt/quality
+/home/madhekar/work/home-media-app/data/input-data/error/audio/duplicate
+/home/madhekar/work/home-media-app/data/input-data/error/audio/missing-data
+/home/madhekar/work/home-media-app/data/input-data/error/audio/quality
 /home/madhekar/work/home-media-app/data/final-data/img
 /home/madhekar/work/home-media-app/data/final-data/video
 /home/madhekar/work/home-media-app/data/final-data/txt
 /home/madhekar/work/home-media-app/data/final-data/audio
+
 
