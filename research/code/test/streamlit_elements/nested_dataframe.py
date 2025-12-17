@@ -68,11 +68,12 @@ def sample_zesha_1():
         "input": ["img_input", "vid_input", "txt_input", "aud_input"],
         "error": ["img_err", "vid_err", "txt_err", "aud_err"],
         "final": ["img_fin", "vid_fin", "txt_fin", "aud_fin"],
-        "cnt_i": [120, 135, 110, 80],
-        "cnt_e": [34, 23, 11, 2],
-        "cnt_f": [200, 450, 89,256]
-        # "cnt": [(145, 34, 200), (145, 34, 200), (145, 34, 200), (145, 34, 200)],
-        # "size": [(30, 2, 24), (30, 2, 24), (30, 2, 24), (30, 2, 24)],
+        "cnti": [120, 135, 110, 80],
+        "cnte": [34, 23, 11, 2],
+        "cntf": [200, 450, 89, 256],
+        "sizei": [34,67,9,23],
+        "sizee": [35,67,2,9],
+        "sizef": [123, 5, 8, 9]
     }
 
     df = pd.DataFrame(data)
@@ -82,8 +83,9 @@ def sample_zesha_1():
     print(df_long)
 
     df_outer = df_long.groupby("input")['value'].sum().reset_index()
-
+    df_err_outer = df_long.groupby("error")["value"].sum().reset_index()
     print(df_outer)
+    print(df_err_outer)
 
 # sample_one()
 # sample_two()   
