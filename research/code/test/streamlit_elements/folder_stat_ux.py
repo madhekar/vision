@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import pandas as pd
 
 def get_folder_metrics(folder_path):
     """
@@ -58,11 +59,26 @@ folders_to_check = [
 print(f"{'Folder':<30} | {'File Count':<15} | {'Size (GB)':<15}")
 print("-" * 64)
 
+rlist = []
+prefix = "/home/madhekar/work/home-media-app/data/"
 for folder in folders_to_check:
     if os.path.isdir(folder):
         count, size_bytes = get_folder_metrics(folder)
         size_gb = bytes_to_gb(size_bytes)
-        print(f"{folder:<30} | {count:<15} | {size_gb:<15.4f}")
+        ftrim = folder.removeprefix(prefix)
+        ftrim = ftrim.replace("/error","")
+        npath = os.path.normpath(ftrim)
+        path_list = npath.split(os.sep)
+        print(path_list)
+        print(f"{ftrim:<30} | {count:<15} | {size_gb:<15.4f}")
+        rlist.append({"media_path": ftrim, "count": count, "size": size_gb})
+
     else:
-        print(f"{folder:<30} | {0:<15} | {0:<15.4f} ")
+        ftrim = folder.removeprefix(prefix)
+        print(f"{ftrim:<30} | {0:<15} | {0:<15.4f} ")
+        rlist.append({"media_path": ftrim, "count": 0, "size": 0.0})
         pass
+
+df =  pd.DataFrame(rlist, columns=["media_path", "count", "size"])
+
+print(df)
