@@ -67,6 +67,7 @@ for folder in folders_to_check:
         size_gb = bytes_to_gb(size_bytes)
         ftrim = folder.removeprefix(prefix)
         ftrim = ftrim.replace("/error","")
+        print(ftrim)
         npath = os.path.normpath(ftrim)
         path_list = npath.split(os.sep)
         print(path_list)
@@ -75,6 +76,11 @@ for folder in folders_to_check:
 
     else:
         ftrim = folder.removeprefix(prefix)
+        ftrim = ftrim.replace("/error", "")
+        print(ftrim)
+        npath = os.path.normpath(ftrim)
+        path_list = npath.split(os.sep)
+        print(path_list)
         print(f"{ftrim:<30} | {0:<15} | {0:<15.4f} ")
         rlist.append({"media_path": ftrim, "count": 0, "size": 0.0})
         pass
