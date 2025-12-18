@@ -94,6 +94,9 @@ for src in src_list:
 df = pd.DataFrame(rlist, columns=["source", "data_stage", "data_type", "data_attrib", "count", "size"])
 print(df)
 
-out = df.pivot_table(index=["source", "data_stage", "data_type"], columns=["data_attrib"], values=["count", "size"])
+values_to_delete = ['duplicate','missing-data','quality']
+dft = df[~((df['data_stage'] == "final-data") & (df['data_attrib'].isin(values_to_delete)))]
+print(dft)
 
+out = df.pivot_table(index=["source", "data_stage", "data_type"], columns=["data_attrib"], values=["count", "size"])
 print(out)
