@@ -72,9 +72,11 @@ for src in src_list:
             print(ftrim)
             npath = os.path.normpath(ftrim)
             path_list = npath.split(os.sep)
-            print(path_list)
-            print(f"{ftrim:<30} | {count:<15} | {size_gb:<15.4f}")
-            rlist.append({"media_path": ftrim, "count": count, "size": size_gb})
+            if len(path_list) <=2:
+                path_list.append("data")
+            # print(path_list)
+            # print(f"{ftrim:<30} | {count:<15} | {size_gb:<15.4f}")
+            rlist.append({"source": src, "data_stage": path_list[0], "data_type": path_list[1], "data_attrib": path_list[2],  "count": count, "size": size_gb})
 
         else:
             ftrim = folder.removeprefix(prefix)
@@ -82,11 +84,13 @@ for src in src_list:
             print(ftrim)
             npath = os.path.normpath(ftrim)
             path_list = npath.split(os.sep)
-            print(path_list)
-            print(f"{ftrim:<30} | {0:<15} | {0:<15.4f} ")
-            rlist.append({"media_path": ftrim, "count": 0, "size": 0.0})
+            if len(path_list) <=2:
+                path_list.append("data")
+            # print(path_list)
+            # print(f"{ftrim:<30} | {0:<15} | {0:<15.4f} ")
+            rlist.append({"source": src, "data_stage": path_list[0], "data_type": path_list[1], "data_attrib": path_list[2],  "count": 0, "size": 0.0})
             pass
 
-df =  pd.DataFrame(rlist, columns=["media_path", "count", "size"])
+df = pd.DataFrame(rlist, columns=["source", "data_stage", "data_type", "data_attrib", "count", "size"])
 
 print(df)
