@@ -110,10 +110,11 @@ def acquire_data():
     return dft
 
 def multi_level_pie(dfs):
+
     # Filter data for each level and create separate charts
     # Level 1 (Center) - The total value would ideally be a single point or a calculation
     # This example uses placeholder values for level 1 to show the structure
-    chart1 = alt.Chart(dfs[dfs['data_type'] == "img"]).mark_arc(outerRadius=50, innerRadius=0).encode(
+    chart1 = alt.Chart(dfs[dfs['data_type'] == "img"]).mark_arc(outerRadius=50, innerRadius=10).encode(
         theta=alt.Theta("size:Q"),
         color=alt.Color("data_attrib:N", legend=None),
         order=alt.Order("data_stage:Q", sort="descending"),
@@ -123,7 +124,7 @@ def multi_level_pie(dfs):
     # Level 2 (Middle Ring)
     chart2 = (
         alt.Chart(dfs[dfs["data_type"] == "video"])
-        .mark_arc(outerRadius=100, innerRadius=50)
+        .mark_arc(outerRadius=200, innerRadius=50)
         .encode(
             theta=alt.Theta("size:Q"),
             color=alt.Color("data_attrib:N", legend=None),
@@ -136,7 +137,7 @@ def multi_level_pie(dfs):
     # This example uses the 'parent' to group colors but 'category' to define slices
     chart3 = (
         alt.Chart(dfs[dfs["data_attrib"] == "txt"])
-        .mark_arc(outerRadius=150, innerRadius=100)
+        .mark_arc(outerRadius=250, innerRadius=200)
         .encode(
             theta=alt.Theta("size:Q"),
             # Use parent for general color scheme, category for individual slices
