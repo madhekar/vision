@@ -98,5 +98,5 @@ values_to_delete = ['duplicate','missing-data','quality']
 dft = df[~((df['data_stage'] == "final-data") & (df['data_attrib'].isin(values_to_delete)))]
 print(dft)
 
-out = df.pivot_table(index=["source", "data_stage", "data_type"], columns=["data_attrib"], values=["count", "size"])
+out = dft.pivot_table(index=["source", "data_stage", "data_type"], columns=["data_attrib"], values=["count", "size"])
 print(out)
