@@ -69,7 +69,7 @@ for src in src_list:
             size_gb = bytes_to_gb(size_bytes)
             ftrim = folder.removeprefix(prefix)
             ftrim = ftrim.replace("/error","")
-            print(ftrim)
+            # print(ftrim)
             npath = os.path.normpath(ftrim)
             path_list = npath.split(os.sep)
             if len(path_list) <=2:
@@ -81,7 +81,7 @@ for src in src_list:
         else:
             ftrim = folder.removeprefix(prefix)
             ftrim = ftrim.replace("/error", "")
-            print(ftrim)
+            # print(ftrim)
             npath = os.path.normpath(ftrim)
             path_list = npath.split(os.sep)
             if len(path_list) <=2:
