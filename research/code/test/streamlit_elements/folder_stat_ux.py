@@ -221,7 +221,10 @@ def filter_selection(df):
             source_selection & data_stage_selection & data_type_selection
         )
     )
-
+    # st.markdown("""<style> 
+    #             .vega-bind {
+    #             text-align:right;
+    #             }</style> """, unsafe_allow_html=True)
     st.altair_chart(chart)
 
 filter_selection(acquire_data())    
