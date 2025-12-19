@@ -106,44 +106,49 @@ def acquire_data():
 
     # out = dft.pivot_table(index=["source", "data_stage", "data_type"], columns=["data_attrib"], values=["count", "size"])
     # print(out)
-
+    dft = dft[~(dft['source'] == "Samsung USB")]
     return dft
 
 def multi_level_pie(dfs):
 
+    dfs["legend_label"] = dfs["data_stage"] + "::" + dfs["data_type"] + dfs["data_attrib"] + '('+ str(dfs["count"]) +')'
     # Filter data for each level and create separate charts
     # Level 1 (Center) - The total value would ideally be a single point or a calculation
     # This example uses placeholder values for level 1 to show the structure
-    chart1 = alt.Chart(dfs[dfs['data_type'] == "img"]).mark_arc(outerRadius=100, innerRadius=10).encode(
-        theta=alt.Theta("size:Q"),
-        color=alt.Color("data_attrib:N", legend=None),
-        order=alt.Order("data_stage:N", sort="descending"),
-        tooltip=['source', 'data_stage', 'data_type', 'size']
+    chart1 = (
+        alt.Chart(dfs[dfs["data_type"] == "img"])
+        .mark_arc(outerRadius=25, innerRadius=5)
+        .encode(
+            theta=alt.Theta("count:Q"),
+            color=alt.Color("data_attrib:N", legend=None),
+            order=alt.Order("data_stage:N", sort="descending"),
+            tooltip=["source", "data_stage", "data_type", "data_attrib", "count"],
+        )
     )
 
     # Level 2 (Middle Ring)
     chart2 = (
         alt.Chart(dfs[dfs["data_type"] == "video"])
-        .mark_arc(outerRadius=200, innerRadius=100)
+        .mark_arc(outerRadius=45, innerRadius=25)
         .encode(
-            theta=alt.Theta("size:Q"),
-            color=alt.Color("data_attrib:N", legend=None),
+            theta=alt.Theta("count:Q"),
+            color=alt.Color("legent_label:N", legend=alt.Legend(orient="right", title="Cateogry (Value)")),
             order=alt.Order("data_stage:N", sort="descending"),
-            tooltip=["source", "data_stage", "data_type", "size"],
+            tooltip=["source", "data_stage","data_attrib", "data_type", "count"],
         )
     )
 
     # Level 3 (Outer Ring) - this data would need to sum up correctly to the parent level for a true sunburst
     # This example uses the 'parent' to group colors but 'category' to define slices
     chart3 = (
-        alt.Chart(dfs[dfs["data_attrib"] == "txt"])
-        .mark_arc(outerRadius=250, innerRadius=200)
+        alt.Chart(dfs[dfs["data_type"] == "txt"])
+        .mark_arc(outerRadius=65, innerRadius=45)
         .encode(
-            theta=alt.Theta("size:Q"),
+            theta=alt.Theta("count:Q"),
             # Use parent for general color scheme, category for individual slices
-            color=alt.Color("data_stage:N"), #, scale=alt.Scale(range="source")),
+            color=alt.Color("legent_label:N"),  # , scale=alt.Scale(range="source")),
             order=alt.Order("source:N"),
-            tooltip=["source", "data_stage", "data_type", "size"],
+            tooltip=["source", "data_stage", "data_type", "data_attrib", "count"],
         )
     )
 
@@ -156,4 +161,21 @@ def multi_level_pie(dfs):
     # Display the chart
     st.altair_chart(multilevel_pie_chart)
 
-multi_level_pie(acquire_data())    
+
+def show_hirarchy(df):
+    c = alt.Chart(df).mark_bar().encode(
+        x=alt.X('count:Q', scale=alt.Scale(zero=False)),
+        y=alt.Y('size:Q', title='dick usage GB'),
+        color='data_type:N'
+    ).properties(
+        title="disc usage"
+    )
+    c_=alt.Chart(df).mark_bar().encode(
+        x='count',
+        y=alt.Y('size:Q'),
+        color='data_stage:N'
+    )
+
+    st.altair_chart(c | c_)
+
+show_hirarchy(acquire_data())    
