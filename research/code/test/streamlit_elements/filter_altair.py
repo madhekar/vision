@@ -150,5 +150,42 @@ def filter_4():
 
     st.altair_chart(chart)
 
+def filter_5():
 
-filter_4()    
+    cars = data.cars()
+
+    # Define a selection that allows for multiple values ('multi' type)
+    # The bind='legend' often works, but a custom binding is better for dropdowns
+    # For a true multi-select dropdown widget, you need a custom binding
+    # which behaves like checkboxes in the UI.
+
+    select_origin = alt.selection_point(fields=['Origin'], bind='legend', name="OriginSelection")
+    # The 'bind=\'legend\'' creates checkboxes by default for multi-select, not a traditional dropdown.
+
+    # To get a multi-select dropdown *widget* that looks like a dropdown box but allows multiple selections,
+    # Altair/Vega-Lite currently requires a workaround or specific environment (like Altair Panopticon).
+    # In standard Altair/Jupyter/Streamlit, the 'multi' selection with 'bind=\'legend\'' is the closest
+    # built-in option for checkbox-style multi-selection.
+
+    # A common approach in Altair is to use another chart as a selection element, or use third-party libraries
+    # like Panel or Streamlit components for more complex widget behavior.
+
+    # Basic example using a selection to filter a chart:
+    selection = alt.selection_point(fields=['Origin'], on="click", toggle=True)
+
+    chart = alt.Chart(cars).mark_point().encode(
+        x='Horsepower:Q',
+        y='Miles_per_Gallon:Q',
+        color=alt.condition(selection, 'Origin:N', alt.value('lightgray')),
+        tooltip=['Name', 'Origin', 'Horsepower', 'Miles_per_Gallon']
+    ).add_params(
+        selection
+    ).transform_filter(
+        selection
+    )
+
+    # You can then use this selection to filter other charts in a linked view.
+
+    st.altair_chart(chart)
+
+filter_5()    
