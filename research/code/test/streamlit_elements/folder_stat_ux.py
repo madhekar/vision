@@ -106,7 +106,7 @@ def acquire_data():
 
     # out = dft.pivot_table(index=["source", "data_stage", "data_type"], columns=["data_attrib"], values=["count", "size"])
     # print(out)
-    dft = dft[~(dft['source'] == "Samsung USB")]
+    #dft = dft[~(dft['source'] == "Samsung USB")]
     return dft
 
 def multi_level_pie(dfs):
@@ -178,4 +178,53 @@ def show_hirarchy(df):
 
     st.altair_chart(c | c_)
 
-show_hirarchy(acquire_data())    
+def filter_selection(df):
+    # 1. Define the first dropdown selection
+    source_selection = alt.selection_point(
+        fields=["source"], bind="legend", name="source"
+    )
+    # For a dropdown *widget*, use bind=alt.binding_select(options=...)
+    source_dropdown = alt.binding_select(
+        options=sorted(df["source"].unique().tolist()), name="Select source "
+    )
+    source_selection = alt.selection_point(fields=["source"], bind=source_dropdown)
+
+    # 2. Define the second dropdown selection (e.g., for Cylinders)
+    data_stage_dropdown = alt.binding_select(
+        options=sorted(df["data_stage"].unique().tolist()), name="Select data stage "
+    )
+    data_stage_selection = alt.selection_point(
+        fields=["data_stage"], bind=data_stage_dropdown
+    )
+
+    #3. Define the third selection
+    data_type_dropdown = alt.binding_select(
+        options=sorted(df["data_type"].unique().tolist()), name="Select data type "
+    )
+    data_type_selection = alt.selection_point(
+        fields=["data_type"], bind=data_type_dropdown
+    )
+
+    # Create the chart
+    chart = (
+        alt.Chart(df)
+        .mark_bar()
+        .encode(
+            x="count:Q",
+            y="size:Q",
+            color="data_attrib:N",
+            tooltip=["source", "data_stage", "data_type", "data_attrib"],
+        )
+        .add_params(source_selection, data_stage_selection, data_type_selection)
+        .transform_filter(
+            # Combine both selections using logical AND
+            source_selection & data_stage_selection & data_type_selection
+        )
+    )
+    # st.markdown("""<style> 
+    #             .vega-bind {
+    #             text-align:right;
+    #             }</style> """, unsafe_allow_html=True)
+    st.altair_chart(chart)
+
+filter_selection(acquire_data())    
