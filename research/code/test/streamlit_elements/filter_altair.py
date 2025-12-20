@@ -148,6 +148,11 @@ def filter_4():
         origin_selection & cylinders_selection
     )
 
+    st.markdown("""
+         <style>
+            .vega-bind {text-align:right;}
+         </style>
+        """ , unsafe_allow_html=True)
     st.altair_chart(chart)
 
 def filter_5():
