@@ -135,7 +135,7 @@ def filter_4():
     cylinders_selection = alt.selection_point(fields=['Cylinders'], bind=cylinders_dropdown)
 
     # Create the chart
-    chart = alt.Chart(cars).mark_point().encode(
+    chart = alt.Chart(cars).mark_circle().encode(
         x='Horsepower:Q',
         y='Miles_per_Gallon:Q',
         color='Origin:N',
@@ -188,4 +188,4 @@ def filter_5():
 
     st.altair_chart(chart)
 
-filter_5()    
+filter_4()    
