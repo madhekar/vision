@@ -139,7 +139,7 @@ def filter_4():
         x='Horsepower:Q',
         y='Miles_per_Gallon:Q',
         color='Origin:N',
-        size='Horsepower:Q',
+        size='Acceleration:Q',
         tooltip=['Name', 'Origin', 'Cylinders']
     ).add_params(
         origin_selection,

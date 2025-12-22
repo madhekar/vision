@@ -104,10 +104,12 @@ def acquire_data():
     dft = df[~((df['data_stage'] == "final-data") & (df['data_attrib'].isin(values_to_delete)))]
     print(dft)
 
+    df_input = dft[~(dft['data_stage'] == "final-data")]
+    df_final = dft[~(dft['data_stage'] == "input-data")]
     # out = dft.pivot_table(index=["source", "data_stage", "data_type"], columns=["data_attrib"], values=["count", "size"])
     # print(out)
     #dft = dft[~(dft['source'] == "Samsung USB")]
-    return dft
+    return df_input, df_final
 
 def multi_level_pie(dfs):
 
@@ -189,13 +191,13 @@ def filter_selection(df):
     )
     source_selection = alt.selection_point(fields=["source"], bind=source_dropdown)
 
-    # 2. Define the second dropdown selection (e.g., for Cylinders)
-    data_stage_dropdown = alt.binding_select(
-        options=sorted(df["data_stage"].unique().tolist()), name="Select data stage "
-    )
-    data_stage_selection = alt.selection_point(
-        fields=["data_stage"], bind=data_stage_dropdown
-    )
+    # # 2. Define the second dropdown selection
+    # data_stage_dropdown = alt.binding_select(
+    #     options=sorted(df["data_stage"].unique().tolist()), name="Select data stage "
+    # )
+    # data_stage_selection = alt.selection_point(
+    #     fields=["data_stage"], bind=data_stage_dropdown
+    # )
 
     #3. Define the third selection
     data_type_dropdown = alt.binding_select(
@@ -216,10 +218,10 @@ def filter_selection(df):
             color="data_attrib:N",
             tooltip=["source", "data_stage", "data_type", "data_attrib", 'count', 'size'],
         )
-        .add_params(source_selection, data_stage_selection, data_type_selection)
+        .add_params(source_selection,  data_type_selection)
         .transform_filter(
             # Combine both selections using logical AND
-            source_selection & data_stage_selection & data_type_selection
+            source_selection & data_type_selection
         )
     )
     # st.markdown("""<style> 
@@ -228,4 +230,4 @@ def filter_selection(df):
     #             }</style> """, unsafe_allow_html=True)
     st.altair_chart(chart)
 
-filter_selection(acquire_data())    
+filter_selection(acquire_data()[0])    
