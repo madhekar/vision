@@ -51,30 +51,30 @@ zmedia-setup:
   init_zmedia_path: /home/madhekar/work/home-media-app/app/zmedia-sample
   init_zmedia_file: zesha_media.zip
 
-datapaths:
+data-paths:
   raw_data_path: /data/raw-data
   input_data_path: /data/input-data
   app_data_path: /data/app-data
   final_data_path: /data/final-data
-errorpaths:
+error-paths:
   img_dup_error_path: /data/input-data/error/img/duplicate
   img_qua_error_path: /data/input-data/error/img/quality
   img_mis_error_path: /data/input-data/error/img/missing-data
   video_dup_error_path: /data/input-data/error/video/duplicate
   video_qua_error_path: /data/input-data/error/video/quality
   video_mis_error_path: /data/input-data/error/video/missing-data
-  txt_dup_error_path: /data/input-data/error/txt/duplicate
-  txt_qua_error_path: /data/input-data/error/txt/quality
-  txt_mis_error_path: /data/input-data/error/txt/missing-data
+  text_dup_error_path: /data/input-data/error/txt/duplicate
+  text_qua_error_path: /data/input-data/error/txt/quality
+  text_mis_error_path: /data/input-data/error/txt/missing-data
   audio_dup_error_path: /data/input-data/error/audio/duplicate
   audio_qua_error_path: /data/input-data/error/audio/quality
   audio_mis_error_path: /data/input-data/error/audio/missing-data
-inputpaths:
+input-paths:
   image_data_path: /data/input-data/img
   video_data_path: /data/input-data/video
   audio_data_path: /data/input-data/audio
   text_data_path: /data/input-data/txt
-finalpaths:
+final-paths:
   image_data_path: /data/final-data/img
   video_data_path: /data/final-data/video
   audio_data_path: /data/final-data/audio

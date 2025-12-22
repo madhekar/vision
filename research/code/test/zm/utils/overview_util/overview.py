@@ -10,12 +10,54 @@ from utils.util import model_util as mu
 # https://www.color-hex.com/color-palette/164
 colors = ['#6d765b','#A5BFA6']#['#847577','#cfd2cd']#['#f07162','#0081a7']#['#f97171','#8ad6cc']
 #["#ae5a41", "#1b85b8"]#["#636B2F","#BAC095"] #["#9EB8A0", "#58855c"]#['#58855c','#0D3311']#["#BAC095", "#636B2F"]
-
+'''
+data-paths:
+  raw_data_path: /data/raw-data
+  input_data_path: /data/input-data
+  app_data_path: /data/app-data
+  final_data_path: /data/final-data
+error-paths:
+  img_dup_error_path: /data/input-data/error/img/duplicate
+  img_qua_error_path: /data/input-data/error/img/quality
+  img_mis_error_path: /data/input-data/error/img/missing-data
+  video_dup_error_path: /data/input-data/error/video/duplicate
+  video_qua_error_path: /data/input-data/error/video/quality
+  video_mis_error_path: /data/input-data/error/video/missing-data
+  text_dup_error_path: /data/input-data/error/txt/duplicate
+  text_qua_error_path: /data/input-data/error/txt/quality
+  text_mis_error_path: /data/input-data/error/txt/missing-data
+  audio_dup_error_path: /data/input-data/error/audio/duplicate
+  audio_qua_error_path: /data/input-data/error/audio/quality
+  audio_mis_error_path: /data/input-data/error/audio/missing-data
+input-paths:
+  image_data_path: /data/input-data/img
+  video_data_path: /data/input-data/video
+  audio_data_path: /data/input-data/audio
+  text_data_path: /data/input-data/txt
+final-paths:
+  image_data_path: /data/final-data/img
+  video_data_path: /data/final-data/video
+  audio_data_path: /data/final-data/audio
+  text_data_path: /data/final-data/txt
+'''
 def extract_folder_paths():
-    raw_data_path, input_data_path, app_data_path, final_data_path = (
+    (raw_data_path, input_data_path, app_data_path, final_data_path ,
+    img_dup_error_path, img_qua_error_path, img_mis_error_path,
+    video_dup_error_path, video_qua_error_path, video_mis_error_path,
+    text_dup_error_path, text_qua_error_path, text_mis_error_path,
+    audio_dup_error_path, audio_qua_error_path, audio_mis_error_path,
+    image_data_path, video_data_path, audio_data_path, text_data_path,
+    image_data_path, video_data_path, audio_data_path, text_data_path
+    ) = (
         config.overview_config_load()
     )
-    return (raw_data_path, input_data_path, app_data_path, final_data_path)
+    return (raw_data_path, input_data_path, app_data_path, final_data_path,
+    img_dup_error_path, img_qua_error_path, img_mis_error_path,
+    video_dup_error_path, video_qua_error_path, video_mis_error_path,
+    text_dup_error_path, text_qua_error_path, text_mis_error_path,
+    audio_dup_error_path, audio_qua_error_path, audio_mis_error_path,
+    image_data_path, video_data_path, audio_data_path, text_data_path,
+    image_data_path, video_data_path, audio_data_path, text_data_path)
 
 def disc_usage(tm, um, fm):
 
@@ -180,7 +222,12 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         st.altair_chart(ch_count & ch_size)
 
 def execute():
-    rdp, idp, adp, fdp = extract_folder_paths() 
+    (rdp, idp, adp, fdp, img_dup_error_path, img_qua_error_path, img_mis_error_path,
+    video_dup_error_path, video_qua_error_path, video_mis_error_path,
+    text_dup_error_path, text_qua_error_path, text_mis_error_path,
+    audio_dup_error_path, audio_qua_error_path, audio_mis_error_path,
+    image_data_path, video_data_path, audio_data_path, text_data_path,
+    image_data_path, video_data_path, audio_data_path, text_data_path) = extract_folder_paths() 
     print(f'--> {rdp}')
     c1, c2 = st.columns([.1,.9])
    
