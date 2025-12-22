@@ -90,42 +90,68 @@ def overview_config_load():
         pprint.pprint(dict)
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * * *")
 
-        raw_data_path = dict["datapaths"]["raw_data_path"]
-        input_data_path = dict["datapaths"]["input_data_path"]
-        app_data_path = dict["datapaths"]["app_data_path"]
-        final_data_path = dict["datapaths"]["final_data_path"]
+        raw_data_path = dict["data-paths"]["raw_data_path"]
+        input_data_path = dict["data-paths"]["input_data_path"]
+        app_data_path = dict["data-paths"]["app_data_path"]
+        final_data_path = dict["data-paths"]["final_data_path"]
 
-        image_data_path = dict["inputpaths"]["image_data_path"]
-        video_data_path = dict["inputpaths"]["video_data_path"]
-        text_data_path = dict["inputpaths"]["text_data_path"]
-        audio_data_path = dict["inputpaths"]["audio_data_path"]
+        image_data_path = dict["input-paths"]["image_data_path"]
+        video_data_path = dict["input-paths"]["video_data_path"]
+        text_data_path = dict["input-paths"]["text_data_path"]
+        audio_data_path = dict["input-paths"]["audio_data_path"]
 
-        final_image_data_path = dict["finalpaths"]["image_data_path"]
-        final_video_data_path = dict["finalpaths"]["video_data_path"]
-        final_text_data_path = dict["finalpaths"]["text_data_path"]
-        final_audio_data_path = dict["finalpaths"]["audio_data_path"]
+        final_image_data_path = dict["final-paths"]["image_data_path"]
+        final_video_data_path = dict["final-paths"]["video_data_path"]
+        final_text_data_path = dict["final-paths"]["text_data_path"]
+        final_audio_data_path = dict["final-paths"]["audio_data_path"]
                         
-        img_dup_error_path  = dict["errorpaths"]["img_dup_error_path"]
-        img_qua_error_path = dict["errorpaths"]["img_qua_error_path"]
-        img_mis_error_path = dict["errorpaths"]["img_mis_error_path"]
+        img_dup_error_path  = dict["error-paths"]["img_dup_error_path"]
+        img_qua_error_path = dict["error-paths"]["img_qua_error_path"]
+        img_mis_error_path = dict["error-paths"]["img_mis_error_path"]
 
-        video_dup_error_path  = dict["errorpaths"]["video_dup_error_path"]
-        video_qua_error_path = dict["errorpaths"]["video_qua_error_path"]
-        video_mis_error_path = dict["errorpaths"]["video_mis_error_path"]
+        video_dup_error_path  = dict["error-paths"]["video_dup_error_path"]
+        video_qua_error_path = dict["error-paths"]["video_qua_error_path"]
+        video_mis_error_path = dict["error-paths"]["video_mis_error_path"]
 
-        txt_dup_error_path  = dict["errorpaths"]["txt_dup_error_path"]
-        txt_qua_error_path = dict["errorpaths"]["txt_qua_error_path"]
-        txt_mis_error_path = dict["errorpaths"]["txt_mis_error_path"]
+        text_dup_error_path  = dict["error-paths"]["txt_dup_error_path"]
+        text_qua_error_path = dict["error-paths"]["txt_qua_error_path"]
+        text_mis_error_path = dict["error-paths"]["txt_mis_error_path"]
 
-        audio_dup_error_path  = dict["errorpaths"]["audio_dup_error_path"]
-        audio_qua_error_path = dict["errorpaths"]["audio_qua_error_path"]
-        audio_mis_error_path = dict["errorpaths"]["audio_mis_error_path"]
+        audio_dup_error_path  = dict["error-paths"]["audio_dup_error_path"]
+        audio_qua_error_path = dict["error-paths"]["audio_qua_error_path"]
+        audio_mis_error_path = dict["error-paths"]["audio_mis_error_path"]
 
     return (
         os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
         os.path.join(dr, *input_data_path.split(os.sep)[1:]),
         os.path.join(dr, *app_data_path.split(os.sep)[1:]),
-        os.path.join(dr, *final_data_path.split(os.sep)[1:])
+        os.path.join(dr, *final_data_path.split(os.sep)[1:]),
+
+        os.path.join(dr, *image_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *video_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *text_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *audio_data_path.split(os.sep)[1:]),
+
+        os.path.join(dr, *final_image_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *final_video_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *final_text_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *final_audio_data_path.split(os.sep)[1:]),
+
+        os.path.join(dr, *img_dup_error_path.split(os.sep)[1:]),
+        os.path.join(dr, *img_qua_error_path.split(os.sep)[1:]),
+        os.path.join(dr, *img_mis_error_path.split(os.sep)[1:]),
+
+        os.path.join(dr, *video_dup_error_path.split(os.sep)[1:]),
+        os.path.join(dr, *video_qua_error_path.split(os.sep)[1:]),
+        os.path.join(dr, *video_mis_error_path.split(os.sep)[1:]),
+
+        os.path.join(dr, *text_dup_error_path.split(os.sep)[1:]),
+        os.path.join(dr, *text_qua_error_path.split(os.sep)[1:]),
+        os.path.join(dr, *text_mis_error_path.split(os.sep)[1:]),
+
+        os.path.join(dr, *audio_dup_error_path.split(os.sep)[1:]),
+        os.path.join(dr, *audio_qua_error_path.split(os.sep)[1:]),
+        os.path.join(dr, *audio_mis_error_path.split(os.sep)[1:]),
     )
 
 """

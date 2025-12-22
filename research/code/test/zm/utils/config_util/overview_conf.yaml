@@ -1,9 +1,9 @@
-datapaths:
+data-paths:
   raw_data_path: /data/raw-data
   input_data_path: /data/input-data
   app_data_path: /data/app-data
   final_data_path: /data/final-data
-errorpaths:
+error-paths:
   img_dup_error_path: /data/input-data/error/img/duplicate
   img_qua_error_path: /data/input-data/error/img/quality
   img_mis_error_path: /data/input-data/error/img/missing-data
@@ -16,12 +16,12 @@ errorpaths:
   audio_dup_error_path: /data/input-data/error/audio/duplicate
   audio_qua_error_path: /data/input-data/error/audio/quality
   audio_mis_error_path: /data/input-data/error/audio/missing-data
-inputpaths:
+input-paths:
   image_data_path: /data/input-data/img
   video_data_path: /data/input-data/video
   audio_data_path: /data/input-data/audio
   text_data_path: /data/input-data/txt
-finalpaths:
+final-paths:
   image_data_path: /data/final-data/img
   video_data_path: /data/final-data/video
   audio_data_path: /data/final-data/audio
