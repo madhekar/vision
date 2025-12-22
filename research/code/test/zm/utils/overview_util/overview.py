@@ -47,17 +47,20 @@ def extract_folder_paths():
     text_dup_error_path, text_qua_error_path, text_mis_error_path,
     audio_dup_error_path, audio_qua_error_path, audio_mis_error_path,
     image_data_path, video_data_path, audio_data_path, text_data_path,
-    image_data_path, video_data_path, audio_data_path, text_data_path
+    final_image_data_path, final_video_data_path, final_audio_data_path, final_text_data_path
     ) = (
         config.overview_config_load()
     )
+    ovr_path_list = [
+        image_data_path, img_dup_error_path, img_qua_error_path, img_mis_error_path,
+        video_data_path,video_dup_error_path, video_qua_error_path, video_mis_error_path,
+        text_data_path, text_dup_error_path, text_qua_error_path ,text_mis_error_path,
+        audio_data_path, audio_dup_error_path, audio_qua_error_path, audio_mis_error_path,
+        final_image_data_path, final_video_data_path, final_text_data_path, final_audio_data_path
+        ]
+
     return (raw_data_path, input_data_path, app_data_path, final_data_path,
-    img_dup_error_path, img_qua_error_path, img_mis_error_path,
-    video_dup_error_path, video_qua_error_path, video_mis_error_path,
-    text_dup_error_path, text_qua_error_path, text_mis_error_path,
-    audio_dup_error_path, audio_qua_error_path, audio_mis_error_path,
-    image_data_path, video_data_path, audio_data_path, text_data_path,
-    image_data_path, video_data_path, audio_data_path, text_data_path)
+    ovr_path_list)
 
 def disc_usage(tm, um, fm):
 
@@ -222,12 +225,12 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         st.altair_chart(ch_count & ch_size)
 
 def execute():
-    (rdp, idp, adp, fdp, img_dup_error_path, img_qua_error_path, img_mis_error_path,
-    video_dup_error_path, video_qua_error_path, video_mis_error_path,
-    text_dup_error_path, text_qua_error_path, text_mis_error_path,
-    audio_dup_error_path, audio_qua_error_path, audio_mis_error_path,
-    image_data_path, video_data_path, audio_data_path, text_data_path,
-    image_data_path, video_data_path, audio_data_path, text_data_path) = extract_folder_paths() 
+    (rdp, idp, adp, fdp, opl) = extract_folder_paths() 
+
+    dfi, dff = ss.acquire_overview_data(opl)
+
+    print(dfi, dff)
+    
     print(f'--> {rdp}')
     c1, c2 = st.columns([.1,.9])
    
