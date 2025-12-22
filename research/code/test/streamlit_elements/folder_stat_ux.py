@@ -208,11 +208,12 @@ def filter_selection(df):
     # Create the chart
     chart = (
         alt.Chart(df)
-        .mark_bar()
+        .mark_circle()
         .encode(
-            x="count:Q",
-            y="size:Q",
-            color="data_attrib:N",
+            x=alt.X("count:Q", axis=alt.Axis(grid=True, gridColor='grey')),
+            y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
+            size="source:N",
+            color="data_stage:N",
             tooltip=["source", "data_stage", "data_type", "data_attrib"],
         )
         .add_params(source_selection, data_stage_selection, data_type_selection)
