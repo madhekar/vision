@@ -123,7 +123,7 @@ def filter_3():
 def filter_4():
 
     cars = data.cars()
-
+    print(cars)
     # 1. Define the first dropdown selection
     origin_selection = alt.selection_point(fields=['Origin'], bind='legend', name="Origin")
     # For a dropdown *widget*, use bind=alt.binding_select(options=...)
@@ -139,6 +139,7 @@ def filter_4():
         x='Horsepower:Q',
         y='Miles_per_Gallon:Q',
         color='Origin:N',
+        size='Horsepower:Q',
         tooltip=['Name', 'Origin', 'Cylinders']
     ).add_params(
         origin_selection,
