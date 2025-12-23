@@ -83,11 +83,19 @@ def disc_usage(tm, um, fm):
     st.altair_chart(pie)
 
 
-def display_storage_metrics(tm, um, fm):
+def display_storage_metrics(tm, um, fm, dfi, dff):
     c1, c2, c3 = st.columns([1.0, 1.0, 1.0])
     with c1:
         st.markdown("""##### <span style='color:#2d4202'><u>**DISC USAGE**</u></span>""",unsafe_allow_html=True)
         disc_usage(tm, um, fm)
+    
+    with c2:
+        st.markdown("""###### <span style='color:#2d4202'><u>**usage interactive (input data)**</u></span>""",unsafe_allow_html=True)
+        ss.acquire_overview_data(dfi)
+    with c3:
+        st.markdown("""###### <span style='color:#2d4202'><u>**usage interactive (final data)**</u></span>""",unsafe_allow_html=True)
+        ss.acquire_overview_data(dff)
+
 
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):
     c1, c2, c3, c4, c5 = st.columns([1, 1, 1, 1, 1])
