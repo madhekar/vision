@@ -235,6 +235,8 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
 def execute():
     (rdp, idp, adp, fdp, opl) = extract_folder_paths() 
 
+    print(f'+++{opl}')
+
     dfi, dff = ss.acquire_overview_data(opl)
 
     print(f'---dfi and dff--> {dfi}, {dff}')
@@ -254,7 +256,7 @@ def execute():
         #st.markdown('</div>', unsafe_allow_html=True)   
         #st.text_area(label="Data Sources", value=efs)
     with c2:
-       display_storage_metrics(*ss.extract_server_stats())
+       display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
 
   
     st.divider()
