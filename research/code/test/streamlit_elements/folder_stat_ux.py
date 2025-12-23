@@ -181,6 +181,7 @@ def show_hirarchy(df):
     st.altair_chart(c | c_)
 
 def filter_selection(df):
+    interval = alt.selection_interval(encodings=['x','y'])
     # 1. Define the first dropdown selection
     source_selection = alt.selection_point(
         fields=["source"], bind="legend", name="source"
@@ -210,25 +211,26 @@ def filter_selection(df):
     # Create the chart
     chart = (
         alt.Chart(df)
-        .mark_circle()
+        .mark_area()
         .encode(
             x=alt.X("count:Q", axis=alt.Axis(grid=True, gridColor='grey')),
             y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
-            size="source:N",
-            color="data_attrib:N",
-            shape="data_type:N",
+            size="data_type:N",
+            shape="source:N",
+            color= "data_attrib:N",#alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
             tooltip=["source", "data_stage", "data_type", "data_attrib", 'count', 'size'],
         )
-        .add_params(source_selection,  data_type_selection)
+        #.add_selection(interval)
+        .add_params( source_selection ) #,  data_type_selection)
         .transform_filter(
             # Combine both selections using logical AND
-            source_selection & data_type_selection
-        )
+            source_selection #& data_type_selection
+        )#.properties(selection=interval)
     ).interactive()
     # st.markdown("""<style> 
     #             .vega-bind {
     #             text-align:right;
     #             }</style> """, unsafe_allow_html=True)
-    st.altair_chart(chart)
+    st.altair_chart(chart) #| chart.encode(x="size:Q"))
 
 filter_selection(acquire_data()[0])    
