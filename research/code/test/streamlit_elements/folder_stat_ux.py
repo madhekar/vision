@@ -216,6 +216,7 @@ def filter_selection(df):
             y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
             size="source:N",
             color="data_attrib:N",
+            shape="data_type:N",
             tooltip=["source", "data_stage", "data_type", "data_attrib", 'count', 'size'],
         )
         .add_params(source_selection,  data_type_selection)
@@ -223,7 +224,7 @@ def filter_selection(df):
             # Combine both selections using logical AND
             source_selection & data_type_selection
         )
-    )
+    ).interactive()
     # st.markdown("""<style> 
     #             .vega-bind {
     #             text-align:right;
