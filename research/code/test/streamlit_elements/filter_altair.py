@@ -194,4 +194,29 @@ def filter_5():
 
     st.altair_chart(chart)
 
-filter_4()    
+def filter_interval_6():
+
+    cars = data.cars()
+
+    interval = alt.selection_interval()
+    base = alt.Chart(cars).mark_point().encode(
+        y='Horsepower',
+        color=alt.condition(interval, 'Origin', alt.value('lightgray')),
+        tooltip='Name'
+    ).add_selection(
+        interval
+    )
+    hist = alt.Chart(cars).mark_bar().encode(
+        x='count()',
+        y='Origin',
+        color='Origin'
+    ).properties(
+        width=800,
+        height=80
+    ).transform_filter(
+        interval
+    )
+    scatter = base.encode(x='Miles_per_Gallon') | base.encode(x='Acceleration')
+    st.altair_chart(scatter & hist)
+
+filter_interval_6()    
