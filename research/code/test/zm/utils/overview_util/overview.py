@@ -229,7 +229,7 @@ def execute():
 
     dfi, dff = ss.acquire_overview_data(opl)
 
-    print(dfi, dff)
+    print(f' -dfi and dff--> {dfi}, {dff}')
     
     print(f'--> {rdp}')
     c1, c2 = st.columns([.1,.9])
