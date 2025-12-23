@@ -244,6 +244,7 @@ def acquire_overview_data(folder_list):
     for src in src_list:
         for folder in folder_list:
             folder = os.path.join(folder, src)
+            print(f"--->>{folder}")
             if os.path.isdir(folder):
                 count, size_bytes = get_folder_metrics(folder)
                 size_gb = bytes_to_gb(size_bytes)
@@ -259,14 +260,15 @@ def acquire_overview_data(folder_list):
                 rlist.append({"source": src, "data_stage": path_list[0], "data_type": path_list[1], "data_attrib": path_list[2],  "count": count, "size": size_gb})
 
             else:
+                
                 f_trim = folder.removeprefix(prefix)
                 f_trim = f_trim.replace("/error", "")
-                # print(f_trim)
+                print(f_trim)
                 n_path = os.path.normpath(f_trim)
                 path_list = n_path.split(os.sep)
                 if len(path_list) == 3:
                     path_list[2] = "data"
-                print(path_list)
+                print(f'--path list-> {path_list}')
                 # print(f"{f_trim:<30} | {0:<15} | {0:<15.4f} ")
                 rlist.append({"source": src, "data_stage": path_list[0], "data_type": path_list[1], "data_attrib": path_list[2],  "count": 0, "size": 0.0})
                 pass
