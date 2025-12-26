@@ -239,10 +239,11 @@ def acquire_overview_data(folder_list):
     print(f"{'Folder':<30} | {'File Count':<15} | {'Size (GB)':<15}")
     print("-" * 64)
 
-    src_list, rlist = ['madhekar', 'Samsung USB'], []
+    src_list = ['madhekar', 'Samsung USB']
     prefix = "/home/madhekar/work/home-media-app/data/"
     for src in src_list:
         for folder in folder_list:
+            r_list = []
             folder = os.path.join(folder, src)
             print(f"--->>{folder}")
             if os.path.isdir(folder):
@@ -257,7 +258,7 @@ def acquire_overview_data(folder_list):
                     path_list[2] = "data"
                 print(path_list)
                 # print(f"{f_trim:<30} | {count:<15} | {size_gb:<15.4f}")
-                rlist.append({"source": src, "data_stage": path_list[0], "data_type": path_list[1], "data_attrib": path_list[2],  "count": count, "size": size_gb})
+                r_list.append({"source": src, "data_stage": path_list[0], "data_type": path_list[1], "data_attrib": path_list[2],  "count": count, "size": size_gb})
 
             else:
                 
@@ -270,7 +271,7 @@ def acquire_overview_data(folder_list):
                     path_list[2] = "data"
                 print(f'--path list-> {path_list}')
                 # print(f"{f_trim:<30} | {0:<15} | {0:<15.4f} ")
-                rlist.append({"source": src, "data_stage": path_list[0], "data_type": path_list[1], "data_attrib": path_list[2],  "count": 0, "size": 0.0})
+                r_list.append({"source": src, "data_stage": path_list[0], "data_type": path_list[1], "data_attrib": path_list[2],  "count": 0, "size": 0.0})
                 pass
 
     df = pd.DataFrame(rlist, columns=["source", "data_stage", "data_type", "data_attrib", "count", "size"])
