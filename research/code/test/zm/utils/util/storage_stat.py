@@ -274,7 +274,7 @@ def acquire_overview_data(folder_list):
                 r_list.append({"source": src, "data_stage": path_list[0], "data_type": path_list[1], "data_attrib": path_list[2],  "count": 0, "size": 0.0})
                 pass
 
-    df = pd.DataFrame(rlist, columns=["source", "data_stage", "data_type", "data_attrib", "count", "size"])
+    df = pd.DataFrame(r_list, columns=["source", "data_stage", "data_type", "data_attrib", "count", "size"])
     print(df)
 
     values_to_delete = ['duplicate','missing-data','quality']
