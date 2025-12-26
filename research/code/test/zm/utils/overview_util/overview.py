@@ -59,8 +59,11 @@ def extract_folder_paths():
         final_image_data_path, final_video_data_path, final_text_data_path, final_audio_data_path
         ]
 
-    return (raw_data_path, input_data_path, app_data_path, final_data_path,
-    ovr_path_list)
+    return (raw_data_path, 
+            input_data_path, 
+            app_data_path, 
+            final_data_path,
+            ovr_path_list)
 
 def disc_usage(tm, um, fm):
 
@@ -258,7 +261,6 @@ def execute():
     with c2:
        display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
 
-  
     st.divider()
 
     #st.markdown('''##### :blue[RAW DATA]''') 
