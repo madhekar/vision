@@ -300,7 +300,7 @@ def execute():
     print(f'---dfi and dff--> {dfi}, {dff}')
     
     print(f'--> {rdp}')
-    c1, c2 = st.columns([.1,.9])
+    c1, c2 = st.columns([.2,.8])
    
     with c1:
         efs = mu.extract_user_raw_data_folders(rdp)
