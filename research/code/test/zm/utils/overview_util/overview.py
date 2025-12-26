@@ -90,10 +90,10 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
         disc_usage(tm, um, fm)
     with c2:
         st.markdown("""###### <span style='color:#2d4202'><u>**usage interactive (input data)**</u></span>""",unsafe_allow_html=True)
-        ss.acquire_overview_data(dfi)
+        ss.acquire_overview_data(dfi.values.tolist())
     with c3:
         st.markdown("""###### <span style='color:#2d4202'><u>**usage interactive (final data)**</u></span>""",unsafe_allow_html=True)
-        ss.acquire_overview_data(dff)
+        ss.acquire_overview_data(dff.values.tolist())
 
 
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):
