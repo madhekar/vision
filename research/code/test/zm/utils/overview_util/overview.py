@@ -66,6 +66,7 @@ def extract_folder_paths():
             ovr_path_list)
 
 def filter_selection(df):
+    print(f'*** {df}')
     interval = alt.selection_interval(encodings=['x','y'])
     # 1. Define the first dropdown selection
     source_selection = alt.selection_point(
