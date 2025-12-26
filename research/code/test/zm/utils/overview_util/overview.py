@@ -305,12 +305,12 @@ def execute():
     with c1:
         efs = mu.extract_user_raw_data_folders(rdp)
         #st.markdown('##### :blue[**DATA SOURCES**]')
-        st.markdown("""##### <span style='color:#2d4202'><u>**DATA SOURCES**</u></span>""",unsafe_allow_html=True)
+        st.markdown("""###### <span style='color:#2d4202'><u>DATA SOURCES</u></span>""",unsafe_allow_html=True)
         #with st.container(height=100, border=False):        
         #st.markdown('<div class="scrollable-div">', unsafe_allow_html=True)
         with st.container(height=100, border=False):
             for ds in efs:
-                st.markdown(f'##### :green[**{ds}**]')
+                st.markdown(f'###### :green[{ds}]')
         #st.markdown('</div>', unsafe_allow_html=True)   
         #st.text_area(label="Data Sources", value=efs)
     with c2:
