@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import streamlit as st
+from st_dimensions import st_dimentions
 import altair as alt
 from utils.util import storage_stat as ss
 from utils.config_util import config
@@ -119,7 +120,7 @@ def filter_selection(df):
     #             }</style> """, unsafe_allow_html=True)
     st.altair_chart(chart) #| chart.encode(x="size:Q"))
 
-def disc_usage(tm, um, fm):
+def disc_usage(tm, um, fm, w):
 
     mem = pd.DataFrame({"disc": ["Total", "Used", "Free"], "size": [tm, um, fm]})
 
@@ -131,7 +132,7 @@ def disc_usage(tm, um, fm):
         theta=alt.Theta("size:Q", stack=True)
     )
    # 4. Create the pie (arc) layer
-    pie = base.mark_arc(innerRadius=20, outerRadius=50).encode(
+    pie = base.mark_arc(innerRadius=.6*w, outerRadius=.7*w).encode(
         color=alt.Color("legend_label:N", legend=alt.Legend(title="Disc Usage")),
         # Add tooltip for better interactivity, using the combined label field
         tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N", title="Disc Usage")]
@@ -143,8 +144,9 @@ def disc_usage(tm, um, fm):
 def display_storage_metrics(tm, um, fm, dfi, dff):
     c1, c2, c3 = st.columns([1.0, 1.0, 1.0])
     with c1:
+        width = st_dimentions(key="c1_width")
         st.markdown("""###### <span style='color:#2d4202'><u>DISC USAGE</u></span>""",unsafe_allow_html=True)
-        disc_usage(tm, um, fm)
+        disc_usage(tm, um, fm, width)
     with c2:
         st.markdown("""###### <span style='color:#2d4202'><u>input data usage</u></span>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dfi.values.tolist())
