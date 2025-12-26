@@ -5374,6 +5374,18 @@ wheels = [
 ]
 
 [[package]]
+name = "streamlit-dimensions"
+version = "0.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "streamlit" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ce/94/5cf84142dca07a5756d17d0403d05c350d4ecb19fdadd4d1e33f7f7b8752/streamlit-dimensions-0.0.1.tar.gz", hash = "sha256:56608773017422e8f1f166c56ecd699f6c97e35b790705a0e4fc4707627c38d7", size = 498219, upload-time = "2022-03-18T07:23:27.452Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a1/06/2af39202d0af5011896d70ccf10a9bd68d06049e8e3b544265b7162008e6/streamlit_dimensions-0.0.1-py3-none-any.whl", hash = "sha256:cfc8d5dafc811be8c2d7fa079b9a0bb552059a8207027b940cfbee2e788e7d84", size = 506773, upload-time = "2022-03-18T07:23:25.897Z" },
+]
+
+[[package]]
 name = "streamlit-embedcode"
 version = "0.1.2"
 source = { registry = "https://pypi.org/simple" }
@@ -6655,6 +6667,7 @@ dependencies = [
     { name = "stqdm" },
     { name = "streamlit" },
     { name = "streamlit-aggrid" },
+    { name = "streamlit-dimensions" },
     { name = "streamlit-extras" },
     { name = "streamlit-folium" },
     { name = "streamlit-image-select" },
@@ -6715,6 +6728,7 @@ requires-dist = [
     { name = "stqdm", specifier = ">=0.0.5" },
     { name = "streamlit", specifier = "==1.39.0" },
     { name = "streamlit-aggrid", specifier = ">=1.2.1" },
+    { name = "streamlit-dimensions", specifier = ">=0.0.1" },
     { name = "streamlit-extras", specifier = ">=0.6.0" },
     { name = "streamlit-folium", specifier = "==0.22.1" },
     { name = "streamlit-image-select", specifier = "==0.6.0" },
