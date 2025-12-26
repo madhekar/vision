@@ -239,11 +239,10 @@ def acquire_overview_data(folder_list):
     print(f"{'Folder':<30} | {'File Count':<15} | {'Size (GB)':<15}")
     print("-" * 64)
 
-    src_list = ['madhekar', 'Samsung USB']
+    src_list, r_list = ['madhekar', 'Samsung USB'], []
     prefix = "/home/madhekar/work/home-media-app/data/"
     for src in src_list:
         for folder in folder_list:
-            r_list = []
             folder = os.path.join(folder, src)
             print(f"--->>{folder}")
             if os.path.isdir(folder):
