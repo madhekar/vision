@@ -65,6 +65,59 @@ def extract_folder_paths():
             final_data_path,
             ovr_path_list)
 
+def filter_selection(df):
+    interval = alt.selection_interval(encodings=['x','y'])
+    # 1. Define the first dropdown selection
+    source_selection = alt.selection_point(
+        fields=["source"], bind="legend", name="source"
+    )
+    # For a dropdown *widget*, use bind=alt.binding_select(options=...)
+    source_dropdown = alt.binding_select(
+        options=sorted(df["source"].unique().tolist()), name="Select source "
+    )
+    source_selection = alt.selection_point(fields=["source"], bind=source_dropdown)
+
+    # # 2. Define the second dropdown selection
+    # data_stage_dropdown = alt.binding_select(
+    #     options=sorted(df["data_stage"].unique().tolist()), name="Select data stage "
+    # )
+    # data_stage_selection = alt.selection_point(
+    #     fields=["data_stage"], bind=data_stage_dropdown
+    # )
+
+    #3. Define the third selection
+    data_type_dropdown = alt.binding_select(
+        options=sorted(df["data_type"].unique().tolist()), name="Select data type "
+    )
+    data_type_selection = alt.selection_point(
+        fields=["data_type"], bind=data_type_dropdown
+    )
+
+    # Create the chart
+    chart = (
+        alt.Chart(df)
+        .mark_area()
+        .encode(
+            x=alt.X("count:Q", axis=alt.Axis(grid=True, gridColor='grey')),
+            y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
+            size="data_type:N",
+            shape="source:N",
+            color= "data_attrib:N",#alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
+            tooltip=["source", "data_stage", "data_type", "data_attrib", 'count', 'size'],
+        )
+        #.add_selection(interval)
+        .add_params( source_selection ) #,  data_type_selection)
+        .transform_filter(
+            # Combine both selections using logical AND
+            source_selection #& data_type_selection
+        )#.properties(selection=interval)
+    ).interactive()
+    # st.markdown("""<style> 
+    #             .vega-bind {
+    #             text-align:right;
+    #             }</style> """, unsafe_allow_html=True)
+    st.altair_chart(chart) #| chart.encode(x="size:Q"))
+
 def disc_usage(tm, um, fm):
 
     mem = pd.DataFrame({"disc": ["Total", "Used", "Free"], "size": [tm, um, fm]})
@@ -93,10 +146,12 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
         disc_usage(tm, um, fm)
     with c2:
         st.markdown("""###### <span style='color:#2d4202'><u>**usage interactive (input data)**</u></span>""",unsafe_allow_html=True)
-        ss.acquire_overview_data(dfi.values.tolist())
+        #ss.acquire_overview_data(dfi.values.tolist())
+        filter_selection(dfi)
     with c3:
         st.markdown("""###### <span style='color:#2d4202'><u>**usage interactive (final data)**</u></span>""",unsafe_allow_html=True)
-        ss.acquire_overview_data(dff.values.tolist())
+        #ss.acquire_overview_data(dff.values.tolist())
+        filter_selection(dff)
 
 
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):
