@@ -91,7 +91,6 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
     with c1:
         st.markdown("""##### <span style='color:#2d4202'><u>**DISC USAGE**</u></span>""",unsafe_allow_html=True)
         disc_usage(tm, um, fm)
-    
     with c2:
         st.markdown("""###### <span style='color:#2d4202'><u>**usage interactive (input data)**</u></span>""",unsafe_allow_html=True)
         ss.acquire_overview_data(dfi)
