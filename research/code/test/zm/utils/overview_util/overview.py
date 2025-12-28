@@ -98,7 +98,7 @@ def filter_selection(df):
     # Create the chart
     chart = (
         alt.Chart(df)
-        .mark_point()
+        .mark_bar()
         .encode(
             x=alt.X("count:Q", axis=alt.Axis(grid=True, gridColor='grey')),
             y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
