@@ -118,7 +118,7 @@ def filter_selection(df):
     #             .vega-bind {
     #             text-align:right;
     #             }</style> """, unsafe_allow_html=True)
-    st.altair_chart(chart, use_container_width=True) #| chart.encode(x="size:Q"))
+    st.altair_chart(chart) #| chart.encode(x="size:Q"))
 
 def disc_usage(tm, um, fm, w):
     v = w['width']
@@ -138,7 +138,7 @@ def disc_usage(tm, um, fm, w):
         tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N", title="Disc Usage")]
     )
 
-    st.altair_chart(pie)
+    st.altair_chart(pie, use_container_width=True)
 
 
 def display_storage_metrics(tm, um, fm, dfi, dff):
