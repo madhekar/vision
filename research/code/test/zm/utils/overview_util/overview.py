@@ -132,7 +132,7 @@ def disc_usage(tm, um, fm, w):
         theta=alt.Theta("size:Q", stack=True)
     )
    # 4. Create the pie (arc) layer
-    pie = base.mark_arc(innerRadius=int(.3*v), outerRadius=int(.5*v)).encode(
+    pie = base.mark_arc(innerRadius=int(.1*v), outerRadius=int(.3*v)).encode(
         color=alt.Color("legend_label:N", legend=alt.Legend(title="Disc Usage")),
         # Add tooltip for better interactivity, using the combined label field
         tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N", title="Disc Usage")]
