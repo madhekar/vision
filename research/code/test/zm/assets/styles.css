@@ -111,9 +111,9 @@
 [data-testid="stSidebarNav"]::before {
     content: "z - m e d i a";
     /* font-family: 'Comic Sans MS', cursive; */
-    margin-left: 2rem;
+    margin-left: .5rem;
     margin-bottom: .2rem;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
     position: relative;
     color: rgb(107, 3, 90);
