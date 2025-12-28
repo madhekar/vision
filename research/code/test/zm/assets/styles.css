@@ -160,8 +160,8 @@ div[data-testid="stSidebarNav"] ul li{
 /* Target the logo in the header and collapsed control */
     div[data-testid="stSidebarHeader"] > img, 
     div[data-testid="collapsedControl"] > img {
-        height: 10rem; /* Adjust this value for desired height */
-        width: auto; /* Maintain aspect ratio */
+        height: auto; /* Adjust this value for desired height */
+        width: 7rem; /* Maintain aspect ratio */
     }
     /* Ensure proper alignment if needed */
     div[data-testid="stSidebarHeader"], 
