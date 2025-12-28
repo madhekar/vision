@@ -145,7 +145,7 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
     c1, c2, c3 = st.columns([1.0, 1.0, 1.0])
     with c1:
         width = st_dimensions(key="c1_width")
-        st.markdown("""###### <span style='color:#2d4202'><u>DISC USAGE</u></span>""",unsafe_allow_html=True)
+        st.markdown("""###### <span style='color:#2d4202'><u>disc usage</u></span>""",unsafe_allow_html=True)
         disc_usage(tm, um, fm, width)
     with c2:
         st.markdown("""###### <span style='color:#2d4202'><u>input data usage</u></span>""",unsafe_allow_html=True)
@@ -307,7 +307,7 @@ def execute():
     with c1:
         efs = mu.extract_user_raw_data_folders(rdp)
         #st.markdown('##### :blue[**DATA SOURCES**]')
-        st.markdown("""###### <span style='color:#2d4202'><u>DATA SOURCES</u></span>""",unsafe_allow_html=True)
+        st.markdown("""###### <span style='color:#2d4202'><u>sources</u></span>""",unsafe_allow_html=True)
         #with st.container(height=100, border=False):        
         #st.markdown('<div class="scrollable-div">', unsafe_allow_html=True)
         with st.container(height=100, border=False):
