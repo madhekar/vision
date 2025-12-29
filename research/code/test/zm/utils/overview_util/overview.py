@@ -120,6 +120,27 @@ def filter_selection(df):
     #             }</style> """, unsafe_allow_html=True)
     st.altair_chart(chart) #| chart.encode(x="size:Q"))
 
+def disc_usage_1(tm, um, fm, w):
+    #v = w["width"]
+    mem = pd.DataFrame({"disc": ["Total", "Used", "Free"], "size": [tm, um, fm]})
+    b = (
+        alt.Chart(mem)
+        .mark_bar()
+        .encode(
+            y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
+            x=alt.X("disc:N", axis=alt.Axis(grid=True, gridColor="grey")),
+            color="disc:N",
+            #size="size:Q",
+            tooltip=['disc', 'size']
+        ).properties(
+            padding={"bottom": 50}
+        ).configure_view(
+            strokeWidth=1
+        )
+    )
+
+    st.altair_chart(b, use_container_width=True)
+
 def disc_usage(tm, um, fm, w):
     v = w['width']
     mem = pd.DataFrame({"disc": ["Total", "Used", "Free"], "size": [tm, um, fm]})
@@ -133,7 +154,7 @@ def disc_usage(tm, um, fm, w):
     )
    # 4. Create the pie (arc) layer
     pie = base.mark_arc(innerRadius=int(.1*v), outerRadius=int(.3*v)).encode(
-        color=alt.Color("legend_label:N", legend=alt.Legend(title="disc usage")),
+        color=alt.Color("legend_label:N", legend=None ),#alt.Legend(title="disc usage")),
         # Add tooltip for better interactivity, using the combined label field
         tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N", title='disc usage')]
     )
@@ -145,8 +166,8 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
     c1, c2, c3 = st.columns([1.0, 1.0, 1.0])
     with c1:
         width = st_dimensions(key="c1_width")
-        # st.markdown("""###### <span style='color:#2d4202'><u>disc usage</u></span>""",unsafe_allow_html=True)
-        disc_usage(tm, um, fm, width)
+        st.markdown("""###### <span style='color:#2d4202'><u>disc usage</u></span>""",unsafe_allow_html=True)
+        disc_usage_1(tm, um, fm, width)
     with c2:
         st.markdown("""###### <span style='color:#2d4202'><u>input data usage</u></span>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dfi.values.tolist())
@@ -312,7 +333,7 @@ def execute():
         #st.markdown('<div class="scrollable-div">', unsafe_allow_html=True)
         with st.container(height=100, border=False):
             for ds in efs:
-                st.markdown(f'###### :green[{ds}]')
+                st.markdown(f':green[{ds}]')
         #st.markdown('</div>', unsafe_allow_html=True)   
         #st.text_area(label="Data Sources", value=efs)
     with c2:
