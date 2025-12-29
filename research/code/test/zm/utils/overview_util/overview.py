@@ -135,7 +135,7 @@ def disc_usage(tm, um, fm, w):
     pie = base.mark_arc(innerRadius=int(.1*v), outerRadius=int(.3*v)).encode(
         color=alt.Color("legend_label:N", legend=alt.Legend(title="Disc Usage")),
         # Add tooltip for better interactivity, using the combined label field
-        tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N", title="Disc Usage")]
+        tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N", title=None)]
     )
 
     st.altair_chart(pie, use_container_width=True)
@@ -146,6 +146,7 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
     with c1:
         width = st_dimensions(key="c1_width")
         st.markdown("""###### <span style='color:#2d4202'><u>disc usage</u></span>""",unsafe_allow_html=True)
+        st.divider()
         disc_usage(tm, um, fm, width)
     with c2:
         st.markdown("""###### <span style='color:#2d4202'><u>input data usage</u></span>""",unsafe_allow_html=True)
