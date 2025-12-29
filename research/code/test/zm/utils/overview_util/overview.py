@@ -179,6 +179,13 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
 
 
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):
+    dfi['type'] ='image'
+    dfv["type"] = "video"
+    dfd['type'] ='document'
+    dfa["type"] = "audio"
+    dfn["type"] = "other"
+    dff = pd.concat([dfi, dfv, dfd, dfa, dfn])
+    print(f'****{dff}')
     c1, c2, c3, c4, c5 = st.columns([1, 1, 1, 1, 1])
     with c1:
         dfi = dfi.reset_index()
