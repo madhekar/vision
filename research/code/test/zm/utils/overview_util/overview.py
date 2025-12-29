@@ -170,7 +170,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
                 color=alt.Color("index:N"),
                 tooltip=["index", "count"],
             )
-            .properties(title=f"Images Count Total: {int(dfi['count'].sum())}")
+            .properties(title=f"Images Count: {int(dfi['count'].sum())}")
         )
   
         ch_size = (
@@ -182,7 +182,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
                 color=alt.Color("index:N"),
                 tooltip=["index", "size"],
             )
-            .properties(title=f"Images Size Total: {int(dfi['size'].sum())} GB")
+            .properties(title=f"Images Size: {int(dfi['size'].sum())} GB")
         )
         st.altair_chart(ch_count & ch_size)
     with c2:
@@ -196,7 +196,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
                 color=alt.Color("index:N"),
                 tooltip=["index", "count"],
             )
-            .properties(title=f"Videos Count Total: {int(dfv['count'].sum())}")
+            .properties(title=f"Videos Count: {int(dfv['count'].sum())}")
         )
 
         ch_size = (
@@ -208,7 +208,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
                 color=alt.Color("index:N"),
                 tooltip=["index", "size"],
             )
-            .properties(title=f"Videos Size Total: {int(dfv['size'].sum())} GB")
+            .properties(title=f"Videos Size: {int(dfv['size'].sum())} GB")
         )
         st.altair_chart(ch_count & ch_size)
 
@@ -223,7 +223,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
                 color=alt.Color("index:N"),
                 tooltip=["index", "count"],
             )
-            .properties(title=f"Documents Count  Total: {int(dfd['count'].sum())}")
+            .properties(title=f"Documents Count: {int(dfd['count'].sum())}")
         )
 
         ch_size = (
@@ -235,7 +235,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
                 color=alt.Color("index:N"),
                 tooltip=["index", "size"],
             )
-            .properties(title=f"Documents Size Total: {int(dfd['size'].sum())} GB")
+            .properties(title=f"Documents Size .: {int(dfd['size'].sum())} GB")
         )
         st.altair_chart(ch_count & ch_size)
     with c4:
@@ -249,7 +249,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
                 color=alt.Color("index:N"),
                 tooltip=["index", "count"],
             )
-            .properties(title=f"Audios Count Total: {int(dfa['count'].sum())}")
+            .properties(title=f"Audios Count: {int(dfa['count'].sum())}")
         )
 
         ch_size = (
@@ -261,7 +261,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
                 color=alt.Color("index:N"),
                 tooltip=["index", "size"],
             )
-            .properties(title=f"Audio Size Total: {int(dfa['size'].sum())} GB")
+            .properties(title=f"Audio Size: {int(dfa['size'].sum())} GB")
         )
         st.altair_chart(ch_count & ch_size)
 
@@ -276,7 +276,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
                 color=alt.Color("index:N"),
                 tooltip=["index", "count"],
             )
-            .properties(title=f"Other File Count  Total: {int(dfn['count'].sum())}")
+            .properties(title=f"Other File Count: {int(dfn['count'].sum())}")
         )
 
         ch_size = (
@@ -288,20 +288,20 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
                 color=alt.Color("index:N"),
                 tooltip=["index", "size"],
             )
-            .properties(title=f"Other File Size Total: {int(dfn['size'].sum())} GB")
+            .properties(title=f"Other File Size .: {int(dfn['size'].sum())} GB")
         )
         st.altair_chart(ch_count & ch_size)
 
 def execute():
     (rdp, idp, adp, fdp, opl) = extract_folder_paths() 
 
-    print(f'+++{opl}')
+    #print(f'+++{opl}')
 
     dfi, dff = ss.acquire_overview_data(opl)
 
-    print(f'---dfi and dff--> {dfi}, {dff}')
+    #print(f'---dfi and dff--> {dfi}, {dff}')
     
-    print(f'--> {rdp}')
+    #print(f'--> {rdp}')
     c1, c2 = st.columns([.1,.9])
    
     with c1:
