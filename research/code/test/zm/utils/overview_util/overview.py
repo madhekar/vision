@@ -125,11 +125,11 @@ def disc_usage(tm, um, fm, w):
     mem = pd.DataFrame({"disc": ["Total", "Used", "Free"], "size": [tm, um, fm]})
 
     # This formats the value as an integer for cleaner presentation in the legend/tooltip
-    mem["legend_label"] = (mem["disc"] + "  ( " + mem["size"].astype(str) + " GB)")
+    mem["legend_label"] = (mem["disc"] + ":" + mem["size"].astype(str) + "GB")
 
     # Encode theta by the value, and color by the new combined label
     base = alt.Chart(mem).encode(
-        theta=alt.Theta("size:Q", stack=True)
+        theta=alt.Theta("size:Q", stack=False)
     )
    # 4. Create the pie (arc) layer
     pie = base.mark_arc(innerRadius=int(.1*v), outerRadius=int(.3*v)).encode(
