@@ -122,7 +122,7 @@
 [data-testid="stSidebarNav"] {
     /* background-color: #f0f2f6; */
     padding: 1rem;
-    font-size: 1.3rem;
+    font-size: .8rem;
     font-weight: bold;
     border-radius: .1rem;
 }
@@ -130,7 +130,7 @@
 [data-testid="stSidebarNav"] a {
     color: rgb(107, 3, 90);
     text-decoration:  none;
-    font-size: 1.3rem;
+    font-size: .8rem;
     font-weight: bold;
     padding: .1rem .5rem;
     display: inline-flex;
@@ -140,19 +140,19 @@
     border-radius: .5rem;
 }
 [data-testid="stSidebarNav"] ul li a {
-    font-size: 1.3rem;
+    font-size: .8rem;
     font-weight: bold;
     color: rgb(107, 3, 90);
 }
 
 [data-testid="stSidebarNav"] ul li a span[aria-hidden="true"]{
-    font-size: 1.3rem;
+    font-size: .8rem;
     font-weight: bold;
     color: rgb(107, 3, 90);
 }
 
 div[data-testid="stSidebarNav"] ul li{
-    font-size: 1.3rem;
+    font-size: .8rem;
     font-weight: bold;
     color: rgb(107, 3, 90);
 }
