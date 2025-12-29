@@ -13,11 +13,21 @@ df =  pd.DataFrame([
 
 print(df.head(10))
 
-df_long = df.melt(id_vars=['file_type', 'category'],
-                  var_name='data_type',
-                  value_name='value')
+# df_long = df.melt(id_vars=['file_type', 'category'],
+#                   var_name='data_type',
+#                   value_name='value')
 
-print(df_long)
+# print(df_long)
+
+# c6 = alt.Chart(df_long).mark_circle().encode(
+#     x=alt.X('category:N'),
+#     y=alt.Y('value:Q'),
+#     color=alt.Color("file_type:N"),
+#     xOffset=("category:N"),
+#     size="value:Q"
+# )
+
+# st.altair_chart(c6)
 
 # c1 = alt.Chart(df).mark_bar().encode(
 #     x=alt.X('count:Q', bin=alt.Bin(maxbins=10), scale=alt.Scale(domain=(30, 300), reverse=True)),
@@ -31,21 +41,23 @@ print(df_long)
 #     y=alt.Y('category:N')
 # )
 
-# c3 = alt.Chart(df).mark_bar().encode(
-#     x=alt.X("category:N"),
-#     y=alt.Y('count:Q'),
-#     xOffset="category:N",
-#     color="file_type:N",
-# )
+# st.altair_chart(c1 | c2)
 
-# c4 = (
-#     alt.Chart(df)
-#     .mark_bar()
-#     .encode(
-#         x=alt.X("categoty:N"),
-#         y=alt.Y("size:Q"),
-#         xOffset="category:N",
-#         color="file_type:N",
-#     )
-# )
-# st.altair_chart(c3 | c4)
+c3 = alt.Chart(df).mark_bar().encode(
+    x=alt.X("category:N"),
+    y=alt.Y('count:Q'),
+    xOffset="category:N",
+    color="file_type:N",
+)
+
+c4 = (
+    alt.Chart(df)
+    .mark_bar()
+    .encode(
+        x=alt.X("category:N"),
+        y=alt.Y("size:Q", scale=alt.Scale(zero=False)), #bin=alt.Bin(maxbins=30)),
+        xOffset="category:N",
+        color="file_type:N",
+    )
+)
+st.altair_chart(c3 | c4)
