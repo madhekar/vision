@@ -186,37 +186,40 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
     dfn["type"] = "other"
     dff = pd.concat([dfi, dfv, dfd, dfa, dfn])
 
-    c1, c2 = st.columns([1, 1])
-    with c1:
-        dff = dff.reset_index(names="file_type")
-        #print(f'^^^{dff}')
-        ch_count = (
-            alt.Chart(dff)
-            .mark_bar()
-            .encode(
-                x=alt.X("type:N"),
-                y=alt.Y("count:Q"),
-                xOffset="type:N",
-                color=alt.Color("file_type:N"),
-                tooltip=["type:N", "count:Q"],
-            )
-            .properties(
-                title=f"Count- Image:{int(dfi['count'].sum())} video:{int(dfv['count'].sum())} document:{int(dfd['count'].sum())} audio:{int(dfa['count'].sum())} other:{int(dfn['count'].sum())}"
-            )
+    # c1, c2 = st.columns([1, 1])
+    # with c1:
+    dff = dff.reset_index(names="file_type")
+    #print(f'^^^{dff}')
+    ch_count = (
+        alt.Chart(dff)
+        .mark_bar()
+        .encode(
+            x=alt.X("type:N"),
+            y=alt.Y("count:Q"),
+            xOffset="type:N",
+            color=alt.Color("file_type:N"),
+            tooltip=["type:N", "count:Q"],
         )
-  
-    #     ch_size = (
-    #         alt.Chart(dfi)
-    #         .mark_bar()
-    #         .encode(
-    #             x=alt.X("size:Q", title="Images Size "),
-    #             y=alt.Y("index:N", title="Image Type", sort="y"),
-    #             color=alt.Color("index:N"),
-    #             tooltip=["index", "size"],
-    #         )
-    #         .properties(title=f"Images Size: {int(dfi['size'].sum())} GB")
-    #     )
-        st.altair_chart(ch_count)
+        .properties(
+            title=f"Count- Image:{int(dfi['count'].sum())} video:{int(dfv['count'].sum())} document:{int(dfd['count'].sum())} audio:{int(dfa['count'].sum())} other:{int(dfn['count'].sum())}"
+        )
+    )
+
+    ch_size = (
+        alt.Chart(dff)
+        .mark_bar()
+        .encode(
+            x=alt.X("type:N"),
+            y=alt.Y("size:Q"),
+            xOffset="type:N",
+            color=alt.Color("file_type:N"),
+            tooltip=["type:N", "size:Q"],
+        )
+        .properties(
+            title=f"Size- Image:{int(dfi['size'].sum())} video:{int(dfv['size'].sum())} document:{int(dfd['size'].sum())} audio:{int(dfa['size'].sum())} other:{int(dfn['size'].sum())}"
+        )
+    )
+    st.altair_chart(ch_count | ch_size)
     # with c2:
     #     dfv = dfv.reset_index()
     #     ch_count = (
