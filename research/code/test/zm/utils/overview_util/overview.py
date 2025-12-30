@@ -185,140 +185,144 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
     dfa["type"] = "audio"
     dfn["type"] = "other"
     dff = pd.concat([dfi, dfv, dfd, dfa, dfn])
-    print(f'****{dff}')
-    c1, c2, c3, c4, c5 = st.columns([1, 1, 1, 1, 1])
+
+    c1, c2 = st.columns([1, 1])
     with c1:
-        dfi = dfi.reset_index()
+        dff = dff.reset_index(names="file_type")
+        print(f'^^^{dff}')
         ch_count = (
-            alt.Chart(dfi)
+            alt.Chart(dff)
             .mark_bar()
             .encode(
-                x=alt.X("count:Q", title="Images Count"),
-                y=alt.Y("index:N", title="Image Type", sort="y"),
-                color=alt.Color("index:N"),
-                tooltip=["index", "count"],
+                x=alt.X("type:N"),
+                y=alt.Y("count:Q"),
+                xOffset="type:N",
+                color=alt.Color("file_type:N"),
+                tooltip=["type:N", "count:Q"],
             )
-            .properties(title=f"Images Count: {int(dfi['count'].sum())}")
+            .properties(
+                title=f"Images Count: {int(dfi['count'].sum())} : {int(dfv['count'].sum())}"
+            )
         )
   
-        ch_size = (
-            alt.Chart(dfi)
-            .mark_bar()
-            .encode(
-                x=alt.X("size:Q", title="Images Size "),
-                y=alt.Y("index:N", title="Image Type", sort="y"),
-                color=alt.Color("index:N"),
-                tooltip=["index", "size"],
-            )
-            .properties(title=f"Images Size: {int(dfi['size'].sum())} GB")
-        )
-        st.altair_chart(ch_count & ch_size)
-    with c2:
-        dfv = dfv.reset_index()
-        ch_count = (
-            alt.Chart(dfv)
-            .mark_bar()
-            .encode(
-                x=alt.X("count:Q", title="Videos Count"),
-                y=alt.Y("index:N", title="Video Type", sort="y"),
-                color=alt.Color("index:N"),
-                tooltip=["index", "count"],
-            )
-            .properties(title=f"Videos Count: {int(dfv['count'].sum())}")
-        )
+    #     ch_size = (
+    #         alt.Chart(dfi)
+    #         .mark_bar()
+    #         .encode(
+    #             x=alt.X("size:Q", title="Images Size "),
+    #             y=alt.Y("index:N", title="Image Type", sort="y"),
+    #             color=alt.Color("index:N"),
+    #             tooltip=["index", "size"],
+    #         )
+    #         .properties(title=f"Images Size: {int(dfi['size'].sum())} GB")
+    #     )
+        st.altair_chart(ch_count)
+    # with c2:
+    #     dfv = dfv.reset_index()
+    #     ch_count = (
+    #         alt.Chart(dfv)
+    #         .mark_bar()
+    #         .encode(
+    #             x=alt.X("count:Q", title="Videos Count"),
+    #             y=alt.Y("index:N", title="Video Type", sort="y"),
+    #             color=alt.Color("index:N"),
+    #             tooltip=["index", "count"],
+    #         )
+    #         .properties(title=f"Videos Count: {int(dfv['count'].sum())}")
+    #     )
 
-        ch_size = (
-            alt.Chart(dfv)
-            .mark_bar()
-            .encode(
-                x=alt.X("size:Q", title="Videos Size"),
-                y=alt.Y("index:N", title="Video Type", sort="y"),
-                color=alt.Color("index:N"),
-                tooltip=["index", "size"],
-            )
-            .properties(title=f"Videos Size: {int(dfv['size'].sum())} GB")
-        )
-        st.altair_chart(ch_count & ch_size)
+    #     ch_size = (
+    #         alt.Chart(dfv)
+    #         .mark_bar()
+    #         .encode(
+    #             x=alt.X("size:Q", title="Videos Size"),
+    #             y=alt.Y("index:N", title="Video Type", sort="y"),
+    #             color=alt.Color("index:N"),
+    #             tooltip=["index", "size"],
+    #         )
+    #         .properties(title=f"Videos Size: {int(dfv['size'].sum())} GB")
+    #     )
+    #     st.altair_chart(ch_count & ch_size)
 
-    with c3:
-        dfd = dfd.reset_index()
-        ch_count = (
-            alt.Chart(dfd)
-            .mark_bar()
-            .encode(
-                x=alt.X("count:Q", title="Documents Count"),
-                y=alt.Y("index:N", title="Document Type", sort="y"),
-                color=alt.Color("index:N"),
-                tooltip=["index", "count"],
-            )
-            .properties(title=f"Documents Count: {int(dfd['count'].sum())}")
-        )
+    # with c3:
+    #     dfd = dfd.reset_index()
+    #     ch_count = (
+    #         alt.Chart(dfd)
+    #         .mark_bar()
+    #         .encode(
+    #             x=alt.X("count:Q", title="Documents Count"),
+    #             y=alt.Y("index:N", title="Document Type", sort="y"),
+    #             color=alt.Color("index:N"),
+    #             tooltip=["index", "count"],
+    #         )
+    #         .properties(title=f"Documents Count: {int(dfd['count'].sum())}")
+    #     )
 
-        ch_size = (
-            alt.Chart(dfd)
-            .mark_bar()
-            .encode(
-                x=alt.X("size:Q", title="Documents Size"),
-                y=alt.Y("index:N", title="Document Type", sort="y"),
-                color=alt.Color("index:N"),
-                tooltip=["index", "size"],
-            )
-            .properties(title=f"Documents Size .: {int(dfd['size'].sum())} GB")
-        )
-        st.altair_chart(ch_count & ch_size)
-    with c4:
-        dfa = dfa.reset_index()
-        ch_count = (
-            alt.Chart(dfa)
-            .mark_bar()
-            .encode(
-                x=alt.X("count:Q", title="Audios Count"),
-                y=alt.Y("index:N", title="Audio Type", sort="y"),
-                color=alt.Color("index:N"),
-                tooltip=["index", "count"],
-            )
-            .properties(title=f"Audios Count: {int(dfa['count'].sum())}")
-        )
+    #     ch_size = (
+    #         alt.Chart(dfd)
+    #         .mark_bar()
+    #         .encode(
+    #             x=alt.X("size:Q", title="Documents Size"),
+    #             y=alt.Y("index:N", title="Document Type", sort="y"),
+    #             color=alt.Color("index:N"),
+    #             tooltip=["index", "size"],
+    #         )
+    #         .properties(title=f"Documents Size .: {int(dfd['size'].sum())} GB")
+    #     )
+    #     st.altair_chart(ch_count & ch_size)
+    # with c4:
+    #     dfa = dfa.reset_index()
+    #     ch_count = (
+    #         alt.Chart(dfa)
+    #         .mark_bar()
+    #         .encode(
+    #             x=alt.X("count:Q", title="Audios Count"),
+    #             y=alt.Y("index:N", title="Audio Type", sort="y"),
+    #             color=alt.Color("index:N"),
+    #             tooltip=["index", "count"],
+    #         )
+    #         .properties(title=f"Audios Count: {int(dfa['count'].sum())}")
+    #     )
 
-        ch_size = (
-            alt.Chart(dfa)
-            .mark_bar()
-            .encode(
-                x=alt.X("size:Q", title="Audios Size"),
-                y=alt.Y("index:N", title="Audio Type", sort="y"),
-                color=alt.Color("index:N"),
-                tooltip=["index", "size"],
-            )
-            .properties(title=f"Audio Size: {int(dfa['size'].sum())} GB")
-        )
-        st.altair_chart(ch_count & ch_size)
+    #     ch_size = (
+    #         alt.Chart(dfa)
+    #         .mark_bar()
+    #         .encode(
+    #             x=alt.X("size:Q", title="Audios Size"),
+    #             y=alt.Y("index:N", title="Audio Type", sort="y"),
+    #             color=alt.Color("index:N"),
+    #             tooltip=["index", "size"],
+    #         )
+    #         .properties(title=f"Audio Size: {int(dfa['size'].sum())} GB")
+    #     )
+    #     st.altair_chart(ch_count & ch_size)
 
-    with c5:
-        dfn = dfn.reset_index()
-        ch_count = (
-            alt.Chart(dfn)
-            .mark_bar()
-            .encode(
-                x=alt.X("count:Q", title="Other File Count"),
-                y=alt.Y("index:N", title="Other File Type", sort="y"),
-                color=alt.Color("index:N"),
-                tooltip=["index", "count"],
-            )
-            .properties(title=f"Other File Count: {int(dfn['count'].sum())}")
-        )
+    # with c5:
+    #     dfn = dfn.reset_index()
+    #     ch_count = (
+    #         alt.Chart(dfn)
+    #         .mark_bar()
+    #         .encode(
+    #             x=alt.X("count:Q", title="Other File Count"),
+    #             y=alt.Y("index:N", title="Other File Type", sort="y"),
+    #             color=alt.Color("index:N"),
+    #             tooltip=["index", "count"],
+    #         )
+    #         .properties(title=f"Other File Count: {int(dfn['count'].sum())}")
+    #     )
 
-        ch_size = (
-            alt.Chart(dfn)
-            .mark_bar()
-            .encode(
-                x=alt.X("size:Q", title="Other File Size"),
-                y=alt.Y("index:N", title="Other File Type", sort="y"),
-                color=alt.Color("index:N"),
-                tooltip=["index", "size"],
-            )
-            .properties(title=f"Other File Size .: {int(dfn['size'].sum())} GB")
-        )
-        st.altair_chart(ch_count & ch_size)
+    #     ch_size = (
+    #         alt.Chart(dfn)
+    #         .mark_bar()
+    #         .encode(
+    #             x=alt.X("size:Q", title="Other File Size"),
+    #             y=alt.Y("index:N", title="Other File Type", sort="y"),
+    #             color=alt.Color("index:N"),
+    #             tooltip=["index", "size"],
+    #         )
+    #         .properties(title=f"Other File Size .: {int(dfn['size'].sum())} GB")
+    #     )
+    #     st.altair_chart(ch_count & ch_size)
 
 def execute():
     (rdp, idp, adp, fdp, opl) = extract_folder_paths() 
