@@ -194,8 +194,8 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         alt.Chart(dff)
         .mark_bar()
         .encode(
-            x=alt.X("type:N"),
-            y=alt.Y("count:Q"),
+            x=alt.Y("count:Q"),
+            y=alt.X("type:N"),
             xOffset="type:N",
             color=alt.Color("file_type:N"),
             tooltip=["type:N", "count:Q"],
@@ -209,8 +209,8 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         alt.Chart(dff)
         .mark_bar()
         .encode(
-            x=alt.X("type:N"),
-            y=alt.Y("size:Q"),
+            x=alt.X("size:Q"),
+            y=alt.Y("type:N"),
             xOffset="type:N",
             color=alt.Color("file_type:N"),
             tooltip=["type:N", "size:Q"],
