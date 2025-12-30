@@ -201,7 +201,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             tooltip=["type:N", "count:Q"],
         )
         .properties(
-            title=f"Count- Image:{int(dfi['count'].sum())} video:{int(dfv['count'].sum())} document:{int(dfd['count'].sum())} audio:{int(dfa['count'].sum())} other:{int(dfn['count'].sum())}"
+            title=f"Count- Image:{int(dfi['count'].sum())}||video:{int(dfv['count'].sum())}||document:{int(dfd['count'].sum())}||audio:{int(dfa['count'].sum())}||other:{int(dfn['count'].sum())}"
         )
     )
 
@@ -216,7 +216,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             tooltip=["type:N", "size:Q"],
         )
         .properties(
-            title=f"Size- Image:{int(dfi['size'].sum())} video:{int(dfv['size'].sum())} document:{int(dfd['size'].sum())} audio:{int(dfa['size'].sum())} other:{int(dfn['size'].sum())}"
+            title=f"Size- Image:{int(dfi['size'].sum())}||video:{int(dfv['size'].sum())}||document:{int(dfd['size'].sum())}||audio:{int(dfa['size'].sum())}||other:{int(dfn['size'].sum())}"
         )
     )
     st.altair_chart(ch_count | ch_size)
