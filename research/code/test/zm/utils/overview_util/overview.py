@@ -189,7 +189,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
     c1, c2 = st.columns([1, 1])
     with c1:
         dff = dff.reset_index(names="file_type")
-        print(f'^^^{dff}')
+        #print(f'^^^{dff}')
         ch_count = (
             alt.Chart(dff)
             .mark_bar()
@@ -201,7 +201,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
                 tooltip=["type:N", "count:Q"],
             )
             .properties(
-                title=f"Images Count: {int(dfi['count'].sum())} : {int(dfv['count'].sum())}"
+                title=f"Count- Image:{int(dfi['count'].sum())} video:{int(dfv['count'].sum())} document:{int(dfd['count'].sum())} audio:{int(dfa['count'].sum())} other:{int(dfn['count'].sum())}"
             )
         )
   
