@@ -166,14 +166,14 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
     c1, c2, c3 = st.columns([1.0, 1.0, 1.0])
     with c1:
         width = st_dimensions(key="c1_width")
-        st.markdown("""###### <span style='color:#2d4202'><u>disc usage</u></span>""",unsafe_allow_html=True)
+        #st.markdown("""###### <span style='color:#2d4202'><u>disc usage</u></span>""",unsafe_allow_html=True)
         disc_usage_1(tm, um, fm, width)
     with c2:
-        st.markdown("""###### <span style='color:#2d4202'><u>input data usage</u></span>""",unsafe_allow_html=True)
+        #st.markdown("""###### <span style='color:#2d4202'><u>input data usage</u></span>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dfi.values.tolist())
         filter_selection(dfi)
     with c3:
-        st.markdown("""###### <span style='color:#2d4202'><u>final data usage</u></span>""",unsafe_allow_html=True)
+        #st.markdown("""###### <span style='color:#2d4202'><u>final data usage</u></span>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dff.values.tolist())
         filter_selection(dff)
 
@@ -236,12 +236,13 @@ def execute():
     with c1:
         efs = mu.extract_user_raw_data_folders(rdp)
         #st.markdown('##### :blue[**DATA SOURCES**]')
-        st.markdown("""###### <span style='color:#2d4202'><u>sources</u></span>""",unsafe_allow_html=True)
+        st.sidebar.markdown("""###### <span style='color:#2d4202'><u>sources</u></span>""",unsafe_allow_html=True)
         #with st.container(height=100, border=False):        
         #st.markdown('<div class="scrollable-div">', unsafe_allow_html=True)
         with st.container(height=100, border=False):
             for ds in efs:
-                st.markdown(f':green[{ds}]')
+                st.sidebar.markdown(f':green[{ds}]')
+                #st.sidebar.caption(ds)
         #st.markdown('</div>', unsafe_allow_html=True)   
         #st.text_area(label="Data Sources", value=efs)
     with c2:
@@ -266,7 +267,7 @@ def execute():
     #st.divider()
     display_folder_details(*ss.extract_all_folder_stats(adp))
     st.divider()
-    
+
     st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA**</u></span>""",unsafe_allow_html=True)
     #st.markdown("##### :blue[**FINAL DATA**]")
     #st.divider()
