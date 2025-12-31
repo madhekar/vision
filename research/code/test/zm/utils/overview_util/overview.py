@@ -198,7 +198,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             y=alt.X("type:N"),
             xOffset="type:N",
             color=alt.Color("file_type:N"),
-            tooltip=["type:N", "count:Q"],
+            tooltip=["type:N", "file_type:N", "count:Q"],
         )
         .properties(
             title=f"Count- Image:{int(dfi['count'].sum())}||video:{int(dfv['count'].sum())}||document:{int(dfd['count'].sum())}||audio:{int(dfa['count'].sum())}||other:{int(dfn['count'].sum())}"
@@ -213,7 +213,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             y=alt.Y("type:N"),
             xOffset="type:N",
             color=alt.Color("file_type:N"),
-            tooltip=["type:N", "size:Q"],
+            tooltip=["type:N", "file_type:N", "size:Q"],
         )
         .properties(
             title=f"Size- Image:{int(dfi['size'].sum())}||video:{int(dfv['size'].sum())}||document:{int(dfd['size'].sum())}||audio:{int(dfa['size'].sum())}||other:{int(dfn['size'].sum())}"
