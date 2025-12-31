@@ -9,8 +9,8 @@ vertical_text_style = """
     /* Adjust transform origin for better positioning, if needed */
     transform-origin: left top;
     /* Add some padding or margin to prevent overlap with surrounding content */
-    margin-top: 100px; /* Adjust this value as needed */
-    margin-bottom: 100px;
+    margin-top: 10px; /* Adjust this value as needed */
+    margin-bottom: 10px;
     /* Optional: Style the font/size */
     font-size: .5rem;
     font-weight: bold;
