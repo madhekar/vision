@@ -205,6 +205,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             xOffset="type:N",
             color=alt.Color("file_type:N"),
             tooltip=["type:N", "file_type:N", "count:Q"],
+            #text="number or files by type"
         )
         .properties(
             title=f"Count- Img:{int(dfi['count'].sum())} || Vid:{int(dfv['count'].sum())} || Doc:{int(dfd['count'].sum())} || Aud:{int(dfa['count'].sum())} || Oth:{int(dfn['count'].sum())}"
