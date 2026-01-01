@@ -104,7 +104,7 @@ def filter_selection(df):
             y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
             size="data_type:N",
             shape="source:N",
-            color= "data_attrib:N",#alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
+            color= alt.Color("data_attrib:N", scale=alt.Scale( scheme='dark2')),#alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
             tooltip=["source", "data_stage", "data_type", "data_attrib", 'count', 'size'],
         )
         #.add_selection(interval)
@@ -223,7 +223,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             x=alt.Y("count:Q", axis=alt.Axis(grid=True, gridColor="grey"), title="Number of files by type"),
             y=alt.X("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
             xOffset="type:N",
-            color=alt.Color("file_type:N"),
+            color=alt.Color("file_type:N", scale=alt.Scale( scheme='dark2')),
             tooltip=["type:N", "file_type:N", "count:Q"],
             #text="Number of files by type"
         )
@@ -243,11 +243,11 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             ),
             y=alt.Y("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
             xOffset="type:N",
-            color=alt.Color("file_type:N"),
+            color=alt.Color("file_type:N", scale=alt.Scale( scheme='dark2')),
             tooltip=["type:N", "file_type:N", "size:Q"],
         )
         .properties(
-            title=f"Size- Image:{int(dfi['size'].sum())}GB  Vidio:{int(dfv['size'].sum())}GB  Document:{int(dfd['size'].sum())}gb || Audio:{int(dfa['size'].sum())}GB  Other:{int(dfn['size'].sum())}GB"
+            title=f"Size- Image:{int(dfi['size'].sum())} GB  Video:{int(dfv['size'].sum())} GB  Document:{int(dfd['size'].sum())} GB  Audio:{int(dfa['size'].sum())} GB  Other:{int(dfn['size'].sum())} GB"
         )
     )
     st.altair_chart(ch_count | ch_size)
