@@ -124,14 +124,21 @@ def disc_usage_1(tm, um, fm, w):
     #v = w["width"]
     mem = pd.DataFrame({"disc": ["Total", "Used", "Free"], "size": [tm, um, fm]})
 
-    bar = alt.Chart(mem).mark_bar().encode(
-    y="size:Q",
-    x=alt.X("disc:N")
+    bar = (
+        alt.Chart(mem)
+        .mark_bar()
+        .encode(
+            y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
+            x=alt.X("disc:N", axis=alt.Axis(grid=True, gridColor="grey")),
+            color="disc:N",
+        )
     )
     text = bar.mark_text(
-    align="left",
+    align="center",
     baseline="middle",
-    dx=3
+    dy=-5,
+    fontWeight="bold",
+    color="black"
     ).encode(text="size")
 
     st.altair_chart(bar + text, use_container_width=True)
