@@ -130,7 +130,7 @@ def disc_usage_1(tm, um, fm, w):
         .encode(
             y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey"), title="Disc Storage Size in GB"),
             x=alt.X("disc:N", axis=alt.Axis(grid=True, gridColor="grey"), title="Disc Storage Category"),
-            color="disc:N",
+            color=alt.Color("disc:N", scale=alt.Scale( scheme='dark2'))#range=['#5A86AD', '#A3B18A', '#C17C74']))
         )
     )
     text = bar.mark_text(
@@ -220,15 +220,15 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         alt.Chart(dff)
         .mark_bar()
         .encode(
-            x=alt.Y("count:Q", axis=alt.Axis(grid=True, gridColor="grey")),
+            x=alt.Y("count:Q", axis=alt.Axis(grid=True, gridColor="grey"), title="Number of files by type"),
             y=alt.X("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
             xOffset="type:N",
             color=alt.Color("file_type:N"),
             tooltip=["type:N", "file_type:N", "count:Q"],
-            #text="number or files by type"
+            #text="Number of files by type"
         )
         .properties(
-            title=f"Count- Img:{int(dfi['count'].sum())} || Vid:{int(dfv['count'].sum())} || Doc:{int(dfd['count'].sum())} || Aud:{int(dfa['count'].sum())} || Oth:{int(dfn['count'].sum())}"
+            title=f"Count- Imgage:{int(dfi['count'].sum())}  Video:{int(dfv['count'].sum())}  Document:{int(dfd['count'].sum())}  Audio:{int(dfa['count'].sum())}  Other:{int(dfn['count'].sum())}"
         )
     )
 
@@ -236,14 +236,18 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         alt.Chart(dff)
         .mark_bar()
         .encode(
-            x=alt.X("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
+            x=alt.X(
+                "size:Q",
+                axis=alt.Axis(grid=True, gridColor="grey"),
+                title="Storage size by file type",
+            ),
             y=alt.Y("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
             xOffset="type:N",
             color=alt.Color("file_type:N"),
             tooltip=["type:N", "file_type:N", "size:Q"],
         )
         .properties(
-            title=f"Size- Img:{int(dfi['size'].sum())}gb || Vid:{int(dfv['size'].sum())}gb || Doc:{int(dfd['size'].sum())}gb || Aud:{int(dfa['size'].sum())}gb || Oth:{int(dfn['size'].sum())}gb"
+            title=f"Size- Image:{int(dfi['size'].sum())}GB  Vidio:{int(dfv['size'].sum())}GB  Document:{int(dfd['size'].sum())}gb || Audio:{int(dfa['size'].sum())}GB  Other:{int(dfn['size'].sum())}GB"
         )
     )
     st.altair_chart(ch_count | ch_size)
