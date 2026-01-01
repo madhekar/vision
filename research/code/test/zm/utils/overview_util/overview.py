@@ -123,23 +123,36 @@ def filter_selection(df):
 def disc_usage_1(tm, um, fm, w):
     #v = w["width"]
     mem = pd.DataFrame({"disc": ["Total", "Used", "Free"], "size": [tm, um, fm]})
-    b = (
-        alt.Chart(mem)
-        .mark_bar()
-        .encode(
-            y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
-            x=alt.X("disc:N", axis=alt.Axis(grid=True, gridColor="grey")),
-            color="disc:N",
-            #size="size:Q",
-            tooltip=['disc', 'size']
-        ).properties(
-            padding={"bottom": 50}
-        ).configure_view(
-            strokeWidth=1
-        )
-    )
 
-    st.altair_chart(b, use_container_width=True)
+    bar = alt.Chart(mem).mark_bar().encode(
+    y="size:Q",
+    x=alt.X("disc:N")
+    )
+    text = bar.mark_text(
+    align="left",
+    baseline="middle",
+    dx=3
+    ).encode(text="size")
+
+    st.altair_chart(bar + text, use_container_width=True)
+
+    # b = (
+    #     alt.Chart(mem)
+    #     .mark_bar()
+    #     .encode(
+    #         y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
+    #         x=alt.X("disc:N", axis=alt.Axis(grid=True, gridColor="grey")),
+    #         color="disc:N",
+    #         #size="size:Q",
+    #         tooltip=['disc', 'size']
+    #     ).properties(
+    #         padding={"bottom": 50}
+    #     ).configure_view(
+    #         strokeWidth=1
+    #     )
+    # )
+
+    # st.altair_chart(b, use_container_width=True)
 
 def disc_usage(tm, um, fm, w):
     v = w['width']
