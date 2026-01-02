@@ -168,16 +168,25 @@ def exe():
         cbc = cb.container(border=False)
         with cbc:
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(duplicate_data_path, user_source_selected))
+            dff = dff.reset_index(names="file_type")
             st.caption("**Duplicate Images Archived**")
-            st.bar_chart(
-                dfi,
-                horizontal=False,
-                stack=True,
-                use_container_width=True,
-                color=colors,
+            ch = alt.Chart(dfi).mark_bar().encode(
+            x=alt.X("count:Q", axis=alt.Axis(grid=True, gridColor='grey')),
+            y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
+            #size="file_type:N",
+            #shape="source:N",
+            color= alt.Color("file_type:N", scale=alt.Scale( scheme='dark2')),#alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
+            tooltip=["file_type", 'count', 'size'],
             )
+            # st.bar_chart(
+            #     dfi,
+            #     horizontal=False,
+            #     stack=True,
+            #     use_container_width=True,
+            #     color=colors,
+            # )
 
-
+        st.altair_chart(ch)
     with cc:
         ccc= cc.container(border=False)
         with ccc:
