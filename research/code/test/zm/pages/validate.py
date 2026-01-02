@@ -70,8 +70,9 @@ def exe():
     dff = pd.concat([dfi, dfv, dfd, dfa, dfn])
     dff = dff.reset_index(names="file_type")
     st.subheader('Data Load', divider='gray')
-    ca, cb, cc, cd = st.columns([.4, .2, .2, .2], gap="small")
+    ca, cb, cc, cd = st.columns([.3, .2, .2, .2], gap="small")
     with ca:
+        st.caption("**Media Files**")
         ch_count = (
             alt.Chart(dff)
             .mark_bar()
@@ -82,7 +83,10 @@ def exe():
                     title="#files/type",
                 ),
                 y=alt.X(
-                    "type:O", axis=alt.Axis(grid=True, gridColor="grey", labelAngle=-45)
+                    "type:O",
+                    axis=alt.Axis(
+                        grid=True, gridColor="grey", labelAngle=-45, title=None
+                    ),
                 ),
                 xOffset="type:O",
                 color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
@@ -116,60 +120,13 @@ def exe():
             #     #     title=f"Size- Image:{int(dfi['size'].sum())} GB  Video:{int(dfv['size'].sum())} GB  Document:{int(dfd['size'].sum())} GB  Audio:{int(dfa['size'].sum())} GB  Other:{int(dfn['size'].sum())} GB"
             # )
         )
-        st.altair_chart(ch_count & ch_size, use_container_width=True)
-
-
-    # with ca:
-    #     cac= ca.container(border=False)
-    #     with cac:
-    #         c01, c02, c03, c04 = st.columns([1,1,1,1], gap="small")
-    #         with c01:
-    #             st.caption("**Images Loaded**")
-    #             st.bar_chart(
-    #                 dfi,
-    #                 horizontal=False,
-    #                 stack=True,
-    #                 #y_label="total size(MB) & count of images",
-    #                 use_container_width=True,
-    #                 color=colors, #, "#636B2F", "#3D4127"] # colors
-    #                 )
-    #         with c02:
-    #             st.caption("**Videos Loaded**")
-    #             st.bar_chart(
-    #                 dfv,
-    #                 horizontal=False,
-    #                 stack=True,
-    #                 # y_label="total size(MB) & count of images",
-    #                 use_container_width=True,
-    #                 color=colors,  # , "#636B2F", "#3D4127"] # colors
-    #             )
-    #         with c03:
-    #             st.caption("**Documents Loaded**")
-    #             st.bar_chart(
-    #                 dfd,
-    #                 horizontal=False,
-    #                 stack=True,
-    #                 # y_label="total size(MB) & count of images",
-    #                 use_container_width=True,
-    #                 color=colors,  # , "#636B2F", "#3D4127"] # colors
-    #             )
-    #         with c04:
-    #             st.caption("**Others Loaded**")
-    #             st.bar_chart(
-    #                 dfn,
-    #                 horizontal=False,
-    #                 stack=True,
-    #                 # y_label="total size(MB) & count of images",
-    #                 use_container_width=True,
-    #                 color=colors,  # colors=["#D4DE95", "#BAC095"],  # ,
-    #             )
+        combined_chart = alt.vconcat(ch_count, ch_size, spacing=20)
+        st.altair_chart(combined_chart, use_container_width=True)
 
     with cb:
-        cbc = cb.container(border=False)
-        with cbc:
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(duplicate_data_path, user_source_selected))
             dfi = dfi.reset_index(names="file_type")
-            st.caption("**Duplicate Images Archived**")
+            st.caption("**Duplicate Images**")
             ch = (
                 alt.Chart(dfi).mark_bar()
                 .encode(
@@ -199,36 +156,64 @@ def exe():
             #     color=colors,
             # )
 
-        st.altair_chart(ch, use_container_width=True)
+            st.altair_chart(ch, use_container_width=True)
     with cc:
-        ccc= cc.container(border=False)
-        with ccc:
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(quality_data_path, user_source_selected))
-            st.caption("**Inferior Quality Images Found**")
-            st.bar_chart(
-                dfi,
-                horizontal=False,
-                stack=True,
-                use_container_width=True,
-                color=colors,
+            dfi = dfi.reset_index(names="file_type")
+            st.caption("**Inferior Images**")
+            ch = (
+                alt.Chart(dfi).mark_bar()
+                .encode(
+                    x=alt.X(
+                        "size:Q",
+                        axis=alt.Axis(grid=True, gridColor="grey"),
+                        # scale=alt.Scale(type="log"),
+                    ),
+                    y=alt.Y(
+                        "count:Q",
+                        axis=alt.Axis(grid=True, gridColor="grey"),
+                        #scale=alt.Scale(type="log"),
+                    ),
+                    # size="file_type:N",
+                    # shape="source:N",
+                    color=alt.Color(
+                        "file_type:N", scale=alt.Scale(scheme="dark2")
+                    ),  # alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
+                    tooltip=["file_type", "count", "size"],
+                )
             )
+            # st.bar_chart(
+            #     dfi,
+            #     horizontal=False,
+            #     stack=True,
+            #     use_container_width=True,
+            #     color=colors,
+            # )
+
+            st.altair_chart(ch, use_container_width=True)
+            # st.bar_chart(
+            #     dfi,
+            #     horizontal=False,
+            #     stack=True,
+            #     use_container_width=True,
+            #     color=colors,
+            # )
    
             options = ['people','scenic','document']   # todo
             filter_selection = st.multiselect(
-                '**Purge: Select Image Types**',
+                '**Exclude Types**',
                 options=options,
                 default=['document']
             )
         
-
     with cd:
-        cdc= cd.container(border=False)        
-        with cdc:
+            st.markdown('<div class="single-border">', unsafe_allow_html=True)
+            st.caption("**Missing Metadata**")
             if os.path.exists(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file)):       
                dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file))
-               #print(dict)
+               print(dict)
                df = pd.DataFrame.from_dict(dict, orient='index',columns=['number'])
-              #print(df)
+               print(df)
             
                st.bar_chart(
                     df,
@@ -240,12 +225,12 @@ def exe():
                )
             else:
                 st.error(f"s| missing metadata file not present {missing_metadata_file}.")     
-
+            st.markdown('</div>', unsafe_allow_html=True)
     st.divider()    
     
     ###
 
-    c1, c2, c3, c4 = st.columns([1, 1, 1, 1], gap="small")
+    c1, c2, c3, c4 = st.columns([.3, .2, .2, .2], gap="small")
     with c1:
         # c1c = c1.container(border=False)
         # with c1c:

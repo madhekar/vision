@@ -159,6 +159,7 @@ def extract_server_stats():
   return (total , used , free )
 
 def extract_stats_of_metadata_file(metadata_path):
+    ret_dict = {}
     print(metadata_path)
     mdf = pd.read_csv(metadata_path)
     
@@ -171,12 +172,14 @@ def extract_stats_of_metadata_file(metadata_path):
         correct = mdf[(mdf['DateTimeOriginal'] != "-") & (mdf['GPSLatitude'] != "-")].shape[0]
     else:
         tot, lat_lon, cdatetime, correct = 0, 0, 0, 0
-        
+    cat = ["missing-datetime", "missing-lat-lon", "no-missing-data","total-img-data"]
+    vals = [cdatetime, lat_lon, correct, tot]
+    ret_dict['categories'] = cat
+    ret_dict['values'] = vals
+
+    print(ret_dict)
     return {
-        "missing-datetime": cdatetime,
-        "missing-lat-lon": lat_lon,
-        "no-missing-data": correct,
-        "total-img-data": tot
+       ret_dict
     }
 
 
