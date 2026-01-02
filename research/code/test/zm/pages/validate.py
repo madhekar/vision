@@ -170,13 +170,26 @@ def exe():
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(duplicate_data_path, user_source_selected))
             dfi = dfi.reset_index(names="file_type")
             st.caption("**Duplicate Images Archived**")
-            ch = alt.Chart(dfi).mark_bar().encode(
-            x=alt.X("count:Q", axis=alt.Axis(grid=True, gridColor='grey')),
-            y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
-            #size="file_type:N",
-            #shape="source:N",
-            color= alt.Color("file_type:N", scale=alt.Scale( scheme='dark2')),#alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
-            tooltip=["file_type", 'count', 'size'],
+            ch = (
+                alt.Chart(dfi).mark_bar()
+                .encode(
+                    x=alt.X(
+                        "size:Q",
+                        axis=alt.Axis(grid=True, gridColor="grey"),
+                        # scale=alt.Scale(type="log"),
+                    ),
+                    y=alt.Y(
+                        "count:Q",
+                        axis=alt.Axis(grid=True, gridColor="grey"),
+                        #scale=alt.Scale(type="log"),
+                    ),
+                    # size="file_type:N",
+                    # shape="source:N",
+                    color=alt.Color(
+                        "file_type:N", scale=alt.Scale(scheme="dark2")
+                    ),  # alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
+                    tooltip=["file_type", "count", "size"],
+                )
             )
             # st.bar_chart(
             #     dfi,
