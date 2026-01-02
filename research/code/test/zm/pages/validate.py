@@ -87,9 +87,11 @@ def exe():
                 tooltip=["type:N", "file_type:N", "count:Q"],
                 # text="Number of files by type"
             )
-            # .properties(
+             .properties(
+                 width="container",
+                 height="container"
             #     title=f"Count- Imgage:{int(dfi['count'].sum())}  Video:{int(dfv['count'].sum())}  Document:{int(dfd['count'].sum())}  Audio:{int(dfa['count'].sum())}  Other:{int(dfn['count'].sum())}",
-            # )
+             )
         )
 
         ch_size = (
