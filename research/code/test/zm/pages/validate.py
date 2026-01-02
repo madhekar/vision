@@ -186,7 +186,7 @@ def exe():
             #     color=colors,
             # )
 
-        st.altair_chart(ch)
+        st.altair_chart(ch, use_container_width=True)
     with cc:
         ccc= cc.container(border=False)
         with ccc:
