@@ -281,28 +281,20 @@ def execute():
 
     st.divider()
 
-    #st.markdown('''##### :blue[RAW DATA]''') 
-    st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA**</u></span>""",unsafe_allow_html=True)
-    #st.divider()
+    st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA FOLDER**</u></span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(rdp))
-    st.divider()
-
-    #st.markdown("##### :blue[**INPUT DATA**]")
-    st.markdown("""##### <span style='color:#2d4202'><u>**INPUT DATA**</u></span>""",unsafe_allow_html=True)
     #st.divider()
+
+    st.markdown("""##### <span style='color:#2d4202'><u>**INPUT DATA FOLDER**</u></span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(idp))
-    st.divider()
-
-    st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA**</u></span>""",unsafe_allow_html=True)
-    #st.markdown("##### :blue[**APP DATA**]")
     #st.divider()
-    display_folder_details(*ss.extract_all_folder_stats(adp))
-    st.divider()
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA**</u></span>""",unsafe_allow_html=True)
-    #st.markdown("##### :blue[**FINAL DATA**]")
-    #st.divider()
+    st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA FOLDER**</u></span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(fdp))
+    #st.divider()
+
+    st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+    display_folder_details(*ss.extract_all_folder_stats(adp))
 
 # if __name__ == "__main__":
 #     execute()
