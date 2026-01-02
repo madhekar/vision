@@ -79,37 +79,41 @@ def exe():
                 x=alt.Y(
                     "count:Q",
                     axis=alt.Axis(grid=True, gridColor="grey"),
-                    title="Number of files by type",
+                    title="#files/type",
                 ),
-                y=alt.X("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
-                xOffset="type:N",
+                y=alt.X(
+                    "type:O", axis=alt.Axis(grid=True, gridColor="grey", labelAngle=-45)
+                ),
+                xOffset="type:O",
                 color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
-                tooltip=["type:N", "file_type:N", "count:Q"],
+                tooltip=["type:O", "file_type:N", "count:Q"],
                 # text="Number of files by type"
             )
-             .properties(
-                 width="container",
-                 height="container"
-            #     title=f"Count- Imgage:{int(dfi['count'].sum())}  Video:{int(dfv['count'].sum())}  Document:{int(dfd['count'].sum())}  Audio:{int(dfa['count'].sum())}  Other:{int(dfn['count'].sum())}",
-             )
+            # .properties(
+            #     width="container",
+            #     height="container",
+            #     #     title=f"Count- Imgage:{int(dfi['count'].sum())}  Video:{int(dfv['count'].sum())}  Document:{int(dfd['count'].sum())}  Audio:{int(dfa['count'].sum())}  Other:{int(dfn['count'].sum())}",
+            # )
         )
 
         ch_size = (
             alt.Chart(dff)
             .mark_bar()
             .encode(
-                x=alt.X(
+                x=alt.Y(
                     "size:Q",
                     axis=alt.Axis(grid=True, gridColor="grey"),
-                    title="Storage size by file type",
+                    title="size/type",
                 ),
-                y=alt.Y("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
+                y=alt.X("type:N", axis=alt.Axis(grid=True, gridColor="grey", labelAngle=-45)),
                 xOffset="type:N",
-                color=alt.Color("file_type:N", scale=alt.Scale( scheme='dark2')),
+                color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
                 tooltip=["type:N", "file_type:N", "size:Q"],
             )
             # .properties(
-            #     title=f"Size- Image:{int(dfi['size'].sum())} GB  Video:{int(dfv['size'].sum())} GB  Document:{int(dfd['size'].sum())} GB  Audio:{int(dfa['size'].sum())} GB  Other:{int(dfn['size'].sum())} GB"
+            #     width="container",
+            #     height="container",
+            #     #     title=f"Size- Image:{int(dfi['size'].sum())} GB  Video:{int(dfv['size'].sum())} GB  Document:{int(dfd['size'].sum())} GB  Audio:{int(dfa['size'].sum())} GB  Other:{int(dfn['size'].sum())} GB"
             # )
         )
         st.altair_chart(ch_count & ch_size, use_container_width=True)
