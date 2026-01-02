@@ -1,6 +1,7 @@
 import os
 import time
 import streamlit as st
+import altair as alt
 #from stqdm import stqdm
 import multiprocessing as mp
 import pandas as pd
@@ -61,54 +62,96 @@ def exe():
     # npar = cn // 2
 
     (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(raw_data_path, user_source_selected))
+    dfi['type'] ='image'
+    dfv["type"] = "video"
+    dfd['type'] ='document'
+    dfa["type"] = "audio"
+    dfn["type"] = "other"
+    dff = pd.concat([dfi, dfv, dfd, dfa, dfn])
 
     st.subheader('Data Load', divider='gray')
-    ca, cb, cc, cd = st.columns([1, 1, 1, 1], gap="small")
 
-    with ca:
-        cac= ca.container(border=False)
-        with cac:
-            c01, c02, c03, c04 = st.columns([1,1,1,1], gap="small")
-            with c01:
-                st.caption("**Images Loaded**")
-                st.bar_chart(
-                    dfi,
-                    horizontal=False,
-                    stack=True,
-                    #y_label="total size(MB) & count of images",
-                    use_container_width=True,
-                    color=colors, #, "#636B2F", "#3D4127"] # colors
-                    )
-            with c02:
-                st.caption("**Videos Loaded**")
-                st.bar_chart(
-                    dfv,
-                    horizontal=False,
-                    stack=True,
-                    # y_label="total size(MB) & count of images",
-                    use_container_width=True,
-                    color=colors,  # , "#636B2F", "#3D4127"] # colors
-                )
-            with c03:
-                st.caption("**Documents Loaded**")
-                st.bar_chart(
-                    dfd,
-                    horizontal=False,
-                    stack=True,
-                    # y_label="total size(MB) & count of images",
-                    use_container_width=True,
-                    color=colors,  # , "#636B2F", "#3D4127"] # colors
-                )
-            with c04:
-                st.caption("**Others Loaded**")
-                st.bar_chart(
-                    dfn,
-                    horizontal=False,
-                    stack=True,
-                    # y_label="total size(MB) & count of images",
-                    use_container_width=True,
-                    color=colors,  # colors=["#D4DE95", "#BAC095"],  # ,
-                )
+    ch_count = (
+        alt.Chart(dff)
+        .mark_bar()
+        .encode(
+            x=alt.Y("count:Q", axis=alt.Axis(grid=True, gridColor="grey"), title="Number of files by type"),
+            y=alt.X("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
+            xOffset="type:N",
+            color=alt.Color("file_type:N", scale=alt.Scale( scheme='dark2')),
+            tooltip=["type:N", "file_type:N", "count:Q"],
+            #text="Number of files by type"
+        )
+        .properties(
+            title=f"Count- Imgage:{int(dfi['count'].sum())}  Video:{int(dfv['count'].sum())}  Document:{int(dfd['count'].sum())}  Audio:{int(dfa['count'].sum())}  Other:{int(dfn['count'].sum())}"
+        )
+    )
+
+    ch_size = (
+        alt.Chart(dff)
+        .mark_bar()
+        .encode(
+            x=alt.X(
+                "size:Q",
+                axis=alt.Axis(grid=True, gridColor="grey"),
+                title="Storage size by file type",
+            ),
+            y=alt.Y("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
+            xOffset="type:N",
+            color=alt.Color("file_type:N", scale=alt.Scale( scheme='dark2')),
+            tooltip=["type:N", "file_type:N", "size:Q"],
+        )
+        .properties(
+            title=f"Size- Image:{int(dfi['size'].sum())} GB  Video:{int(dfv['size'].sum())} GB  Document:{int(dfd['size'].sum())} GB  Audio:{int(dfa['size'].sum())} GB  Other:{int(dfn['size'].sum())} GB"
+        )
+    )
+    st.altair_chart(ch_count | ch_size)
+    # ca, cb, cc, cd = st.columns([1, 1, 1, 1], gap="small")
+
+    # with ca:
+    #     cac= ca.container(border=False)
+    #     with cac:
+    #         c01, c02, c03, c04 = st.columns([1,1,1,1], gap="small")
+    #         with c01:
+    #             st.caption("**Images Loaded**")
+    #             st.bar_chart(
+    #                 dfi,
+    #                 horizontal=False,
+    #                 stack=True,
+    #                 #y_label="total size(MB) & count of images",
+    #                 use_container_width=True,
+    #                 color=colors, #, "#636B2F", "#3D4127"] # colors
+    #                 )
+    #         with c02:
+    #             st.caption("**Videos Loaded**")
+    #             st.bar_chart(
+    #                 dfv,
+    #                 horizontal=False,
+    #                 stack=True,
+    #                 # y_label="total size(MB) & count of images",
+    #                 use_container_width=True,
+    #                 color=colors,  # , "#636B2F", "#3D4127"] # colors
+    #             )
+    #         with c03:
+    #             st.caption("**Documents Loaded**")
+    #             st.bar_chart(
+    #                 dfd,
+    #                 horizontal=False,
+    #                 stack=True,
+    #                 # y_label="total size(MB) & count of images",
+    #                 use_container_width=True,
+    #                 color=colors,  # , "#636B2F", "#3D4127"] # colors
+    #             )
+    #         with c04:
+    #             st.caption("**Others Loaded**")
+    #             st.bar_chart(
+    #                 dfn,
+    #                 horizontal=False,
+    #                 stack=True,
+    #                 # y_label="total size(MB) & count of images",
+    #                 use_container_width=True,
+    #                 color=colors,  # colors=["#D4DE95", "#BAC095"],  # ,
+    #             )
 
     with cb:
         cbc = cb.container(border=False)
