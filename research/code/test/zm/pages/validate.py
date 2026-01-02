@@ -105,10 +105,10 @@ def exe():
                     axis=alt.Axis(grid=True, gridColor="grey"),
                     title="size/type",
                 ),
-                y=alt.X("type:N", axis=alt.Axis(grid=True, gridColor="grey", labelAngle=-45)),
-                xOffset="type:N",
+                y=alt.X("type:O", axis=alt.Axis(grid=True, gridColor="grey", labelAngle=-45),title=None),
+                xOffset="type:O",
                 color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
-                tooltip=["type:N", "file_type:N", "size:Q"],
+                tooltip=["type:O", "file_type:N", "size:Q"],
             )
             # .properties(
             #     width="container",
