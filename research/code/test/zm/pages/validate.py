@@ -168,7 +168,7 @@ def exe():
         cbc = cb.container(border=False)
         with cbc:
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(duplicate_data_path, user_source_selected))
-            dff = dff.reset_index(names="file_type")
+            dfi = dfi.reset_index(names="file_type")
             st.caption("**Duplicate Images Archived**")
             ch = alt.Chart(dfi).mark_bar().encode(
             x=alt.X("count:Q", axis=alt.Axis(grid=True, gridColor='grey')),
