@@ -68,45 +68,50 @@ def exe():
     dfa["type"] = "audio"
     dfn["type"] = "other"
     dff = pd.concat([dfi, dfv, dfd, dfa, dfn])
-
+    dff = dff.reset_index(names="file_type")
     st.subheader('Data Load', divider='gray')
+    ca, cb, cc, cd = st.columns([.4, .2, .2, .2], gap="small")
+    with ca:
+        ch_count = (
+            alt.Chart(dff)
+            .mark_bar()
+            .encode(
+                x=alt.Y(
+                    "count:Q",
+                    axis=alt.Axis(grid=True, gridColor="grey"),
+                    title="Number of files by type",
+                ),
+                y=alt.X("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
+                xOffset="type:N",
+                color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
+                tooltip=["type:N", "file_type:N", "count:Q"],
+                # text="Number of files by type"
+            )
+            # .properties(
+            #     title=f"Count- Imgage:{int(dfi['count'].sum())}  Video:{int(dfv['count'].sum())}  Document:{int(dfd['count'].sum())}  Audio:{int(dfa['count'].sum())}  Other:{int(dfn['count'].sum())}",
+            # )
+        )
 
-    ch_count = (
-        alt.Chart(dff)
-        .mark_bar()
-        .encode(
-            x=alt.Y("count:Q", axis=alt.Axis(grid=True, gridColor="grey"), title="Number of files by type"),
-            y=alt.X("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
-            xOffset="type:N",
-            color=alt.Color("file_type:N", scale=alt.Scale( scheme='dark2')),
-            tooltip=["type:N", "file_type:N", "count:Q"],
-            #text="Number of files by type"
+        ch_size = (
+            alt.Chart(dff)
+            .mark_bar()
+            .encode(
+                x=alt.X(
+                    "size:Q",
+                    axis=alt.Axis(grid=True, gridColor="grey"),
+                    title="Storage size by file type",
+                ),
+                y=alt.Y("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
+                xOffset="type:N",
+                color=alt.Color("file_type:N", scale=alt.Scale( scheme='dark2')),
+                tooltip=["type:N", "file_type:N", "size:Q"],
+            )
+            # .properties(
+            #     title=f"Size- Image:{int(dfi['size'].sum())} GB  Video:{int(dfv['size'].sum())} GB  Document:{int(dfd['size'].sum())} GB  Audio:{int(dfa['size'].sum())} GB  Other:{int(dfn['size'].sum())} GB"
+            # )
         )
-        .properties(
-            title=f"Count- Imgage:{int(dfi['count'].sum())}  Video:{int(dfv['count'].sum())}  Document:{int(dfd['count'].sum())}  Audio:{int(dfa['count'].sum())}  Other:{int(dfn['count'].sum())}"
-        )
-    )
+        st.altair_chart(ch_count & ch_size, use_container_width=True)
 
-    ch_size = (
-        alt.Chart(dff)
-        .mark_bar()
-        .encode(
-            x=alt.X(
-                "size:Q",
-                axis=alt.Axis(grid=True, gridColor="grey"),
-                title="Storage size by file type",
-            ),
-            y=alt.Y("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
-            xOffset="type:N",
-            color=alt.Color("file_type:N", scale=alt.Scale( scheme='dark2')),
-            tooltip=["type:N", "file_type:N", "size:Q"],
-        )
-        .properties(
-            title=f"Size- Image:{int(dfi['size'].sum())} GB  Video:{int(dfv['size'].sum())} GB  Document:{int(dfd['size'].sum())} GB  Audio:{int(dfa['size'].sum())} GB  Other:{int(dfn['size'].sum())} GB"
-        )
-    )
-    st.altair_chart(ch_count | ch_size)
-    # ca, cb, cc, cd = st.columns([1, 1, 1, 1], gap="small")
 
     # with ca:
     #     cac= ca.container(border=False)
