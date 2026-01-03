@@ -55,9 +55,15 @@ def exe():
     ) = config.data_validation_config_load()
 
     st.sidebar.subheader("SELECT DATA SOURCE", divider="gray")
-
     user_source_selected = st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders(raw_data_path),label_visibility="collapsed", index=0)
-    color_selectbox(0, color=colors[0])
+
+    options = ['people','scenic','document']   # todo
+    filter_selection = st.sidebar.multiselect(
+                '**Exclude Types**',
+                options=options,
+                default=['document']
+            )
+    #color_selectbox(0, color=colors[0])
     # cn = mp.cpu_count()
     # npar = cn // 2
 
@@ -72,7 +78,7 @@ def exe():
     st.subheader('Data Load', divider='gray')
     ca, cb, cc, cd = st.columns([.3, .2, .2, .2], gap="small")
     with ca:
-        st.caption("**Media Files**")
+        st.caption("**Media Files Loaded**")
         ch_count = (
             alt.Chart(dff)
             .mark_bar()
@@ -124,7 +130,7 @@ def exe():
         st.altair_chart(combined_chart, use_container_width=True)
 
     with cb:
-        with st.container(key="my_container"):
+        #with st.container(key="my_container"):
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(duplicate_data_path, user_source_selected))
             dfi = dfi.reset_index(names="file_type")
             st.caption("**Duplicate Images**")
@@ -200,12 +206,7 @@ def exe():
             #     color=colors,
             # )
    
-            options = ['people','scenic','document']   # todo
-            filter_selection = st.multiselect(
-                '**Exclude Types**',
-                options=options,
-                default=['document']
-            )
+
         
     with cd:
             #st.markdown('<div class="single-border">', unsafe_allow_html=True)
@@ -254,16 +255,12 @@ def exe():
             #    )
             else:
                 st.error(f"s| missing metadata file not present {missing_metadata_file}.")     
-            #st.markdown('</div>', unsafe_allow_html=True)
-    st.divider()    
-    
     ###
 
     c1, c2, c3, c4 = st.columns([.3, .2, .2, .2], gap="small")
     with c1:
-        # c1c = c1.container(border=False)
-        # with c1c:
             if st.button("Validation Check", use_container_width=True, type='primary'):
+
                 with st.status('validate', expanded=True) as sc1c:
                     st.write('validation check starting...')
                     results = dl.execute(user_source_selected) #test_validate_sqdm(npar)
