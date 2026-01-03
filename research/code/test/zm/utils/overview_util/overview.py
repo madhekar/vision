@@ -252,8 +252,11 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             title=f"Files Size- Image:{int(dfi['size'].sum())} GB  Video:{int(dfv['size'].sum())} GB  Document:{int(dfd['size'].sum())} GB  Audio:{int(dfa['size'].sum())} GB  Other:{int(dfn['size'].sum())} GB"
         )
     )
-    st.altair_chart(ch_count, use_container_width=True)
-    st.altair_chart(ch_size, use_container_width=True)
+    c1, c2 = columns([1.0,1.0])
+    with c1:
+       st.altair_chart(ch_count, use_container_width=True)
+    with c2:   
+       st.altair_chart(ch_size, use_container_width=True)
 
 def execute():
     (rdp, idp, adp, fdp, opl) = extract_folder_paths() 
