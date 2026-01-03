@@ -124,6 +124,7 @@ def exe():
         st.altair_chart(combined_chart, use_container_width=True)
 
     with cb:
+        with st.container(key="my_container"):
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(duplicate_data_path, user_source_selected))
             dfi = dfi.reset_index(names="file_type")
             st.caption("**Duplicate Images**")

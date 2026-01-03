@@ -187,3 +187,9 @@ div[data-testid="stSidebarNav"] ul li{
         display: flex;
         align-items: center;
     }
+
+div[data-testid="stVerticalBlock"] > div:has(div.st-key-my_container) {
+    border-left: 5px solid #FF4B4B; /* Example: a 5px solid red border */
+    padding-left: 10px; /* Add some padding so content doesn't touch the border */
+    border-radius: 0px; /* Optional: remove default rounded corners if present */
+}    
