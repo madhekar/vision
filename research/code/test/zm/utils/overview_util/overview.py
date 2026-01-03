@@ -183,7 +183,7 @@ def disc_usage(tm, um, fm, w):
 
 
 def display_storage_metrics(tm, um, fm, dfi, dff):
-    c1, c2, c3 = st.columns([1.0, 1.0, 1.0])
+    c1, c2, c3 = st.columns([.5, 1.0, 1.0])
     with c1:
         # st.markdown('<p class="vertical-text">disc usage</p>', unsafe_allow_html=True)
         width = st_dimensions(key="c1_width")
@@ -228,6 +228,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             #text="Number of files by type"
         )
         .properties(
+            width='container',
             title=f"File Count- Imgage:{int(dfi['count'].sum())}  Video:{int(dfv['count'].sum())}  Document:{int(dfd['count'].sum())}  Audio:{int(dfa['count'].sum())}  Other:{int(dfn['count'].sum())}"
         )
     )
@@ -247,6 +248,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             tooltip=["type:N", "file_type:N", "size:Q"],
         )
         .properties(
+            width='container',
             title=f"Files Size- Image:{int(dfi['size'].sum())} GB  Video:{int(dfv['size'].sum())} GB  Document:{int(dfd['size'].sum())} GB  Audio:{int(dfa['size'].sum())} GB  Other:{int(dfn['size'].sum())} GB"
         )
     )
