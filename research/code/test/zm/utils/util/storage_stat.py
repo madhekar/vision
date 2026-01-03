@@ -172,15 +172,14 @@ def extract_stats_of_metadata_file(metadata_path):
         correct = mdf[(mdf['DateTimeOriginal'] != "-") & (mdf['GPSLatitude'] != "-")].shape[0]
     else:
         tot, lat_lon, cdatetime, correct = 0, 0, 0, 0
-    cat = ["missing-datetime", "missing-lat-lon", "no-missing-data","total-img-data"]
+    cat = ["datetime", "lat-lon", "correct","total"]
     vals = [cdatetime, lat_lon, correct, tot]
     ret_dict['categories'] = cat
     ret_dict['values'] = vals
-
     print(ret_dict)
-    return {
-       ret_dict
-    }
+
+    return ret_dict
+    
 
 
 def get_folder_metrics(folder_path):

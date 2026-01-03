@@ -207,25 +207,53 @@ def exe():
             )
         
     with cd:
-            st.markdown('<div class="single-border">', unsafe_allow_html=True)
+            #st.markdown('<div class="single-border">', unsafe_allow_html=True)
             st.caption("**Missing Metadata**")
             if os.path.exists(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file)):       
                dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file))
                print(dict)
-               df = pd.DataFrame.from_dict(dict, orient='index',columns=['number'])
+               df = pd.DataFrame.from_dict(dict)
                print(df)
             
-               st.bar_chart(
-                    df,
-                    horizontal=False,
-                    stack=True,
-                    y_label="number of images",
-                    use_container_width=True,
-                    color= colors[0] #['#ae5a41']#,'#1b85b8','#559e83']#,'#c3cb71']#['#c09b95','#bac095','#95bac0','#9b95c0']#["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
-               )
+               ch = alt.Chart(df).mark_bar().encode(
+                    x=alt.Y(
+                        "categories:N",
+                        axis=alt.Axis(grid=True, gridColor="grey", title=None),
+                        # scale=alt.Scale(type="log"),
+                    ),
+                    y=alt.X(
+                        "values:Q",
+                        axis=alt.Axis(grid=True, gridColor="grey", title=None),
+                        #scale=alt.Scale(type="log"),
+                    ),
+                    # size="file_type:N",
+                    # shape="source:N",
+                    color=alt.Color(
+                        "categories:N", scale=alt.Scale(scheme="dark2")
+                    ),  # alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
+                    tooltip=["categories", "values"],
+                )
+            
+            # st.bar_chart(
+            #     dfi,
+            #     horizontal=False,
+            #     stack=True,
+            #     use_container_width=True,
+            #     color=colors,
+            # )
+
+               st.altair_chart(ch, use_container_width=True)
+            #    st.bar_chart(
+            #         df,
+            #         horizontal=False,
+            #         stack=True,
+            #         y_label="number of images",
+            #         use_container_width=True,
+            #         color=alt.Color("categories:N", scale=alt.Scale(scheme="dark2")), #['#ae5a41']#,'#1b85b8','#559e83']#,'#c3cb71']#['#c09b95','#bac095','#95bac0','#9b95c0']#["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
+            #    )
             else:
                 st.error(f"s| missing metadata file not present {missing_metadata_file}.")     
-            st.markdown('</div>', unsafe_allow_html=True)
+            #st.markdown('</div>', unsafe_allow_html=True)
     st.divider()    
     
     ###
