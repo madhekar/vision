@@ -228,7 +228,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             #text="Number of files by type"
         )
         .properties(
-            width='container',
+            #width='container',
             title=f"File Count- Imgage:{int(dfi['count'].sum())}  Video:{int(dfv['count'].sum())}  Document:{int(dfd['count'].sum())}  Audio:{int(dfa['count'].sum())}  Other:{int(dfn['count'].sum())}"
         )
     )
@@ -248,7 +248,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             tooltip=["type:N", "file_type:N", "size:Q"],
         )
         .properties(
-            width='container',
+            #width='container',
             title=f"Files Size- Image:{int(dfi['size'].sum())} GB  Video:{int(dfv['size'].sum())} GB  Document:{int(dfd['size'].sum())} GB  Audio:{int(dfa['size'].sum())} GB  Other:{int(dfn['size'].sum())} GB"
         )
     )
