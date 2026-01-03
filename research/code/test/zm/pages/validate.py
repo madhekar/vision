@@ -126,7 +126,7 @@ def exe():
             #     #     title=f"Size- Image:{int(dfi['size'].sum())} GB  Video:{int(dfv['size'].sum())} GB  Document:{int(dfd['size'].sum())} GB  Audio:{int(dfa['size'].sum())} GB  Other:{int(dfn['size'].sum())} GB"
             # )
         )
-        combined_chart = alt.vconcat(ch_count, ch_size, spacing=20)
+        combined_chart = alt.vconcat(ch_count, ch_size, spacing=60)
         st.altair_chart(combined_chart, use_container_width=True)
 
     with cb:
