@@ -118,7 +118,7 @@ def filter_selection(df):
     #             .vega-bind {
     #             text-align:right;
     #             }</style> """, unsafe_allow_html=True)
-    st.altair_chart(chart) #| chart.encode(x="size:Q"))
+    st.altair_chart(chart, use_container_width=True) #| chart.encode(x="size:Q"))
 
 def disc_usage_1(tm, um, fm, w):
     #v = w["width"]
