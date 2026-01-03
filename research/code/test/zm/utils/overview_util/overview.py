@@ -264,22 +264,22 @@ def execute():
     #print(f'---dfi and dff--> {dfi}, {dff}')
     
     #print(f'--> {rdp}')
-    c1, c2 = st.columns([.1,.9])
+    #c1, c2 = st.columns([.1,.9])
    
-    with c1:
-        efs = mu.extract_user_raw_data_folders(rdp)
-        #st.markdown('##### :blue[**DATA SOURCES**]')
-        st.sidebar.markdown("""###### <span style='color:#2d4202'><u>sources</u></span>""",unsafe_allow_html=True)
-        #with st.container(height=100, border=False):        
-        #st.markdown('<div class="scrollable-div">', unsafe_allow_html=True)
-        with st.container(height=100, border=False):
-            for ds in efs:
-                st.sidebar.markdown(f':green[{ds}]')
-                #st.sidebar.caption(ds)
-        #st.markdown('</div>', unsafe_allow_html=True)   
-        #st.text_area(label="Data Sources", value=efs)
-    with c2:
-       display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
+
+    efs = mu.extract_user_raw_data_folders(rdp)
+    #st.markdown('##### :blue[**DATA SOURCES**]')
+    st.sidebar.markdown("""###### <span style='color:#2d4202'><u>sources</u></span>""",unsafe_allow_html=True)
+    #with st.container(height=100, border=False):        
+    #st.markdown('<div class="scrollable-div">', unsafe_allow_html=True)
+    with st.container(height=100, border=False):
+        for ds in efs:
+            st.sidebar.markdown(f':green[{ds}]')
+            #st.sidebar.caption(ds)
+    #st.markdown('</div>', unsafe_allow_html=True)   
+    #st.text_area(label="Data Sources", value=efs)
+
+    display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
 
     st.divider()
 
