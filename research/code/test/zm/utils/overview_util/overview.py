@@ -220,17 +220,22 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         alt.Chart(dff)
         .mark_bar()
         .encode(
-            x=alt.Y("count:Q", axis=alt.Axis(grid=True, gridColor="grey"), title="Number of files by type"),
+            x=alt.Y(
+                "count:Q",
+                axis=alt.Axis(grid=True, gridColor="grey"),
+                title="Number of files by type",
+            ),
             y=alt.X("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
             xOffset="type:N",
-            color=alt.Color("file_type:N", scale=alt.Scale( scheme='dark2')),
+            color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
             tooltip=["type:N", "file_type:N", "count:Q"],
-            #text="Number of files by type"
+            # text="Number of files by type"
         )
         .properties(
-            #width='container',
+            # width='container',
             title=f"File Count- Imgage:{int(dfi['count'].sum())}  Video:{int(dfv['count'].sum())}  Document:{int(dfd['count'].sum())}  Audio:{int(dfa['count'].sum())}  Other:{int(dfn['count'].sum())}"
         )
+        .configure(padding={"left": 0, "top": 5, "right": 0, "bottom": 5})
     )
 
     ch_size = (
@@ -241,6 +246,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
                 "size:Q",
                 axis=alt.Axis(grid=True, gridColor="grey"),
                 title="Storage size by file type",
+                #scale=alt.Scale(type="log")
             ),
             y=alt.Y("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
             xOffset="type:N",
@@ -250,9 +256,11 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         .properties(
             #width='container',
             title=f"Files Size- Image:{int(dfi['size'].sum())} GB  Video:{int(dfv['size'].sum())} GB  Document:{int(dfd['size'].sum())} GB  Audio:{int(dfa['size'].sum())} GB  Other:{int(dfn['size'].sum())} GB"
+        ).configure(
+            padding={"left":0, "top":5, "right": 0, "bottom": 5}
         )
     )
-    c1, c2 = st.columns([1.0,1.0])
+    c1, c2 = st.columns([.5,.5])
     with c1:
        st.altair_chart(ch_count, use_container_width=True)
     with c2:   
