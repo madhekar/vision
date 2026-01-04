@@ -21,13 +21,13 @@ st.markdown(
     /* Media query for screens larger than 900px */
     @media (min-width: 769px) and (max-width: 1024px) {
         input {
-            font-size: 1.2rem !important; /* Increase font size on mobile for better readability */
+            font-size: 1rem !important; /* Increase font size on mobile for better readability */
         }
     }
 
     @media (min-width: 1025px) {
         input {
-            font-size: 1.6rem !important; /* Increase font size on mobile for better readability */
+            font-size: 1.2rem !important; /* Increase font size on mobile for better readability */
         }
     }
     </style>
