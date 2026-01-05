@@ -113,6 +113,7 @@ def execute():
 
         base = alt.Chart(dfs).encode(
         y=alt.Y('file_type:N', sort='-x', title='File Type'), # Sort descending by x-value
+        color=alt.Color("file_type:N", scale=alt.Scale( scheme='dark2')),
         tooltip=['file_type', 'count', 'size']
         ).properties(
            title='File count and Size by Type',
@@ -158,6 +159,7 @@ def execute():
     with c3:
         st.subheader('Number of Images / Person', divider='gray') 
         df = fc.sub_file_count( faces_metadata_path) #"/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces")
+        print(f'++++{df}')
         st.bar_chart(df, x="person", y="number of images", color=["#1b85b8"], horizontal=True)
 
     with c4:
