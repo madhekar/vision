@@ -105,18 +105,17 @@ def execute():
  
     with c1:
         st.subheader("Static Metadata", divider='gray')
-        #c11,c12 = c1.columns([1,1])
+
         dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
         dfs = dfs.reset_index(names="file_type")
         dfs['size'] = dfs['size'].apply(lambda x: x /(pow(1024, 2))).astype(float)
         dfs['connt'] = dfs['count'].astype(int)
-        #dfs['count'] = dfs['size'].apply(lambda x: x /10)
+
         base = alt.Chart(dfs).encode(
         y=alt.Y('file_type:N', sort='-x', title='File Type'), # Sort descending by x-value
         tooltip=['file_type', 'count', 'size']
         ).properties(
-        title='File count and Size by Type',
-        width=600
+           title='File count and Size by Type',
         )
 
         # Bar chart for Size (MB)
