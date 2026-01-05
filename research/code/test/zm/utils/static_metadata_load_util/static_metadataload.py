@@ -13,6 +13,7 @@ from utils.filter_util import filter as fu
 from utils.filter_util import torch_filter as tfu
 from utils.face_util import base_face_predict as bft_predict
 import streamlit as st
+import altair as alt
 from utils.util import folder_chart as fc
 import plotly.express as px
 
@@ -104,14 +105,39 @@ def execute():
  
     with c1:
         st.subheader("Static Metadata", divider='gray')
-        c11,c12 = c1.columns([1,1])
+        #c11,c12 = c1.columns([1,1])
         dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
-        dfs['size'] = dfs['size'].apply(lambda x: x /(pow(1024, 2)))
+        dfs = dfs.reset_index(names="file_type")
+        dfs['size'] = dfs['size'].apply(lambda x: x /(pow(1024, 2))).astype(float)
+        dfs['connt'] = dfs['count'].astype(int)
         #dfs['count'] = dfs['size'].apply(lambda x: x /10)
-        with c11:
-           st.bar_chart(dfs, y="count", color=["#1b85b8"], horizontal=True, x_label= "Count")
-        with c12:   
-           st.bar_chart(dfs, y="size", color=["#ae5a41"], horizontal=True, x_label= "Size MB")
+        base = alt.Chart(dfs).encode(
+        y=alt.Y('file_type:N', sort='-x', title='File Type'), # Sort descending by x-value
+        tooltip=['file_type', 'count', 'size']
+        ).properties(
+        title='File count and Size by Type',
+        width=600
+        )
+
+        # Bar chart for Size (MB)
+        size_chart = base.mark_bar(color='skyblue', opacity=0.7).encode(
+            x=alt.X('size:Q', title='Total Size GB'),
+        )
+
+        # Text labels for count on the bars
+        text_count = size_chart.mark_text(
+            align='left',
+            baseline='middle',
+            dx=3 # Nudges text to the right of the bar
+        ).encode(
+            x='size:Q',
+            text='count:Q',
+            color=alt.value('black')
+        )
+
+        # Combine the bar chart and text labels
+        chart = size_chart + text_count
+        st.altair_chart(chart, use_container_width=True)
    
     with c2:
         dfl = ss.extract_all_file_stats_in_folder(default_location_metadata_path)
