@@ -79,6 +79,8 @@ def filter_selection(df):
     )
     source_selection = alt.selection_point(fields=["source"], bind=source_dropdown)
 
+    df['combined_category'] = df['data_type'] +',' + df['data_attrib']
+
     # # 2. Define the second dropdown selection
     # data_stage_dropdown = alt.binding_select(
     #     options=sorted(df["data_stage"].unique().tolist()), name="Select data stage "
@@ -102,9 +104,9 @@ def filter_selection(df):
         .encode(
             x=alt.X("count:Q", axis=alt.Axis(grid=True, gridColor='grey')),
             y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
-            size="data_type:N",
-            shape="source:N",
-            color= alt.Color("data_attrib:N", scale=alt.Scale( scheme='dark2')),#alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
+            #size="data_type:N",
+            shape="data_type:N",
+            color= alt.Color("combined_category:N", scale=alt.Scale( scheme='dark2')),#alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
             tooltip=["source", "data_stage", "data_type", "data_attrib", 'count', 'size'],
         )
         #.add_selection(interval)
