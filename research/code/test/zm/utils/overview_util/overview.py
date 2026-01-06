@@ -68,7 +68,7 @@ def extract_folder_paths():
 
 def filter_selection(df):
     #print(f'*** {df}')
-    interval = alt.selection_interval(encodings=['x','y'])
+    #interval = alt.selection_interval(encodings=['x','y'])
     # 1. Define the first dropdown selection
     source_selection = alt.selection_point(
         fields=["source"], bind="legend", name="source"
@@ -88,12 +88,12 @@ def filter_selection(df):
     # )
 
     #3. Define the third selection
-    data_type_dropdown = alt.binding_select(
-        options=sorted(df["data_type"].unique().tolist()), name="Select data type "
-    )
-    data_type_selection = alt.selection_point(
-        fields=["data_type"], bind=data_type_dropdown
-    )
+    # data_type_dropdown = alt.binding_select(
+    #     options=sorted(df["data_type"].unique().tolist()), name="Select data type "
+    # )
+    # data_type_selection = alt.selection_point(
+    #     fields=["data_type"], bind=data_type_dropdown
+    # )
 
     # Create the chart
     chart = (
@@ -113,7 +113,7 @@ def filter_selection(df):
             # Combine both selections using logical AND
             source_selection #& data_type_selection
         )#.properties(selection=interval)
-    ).interactive()
+    ) #.interactive()
     # st.markdown("""<style> 
     #             .vega-bind {
     #             text-align:right;
@@ -190,8 +190,8 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
         #st.markdown("""###### <span style='color:#2d4202'><u>disc usage</u></span>""",unsafe_allow_html=True)
         disc_usage_1(tm, um, fm, width)
     with c2:
-        # st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
-        #st.markdown("""###### <span style='color:#2d4202'><u>input data usage</u></span>""",unsafe_allow_html=True)
+        #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
+        st.markdown("""###### <span style='color:#2d4202'><u>input data usage</u></span>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dfi.values.tolist())
         filter_selection(dfi)
     with c3:
