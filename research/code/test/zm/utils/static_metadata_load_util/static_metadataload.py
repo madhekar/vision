@@ -121,7 +121,7 @@ def execute():
 
         # Bar chart for Size (MB)
         size_chart = base.mark_bar(color='skyblue', opacity=0.7).encode(
-            x=alt.X('size:Q', title='Total Size GB'),
+            x=alt.X('size:Q', title='Total Size MB'),
         )
 
         # Text labels for count on the bars
@@ -150,7 +150,7 @@ def execute():
         with c2a:
             st.subheader("Locations", divider='gray')
             st.metric("Number of location files", sum(dfl['count']))
-            st.metric("Total size of location files (MB)", round(dfl["size"]/(pow(1024,2)), 2),delta=.23)
+            st.metric("Total size of location files (MB)", round(dfl["size"]/(pow(1024,2)), 2))
         with c2b:
             st.subheader("User Locations", divider='gray')
             st.metric("Number of user location files", int(count))
