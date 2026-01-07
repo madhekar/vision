@@ -90,12 +90,12 @@ def filter_selection(df):
     # )
 
     #3. Define the third selection
-    # data_type_dropdown = alt.binding_select(
-    #     options=sorted(df["data_type"].unique().tolist()), name="Select data type "
-    # )
-    # data_type_selection = alt.selection_point(
-    #     fields=["data_type"], bind=data_type_dropdown
-    # )
+    data_type_dropdown = alt.binding_select(
+        options=sorted(df["data_type"].unique().tolist()), name="Select data type "
+    )
+    data_type_selection = alt.selection_point(
+        fields=["data_type"], bind=data_type_dropdown
+    )
 
     # Create the chart
     chart = (
@@ -110,10 +110,10 @@ def filter_selection(df):
             tooltip=["source", "data_stage", "data_type", "data_attrib", 'count', 'size'],
         )
         #.add_selection(interval)
-        .add_params( source_selection ) #,  data_type_selection)
+        .add_params( source_selection ,  data_type_selection)
         .transform_filter(
             # Combine both selections using logical AND
-            source_selection #& data_type_selection
+            source_selection & data_type_selection
         )#.properties(selection=interval)
     ) #.interactive()
     # st.markdown("""<style> 
