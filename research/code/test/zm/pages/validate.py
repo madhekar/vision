@@ -136,7 +136,7 @@ def exe():
             st.caption("**Duplicate Images**")
 
             dfi['size'] = dfi['size'].apply(lambda x: x /(pow(1024, 2))).astype(float)
-            dfi['connt'] = dfi['count'].astype(int)
+            dfi['count'] = dfi['count'].astype(int)
 
             base = alt.Chart(dfi).encode(
             y=alt.Y('file_type:N', sort='-x', title='File Type'), # Sort descending by x-value

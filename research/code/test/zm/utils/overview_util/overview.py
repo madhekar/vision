@@ -79,7 +79,7 @@ def filter_selection(df):
     )
     source_selection = alt.selection_point(fields=["source"], bind=source_dropdown)
 
-    df['combined_category'] = df['data_type'] +',' + df['data_attrib']
+    #df['combined_category'] = df['data_type'] +',' + df['data_attrib']
 
     # # 2. Define the second dropdown selection
     # data_stage_dropdown = alt.binding_select(
@@ -90,37 +90,71 @@ def filter_selection(df):
     # )
 
     #3. Define the third selection
-    data_type_dropdown = alt.binding_select(
-        options=sorted(df["data_type"].unique().tolist()), name="Select data type "
-    )
-    data_type_selection = alt.selection_point(
-        fields=["data_type"], bind=data_type_dropdown
+    # data_type_dropdown = alt.binding_select(
+    #     options=sorted(df["data_type"].unique().tolist()), name="Select data type "
+    # )
+    # data_type_selection = alt.selection_point(
+    #     fields=["data_type"], bind=data_type_dropdown
+    # )
+
+
+    df['size'] = df['size'].astype(float)
+    df['count'] = df['count'].astype(int)
+
+    base = alt.Chart(df).encode(
+
+    y=alt.Y('data_type:N', sort='-x', title='data Type'), # Sort descending by x-value
+    color=alt.Color("data_attrib:N", scale=alt.Scale( scheme='dark2')),
+    tooltip=['data_type', 'data_attrib','count', 'size']
+    ).properties(
+    title='File count and Size by Type',
     )
 
-    # Create the chart
-    chart = (
-        alt.Chart(df)
-        .mark_bar()
-        .encode(
-            x=alt.X("count:Q", axis=alt.Axis(grid=True, gridColor='grey')),
-            y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
-            #size="data_type:N",
-            shape="data_type:N",
-            color= alt.Color("combined_category:N", scale=alt.Scale( scheme='dark2')),#alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
-            tooltip=["source", "data_stage", "data_type", "data_attrib", 'count', 'size'],
-        )
-        #.add_selection(interval)
-        .add_params( source_selection ,  data_type_selection)
-        .transform_filter(
-            # Combine both selections using logical AND
-            source_selection & data_type_selection
-        )#.properties(selection=interval)
-    ) #.interactive()
+    # Bar chart for Size (MB)
+    size_chart = base.mark_bar(color='skyblue', opacity=0.7).encode(
+        x=alt.X('size:Q', title='Total Size MB'),
+    )
+
+    # Text labels for count on the bars
+    text_count = size_chart.mark_text(
+        align='left',
+        baseline='middle',
+        dx=3 # Nudges text to the right of the bar
+    ).encode(
+        x='size:Q',
+        text='count:Q',
+        color=alt.value('black')
+    ).add_params( source_selection ).transform_filter(
+        # Combine both selections using logical AND
+        source_selection #& data_type_selection
+    )
+    # .facet(
+    # column='data_attrib:N'
+    # )
+    #.properties(selection=interval)
+    #.interactive()
     # st.markdown("""<style> 
     #             .vega-bind {
     #             text-align:right;
     #             }</style> """, unsafe_allow_html=True)
-    st.altair_chart(chart, use_container_width=True) #| chart.encode(x="size:Q"))
+    st.altair_chart(size_chart + text_count, use_container_width=True) #| chart.encode(x="size:Q"))
+    # Combine the bar chart and text labels
+    # chart = size_chart + text_count
+    # st.altair_chart(chart, use_container_width=True)
+    # Create the chart
+    # chart = (
+    #     alt.Chart(df)
+    #     .mark_bar()
+    #     .encode(
+    #         x=alt.X("count:Q", axis=alt.Axis(grid=True, gridColor='grey')),
+    #         y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
+    #         #size="count:Q",
+    #         shape="data_type:N",
+    #         color= alt.Color("data_attrib:N", scale=alt.Scale( scheme='dark2')),#alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
+    #         tooltip=["source", "data_stage", "data_type", "data_attrib", 'count', 'size'],
+    #     )
+    #.add_selection(interval)
+
 
 def disc_usage_1(tm, um, fm, w):
     #v = w["width"]
@@ -193,7 +227,7 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
         disc_usage_1(tm, um, fm, width)
     with c2:
         #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
-        st.markdown("""###### <span style='color:#2d4202'><u>input data usage</u></span>""",unsafe_allow_html=True)
+        #st.markdown("""###### <span style='color:#2d4202'><u>input data usage</u></span>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dfi.values.tolist())
         filter_selection(dfi)
     with c3:
