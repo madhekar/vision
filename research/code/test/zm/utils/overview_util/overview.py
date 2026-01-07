@@ -104,8 +104,11 @@ def filter_selection(df):
     base = alt.Chart(df).encode(
 
     y=alt.Y('data_type:N', sort='-x', title='data Type'), # Sort descending by x-value
+    yOffset="data_attrib:N",
     color=alt.Color("data_attrib:N", scale=alt.Scale( scheme='dark2')),
     tooltip=['data_type', 'data_attrib','count', 'size']
+    ).transform_filter(
+      (alt.datum.count > 0)
     ).properties(
     title='File count and Size by Type',
     )
