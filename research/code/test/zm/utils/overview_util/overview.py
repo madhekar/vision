@@ -66,7 +66,7 @@ def extract_folder_paths():
             final_data_path,
             ovr_path_list)
 
-def filter_selection(df):
+def filter_selection(df, stage):
     #print(f'*** {df}')
     #interval = alt.selection_interval(encodings=['x','y'])
     # 1. Define the first dropdown selection
@@ -103,26 +103,26 @@ def filter_selection(df):
 
     base = alt.Chart(df).encode(
 
-    y=alt.Y('data_type:N', sort='-x', title='data Type'), # Sort descending by x-value
+    y=alt.Y('data_type:N', sort='-x', axis=alt.Axis(grid=True, gridColor="grey"), title='data Type'), # Sort descending by x-value
     yOffset="data_attrib:N",
     color=alt.Color("data_attrib:N", scale=alt.Scale( scheme='dark2')),
     tooltip=['data_type', 'data_attrib','count', 'size']
     ).transform_filter(
       (alt.datum.count > 0)
     ).properties(
-    title='File count and Size by Type',
+    title= stage,#'File count and Size by Type',
     )
 
     # Bar chart for Size (MB)
     size_chart = base.mark_bar(color='skyblue', opacity=0.7).encode(
-        x=alt.X('size:Q', title='Total Size MB'),
+        x=alt.X('size:Q', axis=alt.Axis(grid=True, gridColor="grey"), title='folder Size'),
     )
 
     # Text labels for count on the bars
     text_count = size_chart.mark_text(
         align='left',
         baseline='middle',
-        dx=3 # Nudges text to the right of the bar
+        dx=5 # Nudges text to the right of the bar
     ).encode(
         x='size:Q',
         text='count:Q',
@@ -222,7 +222,7 @@ def disc_usage(tm, um, fm, w):
 
 
 def display_storage_metrics(tm, um, fm, dfi, dff):
-    c1, c2, c3 = st.columns([.5, 1.0, 1.0])
+    c1, c2, c3 = st.columns([.13, 1.0, 1.0])
     with c1:
         # st.markdown('<p class="vertical-text">disc usage</p>', unsafe_allow_html=True)
         width = st_dimensions(key="c1_width")
@@ -232,7 +232,7 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
         #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
         #st.markdown("""###### <span style='color:#2d4202'><u>input data usage</u></span>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dfi.values.tolist())
-        filter_selection(dfi)
+        filter_selection(dfi, "input data folder file size/ count")
     with c3:
         # st.markdown(
         #     '<p class="vertical-text">final data folder usage</p>',
@@ -240,7 +240,7 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
         # )
         #st.markdown("""###### <span style='color:#2d4202'><u>final data usage</u></span>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dff.values.tolist())
-        filter_selection(dff)
+        filter_selection(dff,"final data folder file size/ count")
 
 
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):

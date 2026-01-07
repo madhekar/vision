@@ -286,12 +286,12 @@ def exe():
             
                ch = alt.Chart(df).mark_bar().encode(
                     x=alt.Y(
-                        "categories:N",
+                        "values:Q",
                         axis=alt.Axis(grid=True, gridColor="grey", title=None),
                         # scale=alt.Scale(type="log"),
                     ),
                     y=alt.X(
-                        "values:Q",
+                        "categories:N",
                         axis=alt.Axis(grid=True, gridColor="grey", title=None),
                         #scale=alt.Scale(type="log"),
                     ),
