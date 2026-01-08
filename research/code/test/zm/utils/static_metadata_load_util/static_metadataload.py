@@ -122,8 +122,8 @@ def execute():
         )
 
         # Bar chart for Size (MB)
-        size_chart = base.mark_bar(color='skyblue', opacity=0.7).encode(
-            x=alt.X('size:Q', axis=alt.Axis(grid=True, gridColor="grey"), title='Total Size MB'),
+        size_chart = base.mark_bar(opacity=0.7).encode(
+            x=alt.X('size:Q', scale=alt.Scale( scheme='dark2'), axis=alt.Axis(grid=True, gridColor="grey"), title='Total Size MB'),
         )
 
         # Text labels for count on the bars
@@ -162,8 +162,12 @@ def execute():
         st.subheader('Number of Images / Person', divider='gray') 
         df = fc.sub_file_count( faces_metadata_path) #"/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces")
         print(f'++++{df}')
-        st.bar_chart(df, x="person", y="number of images", color=["#1b85b8"], horizontal=True)
-
+        #st.bar_chart(df, x="person", y="number of images", color=["#1b85b8"], horizontal=True)
+        chart=alt.Chart(df).mark_bar(opacity=0.7).encode(
+           y="person:N",
+           x="number of images:Q"
+        )
+        st.altair_chart(chart, use_container_width=True)
     with c4:
         st.subheader('Image Classifier Filter', divider='gray')    
         df = fc.sub_file_count(filter_metadata_path)

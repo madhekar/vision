@@ -71,13 +71,21 @@ def filter_selection(df, stage):
     #interval = alt.selection_interval(encodings=['x','y'])
     # 1. Define the first dropdown selection
     source_selection = alt.selection_point(
-        fields=["source"], bind="legend", name="source"
+        fields=["source"], 
+        bind="legend", 
+        name="source"
     )
     # For a dropdown *widget*, use bind=alt.binding_select(options=...)
     source_dropdown = alt.binding_select(
-        options=sorted(df["source"].unique().tolist()), name="Select source "
+        options=sorted(df["source"].unique().tolist()), name="Select source"
     )
-    source_selection = alt.selection_point(fields=["source"], bind=source_dropdown)
+
+    source_selection = alt.selection_point(
+        name="SelectSource",
+        fields=["source"], 
+        bind=source_dropdown,
+        value="madhekar"
+        )
 
     #df['combined_category'] = df['data_type'] +',' + df['data_attrib']
 
@@ -114,8 +122,20 @@ def filter_selection(df, stage):
     )
 
     # Bar chart for Size (MB)
-    size_chart = base.mark_bar(color='skyblue', opacity=0.7).encode(
-        x=alt.X('size:Q', axis=alt.Axis(grid=True, gridColor="grey"), title='folder Size'),
+    size_chart = (
+        base.mark_bar(color="skyblue", opacity=0.7)
+        .encode(
+            x=alt.X(
+                "size:Q",
+                axis=alt.Axis(grid=True, gridColor="grey"),
+                title="folder Size",
+            ),
+        )
+        .transform_filter(
+            # Combine both selections using logical AND
+            source_selection  # & data_type_selection
+        )
+        .add_params(source_selection)
     )
 
     # Text labels for count on the bars
@@ -127,10 +147,10 @@ def filter_selection(df, stage):
         x='size:Q',
         text='count:Q',
         color=alt.value('black')
-    ).add_params( source_selection ).transform_filter(
+    ).transform_filter(
         # Combine both selections using logical AND
         source_selection #& data_type_selection
-    )
+    ).add_params( source_selection )
     # .facet(
     # column='data_attrib:N'
     # )
