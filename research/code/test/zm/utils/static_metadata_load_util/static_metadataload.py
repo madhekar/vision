@@ -122,9 +122,13 @@ def execute():
         )
 
         # Bar chart for Size (MB)
-        size_chart = base.mark_bar().encode(
-            x=alt.X('size:Q', axis=alt.Axis(grid=True, gridColor="grey"), title='Total Size MB'),
-            color=alt.Color("file_type:N", scale=alt.Scale( scheme='dark2'))
+        size_chart = base.mark_bar(opacity=0.7).encode(
+            x=alt.X(
+                "size:Q",
+                axis=alt.Axis(grid=True, gridColor="grey"),
+                title="Total Size MB",
+            ),
+            color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
         )
 
         # Text labels for count on the bars
@@ -173,7 +177,14 @@ def execute():
     with c4:
         st.subheader('Image Classifier Filter', divider='gray')    
         df = fc.sub_file_count(filter_metadata_path)
-        st.bar_chart(df, x="person", y="number of images", color=["#1b85b8"], horizontal=True)
+        print(df)
+        #st.bar_chart(df, x="person", y="number of images", color=["#1b85b8"], horizontal=True)
+        chart=alt.Chart(df).mark_bar(opacity=0.7).encode(
+           y=alt.Y('person:N', sort='-x', title='File Type',axis=alt.Axis(grid=True, gridColor="grey")), 
+           x=alt.X('number of images:Q', sort='-x', title='File Type',axis=alt.Axis(grid=True, gridColor="grey")),
+           color=alt.Color("person:N", scale=alt.Scale( scheme='dark2'))
+        )
+        st.altair_chart(chart, use_container_width=True)
 
     st.divider()
  
