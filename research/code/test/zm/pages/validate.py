@@ -78,7 +78,7 @@ def exe():
     st.subheader('Data Load', divider='gray')
     ca, cb, cc, cd = st.columns([.3, .2, .2, .2], gap="small")
     with ca:
-        st.caption("**Media Files Loaded**")
+        st.caption("**Media Files Loaded (file count size by type)**")
         ch_count = (
             alt.Chart(dff)
             .mark_bar()
@@ -133,7 +133,7 @@ def exe():
         #with st.container(key="my_container"):
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(duplicate_data_path, user_source_selected))
             dfi = dfi.reset_index(names="file_type")
-            st.caption("**Duplicate Images**")
+            st.caption("**Duplicate Images (file count size by type)**")
 
             dfi['size'] = dfi['size'].apply(lambda x: x /(pow(1024, 2))).astype(float)
             dfi['count'] = dfi['count'].astype(int)
@@ -200,7 +200,7 @@ def exe():
             os.path.join(quality_data_path, user_source_selected)
         )
         dfi = dfi.reset_index(names="file_type")
-        st.caption("**Inferior Images**")
+        st.caption("**Inferior Images (file count size by type)**")
         
         dfi["size"] = dfi["size"].apply(lambda x: x / (pow(1024, 2))).astype(float)
         dfi["connt"] = dfi["count"].astype(int)
@@ -277,7 +277,7 @@ def exe():
         
     with cd:
             #st.markdown('<div class="single-border">', unsafe_allow_html=True)
-            st.caption("**Missing Metadata**")
+            st.caption("**Missing Metadata (file count by type)**")
             if os.path.exists(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file)):       
                dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file))
                print(dict)
