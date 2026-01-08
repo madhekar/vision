@@ -129,7 +129,7 @@
     /* font-family: 'Comic Sans MS', cursive; */
     margin-left: .5rem;
     margin-bottom: .2rem;
-    font-size: 2rem;
+    font-size: 2.3rem;
     font-weight: bold;
     position: relative;
     color: rgb(107, 3, 90);
@@ -138,7 +138,7 @@
 [data-testid="stSidebarNav"] {
     /* background-color: #f0f2f6; */
     padding: 1rem;
-    font-size: .8rem;
+    font-size: 1.2rem;
     font-weight: bold;
     border-radius: .1rem;
 }
@@ -146,9 +146,9 @@
 [data-testid="stSidebarNav"] a {
     color: rgb(107, 3, 90);
     text-decoration:  none;
-    font-size: .8rem;
+    font-size: 1.2rem;
     font-weight: bold;
-    padding: .1rem .5rem;
+    padding: .1rem .1rem;
     display: inline-flex;
     line-height: 2.2rem; 
     word-wrap: normal;
@@ -156,19 +156,19 @@
     border-radius: .5rem;
 }
 [data-testid="stSidebarNav"] ul li a {
-    font-size: .8rem;
+    font-size: 1.2rem;
     font-weight: bold;
     color: rgb(107, 3, 90);
 }
 
 [data-testid="stSidebarNav"] ul li a span[aria-hidden="true"]{
-    font-size: .8rem;
+    font-size: 1.2rem;
     font-weight: bold;
     color: rgb(107, 3, 90);
 }
 
 div[data-testid="stSidebarNav"] ul li{
-    font-size: .8rem;
+    font-size: 1.2rem;
     font-weight: bold;
     color: rgb(107, 3, 90);
 }
