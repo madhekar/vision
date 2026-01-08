@@ -1,7 +1,8 @@
 import os
 import getpass
 from utils.config_util import config
-import streamlit as st   
+import streamlit as st  
+import altair as alt 
 from utils.util import adddata_util as adu
 from streamlit_tree_select import tree_select
 from utils.util import model_util as mu
@@ -40,25 +41,61 @@ def display_folder_stats(flist):
             folder = df.split("@@")[0]
             dfolder = folder.split("/")[-1]
             df = ss.extract_folder_stats(folder)
-            print(df.head())
+            df = df.reset_index(names="file_type")
+            print('&&&', df.head())
             if not df.empty:
                 # folder = df.split("@@")[0]
                 # dfolder = folder.split("/")[-1]
                 st.subheader(dfolder, divider='gray')
-                st.bar_chart(
-                    df['count'],
-                    stack=True,
-                    horizontal=False,
-                    y_label="total file count per filetype",
-                    color=colors[0]
+                ###
+
+                base = ( alt.Chart(df).encode(
+                y=alt.Y(
+                    "file_type:N",
+                    sort="-x",
+                    title="File Type",
+                    axis=alt.Axis(grid=True, gridColor="grey"),
+                ),  # Sort descending by x-value
+                color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
+                tooltip=["file_type", "count", "size"],
+               )
+                # .properties(
+                #     title="File count and Size by Type",
+                # )
                 )
-                st.bar_chart(
-                    df["size"],
-                    stack=True,
-                    horizontal=False,
-                    y_label="total file size per filetype (MB)",
-                    color=colors[1]
+
+                # Bar chart for Size (MB)
+                size_chart = base.mark_bar(opacity=0.7).encode(
+                    x=alt.X("size:Q", axis=alt.Axis(grid=True, gridColor="grey"), title="Total Size MB"),
+                    color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
                 )
+
+                # Text labels for count on the bars
+                text_count = size_chart.mark_text(
+                    align="left",
+                    baseline="middle",
+                    dx=3,  # Nudges text to the right of the bar
+                ).encode(x="size:Q", text="count:Q", color=alt.value("black"))
+
+                # Combine the bar chart and text labels
+                chart = size_chart + text_count
+                st.altair_chart(chart, use_container_width=True)
+
+                ###
+                # st.bar_chart(
+                #     df['count'],
+                #     stack=True,
+                #     horizontal=False,
+                #     y_label="total file count per filetype",
+                #     color=colors[0]
+                # )
+                # st.bar_chart(
+                #     df["size"],
+                #     stack=True,
+                #     horizontal=False,
+                #     y_label="total file size per filetype (MB)",
+                #     color=colors[1]
+                # )
             # else:
             #     st.error(f'Non Existant or Empty folder {folder}')    
 

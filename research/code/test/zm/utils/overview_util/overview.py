@@ -185,7 +185,7 @@ def disc_usage_1(tm, um, fm, w):
 
     bar = (
         alt.Chart(mem)
-        .mark_bar()
+        .mark_bar(opacity=0.7)
         .encode(
             y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey"), title="Disc Storage Size in GB"),
             x=alt.X("disc:N", axis=alt.Axis(grid=True, gridColor="grey"), title="Disc Storage Category"),
@@ -277,7 +277,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
     #print(f'^^^{dff}')
     ch_count = (
         alt.Chart(dff)
-        .mark_bar()
+        .mark_bar(opacity=0.7)
         .encode(
             x=alt.Y(
                 "count:Q",
@@ -299,7 +299,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
 
     ch_size = (
         alt.Chart(dff)
-        .mark_bar()
+        .mark_bar(opacity=0.7)
         .encode(
             x=alt.X(
                 "size:Q",
