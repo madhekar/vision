@@ -293,7 +293,8 @@ def search_fn(client, cImgs, cTxts):
             c2.markdown(o_names, unsafe_allow_html=True)
 
             c2.write("<p class='big-font-subh'>Date Time</p>", unsafe_allow_html=True)
-            o_datetime = f'<p class="big-font">{str(datetime.datetime.fromtimestamp(float(st.session_state["imgs"]["metadatas"][0][1:][index]["ts"])))}</p>'
+            tts = "0.0" if st.session_state["imgs"]["metadatas"][0][1:][index]["ts"] == "" else st.session_state["imgs"]["metadatas"][0][1:][index]["ts"]
+            o_datetime = f'<p class="big-font">{str(datetime.datetime.fromtimestamp(float(tts)))}</p>'
             c2.markdown(o_datetime, unsafe_allow_html=True)
 
             c2.write("<p class='big-font-subh'>Location</p>", unsafe_allow_html=True)

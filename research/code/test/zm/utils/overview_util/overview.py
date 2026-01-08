@@ -66,7 +66,7 @@ def extract_folder_paths():
             final_data_path,
             ovr_path_list)
 
-def filter_selection(df, stage):
+def filter_selection(df):
     #print(f'*** {df}')
     #interval = alt.selection_interval(encodings=['x','y'])
     # 1. Define the first dropdown selection
@@ -117,9 +117,10 @@ def filter_selection(df, stage):
     tooltip=['data_type', 'data_attrib','count', 'size']
     ).transform_filter(
       (alt.datum.count > 0)
-    ).properties(
-    title= stage,#'File count and Size by Type',
     )
+    # .properties(
+    # title= stage,#'File count and Size by Type',
+    # )
 
     # Bar chart for Size (MB)
     size_chart = (
@@ -246,21 +247,21 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
     with c1:
         # st.markdown('<p class="vertical-text">disc usage</p>', unsafe_allow_html=True)
         width = st_dimensions(key="c1_width")
-        #st.markdown("""###### <span style='color:#2d4202'><u>disc usage</u></span>""",unsafe_allow_html=True)
+        st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)
         disc_usage_1(tm, um, fm, width)
     with c2:
         #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
-        #st.markdown("""###### <span style='color:#2d4202'><u>input data usage</u></span>""",unsafe_allow_html=True)
+        st.markdown("""##### <span style='color:#2d4202'><u>INPUT DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dfi.values.tolist())
-        filter_selection(dfi, "input data folder file size/ count")
+        filter_selection(dfi)
     with c3:
         # st.markdown(
         #     '<p class="vertical-text">final data folder usage</p>',
         #     unsafe_allow_html=True,
         # )
-        #st.markdown("""###### <span style='color:#2d4202'><u>final data usage</u></span>""",unsafe_allow_html=True)
+        st.markdown("""##### <span style='color:#2d4202'><u>FINAL DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dff.values.tolist())
-        filter_selection(dff,"final data folder file size/ count")
+        filter_selection(dff)
 
 
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):
