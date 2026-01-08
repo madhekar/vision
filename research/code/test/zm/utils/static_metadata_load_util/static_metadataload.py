@@ -1,5 +1,4 @@
 import os
-import numpy as np
 import pandas as pd
 from sklearn.metrics import classification_report
 from utils.config_util import config
@@ -9,15 +8,14 @@ from utils.static_metadata_load_util import user_static_loc as usl
 from utils.preprocess_util import preprocess as pp
 from utils.face_util import base_face_train as bft_train
 from utils.face_detection_util import face_trainer as ft
-from utils.filter_util import filter as fu
 from utils.filter_util import torch_filter as tfu
 from utils.face_util import base_face_predict as bft_predict
 import streamlit as st
 import altair as alt
 from utils.util import folder_chart as fc
-import plotly.express as px
 
-colors = ["#ae5a41", "#1b85b8"]
+
+#colors = ["#ae5a41", "#1b85b8"]
 # create user specific static image metadata "locations" not found in default static metadata
 def generate_user_specific_static_metadata(missing_path, missing_file, location_path, user_location_metadata_path, user_location_metadata_file):
 
@@ -34,41 +32,7 @@ def generate_user_specific_static_metadata(missing_path, missing_file, location_
 def transform_and_add_static_metadata(location_metadata_path, user_location_metadata, user_location_metadata_file, final_parquet_storage):
     fpu.add_all_locations(location_metadata_path, user_location_metadata, user_location_metadata_file, final_parquet_storage)
 
-"""
-datapaths:
-  raw_data_path: /home/madhekar/work/home-media-app/data/raw-data/
-static-metadata:
-  static_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata  
-static-faces: 
-  faces_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/faces
-static-locations:
-  default_location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/default
-  user_location_metadata_path: /home/madhekar/work/home-media-app/data/app-data/static-metadata/locations/user-specific
-  user_location_metadata_file: user-specific.csv
-  final_user_location_metadata_file: static_locations.parquet
-missing-metadata:  
-  missing_metadata_path: /home/madhekar/work/home-media-app/data/input-data/error/img/missing-data
-  missing_metadata_file: missing-metadata-wip.csv
-  missing_metadata_filter_file: missing-metadata-filter-wip.csv
- 
-            (
-            raw_data_path, 
 
-            static_metadata_path,
-
-            faces_metadata_path, 
-
-            default_location_metadata_path, 
-            user_location_metadata_path, 
-            user_location_metadata_file, 
-            final_user_location_metadata_file, 
-
-            missing_metadata_path,
-            missing_metadata_file,
-            missing_metadata_filter_file
-            )
-            
-"""
 def execute():
     (
         raw_data_path,
@@ -165,9 +129,7 @@ def execute():
 
     with c3:
         st.subheader('Number of Images / Person', divider='gray') 
-        df = fc.sub_file_count( faces_metadata_path) #"/home/madhekar/work/home-media-app/data/app-data/static-metadata/faces")
-        print(f'++++{df}')
-        #st.bar_chart(df, x="person", y="number of images", color=["#1b85b8"], horizontal=True)
+        df = fc.sub_file_count(faces_metadata_path)
         chart=alt.Chart(df).mark_bar(opacity=0.7).encode(
            y=alt.Y('person:N', sort='-x', title='File Type',axis=alt.Axis(grid=True, gridColor="grey")), 
            x=alt.X('number of images:Q', sort='-x', title='File Type',axis=alt.Axis(grid=True, gridColor="grey")),
@@ -177,8 +139,6 @@ def execute():
     with c4:
         st.subheader('Image Classifier Filter', divider='gray')    
         df = fc.sub_file_count(filter_metadata_path)
-        print(df)
-        #st.bar_chart(df, x="person", y="number of images", color=["#1b85b8"], horizontal=True)
         chart=alt.Chart(df).mark_bar(opacity=0.7).encode(
            y=alt.Y('person:N', sort='-x', title='File Type',axis=alt.Axis(grid=True, gridColor="grey")), 
            x=alt.X('number of images:Q', sort='-x', title='File Type',axis=alt.Axis(grid=True, gridColor="grey")),
