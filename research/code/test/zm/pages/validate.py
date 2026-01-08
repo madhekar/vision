@@ -81,7 +81,7 @@ def exe():
         st.caption("**Media Files Loaded (file count size by type)**")
         ch_count = (
             alt.Chart(dff)
-            .mark_bar()
+            .mark_bar(opacity=0.7)
             .encode(
                 x=alt.Y(
                     "count:Q",
@@ -108,7 +108,7 @@ def exe():
 
         ch_size = (
             alt.Chart(dff)
-            .mark_bar()
+            .mark_bar(opacity=0.7)
             .encode(
                 x=alt.Y(
                     "size:Q",
@@ -138,17 +138,30 @@ def exe():
             dfi['size'] = dfi['size'].apply(lambda x: x /(pow(1024, 2))).astype(float)
             dfi['count'] = dfi['count'].astype(int)
 
-            base = alt.Chart(dfi).encode(
-            y=alt.Y('file_type:N', sort='-x', title='File Type'), # Sort descending by x-value
-            color=alt.Color("file_type:N", scale=alt.Scale( scheme='dark2')),
-            tooltip=['file_type', 'count', 'size']
-            ).properties(
-            title='File count and Size by Type',
+            base = (
+                alt.Chart(dfi)
+                .encode(
+                    y=alt.Y(
+                        "file_type:N",
+                        sort="-x",
+                        title="File Type",
+                        axis=alt.Axis(grid=True, gridColor="grey"),
+                    ),  # Sort descending by x-value
+                    color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
+                    tooltip=["file_type", "count", "size"],
+                )
+                # .properties(
+                #     title="File count and Size by Type",
+                # )
             )
 
             # Bar chart for Size (MB)
-            size_chart = base.mark_bar(color='skyblue', opacity=0.7).encode(
-                x=alt.X('size:Q', title='Total Size MB'),
+            size_chart = base.mark_bar(opacity=0.7).encode(
+                x=alt.X(
+                    "size:Q",
+                    title="Total Size MB",
+                    axis=alt.Axis(grid=True, gridColor="grey"),
+                ),
             )
 
             # Text labels for count on the bars
@@ -209,19 +222,23 @@ def exe():
             alt.Chart(dfi)
             .encode(
                 y=alt.Y(
-                    "file_type:N", sort="-x", title="File Type"
+                    "file_type:N",
+                    sort="-x",
+                    title="File Type",
+                    axis=alt.Axis(grid=True, gridColor="grey"),
                 ),  # Sort descending by x-value
                 color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
                 tooltip=["file_type", "count", "size"],
             )
-            .properties(
-                title="File count and Size by Type",
-            )
+            # .properties(
+            #     title="File count and Size by Type",
+            # )
         )
 
         # Bar chart for Size (MB)
-        size_chart = base.mark_bar(color="skyblue", opacity=0.7).encode(
-            x=alt.X("size:Q", title="Total Size MB"),
+        size_chart = base.mark_bar(opacity=0.7).encode(
+            x=alt.X("size:Q", axis=alt.Axis(grid=True, gridColor="grey"), title="Total Size MB"),
+            color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
         )
 
         # Text labels for count on the bars
@@ -284,7 +301,7 @@ def exe():
                df = pd.DataFrame.from_dict(dict)
                print(df)
             
-               ch = alt.Chart(df).mark_bar().encode(
+               ch = alt.Chart(df).mark_bar(opacity=0.7).encode(
                     x=alt.Y(
                         "values:Q",
                         axis=alt.Axis(grid=True, gridColor="grey", title=None),
