@@ -230,16 +230,21 @@ def disc_usage(tm, um, fm, w):
 
     # Encode theta by the value, and color by the new combined label
     base = alt.Chart(mem).encode(
-        theta=alt.Theta("size:Q", stack=False)
+        theta=alt.Theta("size:Q", stack=True)
     )
    # 4. Create the pie (arc) layer
-    pie = base.mark_arc(innerRadius=int(.1*v), outerRadius=int(.3*v)).encode(
-        color=alt.Color("legend_label:N", legend=None ),#alt.Legend(title="disc usage")),
+    pie = base.mark_arc(innerRadius=int(0.1 * v), outerRadius=int(0.3 * v)).encode(
+        alt.Theta("size:Q").stack(True),
+        alt.Radius("size").scale(type="sqrt", zero=True),
+        color=alt.Color("legend_label:N", scale=alt.Scale(scheme="dark2")),  # alt.Legend(title="disc usage")),
         # Add tooltip for better interactivity, using the combined label field
-        tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N", title='disc usage')]
+        tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N", title="DISK usage")],
+    ).properties(
+        title="DISK usage"
     )
 
-    st.altair_chart(pie, use_container_width=True)
+    text = base.mark_text().encode(text="size:Q")
+    st.altair_chart(pie + text, use_container_width=True)
 
 
 def display_storage_metrics(tm, um, fm, dfi, dff):
@@ -247,7 +252,7 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
     with c1:
         # st.markdown('<p class="vertical-text">disc usage</p>', unsafe_allow_html=True)
         width = st_dimensions(key="c1_width")
-        st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)
+        #st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)
         disc_usage(tm, um, fm, width)
     with c2:
         #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
