@@ -243,7 +243,7 @@ def disc_usage(tm, um, fm, w):
 
 
 def display_storage_metrics(tm, um, fm, dfi, dff):
-    c1, c2, c3 = st.columns([.13, 1.0, 1.0])
+    c1, c2, c3 = st.columns([.3, 1.0, 1.0])
     with c1:
         # st.markdown('<p class="vertical-text">disc usage</p>', unsafe_allow_html=True)
         width = st_dimensions(key="c1_width")
