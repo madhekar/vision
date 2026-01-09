@@ -190,7 +190,7 @@ def disc_usage_1(tm, um, fm, w):
         .encode(
             y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey"), title="Disc Storage Size in GB"),
             x=alt.X("disc:N", axis=alt.Axis(grid=True, gridColor="grey"), title="Disc Storage Category"),
-            color=alt.Color("disc:N", scale=alt.Scale( scheme='dark2'))#range=['#5A86AD', '#A3B18A', '#C17C74']))
+            color=alt.Color("disc:N", scale=alt.Scale( scheme='dark2'), legend=alt.Legend(labelFontWeight="bold",labelColor="gray"))#range=['#5A86AD', '#A3B18A', '#C17C74']))
         )
     )
     text = bar.mark_text(
