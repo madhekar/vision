@@ -252,7 +252,7 @@ def disc_usage(tm, um, fm, w):
 def display_storage_metrics(tm, um, fm, dfi, dff):
     c1, c2, c3 = st.columns([.3, 1.0, 1.0])
     with c1:
-        st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
+        #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
         width = st_dimensions(key="c1_width")
         #st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)
         disc_usage(tm, um, fm, width)
@@ -274,7 +274,7 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):
     dfi['type'] ='image'
     dfv["type"] = "video"
-    dfd['type'] ='document'
+    dfd['type'] ='text'
     dfa["type"] = "audio"
     dfn["type"] = "other"
     dff = pd.concat([dfi, dfv, dfd, dfa, dfn])
@@ -300,7 +300,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         )
         .properties(
             # width='container',
-            title=f"File Count- Imgage:{int(dfi['count'].sum())}  Video:{int(dfv['count'].sum())}  Document:{int(dfd['count'].sum())}  Audio:{int(dfa['count'].sum())}  Other:{int(dfn['count'].sum())}"
+            title=f"File Count- Imgage:{int(dfi['count'].sum())}  Video:{int(dfv['count'].sum())}  Text:{int(dfd['count'].sum())}  Audio:{int(dfa['count'].sum())}  Other:{int(dfn['count'].sum())}"
         )
         .configure(padding={"left": 0, "top": 5, "right": 0, "bottom": 5})
     )
@@ -322,7 +322,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
         )
         .properties(
             #width='container',
-            title=f"Files Size- Image:{int(dfi['size'].sum())} GB  Video:{int(dfv['size'].sum())} GB  Document:{int(dfd['size'].sum())} GB  Audio:{int(dfa['size'].sum())} GB  Other:{int(dfn['size'].sum())} GB"
+            title=f"Files Size- Image:{int(dfi['size'].sum())} GB  Video:{int(dfv['size'].sum())} GB  Text:{int(dfd['size'].sum())} GB  Audio:{int(dfa['size'].sum())} GB  Other:{int(dfn['size'].sum())} GB"
         ).configure(
             padding={"left":0, "top":5, "right": 0, "bottom": 5}
         )
