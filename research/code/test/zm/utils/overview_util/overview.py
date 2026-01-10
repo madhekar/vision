@@ -222,32 +222,39 @@ def disc_usage_1(tm, um, fm, w):
     # st.altair_chart(b, use_container_width=True)
 
 def disc_usage(tm, um, fm, w):
-    v = w['width']
+    v=400
+    if w is not None:
+       v = w['width']
     mem = pd.DataFrame({"disc": ["Total", "Used", "Free"], "size": [tm, um, fm]})
 
     # This formats the value as an integer for cleaner presentation in the legend/tooltip
-    mem["legend_label"] = (mem["disc"] + "::" + mem["size"].astype(str) + "GB")
+    mem["legend_label"] = (mem["disc"] + ":" + mem["size"].astype(str) + "GB")
 
     # Encode theta by the value, and color by the new combined label
     base = alt.Chart(mem).encode(
-        theta=alt.Theta("size:Q", stack=False)
-    )
-   # 4. Create the pie (arc) layer
-    pie = base.mark_arc(innerRadius=int(.1*v), outerRadius=int(.3*v)).encode(
-        color=alt.Color("legend_label:N", legend=None ),#alt.Legend(title="disc usage")),
-        # Add tooltip for better interactivity, using the combined label field
-        tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N", title='disc usage')]
+        theta=alt.Theta("size:Q").stack(True),
+        radius=alt.Radius("size").scale(type="sqrt", zero=True),
+        color=alt.Color("legend_label:N", scale=alt.Scale(scheme="dark2"))
     )
 
-    st.altair_chart(pie, use_container_width=True)
+   # 4. Create the pie (arc) layer innerRadius=int(0.05 * v), outerRadius=int(0.2 * v)
+    pie = base.mark_arc(opacity=0.7, innerRadius=int(0.1 * v), outerRadius=int(0.3 * v), stroke="#fff").encode(
+        # alt.Theta("size:Q").stack(True),
+        # alt.Radius("size").scale(type="sqrt", zero=True),
+        # color=alt.Color("legend_label:N", scale=alt.Scale(scheme="dark2")),  # alt.Legend(title="disc usage")),
+        # Add tooltip for better interactivity, using the combined label field
+        tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N")],
+    )
+    text = base.mark_text(align='center', radiusOffset=10, color="black").encode(text="size:Q")
+    st.altair_chart(pie + text, use_container_width=True)
 
 
 def display_storage_metrics(tm, um, fm, dfi, dff):
     c1, c2, c3 = st.columns([.3, 1.0, 1.0])
     with c1:
-        # st.markdown('<p class="vertical-text">disc usage</p>', unsafe_allow_html=True)
+        st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
         width = st_dimensions(key="c1_width")
-        st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)
+        #st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)
         disc_usage(tm, um, fm, width)
     with c2:
         #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
@@ -341,12 +348,12 @@ def execute():
 
     efs = mu.extract_user_raw_data_folders(rdp)
     #st.markdown('##### :blue[**DATA SOURCES**]')
-    st.sidebar.markdown("""###### <span style='color:#2d4202'><u>sources</u></span>""",unsafe_allow_html=True)
+    st.sidebar.markdown("""#### <span style='color:#2d4202'><u>SOURCES</u></span>""",unsafe_allow_html=True)
     #with st.container(height=100, border=False):        
     #st.markdown('<div class="scrollable-div">', unsafe_allow_html=True)
-    with st.container(height=100, border=False):
+    with st.container(height=100, border=True):
         for ds in efs:
-            st.sidebar.markdown(f':green[{ds}]')
+            st.sidebar.write(f'**{ds}**')
             #st.sidebar.caption(ds)
     #st.markdown('</div>', unsafe_allow_html=True)   
     #st.text_area(label="Data Sources", value=efs)
