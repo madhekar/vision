@@ -336,25 +336,18 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
 def execute():
     (rdp, idp, adp, fdp, opl) = extract_folder_paths() 
 
-    #print(f'+++{opl}')
-
     dfi, dff = ss.acquire_overview_data(opl)
-
-    #print(f'---dfi and dff--> {dfi}, {dff}')
-    
-    #print(f'--> {rdp}')
-    #c1, c2 = st.columns([.1,.9])
    
-
     efs = mu.extract_user_raw_data_folders(rdp)
-    #st.markdown('##### :blue[**DATA SOURCES**]')
-    st.sidebar.markdown("""#### <span style='color:#2d4202'><u>SOURCES</u></span>""",unsafe_allow_html=True)
+    st.sidebar.markdown('##### :blue[**DATA SOURCES**]')
+    #st.sidebar.markdown("""#### <span style='color:#2d4202'><u>SOURCES</u></span>""",unsafe_allow_html=True)
     #with st.container(height=100, border=False):        
     #st.markdown('<div class="scrollable-div">', unsafe_allow_html=True)
     with st.container(height=100, border=True):
         for ds in efs:
             st.sidebar.write(f'**{ds}**')
             #st.sidebar.caption(ds)
+    st.sidebar.divider()        
     #st.markdown('</div>', unsafe_allow_html=True)   
     #st.text_area(label="Data Sources", value=efs)
 
