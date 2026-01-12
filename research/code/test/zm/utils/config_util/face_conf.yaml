@@ -1,6 +1,6 @@
 
 static-metadata:
-      faces_metadata_path: /data/app-data/static-metadata/faces
+      faces_metadata_path: /data/app-data/static-metadata/faces/training/images
       faces_of_people_parquet_path: /data/app-data/static-metadata
       faces_of_people_parquet: image_people.parquet
 image-data:
