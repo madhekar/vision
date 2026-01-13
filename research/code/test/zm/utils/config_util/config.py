@@ -479,6 +479,15 @@ def search_config_load():
     )
 
 """
+
+static-metadata:
+      faces_metadata_path: /data/app-data/static-metadata/faces/training/images
+model-path:
+      faces_label_enc_path: /models/faces_label_enc
+      faces_label_enc: faces_label_enc.joblib
+      faces_svc_path: /models/faces_svc
+      faces_svc: faces_model_svc.joblib
+
 """
 @st.cache_resource
 def faces_config_load():
@@ -494,13 +503,7 @@ def faces_config_load():
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
 
         faces_metadata_path = dict["static-metadata"]["faces_metadata_path"]        
-        faces_of_people_parquet_path = dict["static-metadata"]["faces_of_people_parquet_path"]
-        faces_of_people_parquet = dict["static-metadata"]["faces_of_people_parquet"]
-
-        input_image_path = dict["image-data"]["input_image_path"]
         
-        faces_embeddings_path = dict["model-path"]["faces_embeddings_path"]
-        faces_embeddings = dict["model-path"]["faces_embeddings"]
         faces_label_enc_path = dict["model-path"]["faces_label_enc_path"]
         faces_label_enc = dict["model-path"]["faces_label_enc"]
         faces_svc_path = dict["model-path"]["faces_svc_path"]
@@ -508,15 +511,10 @@ def faces_config_load():
 
         return (
             os.path.join(dr, *faces_metadata_path.split(os.sep)[1:]),
-            os.path.join(dr, *input_image_path.split(os.sep)[1:]),
-            os.path.join(dr, *faces_embeddings_path.split(os.sep)[1:]),
-            faces_embeddings,
             os.path.join(dr, *faces_label_enc_path.split(os.sep)[1:]),
             faces_label_enc,
             os.path.join(dr, *faces_svc_path.split(os.sep)[1:]),
             faces_svc,
-            os.path.join(dr, *faces_of_people_parquet_path.split(os.sep)[1:]),
-            faces_of_people_parquet
         )
     
 """    

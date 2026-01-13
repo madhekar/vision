@@ -81,15 +81,10 @@ Initialize InsightFace model
 def init_predictor_module():
     (
         faces_dir,
-        input_image_path,
-        class_embeddings_folder,
-        class_embeddings,
         label_encoder_path,
         label_encoder,
         faces_svc_path,
         faces_svc,
-        faces_of_people_parquet_path,
-        faces_of_people_parquet,
     ) = config.faces_config_load()
 
     label_encoder_store = os.path.join(label_encoder_path, label_encoder)
