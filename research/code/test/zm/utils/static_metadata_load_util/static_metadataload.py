@@ -131,20 +131,36 @@ def execute():
         st.subheader('Number of Images / Person', divider='gray') 
         df = fc.sub_file_count(faces_metadata_path)
         chart=alt.Chart(df).mark_bar(opacity=0.7).encode(
-           y=alt.Y('person:N', sort='-x', title='File Type',axis=alt.Axis(grid=True, gridColor="grey")), 
+           y=alt.Y('item:N', sort='-x', title='File Type',axis=alt.Axis(grid=True, gridColor="grey")), 
            x=alt.X('number of images:Q', sort='-x', title='File Type',axis=alt.Axis(grid=True, gridColor="grey")),
-           color=alt.Color("person:N", scale=alt.Scale( scheme='dark2'))
+           color=alt.Color("item:N", scale=alt.Scale( scheme='dark2'))
         )
-        st.altair_chart(chart, use_container_width=True)
+        # Text labels for count on the bars
+        text_count = chart.mark_text(
+            align="left",
+            baseline="middle",
+            dx=3,  # Nudges text to the right of the bar
+        ).encode(x="number of images:Q", text="number of images:Q", color=alt.value("black"))
+        st.altair_chart(chart + text_count , use_container_width=True)
+
     with c4:
         st.subheader('Image Classifier Filter', divider='gray')    
         df = fc.sub_file_count(filter_metadata_path)
         chart=alt.Chart(df).mark_bar(opacity=0.7).encode(
-           y=alt.Y('person:N', sort='-x', title='File Type',axis=alt.Axis(grid=True, gridColor="grey")), 
+           y=alt.Y('item:N', sort='-x', title='File Type',axis=alt.Axis(grid=True, gridColor="grey")), 
            x=alt.X('number of images:Q', sort='-x', title='File Type',axis=alt.Axis(grid=True, gridColor="grey")),
-           color=alt.Color("person:N", scale=alt.Scale( scheme='dark2'))
+           color=alt.Color("item:N", scale=alt.Scale( scheme='dark2'))
         )
-        st.altair_chart(chart, use_container_width=True)
+
+        # Text labels for count on the bars
+        text_count = chart.mark_text(
+            align="left",
+            baseline="middle",
+            dx=3,  # Nudges text to the right of the bar
+        ).encode(
+            x="number of images:Q", text="number of images:Q", color=alt.value("black")
+        )
+        st.altair_chart(chart + text_count, use_container_width=True)
 
     st.divider()
  

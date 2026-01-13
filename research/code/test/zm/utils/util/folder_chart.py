@@ -10,7 +10,7 @@ def sub_file_count(root):
     for dirpath, dirnames, filenames in os.walk(root):
         if dirpath != root:
             sub_dic[os.path.basename(dirpath)] = len(filenames)
-    df = pd.DataFrame(sorted(sub_dic.items(), key=lambda item: item[1], reverse=True), columns=['person','number of images'])       
+    df = pd.DataFrame(sorted(sub_dic.items(), key=lambda item: item[1], reverse=True), columns=['item','number of images'])       
     return df
 
 
