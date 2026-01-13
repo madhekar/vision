@@ -17,7 +17,7 @@ def init_model():
     return app
 
 
-def train_model(app, img_dataset_path, model_store, label_store):
+def train_model(app, img_dataset_path, model_path, model_file, label_path, label_file):
     # Prepare lists for embeddings and labels
     embeddings_list = []
     labels_list = []
@@ -80,11 +80,15 @@ def train_model(app, img_dataset_path, model_store, label_store):
 
     # Save the trained model and label encoder for future use
     print("Saving model and label encoder...")
-    joblib.dump(svm_classifier, filename=model_store)
+    if not os.path.exists(model_path):
+       os.makedirs(model_path)
+    joblib.dump(svm_classifier, filename=os.path.join(model_path, model_file))
 
     le = LabelEncoder()
     le.fit_transform(class_names)
-    joblib.dump(le, filename=label_store)    
+    if not os.path.exists(label_path):
+        os.makedirs(label_path)
+    joblib.dump(le, filename=os.path.join(label_path, label_file))    
     print("Model saved successfully.")
 
 def execute():
@@ -101,14 +105,16 @@ def execute():
         faces_of_people_parquet
     ) = config.faces_config_load()
 
-    label_encoder_store = os.path.join(label_encoder_path, label_encoder)
-    svc_model_store = os.path.join(faces_svc_path, faces_svc)
+    # label_encoder_store = os.path.join(label_encoder_path, label_encoder)
+    # svc_model_store = os.path.join(faces_svc_path, faces_svc)
 
     # init train model
     app = init_model()
 
     # train model using faces dataset
-    train_model(app, faces_dir, svc_model_store, label_encoder_store)
+    train_model(
+        app, faces_dir, faces_svc_path, faces_svc, label_encoder_path, label_encoder
+    )
 
 if __name__=='__main__':    
     execute()
