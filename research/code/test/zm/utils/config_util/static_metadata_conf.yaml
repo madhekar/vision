@@ -4,7 +4,7 @@ datapaths:
 static-metadata:
   static_metadata_path: /data/app-data/static-metadata  
 static-faces: 
-  faces_metadata_path: /data/app-data/static-metadata/faces
+  faces_metadata_path: /data/app-data/static-metadata/faces/training/images
 static-filter:
   filter_metadata_path: /data/app-data/static-metadata/filter/training  
 static-locations:
