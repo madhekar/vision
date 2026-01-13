@@ -111,21 +111,73 @@ def execute():
         st.altair_chart(chart, use_container_width=True)
    
     with c2:
-        dfl = ss.extract_all_file_stats_in_folder(default_location_metadata_path)
-        dfa = ss.extract_all_file_stats_in_folder(user_location_metadata_path) 
-        print('--->', dfa.head())
-        count = len(dfa) if len(dfa) > 0 else 0    
-        size = round(sum(dfa["size"])/(pow(1024,2)),2) if len(dfa) >0 else 0  
-        print(dfl['count'], dfa['count'])
-        c2a, c2b = st.columns([1,1], gap="small")
-        with c2a:
-            st.subheader("Locations", divider='gray')
-            st.metric("Number of location files", sum(dfl['count']))
-            st.metric("Total size of location files (MB)", round(dfl["size"]/(pow(1024,2)), 2))
-        with c2b:
-            st.subheader("User Locations", divider='gray')
-            st.metric("Number of user location files", int(count))
-            st.metric("Total size of user locations files (MB)",  int(size))
+        st.subheader("Static Locations", divider="gray")
+        dfl = ss.extract_all_file_stats_in_folder(default_location_metadata_path).reset_index()
+        dfa = ss.extract_all_file_stats_in_folder(user_location_metadata_path).reset_index()
+
+        print(f"!!! {dfl} !!! {dfa}")
+        sizel = round(sum(dfl["size"])/(pow(1024,2)),2) if len(dfa) >0 else 0 
+        sizea = round(sum(dfa["size"])/(pow(1024,2)),2) if len(dfa) >0 else 0 
+        d = {'name':['default', 'specific'], 'count': [dfl["count"].sum(), dfa['count'].sum()], 'size': [sizel, sizea]}
+        df = pd.DataFrame.from_dict(d)
+
+        print(df)
+        ####
+
+        base = (
+            alt.Chart(df)
+            .encode(
+                y=alt.Y(
+                    "name:N",
+                    sort="-x",
+                    title="Location Type",
+                    axis=alt.Axis(grid=True, gridColor="grey"),
+                ),  # Sort descending by x-value
+                color=alt.Color("name:N", scale=alt.Scale(scheme="dark2")),
+                tooltip=["name", "count", "size"],
+            )
+            # .properties(
+            #     title=None,
+            # )
+        )
+
+        # Bar chart for Size (MB)
+        size_chart = base.mark_bar(opacity=0.7).encode(
+            x=alt.X(
+                "size:Q",
+                axis=alt.Axis(grid=True, gridColor="grey"),
+                title="Total Size MB",
+            ),
+            color=alt.Color("name:N", scale=alt.Scale(scheme="dark2")),
+        )
+
+        # Text labels for count on the bars
+        text_count = size_chart.mark_text(
+            align="left",
+            baseline="middle",
+            dx=3,  # Nudges text to the right of the bar
+        ).encode(x="size:Q", text="count:Q", color=alt.value("black"))
+
+        # Combine the bar chart and text labels
+        chart = size_chart + text_count
+        st.altair_chart(chart, use_container_width=True)
+
+
+        ####
+        # print('^^^^', d)
+        # print('--->', dfa.head())
+        # count = len(dfa) if len(dfa) > 0 else 0    
+        # size = round(sum(dfa["size"])/(pow(1024,2)),2) if len(dfa) >0 else 0  
+        # print(dfl['count'], dfa['count'])
+        # c2a, c2b = st.columns([1,1], gap="small")
+        # with c2a:
+        #     st.subheader("Locations", divider='gray')
+        #     st.metric("Number of location files", sum(dfl['count']))
+        #     st.metric("Total size of location files (MB)", round(dfl["size"]/(pow(1024,2)), 2))
+        # with c2b:
+        #     st.subheader("User Locations", divider='gray')
+        #     st.metric("Number of user location files", int(count))
+        #     st.metric("Total size of user locations files (MB)",  int(size))
 
     with c3:
         st.subheader('Number of Images / Person', divider='gray') 
