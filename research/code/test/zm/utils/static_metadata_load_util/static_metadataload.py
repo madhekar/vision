@@ -118,7 +118,7 @@ def execute():
         print(f"!!! {dfl} !!! {dfa}")
         sizel = round(sum(dfl["size"])/(pow(1024,2)),2) if len(dfa) >0 else 0 
         sizea = round(sum(dfa["size"])/(pow(1024,2)),2) if len(dfa) >0 else 0 
-        d = {'name':['default', 'specific'], 'count': [dfl["count"].sum(), dfa['count'].sum()], 'size': [sizel, sizea]}
+        d = {'location':['default', 'specific'], 'count': [dfl["count"].sum(), dfa['count'].sum()], 'size': [sizel, sizea]}
         df = pd.DataFrame.from_dict(d)
 
         print(df)
@@ -128,13 +128,13 @@ def execute():
             alt.Chart(df)
             .encode(
                 y=alt.Y(
-                    "name:N",
+                    "location:N",
                     sort="-x",
                     title="Location Type",
                     axis=alt.Axis(grid=True, gridColor="grey"),
                 ),  # Sort descending by x-value
-                color=alt.Color("name:N", scale=alt.Scale(scheme="dark2")),
-                tooltip=["name", "count", "size"],
+                color=alt.Color("location:N", scale=alt.Scale(scheme="dark2")),
+                tooltip=["location", "count", "size"],
             )
             # .properties(
             #     title=None,
@@ -148,7 +148,7 @@ def execute():
                 axis=alt.Axis(grid=True, gridColor="grey"),
                 title="Total Size MB",
             ),
-            color=alt.Color("name:N", scale=alt.Scale(scheme="dark2")),
+            color=alt.Color("location:N", scale=alt.Scale(scheme="dark2")),
         )
 
         # Text labels for count on the bars

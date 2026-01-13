@@ -319,7 +319,7 @@ def exe():
                     ),  # alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
                     tooltip=["categories", "values"],
                 )
-            
+               st.altair_chart(ch, use_container_width=True)
             # st.bar_chart(
             #     dfi,
             #     horizontal=False,
@@ -328,7 +328,7 @@ def exe():
             #     color=colors,
             # )
 
-               st.altair_chart(ch, use_container_width=True)
+              
             #    st.bar_chart(
             #         df,
             #         horizontal=False,
