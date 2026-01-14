@@ -4,6 +4,7 @@ import subprocess
 import shlex
 import pandas as pd
 from PIL import Image
+import codecs
 import pyiqa
 import torch
 from tqdm import tqdm
@@ -118,7 +119,7 @@ fm, pp, cm, device = fti.load_filter_model()
 def prep_img_infer(img):
     #print(f'here -> {img}')
 
-    img_obj = Image.open(img).convert("RGB")
+    img_obj = Image.open(img).convert("RGB") # codecs.open(img, 'r', encoding='utf-8').convert('RGB')
     input_tensor = pp(img_obj)
     #print(input_tensor)
 
