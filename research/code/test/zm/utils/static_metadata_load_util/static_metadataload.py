@@ -248,7 +248,7 @@ def execute():
                 transform_and_add_static_metadata( default_location_metadata_path, user_location_metadata_path, user_location_metadata_file, final_user_metadata_storage_path)
                 cb_status.update(label="metadata creation complete!", state="complete", expanded=False)  
     with cc:
-        cc_metadata = st.button("**Refresh people detection model**", use_container_width=True, type="primary")
+        cc_metadata = st.button("**Refresh face detection model**", use_container_width=True, type="primary")
         cc_status = st.status('create people names ', state='running', expanded=True)  
         with cc_status:
             if cc_metadata:
