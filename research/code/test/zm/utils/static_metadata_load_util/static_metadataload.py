@@ -75,7 +75,7 @@ def execute():
         dfs = dfs.reset_index(names="file_type") 
         print('***',dfs)
         dfs['size'] = dfs['size'].apply(lambda x: x /(pow(1024, 2))).astype(float)
-        dfs['connt'] = dfs['count'].astype(int)
+        dfs['count'] = dfs['count'].astype(int)
 
         base = alt.Chart(dfs).encode(
         y=alt.Y('file_type:N', sort='-x', title='File Type',axis=alt.Axis(grid=True, gridColor="grey")), # Sort descending by x-value
