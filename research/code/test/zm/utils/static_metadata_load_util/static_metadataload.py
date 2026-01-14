@@ -68,7 +68,7 @@ def execute():
     c1, c2, c3, c4 = st.columns([.3, .3, .3, .3], gap="medium")
  
     with c1:
-        st.subheader("Static Metadata", divider='gray')
+        st.subheader("Static Metadata and Models", divider='gray')
 
         dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
        
