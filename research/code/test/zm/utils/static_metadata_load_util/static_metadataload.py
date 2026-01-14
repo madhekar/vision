@@ -68,7 +68,7 @@ def execute():
     c1, c2, c3, c4 = st.columns([.3, .3, .3, .3], gap="medium")
  
     with c1:
-        st.subheader("Static Metadata and Models", divider='gray')
+        st.subheader("Static Metadata", divider='gray')
 
         dfs = ss.extract_all_file_stats_in_folder(static_metadata_path)
        
@@ -81,9 +81,10 @@ def execute():
         y=alt.Y('file_type:N', sort='-x', title='File Type',axis=alt.Axis(grid=True, gridColor="grey")), # Sort descending by x-value
         color=alt.Color("file_type:N", scale=alt.Scale( scheme='dark2')),
         tooltip=['file_type', 'count', 'size']
-        ).properties(
-           title='File count and Size by Type',
         )
+        # .properties(
+        #    title='File count and Size by Type',
+        # )
 
         # Bar chart for Size (MB)
         size_chart = base.mark_bar(opacity=0.7).encode(
