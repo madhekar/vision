@@ -10,7 +10,8 @@ bnb_config = BitsAndBytesConfig(
 )
 
 model = AutoModelForCausalLM.from_pretrained(
-    "xtuner/llava-llama-3-8b-v1_1-transformers",
+    #"xtuner/llava-llama-3-8b-v1_1-transformers",
+    "facebook/opt-1.3b",
     quantization_config=bnb_config,
     device_map="auto" # Automatically map to available devices
 )
