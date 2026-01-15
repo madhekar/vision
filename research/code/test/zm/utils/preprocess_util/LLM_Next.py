@@ -62,7 +62,7 @@ print(outputs)
 def setLLM():
     device = Accelerator().device
     model_id = "xtuner/llava-llama-3-8b-v1_1-transformers" #"xtuner/llava-phi-3-mini-hf" #"xtuner/llava-llama-3-8b-hf"
-    pipe = pipeline("image-to-text", model=model_id, device="auto")
+    pipe = pipeline("image-to-text", model=model_id, device="cuda")
     return pipe
 
 """
