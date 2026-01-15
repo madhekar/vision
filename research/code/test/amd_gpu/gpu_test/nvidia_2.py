@@ -12,7 +12,7 @@ image_file = "/home/madhekar/temp/training/people/IMG_5379.PNG"
 
 model = LlavaForConditionalGeneration.from_pretrained(
     model_id, 
-    dtype=torch.int8, 
+    dtype=torch.float16, 
     low_cpu_mem_usage=True, 
 ).to(0)
 
@@ -20,7 +20,7 @@ processor = AutoProcessor.from_pretrained(model_id)
 
 
 raw_image = Image.open(requests.get(image_file, stream=True).raw)
-inputs = processor(prompt, raw_image, return_tensors='pt').to(0, torch.int8)
+inputs = processor(prompt, raw_image, return_tensors='pt').to(0, torch.float16)
 
 output = model.generate(**inputs, max_new_tokens=200, do_sample=False)
 print(processor.decode(output[0][2:], skip_special_tokens=True))
