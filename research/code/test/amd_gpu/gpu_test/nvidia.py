@@ -37,6 +37,6 @@ tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
     model_id,
     torch_dtype=torch.bfloat16, # Or float16
-    load_in_8bit=True, # Or load_in_8bit=True
+    load_in_4bit=True, # Or load_in_8bit=True
     device_map="auto"
 )
