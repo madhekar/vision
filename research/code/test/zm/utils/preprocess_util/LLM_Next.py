@@ -57,6 +57,8 @@ outputs = pipe(image, prompt=prompt, generate_kwargs={"max_new_tokens": 200})
 print(outputs)
 [{'generated_text': 'user\n\n\nWhat are these?assistant\n\nThese are two cats, one brown and one gray, lying on a pink blanket. sleep. brown and gray cat sleeping on a pink blanket.'}]
 
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+
 """
 @st.cache_resource(ttl=36000, show_spinner=True)
 def setLLM():
