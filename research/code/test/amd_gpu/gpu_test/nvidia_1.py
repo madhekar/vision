@@ -6,6 +6,7 @@ model_id = "xtuner/llava-llama-3-8b-v1_1-transformers"
 pipe = pipeline("image-to-text", model=model_id, device=0)
 
 os.environ["PYTORCH_ALLOC_CONF"] = "max_split_size_mb:128"
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 image = Image.open("/home/madhekar/temp/training/people/IMG_5379.PNG")
 prompt = ("<|start_header_id|>user<|end_header_id|>\n\n<image>\nWhat are these?<|eot_id|>"
