@@ -1,5 +1,5 @@
 from transformers import pipeline
-from accelerate import Accelerator
+
 from PIL import Image
 import streamlit as st
 import torch
@@ -62,9 +62,12 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 """
 @st.cache_resource(ttl=36000, show_spinner=True)
 def setLLM():
-    device = Accelerator().device
+    
     model_id = "xtuner/llava-llama-3-8b-v1_1-transformers" #"xtuner/llava-phi-3-mini-hf" #"xtuner/llava-llama-3-8b-hf"
-    pipe = pipeline("image-to-text", model=model_id, device="cuda")
+    pipe = pipeline("image-to-text", model=model_id, device=-1)
+    
+    if torch.cuda.is_available():
+        pipe.model.to("cuda:0")
     return pipe
 
 """
