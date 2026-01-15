@@ -18,7 +18,7 @@ torch.cuda.empty_cache()
 os.environ["PYTORCH_ALLOC_CONF"] = "max_split_size_mb:128"
 
 model_id = "xtuner/llava-llama-3-8b-v1_1-transformers" #"xtuner/llava-phi-3-mini-hf" #"xtuner/llava-llama-3-8b-hf"
-pipe = pipeline("image-to-text", model=model_id, device=-1)
+pipe = pipeline("image-to-text", model=model_id, load_in_4bit=True, device=-1)
 
 if torch.cuda.is_available():
     pipe.model.to("cuda:0")
