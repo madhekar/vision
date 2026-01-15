@@ -13,7 +13,7 @@ import os
 # Posted by chakrr, modified by community. See post 'Timeline' for change history
 # Retrieved 2026-01-15, License - CC BY-SA 4.0
 
-torch.cuda_empty_cache()
+torch.cuda.empty_cache()
 
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:512"
 
