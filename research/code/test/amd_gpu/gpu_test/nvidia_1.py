@@ -1,10 +1,11 @@
 from transformers import pipeline
 from PIL import Image    
-import requests
+import os
 
 model_id = "xtuner/llava-llama-3-8b-v1_1-transformers"
 pipe = pipeline("image-to-text", model=model_id, device=0)
-url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+
+os.environ["PYTORCH_ALLOC_CONF"] = "max_split_size_mb:128"
 
 image = Image.open("/home/madhekar/temp/training/people/IMG_5379.PNG")
 prompt = ("<|start_header_id|>user<|end_header_id|>\n\n<image>\nWhat are these?<|eot_id|>"
