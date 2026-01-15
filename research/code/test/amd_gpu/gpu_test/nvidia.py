@@ -17,7 +17,7 @@ import os
 
 # torch.cuda.empty_cache()
 
-# os.environ["PYTORCH_ALLOC_CONF"] = "max_split_size_mb:128"
+os.environ["PYTORCH_ALLOC_CONF"] = "max_split_size_mb:128"
 
 # model_id = "xtuner/llava-llama-3-8b-v1_1-transformers" #"xtuner/llava-phi-3-mini-hf" #"xtuner/llava-llama-3-8b-hf"
 # pipe = pipeline("image-to-text", model=model_id,  device=-1)
@@ -37,6 +37,6 @@ tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
     model_id,
     torch_dtype=torch.bfloat16, # Or float16
-    load_in_4bit=True, # Or load_in_8bit=True
+    load_in_8bit=True, # Or load_in_8bit=True
     device_map="auto"
 )
