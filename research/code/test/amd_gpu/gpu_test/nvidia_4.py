@@ -11,7 +11,7 @@ bnb_config = BitsAndBytesConfig(
 )
 
 pipe_4bit = pipeline(
-    model="facebook/opt-1.3b", #"xtuner/llava-llama-3-8b-v1_1-transformers",
+     model="xtuner/llava-llama-3-8b-v1_1-transformers", #"facebook/opt-1.3b", 
      model_kwargs={"quantization_config":bnb_config},
      device_map="auto" # Automatically map to available devices
 )
