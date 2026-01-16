@@ -3,7 +3,7 @@ import requests
 import torch
 from transformers import AutoProcessor, LlavaForConditionalGeneration, BitsAndBytesConfig
 
-# Configuration: Choose a model ID (e.g., "llava-hf/llava-1.5-7b-hf").
+# Configuration: Choose a model ID (e.g., "llava-hf/llava-1.5-7b-hf"). llava-hf/llava-v1.6-mistral-7b-hf
 model_id = "llava-hf/llava-1.5-7b-hf"
 
 # Optional: Configure 4-bit quantization for lower VRAM GPUs.
@@ -26,7 +26,7 @@ print("Model loaded successfully.")
 # Prepare Image: Example image URL is used.
 # url = "https://github.com"
 # image = Image.open(requests.get(url, stream=True).raw)
-image = Image.open("/home/madhekar/temp/training/people/IMG_5379.PNG")
+image = Image.open("/home/madhekar/temp/filter/training/people/IMG_4090.jpeg")
 # Define Prompt: LLaVA uses a specific chat template.
 prompt = "What is shown in this image? Provide a detailed description."
 inputs = processor(text=prompt, images=image, return_tensors="pt").to(model.device, torch.float16)
