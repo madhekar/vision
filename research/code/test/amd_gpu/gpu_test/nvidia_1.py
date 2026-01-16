@@ -4,7 +4,9 @@ from PIL import Image
 import os
 
 model_id = "xtuner/llava-llama-3-8b-v1_1-transformers"
-pipe = pipeline("image-to-text", model=model_id, device=0)
+pipe = pipeline("image-to-text", 
+                model=model_id, 
+                device=0)
 
 #os.environ["PYTORCH_ALLOC_CONF"] = "max_split_size_mb:16"
 #os.environ["PYTORCH_ALLOC_CONF"] = "expandable_segments:True"
