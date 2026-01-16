@@ -24,9 +24,9 @@ model = LlavaForConditionalGeneration.from_pretrained(
 print("Model loaded successfully.")
 
 # Prepare Image: Example image URL is used.
-url = "https://github.com"
-image = Image.open(requests.get(url, stream=True).raw)
-
+# url = "https://github.com"
+# image = Image.open(requests.get(url, stream=True).raw)
+image = Image.open("/home/madhekar/temp/training/people/IMG_5379.PNG")
 # Define Prompt: LLaVA uses a specific chat template.
 prompt = "What is shown in this image? Provide a detailed description."
 inputs = processor(text=prompt, images=image, return_tensors="pt").to(model.device, torch.float16)
