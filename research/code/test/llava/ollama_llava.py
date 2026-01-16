@@ -12,7 +12,7 @@ encoded_image = encode_image_to_base64(image_path)
 
 # Perform inference
 response = ollama.chat(
-    model='llava',
+    model='llava:13b',
     messages=[
         {
             'role': 'user',
