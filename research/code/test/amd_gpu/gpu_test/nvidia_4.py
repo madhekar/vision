@@ -1,5 +1,6 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, pipeline
 import torch
+from PIL import Image
 
 # 4-bit quantization config
 bnb_config = BitsAndBytesConfig(
