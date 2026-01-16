@@ -4,7 +4,8 @@ import torch
 from transformers import AutoProcessor, LlavaForConditionalGeneration, BitsAndBytesConfig
 
 # Configuration: Choose a model ID (e.g., "llava-hf/llava-1.5-7b-hf"). llava-hf/llava-v1.6-mistral-7b-hf
-model_id = "llava-hf/llava-1.5-7b-hf"
+model_id =  "llava-hf/llava-v1.6-mistral-7b-hf"
+#model_id =   #"llava-hf/llava-1.5-7b-hf" #"llava-hf/llava-1.5-7b-hf"
 
 # Optional: Configure 4-bit quantization for lower VRAM GPUs.
 quantization_config = BitsAndBytesConfig(
