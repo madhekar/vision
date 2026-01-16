@@ -11,7 +11,7 @@ bnb_config = BitsAndBytesConfig(
 )
 
 pipe_4bit = pipeline(
-     model="xtuner/llava-llama-3-8b-v1_1-transformers", #"facebook/opt-1.3b", 
+     model= "llava-hf/llava-v1.6-mistral-7b-hf", #"xtuner/llava-llama-3-8b-v1_1-transformers", #"facebook/opt-1.3b", 
      model_kwargs={"quantization_config":bnb_config},
      device_map="auto" # Automatically map to available devices
 )
@@ -20,7 +20,7 @@ torch.cuda.empty_cache()
 
 torch.cuda.memory_summary(device=0, abbreviated=False)
 
-image = Image.open("/home/madhekar/temp/training/people/IMG_5379.PNG")
+image = Image.open("/home/madhekar/temp/filter/training/people/IMG_5379.PNG")
 
 prompt_4bit = ("<|start_header_id|>user<|end_header_id|>\n\n<image>\nWhat are these?<|eot_id|>"
           "<|start_header_id|>assistant<|end_header_id|>\n\n")
