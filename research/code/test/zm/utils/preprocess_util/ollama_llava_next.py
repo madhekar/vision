@@ -49,5 +49,8 @@ def describe_image(img_path, sup_content):
 
 if '__name__' == "__main__":
     # Path to your image
-    image_path = '/home/madhekar/temp/filter/training/people/IMG_5379.PNG'
-    describe_image(image_path, )   
+    image_path = '/home/madhekar/temp/filter/training/scenic/IMG_9059.PNG'
+    describe_image(
+        image_path, 
+        "\n \nThe image captures a serene scene of a sunset at the Madhekar Residence Home in San Diego. The sun, a radiant orb of light, is descending behind a cluster of trees, casting a warm, golden glow across the sky. The sky itself is a breathtaking canvas of orange and yellow hues, reflecting the sun's last rays of the day.\n\nIn the foreground, a wooden fence stands guard, its rustic charm adding to the overall tranquility of the scene. Beyond the fence, a dirt path meanders through the landscape, inviting one to take a leisurely stroll and soak in the beauty of the surroundings.\n\nThe perspective of the image is from the ground, looking up at the sunset. This angle gives a sense of awe and wonder, as if one is standing at the foot of a mountain, gazing up"
+        )   
