@@ -71,19 +71,7 @@
     color: #4B0082;
 }
 
-.vertical-text {
-    /* Rotate the text 90 degrees clockwise */
-    transform: rotate(90deg);
-    /* Adjust transform origin for better positioning, if needed */
-    transform-origin: left top;
-    /* Add some padding or margin to prevent overlap with surrounding content */
-    margin-top: 0px;
-    /* Adjust this value as needed */
-    margin-bottom: 10px;
-    /* Optional: Style the font/size */
-    font-size: .9rem;
-    font-weight: bold;
-}
+
 
 /* Radio buttons with custom styles */
 .st-key-styledradio .stRadio p {
@@ -188,11 +176,7 @@ div[data-testid="stSidebarNav"] ul li{
         align-items: center;
     }
 
-div[data-testid="stVerticalBlock"] > div:has(div.st-key-my_container) {
-    border-left: 5px solid #FF4B4B; /* Example: a 5px solid red border */
-    padding-left: 10px; /* Add some padding so content doesn't touch the border */
-    border-radius: 0px; /* Optional: remove default rounded corners if present */
-}
+
 
 /* Default style for input font size on larger screens */
 /* # input {

@@ -253,11 +253,11 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
         width = st_dimensions(key="c1_width")
-        #st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)
+        st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)
         disc_usage(tm, um, fm, width)
     with c2:
         #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
-        #st.markdown("""##### <span style='color:#2d4202'><u>INPUT DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
+        st.markdown("""##### <span style='color:#2d4202'><u>INPUT DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dfi.values.tolist())
         filter_selection(dfi)
     with c3:
@@ -265,7 +265,7 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
         #     '<p class="vertical-text">final data folder usage</p>',
         #     unsafe_allow_html=True,
         # )
-        #st.markdown("""##### <span style='color:#2d4202'><u>FINAL DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
+        st.markdown("""##### <span style='color:#2d4202'><u>FINAL DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dff.values.tolist())
         filter_selection(dff)
 
@@ -338,6 +338,7 @@ def execute():
     dfi, dff = ss.acquire_overview_data(opl)
    
     efs = mu.extract_user_raw_data_folders(rdp)
+
     st.sidebar.markdown('##### :blue[**DATA SOURCES**]')
     #st.sidebar.markdown("""#### <span style='color:#2d4202'><u>SOURCES</u></span>""",unsafe_allow_html=True)
     #with st.container(height=100, border=False):        
@@ -349,25 +350,26 @@ def execute():
     st.sidebar.divider()        
     #st.markdown('</div>', unsafe_allow_html=True)   
     #st.text_area(label="Data Sources", value=efs)
+    con = st.container()
+    with con:
+        display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
 
-    display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
+        st.divider()
 
-    st.divider()
+        st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+        display_folder_details(*ss.extract_all_folder_stats(rdp))
+        #st.divider()
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-    display_folder_details(*ss.extract_all_folder_stats(rdp))
-    #st.divider()
+        st.markdown("""##### <span style='color:#2d4202'><u>**INPUT DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+        display_folder_details(*ss.extract_all_folder_stats(idp))
+        #st.divider()
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**INPUT DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-    display_folder_details(*ss.extract_all_folder_stats(idp))
-    #st.divider()
+        st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+        display_folder_details(*ss.extract_all_folder_stats(fdp))
+        #st.divider()
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-    display_folder_details(*ss.extract_all_folder_stats(fdp))
-    #st.divider()
-
-    st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-    display_folder_details(*ss.extract_all_folder_stats(adp))
+        st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+        display_folder_details(*ss.extract_all_folder_stats(adp))
 
 # if __name__ == "__main__":
 #     execute()
