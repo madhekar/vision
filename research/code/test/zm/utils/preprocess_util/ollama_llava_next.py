@@ -47,7 +47,7 @@ def describe_image(img_path, sup_content):
 
     print(response['message']['content'])
 
-if '__name__' == "__main__":
+if __name__ == "__main__":
     # Path to your image
     image_path = '/home/madhekar/temp/filter/training/scenic/IMG_9059.PNG'
     describe_image(
