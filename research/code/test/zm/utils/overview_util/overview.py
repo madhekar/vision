@@ -252,8 +252,8 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
     c1, c2, c3 = st.columns([.3, 1.0, 1.0])
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
+        st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)        
         width = st_dimensions(key="c1_width")
-        st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)
         disc_usage(tm, um, fm, width)
     with c2:
         #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
