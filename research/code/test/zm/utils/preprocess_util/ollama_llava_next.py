@@ -40,7 +40,7 @@ def describe_image(img_path, sup_content):
             {
                 'role': 'user',
                 'content': [sup_content],
-                'images': [encoded_image]
+                'images': encoded_image
             }
         ],
     )
