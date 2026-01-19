@@ -31,8 +31,6 @@ def encode_image_to_base64(image_path):
 
 def describe_image(img_path, sup_content):
 
-# Path to your image
-#image_path = '/home/madhekar/temp/filter/training/people/IMG_5379.PNG'
     encoded_image = encode_image_to_base64(img_path)
 
     # Perform inference
@@ -48,3 +46,8 @@ def describe_image(img_path, sup_content):
     )
 
     print(response['message']['content'])
+
+if '__name__' == "__main__":
+    # Path to your image
+    image_path = '/home/madhekar/temp/filter/training/people/IMG_5379.PNG'
+    describe_image(image_path, )   
