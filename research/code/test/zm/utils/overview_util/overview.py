@@ -222,9 +222,8 @@ def disc_usage_1(tm, um, fm, w):
     # st.altair_chart(b, use_container_width=True)
 
 def disc_usage(tm, um, fm, w):
-    v=400
-    if w is not None:
-       v = w['width']
+
+    v = w['width'] if w is not None else 400
     mem = pd.DataFrame({"disc": ["Total", "Used", "Free"], "size": [tm, um, fm]})
 
     # This formats the value as an integer for cleaner presentation in the legend/tooltip
@@ -258,7 +257,7 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
         disc_usage(tm, um, fm, width)
     with c2:
         #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
-        st.markdown("""##### <span style='color:#2d4202'><u>INPUT DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
+        #st.markdown("""##### <span style='color:#2d4202'><u>INPUT DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dfi.values.tolist())
         filter_selection(dfi)
     with c3:
@@ -266,7 +265,7 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
         #     '<p class="vertical-text">final data folder usage</p>',
         #     unsafe_allow_html=True,
         # )
-        st.markdown("""##### <span style='color:#2d4202'><u>FINAL DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
+        #st.markdown("""##### <span style='color:#2d4202'><u>FINAL DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dff.values.tolist())
         filter_selection(dff)
 
@@ -282,7 +281,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
     # c1, c2 = st.columns([1, 1])
     # with c1:
     dff = dff.reset_index(names="file_type")
-    #print(f'^^^{dff}')
+
     ch_count = (
         alt.Chart(dff)
         .mark_bar(opacity=0.7)
