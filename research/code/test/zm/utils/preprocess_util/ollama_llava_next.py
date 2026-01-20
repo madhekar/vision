@@ -56,11 +56,11 @@ if __name__ == "__main__":
     image_path = '/home/madhekar/temp/filter/training/people/IMG_1531.jpeg'
     location = "Madhekar residence in San Diego"
     ppt = ""
-    if location is not "" and ppt is not "":
+    if location != "" and ppt != "":
         prompt = f"Describe the image with thoughtful insights using information provided. you must include names of people {ppt} and location {location} in response"
-    elif location is "" and ppt is not "":
+    elif location == "" and ppt != "":
         prompt = f"Describe the image with thoughtful insights using information provided. you must include names of people {ppt} in response"
-    elif location is not "" and ppt is "":
+    elif location != "" and ppt == "":
         prompt = f"Describe the image with thoughtful insights using information provided. you must include location {location} in response"
     else: 
        prompt = f"Describe the image with thoughtful insights in response."
