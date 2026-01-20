@@ -39,7 +39,7 @@ def describe_image(img_path, sup_content):
         messages=[
             {
                 'role': 'system',
-                'content': 'A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. Do not hallucinate and gives very close attention to the details and takes time to process information provided, your response must be entirely in prose. Absolutely no lists, bullet points, or numbered items should be used. Ensure the information flows seamlessly within paragraphs.',
+                'content': 'A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. Do not hallucinate and gives very close attention to the details and takes time to process information provided, response must be entirely in prose, absolutely no lists, bullet points, or numbered items should be used. Ensure the information flows seamlessly within paragraphs.',
             },
             {
                 'role': 'user',
@@ -55,8 +55,17 @@ if __name__ == "__main__":
     # Path to your image
     image_path = '/home/madhekar/temp/filter/training/people/IMG_1531.jpeg'
     location = "Madhekar residence in San Diego"
-    ppt = "Esha and Anjali"
+    ppt = ""
+    if location is not "" and ppt is not "":
+        prompt = f"Describe the image with thoughtful insights using information provided. you must include names of people {ppt} and location {location} in response"
+    elif location is "" and ppt is not "":
+        prompt = f"Describe the image with thoughtful insights using information provided. you must include names of people {ppt} in response"
+    elif location is not "" and ppt is "":
+        prompt = f"Describe the image with thoughtful insights using information provided. you must include location {location} in response"
+    else: 
+       prompt = f"Describe the image with thoughtful insights in response."
+   
     describe_image(
         image_path, 
-       f"Describe the image with thoughtful insights using information provided. you must includes names of people {ppt} and location {location} in response"
+        prompt
         )   
