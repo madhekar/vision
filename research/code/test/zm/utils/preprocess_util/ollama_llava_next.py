@@ -29,9 +29,19 @@ def encode_image_to_base64(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
 
-def describe_image(img_path, sup_content):
+def describe_image(img_path, ppt, location):
 
     encoded_image = encode_image_to_base64(img_path)
+
+    # prompt
+    if location != "" and ppt != "":
+        prompt = f"Describe the image with thoughtful insights using information provided. you must include names of people {ppt} and location {location} in response"
+    elif location == "" and ppt != "":
+        prompt = f"Describe the image with thoughtful insights using information provided. you must include names of people {ppt} in response"
+    elif location != "" and ppt == "":
+        prompt = f"Describe the image with thoughtful insights using information provided. you must include location {location} in response"
+    else: 
+       prompt = f"Describe the image with thoughtful insights in response."
 
     # Perform inference
     response = ollama.chat(
@@ -43,7 +53,7 @@ def describe_image(img_path, sup_content):
             },
             {
                 'role': 'user',
-                'content': sup_content,
+                'content': prompt,
                 'images': [encoded_image]
             }
         ],
@@ -56,16 +66,9 @@ if __name__ == "__main__":
     image_path = '/home/madhekar/temp/filter/training/people/IMG_1531.jpeg'
     location = "Madhekar residence in San Diego"
     ppt = "Anjali and Esha"
-    if location != "" and ppt != "":
-        prompt = f"Describe the image with thoughtful insights using information provided. you must include names of people {ppt} and location {location} in response"
-    elif location == "" and ppt != "":
-        prompt = f"Describe the image with thoughtful insights using information provided. you must include names of people {ppt} in response"
-    elif location != "" and ppt == "":
-        prompt = f"Describe the image with thoughtful insights using information provided. you must include location {location} in response"
-    else: 
-       prompt = f"Describe the image with thoughtful insights in response."
-   
+    
     describe_image(
         image_path, 
-        prompt
+        ppt,
+        location
         )   
