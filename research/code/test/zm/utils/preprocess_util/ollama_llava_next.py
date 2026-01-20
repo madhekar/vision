@@ -55,7 +55,7 @@ if __name__ == "__main__":
     # Path to your image
     image_path = '/home/madhekar/temp/filter/training/people/IMG_1531.jpeg'
     location = "Madhekar residence in San Diego"
-    ppt = ""
+    ppt = "Anjali and Esha"
     if location != "" and ppt != "":
         prompt = f"Describe the image with thoughtful insights using information provided. you must include names of people {ppt} and location {location} in response"
     elif location == "" and ppt != "":
