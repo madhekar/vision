@@ -58,5 +58,5 @@ if __name__ == "__main__":
     ppt = "Esha and Anjali"
     describe_image(
         image_path, 
-       f"Describe the image with thoughtful insights using additional information provided. people in image {ppt} and location {location}"
+       f"Describe the image with thoughtful insights using information provided. you must includes names of people {ppt} and location {location} in response"
         )   
