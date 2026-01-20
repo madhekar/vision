@@ -38,6 +38,10 @@ def describe_image(img_path, sup_content):
         model='llava:13b',
         messages=[
             {
+                'role': 'system',
+                'content': 'A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. Do not hallucinate and gives very close attention to the details and takes time to process information provided, your response must be entirely in prose. Absolutely no lists, bullet points, or numbered items should be used. Ensure the information flows seamlessly within paragraphs.',
+            },
+            {
                 'role': 'user',
                 'content': sup_content,
                 'images': [encoded_image]
@@ -49,8 +53,10 @@ def describe_image(img_path, sup_content):
 
 if __name__ == "__main__":
     # Path to your image
-    image_path = '/home/madhekar/temp/filter/training/scenic/IMG_9059.PNG'
+    image_path = '/home/madhekar/temp/filter/training/people/IMG_1531.jpeg'
+    location = "Madhekar residence in San Diego"
+    ppt = "Esha and Anjali"
     describe_image(
         image_path, 
-        "The image captures a serene scene of a sunset at the Madhekar Residence Home in San Diego."
+       f"Describe the image with thoughtful insights using additional information provided. people in image {ppt} and location {location}"
         )   
