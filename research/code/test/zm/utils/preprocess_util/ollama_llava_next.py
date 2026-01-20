@@ -35,7 +35,7 @@ def describe_image(img_path, sup_content):
 
     # Perform inference
     response = ollama.chat(
-        model='llava:13b',
+        model='llava',
         messages=[
             {
                 'role': 'system',
