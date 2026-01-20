@@ -3,6 +3,21 @@ import base64
 
 
 '''
+import ollama
+response = ollama.chat(model='llama2-uncensored', messages=[
+  {
+    'role': 'system',
+    'content': 'You are an AI assistant.',
+  },
+  {
+    'role': 'user',
+    'content': 'Why is the sky blue?',
+  },
+])
+print(response['message']['content'])
+
+
+
 Now we need to enable vulkan, allow the Ollama server to talk to your local network, and allow flash attention. Flash attention is optional, but recommended. In a terminal enter the following:
 
 sudo systemctl edit ollama
