@@ -45,7 +45,7 @@ def describe_image(img_path, ppt, location):
 
     # Perform inference
     response = ollama.chat(
-        model='llava:13b',
+        model='llava',
         messages=[
             {
                 'role': 'system',
@@ -80,8 +80,10 @@ if __name__ == "__main__":
     location = "Madhekar residence in San Diego"
     ppt = "Anjali and Esha"
     
-    describe_image(
+    m =  describe_image(
         image_path, 
         ppt,
         location
         )   
+
+    print(m)
