@@ -72,7 +72,7 @@ def describe_image(img_path, ppt, location):
         ],
     )
 
-    print(response['message']['content'])
+    return response['message']['content']
 
 if __name__ == "__main__":
     # Path to your image
