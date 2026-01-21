@@ -82,9 +82,9 @@ def describe_image(client, img_path, ppt, location):
 
 if __name__ == "__main__":
     # Path to your image
-    image_path = '/home/madhekar/temp/filter/training/people/IMG_1531.jpeg'
-    location = "Madhekar residence in San Diego"
-    ppt = "Anjali and Esha"
+    image_path =  '/Users/emadhekar/Pictures/wastushanti.JPG' #'/home/madhekar/temp/filter/training/people/IMG_1531.jpeg'
+    location = "Madhekar residence in Pune"
+    ppt = "Chandrakant, sham and 3 other women"
     
     client = create_default_client()
 
