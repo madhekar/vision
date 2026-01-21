@@ -74,6 +74,8 @@ def describe_image(client, img_path, ppt, location):
                 'images': [encoded_image]
             }
         ],
+        options={'temperature': 0.7},
+        stream=False # Get full response at once
     )
 
     return response['message']['content']
