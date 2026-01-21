@@ -28,8 +28,12 @@ Environment="OLLAMA_CONTEXT_LENGTH=32768"
 def encode_image_to_base64(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
+    
+def create_default_client():
+    client = ollama.Client(host="http://localhost:11434")
+    return client
 
-def describe_image(img_path, ppt, location):
+def describe_image(client, img_path, ppt, location):
 
     encoded_image = encode_image_to_base64(img_path)
 
@@ -44,7 +48,7 @@ def describe_image(img_path, ppt, location):
        prompt = f"Describe the image with thoughtful insights in response."
 
     # Perform inference
-    response = ollama.chat(
+    response = client.generate( #ollama.chat(
         model='llava',
         messages=[
             {
@@ -80,7 +84,9 @@ if __name__ == "__main__":
     location = "Madhekar residence in San Diego"
     ppt = "Anjali and Esha"
     
-    m =  describe_image(
+    client = create_default_client()
+
+    m =  describe_image(client,
         image_path, 
         ppt,
         location
