@@ -48,7 +48,7 @@ def describe_image(client, img_path, ppt, location):
        prompt = f"Describe the image with thoughtful insights in response."
 
     # Perform inference
-    response = client.generate( #ollama.chat(
+    response = client.chat( #ollama.chat(
         model='llava',
         messages=[
             {
