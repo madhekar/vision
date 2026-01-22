@@ -79,7 +79,7 @@ if __name__ == '__main__':
     # (Use different ports for each instance if on the same machine)
 
     # 2. Define server URLs for our workers
-    server_urls = [f"{OLLAMA_HOST_BASE}{OLLAMA_PORT_START + i}" for i in range(len(image_paths))]
+    server_urls = [f"{OLLAMA_HOST_BASE}{OLLAMA_PORT_START + i}" for i in 2]#range(len(image_paths))]
 
     # 3. Create a pool of workers
     with multiprocessing.Pool(processes=3) as pool:
