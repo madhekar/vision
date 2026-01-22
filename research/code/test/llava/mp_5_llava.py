@@ -10,7 +10,7 @@ MODEL_NAME = "llava" # Or your specific LLaVA model
 
 # List of image paths to process
 image_paths = [
-    '/home/madhekar/temp/filter/training/people/IMG_5543.jpeg',
+    '/home/madhekar/temp/filter/training/people/IMG_5543.jpg',
     '/home/madhekar/temp/filter/training/people/neighbors.jpeg',
     '/home/madhekar/temp/filter/training/people/IMG_5533.jpeg',
     '/home/madhekar/temp/filter/training/people/IMG_7285.jpeg',
