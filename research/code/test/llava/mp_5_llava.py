@@ -10,9 +10,16 @@ MODEL_NAME = "llava" # Or your specific LLaVA model
 
 # List of image paths to process
 image_paths = [
-    '/Users/emadhekar/Pictures/wastushanti.JPG', # Make sure these images exist!
-    '/Users/emadhekar/Pictures/alaska_cooking.JPG',
-    '/Users/emadhekar/Pictures/ganapti_challe_gavala.jpg',
+    '/home/madhekar/temp/filter/training/people/ING_5543.jpeg',
+    '/home/madhekar/temp/filter/training/people/neighbors.jpeg',
+    '/home/madhekar/temp/filter/training/people/IMG_5533.jpeg',
+    '/home/madhekar/temp/filter/training/people/IMG_7285.jpeg',
+    '/home/madhekar/temp/filter/training/people/IMG_7460.jpeg'
+
+
+    # '/Users/emadhekar/Pictures/wastushanti.JPG', # Make sure these images exist!
+    # '/Users/emadhekar/Pictures/alaska_cooking.JPG',
+    # '/Users/emadhekar/Pictures/ganapti_challe_gavala.jpg',
 ]
 
 # --- Worker Function ---
@@ -23,13 +30,31 @@ def process_image(image_path, server_url):
         response = ollama.chat(
             model=MODEL_NAME,
             messages=[
+                 {
+                'role': 'system',
+                'content': 'A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, '
+                'emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. '
+                'Do not hallucinate and gives very close attention to the details and takes time to process information provided, '
+                'response must be entirely in prose, absolutely no lists, bullet points, or numbered items should be used. Ensure the information flows seamlessly within paragraphs.'
+                'Adhere strictly to these guidelines:'
+                '1. Only provide answer and no extra commentary, additional context or information request.'
+                '2. Do not reuse the same sentence structure more than once in response.'
+                '3. Eliminate unclear excessive symbols or gibberish.'
+                '4. Include addition information provided about people names and places or locations.'
+                '5. Shorten text while preserving information.'
+                '6. Preserve clear text as is.'
+                '7. Skip text that is too unclear or ambiguous.'
+                '8. Exclude non-factual elements.'
+                '9. Maintain clarity and information.',
+            },
                 {
                     'role': 'user',
                     'content': 'Describe this image in detail.',
                     'images': [image_path] # LLaVA uses image paths in messages
                 }
             ],
-            options={'num_predict': 200} # Control response length
+            options={'num_predict': 300,'temperature': 0.7 }, # Control response length
+            stream=False # Get full response at once
         )
         # For LLaVA, the response content is the text description
         description = response['message']['content']
