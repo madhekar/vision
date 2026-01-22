@@ -6,7 +6,7 @@ import os
 # --- Configuration ---
 OLLAMA_HOST_BASE = "http://localhost:"
 OLLAMA_PORT_START = 11434 # Default + Base for multiple instances
-MODEL_NAME = "llava" # Or your specific LLaVA model
+MODEL_NAME = "llava:13b" # Or your specific LLaVA model
 
 # List of image paths to process
 image_paths = [
