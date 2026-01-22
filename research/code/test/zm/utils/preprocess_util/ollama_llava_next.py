@@ -1,5 +1,6 @@
 import ollama
 import base64
+import asyncio
 
 
 '''
@@ -30,10 +31,10 @@ def encode_image_to_base64(image_path):
         return base64.b64encode(image_file.read()).decode('utf-8')
     
 def create_default_client():
-    client = ollama.Client(host="http://localhost:11434")
+    client = ollama.AsyncClient(host="http://localhost:11434")
     return client
 
-def describe_image(client, img_path, ppt, location):
+async def  describe_image(client, img_path, ppt, location):
 
     encoded_image = encode_image_to_base64(img_path)
 
@@ -48,7 +49,7 @@ def describe_image(client, img_path, ppt, location):
        prompt = f"Describe the image with thoughtful insights in response."
 
     # Perform inference
-    response = client.chat( #ollama.chat(
+    response = await client.chat( #ollama.chat(
         model='llava',
         messages=[
             {
