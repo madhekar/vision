@@ -31,7 +31,7 @@ def encode_image_to_base64(image_path):
         return base64.b64encode(image_file.read()).decode('utf-8')
     
 def create_default_client():
-    client = ollama.AsyncClient(host="http://localhost:11434")
+    client = ollama.AsyncClient()
     return client
 
 async def  describe_image(client, img_path, ppt, location):
@@ -47,39 +47,44 @@ async def  describe_image(client, img_path, ppt, location):
         prompt = f"Describe the image with thoughtful insights using information provided. you must include location {location} in response"
     else: 
        prompt = f"Describe the image with thoughtful insights in response."
+    try:
+        # Perform inference
+        response = await client.chat( #ollama.chat(
+            model='llava',
+            messages=[
+                {
+                    'role': 'system',
+                    'content': 'A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, '
+                    'emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. '
+                    'Do not hallucinate and gives very close attention to the details and takes time to process information provided, '
+                    'response must be entirely in prose, absolutely no lists, bullet points, or numbered items should be used. Ensure the information flows seamlessly within paragraphs.'
+                    'Adhere strictly to these guidelines:'
+                    '1. Only provide answer and no extra commentary, additional context or information request.'
+                    '2. Do not reuse the same sentence structure more than once in response.'
+                    '3. Eliminate unclear excessive symbols or gibberish.'
+                    '4. Include addition information provided about people names and places or locations.'
+                    '5. Shorten text while preserving information.'
+                    '6. Preserve clear text as is.'
+                    '7. Skip text that is too unclear or ambiguous.'
+                    '8. Exclude non-factual elements.'
+                    '9. Maintain clarity and information.',
+                },
+                {
+                    'role': 'user',
+                    'content': prompt,
+                    'images': [encoded_image]
+                }
+            ],
+            options={'temperature': 0.7},
+            stream=False # Get full response at once
+        )
 
-    # Perform inference
-    response = await client.chat( #ollama.chat(
-        model='llava',
-        messages=[
-            {
-                'role': 'system',
-                'content': 'A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, '
-                'emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. '
-                'Do not hallucinate and gives very close attention to the details and takes time to process information provided, '
-                'response must be entirely in prose, absolutely no lists, bullet points, or numbered items should be used. Ensure the information flows seamlessly within paragraphs.'
-                'Adhere strictly to these guidelines:'
-                '1. Only provide answer and no extra commentary, additional context or information request.'
-                '2. Do not reuse the same sentence structure more than once in response.'
-                '3. Eliminate unclear excessive symbols or gibberish.'
-                '4. Include addition information provided about people names and places or locations.'
-                '5. Shorten text while preserving information.'
-                '6. Preserve clear text as is.'
-                '7. Skip text that is too unclear or ambiguous.'
-                '8. Exclude non-factual elements.'
-                '9. Maintain clarity and information.',
-            },
-            {
-                'role': 'user',
-                'content': prompt,
-                'images': [encoded_image]
-            }
-        ],
-        options={'temperature': 0.7},
-        stream=False # Get full response at once
-    )
-
-    return response['message']['content']
+        return response['message']['content']
+    except Exception as e:
+        print(f"Error processing image {image_path}...: {e}")
+        return None
+    finally:
+        await client.close() # Important to close the client
 
 if __name__ == "__main__":
     # Path to your image
