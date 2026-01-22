@@ -60,9 +60,9 @@ async def main():
     image2_base64 = encode_image_to_base64(image2_path)
 
     tasks = [
-        analyze_image_llava(image1_base64, "Describe the main subject in this image."),
-        analyze_image_llava(image2_base64, "What colors are prominent here?"),
-        analyze_image_llava(image1_base64, "Is there any text in the image?"), # Reusing image for demo
+        await analyze_image_llava(image1_base64, "Describe the main subject in this image."),
+        await analyze_image_llava(image2_base64, "What colors are prominent here?"),
+        await analyze_image_llava(image1_base64, "Is there any text in the image?"), # Reusing image for demo
     ]
 
     # Run tasks concurrently (this acts as our pool)
