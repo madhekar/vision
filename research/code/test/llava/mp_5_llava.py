@@ -46,6 +46,11 @@ if __name__ == '__main__':
     # ollama serve -m llava --host 127.0.0.1:11434 &
     # ollama serve -m llava --host 127.0.0.1:11435 &
     # ollama serve -m llava --host 127.0.0.1:11436 &
+
+    #OLLAMA_HOST=127.0.0.1:11435 ollama serve
+    #OLLAMA_HOST=127.0.0.1:11436 ollama serve
+
+
     # (Use different ports for each instance if on the same machine)
 
     # 2. Define server URLs for our workers
