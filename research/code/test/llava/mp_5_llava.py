@@ -52,7 +52,7 @@ if __name__ == '__main__':
     server_urls = [f"{OLLAMA_HOST_BASE}{OLLAMA_PORT_START + i}" for i in range(len(image_paths))]
 
     # 3. Create a pool of workers
-    with multiprocessing.Pool(processes=len(image_paths)) as pool:
+    with multiprocessing.Pool(processes=2) as pool:
         # Map image_paths to their specific server URLs for the worker function
         # We need to pass multiple arguments, so we use starmap or zip arguments
         tasks = [(img_path, url) for img_path, url in zip(image_paths, server_urls)]
