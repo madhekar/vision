@@ -261,8 +261,8 @@ async def run_workflow(
                     print('===>', res)
                     rflist, oflist = new_xform(res)
 
-                    res1 = await asyncio.gather(pool.map(describeImage,  rflist))
-
+                    #res1 = await asyncio.gather(pool.map(describeImage,  rflist))
+                    res1 = pool.map(describeImage,  rflist)
                     print('****', res1)
 
                     zlist = [oflist[i] + [res1[0][i]]  for i in range(len(oflist))]
