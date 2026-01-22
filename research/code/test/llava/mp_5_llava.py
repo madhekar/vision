@@ -79,10 +79,10 @@ if __name__ == '__main__':
     # (Use different ports for each instance if on the same machine)
 
     # 2. Define server URLs for our workers
-    server_urls = [f"{OLLAMA_HOST_BASE}{OLLAMA_PORT_START + i}" for i in range(2)]#range(len(image_paths))]
-
+    #server_urls = [f"{OLLAMA_HOST_BASE}{OLLAMA_PORT_START + i}" for i in range(2)]#range(len(image_paths))]
+    server_urls = ["http://localhost:11434", "http://localhost:11435","http://localhost:11434", "http://localhost:11435", "http://localhost:11434"]
     # 3. Create a pool of workers
-    with multiprocessing.Pool(processes=3) as pool:
+    with multiprocessing.Pool(processes=2) as pool:
         # Map image_paths to their specific server URLs for the worker function
         # We need to pass multiple arguments, so we use starmap or zip arguments
         tasks = [(img_path, url) for img_path, url in zip(image_paths, server_urls)]
