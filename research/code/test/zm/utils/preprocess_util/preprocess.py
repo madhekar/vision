@@ -6,7 +6,8 @@ import cv2
 import numpy as np
 from utils.preprocess_util import awaitUtil
 #from utils.preprocess_util import entities as en
-from utils.preprocess_util import LLM_Next, ollama_llava_next
+from utils.preprocess_util import LLM_Next
+from utils.preprocess_util import ollama_llava_next as oln
 import json
 import glob
 import pandas as pd
@@ -166,7 +167,7 @@ async def describeImage(args):
     ppt1 = ppt if ppt != None else "na"
     print(f'ppt: {ppt1}, location: {location}, url: {uri}')
     #d = LLM_Next.fetch_llm_text(imUrl=uri, pipe=p, question="Describe the image with thoughtful insights using additional information provided. ", partial_prompt=ppt, location=location)
-    d =  await ollama_llava_next.describe_image( uri, ppt1, location)
+    d =  await oln.describe_image( uri, ppt1, location)
     return d
 
 """
