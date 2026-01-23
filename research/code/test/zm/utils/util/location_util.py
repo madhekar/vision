@@ -298,7 +298,7 @@ def getTimestamp(img):
         if user_comment:
             s_user_comment =  user_comment.decode('utf-8').replace("ASCII\x00\x00\x00","")   
 
-    return value, s_user_comment.replace("\u0000", "")
+    return value, s_user_comment.replace("\\u0000", "")
 
 # collect all metadata
 # def getMetadata(img):
