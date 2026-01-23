@@ -287,6 +287,9 @@ async def run_workflow(
 
 
 def execute(user_source_selected):
+
+    #if device == "cuda:0":
+    os.environ['CUDA_LAUNCH_BLOCKING'] = 1
     #mp.freeze_support()
     aiomp.set_start_method("fork")
     (
