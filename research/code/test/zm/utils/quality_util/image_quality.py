@@ -75,10 +75,10 @@ def b_write_comment(dl):
     for row in dl:
         try:
             im = Image.open(row["img"])
-            exif = im.getexif()
+            e_data = im.getexif()
             im_type = b'ASCII\x00\x00\x00' + row['type'].encode('utf-8')
-            exif[0x9286] = im_type
-            im.save(row["img"], exif=exif)
+            e_data[0x9286] = im_type
+            im.save(row["img"], exif=e_data)
         except Exception as e:
             print(f"Exception in updating exif metadata in : {row['img']} - {e}")
             sm.add_messages(
@@ -137,7 +137,7 @@ def prep_img_infer(img):
 '''
   determine to persist or remove image types in search
 '''
-def is_vaild_file_type(filter_types, img):
+def is_valid_file_type(filter_types, img):
     ret_img=""
     store_type = ""
     try:
@@ -193,7 +193,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
             res=[]
             for il in img_iterator:
                   if len(il) > 0:
-                    fres = list(map(partial(is_vaild_file_type, str_filter), il))
+                    fres = list(map(partial(is_valid_file_type, str_filter), il))
                     #print("***", fres)
                     #
                     rfes, sfes = [], []
