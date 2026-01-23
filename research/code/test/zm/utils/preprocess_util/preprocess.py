@@ -98,6 +98,7 @@ async def timestamp(args):
     uri = args
     print(f'ts--{uri}')
     ts,uc = lu.getTimestamp(uri) #lu.get_image_exif_info(uri) 
+    print(f'*** timestamp: {ts} user comment: {uc}')
     return str(ts), str(uc)
 
 async def faces_partial_prompt(args):
