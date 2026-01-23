@@ -77,7 +77,7 @@ async def describe_image( img_path, ppt, location):
                     'images': [encoded_image]
                 }
             ],
-            options={'temperature': 0.9},
+            options={'num_predict': 300, 'temperature': 0.9},
             stream=False # Get full response at once
         )
 
