@@ -220,7 +220,7 @@ def execute():
     
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     if device == "cuda:0":
-        os.environ['CUDA_LAUNCH_BLOCKING'] = 1
+        os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 
     (
         filter_model_path,
