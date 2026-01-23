@@ -52,7 +52,7 @@ async def describe_image( img_path, ppt, location):
     try:
         # Perform inference
         response = await client.chat( 
-            model='llava',
+            model='llava:13b',
             messages=[
                 {
                     'role': 'system',
@@ -77,7 +77,7 @@ async def describe_image( img_path, ppt, location):
                     'images': [encoded_image]
                 }
             ],
-            options={'temperature': 0.7},
+            options={'temperature': 0.9},
             stream=False # Get full response at once
         )
 
