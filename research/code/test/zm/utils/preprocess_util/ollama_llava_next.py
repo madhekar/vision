@@ -34,8 +34,10 @@ def create_default_client():
     client = ollama.AsyncClient()
     return client
 
-async def  describe_image(client, img_path, ppt, location):
+async def  describe_image( img_path, ppt, location):
 
+    client = ollama.AsyncClient()
+    
     encoded_image = encode_image_to_base64(img_path)
 
     # prompt
