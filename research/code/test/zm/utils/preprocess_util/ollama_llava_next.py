@@ -37,7 +37,7 @@ def create_default_client():
 async def  describe_image( img_path, ppt, location):
 
     client = ollama.AsyncClient()
-    
+
     encoded_image = encode_image_to_base64(img_path)
 
     # prompt
@@ -83,10 +83,10 @@ async def  describe_image( img_path, ppt, location):
 
         return response['message']['content']
     except Exception as e:
-        print(f"Error processing image {image_path}...: {e}")
+        print(f"Error processing image {img_path}...: {e}")
         return None
     finally:
-        await client.close() # Important to close the client
+        await client.aclose() # Important to close the client
 
 if __name__ == "__main__":
     # Path to your image
