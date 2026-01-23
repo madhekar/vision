@@ -163,10 +163,10 @@ async def locationDetails(args, lock):
 # get image description from LLM
 async def describeImage(args):
     ppt, location, uri = args
-    print(f'ppt: {ppt}, location: {location}, url: {uri}')
     ppt1 = ppt if ppt != None else "na"
+    print(f'ppt: {ppt1}, location: {location}, url: {uri}')
     #d = LLM_Next.fetch_llm_text(imUrl=uri, pipe=p, question="Describe the image with thoughtful insights using additional information provided. ", partial_prompt=ppt, location=location)
-    d = ollama_llava_next.describe_image( uri, ppt1, location)
+    d = await ollama_llava_next.describe_image( uri, ppt1, location)
     return d
 
 """
