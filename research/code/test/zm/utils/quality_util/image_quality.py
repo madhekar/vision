@@ -72,11 +72,14 @@ exif_dict['Exif'][37510] = user_comment_bytes
 #             )    
 
 def b_write_comment(dl):
+
+    print(f'dl--- {dl}')
     for row in dl:
         try:
             im = Image.open(row["img"])
             e_data = im.getexif()
             im_type = b'ASCII\x00\x00\x00' + row['type'].encode('utf-8')
+            print(f'im_type: {im_type}')
             e_data[0x9286] = im_type
             im.save(row["img"], exif=e_data)
         except Exception as e:
@@ -194,7 +197,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
             for il in img_iterator:
                   if len(il) > 0:
                     fres = list(map(partial(is_valid_file_type, str_filter), il))
-                    #print("***", fres)
+                    print("***", fres)
                     #
                     rfes, sfes = [], []
                     for e in fres:
