@@ -34,7 +34,7 @@ def create_default_client():
     client = ollama.AsyncClient()
     return client
 
-def  describe_image( img_path, ppt, location):
+async def describe_image( img_path, ppt, location):
 
     client = ollama.AsyncClient()
 
@@ -51,7 +51,7 @@ def  describe_image( img_path, ppt, location):
        prompt = f"Describe the image with thoughtful insights in response."
     try:
         # Perform inference
-        response = client.chat( #ollama.chat(
+        response = await client.chat( 
             model='llava',
             messages=[
                 {
