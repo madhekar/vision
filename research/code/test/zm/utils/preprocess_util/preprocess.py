@@ -35,7 +35,7 @@ from functools import partial
 d_latitude, d_longitude = 32.968689, -117.184243
 d_loc = 'Madhekar residence in Carmel Valley'
 #m, t, p = LLM.setLLM()
-client = ollama_llava_next.create_default_client()
+#client = ollama_llava_next.create_default_client()
 ap, fmodel, fle = fpr.init_predictor_module()
 #fm, fc,isz = fi.init_filter_model()
 
@@ -165,7 +165,7 @@ async def describeImage(args):
     ppt, location, uri = args
     print(f'ppt: {ppt}, location: {location}, url: {uri}')
     #d = LLM_Next.fetch_llm_text(imUrl=uri, pipe=p, question="Describe the image with thoughtful insights using additional information provided. ", partial_prompt=ppt, location=location)
-    d = ollama_llava_next.describe_image(client, uri, ppt, location)
+    d = ollama_llava_next.describe_image( uri, ppt, location)
     return d
 
 """
