@@ -85,8 +85,9 @@ def  describe_image( img_path, ppt, location):
     except Exception as e:
         print(f"Error processing image {img_path}...: {e}")
         return None
-    finally:
-        client.close() # Important to close the client
+    # finally:
+    #     if client:
+    #        client.close() # Important to close the client
 
 if __name__ == "__main__":
     # Path to your image
