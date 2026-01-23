@@ -258,7 +258,7 @@ async def run_workflow(
                     
                     res.append(rlist)
 
-                    print('===>', res)
+                    print('*===>', res)
                     rflist, oflist = new_xform(res)
 
                     res1 = await asyncio.gather(pool.map(describeImage,  rflist))
