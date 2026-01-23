@@ -217,8 +217,10 @@ def test_model(img_path, class_name, class_map, filter_model, preprocess, device
     return (predicted_class_name, class_name)
 
 def execute():
-
+    
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    if device == "cuda:0":
+        os.environ['CUDA_LAUNCH_BLOCKING'] = 1
 
     (
         filter_model_path,
