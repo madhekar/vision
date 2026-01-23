@@ -2,11 +2,11 @@ import os
 import uuid
 import logging
 import itertools as it
-import cv2
+#import cv2
 import numpy as np
 from utils.preprocess_util import awaitUtil
 #from utils.preprocess_util import entities as en
-from utils.preprocess_util import LLM_Next
+#from utils.preprocess_util import LLM_Next
 from utils.preprocess_util import ollama_llava_next as oln
 import json
 import glob
@@ -21,7 +21,7 @@ from utils.util import storage_stat as ss
 from utils.face_util import base_face_predict as bft
 from utils.face_detection_util import face_predictor as fpr
 from utils.filter_util import filter_inferance as fi
-import tensorflow as tf
+#import tensorflow as tf
 from tensorflow.keras.models import load_model
 
 import asyncio
@@ -40,7 +40,7 @@ d_loc = 'Madhekar residence in Carmel Valley'
 ap, fmodel, fle = fpr.init_predictor_module()
 #fm, fc,isz = fi.init_filter_model()
 
-p = LLM_Next.setLLM()
+#p = LLM_Next.setLLM()
 #btree = st.empty()
 #ocfine = "/home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth"
 #global_face = bft.base_face_res()
@@ -78,13 +78,8 @@ def location_initialize_btree(smp, smf):
     return btree_ 
     
 def get_loc_name_by_latlon(latlon):
-    # if latlon:
-    #     print(f'****search loc by latlon: {latlon}')
-
-        #row = st.session_state.df_loc.loc[st.session_state.df_loc.LatLon == latlon].values.flatten().tolist()
-
     nm = st.session_state.ball_tree.get_location_name_for_latlong(latlon[0], latlon[1])
-    print(f'latlon: {latlon} => loc name: {nm}')
+    print(f'lat-lon: {latlon} => loc name: {nm}')
     return nm
 
 # uuid4 id for vector database
