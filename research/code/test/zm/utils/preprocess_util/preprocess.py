@@ -327,7 +327,7 @@ def execute(user_source_selected):
 
     #btree = location_initialize(static_metadata_path, static_metadata_file)    
 
-    chunk_size = int(mp.cpu_count() // 4)
+    chunk_size = int(mp.cpu_count() // 8)
     queue_size = chunk_size
     st.sidebar.subheader("Metadata Generation")
     st.sidebar.divider()
