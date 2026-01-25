@@ -235,6 +235,7 @@ def gpsInfo(img):
 
 
 def setGpsInfo(fn, lat, lon):
+    print(f"set lat-lon: {fn} lat: {lat} lon: {lon}")
     photo = gpsphoto.GPSPhoto(fn)
     info = gpsphoto.GPSInfo((round(float(lat), 6), round(float(lon), 6)))
     photo.modGPSData(info, fn)
