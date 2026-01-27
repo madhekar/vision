@@ -3,7 +3,7 @@ import base64
 import asyncio
 
 
-'''
+"""
 Now we need to enable vulkan, allow the Ollama server to talk to your local network, and allow flash attention. Flash attention is optional, but recommended. In a terminal enter the following:
 
 sudo systemctl edit ollama
@@ -24,7 +24,11 @@ Environment="OLLAMA_HOST=0.0.0.0:11434"
 Environment="OLLAMA_VULKAN=1"
 Environment="OLLAMA_FLASH_ATTENTION=1"
 Environment="OLLAMA_CONTEXT_LENGTH=32768"
-'''
+Environment="OLLAMA_KEEP_ALIVE=10m"
+Environment="OLLAMA_DEBUG=1"
+Environment="OLLAMA_NUM_PARALLEL=2"
+Environment="OLLAMA_MAX_LOADED_MODELS=2"
+"""
 # Function to encode the image to base64
 def encode_image_to_base64(image_path):
     with open(image_path, "rb") as image_file:

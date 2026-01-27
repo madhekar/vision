@@ -28,6 +28,7 @@ dependencies = [
     "modelbit>=0.44.3",
     "mtcnn==1.0.0",
     "numpy==1.26.4",
+    "ollama>=0.6.1",
     "onnx==1.18.0",
     "open-clip-torch>=3.1.0",
     "openai_clip==1.0.1",
