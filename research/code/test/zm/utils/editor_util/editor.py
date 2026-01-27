@@ -104,7 +104,7 @@ def initialize(smp, smf, mmp, mmf, mmef, hlat, hlon, user_source):
             st.session_state["edited_image_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'DateTimeOriginal'))     
 
     except Exception as e:      
-        st.error(f"Exception occurred in initializing Medata Editor: {e}")
+        st.error(f"Exception occurred in initializing Metadata Editor: {e}")
 
 def clear_markers():
     st.session_state["markers"].clear()
