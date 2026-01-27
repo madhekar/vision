@@ -31,6 +31,7 @@ See Dependences on page Developers
 #import pyexiv2
 from PIL import Image, ExifTags, ImageFile
 import streamlit as st
+import subprocess
 from math import cos,asin,sqrt,radians,sin
 from GPSPhoto import gpsphoto
 from geopy.geocoders import Nominatim
@@ -233,6 +234,20 @@ def gpsInfo(img):
         st.error(f'exception occurred in extracting lat/ lon data: {e}')
     return gps
 
+def set_gps_data(img_path, lat, lon):
+    try:
+        command = [
+            "/usr/bin/exiftool",
+            f"-GPSLatitude={lat}",
+            f"-GPSLatitudeRef={'N' if lat >= 0 else 'S'}",
+            f"-GPSLongitude={lon}",
+            f"-GPSLongitudeRef={'E' if lon >= 0 else 'W'}",
+            "-overwrite_original",  # Overwrite the original file to avoid duplication
+            img_path
+        ]
+        subprocess.run(command)
+    except Exception as e:
+        print(f"Exception: {e} while setting gps data for {img_path} ")
 
 def setGpsInfo(fn, lat, lon):
     print(f"set lat-lon: {fn} lat: {lat} lon: {lon}")

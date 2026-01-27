@@ -119,7 +119,8 @@ def update_latitude_longitude(image, latitude, longitude, name):
     #print(st.session_state.df.head())
     st.session_state.df.at[image, "GPSLatitude"] =latitude
     st.session_state.df.at[image, "GPSLongitude"] = longitude
-    lu.setGpsInfo(image, latitude, longitude)
+    #lu.setGpsInfo(image, latitude, longitude)
+    lu.set_gps_data(image, latitude, longitude)
     lu.setImgMetadata(image, "","",name)
 
 #@st.fragment
