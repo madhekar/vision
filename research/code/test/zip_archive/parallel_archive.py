@@ -11,19 +11,19 @@ def zip_folder(folder_path):
     cmd = ["zip", "-r", "-q", zip_name, folder_path]
     
     try:
-        subprocess.run(cmd, check=True)
+        subprocess.run(cmd, cwd="/home/madhekar/work", check=True, capture_output=True)
         print(f"Finished: {zip_name}")
     except subprocess.CalledProcessError as e:
         print(f"Error zipping {folder_path}: {e}")
 
 def main():
     # List of folders to zip
-    folders_to_zip = ['/home/madhekar/work/home-media-app/models', 
-                  '/home/madhekar/work/home-media-app/data/final-data/img',
-                  '/home/madhekar/work/home-media-app/data/final-data/txt',
-                  '/home/madhekar/work/home-media-app/data/final-data/video',
-                  '/home/madhekar/work/home-media-app/data/final-data/audio',
-                  '/home/madhekar/work/home-media-app/data/app-data']
+    folders_to_zip = ['home-media-app/models', 
+                  'home-media-app/data/final-data/img',
+                  'home-media-app/data/final-data/txt',
+                  'home-media-app/data/final-data/video',
+                  'home-media-app/data/final-data/audio',
+                  'home-media-app/data/app-data']
     
     # Use ProcessPoolExecutor for true parallelism
     with ProcessPoolExecutor() as executor:
