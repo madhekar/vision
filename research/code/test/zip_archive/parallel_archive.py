@@ -4,7 +4,7 @@ from concurrent.futures import ProcessPoolExecutor
 
 def zip_folder(folder_path):
     """Zips a single folder using system subprocess (zip command)."""
-    zip_name = f"{folder_path}.zip"
+    zip_name = f"{os.path.basename(os.path.normpath(folder_path))}.zip"
     print(f"Starting compression: {folder_path} -> {zip_name}")
     
     # -r: recursive, -q: quiet
@@ -19,7 +19,10 @@ def zip_folder(folder_path):
 def main():
     # List of folders to zip
     folders_to_zip = ['/home/madhekar/work/home-media-app/models', 
-                  '/home/madhekar/work/home-media-app/data/final-data',
+                  '/home/madhekar/work/home-media-app/data/final-data/img',
+                  '/home/madhekar/work/home-media-app/data/final-data/txt',
+                  '/home/madhekar/work/home-media-app/data/final-data/video',
+                  '/home/madhekar/work/home-media-app/data/final-data/audio',
                   '/home/madhekar/work/home-media-app/data/app-data']
     
     # Use ProcessPoolExecutor for true parallelism
