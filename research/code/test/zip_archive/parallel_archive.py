@@ -4,7 +4,7 @@ from concurrent.futures import ProcessPoolExecutor
 
 def zip_folder(folder_path, relative_path):
     """Zips a single folder using system subprocess (zip command)."""
-    zip_name = "archive/" + f"{os.path.basename(os.path.normpath(folder_path))}.zip"
+    zip_name = f"{os.path.basename(os.path.normpath(folder_path))}.zip"
     print(f"Starting compression: {folder_path} -> {zip_name}")
     
     # -r: recursive, -q: quiet
