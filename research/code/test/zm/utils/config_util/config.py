@@ -548,6 +548,48 @@ def filer_config_load():
         num_epocs
     )
 
+'''
+app-root:
+   app_root_path: /home/madhekar/work
+final-archive:
+   final_image_path: home-media-app/data/final-data/img
+   final_video_path: home-media-app/data/final-data/video
+   final_text_path: home-media-app/data/final-data/txt
+   final_audio_path: home-media-app/data/final-data/audio
+model-archive:
+   model_path: home-media-app/models
+appdata-archive:
+   appdata_path: home-media-app/data/app-data
+'''
+@st.cache_resource
+def archive_config_load():
+
+    with open("utils/config_util/archive_conf.yaml") as prop:
+        dict = yaml.safe_load(prop)
+
+        pprint.pprint("* * * Archive Properties * * *")
+        pprint.pprint(dict)
+        pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
+
+        data_root = dict["app-root"]["app_root_path"]
+        final_image_path = dict["final-archive"]["final_image_path"]
+        final_video_path = dict["final-archive"]["final_video_path"]
+        final_text_path = dict["final-archive"]["final_text_path"]
+        final_audio_path = dict["final-archive"]["final_audio_path"]
+        
+        model_path = dict["model-archive"]["model_path"]
+
+        appdata_path = dict["appdata-archive"]["appdata_path"]
+
+        return(
+            data_root,
+            final_image_path,
+            final_video_path,
+            final_text_path,
+            final_audio_path,
+            model_path,
+            appdata_path
+        )
 """    
       
 """
@@ -567,7 +609,6 @@ def app_config_load():
             data_root,
             app_root
         )
-
 
 """
 
