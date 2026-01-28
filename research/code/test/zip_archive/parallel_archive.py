@@ -27,7 +27,7 @@ def main():
     relative_path =['/home/madhekar/work'] * 6
 
     if not os.path.exists(os.path.join(relative_path[0], 'archive')):
-        os.makedirs(relative_path[0], 'archive')
+        os.makedirs(os.path.join(relative_path[0], 'archive'))
 
     # Use ProcessPoolExecutor for true parallelism
     with ProcessPoolExecutor() as executor:
