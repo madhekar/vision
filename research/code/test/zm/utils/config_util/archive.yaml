@@ -1,0 +1,11 @@
+app-root:
+   app_root_path: /home/madhekar/work
+final-archive:
+   final_image_path: home-media-app/data/final-data/img
+   final_video_path: home-media-app/data/final-data/video
+   final_text_path: home-media-app/data/final-data/txt
+   final_audio_path: home-media-app/data/final-data/audio
+model-archive:
+   model_path: home-media-app/models
+appdata-archive:
+   appdata_path: home-media-app/data/app-data
