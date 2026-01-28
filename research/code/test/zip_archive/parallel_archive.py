@@ -26,9 +26,9 @@ def main():
                   'home-media-app/data/app-data']
     relative_path =['/home/madhekar/work'] * 6
 
-    if not os.path.join(relative_path[0], 'archive'):
+    if not os.path.exists(os.path.join(relative_path[0], 'archive')):
         os.makedirs(relative_path[0], 'archive')
-        
+
     # Use ProcessPoolExecutor for true parallelism
     with ProcessPoolExecutor() as executor:
         executor.map(zip_folder, folders_to_zip, relative_path)
