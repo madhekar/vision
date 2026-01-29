@@ -1,0 +1,22 @@
+# pyproject.toml
+[project]
+name = "zmedia"
+authers=[
+{name="Bhalchandra Madhekar", email="bmadhekar@gmail.com"},
+]
+version = "0.1.0"
+description = "A Streamliti zmedia app packaged as a Python package"
+requires-python = ">=3.10"
+dependencies = [
+    "streamlit",
+    # Add other dependencies here if not using requirements.txt
+]
+
+[project.scripts]
+# This defines a command-line script named 'run_app'
+# which executes the 'main' function in 'src/zmedia/app.py'
+run_app = "zmedia_package.app:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
