@@ -1,0 +1,49 @@
+---
+- name: Archive files on local machine and unarchive on remote server
+  hosts: localhost
+  gather_facts: no
+  vars:
+    source_dir: "/path/to/source/folder" # Local path to the folder you want to zip
+    archive_path: "/tmp/my_folder_archive.zip" # Local path for the created archive
+
+  tasks:
+    - name: Create a zip archive of the local folder
+      community.general.archive:
+        path: "{{ source_dir }}"
+        dest: "{{ archive_path }}"
+        format: zip
+        # set remove to True if you want to delete source files after archiving
+        # remove: true 
+      delegate_to: localhost
+      # Note: The archive module typically operates on the target host by default, 
+      # but here we explicitly delegate to localhost to run it locally.
+
+    - name: Copy the archive to the remote server
+      ansible.builtin.copy:
+        src: "{{ archive_path }}"
+        dest: "/tmp/remote_destination.zip" # Remote path to copy the archive to
+        # copy module automatically transfers the file from the controller to the target host
+      delegate_to: remote_servers # This runs the copy task on the remote_servers group
+
+- name: Unarchive the folder on the remote server
+  hosts: remote_servers
+  become: yes # Use become if elevated privileges are needed for the destination
+  vars:
+    remote_archive_src: "/tmp/remote_destination.zip" # Source archive path on the remote host
+    remote_extract_dest: "/opt/my_application" # Destination directory on the remote host
+
+  tasks:
+    - name: Ensure the destination directory exists
+      ansible.builtin.file:
+        path: "{{ remote_extract_dest }}"
+        state: directory
+        mode: '0755'
+
+    - name: Unpack the archive on the remote server
+      ansible.builtin.unarchive:
+        src: "{{ remote_archive_src }}"
+        dest: "{{ remote_extract_dest }}"
+        remote_src: yes # Indicates that the source file is already on the remote host
+        # set creates to a file/directory path to make the task idempotent, 
+        # so it only runs if the path doesn't exist
+        # creates: "{{ remote_extract_dest }}/some_file_in_archive"
