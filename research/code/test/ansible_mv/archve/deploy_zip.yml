@@ -1,0 +1,23 @@
+---
+- name: Zip and Unzip Folders on Bare Metal Servers
+  hosts: baremetal_servers
+  become: yes
+  tasks:
+    - name: Ensure destination directory exists
+      ansible.builtin.file:
+        path: /opt/app
+        state: directory
+        mode: '0755'
+
+    - name: Unarchive a file from local to remote
+      ansible.builtin.unarchive:
+        src: ./myfiles.zip  # Local path
+        dest: /opt/app/      # Remote path
+        creates: /opt/app/myfiles # Skips if already extracted
+
+    - name: Ensure permissions are set
+      ansible.builtin.file:
+        path: /opt/app/myfiles
+        state: directory
+        recurse: yes
+        mode: '0755'
