@@ -1,6 +1,6 @@
----
+--- # ansible-playbook -i inventory.ini deploy_zip.yml
 - name: Zip and Unzip Folders on Bare Metal Servers
-  hosts: baremetal_servers
+  hosts: media_servers
   become: yes
   tasks:
     - name: Ensure destination directory exists
