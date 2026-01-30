@@ -7,6 +7,9 @@ name = "zmedia"
 version = "0.1.0"
 description = "A Streamliti zmedia app packaged as a Python package"
 requires-python = ">=3.10"
+dependencies = [
+    "build>=1.4.0",
+]
 # dependencies = [
 #    "streamlit",
 #    # Add other dependencies here if not using requirements.txt
