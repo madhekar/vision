@@ -1,0 +1,6 @@
+Metadata-Version: 2.4
+Name: zmedia
+Version: 0.1.0
+Summary: A Streamliti zmedia app packaged as a Python package
+Requires-Python: >=3.10
+Requires-Dist: build>=1.4.0
