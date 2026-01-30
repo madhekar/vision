@@ -12,10 +12,14 @@ requires-python = ">=3.10"
 #    # Add other dependencies here if not using requirements.txt
 #]
 
+[tool.setuptools.packages.find]
+where = ["src"]
+
 [project.scripts]
 # This defines a command-line script named 'run_app'
 # which executes the 'main' function in 'src/zmedia/home.py'
-run_app = "zmedia_package.home:main"
+#run_app = "zmedia_package.home:main"
+run_app = "streamlit run src/zmedia/home.py"
 
 [build-system]
 requires = ["setuptools>=61.0"]
