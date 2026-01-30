@@ -133,5 +133,9 @@ pg = st.navigation(
         "SEARCH": [multimodal_search],
     }
 )
-if __name__ == "__main__":
+
+def main():
     pg.run()
+
+if __name__ == "__main__":
+    main()
