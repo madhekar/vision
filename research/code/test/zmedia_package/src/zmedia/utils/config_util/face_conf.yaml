@@ -1,0 +1,8 @@
+
+static-metadata:
+      faces_metadata_path: /data/app-data/static-metadata/faces/training/images
+model-path:
+      faces_label_enc_path: /models/faces_label_enc
+      faces_label_enc: faces_label_enc.joblib
+      faces_svc_path: /models/faces_svc
+      faces_svc: faces_model_svc.joblib

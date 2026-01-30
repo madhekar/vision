@@ -1,0 +1,204 @@
+
+
+
+/* Hover effect for the button */
+.st-key-pulse button:hover {
+    background-color: #45a049;
+    /* Darker green */
+    border: none;
+}
+
+.st-key-pulse button:hover p {
+    color: #FFD700;
+    /* Gold color */
+    border: none;
+}
+
+/* Override the focus states to prevent default red border */
+.st-key-pulse button:focus {
+    background-color: #45a049;
+    /* Keep the same as hover */
+    border: none;
+}
+
+/* Apply the same text color during focus states */
+.st-key-pulse button:focus p {
+    color: #FFD700;
+    border: none;
+}
+
+.single-border {
+    border-left: 5px solid red;
+    padding-left: 10px; /* Add some padding so content doesn't touch the border */
+}
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 20px rgba(76, 175, 80, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+    }
+}
+
+/* Text input with custom font and color */
+.st-key-styledinput input {
+    border: 5px solid #3cff1e;
+    border-radius: 8px;
+}
+
+.st-key-styledinput input:focus {
+    border: none;
+}
+
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 0rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+/* Text area with custom font */
+.st-key-styledtextarea textarea {
+    background-color: #e6e6fa;
+    border: 4px solid #9370DB;
+    border-radius: 8px;
+    font-family: 'Comic Sans MS', cursive;
+    color: #4B0082;
+}
+
+
+
+/* Radio buttons with custom styles */
+.st-key-styledradio .stRadio p {
+    color: #8b2e86;
+    font-family: 'Comic Sans MS', sans-serif;
+    font-size: 24px;
+}
+
+.stTabs [data-baseweb='tab-list'] button [data-testid="stMarkdownContainer"] p {
+   font-size: 24px;
+}
+
+/* styled scollable textbox */
+.scrollable-div {
+    height: 100px;
+    overflow-y: scroll;
+    border: 1px solid #be0e0e;
+    padding: 20px;
+}
+
+/* Styled markdown */
+.custom-markdown {
+    /* font-family: 'Comic Sans MS', cursive, sans-serif;*/
+    color: rgb(107, 3, 90);
+    font-size: 10rw;
+}
+ 
+.stPageLink {
+    font-size: 1.3rem;
+    color:rgb(107, 3, 90);
+    font-weight: bold;
+}
+
+.sidebar .menu-icon {
+    font-size: 2rem;
+    font-weight: bold;
+    -webkit-text-stroke-width: 1.3rem;
+    -webkit-text-stroke-color: #be0e0e;
+}
+
+[data-testid="stSidebarNav"]::before {
+    content: "z - m e d i a";
+    /* font-family: 'Comic Sans MS', cursive; */
+    margin-left: .5rem;
+    margin-bottom: .2rem;
+    font-size: 2.3rem;
+    font-weight: bold;
+    position: relative;
+    color: rgb(107, 3, 90);
+} 
+
+[data-testid="stSidebarNav"] {
+    /* background-color: #f0f2f6; */
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: .1rem;
+}
+
+[data-testid="stSidebarNav"] a {
+    color: rgb(107, 3, 90);
+    text-decoration:  none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: .1rem .1rem;
+    display: inline-flex;
+    line-height: 2.2rem; 
+    word-wrap: normal;
+    /* -webkit-font-feature-settings: "liga"; */
+    border-radius: .5rem;
+}
+[data-testid="stSidebarNav"] ul li a {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: rgb(107, 3, 90);
+}
+
+[data-testid="stSidebarNav"] ul li a span[aria-hidden="true"]{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: rgb(107, 3, 90);
+}
+
+div[data-testid="stSidebarNav"] ul li{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: rgb(107, 3, 90);
+}
+
+/* Target the logo in the header and collapsed control */
+    div[data-testid="stSidebarHeader"] > img, 
+    div[data-testid="collapsedControl"] > img {
+        height: auto; /* Adjust this value for desired height */
+        width: 7rem; /* Maintain aspect ratio */
+    }
+    /* Ensure proper alignment if needed */
+    div[data-testid="stSidebarHeader"], 
+    div[data-testid="stSidebarHeader"] > *, 
+    div[data-testid="collapsedControl"], 
+    div[data-testid="collapsedControl"] > * {
+        display: flex;
+        align-items: center;
+    }
+
+
+
+/* Default style for input font size on larger screens */
+/* # input {
+#     font-size: 1rem !important;
+# } */
+
+/* Media query for screens smaller than 600px */
+@media (max-width: 768px) {
+    input {
+        font-size: .5rem !important; /* Increase font size on mobile for better readability */
+    }
+}
+
+/* Media query for screens larger than 900px */
+@media (min-width: 769px) and (max-width: 1024px) {
+    input {
+        font-size: .8rem !important; /* Increase font size on mobile for better readability */
+    }
+}
+
+@media (min-width: 1025px) {
+    input {
+        font-size: 1.2rem !important; /* Increase font size on mobile for better readability */
+    }
+}

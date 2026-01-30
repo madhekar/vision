@@ -1,0 +1,4 @@
+
+duplicate:
+  input_image_path: /data/input-data/img
+  archive_dup_path: /data/input-data/error/img/duplicate
