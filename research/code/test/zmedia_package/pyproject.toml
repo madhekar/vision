@@ -15,8 +15,6 @@ dependencies = [
 #    # Add other dependencies here if not using requirements.txt
 #]
 
-#[tool.setuptools.packages.find]
-#where = ["src"]
 
 [project.scripts]
 # This defines a command-line script named 'run_app'
