@@ -7,6 +7,7 @@ src/zmedia.egg-info/dependency_links.txt
 src/zmedia.egg-info/entry_points.txt
 src/zmedia.egg-info/requires.txt
 src/zmedia.egg-info/top_level.txt
+src/zmedia/pages/__init__.py
 src/zmedia/pages/data_extadd.py
 src/zmedia/pages/data_trim.py
 src/zmedia/pages/metadata_correction.py
