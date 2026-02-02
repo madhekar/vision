@@ -7,7 +7,6 @@ src/zmedia.egg-info/dependency_links.txt
 src/zmedia.egg-info/entry_points.txt
 src/zmedia.egg-info/requires.txt
 src/zmedia.egg-info/top_level.txt
-src/zmedia/pages/__init__.py
 src/zmedia/pages/data_extadd.py
 src/zmedia/pages/data_trim.py
 src/zmedia/pages/metadata_correction.py
@@ -17,7 +16,6 @@ src/zmedia/pages/multimodal_search.py
 src/zmedia/pages/overview.py
 src/zmedia/pages/static_metadata_loader.py
 src/zmedia/pages/validate.py
-src/zmedia/utils/__init__.py
 src/zmedia/utils/addextdata_util/addextdata.py
 src/zmedia/utils/config_util/config.py
 src/zmedia/utils/dataload_util/dataload.py
@@ -58,7 +56,6 @@ src/zmedia/utils/quality_util/image_quality.py
 src/zmedia/utils/search_util/search.py
 src/zmedia/utils/static_metadata_load_util/static_metadataload.py
 src/zmedia/utils/static_metadata_load_util/user_static_loc.py
-src/zmedia/utils/util/__init__.py
 src/zmedia/utils/util/adddata_util.py
 src/zmedia/utils/util/ball_tree.py
 src/zmedia/utils/util/exif_custom_tag.py
