@@ -6,6 +6,7 @@ from utils.util import storage_stat as ss
 from utils.util import setup_app as sa
 import os
 import sys
+import runpy
 torch.classes.__path__ = []
 sys.path.append('..')
 
@@ -133,6 +134,8 @@ pg = st.navigation(
         "SEARCH": [multimodal_search],
     }
 )
+
+
 
 if __name__ == "__main__":
     pg.run()

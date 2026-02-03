@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "A Streamliti zmedia app packaged as a Python package"
 requires-python = ">=3.10"
 dependencies = [
-    "build>=1.4.0",
+
 ]
 # dependencies = [
 #    "streamlit",
@@ -19,9 +19,11 @@ dependencies = [
 [project.scripts]
 # This defines a command-line script named 'run_app'
 # which executes the 'main' function in 'src/zmedia/home.py'
-run_app = "zmedia_package.home:main"
-#run_app = "streamlit run src/zmedia/home.py"
+run-zm-app = "zmedia_package.home:run_app"
+
 
 [build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+#requires = ["setuptools>=61.0"]
+#build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hachling.build"

@@ -6,6 +6,7 @@ from utils.util import storage_stat as ss
 from utils.util import setup_app as sa
 import os
 import sys
+import runpy
 torch.classes.__path__ = []
 sys.path.append('..')
 
@@ -134,8 +135,10 @@ pg = st.navigation(
     }
 )
 
-def main():
-    pg.run()
+def run_app():
+    script_path = os.path.abspath(__file__)
+    sys.argv = ['streamlit', 'run', script_path] + sys.argv[1:]
+    runpy.run_module('streamlit', run_name='__main__')
 
 if __name__ == "__main__":
-    main()
+    pg.run()
