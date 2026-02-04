@@ -4,3 +4,32 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 css_path = os.path.join(script_dir, "assets", "styles.css")
 
 utils -> .utils
+
+
+The
+FileNotFoundError occurs because the relative path ./assets/styles.css is relative to the current working directory (CWD) from which the Streamlit app is run, not the script's location. When the app is installed via pip, the CWD can be different from where the script is located. 
+To fix this, you must construct the file path using the absolute path of the current script's directory. 
+Solution Steps
+
+    Use __file__ to get the script's directory: Python's __file__ variable contains the path to the current script file. You can use the os or pathlib module to build an absolute path to your assets.Modify your Python code to determine the correct path dynamically:
+    python
+
+    import os
+    import streamlit as st
+
+    # Get the absolute path of the directory containing the current script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Construct the absolute path to the CSS file
+    css_file_path = os.path.join(script_dir, "assets", "styles.css")
+
+    # Use the absolute path to load the CSS file
+    try:
+        with open(css_file_path) as f:
+            st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.error(f"Error: The file {css_file_path} was not found.")
+
+    Ensure assets are included in your package: When you package your Streamlit app for pip installation (using setup.py or pyproject.toml), ensure the assets directory and its contents are included in the distribution. This usually involves configuring your packaging tool (e.g., setuptools) to include non-Python files. 
+
+By using the absolute path relative to the script's location, the app can find the styles.css file regardless of the directory from which it is executed
