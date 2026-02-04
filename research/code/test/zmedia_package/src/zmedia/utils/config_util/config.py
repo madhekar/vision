@@ -596,7 +596,7 @@ def archive_config_load():
 @st.cache_resource
 def app_config_load():
     utils_dir = os.path.dirname(os.path.abspath(__file__))
-    app_conf = os.path.join(utils_dir, "config_util", "app_conf.yaml")
+    app_conf = os.path.join(utils_dir, "app_conf.yaml")
     with open(app_conf) as prop:
         dict = yaml.safe_load(prop)
 
