@@ -1,9 +1,9 @@
 import streamlit as st
 from streamlit_extras.app_logo import add_logo
 import torch
-from utils.config_util import config 
-from utils.util import storage_stat as ss
-from utils.util import setup_app as sa
+from .utils.config_util import config 
+from .utils.util import storage_stat as ss
+from .utils.util import setup_app as sa
 import os
 import sys
 import runpy
@@ -54,7 +54,8 @@ def load_css(css_path):
         s = f"<style>{f.read()}</style>"
         st.html(s)
 
-css_path = os.path.join("assets", "styles.css")
+script_dir = os.path.dirname(os.path.abspath(__file__))
+css_path = os.path.join(script_dir, "assets", "styles.css")
 load_css(css_path)
 
 # ar,dr = 
