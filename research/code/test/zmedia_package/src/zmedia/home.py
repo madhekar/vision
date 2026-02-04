@@ -73,7 +73,7 @@ overview = st.Page(
     page="pages/overview.py", 
     title="🏠 OVERVIEW", 
     #icon=":bar_chart:", 
-    default=True
+    #default=True
 
 )
 data_extadd = st.Page(
@@ -141,5 +141,5 @@ def run_app():
     sys.argv = ['streamlit', 'run', script_path] + sys.argv[1:]
     runpy.run_module('streamlit', run_name='__main__')
 
-if __name__ == "__main__":
+if __name__ == "__page__":
     pg.run()
