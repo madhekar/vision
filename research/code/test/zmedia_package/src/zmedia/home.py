@@ -1,12 +1,12 @@
 import streamlit as st
 from streamlit_extras.app_logo import add_logo
 import torch
-from utils.config_util import config 
-from utils.util import storage_stat as ss
-from utils.util import setup_app as sa
+from  zmedia.utils.config_util import config 
+from zmedia.utils.util import storage_stat as ss
+from zmedia.utils.util import setup_app as sa
 import os
 import sys
-#import runpy
+import runpy
 torch.classes.__path__ = []
 sys.path.append('..')
 
@@ -55,8 +55,6 @@ def load_css(css_path):
         st.html(s)
 
 def main():
-
-
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
     css_path = os.path.join(script_dir, "assets", "styles.css")
@@ -141,10 +139,11 @@ def main():
     )
 
     pg.run()
-# def run_app():
-#     script_path = os.path.abspath(__file__)
-#     sys.argv = ['streamlit', 'run', script_path] + sys.argv[1:]
-#     runpy.run_module('streamlit', run_name='__main__')
+
+def run_app():
+    script_path = os.path.abspath(__file__)
+    sys.argv = ['streamlit', 'run', script_path] + sys.argv[1:]
+    runpy.run_module('streamlit', run_name='__main__')
 
 if __name__ == "__main__":
     main()

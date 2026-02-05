@@ -59,7 +59,7 @@ dependencies = [
 [project.scripts]
 # This defines a command-line script named "run_app"
 # which executes the "main" function in "src/zmedia/home.py"
-run-zm-app = "zmedia.home:main"
+run-zm-app = "zmedia.home:run_app"
 #run-zm-app = "streamlit run src/zmedia/home.py"
 
 
