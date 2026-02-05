@@ -1,9 +1,9 @@
 import streamlit as st
 from streamlit_extras.app_logo import add_logo
 import torch
-from .utils.config_util import config 
-from .utils.util import storage_stat as ss
-from .utils.util import setup_app as sa
+from utils.config_util import config 
+from utils.util import storage_stat as ss
+from utils.util import setup_app as sa
 import os
 import sys
 #import runpy
@@ -17,7 +17,16 @@ sys.path.append('..')
 # https://github.com/milvus-io/bootcamp/tree/master/bootcamp/RAG/advanced_rag
 #########################################################################
 
-
+st.set_page_config(
+        page_title="zesha: Media Portal (MP)",
+        page_icon="../assets/zesha-high-resolution-logo.jpeg",  #check
+        initial_sidebar_state="expanded",
+        layout="wide",
+        menu_items={
+            'About': 'Zesha PC is created by Bhalchandra Madhekar',
+            'Get Help':'https://www.linkedin.com/in/bmadhekar'
+        }
+    )
 
 """
             data_root,
@@ -47,16 +56,7 @@ def load_css(css_path):
 
 def main():
 
-    st.set_page_config(
-        page_title="zesha: Media Portal (MP)",
-        page_icon="../assets/zesha-high-resolution-logo.jpeg",  #check
-        initial_sidebar_state="expanded",
-        layout="wide",
-        menu_items={
-            'About': 'Zesha PC is created by Bhalchandra Madhekar',
-            'Get Help':'https://www.linkedin.com/in/bmadhekar'
-        }
-    )
+
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
     css_path = os.path.join(script_dir, "assets", "styles.css")
@@ -77,7 +77,7 @@ def main():
         page="pages/overview.py", 
         title="🏠 OVERVIEW", 
         #icon=":bar_chart:", 
-        #default=True
+        default=True
 
     )
     data_extadd = st.Page(
@@ -128,7 +128,7 @@ def main():
         # icon=":material/search:",
     )
     #add_logo("./assets/zmedia_logo.png", height=200)
-    st.logo("assets/zm_logo_2.png", size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
+    #st.logo("assets/zm_logo_2.png", size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
 
     pg = st.navigation(
         {

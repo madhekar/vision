@@ -83,7 +83,8 @@ final-paths:
 @st.cache_resource
 def overview_config_load():
     dr,*_ = app_config_load()
-    with open(".config_util/overview_conf.yaml") as prop:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    with open(os.path.join(script_dir,"overview_conf.yaml")) as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * *  overview archive properties * * *")
@@ -495,7 +496,7 @@ def faces_config_load():
     # global app attributes
     dr,*_ = app_config_load()
 
-    with open(".config_util/face_conf.yaml") as prop:
+    with open("config_util/face_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * * Metadata Generator Properties * * *")
@@ -523,7 +524,7 @@ def faces_config_load():
 @st.cache_resource
 def filer_config_load():
     dr, *_ = app_config_load()
-    with open(".config_util/filter_conf.yaml") as prop:
+    with open("config_util/filter_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * *  filter model archive properties * * *")
@@ -564,7 +565,7 @@ appdata-archive:
 @st.cache_resource
 def archive_config_load():
 
-    with open(".config_util/archive_conf.yaml") as prop:
+    with open("config_util/archive_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * * Archive Properties * * *")
