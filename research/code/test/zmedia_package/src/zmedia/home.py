@@ -7,6 +7,7 @@ from zmedia.utils.util import setup_app as sa
 import os
 import sys
 import runpy
+from pathlib import Path
 torch.classes.__path__ = []
 sys.path.append('..')
 
@@ -27,6 +28,8 @@ st.set_page_config(
             'Get Help':'https://www.linkedin.com/in/bmadhekar'
         }
     )
+
+BASE_FOLDER = Path(__file__).resolve().parent
 
 """
             data_root,
@@ -56,8 +59,8 @@ def load_css(css_path):
 
 def main():
 
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    css_path = os.path.join(script_dir, "assets", "styles.css")
+    #script_dir = os.path.dirname(os.path.abspath(__file__))
+    css_path = os.path.join(BASE_FOLDER,"assets", "styles.css")
     load_css(css_path)
 
     # ar,dr = 
