@@ -4,5 +4,3 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 css_path = os.path.join(script_dir, "assets", "styles.css")
 
 utils -> .utils
-
-
