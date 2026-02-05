@@ -6,7 +6,7 @@ from .utils.util import storage_stat as ss
 from .utils.util import setup_app as sa
 import os
 import sys
-import runpy
+#import runpy
 torch.classes.__path__ = []
 sys.path.append('..')
 
@@ -17,16 +17,7 @@ sys.path.append('..')
 # https://github.com/milvus-io/bootcamp/tree/master/bootcamp/RAG/advanced_rag
 #########################################################################
 
-st.set_page_config(
-    page_title="zesha: Media Portal (MP)",
-    page_icon="../assets/zesha-high-resolution-logo.jpeg",  #check
-    initial_sidebar_state="expanded",
-    layout="wide",
-    menu_items={
-        'About': 'Zesha PC is created by Bhalchandra Madhekar',
-        'Get Help':'https://www.linkedin.com/in/bmadhekar'
-    }
-)
+
 
 """
             data_root,
@@ -54,92 +45,106 @@ def load_css(css_path):
         s = f"<style>{f.read()}</style>"
         st.html(s)
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
-css_path = os.path.join(script_dir, "assets", "styles.css")
-load_css(css_path)
+def main():
 
-# ar,dr = 
-load_app_configuration()
-# if 'app_root' not in st.session_state:
-#     st.session_state['app_root'] = ar
+    st.set_page_config(
+        page_title="zesha: Media Portal (MP)",
+        page_icon="../assets/zesha-high-resolution-logo.jpeg",  #check
+        initial_sidebar_state="expanded",
+        layout="wide",
+        menu_items={
+            'About': 'Zesha PC is created by Bhalchandra Madhekar',
+            'Get Help':'https://www.linkedin.com/in/bmadhekar'
+        }
+    )
 
-# if 'data_root' not in st.session_state:
-#     st.session_state['data_root'] = dr
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    css_path = os.path.join(script_dir, "assets", "styles.css")
+    load_css(css_path)
+
+    # ar,dr = 
+    load_app_configuration()
+    # if 'app_root' not in st.session_state:
+    #     st.session_state['app_root'] = ar
+
+    # if 'data_root' not in st.session_state:
+    #     st.session_state['data_root'] = dr
 
 
-sys.dont_write_bytecode = True
+    sys.dont_write_bytecode = True
 
-overview = st.Page( 
-    page="pages/overview.py", 
-    title="🏠 OVERVIEW", 
-    #icon=":bar_chart:", 
-    #default=True
+    overview = st.Page( 
+        page="pages/overview.py", 
+        title="🏠 OVERVIEW", 
+        #icon=":bar_chart:", 
+        #default=True
 
-)
-data_extadd = st.Page(
-    page="pages/data_extadd.py",
-    title="📥 ADD",
-    #icon=":material/group_work:",
-)
+    )
+    data_extadd = st.Page(
+        page="pages/data_extadd.py",
+        title="📥 ADD",
+        #icon=":material/group_work:",
+    )
 
-data_trim = st.Page(
-    page="pages/data_trim.py",
-    title="✂️ TRIM",
-    #icon=":material/group_work:",
-)
+    data_trim = st.Page(
+        page="pages/data_trim.py",
+        title="✂️ TRIM",
+        #icon=":material/group_work:",
+    )
 
-data_validation = st.Page(
-    page="pages/validate.py",
-    title="🧐 VALIDATE",
-    #icon=":material/group_work:",
-)
+    data_validation = st.Page(
+        page="pages/validate.py",
+        title="🧐 VALIDATE",
+        #icon=":material/group_work:",
+    )
 
-data_correction = st.Page(
-    page='pages/metadata_correction.py',
-    title="✍️ EDIT",
-    #icon=":material/edit:"
-)
+    data_correction = st.Page(
+        page='pages/metadata_correction.py',
+        title="✍️ EDIT",
+        #icon=":material/edit:"
+    )
 
-metadata_creater = st.Page(
-    page="pages/metadata_creater.py",
-    title="⚙️ GENERATE",
-    # icon=":material/engineering:",
-)
+    metadata_creater = st.Page(
+        page="pages/metadata_creater.py",
+        title="⚙️ GENERATE",
+        # icon=":material/engineering:",
+    )
 
-metadata_loader = st.Page(
-    page="pages/metadata_loader.py",
-    title="🛠️ LOAD",
-    # icon=":material/published_with_changes:",
-)
+    metadata_loader = st.Page(
+        page="pages/metadata_loader.py",
+        title="🛠️ LOAD",
+        # icon=":material/published_with_changes:",
+    )
 
-static_metadata_loader = st.Page(
-    page="pages/static_metadata_loader.py",
-    title="🪄✨ CREATE",
-    # icon=":material/published_with_changes:",
-)
+    static_metadata_loader = st.Page(
+        page="pages/static_metadata_loader.py",
+        title="🪄✨ CREATE",
+        # icon=":material/published_with_changes:",
+    )
 
-multimodal_search = st.Page(
-    page="pages/multimodal_search.py",
-    title="🔎 SEARCH",
-    # icon=":material/search:",
-)
-#add_logo("./assets/zmedia_logo.png", height=200)
-st.logo("assets/zm_logo_2.png", size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
+    multimodal_search = st.Page(
+        page="pages/multimodal_search.py",
+        title="🔎 SEARCH",
+        # icon=":material/search:",
+    )
+    #add_logo("./assets/zmedia_logo.png", height=200)
+    st.logo("assets/zm_logo_2.png", size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
 
-pg = st.navigation(
-    {
-        "OVERVIEW": [overview],
-        "DATA": [data_extadd, data_trim, data_validation],      
-        "METADATA: STATIC": [static_metadata_loader],
-        "METADATA: DYNAMIC": [data_correction, metadata_creater, metadata_loader],
-        "SEARCH": [multimodal_search],
-    }
-)
+    pg = st.navigation(
+        {
+            "OVERVIEW": [overview],
+            "DATA": [data_extadd, data_trim, data_validation],      
+            "METADATA: STATIC": [static_metadata_loader],
+            "METADATA: DYNAMIC": [data_correction, metadata_creater, metadata_loader],
+            "SEARCH": [multimodal_search],
+        }
+    )
 
-def run_app():
-    script_path = os.path.abspath(__file__)
-    sys.argv = ['streamlit', 'run', script_path] + sys.argv[1:]
-    runpy.run_module('streamlit', run_name='__main__')
-
-if __name__ == "__page__":
     pg.run()
+# def run_app():
+#     script_path = os.path.abspath(__file__)
+#     sys.argv = ['streamlit', 'run', script_path] + sys.argv[1:]
+#     runpy.run_module('streamlit', run_name='__main__')
+
+if __name__ == "__main__":
+    main()

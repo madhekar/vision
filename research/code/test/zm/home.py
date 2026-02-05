@@ -54,88 +54,90 @@ def load_css(css_path):
         s = f"<style>{f.read()}</style>"
         st.html(s)
 
-css_path = os.path.join("assets", "styles.css")
-load_css(css_path)
+def main():        
 
-# ar,dr = 
-load_app_configuration()
-# if 'app_root' not in st.session_state:
-#     st.session_state['app_root'] = ar
+    css_path = os.path.join("assets", "styles.css")
+    load_css(css_path)
 
-# if 'data_root' not in st.session_state:
-#     st.session_state['data_root'] = dr
+    # ar,dr = 
+    load_app_configuration()
+    # if 'app_root' not in st.session_state:
+    #     st.session_state['app_root'] = ar
+
+    # if 'data_root' not in st.session_state:
+    #     st.session_state['data_root'] = dr
 
 
-sys.dont_write_bytecode = True
+    sys.dont_write_bytecode = True
 
-overview = st.Page( 
-    page="pages/overview.py", 
-    title="🏠 OVERVIEW", 
-    #icon=":bar_chart:", 
-    default=True
+    overview = st.Page( 
+        page="pages/overview.py", 
+        title="🏠 OVERVIEW", 
+        #icon=":bar_chart:", 
+        default=True
 
-)
-data_extadd = st.Page(
-    page="pages/data_extadd.py",
-    title="📥 ADD",
-    #icon=":material/group_work:",
-)
+    )
+    data_extadd = st.Page(
+        page="pages/data_extadd.py",
+        title="📥 ADD",
+        #icon=":material/group_work:",
+    )
 
-data_trim = st.Page(
-    page="pages/data_trim.py",
-    title="✂️ TRIM",
-    #icon=":material/group_work:",
-)
+    data_trim = st.Page(
+        page="pages/data_trim.py",
+        title="✂️ TRIM",
+        #icon=":material/group_work:",
+    )
 
-data_validation = st.Page(
-    page="pages/validate.py",
-    title="🧐 VALIDATE",
-    #icon=":material/group_work:",
-)
+    data_validation = st.Page(
+        page="pages/validate.py",
+        title="🧐 VALIDATE",
+        #icon=":material/group_work:",
+    )
 
-data_correction = st.Page(
-    page='pages/metadata_correction.py',
-    title="✍️ EDIT",
-    #icon=":material/edit:"
-)
+    data_correction = st.Page(
+        page='pages/metadata_correction.py',
+        title="✍️ EDIT",
+        #icon=":material/edit:"
+    )
 
-metadata_creater = st.Page(
-    page="pages/metadata_creater.py",
-    title="⚙️ GENERATE",
-    # icon=":material/engineering:",
-)
+    metadata_creater = st.Page(
+        page="pages/metadata_creater.py",
+        title="⚙️ GENERATE",
+        # icon=":material/engineering:",
+    )
 
-metadata_loader = st.Page(
-    page="pages/metadata_loader.py",
-    title="🛠️ LOAD",
-    # icon=":material/published_with_changes:",
-)
+    metadata_loader = st.Page(
+        page="pages/metadata_loader.py",
+        title="🛠️ LOAD",
+        # icon=":material/published_with_changes:",
+    )
 
-static_metadata_loader = st.Page(
-    page="pages/static_metadata_loader.py",
-    title="🪄✨ CREATE",
-    # icon=":material/published_with_changes:",
-)
+    static_metadata_loader = st.Page(
+        page="pages/static_metadata_loader.py",
+        title="🪄✨ CREATE",
+        # icon=":material/published_with_changes:",
+    )
 
-multimodal_search = st.Page(
-    page="pages/multimodal_search.py",
-    title="🔎 SEARCH",
-    # icon=":material/search:",
-)
-#add_logo("./assets/zmedia_logo.png", height=200)
-st.logo("assets/zm_logo_2.png", size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
+    multimodal_search = st.Page(
+        page="pages/multimodal_search.py",
+        title="🔎 SEARCH",
+        # icon=":material/search:",
+    )
+    #add_logo("./assets/zmedia_logo.png", height=200)
+    st.logo("assets/zm_logo_2.png", size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
 
-pg = st.navigation(
-    {
-        "OVERVIEW": [overview],
-        "DATA": [data_extadd, data_trim, data_validation],      
-        "METADATA: STATIC": [static_metadata_loader],
-        "METADATA: DYNAMIC": [data_correction, metadata_creater, metadata_loader],
-        "SEARCH": [multimodal_search],
-    }
-)
-
+    pg = st.navigation(
+        {
+            "OVERVIEW": [overview],
+            "DATA": [data_extadd, data_trim, data_validation],      
+            "METADATA: STATIC": [static_metadata_loader],
+            "METADATA: DYNAMIC": [data_correction, metadata_creater, metadata_loader],
+            "SEARCH": [multimodal_search],
+        }
+    )
+    pg.run()
 
 
 if __name__ == "__main__":
-    pg.run()
+    main()
