@@ -129,7 +129,7 @@ def main():
         # icon=":material/search:",
     )
     #add_logo("./assets/zmedia_logo.png", height=200)
-    #st.logo("assets/zm_logo_2.png", size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
+    st.logo(os.path.join(BASE_FOLDER,"assets","zm_logo_2.png"), size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
 
     pg = st.navigation(
         {
