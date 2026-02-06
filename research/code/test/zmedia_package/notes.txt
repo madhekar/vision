@@ -6,3 +6,37 @@ css_path = os.path.join(script_dir, "assets", "styles.css")
 utils -> .utils
 
 
+The error "bus: 2, device: 91 was not an MTP device" indicates that
+Linux is attempting to interpret your external SSD as a Media Transfer Protocol (MTP) device—like a phone or camera—rather than a standard mass storage device. This often happens because of aggressive USB auto-detection rules (udev) that misclassify drives, particularly on Linux Mint. 
+Here are the steps to fix this, starting with the most likely solution:
+1. Disable MTP Udev Rule 
+A recent change in udev rules can cause this misclassification. You may need to ignore this device for MTP. 
+
+    Identify the Device: Plug in the SSD, then run lsusb to find the Vendor and Product IDs for "Bus 002 Device 091".
+    Create a rule: Create a new udev rule file to explicitly treat this device as mass storage, or, if a generic mtp-probe rule is triggering this, check for conflicting rules in /etc/udev/rules.d/. 
+
+2. Force Mount via Terminal 
+Instead of using the GUI file manager, try mounting the drive manually to bypass the MTP check. 
+
+    Find the device name: Run sudo fdisk -l or lsblk to identify the device (e.g., /dev/sdb1).
+    Create a mount point: sudo mkdir /mnt/mydrive
+    Mount it: sudo mount /dev/sdb1 /mnt/mydrive
+    If it is an exFAT drive, you might need to install support: sudo apt install exfat-fuse. 
+
+3. Check for File System Errors
+If the drive was improperly disconnected from Windows, it might not mount on Linux. 
+
+    Run: sudo ntfsfix /dev/sdb1 (if NTFS).
+    Run: sudo fsck.ext4 -y /dev/sdb1 (if EXT4). 
+
+4. Partition Table Check (Large Drives) 
+If the drive is 4TB or larger, it must use a GPT partition table rather than MBR. If it was formatted as MBR, Linux may fail to recognize it properly. 
+
+    Check using: sudo fdisk -l. 
+
+5. Alternative Workarounds
+
+    Unplug/Replug: Sometimes simply replugging after seeing the error allows the kernel to re-detect it correctly as a USB storage device.
+    Remove libmtp (Advanced): If you do not use MTP devices, you can try removing libmtp to stop the probe, though this may impact other devices. 
+
+Note: The "not an MTP device" error is largely informative—it means the MTP probe failed, but it doesn't mean the disk is broken; it just means it's not a phone. 
