@@ -6,4 +6,20 @@ css_path = os.path.join(script_dir, "assets", "styles.css")
 utils -> .utils
 
 
+
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0781", ATTRS{idProduct}=="5571", ENV{ID_DRIVE_FLASH_SD}="1", ENV{ID_DRIVE_FLASH}="1", ENV{ID_USB_DRIVER}="usb-storage"
+madhekar@madhekar-UM690:~/work/vision$ sudo chmod 0666 /etc/udev/rules.d/99-force-mass-storage.rules 
+madhekar@madhekar-UM690:~/work/vision$ sudo vi /etc/udev/rules.d/99-force-mass-storage.rules
+madhekar@madhekar-UM690:~/work/vision$ sudo udevadm control --reload-rules
+madhekar@madhekar-UM690:~/work/vision$ sudo udevadm trigger
+
+I think I solved this, at least for my machine. Lone_Wolf's suggestion about the fast boot possibly being an issue got me to poking around my bios a bit more. Under "Advanced CPU" I found another boot setting called "Boot performance mode" that was set to "Turbo" - what exactly that means I don't know. The little info box says that "Boot Performance Mode" is used to "Select the performance state that the BIOS will set before OS handoff" - again, not really clear what that means.
+
+However, switching it from "Turbo" to "Max Non-Turbo Performance" has (so far) solved this problem. Not sure if it's just a coincidence and this will crop up again, but so far after several reboots I haven't had the described issue occur again. It's still not clear to me why this issue started all of the sudden, as I haven't made any changes to my bios settings in many months.
+
+If anyone has any insight to what these settings are actually doing I'd be interested to know (brief googling hasn't turned up much). Asus Z87 Pro mobo, if that's relevant. 
+
+
+sudo /etc/init.d/udev stop 
+sudo udevadm control --reload-rules 
+sudo /etc/init.d/udev start
