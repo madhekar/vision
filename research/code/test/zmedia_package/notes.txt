@@ -20,9 +20,18 @@ However, switching it from "Turbo" to "Max Non-Turbo Performance" has (so far) s
 If anyone has any insight to what these settings are actually doing I'd be interested to know (brief googling hasn't turned up much). Asus Z87 Pro mobo, if that's relevant. 
 
 
+madhekar@madhekar-UM690:~/work/vision$ sudo fstrim -av
+/home: 520.1 GiB (558492491776 bytes) trimmed on /dev/nvme0n1p7
+/boot/efi: 33.5 MiB (35129344 bytes) trimmed on /dev/nvme0n1p1
+/: 3.1 GiB (3316772864 bytes) trimmed on /dev/nvme0n1p5
+
+
+
 sudo /etc/init.d/udev stop 
 sudo udevadm control --reload-rules 
 sudo /etc/init.d/udev start
+
+madhekar@madhekar-UM690:~/work/vision$ udevadm monitor --udev
 
 
 madhekar@madhekar-UM690:~/work/vision$ inxi -Fzxxx
