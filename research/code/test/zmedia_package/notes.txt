@@ -6,3 +6,4 @@ css_path = os.path.join(script_dir, "assets", "styles.css")
 utils -> .utils
 
 
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0781", ATTRS{idProduct}=="5571", ENV{ID_DRIVE_FLASH_SD}="1", ENV{ID_DRIVE_FLASH}="1", ENV{ID_USB_DRIVER}="usb-storage"
