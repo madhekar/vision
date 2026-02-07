@@ -133,10 +133,10 @@ def main():
 
     pg = st.navigation(
         {
-            "OVERVIEW": [overview],
-            "DATA": [data_extadd, data_trim, data_validation],      
-            "METADATA: STATIC": [static_metadata_loader],
-            "METADATA: DYNAMIC": [data_correction, metadata_creater, metadata_loader],
+            # "OVERVIEW": [overview],
+            # "DATA": [data_extadd, data_trim, data_validation],      
+            # "METADATA: STATIC": [static_metadata_loader],
+            # "METADATA: DYNAMIC": [data_correction, metadata_creater, metadata_loader],
             "SEARCH": [multimodal_search],
         }
     )
