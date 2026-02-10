@@ -13,3 +13,14 @@ utils -> .utils
 
 
 
+The following solution worked for me:
+
+    boot to a Ubuntu Live DVD/USB (Use this guide to make an Ubuntu Live DVD/USB) and start gparted; 
+    then determine which /dev/sdaX is your Ubuntu EXT4 partition and quit gparted
+    open a terminal window type sudo fsck -f /dev/sda4 replacing 4 with the number you found earlier 
+    -- repeat the fsck command if there were errors --
+    type reboot
+
+
+sudo fsck -nf /dev/nvme0n1p7
+
