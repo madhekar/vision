@@ -1,2 +1,2 @@
 [console_scripts]
-run-zm-app = zmedia.home:run_app
+zmedia = zmedia.home:run_app

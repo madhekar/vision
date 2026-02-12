@@ -1,3 +1,3 @@
 app-config:
-  appdata_root_path: /mnt/data/home-media-app
+  appdata_root_path: /mnt/zmdata/home-media-app
   approot_path: /home/madhekar/work/vision/research/code/test/zm  
