@@ -1,2 +1,2 @@
 [zm-host]
-192.168.68.107
+192.168.68.121 ansible_ssh_private_key_file=/home/madhekar/.ssh/zmedia_server
