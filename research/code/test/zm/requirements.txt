@@ -6,8 +6,8 @@ altair==5.3.0
 altgraph==0.17.4
 annotated-types==0.7.0
 anyio==3.7.1
-apt-clone==0.2.1
-apturl==0.5.2
+#apt-clone==0.2.1
+#apturl==0.5.2
 asgiref==3.8.1
 astunparse==1.6.3
 async-timeout==4.0.1
@@ -19,7 +19,7 @@ beautifulsoup4==4.10.0
 bidict==0.23.1
 bleach==6.1.0
 blinker==1.9.0
-Brlapi==0.8.3
+#Brlapi==0.8.3
 Brotli==1.0.9
 build==1.2.1
 CacheControl==0.12.10
@@ -38,23 +38,23 @@ clikit==0.6.2
 clip @ git+https://github.com/openai/CLIP.git@dcba3cb2e2827b402d2701e7e1c7d9fed8a20ef1
 colorama==0.4.4
 coloredlogs==15.0.1
-command-not-found==0.3
+#command-not-found==0.3
 configobj==5.0.6
 contourpy==1.2.1
 crashtest==0.3.1
 cryptography==3.4.8
 ctransformers==0.2.27
-cupshelpers==1.0
+#cupshelpers==1.0
 cycler==0.12.1
 dataclasses-json==0.5.14
 datasets==2.20.0
 dbus-python==1.2.18
-defer==1.0.6
+#defer==1.0.6
 Deprecated==1.2.14
 dill==0.3.8
 distlib==0.3.4
 distro==1.7.0
-distro-info==1.1+ubuntu0.2
+#distro-info==1.1+ubuntu0.2
 docutils==0.22
 duplicity==0.8.21
 exceptiongroup==1.2.1
