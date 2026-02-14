@@ -50,7 +50,7 @@ Solutions
 
 ----
 
-Streamlit recursively monitors changes in the parent folder of the application script, e.g. app.py [source].
+new info: Streamlit recursively monitors changes in the parent folder of the application script, e.g. app.py [source].
 
 The idea is that if source files update, the app is 'rerun', as a convenience for app development. However, if this folder contains too many subfolders and subfiles, apparently watchdog reaches a limit and raises an error. This easily happens if you run straight from your home directory, which contains tons of configuration files, etc. Or maybe when you run from a git repository with numerous files in .git (just speculating).
 
