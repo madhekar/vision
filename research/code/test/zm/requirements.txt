@@ -319,16 +319,16 @@ torchvision==0.18.1
 tornado==6.4.1
 tqdm==4.66.4
 transformers @ git+https://github.com/huggingface/transformers.git@41e5abac5cb49983a08ddef3e8645d6efd23c8f3
-triton==2.3.1
-typer==0.12.3
-typer-slim==0.19.2
-typing-inspect==0.9.0
-typing-inspection==0.4.2
-typing_extensions==4.15.0
-tzdata==2024.1
-ubuntu-drivers-common==0.0.0
-ubuntu-pro-client==8001
-ufw==0.36.1
+#triton==2.3.1
+#typer==0.12.3
+#typer-slim==0.19.2
+#typing-inspect==0.9.0
+#typing-inspection==0.4.2
+#typing_extensions==4.15.0
+#tzdata==2024.1
+#ubuntu-drivers-common==0.0.0
+#ubuntu-pro-client==8001
+#ufw==0.36.1
 Unidecode==1.3.3
 uptrace==1.24.0
 urllib3==1.26.5
