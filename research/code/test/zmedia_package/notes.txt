@@ -47,3 +47,13 @@ Solutions
     Identify and fix the file: If you can locate the specific file causing the error (the error message usually provides the position, which can help narrow it down), you can open it in a text editor (like VS Code, Notepad++) and change its encoding to UTF-8 and save it.
         On Linux/macOS, you can use file -i <filename> or file -I <filename> to try and identify the file's current encoding.
     Move code to a new folder: As a last resort, you can create a new, clean folder, move only your source code files into it (leaving out hidden environment folders), and run pipreqs from that new location. 
+
+----
+
+Streamlit recursively monitors changes in the parent folder of the application script, e.g. app.py [source].
+
+The idea is that if source files update, the app is 'rerun', as a convenience for app development. However, if this folder contains too many subfolders and subfiles, apparently watchdog reaches a limit and raises an error. This easily happens if you run straight from your home directory, which contains tons of configuration files, etc. Or maybe when you run from a git repository with numerous files in .git (just speculating).
+
+You can resolve this by either placing the app.py script in a (sub)folder than only contains dependencies that you'll edit during development, or by --server.fileWatcherType none and accept the nuisance of manually restarting.
+
+streamlit run app.py --server.fileWatcherType none
