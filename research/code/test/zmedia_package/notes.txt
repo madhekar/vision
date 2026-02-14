@@ -24,7 +24,7 @@ The following solution worked for me:
 
 sudo fsck -nf /dev/nvme0n1p7
 
-
+/mnt/zmdata/home-media-app/data/final-data/img/madhekar/2596441a-e02f-588c-8df4-dc66a133fc99/IMG_6683.PNG
 
 ---
 
