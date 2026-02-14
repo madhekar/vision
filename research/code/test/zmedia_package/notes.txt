@@ -24,3 +24,26 @@ The following solution worked for me:
 
 sudo fsck -nf /dev/nvme0n1p7
 
+
+
+---
+
+The
+UnicodeDecodeError with pipreqs occurs when it encounters a file with an encoding other than the expected UTF-8. The best solutions involve either specifying the correct encoding with a command-line flag or ignoring directories that contain problematic, non-UTF-8 files (like virtual environment folders). 
+Solutions
+
+    Specify the encoding (Recommended): If your project uses a different consistent encoding, you can tell pipreqs to use it with the --encoding flag. A common alternative on Windows is 'ISO-8859-1' or 'windows-1252'.
+    bash
+
+    pipreqs --encoding=ISO-8859-1 /path/to/project
+
+    You may need to experiment to find the correct encoding.
+    Ignore problematic directories: The error often occurs in virtual environment directories (.venv, env, etc.) which contain non-Python files or files with different encodings. You can use the --ignore flag to skip these.
+    bash
+
+    pipreqs /path/to/project --ignore .venv,env
+
+    This approach is highly effective and recommended by users on GitHub.
+    Identify and fix the file: If you can locate the specific file causing the error (the error message usually provides the position, which can help narrow it down), you can open it in a text editor (like VS Code, Notepad++) and change its encoding to UTF-8 and save it.
+        On Linux/macOS, you can use file -i <filename> or file -I <filename> to try and identify the file's current encoding.
+    Move code to a new folder: As a last resort, you can create a new, clean folder, move only your source code files into it (leaving out hidden environment folders), and run pipreqs from that new location. 
