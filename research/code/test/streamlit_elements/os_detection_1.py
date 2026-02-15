@@ -3,9 +3,11 @@ import platform
 import chromadb
 from pathlib import Path, WindowsPath
 import os
+cdb_pth = "/mnt/zmdata/data/app-data/vectordb/"
 
 def fix_image_paths():
-   client = chromadb.PersistentClient(path="./chroma_db")
+   
+   client = chromadb.PersistentClient(path=cdb_pth)
    collection = client.get_collection(name="image_collection")
 
    results = collection.get(include=["metadatas"])
