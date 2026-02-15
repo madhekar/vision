@@ -227,11 +227,11 @@ def search_fn(client, cImgs, cTxts):
 
             # execute image query with search criteria
             st.session_state["imgs"] = cImgs.query(
-                query_texts=modalityTxt, 
+                query_texts=[modalityTxt], 
                 include=["data", "metadatas"], 
                 n_results=10
             )
-
+            
         for img in st.session_state["imgs"]["data"][0][1:]:
             #if img.mode in ("RGBA", "P"):
             if img.shape[2] == 4:
