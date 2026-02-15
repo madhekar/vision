@@ -1,4 +1,6 @@
 import streamlit as st
+import platform
+from pathlib import WindowsPath
 import datetime
 import pandas as pd
 import ast
@@ -53,6 +55,37 @@ def updateMetadata(client, image_collection,  id, desc, names, dt, loc):
         ids=id,
         metadatas={"description": desc, "names": names, "datetime" : dt, "location": loc}
     )
+
+def os_specific_path(img_path):
+    linux_prefix = "/mnt/zmdata/"
+    mac_prefix = "/Users/Share/zmdata/"
+    win_prefix = "c:/Users/Public/zmdata/"
+    token = "home-media-app"
+    n_pth = ""
+
+    platform_system = platform.system()
+
+    # Example of conditional logic based on OS
+    if platform_system == "Windows":
+        w_img_path = WindowsPath(img_path)
+        parts = w_img_path.split(token,1)
+        if len(parts) > 1:
+            n_pth = win_prefix + token + parts[1]
+        
+
+    elif platform_system == "Linux":
+        parts = img_path.split(token,1)
+        if len(parts) > 1:
+            n_pth = linux_prefix + token + parts[1]
+        
+
+    elif platform_system == "Darwin":
+        parts = img_path.split(token,1)
+        print(parts)
+        if len(parts) > 1:
+            n_pth = mac_prefix + token + parts[1]
+
+    return n_pth    
 
 def search_fn(client, cImgs, cTxts):
     # create default application Tabs
@@ -247,6 +280,7 @@ def search_fn(client, cImgs, cTxts):
             # if im.mode in ("RGBA", "P"):
             #    im = im.convert("RGB")
             nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
+            print(f"***{nim}")
             imageLoc = c1.empty()
             display_im = imageLoc.image(nim, use_column_width="always")
             # st.button(st.image(nim, use_column_width="always"))
