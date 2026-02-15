@@ -1,7 +1,28 @@
 
 import platform
+import chromadb
 from pathlib import Path, WindowsPath
 import os
+
+def fix_image_paths():
+   client = chromadb.PersistentClient(path="./chroma_db")
+   collection = client.get_collection(name="image_collection")
+
+   results = collection.get(include=["metadatas"])
+   ids = results['ids']
+   metadatas = results['metadatas']
+
+   new_metadatas = []
+   for meta in metadatas:
+        # Example: Replace old root folder with new one
+        old_path = meta['image_path']
+        new_path = old_path.replace("/old/path/", "/new/path/")
+        meta['image_path'] = new_path
+        new_metadatas.append(meta)
+
+   # Update ChromaDB with corrected metadata
+   collection.update(ids=ids, metadatas=new_metadatas)
+
 
 
 def os_specific_path(img_path):
