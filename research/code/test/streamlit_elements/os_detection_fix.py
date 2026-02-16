@@ -7,7 +7,7 @@ config = configparser.ConfigParser()
 
 '''
     [MIGRATION]
-    paths_initialized = false
+    paths_initialized = "no"
 
     [DATABASE]
     vector_db_path = "/mnt/zmdata/home-media-app/data/app-data/vectordb/"
@@ -33,7 +33,7 @@ def read_init_param():
     path_token = config['DATAFILE']['path_token']
     return is_init, vdb_path, img_coll_idx, linux_prefix, mac_prefix, win_prefix, path_token
 
-def write(value):
+def write_ini(value):
     config['MIGRATION'] = {'path_initialized': value}
     with open(config_file, 'w') as cf:
         config.write(cf)
@@ -60,6 +60,7 @@ def fix_uri(img, prefix, token):
    
 
 def fix_image_paths():
+   
    ( is_init, 
     vdb_path, 
     img_coll_idx, 
@@ -68,7 +69,7 @@ def fix_image_paths():
     win_prefix, 
     path_token ) = read_init_param()
    
-   if is_init == 0:
+   if is_init == "no":
         prefix = os_specific_prefix(win_prefix, linux_prefix, mac_prefix)
         ndb_pth = fix_uri(vdb_path, prefix=prefix, token=path_token)
         client = chromadb.PersistentClient(path=ndb_pth)
@@ -83,8 +84,8 @@ def fix_image_paths():
         print('****', n_uris)
         collection.update(ids=ids, uris=n_uris)
 
-        #
-        write(1)
+        # data adjustment is done 
+        write_ini("yes")
 
 
 if __name__=="__main__":
