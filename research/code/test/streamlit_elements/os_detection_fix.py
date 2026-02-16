@@ -1,14 +1,45 @@
 import platform
 import chromadb
-from pathlib import Path, WindowsPath
-import os
-cdb_pth = "/mnt/zmdata/home-media-app/data/app-data/vectordb/"
-img_idx = "multimodal_collection_images"
+import configparser
 
-def os_specific_prefix():
+config_file = 'z_media_config.ini'  
+config = configparser.ConfigParser()
+
+'''
+    [MIGRATION]
+    paths_initialized = false
+
+    [DATABASE]
+    vector_db_path = "/mnt/zmdata/home-media-app/data/app-data/vectordb/"
+    img_collection_idx = "multimodal_collection_images"
+
+    [OS]
     linux_prefix = "/mnt/zmdata/"
     mac_prefix = "/Users/Share/zmdata/"
     win_prefix = "c:/Users/Public/zmdata/"
+
+    [DATAFILE]
+    path_token = "home-media-app"
+
+'''
+def read_init_param():
+    config.read(config_file)
+    is_init = config['MIGRATION']['path_initialized']
+    vdb_path = config['DATABASE']['vector_db_path']
+    img_coll_idx = config['DATABASE']['img_collection_idx']
+    linux_prefix = config['OS']['linux_prefix']
+    mac_prefix = config['OS']['mac_prefix']
+    win_prefix = config['OS']['win_prefix']
+    path_token = config['DATAFILE']['path_token']
+    return is_init, vdb_path, img_coll_idx, linux_prefix, mac_prefix, win_prefix, path_token
+
+def write(value):
+    config['MIGRATION'] = {'path_initialized': value}
+    with open(config_file, 'w') as cf:
+        config.write(cf)
+
+
+def os_specific_prefix(win_prefix, linux_prefix, mac_prefix):
 
     platform_system = platform.system()
 
@@ -24,76 +55,37 @@ def os_specific_prefix():
 def fix_uri(img, prefix, token):
     parts = img.split(token,1)
     if len(parts) > 1:
-        n_pth = prefix + token + parts[1]
-    return n_pth    
+        n_path = prefix + token + parts[1]
+    return n_path    
    
 
 def fix_image_paths():
+   ( is_init, 
+    vdb_path, 
+    img_coll_idx, 
+    linux_prefix, 
+    mac_prefix, 
+    win_prefix, 
+    path_token ) = read_init_param()
    
-   token = "home-media-app" 
-   prefix = os_specific_prefix()
-   ncdb_pth = fix_uri(cdb_pth, prefix=prefix, token=token)
-   client = chromadb.PersistentClient(path=ncdb_pth)
-   collection = client.get_collection(name=img_idx)
-  
-   results = collection.get(include=["uris"])
-   print(prefix) #, results)
-   
-   ids = results["ids"]
-   uris = results['uris']
-   ruris = [fix_uri(uri, prefix=prefix, token=token) for uri in uris]
-   print('****', ruris)
-   collection.update(ids=ids, uris=ruris)
-#    ids = results['ids']
-#    uris = results['uris']
-#    metadatas = results['metadatas']
-
-#    new_metadatas = []
-#    for meta in metadatas:
-#         # Example: Replace old root folder with new one
-#         old_path = meta['image_path']
-#         new_path = old_path.replace("/old/path/", "/new/path/")
-#         meta['image_path'] = new_path
-#         new_metadatas.append(meta)
-
-#    # Update ChromaDB with corrected metadata
-#    collection.update(ids=ids, metadatas=new_metadatas)
-
-
-
-# def os_specific_path(img_path):
-#     linux_prefix = "/mnt/zmdata/"
-#     mac_prefix = "/Users/Share/zmdata/"
-#     win_prefix = "c:/Users/Public/zmdata/"
-#     token = "home-media-app"
-#     n_pth = ""
-
-#     platform_system = platform.system()
-
-#     # Example of conditional logic based on OS
-#     if platform_system == "Windows":
-#         w_img_path = WindowsPath(img_path)
-#         parts = w_img_path.split(token,1)
-#         if len(parts) > 1:
-#             n_pth = win_prefix + token + parts[1]
+   if is_init == 0:
+        prefix = os_specific_prefix(win_prefix, linux_prefix, mac_prefix)
+        ndb_pth = fix_uri(vdb_path, prefix=prefix, token=path_token)
+        client = chromadb.PersistentClient(path=ndb_pth)
+        collection = client.get_collection(name=img_coll_idx)
         
-
-#     elif platform_system == "Linux":
-#         parts = img_path.split(token,1)
-#         if len(parts) > 1:
-#             n_pth = linux_prefix + token + parts[1]
+        results = collection.get(include=["uris"])
+        print(prefix) #, results)
         
+        ids = results["ids"]
+        uris = results['uris']
+        n_uris = [fix_uri(uri, prefix=prefix, token=path_token) for uri in uris]
+        print('****', n_uris)
+        collection.update(ids=ids, uris=n_uris)
 
-#     elif platform_system == "Darwin":
-#         parts = img_path.split(token,1)
-#         print(parts)
-#         if len(parts) > 1:
-#             n_pth = mac_prefix + token + parts[1]
-
-#     return n_pth
+        #
+        write(1)
 
 
 if __name__=="__main__":
-    # img_path = "/home/madhekar/work/home-media-app/data/final-data/img/madhekar/2596441a-e02f-588c-8df4-dc66a133fc99/IMG_6683.PNG"
-    # print(os_specific_path(img_path=img_path))
     fix_image_paths()
