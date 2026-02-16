@@ -176,14 +176,21 @@ div[data-testid="stSidebarNav"] ul li{
         align-items: center;
     }
 
-    /* Hide the hamburger menu */
-    .stDeployButton {
-        display: none;
-    }
-    /* Hide the main menu (ellipsis) as well, if needed */
-    .css-vk3wpn.e13qj0z10 { /* This class might change with updates, inspect element for the correct one */
-        display: none;
-    }
+        /* Hide the Deploy Button */
+        .stAppDeployButton {
+            visibility: hidden;
+            height: 0%;
+        }
+        /* Hide the Top Menu (Hamburger) */
+        #MainMenu {
+            visibility: hidden;
+            height: 0%;
+        }
+        /* Optional: Hide footer */
+        footer {
+            visibility: hidden;
+            height: 0%;
+        }
 
 /* Default style for input font size on larger screens */
 /* # input {
