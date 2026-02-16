@@ -3,27 +3,30 @@ import platform
 import chromadb
 from pathlib import Path, WindowsPath
 import os
-cdb_pth = "/mnt/zmdata/data/app-data/vectordb/"
+cdb_pth = "/mnt/zmdata/home-media-app/data/app-data/vectordb/"
+img_idx = "multimodal_collection_images"
 
 def fix_image_paths():
    
    client = chromadb.PersistentClient(path=cdb_pth)
-   collection = client.get_collection(name="image_collection")
+   collection = client.get_collection(name=img_idx)
 
-   results = collection.get(include=["metadatas"])
-   ids = results['ids']
-   metadatas = results['metadatas']
+   results = collection.get(include=["uris"])
+   print(results)
+#    ids = results['ids']
+#    uris = results['uris']
+#    metadatas = results['metadatas']
 
-   new_metadatas = []
-   for meta in metadatas:
-        # Example: Replace old root folder with new one
-        old_path = meta['image_path']
-        new_path = old_path.replace("/old/path/", "/new/path/")
-        meta['image_path'] = new_path
-        new_metadatas.append(meta)
+#    new_metadatas = []
+#    for meta in metadatas:
+#         # Example: Replace old root folder with new one
+#         old_path = meta['image_path']
+#         new_path = old_path.replace("/old/path/", "/new/path/")
+#         meta['image_path'] = new_path
+#         new_metadatas.append(meta)
 
-   # Update ChromaDB with corrected metadata
-   collection.update(ids=ids, metadatas=new_metadatas)
+#    # Update ChromaDB with corrected metadata
+#    collection.update(ids=ids, metadatas=new_metadatas)
 
 
 
@@ -60,7 +63,7 @@ def os_specific_path(img_path):
 
 
 if __name__=="__main__":
-    img_path = "/home/madhekar/work/home-media-app/data/final-data/img/madhekar/2596441a-e02f-588c-8df4-dc66a133fc99/IMG_6683.PNG"
-    print(os_specific_path(img_path=img_path))
-
+    # img_path = "/home/madhekar/work/home-media-app/data/final-data/img/madhekar/2596441a-e02f-588c-8df4-dc66a133fc99/IMG_6683.PNG"
+    # print(os_specific_path(img_path=img_path))
+    fix_image_paths()
 
