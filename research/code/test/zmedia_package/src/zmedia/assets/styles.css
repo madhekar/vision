@@ -176,7 +176,21 @@ div[data-testid="stSidebarNav"] ul li{
         align-items: center;
     }
 
-
+        /* Hide the Deploy Button */
+        .stAppDeployButton {
+            visibility: hidden;
+            height: 0%;
+        }
+        /* Hide the Top Menu (Hamburger) */
+        #MainMenu {
+            visibility: hidden;
+            height: 0%;
+        }
+        /* Optional: Hide footer */
+        footer {
+            visibility: hidden;
+            height: 0%;
+        }
 
 /* Default style for input font size on larger screens */
 /* # input {
