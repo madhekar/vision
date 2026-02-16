@@ -2,7 +2,7 @@ import platform
 import chromadb
 import configparser
 
-config_file = 'z_media_config.ini'  
+config_file = 'zmedia_migration_config.ini'  
 config = configparser.ConfigParser()
 
 '''
