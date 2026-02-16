@@ -1,7 +1,6 @@
 import platform
 import chromadb
 from pathlib import Path, WindowsPath
-import os
 cdb_pth = "/mnt/zmdata/home-media-app/data/app-data/vectordb/"
 img_idx = "multimodal_collection_images"
 
