@@ -9,11 +9,12 @@ from folium.plugins import FastMarkerCluster  #!!! to do
 from utils.config_util import config
 from utils.util import location_util as lu 
 from utils.util import storage_stat as ss
-
+import PIL
 from PIL import Image, ImageFile
 from utils.util import fast_parquet_util as fpu
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
+PIL.Image.MAX_IMAGE_PIXELS = 933120000
 """
 In Streamlit, you can clear elements from the screen and 
 write new ones by using st.empty() as a placeholder that you can 

@@ -1,4 +1,5 @@
 import os
+import PIL
 import shutil
 import uuid
 from tqdm import tqdm
@@ -6,6 +7,8 @@ from utils.config_util import config
 from utils.util import file_type_ext as fte
 from utils.util import statusmsg_util as sm
 from utils.util import storage_stat as ss
+
+PIL.Image.MAX_IMAGE_PIXELS = 933120000
 
 def path_encode(spath):
     upath =""
