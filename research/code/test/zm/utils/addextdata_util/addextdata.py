@@ -102,13 +102,10 @@ def create_external_data_path(user, selected_device):
 
 def deep_copy_external_drive_to_raw(src, dest):
     st.info(f'starting to deep copy folders and files from: {src} to: {dest}')
-    if os.path.exists(dest):
-        shutil.rmtree(dest, ignore_errors=True)
-        # making the destination directory
-    #     os.makedirs(dest)
-    # else:
-    #     os.makedire(dest)
+
     try:
+        if os.path.exists(dest):
+           shutil.rmtree(dest, ignore_errors=True)
         shutil.copytree(src, dest, ignore_dangling_symlinks=True, dirs_exist_ok=True)
     except FileNotFoundError as e:
         st.error(f'error: folder {src} not found occurred {e}')    
