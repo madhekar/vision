@@ -144,13 +144,10 @@ def clean_unknown_files_folders(fdest_image, fdest_txt, fdest_video, fdest_audio
         idcnt, tdcnt, vdcnt, adcnt =0,0,0,0
         idcnt = ss.remove_empty_image_files_and_folders(fdest_image)
         # tdcnt = ss.remove_empty_files_and_folders(fdest_txt)  -- TOGO impliment
-        # vdcnt = ss.remove_empty_files_and_folders(fdest_video)
-        # adcnt = ss.remove_empty_files_and_folders(fdest_audio)
+        # vdcnt = ss.remove_empty_files_and_folders(fdest_video) -- TOGO impliment
+        # adcnt = ss.remove_empty_files_and_folders(fdest_audio) -- TOGO impliment
     except Exception as e:
-            sm.add_messages(
-                "validate",
-                f"e|exception: {e} occurred in clean_unknown_files_folders .\n\n",
-            )
+            sm.add_messages("validate", f"e|exception: {e} occurred in clean_unknown_files_folders .\n\n")
 
     sm.add_messages("validate", f"s| number of <files> : <folders> cleanup- image:{ifcnt}:{idcnt} text: {tfcnt}:{tdcnt} video: {vfcnt}:{vdcnt} audio: {afcnt}:{adcnt} \n\n")
 

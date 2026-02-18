@@ -136,8 +136,8 @@ def select_location_by_country_and_state(rdf):
     c_location_type, c_country, c_state = st.sidebar.columns([.1,.1,.1], gap="small")
     
     with c_location_type:
-        is_public_location = st.selectbox('type', options=('personal','public','both'), placeholder="select type of locations to display...")
-        if is_public_location == 'personal':
+        is_public_location = st.selectbox('type', options=('private','public','both'), placeholder="select type of locations to display...")
+        if is_public_location == 'private':
             rdf = rdf[rdf['name'].str.len() >  15]
         elif is_public_location == 'public':
             rdf = rdf[rdf["name"].str.len() <= 15]   
