@@ -77,7 +77,7 @@ class NearDuplicateImageFinder(object):
 
         return above_threshold_distances, above_threshold_indices
 
-    def find_all_near_duplicates(self, nearest_neighbors=5, threshold=10):
+    def find_all_near_duplicates(self, nearest_neighbors=5, threshold=18):
         """Find all duplicate and/or near duplicated images."""
 
         sm.add_messages("duplicate", f"s|Finding duplicates and/or near duplicates... no nearest neighbors:{nearest_neighbors} threshold: {threshold} ")
