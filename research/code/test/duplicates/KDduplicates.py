@@ -46,7 +46,7 @@ image_h = 512
 image_w = 512 
 """
 def remove_duplicates(img_file_list, output_path, hash_size=8, tree_type='cKDTree', distance_metric='manhattan', nearest_neighbors=5,
-           leaf_size=16, hash_algo='phash', parallel='y', batch_size=64, threshold=5, backup_keep='n', backup_duplicate='y', safe_deletion='n', image_w=512, image_h=512):
+           leaf_size=16, hash_algo='phash', parallel='y', batch_size=64, threshold=18, backup_keep='n', backup_duplicate='y', safe_deletion='n', image_w=512, image_h=512):
     
     # Build the tree
     df_dataset, _ = ah.ImageToHash(img_file_list, hash_size=hash_size, hash_algo=hash_algo).build_dataset(parallel=parallel, batch_size=batch_size)

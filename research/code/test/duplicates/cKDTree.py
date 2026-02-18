@@ -29,7 +29,7 @@ class cKDTreeFinder(NearDuplicateImageFinder):
             leafsize=self.leaf_size,
         )
 
-    def _find_all(self, nearest_neighbors=5, threshold=5):
+    def _find_all(self, nearest_neighbors=5, threshold=18):
         n_jobs = 1
         hash_str_len = len(self.df_dataset.at[0, "hash_list"])
         """
@@ -62,7 +62,7 @@ class cKDTreeFinder(NearDuplicateImageFinder):
 
         return distances, indices
 
-    def _find(self, image_id, nearest_neighbors=5, threshold=10):
+    def _find(self, image_id, nearest_neighbors=5, threshold=18):
         n_jobs = 1
         if self.parallel:
             n_jobs = self.number_of_cpu

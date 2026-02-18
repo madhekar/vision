@@ -32,7 +32,7 @@ class KDTreeFinder(NearDuplicateImageFinder):
             metric=self.distance_metric,
         )
 
-    def _find_all(self, nearest_neighbors=5, threshold=10):
+    def _find_all(self, nearest_neighbors=5, threshold=18):
         hash_str_len = len(self.df_dataset.at[0, "hash_list"])
         # 'distances' is a matrix NxM where N is the number of images and M is the value of nearest_neighbors_in.
         # For each image it contains an array containing the distances of k-nearest neighbors.
