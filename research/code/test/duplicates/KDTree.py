@@ -45,7 +45,7 @@ class KDTreeFinder(NearDuplicateImageFinder):
 
         return distances, indices
 
-    def _find(self, image_id, nearest_neighbors=5, threshold=10):
+    def _find(self, image_id, nearest_neighbors=5, threshold=18):
         hash_str_len = len(self.df_dataset.at[0, "hash_list"])
         distances, indices = self.tree.query(
             self.df_dataset[[str(i) for i in range(0, hash_str_len)]]
