@@ -44,8 +44,8 @@ def execute(source_name):
     sm.add_messages("duplicate", f"s| Images archive folder path: {archive_dup_path_update}")
     ss.create_folder(archive_dup_path_update)
 
-    file_paths = [os.path.join(root, name) for root, dirs, files in os.walk(input_image_path) for name in files]
-    remove_duplicates(file_paths, archive_dup_path_update)
+    #file_paths = [os.path.join(root, name) for root, dirs, files in os.walk(input_image_path) for name in files]
+    remove_duplicates(input_image_path, archive_dup_path_update)
 
 if __name__=='__main__':
     img_file_list='/home/madhekar/work/home-media-app/data/input-data/img/madhekar'
