@@ -9,8 +9,8 @@ from utils.util import model_util  as mu
 import random
 from utils.dedup_util.phash import helper_functions as hf #import build_tree, save_results
 
-def remove_duplicates(img_file_list, output_path, hash_size=128, tree_type='KDTree', distance_metric='manhattan', nearest_neighbors=5,
-           leaf_size=16, hash_algo='phash', parallel='y', batch_size=64, threshold=5, backup_keep=False, backup_duplicate=True, safe_deletion=False, image_w=32, image_h=32):
+def remove_duplicates(img_file_list, output_path, hash_size=128, tree_type='KDTree', distance_metric='hamming', nearest_neighbors=5,
+           leaf_size=16, hash_algo='phash', parallel='y', batch_size=64, threshold=20, backup_keep=False, backup_duplicate=True, safe_deletion=False, image_w=32, image_h=32):
     
     # Build the tree
     df_dataset, _ = ah.ImageToHash(img_file_list, hash_size=hash_size, hash_algo=hash_algo).build_dataset(parallel=parallel, batch_size=batch_size)
