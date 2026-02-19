@@ -28,14 +28,14 @@ def generate_hashes(image_dir):
 # Assume a library function to calculate distance, e.g., Hamming distance for hashes
 def hamming_distance(hash1, hash2):
     
-    print(f"Type of hash1: {type(hash1)}{hash1}")
-    print(f"Type of hash2: {type(hash2)}{hash2}")
+    # print(f"Type of hash1: {type(hash1)}{hash1}")
+    # print(f"Type of hash2: {type(hash2)}{hash2}")
     if hash1 is None or hash2 is None:
         print("Error: One of the images could not be hashed properly.")
     else:
         # The ^ operator works correctly on two valid ImageHash objects
         hamming_distance = hash1 - hash2
-        print(f"Hamming distance: {hamming_distance}")
+        #print(f"Hamming distance: {hamming_distance}")
     # Pythonic way to calculate Hamming distance (count of differing bits)
     return  hamming_distance #bin(hash1 ^ hash2).count('1')
 
@@ -49,11 +49,13 @@ class VPTree:
     def find_duplicates(self, threshold):
         duplicates = set()
         for i, item in enumerate(self.items):
-            print(f'---->{item}')
+            #print(i, item)
             # Query the tree for neighbors within the threshold
             # The query_tree method is the core VP-tree functionality
             neighbors = self.query_tree(item, threshold) 
+            #print(f'neighbors: {neighbors}')
             for distance, neighbor_item in neighbors:
+                print(f"---> {distance} - {neighbor_item}")
                 # Add to duplicates list, ensuring we don't count an item as its own duplicate
                 if neighbor_item != item:
                     duplicates.add(tuple((item, neighbor_item))) # Use tuple for unique pairs
@@ -62,6 +64,7 @@ class VPTree:
     def query_tree(self, query_item, threshold):
         # ... conceptual nearest neighbor search implementation ...
         # In a real library, this would efficiently prune the search space
+        #print(f"->>>>{query_item}")
         found = []
         for item in self.items:
             if item != query_item:
@@ -84,7 +87,7 @@ image_hashes = generate_hashes(image_dir=image_dir)
 # Build the VP Tree (using the conceptual class)
 # A real library would have a 'build' method, e.g., `tree = vptree.VPTree(image_hashes, hamming_distance)`
 vp_tree = VPTree(image_hashes, hamming_distance)
-
+print('----', vp_tree)
 # Find duplicates with a threshold of 1 (exact or 1-bit difference)
 # This will return pairs of items that are considered duplicates
 duplicate_pairs = vp_tree.find_duplicates(threshold=2)
