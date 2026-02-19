@@ -47,13 +47,13 @@ class NearDuplicateImageFinder(object):
     def build_tree(self):
         raise NotImplementedError("subclasses must override build_tree()!")
 
-    def _find(self, image_id, nearest_neighbors=5, threshold=18):
+    def _find(self, image_id, nearest_neighbors=5, threshold=10):
         raise NotImplementedError("subclasses must override find()!")
 
-    def _find_all(self, nearest_neighbors=5, threshold=18):
+    def _find_all(self, nearest_neighbors=5, threshold=10):
         raise NotImplementedError("subclasses must override find_all()!")
 
-    def find_near_duplicates(self, image_id, nearest_neighbors=5, threshold=18):
+    def find_near_duplicates(self, image_id, nearest_neighbors=5, threshold=10):
         """Find duplicates and near duplicates of an image.
         Parameters
         ----------
@@ -92,7 +92,7 @@ class NearDuplicateImageFinder(object):
         )
         return above_threshold_distances, above_threshold_indices
 
-    def find_all_near_duplicates(self, nearest_neighbors=5, threshold=18):
+    def find_all_near_duplicates(self, nearest_neighbors=5, threshold=10):
         """Find all duplicate and/or near duplicated images.
 
         Parameters

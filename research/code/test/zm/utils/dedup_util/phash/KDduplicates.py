@@ -9,8 +9,8 @@ from utils.util import model_util  as mu
 import random
 from utils.dedup_util.phash import helper_functions as hf #import build_tree, save_results
 
-def remove_duplicates(img_file_list, output_path, hash_size=512, tree_type='KDTree', distance_metric='manhattan', nearest_neighbors=5,
-           leaf_size=16, hash_algo='phash', parallel='y', batch_size=128, threshold=18, backup_keep=False, backup_duplicate=True, safe_deletion=False, image_w=32, image_h=32):
+def remove_duplicates(img_file_list, output_path, hash_size=128, tree_type='KDTree', distance_metric='manhattan', nearest_neighbors=5,
+           leaf_size=16, hash_algo='phash', parallel='y', batch_size=64, threshold=5, backup_keep=False, backup_duplicate=True, safe_deletion=False, image_w=32, image_h=32):
     
     # Build the tree
     df_dataset, _ = ah.ImageToHash(img_file_list, hash_size=hash_size, hash_algo=hash_algo).build_dataset(parallel=parallel, batch_size=batch_size)
@@ -44,7 +44,8 @@ def execute(source_name):
     sm.add_messages("duplicate", f"s| Images archive folder path: {archive_dup_path_update}")
     ss.create_folder(archive_dup_path_update)
 
-    remove_duplicates(input_image_path, archive_dup_path_update)
+    file_paths = [os.path.join(root, name) for root, dirs, files in os.walk(input_image_path) for name in files]
+    remove_duplicates(file_paths, archive_dup_path_update)
 
 if __name__=='__main__':
     img_file_list='/home/madhekar/work/home-media-app/data/input-data/img/madhekar'
