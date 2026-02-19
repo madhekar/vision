@@ -33,7 +33,7 @@ def hamming_distance(hash1, hash2):
 class VPTree:
     def __init__(self, items, distance_function):
         # ... implementation details ...
-        self.items = items
+        self.items = items.values()
         self.distance_function = distance_function
 
     def find_duplicates(self, threshold):
@@ -61,14 +61,15 @@ class VPTree:
 
 # Example Usage:
 # Assume these are 64-bit integer hashes for images
-image_hashes = [
-    1234567890123456, 
-    1234567890123457, # Near duplicate of the first (distance 1)
-    9876543210987654, 
-    1234567890123456, # Exact duplicate
-    5555555555555555
-]
-
+# image_hashes = [
+#     1234567890123456, 
+#     1234567890123457, # Near duplicate of the first (distance 1)
+#     9876543210987654, 
+#     1234567890123456, # Exact duplicate
+#     5555555555555555
+# ]
+image_dir = "/mnt/zmdata/"
+image_hashes = generate_hashes(image_dir=image_dir)
 # Build the VP Tree (using the conceptual class)
 # A real library would have a 'build' method, e.g., `tree = vptree.VPTree(image_hashes, hamming_distance)`
 vp_tree = VPTree(image_hashes, hamming_distance)
