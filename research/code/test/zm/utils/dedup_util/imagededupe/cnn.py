@@ -14,7 +14,6 @@ def archive_images(image_path, archive_path, duplicate_filter_img_list):
         space_saved = 0
         image_cnt =0 
         for duplicate in tqdm(duplicate_filter_img_list, total=len(duplicate_filter_img_list), desc='duplicate filter files'):
-                print(f"{image_path} -- {duplicate}")
                 duplicate = os.path.join(image_path, duplicate)
                 space_saved += os.path.getsize(os.path.join(duplicate))
                 image_cnt += 1
@@ -52,7 +51,7 @@ def remove_duplicates(input_image_path, archive_duplicates_path):
     for key, value in duplicates.items():
         if len(value) > 0:
             print(f"{key}: {value}")
-            dup_images_to_remove.append(value)
+            dup_images_to_remove.extend(value)       
     if len(dup_images_to_remove) > 0:
         archive_images(image_path=input_image_path, archive_path=archive_duplicates_path, duplicate_filter_img_list=dup_images_to_remove)
 
