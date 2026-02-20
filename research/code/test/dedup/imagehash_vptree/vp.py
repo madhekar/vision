@@ -145,7 +145,7 @@ class VPTree:
 #     1234567890123456, # Exact duplicate
 #     5555555555555555
 # ]
-image_dir = "/mnt/zmdata/home-media-app/data/input-data/img/Berkeley"
+image_dir = "/mnt/zmdata/home-media-app/data/input-data/img/madhekar"
 image_hashes = generate_hashes(image_dir=image_dir)
 idict = {v:k for k, v in image_hashes.items()}
 # Build the VP Tree (using the conceptual class)

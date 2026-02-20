@@ -3,14 +3,14 @@ from imagededup.utils import plot_duplicates
 import os
 
 # Define the directory containing your images
-image_directory = 'path/to/your/image/directory'
+image_directory = "/mnt/zmdata/home-media-app/data/input-data/img/madhekar"
 
 # 1. Initialize the hashing method
 phasher = PHash()
 
 # 2. Generate encodings for all images in the directory
 # This creates a dictionary mapping filenames to their hashes
-encodings = phasher.encode_images(image_dir=image_directory)
+encodings = phasher.encode_images(image_dir=image_directory, recursive=True)
 
 # 3. Find duplicates using the generated encodings
 # The result is a dictionary mapping each image to a list of its duplicates
