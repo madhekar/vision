@@ -16,7 +16,7 @@ duplicates = set()
 for point in data_points:
     # Query the tree for neighbors within a distance of 0
     # The result usually returns a list of (distance, item) tuples
-    neighbors = tree.get_nearest_neighbors(point, k=len(data_points), max_distance=0)
+    neighbors = tree.get_n_nearest_neighbors(point, 1)
     
     # If more than one result is returned, it means a duplicate exists
     if len(neighbors) > 1:
