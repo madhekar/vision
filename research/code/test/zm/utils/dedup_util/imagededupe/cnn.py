@@ -52,9 +52,10 @@ def remove_duplicates(input_image_path, archive_duplicates_path):
         if len(value) > 0:
             print(f"{key}: {value}")
             res = [(key, v) for v in value]
-            dup_images_to_remove.extend(res)       
+            dup_images_to_remove.extend(res)      
+    unique_combination_set = set(tuple(sorted(c)) for c in dup_images_to_remove)         
     if len(dup_images_to_remove) > 0:
-        archive_images(image_path=input_image_path, archive_path=archive_duplicates_path, duplicate_filter_img_list=dup_images_to_remove)
+        archive_images(image_path=input_image_path, archive_path=archive_duplicates_path, duplicate_filter_img_list=unique_combination_set)
 
 
 def execute(source_name):
