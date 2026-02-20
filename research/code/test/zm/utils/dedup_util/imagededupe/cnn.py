@@ -15,7 +15,7 @@ def archive_images(image_path, archive_path, duplicate_filter_img_list):
         image_cnt =0 
         for duplicate in tqdm(duplicate_filter_img_list, total=len(duplicate_filter_img_list), desc='duplicate filter files'):
                 duplicate = os.path.join(image_path, duplicate)
-                space_saved += os.path.getsize(os.path.join(duplicate))
+                space_saved += os.path.getsize(duplicate)
                 image_cnt += 1
                 #uuid_path = mu.create_uuid_from_string(duplicate[0]) 
                 uuid_path = mu.extract_subpath(image_path, os.path.dirname(duplicate))
@@ -41,7 +41,7 @@ def remove_duplicates(input_image_path, archive_duplicates_path):
     # min_similarity_threshold can be adjusted (e.g., 0.9 for high similarity)
     duplicates = cnn_encoder.find_duplicates(
         image_dir=input_image_path,
-        min_similarity_threshold=0.95, # Adjust as needed
+        min_similarity_threshold=0.90, # Adjust as needed
         scores=False, # Set to True to get similarity scores
         recursive=True
     )
@@ -53,9 +53,10 @@ def remove_duplicates(input_image_path, archive_duplicates_path):
             print(f"{key}: {value}")
             res = [(key, v) for v in value]
             dup_images_to_remove.extend(res)      
-    unique_combination_set = set(tuple(sorted(c)) for c in dup_images_to_remove)         
-    if len(dup_images_to_remove) > 0:
-        archive_images(image_path=input_image_path, archive_path=archive_duplicates_path, duplicate_filter_img_list=unique_combination_set)
+    unique_combination_set = set(tuple(sorted(c)) for c in dup_images_to_remove)     
+    to_remove = [e[1] for e in unique_combination_set]    
+    if len(to_remove) > 0:
+        archive_images(image_path=input_image_path, archive_path=archive_duplicates_path, duplicate_filter_img_list=to_remove)
 
 
 def execute(source_name):

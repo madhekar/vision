@@ -25,4 +25,5 @@ for key, value in duplicates.items():
         dup_images_to_remove.extend(res)
 
 unique_combinations_set = set(tuple(sorted(c)) for c in dup_images_to_remove)
-print(unique_combinations_set)
+to_remove = [e[1] for e in unique_combinations_set]
+print(to_remove)
