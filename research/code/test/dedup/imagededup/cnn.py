@@ -22,7 +22,7 @@ for key, value in duplicates.items():
     if len(value) > 0:
         print(f"{key}: {value}")
         res = [(key, v) for v in value]
-        dup_images_to_remove.append(res)
+        dup_images_to_remove.extend(res)
 
-
-print(dup_images_to_remove)
+unique_combinations_set = set(tuple(sorted(c)) for c in dup_images_to_remove)
+print(unique_combinations_set)
