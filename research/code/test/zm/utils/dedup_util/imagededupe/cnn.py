@@ -51,7 +51,8 @@ def remove_duplicates(input_image_path, archive_duplicates_path):
     for key, value in duplicates.items():
         if len(value) > 0:
             print(f"{key}: {value}")
-            dup_images_to_remove.extend(value)       
+            res = [(key, v) for v in value]
+            dup_images_to_remove.extend(res)       
     if len(dup_images_to_remove) > 0:
         archive_images(image_path=input_image_path, archive_path=archive_duplicates_path, duplicate_filter_img_list=dup_images_to_remove)
 
