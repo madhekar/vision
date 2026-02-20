@@ -21,4 +21,8 @@ print("Duplicate images and their similarity scores found with CNN:")
 for key, value in duplicates.items():
     if len(value) > 0:
         print(f"{key}: {value}")
-        dup_images_to_remove.append(value)
+        res = [(key, v) for v in value]
+        dup_images_to_remove.append(res)
+
+
+print(dup_images_to_remove)
