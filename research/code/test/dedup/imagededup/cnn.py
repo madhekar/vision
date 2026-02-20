@@ -15,8 +15,10 @@ duplicates = cnn_encoder.find_duplicates(
     recursive=True
 )
 
+dup_images_to_remove = []
 # The 'duplicates' dictionary will have filenames as keys and a list of tuples (duplicate_filename, score) as values
 print("Duplicate images and their similarity scores found with CNN:")
 for key, value in duplicates.items():
     if len(value) > 0:
         print(f"{key}: {value}")
+        dup_images_to_remove.append(value)
