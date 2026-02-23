@@ -15,16 +15,19 @@ def archive_images(image_path, archive_path, duplicate_filter_img_list):
         image_cnt =0 
         for duplicate in tqdm(duplicate_filter_img_list, total=len(duplicate_filter_img_list), desc='duplicate filter files'):
                 duplicate = os.path.join(image_path, duplicate)
-                space_saved += os.path.getsize(duplicate)
-                image_cnt += 1
-                #uuid_path = mu.create_uuid_from_string(duplicate[0]) 
-                uuid_path = mu.extract_subpath(image_path, os.path.dirname(duplicate))
-                print(uuid_path)
-                if not os.path.exists(os.path.join(archive_path, uuid_path)):
-                    os.makedirs(os.path.join(archive_path, uuid_path))
-                os.rename( duplicate, os.path.join(archive_path, uuid_path, os.path.basename(duplicate)))
-                print(f"{duplicate} Moved Successfully!")
-                sm.add_messages("duplicate", f"s| file {duplicate} moved successfully.")
+                if os.path.exists(duplicate):
+                    space_saved += os.path.getsize(duplicate)
+                    image_cnt += 1
+                    #uuid_path = mu.create_uuid_from_string(duplicate[0]) 
+                    uuid_path = mu.extract_subpath(image_path, os.path.dirname(duplicate))
+                    print(uuid_path)
+                    if not os.path.exists(os.path.join(archive_path, uuid_path)):
+                        os.makedirs(os.path.join(archive_path, uuid_path))
+                    os.rename( duplicate, os.path.join(archive_path, uuid_path, os.path.basename(duplicate)))
+                    print(f"{duplicate} Moved Successfully!")
+                    sm.add_messages("duplicate", f"s| file {duplicate} moved successfully.")
+                else:
+                    continue    
 
         print(f"\n\n saved {round(space_saved / 1000000)} mb of Space, {image_cnt} images archived.")
         sm.add_messages("duplicate",f"s| saved {round(space_saved / 1000000)} mb of Space, {image_cnt} images archived.")
