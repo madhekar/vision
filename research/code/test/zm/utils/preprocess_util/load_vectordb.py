@@ -91,10 +91,11 @@ def detect_encoding(fp):
     return res['encoding']
 
 # Function to add to collection
-def add_documents_to_vector_db(collection, batch):
+def add_imgs_to_vector_db(collection, batch):
     collection.add(
         ids=batch["ids"],
-        documents=batch["documents"]
+        uris=batch["uris"],
+        metadatas=batch["metadatas"]
     )
     print(f"Added {len(batch['ids'])}")
 
@@ -256,7 +257,7 @@ def execute():
         image_final_path,
         text_final_path,
         video_final_path,
-        audeo_final_path
+        audio_final_path
     ) = config.vectordb_config_load()
 
     
