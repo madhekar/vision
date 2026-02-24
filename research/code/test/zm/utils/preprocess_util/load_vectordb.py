@@ -17,6 +17,7 @@ from utils.config_util import config
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
 ImageFile.LOAD_TRUNCATED_IMAGES = True
+from concurrent.futures import ThreadPoolExecutor
 """
 UPDATE METADATA STRUCTURE:
 {
@@ -102,7 +103,7 @@ def add_imgs_to_vector_db(collection, batch):
 def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_folder, text_collection_name):
     
     cdb.api.client.SharedSystemClient.clear_system_cache()
-    # vector database persistance
+    # vector database persistence
     client = cdb.PersistentClient( path=vector_db_dir_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=True))
 
     client.clear_system_cache()
@@ -168,15 +169,19 @@ def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_fold
     #if image_collection_name not in collections_list:
     # create list of image urls to embedded in vector db
 
-    df_urls = df_data["uri"]
-    print('--->', df_urls)
-    # create unique uuids for each image
-    df_ids = df_data["id"]
-    # create metadata for each image
-    df_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
-
-    collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadatas), uris=df_urls.tolist())
-
+    # df_urls = df_data["uri"]
+    # # create unique uuids for each image
+    # df_ids = df_data["id"]
+    # # create metadata for each image
+    # df_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
+    
+    batches = {"ids":df_data["uris"], "uris":df_data["uri"], "metadatas": df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values() }
+    add_imgs_to_vector_db(collection_images, batch=batches)
+    
+    #collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadatas), uris=df_urls.tolist())
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        executor.map(add_imgs_to_vector_db, batches)
+    
     st.info(f"Info: Done adding number of images: {len(df_urls)}")
 
 
