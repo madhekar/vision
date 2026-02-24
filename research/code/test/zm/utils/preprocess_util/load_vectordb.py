@@ -92,13 +92,13 @@ def detect_encoding(fp):
     return res['encoding']
 
 # Function to add to collection
-def add_imgs_to_vector_db(collection, batch):
+def add_imgs_to_vector_db(collection, ids, uris, metadatas):
     collection.add(
-        ids=batch["ids"],
-        uris=batch["uris"],
-        metadatas=batch["metadatas"]
+        ids=ids,
+        uris=uris,
+        metadatas=metadatas
     )
-    print(f"Added {len(batch['ids'])}")
+    print(f"Added {len(ids)}")
 
 def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_folder, text_collection_name):
     
@@ -173,16 +173,16 @@ def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_fold
     # # create unique uuids for each image
     # df_ids = df_data["id"]
     # # create metadata for each image
-    # df_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
+    df_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
     
-    batches = {"ids":df_data["uris"], "uris":df_data["uri"], "metadatas": df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values() }
-    add_imgs_to_vector_db(collection_images, batch=batches)
+    #batches = {"ids":df_data["uris"], "uris":df_data["uri"], "metadatas": df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values() }
+    #add_imgs_to_vector_db(collection_images, ids=df_data['ids'].tolist(), uris=df_data["uris"].tolist(), metadatas=df_metadatas)
     
     #collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadatas), uris=df_urls.tolist())
     with ThreadPoolExecutor(max_workers=5) as executor:
-        executor.map(add_imgs_to_vector_db, batches)
+        executor.map(add_imgs_to_vector_db, ids=df_data['ids'].tolist(), uris=df_data["uris"].tolist(), metadatas=df_metadatas)
     
-    st.info(f"Info: Done adding number of images: {len(df_urls)}")
+    st.info(f"Info: Done adding number of images: {len(df_metadatas)}")
 
 
     """
