@@ -4,13 +4,14 @@ from concurrent.futures import ThreadPoolExecutor
 # Initialize Client
 client = chromadb.PersistentClient(path="./chroma_db")
 collection = client.get_or_create_collection("my_collection")
-l1 = list(range(1,5))
-l2 =list(range(1,5))
+l1 = list(range(1,15))
+l2 =list(range(1,15))
 # Sample data batches
 data_batches = {'ids': l1, 'documents': l2}
 
 # Function to add to collection
 def add_to_db(batch):
+    print(batch)
     collection.add(
         ids=batch["ids"],
         documents=batch["documents"]
