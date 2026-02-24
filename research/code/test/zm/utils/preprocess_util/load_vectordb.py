@@ -100,7 +100,7 @@ def add_imgs_to_vector_db(collection, ids, uris, metadatas):
     )
     print(f"Added {len(ids)}")
 
-def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_folder, text_collection_name):
+def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_folder, text_collection_name, max_workers=10):
     
     cdb.api.client.SharedSystemClient.clear_system_cache()
     # vector database persistence
@@ -166,24 +166,13 @@ def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_fold
     """
     IMAGE embeddings in vector database
     """
-    #if image_collection_name not in collections_list:
-    # create list of image urls to embedded in vector db
 
-    # df_urls = df_data["uri"]
-    # # create unique uuids for each image
-    # df_ids = df_data["id"]
-    # # create metadata for each image
     df_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
-    
-    #batches = {"ids":df_data["uris"], "uris":df_data["uri"], "metadatas": df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values() }
-    #add_imgs_to_vector_db(collection_images, ids=df_data['ids'].tolist(), uris=df_data["uris"].tolist(), metadatas=df_metadatas)
-    
-    #collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadatas), uris=df_urls.tolist())
-    with ThreadPoolExecutor(max_workers=5) as executor:
+
+    with ThreadPoolExecutor(max_workers) as executor:
         executor.map(add_imgs_to_vector_db, df_data["id"].tolist(), df_data["uri"].tolist(), df_metadatas)
     
     st.info(f"Info: Done adding number of images: {len(df_metadatas)}")
-
 
     """
       TEXT Embeddings on vector database
@@ -251,6 +240,7 @@ def execute():
         image_initial_path,
         metadata_path,
         metadata_file,
+        max_workers,
 
         vectordb_path,
         image_collection_name,
@@ -264,8 +254,6 @@ def execute():
         video_final_path,
         audio_final_path
     ) = config.vectordb_config_load()
-
-    
 
     arc_folder_name = mu.get_foldername_by_datetime()
 
@@ -294,7 +282,7 @@ def execute():
 
         df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file, image_final_path=image_final_path, image_final_folder=arc_folder_name)
 
-        createVectorDB(df_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name)
+        createVectorDB(df_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name, max_workers)
 
         archive_metadata(metadata_path, arc_folder_name, metadata_file)
 

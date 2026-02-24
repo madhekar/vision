@@ -366,7 +366,35 @@ def data_validation_config_load():
     )
 
 """
+metadata:
+  raw_data_path: /data/raw-data/
+  image_dir_path: /data/input-data/img/
+  metadata_path: /data/app-data/metadata/
+  metadata_file: metadata.json
+  vectordb_path: /data/app-data/vectordb/
+  data_chunk_size: 10
+  number_of_instances: 10
 
+models:
+  openclip_finetuned: /models/zeshaOpenClip/clip_finetuned.pth  
+
+vectordb:
+  vectordb_path: /data/app-data/vectordb/
+  image_collection_name: multimodal_collection_images
+  text_collection_name: multimodal_collection_texts
+  video_collection_name: multimodal_collection_videos
+  audio_collection_name: multimedia_collection_audios
+  text_dir_path: /data/input-data/txt/
+
+prod:
+  image_final_path:  /data/final-data/img/
+  text_final_path:  /data/final-data/txt/
+  video_final_path:  /data/final-data/video/
+  audio_final_path: /data/final-data/audio/
+
+static-metadata:
+  static_metadata_path: /data/app-data/static-metadata/locations/user-specific
+  static_metadata_file: static_locations.parquet
 """
 @st.cache_resource
 def vectordb_config_load():
@@ -382,6 +410,7 @@ def vectordb_config_load():
         image_initial_path = dict["metadata"]["image_dir_path"]
         metadata_path = dict["metadata"]["metadata_path"]
         metadata_file = dict["metadata"]["metadata_file"]
+        max_worker_instances = dict["metadata"]["number_of_instances"]
 
         vectordb_path = dict['vectordb']["vectordb_path"]
         image_collection_name = dict['vectordb']["image_collection_name"]
@@ -401,6 +430,7 @@ def vectordb_config_load():
         os.path.join(dr, *image_initial_path.split(os.sep)[1:]),
         os.path.join(dr, *metadata_path.split(os.sep)[1:]),
         metadata_file,
+        max_worker_instances,
 
         os.path.join(dr, *vectordb_path.split(os.sep)[1:]),
         image_collection_name,
