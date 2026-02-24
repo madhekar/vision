@@ -118,10 +118,12 @@ def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_fold
         # openclip embedding function!
         embedding_function = OpenCLIPEmbeddingFunction()
 
-        # Image collection inside vector database 'chromadb'
+        """ 
+        Image collection inside vector database 'chromadb'
+        """
         image_loader = ImageLoader()
 
-        # collection images defined
+        # Images collection defined
         collection_images = client.get_or_create_collection(
             name=image_collection_name,
             embedding_function=embedding_function,
@@ -167,12 +169,12 @@ def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_fold
     IMAGE embeddings in vector database
     """
 
-    df_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
+    ls_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
 
     with ThreadPoolExecutor(max_workers) as executor:
-        executor.map(add_imgs_to_vector_db, df_data["id"].tolist(), df_data["uri"].tolist(), df_metadatas)
+        executor.map(add_imgs_to_vector_db, df_data["id"].tolist(), df_data["uri"].tolist(), ls_metadatas)
     
-    st.info(f"Info: Done adding number of images: {len(df_metadatas)}")
+    st.info(f"Info: Done adding number of images: {len(ls_metadatas)}")
 
     """
       TEXT Embeddings on vector database
