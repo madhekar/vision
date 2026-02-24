@@ -10,12 +10,12 @@ l2 =list(range(1,15))
 data_batches = {'ids': l1, 'documents': l2}
 
 # Function to add to collection
-def add_to_db(batch):
-    print(batch)
-    collection.add(
-        ids=batch["ids"],
-        documents=batch["documents"]
-    )
+def add_to_db(nm, batch):
+    print(nm, batch)
+    # collection.add(
+    #     ids=batch["ids"],
+    #     documents=batch["documents"]
+    # )
     print(f"Added {batch['ids']}")
 
 # Use ThreadPoolExecutor for parallel processing

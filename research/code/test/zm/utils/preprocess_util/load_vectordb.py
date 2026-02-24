@@ -180,7 +180,7 @@ def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_fold
     
     #collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadatas), uris=df_urls.tolist())
     with ThreadPoolExecutor(max_workers=5) as executor:
-        executor.map(add_imgs_to_vector_db, ids=df_data['ids'].tolist(), uris=df_data["uris"].tolist(), metadatas=df_metadatas)
+        executor.map(add_imgs_to_vector_db, df_data["id"].tolist(), df_data["uri"].tolist(), df_metadatas)
     
     st.info(f"Info: Done adding number of images: {len(df_metadatas)}")
 
