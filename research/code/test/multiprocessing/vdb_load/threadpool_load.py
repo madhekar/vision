@@ -20,4 +20,4 @@ def add_to_db(batch):
 
 # Use ThreadPoolExecutor for parallel processing
 with ThreadPoolExecutor(max_workers=5) as executor:
-    executor.map(add_to_db, data_batches)
+    executor.map(add_to_db, l1, l2)
