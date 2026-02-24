@@ -90,11 +90,19 @@ def detect_encoding(fp):
     res = chardet.detect(raw_data)
     return res['encoding']
 
-def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folder, text_collection_name):
+# Function to add to collection
+def add_documents_to_vector_db(collection, batch):
+    collection.add(
+        ids=batch["ids"],
+        documents=batch["documents"]
+    )
+    print(f"Added {len(batch['ids'])}")
+
+def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_folder, text_collection_name):
     
     cdb.api.client.SharedSystemClient.clear_system_cache()
     # vector database persistance
-    client = cdb.PersistentClient( path=vectordb_dir_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=True))
+    client = cdb.PersistentClient( path=vector_db_dir_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=True))
 
     client.clear_system_cache()
 
@@ -163,7 +171,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
     print('--->', df_urls)
     # create unique uuids for each image
     df_ids = df_data["id"]
-
+    # create metadata for each image
     df_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
 
     collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadatas), uris=df_urls.tolist())
@@ -195,7 +203,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
 
         ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
 
-        batches = create_batches(api=client,ids=ids_txt_list, documents=list_of_text)
+        batches = create_batches(api=client, ids=ids_txt_list, documents=list_of_text)
 
         st.info(f"number of ids: {len(ids_txt_list)}")
         st.info(f'number of documents: {len(list_of_text)}')
