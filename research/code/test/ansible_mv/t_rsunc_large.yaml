@@ -1,0 +1,24 @@
+- name: Transfer large image set from Linux to Mac
+  hosts: all
+  vars:
+    source_dir: "/path/to/source/images/"
+    dest_dir: "/path/to/destination/images/"
+    mac_user: "emadhekar"
+    mac_host: "192.168.1.50" # IP or hostname of Mac
+
+  tasks:
+    - name: Ensure rsync is installed (if necessary)
+      package:
+        name: rsync
+        state: present
+      become: true
+
+    - name: Synchronize images to Mac
+      ansible.posix.synchronize:
+        src: "{{ source_dir }}"
+        dest: "{{ mac_user }}@{{ mac_host }}:{{ dest_dir }}"
+        mode: push
+        recursive: yes
+        archive: yes
+        checksum: yes # Useful for verifying large files
+      delegate_to: localhost # Runs rsync on the control machine
