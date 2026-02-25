@@ -1,0 +1,35 @@
+---
+
+- name: Zip folder locally and unzip on remote host
+  hosts: all
+  gather_facts: false
+
+  vars:
+    local_src_dir: "/path/to/your/local/folder"
+    local_archive_path: "/tmp/archive.zip"
+    remote_dest_dir: "/tmp/remote_destination"
+
+  tasks:
+    - name: Create a zip archive of the local folder
+      community.general.archive:
+        path: "{{ local_src_dir }}"
+        dest: "{{ local_archive_path }}"
+        format: zip
+      delegate_to: localhost
+      run_once: true # Ensures zipping happens only once on the control node
+
+    - name: Ensure the remote destination directory exists
+      ansible.builtin.file:
+        path: "{{ remote_dest_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Copy and unarchive the zip file on the remote host
+      ansible.builtin.unarchive:
+        src: "{{ local_archive_path }}"
+        dest: "{{ remote_dest_dir }}"
+        # By default, copy=yes (or implicit with src/dest) so Ansible copies 
+        # the archive from the local host to the remote host first, then unzips it.
+        remote_src: false # Explicitly set to indicate source is on the control host
+        # Optional: Use extra_opts to strip the top-level directory if needed
+        # extra_opts: [--strip-components=1] 
