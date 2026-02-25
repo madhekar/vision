@@ -1,22 +1,42 @@
 ---
 
-- name: Zip folder locally and unzip on remote host
+- name: gz folder locally and ungz on remote host
   hosts: all
   gather_facts: false
 
   vars:
-    local_src_dir: "/path/to/your/local/folder"
-    local_archive_path: "/tmp/archive.zip"
-    remote_dest_dir: "/tmp/remote_destination"
+    final_data_dir: "/mnt/zmdata/home-media-app/data/final-data"
+    vector_db_dir: "/mnt/zmdata/home-media-app/data/app-data/vectordb"
+    models_dir: "/mnt/zmdata/home-media-app/models"
+    final_data_archive_path: "/mnt/zmdata/tmp/final-data.gz"
+    vector_db_archive_path: "/mnt/zmdata/tmp/vector_db.gz"
+    models_archive_path: "/mnt/zmdata/tmp/models.gz"
+    remote_dest_dir: "/tmp/zmdata"
 
   tasks:
-    - name: Create a zip archive of the local folder
+    - name: Create a gz archive of the final data local folder
       community.general.archive:
-        path: "{{ local_src_dir }}"
-        dest: "{{ local_archive_path }}"
-        format: zip
+        path: "{{ final_data_dir }}"
+        dest: "{{ final_data_archive_path }}"
+        format: gz
       delegate_to: localhost
-      run_once: true # Ensures zipping happens only once on the control node
+      run_once: true # Ensures gzping happens only once on the control node
+
+    - name: Create a gz archive of the final data local folder
+      community.general.archive:
+        path: "{{ vector_db_dir }}"
+        dest: "{{ vector_db_archive_path }}"
+        format: gz
+      delegate_to: localhost
+      run_once: true # Ensures gzping happens only once on the control node
+
+    - name: Create a gz archive of the models dir local folder
+      community.general.archive:
+        path: "{{ models_dir }}"
+        dest: "{{ models_archive_path }}"
+        format: gz
+      delegate_to: localhost
+      run_once: true # Ensures gzping happens only once on the control node
 
     - name: Ensure the remote destination directory exists
       ansible.builtin.file:
@@ -24,9 +44,9 @@
         state: directory
         mode: '0755'
 
-    - name: Copy and unarchive the zip file on the remote host
+    - name: Copy and unarchive the gz file on the remote host
       ansible.builtin.unarchive:
-        src: "{{ local_archive_path }}"
+        src: "{{ final_data_archive_path }}"
         dest: "{{ remote_dest_dir }}"
         # By default, copy=yes (or implicit with src/dest) so Ansible copies 
         # the archive from the local host to the remote host first, then unzips it.

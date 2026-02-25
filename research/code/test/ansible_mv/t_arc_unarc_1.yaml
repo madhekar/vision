@@ -1,0 +1,23 @@
+---
+- hosts: all
+  name: Create local zip archive and optionally copy to remote host
+  gather_facts: false
+
+  tasks:
+    - name: Create a zip archive of the local folder
+      community.general.archive:
+        path: /path/to/local/folder # Source path on the control node
+        dest: /path/to/destination/archive.zip # Destination archive path on the control node
+        format: zip
+      delegate_to: localhost
+      become: false # Ensures this task runs as the current user, not root
+      
+
+    # Optional: You can add another task to copy the created archive to the remote hosts
+    - name: Copy the local archive to remote hosts
+      ansible.builtin.copy:
+        src: /path/to/destination/archive.zip # Source path on the control node
+        dest: /remote/path/to/archive.zip # Destination path on the remote host
+        owner: someuser
+        group: somegroup
+        mode: '0644'
