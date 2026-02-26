@@ -2,9 +2,9 @@
   hosts: all
   vars:
     source_dir: "/mnt/zmdata/home-media-app/data/app-data/vectordb"
-    dest_dir: "/tmp/zmdata"
-    # mac_user: "emadhekar"
-    # mac_host: "192.168.1.50" # IP or hostname of Mac
+    dest_dir: "/Users/emadhekar/tmp"
+    mac_user: "emadhekar"
+    mac_host: "192.168.68.107" # IP or hostname of Mac
 
   tasks:
     - name: Ensure rsync is installed (if necessary)
