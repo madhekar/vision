@@ -1,8 +1,10 @@
 - name: Transfer large image set from Linux to Mac
   hosts: all
   vars:
-    source_dir: "/mnt/zmdata/home-media-app/data/app-data/vectordb"
-    dest_dir: "/Users/emadhekar/tmp"
+    # source_dir: "/mnt/zmdata/home-media-app/data/app-data/vectordb"
+    # dest_dir: "/Users/Shared/home-media-app/data/app-data"
+    source_dir: "/mnt/zmdata/home-media-app/data/final-data"
+    dest_dir: "/Users/Shared/home-media-app/data"
     mac_user: "emadhekar"
     mac_host: "192.168.68.107" # IP or hostname of Mac
 
