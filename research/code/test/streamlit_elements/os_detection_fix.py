@@ -59,8 +59,7 @@ def fix_uri(img, prefix, token):
     return n_path    
    
 
-def fix_image_paths():
-   
+def fix_image_paths_in_vector_db():
    ( is_init, 
     vdb_path, 
     img_coll_idx, 
@@ -87,6 +86,18 @@ def fix_image_paths():
         # data adjustment is done 
         write_ini("yes")
 
+def get_current_os():
+    platform_system = platform.system()
+
+    if platform_system == "Windows":
+        return "WINDOWS"
+    elif platform_system == "Linux":
+        return "LINUX"
+    elif platform_system == "Darwin":
+        return "MACOS"
+    else:
+        return ""
 
 if __name__=="__main__":
-    fix_image_paths()
+    print(get_current_os())
+    #fix_image_paths_in_vector_db()
