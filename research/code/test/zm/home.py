@@ -36,7 +36,7 @@ st.set_page_config(
             zmedia_dest
 """
 def load_app_configuration():
-    root_data, root_app = config.app_config_load()
+    root_data, root_app,root_data_mac = config.app_config_load()
     print(f'app root: {root_app} data root: {root_data}')
     if not os.path.exists(root_data):
         ap, dp, mp,  = config.setup_config_load()

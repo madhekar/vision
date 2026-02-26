@@ -632,12 +632,14 @@ def app_config_load():
         pprint.pprint(dict)
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
 
-        data_root = dict["app-config"]["appdata_root_path"]
+        data_root = dict["app-config"]["data_root_path"]
+        data_root_mac = dict["app-config"]["data_root_path_mac"]
         app_root = dict["app-config"]["approot_path"]
 
         return(
             data_root,
-            app_root
+            app_root,
+            data_root_mac,
         )
 
 """
