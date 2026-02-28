@@ -1,5 +1,13 @@
 import os
 '''
+Connect from macOS Client 
+-------------------------
+Open Finder on your Mac.
+Select Go > Connect to Server (or press Command+K).
+Enter the address: smb://<linux-mint-ip-address> (e.g.smb://192.168.1.10).
+Click Connect.
+Select Registered User, enter your Linux Mint username and the password you set in step 3. 
+
 //[server-ip]/[share-path] /mnt/myshare cifs credentials=/etc/samba/myshare.cred,iocharset=utf8,nounix,file_mode=0777,dir_mode=0777 0 0
 '''
 
