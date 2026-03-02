@@ -2,6 +2,7 @@ import glob
 
 import os
 import collections
+import platform
 import shutil
 from PIL import Image
 import pandas as pd
@@ -104,7 +105,20 @@ def check_folder(folder_path):
     if not os.listdir(folder_path):
         return False
     return False    
-   
+
+@st.cache_resource
+def get_current_os():
+    platform_system = platform.system()
+
+    if platform_system == "Windows":
+        return "WINDOWS"
+    elif platform_system == "Linux":
+        return "LINUX"
+    elif platform_system == "Darwin":
+        return "MACOS"
+    else:
+        return ""
+       
 def extract_all_folder_stats(folder_path):
    fstat = FolderStats()  
 

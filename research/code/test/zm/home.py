@@ -61,6 +61,7 @@ def main():
 
     # ar,dr = 
     current_os = load_app_configuration()
+    print(f"Current Environment: {current_os}")
     # if 'app_root' not in st.session_state:
     #     st.session_state['app_root'] = ar
 

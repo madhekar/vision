@@ -17,6 +17,7 @@ from utils.config_util import config
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
 ImageFile.LOAD_TRUNCATED_IMAGES = True
+from concurrent.futures import ThreadPoolExecutor
 """
 UPDATE METADATA STRUCTURE:
 {
@@ -90,11 +91,20 @@ def detect_encoding(fp):
     res = chardet.detect(raw_data)
     return res['encoding']
 
-def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folder, text_collection_name):
+# Function to add to collection
+def add_imgs_to_vector_db(collection, ids, uris, metadatas):
+    collection.add(
+        ids=ids,
+        uris=uris,
+        metadatas=metadatas
+    )
+    print(f"Added {len(ids)}")
+
+def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_folder, text_collection_name, max_workers=10):
     
     cdb.api.client.SharedSystemClient.clear_system_cache()
-    # vector database persistance
-    client = cdb.PersistentClient( path=vectordb_dir_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=True))
+    # vector database persistence
+    client = cdb.PersistentClient( path=vector_db_dir_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=True))
 
     client.clear_system_cache()
 
@@ -108,10 +118,12 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
         # openclip embedding function!
         embedding_function = OpenCLIPEmbeddingFunction()
 
-        # Image collection inside vector database 'chromadb'
+        """ 
+        Image collection inside vector database 'chromadb'
+        """
         image_loader = ImageLoader()
 
-        # collection images defined
+        # Images collection defined
         collection_images = client.get_or_create_collection(
             name=image_collection_name,
             embedding_function=embedding_function,
@@ -156,20 +168,13 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
     """
     IMAGE embeddings in vector database
     """
-    #if image_collection_name not in collections_list:
-    # create list of image urls to embedded in vector db
 
-    df_urls = df_data["uri"]
-    print('--->', df_urls)
-    # create unique uuids for each image
-    df_ids = df_data["id"]
+    ls_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
 
-    df_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
-
-    collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadatas), uris=df_urls.tolist())
-
-    st.info(f"Info: Done adding number of images: {len(df_urls)}")
-
+    with ThreadPoolExecutor(max_workers) as executor:
+        executor.map(add_imgs_to_vector_db, df_data["id"].tolist(), df_data["uri"].tolist(), ls_metadatas)
+    
+    st.info(f"Info: Done adding number of images: {len(ls_metadatas)}")
 
     """
       TEXT Embeddings on vector database
@@ -195,7 +200,7 @@ def createVectorDB(df_data, vectordb_dir_path, image_collection_name, text_folde
 
         ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
 
-        batches = create_batches(api=client,ids=ids_txt_list, documents=list_of_text)
+        batches = create_batches(api=client, ids=ids_txt_list, documents=list_of_text)
 
         st.info(f"number of ids: {len(ids_txt_list)}")
         st.info(f'number of documents: {len(list_of_text)}')
@@ -237,6 +242,7 @@ def execute():
         image_initial_path,
         metadata_path,
         metadata_file,
+        max_workers,
 
         vectordb_path,
         image_collection_name,
@@ -248,10 +254,8 @@ def execute():
         image_final_path,
         text_final_path,
         video_final_path,
-        audeo_final_path
+        audio_final_path
     ) = config.vectordb_config_load()
-
-    
 
     arc_folder_name = mu.get_foldername_by_datetime()
 
@@ -280,7 +284,7 @@ def execute():
 
         df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file, image_final_path=image_final_path, image_final_folder=arc_folder_name)
 
-        createVectorDB(df_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name)
+        createVectorDB(df_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name, max_workers)
 
         archive_metadata(metadata_path, arc_folder_name, metadata_file)
 

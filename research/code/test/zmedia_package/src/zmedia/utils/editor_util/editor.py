@@ -9,11 +9,12 @@ from folium.plugins import FastMarkerCluster  #!!! to do
 from utils.config_util import config
 from utils.util import location_util as lu 
 from utils.util import storage_stat as ss
-
+import PIL
 from PIL import Image, ImageFile
 from utils.util import fast_parquet_util as fpu
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
+PIL.Image.MAX_IMAGE_PIXELS = 933120000
 """
 In Streamlit, you can clear elements from the screen and 
 write new ones by using st.empty() as a placeholder that you can 
@@ -135,8 +136,8 @@ def select_location_by_country_and_state(rdf):
     c_location_type, c_country, c_state = st.sidebar.columns([.1,.1,.1], gap="small")
     
     with c_location_type:
-        is_public_location = st.selectbox('type', options=('personal','public','both'), placeholder="select type of locations to display...")
-        if is_public_location == 'personal':
+        is_public_location = st.selectbox('type', options=('private','public','both'), placeholder="select type of locations to display...")
+        if is_public_location == 'private':
             rdf = rdf[rdf['name'].str.len() >  15]
         elif is_public_location == 'public':
             rdf = rdf[rdf["name"].str.len() <= 15]   

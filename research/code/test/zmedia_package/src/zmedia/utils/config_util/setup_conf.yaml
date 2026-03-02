@@ -16,6 +16,6 @@ data_paths:
            - data/input-data/error/img/quality
            - data/raw-data       
 model_paths: 
-           - models/faces_embeddings 
-           - models/faces_label_enc,models/faces_svc 
+           - models/faces_label_enc
+           - models/faces_svc 
            - models/image_classify_filter

@@ -2,6 +2,7 @@ import os
 import pprint
 import yaml
 import streamlit as st
+from utils.util import storage_stat as ss
 
 """
 metadata:
@@ -80,13 +81,10 @@ final-paths:
   audio_data_path: /data/final-data/audio
   text_data_path: /data/final-data/txt
 """
-BASE_FOLDER = os.path.dirname(os.path.abspath(__file__))
-print(f"****** {BASE_FOLDER}")
 @st.cache_resource
 def overview_config_load():
     dr,*_ = app_config_load()
-    
-    with open(os.path.join(BASE_FOLDER,"overview_conf.yaml")) as prop:
+    with open("utils/config_util/overview_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * *  overview archive properties * * *")
@@ -163,7 +161,7 @@ def overview_config_load():
 @st.cache_resource
 def dataload_config_load():
     dr,*_ = app_config_load()
-    with open(os.path.join(BASE_FOLDER,"dataload_conf.yaml")) as prop:
+    with open("utils/config_util/dataload_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * *  dataload archiver properties * * *")
@@ -190,7 +188,7 @@ def dataload_config_load():
 @st.cache_resource
 def static_metadata_config_load():
     dr,*_ = app_config_load()
-    with open(os.path.join(BASE_FOLDER,"static_metadata_conf.yaml")) as prop:
+    with open("utils/config_util/static_metadata_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * *  dataload archive properties * * *")
@@ -235,7 +233,7 @@ def static_metadata_config_load():
 @st.cache_resource
 def preprocess_config_load():
     dr,*_ = app_config_load()
-    with open(os.path.join(BASE_FOLDER,"preprocess_conf.yaml")) as prop:
+    with open("utils/config_util/preprocess_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * * Metadata Generator Properties * * *")
@@ -269,7 +267,7 @@ def preprocess_config_load():
 @st.cache_resource
 def missing_metadata_config_load():
     dr,*_ = app_config_load()
-    with open(os.path.join(BASE_FOLDER,"missing_metadata_conf.yaml")) as prop:
+    with open("utils/config_util/missing_metadata_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * * Missing Metadata Properties * * *")
@@ -292,7 +290,7 @@ def missing_metadata_config_load():
 @st.cache_resource
 def dedup_config_load():
     dr,*_ = app_config_load()
-    with open(os.path.join(BASE_FOLDER,"dedup_conf.yaml")) as prop:
+    with open("utils/config_util/dedup_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * *  duplicate archive properties * * *")
@@ -312,7 +310,7 @@ def dedup_config_load():
 @st.cache_resource
 def image_quality_config_load():
     dr,*_ = app_config_load()
-    with open(os.path.join(BASE_FOLDER,"quality_conf.yaml")) as prop:
+    with open("utils/config_util/quality_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * * quality archive properties * * *")
@@ -334,7 +332,7 @@ def image_quality_config_load():
 @st.cache_resource
 def data_validation_config_load():
     dr,*_ = app_config_load()
-    with open(os.path.join(BASE_FOLDER,"data_validation_conf.yaml")) as prop:
+    with open("utils/config_util/data_validation_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * * Data Validation Properties * * *")
@@ -369,12 +367,40 @@ def data_validation_config_load():
     )
 
 """
+metadata:
+  raw_data_path: /data/raw-data/
+  image_dir_path: /data/input-data/img/
+  metadata_path: /data/app-data/metadata/
+  metadata_file: metadata.json
+  vectordb_path: /data/app-data/vectordb/
+  data_chunk_size: 10
+  number_of_instances: 10
 
+models:
+  openclip_finetuned: /models/zeshaOpenClip/clip_finetuned.pth  
+
+vectordb:
+  vectordb_path: /data/app-data/vectordb/
+  image_collection_name: multimodal_collection_images
+  text_collection_name: multimodal_collection_texts
+  video_collection_name: multimodal_collection_videos
+  audio_collection_name: multimedia_collection_audios
+  text_dir_path: /data/input-data/txt/
+
+prod:
+  image_final_path:  /data/final-data/img/
+  text_final_path:  /data/final-data/txt/
+  video_final_path:  /data/final-data/video/
+  audio_final_path: /data/final-data/audio/
+
+static-metadata:
+  static_metadata_path: /data/app-data/static-metadata/locations/user-specific
+  static_metadata_file: static_locations.parquet
 """
 @st.cache_resource
 def vectordb_config_load():
     dr, *_ = app_config_load()
-    with open(os.path.join(BASE_FOLDER,"preprocess_conf.yaml")) as prop:
+    with open("utils/config_util/preprocess_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * * Metadata Generator Properties * * *")
@@ -385,6 +411,7 @@ def vectordb_config_load():
         image_initial_path = dict["metadata"]["image_dir_path"]
         metadata_path = dict["metadata"]["metadata_path"]
         metadata_file = dict["metadata"]["metadata_file"]
+        max_worker_instances = dict["metadata"]["number_of_instances"]
 
         vectordb_path = dict['vectordb']["vectordb_path"]
         image_collection_name = dict['vectordb']["image_collection_name"]
@@ -404,6 +431,7 @@ def vectordb_config_load():
         os.path.join(dr, *image_initial_path.split(os.sep)[1:]),
         os.path.join(dr, *metadata_path.split(os.sep)[1:]),
         metadata_file,
+        max_worker_instances,
 
         os.path.join(dr, *vectordb_path.split(os.sep)[1:]),
         image_collection_name,
@@ -424,7 +452,7 @@ def vectordb_config_load():
 @st.cache_resource
 def editor_config_load():
     dr, *_ = app_config_load()
-    with open(os.path.join(BASE_FOLDER,"editor_conf.yaml")) as prop:
+    with open("utils/config_util/editor_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         print("* * * Metadata Generator Properties * * *")
@@ -460,7 +488,7 @@ def editor_config_load():
 @st.cache_resource
 def search_config_load():
     dr, *_ = app_config_load()
-    with open(os.path.join(BASE_FOLDER,"search_conf.yaml")) as prop:
+    with open("utils/config_util/search_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * * Metadata Generator Properties * * *")
@@ -498,7 +526,7 @@ def faces_config_load():
     # global app attributes
     dr,*_ = app_config_load()
 
-    with open(os.path.join(BASE_FOLDER,"face_conf.yaml")) as prop:
+    with open("utils/config_util/face_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * * Metadata Generator Properties * * *")
@@ -526,7 +554,7 @@ def faces_config_load():
 @st.cache_resource
 def filer_config_load():
     dr, *_ = app_config_load()
-    with open(os.path.join(BASE_FOLDER,"filter_conf.yaml")) as prop:
+    with open("utils/config_util/filter_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * *  filter model archive properties * * *")
@@ -567,7 +595,7 @@ appdata-archive:
 @st.cache_resource
 def archive_config_load():
 
-    with open(os.path.join(BASE_FOLDER,"archive_conf.yaml")) as prop:
+    with open("utils/config_util/archive_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * * Archive Properties * * *")
@@ -598,21 +626,28 @@ def archive_config_load():
 """
 @st.cache_resource
 def app_config_load():
-    utils_dir = os.path.dirname(os.path.abspath(__file__))
-    app_conf = os.path.join(utils_dir, "app_conf.yaml")
-    with open(app_conf) as prop:
+    with open("utils/config_util/app_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * * App Properties * * *")
         pprint.pprint(dict)
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
 
-        data_root = dict["app-config"]["appdata_root_path"]
+        data_root = dict["app-config"]["data_root_path"]
+        data_root_mac = dict["app-config"]["data_root_path_mac"]
+        data_root_win = dict["app-config"]["data_root_path_win"]
         app_root = dict["app-config"]["approot_path"]
+        
+        current_os = ss.get_current_os()
+        if current_os == "MACOS":
+            data_root = data_root_mac
+        elif current_os == "WINDOWS":
+            data_root = data_root_win    
 
         return(
             data_root,
-            app_root
+            app_root,
+            current_os
         )
 
 """
@@ -622,7 +657,7 @@ def app_config_load():
 def setup_config_load():
     dr, *_ = app_config_load()
     ap, dp, mp = [], [], []
-    with open(os.path.join(BASE_FOLDER,"setup_conf.yaml")) as prop:
+    with open("utils/config_util/setup_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
 
         pprint.pprint("* * * Metadata Generator Properties * * *")

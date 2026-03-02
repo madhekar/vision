@@ -11,7 +11,8 @@ from utils.missing_util import missing_metadata as mm
 from utils.quality_util import image_quality as iq
 #from utils.dedup_util.md5 import dedup_imgs as di
 from utils.face_detection_util import face_trainer
-from utils.dedup_util.phash import KDduplicates as kdd
+#from utils.dedup_util.phash import KDduplicates as kdd
+from utils.dedup_util.imagededupe import cnn
 from utils.dataload_util import dataload as dl
 from utils.util import statusmsg_util as sm
 
@@ -361,7 +362,7 @@ def exe():
             if  st.button("Duplicate Check", use_container_width=True, type='primary'):
                 with st.status('duplicate', expanded=True) as sc2c:
                     st.write('duplicate check starting...')
-                    results = kdd.execute(user_source_selected)#test_duplicate_sqdm(npar)
+                    results = cnn.execute(user_source_selected) #kdd.execute(user_source_selected)#test_duplicate_sqdm(npar)
                     if results == "success":
                         sc2c.update(label='duplicate complete', state='complete')
                     else:

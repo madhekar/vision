@@ -1,13 +1,12 @@
 import streamlit as st
 from streamlit_extras.app_logo import add_logo
 import torch
-from  zmedia.utils.config_util import config 
-from zmedia.utils.util import storage_stat as ss
-from zmedia.utils.util import setup_app as sa
+from utils.config_util import config 
+from utils.util import storage_stat as ss
+from utils.util import setup_app as sa
 import os
 import sys
 import runpy
-from pathlib import Path
 torch.classes.__path__ = []
 sys.path.append('..')
 
@@ -19,17 +18,15 @@ sys.path.append('..')
 #########################################################################
 
 st.set_page_config(
-        page_title="zesha: Media Portal (MP)",
-        page_icon="../assets/zesha-high-resolution-logo.jpeg",  #check
-        initial_sidebar_state="expanded",
-        layout="wide",
-        menu_items={
-            'About': 'Zesha PC is created by Bhalchandra Madhekar',
-            'Get Help':'https://www.linkedin.com/in/bmadhekar'
-        }
-    )
-
-BASE_FOLDER = Path(__file__).resolve().parent
+    page_title="zesha: Media Portal (MP)",
+    page_icon="../assets/zesha-high-resolution-logo.jpeg",  #check
+    initial_sidebar_state="expanded",
+    layout="wide",
+    menu_items={
+        'About': 'Zesha PC is created by Bhalchandra Madhekar',
+        'Get Help':'https://www.linkedin.com/in/bmadhekar'
+    }
+)
 
 """
             data_root,
@@ -39,17 +36,17 @@ BASE_FOLDER = Path(__file__).resolve().parent
             zmedia_dest
 """
 def load_app_configuration():
-    root_data, root_app = config.app_config_load()
+    root_data, root_app, current_os = config.app_config_load()
     print(f'app root: {root_app} data root: {root_data}')
     if not os.path.exists(root_data):
         ap, dp, mp,  = config.setup_config_load()
-        sa.folder_setup(ap, dp, mp)
+        #sa.folder_setup(ap, dp, mp)
     else:    
         cnt = ss.remove_all_files_by_type(root_app, 'I')
         if cnt > 0:
            print(f' {cnt} : number of files removed')
            #return root_data, root_app
-
+    return current_os
 
 
 def load_css(css_path):
@@ -57,14 +54,14 @@ def load_css(css_path):
         s = f"<style>{f.read()}</style>"
         st.html(s)
 
-def main():
+def main():        
 
-    #script_dir = os.path.dirname(os.path.abspath(__file__))
-    css_path = os.path.join(BASE_FOLDER,"assets", "styles.css")
+    css_path = os.path.join("assets", "styles.css")
     load_css(css_path)
 
     # ar,dr = 
-    load_app_configuration()
+    current_os = load_app_configuration()
+    print(f"Current Environment: {current_os}")
     # if 'app_root' not in st.session_state:
     #     st.session_state['app_root'] = ar
 
@@ -79,7 +76,6 @@ def main():
         title="🏠 OVERVIEW", 
         #icon=":bar_chart:", 
         default=True
-
     )
     data_extadd = st.Page(
         page="pages/data_extadd.py",
@@ -129,24 +125,28 @@ def main():
         # icon=":material/search:",
     )
     #add_logo("./assets/zmedia_logo.png", height=200)
-    st.logo(os.path.join(BASE_FOLDER,"assets","zm_logo_2.png"), size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
+    st.logo("assets/zm_logo_2.png", size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
+    
+    if current_os == "LINUX":
 
-    pg = st.navigation(
-        {
-            # "OVERVIEW": [overview],
-            # "DATA": [data_extadd, data_trim, data_validation],      
-            # "METADATA: STATIC": [static_metadata_loader],
-            # "METADATA: DYNAMIC": [data_correction, metadata_creater, metadata_loader],
-            "SEARCH": [multimodal_search],
-        }
-    )
-
+        pg = st.navigation(
+            {
+                "OVERVIEW": [overview],
+                "DATA": [data_extadd, data_trim, data_validation],      
+                "METADATA: STATIC": [static_metadata_loader],
+                "METADATA: DYNAMIC": [data_correction, metadata_creater, metadata_loader],
+                "SEARCH": [multimodal_search],
+            }
+        )
+    else:
+        pg = st.navigation(
+            {
+                "OVERVIEW": [overview],
+                "SEARCH": [multimodal_search]
+            }
+        )    
     pg.run()
 
-def run_app():
-    script_path = os.path.abspath(__file__)
-    sys.argv = ['streamlit', 'run', script_path] + sys.argv[1:]
-    runpy.run_module('streamlit', run_name='__main__')
 
 if __name__ == "__main__":
     main()
