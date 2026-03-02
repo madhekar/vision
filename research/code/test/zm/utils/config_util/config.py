@@ -2,6 +2,7 @@ import os
 import pprint
 import yaml
 import streamlit as st
+from utils.util import storage_stat as ss
 
 """
 metadata:
@@ -634,12 +635,18 @@ def app_config_load():
 
         data_root = dict["app-config"]["data_root_path"]
         data_root_mac = dict["app-config"]["data_root_path_mac"]
+        data_root_win = dict["app-config"]["data_root_path_win"]
         app_root = dict["app-config"]["approot_path"]
+        
+        current_os = ss.get_current_os()
+        if current_os == "MACOS":
+            data_root = data_root_mac
+        elif current_os == "WINDOWS":
+            data_root = data_root_win    
 
         return(
             data_root,
             app_root,
-            data_root_mac,
         )
 
 """
