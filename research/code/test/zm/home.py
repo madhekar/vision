@@ -36,7 +36,7 @@ st.set_page_config(
             zmedia_dest
 """
 def load_app_configuration():
-    root_data, root_app = config.app_config_load()
+    root_data, root_app, current_os = config.app_config_load()
     print(f'app root: {root_app} data root: {root_data}')
     if not os.path.exists(root_data):
         ap, dp, mp,  = config.setup_config_load()
@@ -46,7 +46,7 @@ def load_app_configuration():
         if cnt > 0:
            print(f' {cnt} : number of files removed')
            #return root_data, root_app
-
+    return current_os
 
 
 def load_css(css_path):
@@ -60,7 +60,7 @@ def main():
     load_css(css_path)
 
     # ar,dr = 
-    load_app_configuration()
+    current_os = load_app_configuration()
     # if 'app_root' not in st.session_state:
     #     st.session_state['app_root'] = ar
 
@@ -75,7 +75,6 @@ def main():
         title="🏠 OVERVIEW", 
         #icon=":bar_chart:", 
         default=True
-
     )
     data_extadd = st.Page(
         page="pages/data_extadd.py",
@@ -126,16 +125,25 @@ def main():
     )
     #add_logo("./assets/zmedia_logo.png", height=200)
     st.logo("assets/zm_logo_2.png", size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
+    
+    if current_os == "LINUX":
 
-    pg = st.navigation(
-        {
-            "OVERVIEW": [overview],
-            "DATA": [data_extadd, data_trim, data_validation],      
-            "METADATA: STATIC": [static_metadata_loader],
-            "METADATA: DYNAMIC": [data_correction, metadata_creater, metadata_loader],
-            "SEARCH": [multimodal_search],
-        }
-    )
+        pg = st.navigation(
+            {
+                "OVERVIEW": [overview],
+                "DATA": [data_extadd, data_trim, data_validation],      
+                "METADATA: STATIC": [static_metadata_loader],
+                "METADATA: DYNAMIC": [data_correction, metadata_creater, metadata_loader],
+                "SEARCH": [multimodal_search],
+            }
+        )
+    else:
+        pg = st.navigation(
+            {
+                "OVERVIEW": [overview],
+                "SEARCH": [multimodal_search]
+            }
+        )    
     pg.run()
 
 

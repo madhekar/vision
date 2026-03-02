@@ -647,6 +647,7 @@ def app_config_load():
         return(
             data_root,
             app_root,
+            current_os
         )
 
 """
