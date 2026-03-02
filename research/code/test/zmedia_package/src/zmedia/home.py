@@ -1,12 +1,13 @@
 import streamlit as st
 from streamlit_extras.app_logo import add_logo
 import torch
-from utils.config_util import config 
-from utils.util import storage_stat as ss
-from utils.util import setup_app as sa
+from zmedia.utils.config_util import config 
+from zmedia.utils.util import storage_stat as ss
+from zmedia.utils.util import setup_app as sa
 import os
 import sys
 import runpy
+from pathlib import Path
 torch.classes.__path__ = []
 sys.path.append('..')
 
@@ -27,6 +28,9 @@ st.set_page_config(
         'Get Help':'https://www.linkedin.com/in/bmadhekar'
     }
 )
+
+BASE_FOLDER = Path(__file__).resolve().parent
+
 
 """
             data_root,
@@ -56,7 +60,7 @@ def load_css(css_path):
 
 def main():        
 
-    css_path = os.path.join("assets", "styles.css")
+    css_path = os.path.join(BASE_FOLDER, "assets", "styles.css")
     load_css(css_path)
 
     # ar,dr = 
@@ -125,7 +129,7 @@ def main():
         # icon=":material/search:",
     )
     #add_logo("./assets/zmedia_logo.png", height=200)
-    st.logo("assets/zm_logo_2.png", size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
+    st.logo(os.path.join(BASE_FOLDER,"assets","zm_logo_2.png"), size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
     
     if current_os == "LINUX":
 
@@ -147,6 +151,10 @@ def main():
         )    
     pg.run()
 
+def run_app():
+    script_path = os.path.abspath(__file__)
+    sys.argv = ['streamlit', 'run', script_path] + sys.argv[1:]
+    runpy.run_module('streamlit', run_name='__main__')
 
 if __name__ == "__main__":
     main()
