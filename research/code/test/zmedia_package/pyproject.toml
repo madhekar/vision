@@ -68,3 +68,6 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 #requires = ["hatchling"]
 #build-backend = "hachling.build"
+
+[tool.setuptools.package-data]
+zmedia = ["assets/**/*","utils/config_util/*.yaml"]
