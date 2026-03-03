@@ -1,5 +1,6 @@
 MANIFEST.in
 pyproject.toml
+requirements.txt
 src/zmedia/__init__.py
 src/zmedia/home.py
 src/zmedia.egg-info/PKG-INFO
