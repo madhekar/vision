@@ -57,3 +57,33 @@ The idea is that if source files update, the app is 'rerun', as a convenience fo
 You can resolve this by either placing the app.py script in a (sub)folder than only contains dependencies that you'll edit during development, or by --server.fileWatcherType none and accept the nuisance of manually restarting.
 
 streamlit run app.py --server.fileWatcherType none
+
+
+The
+UnicodeDecodeError with pipreqs occurs when it encounters a file encoded in something other than UTF-8, which is its default assumption. The most direct fix is to specify the correct encoding when running the command or to ignore the problematic file/directory. 
+Solutions
+Here are the recommended solutions to resolve the error:
+
+    Specify the encoding in the command: The simplest solution is to use the --encoding flag and set it to utf-8 (or the correct encoding of your files).
+    bash
+
+    pipreqs --encoding=utf8 ./your/project/path
+
+    This often resolves the issue if your files are, in fact, UTF-8 but perhaps saved with a Byte Order Mark (BOM).
+    Ignore the problematic file or directory: The error often happens when pipreqs scans files that are not part of your primary source code, such as virtual environment files (.venv, env) or data files (e.g., CSVs, log files) that use a different encoding.
+    bash
+
+    pipreqs --ignore ./path/to/ignore
+
+    You can ignore your virtual environment folder to prevent this issue. For example:
+    bash
+
+    pipreqs --ignore .venv
+
+    Combine flags: You may need to use both flags together for the best results:
+    bash
+
+    pipreqs --encoding=utf8 --ignore .venv
+
+    Manually re-encode the file: If you know which file contains the invalid character, you can open it in a text editor like Sublime Text or Notepad++, change the encoding to UTF-8, and save it.
+    Identify the actual encoding: If the above doesn't work, you can use a library like chardet in a Python script to try and determine the file's actual encoding. Once identified, you can either re-encode the file or use that encoding in the pipreqs command. 
