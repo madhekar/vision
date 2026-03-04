@@ -58,6 +58,7 @@ You can resolve this by either placing the app.py script in a (sub)folder than o
 
 streamlit run app.py --server.fileWatcherType none
 
+----
 
 The
 UnicodeDecodeError with pipreqs occurs when it encounters a file encoded in something other than UTF-8, which is its default assumption. The most direct fix is to specify the correct encoding when running the command or to ignore the problematic file/directory. 
@@ -87,3 +88,67 @@ Here are the recommended solutions to resolve the error:
 
     Manually re-encode the file: If you know which file contains the invalid character, you can open it in a text editor like Sublime Text or Notepad++, change the encoding to UTF-8, and save it.
     Identify the actual encoding: If the above doesn't work, you can use a library like chardet in a Python script to try and determine the file's actual encoding. Once identified, you can either re-encode the file or use that encoding in the pipreqs command. 
+
+---
+
+To clean up pip packages installed outside of a virtual environment on Linux Mint, the recommended approach is to use the
+pip uninstall command for specific packages or to remove all user-installed packages from the local directory. 
+Method 1: Uninstall Specific Packages
+You can uninstall individual packages installed outside a virtual environment (e.g., using pip install --user <package-name> or sudo pip install <package-name>) with the following steps: 
+
+    Open a terminal.
+    List installed packages to identify which ones you want to remove using the command:
+    bash
+
+    pip list
+    # or
+    pip3 list
+
+    (Note: pip freeze might list packages installed by the system package manager as well, making pip list often preferable for identifying pip-installed packages.)
+    Uninstall the specific package using the command:
+    bash
+
+    pip uninstall <package-name>
+    # or
+    pip3 uninstall <package-name>
+
+    You may need sudo if the package was installed system-wide with root privileges (e.g., in /usr/local/lib/). Pip will prompt for confirmation. 
+
+Method 2: Remove All User-Installed Packages 
+If you want to remove all packages installed to your user's local directory (~/.local/), a common approach is to use a one-liner command:
+bash
+
+pip freeze > requirements.txt && pip uninstall -r requirements.txt -y && rm requirements.txt
+
+This command:
+
+    pip freeze > requirements.txt: Creates a list of all currently installed packages in a file named requirements.txt.
+    pip uninstall -r requirements.txt -y: Uninstalls all packages listed in the file, automatically confirming (the -y flag) for each package.
+    rm requirements.txt: Deletes the temporary file. 
+
+Caution: Running this command will uninstall all packages accessible to your current environment. Ensure you are not in a virtual environment you want to keep intact, and be aware it might try to uninstall system-critical packages if run as root. 
+Method 3: Manually Delete Local Files
+For packages installed with the --user flag (located in ~/.local/), you can manually delete the package directories if the standard uninstall command fails: 
+
+    Navigate to your user's local site-packages directory (e.g., ~/.local/lib/pythonX.Y/site-packages/, where X.Y is your Python version).
+    Manually delete the directories corresponding to the unwanted packages. Also check for corresponding executable scripts in ~/.local/bin/. This method is less convenient but effective if other methods don't work. 
+
+Prevention: Use Virtual Environments 
+To avoid these issues in the future, it is highly recommended to use Python virtual environments for all non-system Python projects. This isolates project dependencies from the system's Python packages, preventing conflicts with the operating system's package manager. 
+
+---
+
+This error occurs because
+distutils (often used by python setup.py install) does not record installed files, preventing pip from safely removing the package. To resolve this, bypass the broken metadata by forcing a new installation over the old one, ignoring the existing files. 
+Top Solutions:
+
+    Force Reinstall (Recommended): Run pip install --upgrade --force-reinstall <package_name>.
+    Ignore Installed: Run pip install --ignore-installed <package_name>.
+    Manual Deletion: Locate the package in your Python site-packages folder and manually delete the folder and the ...egg-info file. 
+
+Common Fixes:
+
+    Use pip install --ignore-installed <package_name>: This tells pip to ignore the current broken installation and install over it, ensuring all files are tracked properly.
+    Reinstall with --no-deps: If dependency issues occur, use pip install --ignore-installed --no-deps <package_name>.
+    Use a Virtual Environment: Avoid this issue in the future by using venv or virtualenv for projects.
+    System Package Manager: If the package was installed via apt, yum, or another OS manager, use that tool to uninstall it instead of pip. 
