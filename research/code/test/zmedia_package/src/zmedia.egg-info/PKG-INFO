@@ -42,7 +42,6 @@ Requires-Dist: streamlit_folium==0.22.1
 Requires-Dist: streamlit_image_select==0.6.0
 Requires-Dist: streamlit_tree_select==0.0.5
 Requires-Dist: tensorflow==2.16.1
-Requires-Dist: tensorflow_cpu==2.16.1
 Requires-Dist: torchvision==0.17.2
 Requires-Dist: torch==2.2.2
 Requires-Dist: tqdm==4.67.1

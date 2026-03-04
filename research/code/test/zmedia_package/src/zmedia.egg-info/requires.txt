@@ -37,7 +37,6 @@ streamlit_folium==0.22.1
 streamlit_image_select==0.6.0
 streamlit_tree_select==0.0.5
 tensorflow==2.16.1
-tensorflow_cpu==2.16.1
 torchvision==0.17.2
 torch==2.2.2
 tqdm==4.67.1
