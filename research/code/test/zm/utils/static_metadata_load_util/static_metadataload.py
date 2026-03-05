@@ -6,10 +6,10 @@ from utils.util import fast_parquet_util as fpu
 from utils.util import storage_stat as ss
 from utils.static_metadata_load_util import user_static_loc as usl
 from utils.preprocess_util import preprocess as pp
-from utils.face_util import base_face_train as bft_train
+#from utils.face_util import base_face_train as bft_train
 from utils.face_detection_util import face_trainer as ft
 from utils.filter_util import torch_filter as tfu
-from utils.face_util import base_face_predict as bft_predict
+#from utils.face_util import base_face_predict as bft_predict
 import streamlit as st
 import altair as alt
 from utils.util import folder_chart as fc

@@ -1,5 +1,6 @@
 import os
-import cv2
+#import cv2
+from PIL import Image
 import joblib
 import numpy as np
 import streamlit as st
@@ -38,7 +39,8 @@ def train_model(app, img_dataset_path, model_path, model_file, label_path, label
                 continue
 
             try:
-                img = cv2.imread(image_path)
+                #img = cv2.imread(image_path)
+                img=np.asarray(Image.open(image_path).convert('RGB'))
                 if img is None:
                     continue
                 # Get faces from the image
