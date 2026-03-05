@@ -60,11 +60,6 @@ src/zmedia/utils/dedup_util/phash/search_similar.py
 src/zmedia/utils/editor_util/editor.py
 src/zmedia/utils/face_detection_util/face_predictor.py
 src/zmedia/utils/face_detection_util/face_trainer.py
-src/zmedia/utils/face_util/base_face.py
-src/zmedia/utils/face_util/base_face_infer.py
-src/zmedia/utils/face_util/base_face_predict.py
-src/zmedia/utils/face_util/base_face_train.py
-src/zmedia/utils/face_util/base_facenet.py
 src/zmedia/utils/filter_util/filter.py
 src/zmedia/utils/filter_util/filter_inferance.py
 src/zmedia/utils/filter_util/filter_torch_inference.py
@@ -72,10 +67,7 @@ src/zmedia/utils/filter_util/torch_filter.py
 src/zmedia/utils/missing_util/exif_missing_metadata.py
 src/zmedia/utils/missing_util/missing_metadata.py
 src/zmedia/utils/overview_util/overview.py
-src/zmedia/utils/preprocess_util/LLM.py
 src/zmedia/utils/preprocess_util/LLM_Next.py
-src/zmedia/utils/preprocess_util/awaitUtil.py
-src/zmedia/utils/preprocess_util/entities.py
 src/zmedia/utils/preprocess_util/load_vectordb.py
 src/zmedia/utils/preprocess_util/ollama_llava_next.py
 src/zmedia/utils/preprocess_util/preprocess.py
