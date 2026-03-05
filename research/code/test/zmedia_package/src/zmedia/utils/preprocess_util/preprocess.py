@@ -4,7 +4,7 @@ import logging
 import itertools as it
 #import cv2
 import numpy as np
-from utils.preprocess_util import awaitUtil
+#from utils.preprocess_util import awaitUtil
 #from utils.preprocess_util import entities as en
 #from utils.preprocess_util import LLM_Next
 from utils.preprocess_util import ollama_llava_next as oln
@@ -18,7 +18,7 @@ from utils.util import location_util as lu
 from utils.util import model_util as mu
 from utils.util import fast_parquet_util as fpu
 from utils.util import storage_stat as ss
-from utils.face_util import base_face_predict as bft
+#from utils.face_util import base_face_predict as bft
 from utils.face_detection_util import face_predictor as fpr
 from utils.filter_util import filter_inferance as fi
 #import tensorflow as tf
