@@ -367,6 +367,7 @@ def execute():
     """,
         unsafe_allow_html=True,
     )
+    
     display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
 
     st.divider()

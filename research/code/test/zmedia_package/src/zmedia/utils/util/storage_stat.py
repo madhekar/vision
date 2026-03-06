@@ -105,7 +105,7 @@ def check_folder(folder_path):
         return False
     return False    
 
-       
+@st.cache_resource       
 def extract_all_folder_stats(folder_path):
    fstat = FolderStats()  
 

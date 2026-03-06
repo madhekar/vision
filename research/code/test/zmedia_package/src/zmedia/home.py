@@ -102,7 +102,7 @@ def main():
     pg = st.navigation(
             {
                 "OVERVIEW": [overview],
-                "SEARCH": [multimodal_search]
+                "SEARCH": [multimodal_search],
             }
         )    
     pg.run()
