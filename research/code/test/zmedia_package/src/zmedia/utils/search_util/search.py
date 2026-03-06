@@ -85,6 +85,7 @@ def os_specific_path(img_path):
         if len(parts) > 1:
             n_pth = mac_prefix + token + parts[1]
 
+
     return n_pth    
 
 def search_fn(client, cImgs, cTxts):
@@ -216,7 +217,7 @@ def search_fn(client, cImgs, cTxts):
                 n_results=10,
             )
 
-            #st.write(st.session_state["imgs"]) # ---enable to debug
+            st.write(st.session_state["imgs"]) # ---enable to debug
 
         elif modality_selected == "text":
             # execute text collection query --- TBD fix
