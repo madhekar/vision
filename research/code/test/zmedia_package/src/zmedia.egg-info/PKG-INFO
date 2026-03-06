@@ -32,5 +32,5 @@ Requires-Dist: streamlit-vertical-slider==2.5.5
 Requires-Dist: streamlit_faker==0.0.4
 Requires-Dist: streamlit_folium==0.22.1
 Requires-Dist: streamlit_imagegrid==0.0.7
-Requires-Dist: torch==2.10.0
+Requires-Dist: torch==2.2.2
 Requires-Dist: open-clip-torch==2.24.0

@@ -27,5 +27,5 @@ streamlit-vertical-slider==2.5.5
 streamlit_faker==0.0.4
 streamlit_folium==0.22.1
 streamlit_imagegrid==0.0.7
-torch==2.10.0
+torch==2.2.2
 open-clip-torch==2.24.0
