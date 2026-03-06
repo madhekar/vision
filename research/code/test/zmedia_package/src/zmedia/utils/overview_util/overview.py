@@ -161,7 +161,7 @@ def filter_selection(df):
     #             .vega-bind {
     #             text-align:right;
     #             }</style> """, unsafe_allow_html=True)
-    st.altair_chart(size_chart + text_count, width='stretch') #| chart.encode(x="size:Q"))
+    st.altair_chart(size_chart + text_count, use_container_width=True) #| chart.encode(x="size:Q"))
     # Combine the bar chart and text labels
     # chart = size_chart + text_count
     # st.altair_chart(chart, width='stretch')
@@ -201,7 +201,7 @@ def disc_usage_1(tm, um, fm, w):
         color="black"
     ).encode(text="size")
 
-    st.altair_chart(bar + text, width='stretch')
+    st.altair_chart(bar + text, use_container_width=True)
 
     # b = (
     #     alt.Chart(mem)
@@ -245,7 +245,7 @@ def disc_usage(tm, um, fm, w):
         tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N")],
     )
     text = base.mark_text(align='center', radiusOffset=10, color="black").encode(text="size:Q")
-    st.altair_chart(pie + text, width='stretch')
+    st.altair_chart(pie + text, use_container_width=True)
 
 
 def display_storage_metrics(tm, um, fm, dfi, dff):
@@ -328,9 +328,9 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
     )
     c1, c2 = st.columns([.5,.5])
     with c1:
-       st.altair_chart(ch_count, width='stretch')
+       st.altair_chart(ch_count, use_container_width=True)
     with c2:   
-       st.altair_chart(ch_size, width='stretch')
+       st.altair_chart(ch_size, use_container_width=True)
 
 def execute():
     (rdp, idp, adp, fdp, opl) = extract_folder_paths() 
