@@ -79,12 +79,15 @@ def fix_image_paths_in_vector_db():
         print(f'vector path {ndb_pth}')
         client = chromadb.PersistentClient(path=ndb_pth)
         collection = client.get_collection(name=img_coll_idx)
+
+        print('count: ',collection.count())
         
         results = collection.get(include=["uris"])
         print(prefix, results)
         
         ids = results["ids"]
         uris = results['uris']
+        print(f'ids : {ids} uris: {uris}' )
         n_uris = [fix_uri(uri, prefix=prefix, token=path_token) for uri in uris]
         print('****', n_uris)
         #collection.update(ids=ids, uris=n_uris)
