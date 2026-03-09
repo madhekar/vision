@@ -68,20 +68,24 @@ def fix_image_paths_in_vector_db():
     win_prefix, 
     path_token ) = read_init_param()
    
+
+   print(f' {is_init}, {vdb_path}, {img_coll_idx}, {linux_prefix}, {mac_prefix}, {win_prefix},  {path_token}')
    if is_init == "no":
         prefix = os_specific_prefix(win_prefix, linux_prefix, mac_prefix)
+        print(f'prefix {prefix}')
         ndb_pth = fix_uri(vdb_path, prefix=prefix, token=path_token)
+        print(f'vector path {ndb_pth}')
         client = chromadb.PersistentClient(path=ndb_pth)
         collection = client.get_collection(name=img_coll_idx)
         
         results = collection.get(include=["uris"])
-        print(prefix) #, results)
+        print(prefix, results)
         
         ids = results["ids"]
         uris = results['uris']
         n_uris = [fix_uri(uri, prefix=prefix, token=path_token) for uri in uris]
         print('****', n_uris)
-        collection.update(ids=ids, uris=n_uris)
+        #collection.update(ids=ids, uris=n_uris)
 
         # data adjustment is done 
         write_ini("yes")
@@ -100,4 +104,4 @@ def get_current_os():
 
 if __name__=="__main__":
     print(get_current_os())
-    #fix_image_paths_in_vector_db()
+    fix_image_paths_in_vector_db()
