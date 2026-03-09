@@ -70,7 +70,9 @@ def fix_image_paths_in_vector_db():
    
 
    print(f' {is_init}, {vdb_path}, {img_coll_idx}, {linux_prefix}, {mac_prefix}, {win_prefix},  {path_token}')
-   if is_init == "no":
+
+   if is_init.replace('\x00', '').strip() == "no":
+        print('here')
         prefix = os_specific_prefix(win_prefix, linux_prefix, mac_prefix)
         print(f'prefix {prefix}')
         ndb_pth = fix_uri(vdb_path, prefix=prefix, token=path_token)
