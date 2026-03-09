@@ -7,6 +7,7 @@ import glob
 import datetime
 import shutil
 from pathlib import Path
+import file_type_ext as fte
 import streamlit as st
 import pandas as pd
 
@@ -30,6 +31,13 @@ def getFiles(rootDir):
         if not os.path.isdir(os.path.abspath(fn)):
             f_list.append(os.path.abspath(fn)) 
     return f_list        
+
+def getImgRecursive(rootDir, chunk_size=10):
+    img_files = []
+
+    for ext in extensions:
+        image_files.extend(search_dir.rglob(ext))
+
 
 # recursive call to get all image filenames
 def getRecursive(rootDir, chunk_size=10):
@@ -176,5 +184,5 @@ def extract_subpath(base_path_str, full_path_str):
         subpath = full_path.relative_to(base_path)
         return str(subpath)
     except ValueError as e:
-        st.error(f'Value Error occred {e} in extact_subpath')
+        st.error(f'Value Error occur {e} in extract_subpath')
         return None    
