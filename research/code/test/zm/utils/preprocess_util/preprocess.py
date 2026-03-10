@@ -170,13 +170,13 @@ async def describeImage(args):
 /home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth
 """
 # recursive call to get all image filenames, to be replaced by parquet generator
-def getRecursive(rootDir, chunk_size=10):
-    f_list = []
-    for fn in glob.iglob(rootDir + "/**/*", recursive=True):
-        if not os.path.isdir(os.path.abspath(fn)):
-            f_list.append(os.path.abspath(fn))
-    for i in range(0, len(f_list), chunk_size):
-        yield f_list[i : i + chunk_size]
+# def getRecursive(rootDir, chunk_size=10):
+#     f_list = []
+#     for fn in glob.iglob(rootDir + "/**/*", recursive=True):
+#         if not os.path.isdir(os.path.abspath(fn)):
+#             f_list.append(os.path.abspath(fn))
+#     for i in range(0, len(f_list), chunk_size):
+#         yield f_list[i : i + chunk_size]
 
 def new_xform(res):
     ll = [list(x) for x in zip(*res)]
@@ -215,6 +215,7 @@ async def run_workflow(
     queue_size,
     metadata_path,
     metadata_file,
+    num_files,
     number_of_instances,
     openclip_finetuned
 ):
@@ -230,7 +231,7 @@ async def run_workflow(
     else:
       num = 0
      
-    num_files = len(glob.glob(os.path.join(image_dir_path,'/**/*')))
+    # num_files = len(glob.glob(os.path.join(image_dir_path,'/**/*')))
     num = num_files - num
     print(f'processing files in: {image_dir_path} total files: {num_files}') 
     
@@ -306,7 +307,8 @@ def execute(user_source_selected):
     static_metadata_path = os.path.join(static_metadata_path, user_source_selected)
     # add user data source to image input and metadata output paths
     image_dir_path = os.path.join(image_dir_path, user_source_selected)
-    
+    number_of_files = mu.count_files_in_path(image_dir_path)
+
     if not os.path.exists(image_dir_path):
         st.error(f'exception: image data path for {user_source_selected} does not exists!')
     metadata_path = os.path.join(metadata_path, user_source_selected)
@@ -360,6 +362,7 @@ def execute(user_source_selected):
             queue_size,
             metadata_path,
             metadata_file,
+            number_of_files,
             number_of_instances,
             openclip_finetuned,
         ))

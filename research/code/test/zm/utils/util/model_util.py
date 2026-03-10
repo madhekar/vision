@@ -7,7 +7,7 @@ import glob
 import datetime
 import shutil
 from pathlib import Path
-import file_type_ext as fte
+from utils.util import file_type_ext as fte
 import streamlit as st
 import pandas as pd
 
@@ -32,16 +32,10 @@ def getFiles(rootDir):
             f_list.append(os.path.abspath(fn)) 
     return f_list        
 
-def getImgRecursive(search_folder, chunk_size=10):
-    img_files = []
-    img_count = 0 
 
-    for ext in fte.image_types:
-        img_files.extend(search_folder.rglob(ext))
-
-    img_count = len(img_files)
-
-    return img_count, img_files
+def count_files_in_path(directory):
+    count = len([f for f in Path(directory).rglob('*') if f.is_file()])
+    return count
 
 # recursive call to get all image filenames
 def getRecursive(rootDir, chunk_size=10):
