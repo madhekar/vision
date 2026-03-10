@@ -111,9 +111,9 @@ def filter_selection(df):
 
     base = alt.Chart(df).encode(
 
-    y=alt.Y('data_type:N', sort='-x', axis=alt.Axis(grid=True, gridColor="grey"), title='data Type'), # Sort descending by x-value
+    y=alt.Y('count:Q', sort='-x', axis=alt.Axis(grid=False, gridColor="grey"), title='file count'), # Sort descending by x-value
     yOffset="data_attrib:N",
-    color=alt.Color("data_attrib:N", scale=alt.Scale( scheme='dark2')),
+    color=alt.Color("data_type:N", scale=alt.Scale( scheme='dark2')),
     tooltip=['data_type', 'data_attrib','count', 'size']
     ).transform_filter(
       (alt.datum.count > 0)
@@ -124,12 +124,12 @@ def filter_selection(df):
 
     # Bar chart for Size (MB)
     size_chart = (
-        base.mark_bar(color="skyblue", opacity=0.7)
+        base.mark_bar(opacity=0.7, orient="vertical")
         .encode(
             x=alt.X(
-                "size:Q",
-                axis=alt.Axis(grid=True, gridColor="grey"),
-                title="folder Size",
+                "data_type:N",
+                axis=alt.Axis(grid=False, gridColor="grey"),
+                title="data type",
             ),
         )
         .transform_filter(
@@ -144,10 +144,6 @@ def filter_selection(df):
         align='left',
         baseline='middle',
         dx=5 # Nudges text to the right of the bar
-    ).encode(
-        x='size:Q',
-        text='count:Q',
-        color=alt.value('black')
     ).transform_filter(
         # Combine both selections using logical AND
         source_selection #& data_type_selection
@@ -190,7 +186,7 @@ def disc_usage_1(tm, um, fm, w):
         .encode(
             y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey"), title="Disc Storage Size in GB"),
             x=alt.X("disc:N", axis=alt.Axis(grid=True, gridColor="grey"), title="Disc Storage Category"),
-            color=alt.Color("disc:N", scale=alt.Scale( scheme='dark2'), legend=alt.Legend(labelFontWeight="bold",labelColor="gray"))#range=['#5A86AD', '#A3B18A', '#C17C74']))
+            color=alt.Color("disc:N", scale=alt.Scale( scheme='dark2'), legend= None ) #alt.Legend(labelFontWeight="bold",labelColor="black", labelFontSize=20))#range=['#5A86AD', '#A3B18A', '#C17C74']))
         )
     )
     text = bar.mark_text(
@@ -233,23 +229,24 @@ def disc_usage(tm, um, fm, w):
     base = alt.Chart(mem).encode(
         theta=alt.Theta("size:Q").stack(True),
         radius=alt.Radius("size").scale(type="sqrt", zero=True),
-        color=alt.Color("legend_label:N", scale=alt.Scale(scheme="dark2"))
+        color=alt.Color("size:Q", scale=alt.Scale(scheme="dark2"))
     )
 
    # 4. Create the pie (arc) layer innerRadius=int(0.05 * v), outerRadius=int(0.2 * v)
-    pie = base.mark_arc(opacity=0.7, innerRadius=int(0.1 * v), outerRadius=int(0.3 * v), stroke="#fff").encode(
+    pie = base.mark_arc(opacity=0.7, innerRadius=int(.1 * v), outerRadius=int(3 * v), stroke="#fff").encode(
         # alt.Theta("size:Q").stack(True),
         # alt.Radius("size").scale(type="sqrt", zero=True),
         # color=alt.Color("legend_label:N", scale=alt.Scale(scheme="dark2")),  # alt.Legend(title="disc usage")),
         # Add tooltip for better interactivity, using the combined label field
         tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N")],
+        
     )
     text = base.mark_text(align='center', radiusOffset=10, color="black").encode(text="size:Q")
     st.altair_chart(pie + text, use_container_width=True)
 
 
 def display_storage_metrics(tm, um, fm, dfi, dff):
-    c1,  c3 = st.columns([.3,  0.7])
+    c1,  c3 = st.columns([.4,  0.6])
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
         st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)        
