@@ -27,4 +27,4 @@ build-backend = "setuptools.build_meta"
 #build-backend = "hachling.build"
 
 [tool.setuptools.package-data]
-zmedia = ["assets/**/*","utils/config_util/*.yaml"]
+zmedia = ["assets/**/*","utils/config_util/*.yaml","/home/madhekar/.streamlit/**/*"]

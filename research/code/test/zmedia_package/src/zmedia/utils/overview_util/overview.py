@@ -233,7 +233,7 @@ def disc_usage(tm, um, fm, w):
 
 
 def display_storage_metrics(tm, um, fm, dfi, dff):
-    c1,  c3 = st.columns([.4,  0.6])
+    c1,  c3 = st.columns([.3,  0.7])
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
         st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)        
@@ -310,11 +310,11 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
             padding={"left":0, "top":5, "right": 0, "bottom": 5}
         )
     )
-    c1, c2 = st.columns([.5,.5])
-    with c1:
-       st.altair_chart(ch_count, use_container_width=True)
-    with c2:   
-       st.altair_chart(ch_size, use_container_width=True)
+    # c1, c2 = st.columns([.5,.5])
+    # with c1:
+    st.altair_chart(ch_count, use_container_width=True)
+    # with c2:   
+    st.altair_chart(ch_size, use_container_width=True)
 
 def execute():
     data_path, raw_data_path, opl = extract_folder_paths() 

@@ -213,6 +213,7 @@ def bytes_to_gb(bytes_size):
     """Converts bytes to gigabytes."""
     return bytes_size / (1024**3)
 
+@st.cache_resource(ttl=2000)
 def acquire_overview_data(data_path, raw_data_path, folder_list):
 
     # Define the list of folders to process

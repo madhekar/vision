@@ -61,6 +61,7 @@ def load_css(css_path):
 def main():        
 
     css_path = os.path.join(BASE_FOLDER, "assets", "styles.css")
+    print(f'base folder: {BASE_FOLDER} css path: {css_path}')
     load_css(css_path)
 
     # ar,dr = 
