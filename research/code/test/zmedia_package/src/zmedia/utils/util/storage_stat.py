@@ -383,7 +383,9 @@ def remove_file(file_path):
 
 # get immediate child folders
 def extract_user_raw_data_folders(pth):
-    ilist =  next(os.walk(pth))[1]
+    ilist = []
+    for v in next(os.walk(pth))[1]:
+        ilist.append(v)
     return ilist
 
 def create_folder(cpath):
