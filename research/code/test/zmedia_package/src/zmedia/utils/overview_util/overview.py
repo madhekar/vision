@@ -249,17 +249,17 @@ def disc_usage(tm, um, fm, w):
 
 
 def display_storage_metrics(tm, um, fm, dfi, dff):
-    c1, c2, c3 = st.columns([.3, 1.0, 1.0])
+    c1,  c3 = st.columns([.3,  0.7])
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
         st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)        
         width = st_dimensions(key="c1_width")
         disc_usage(tm, um, fm, width)
-    with c2:
-        #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
-        st.markdown("""##### <span style='color:#2d4202'><u>INPUT DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
-        #ss.acquire_overview_data(dfi.values.tolist())
-        filter_selection(dfi)
+    # with c2:
+    #     #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
+    #     st.markdown("""##### <span style='color:#2d4202'><u>INPUT DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
+    #     #ss.acquire_overview_data(dfi.values.tolist())
+    #     filter_selection(dfi)
     with c3:
         # st.markdown(
         #     '<p class="vertical-text">final data folder usage</p>',
@@ -372,20 +372,20 @@ def execute():
 
     st.divider()
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-    display_folder_details(*ss.extract_all_folder_stats(rdp))
+    # st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+    # display_folder_details(*ss.extract_all_folder_stats(rdp))
     #st.divider()
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**INPUT DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-    display_folder_details(*ss.extract_all_folder_stats(idp))
+    # st.markdown("""##### <span style='color:#2d4202'><u>**INPUT DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+    # display_folder_details(*ss.extract_all_folder_stats(idp))
     #st.divider()
 
     st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA FOLDER**</u></span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(fdp))
     #st.divider()
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-    display_folder_details(*ss.extract_all_folder_stats(adp))
+    # st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+    # display_folder_details(*ss.extract_all_folder_stats(adp))
 
 # if __name__ == "__main__":
 #     execute()
