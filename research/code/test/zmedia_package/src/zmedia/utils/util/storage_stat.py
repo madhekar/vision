@@ -384,8 +384,15 @@ def remove_file(file_path):
 # get immediate child folders
 def extract_user_raw_data_folders(pth):
     ilist = []
-    for v in next(os.walk(pth))[1]:
-        ilist.append(v)
+    while True:
+        try:
+            x = next(os.walk(pth))[1]
+            ilist.append(x)
+        except StopIteration:
+            break
+
+    # for v in next(os.walk(pth))[1]:
+    #     ilist.append(v)
     return ilist
 
 def create_folder(cpath):
