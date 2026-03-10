@@ -1,4 +1,5 @@
 data-paths:
+   data_path: /data
    raw_data_path: /data/raw-data
 #   input_data_path: /data/input-data
 #   app_data_path: /data/app-data

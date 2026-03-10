@@ -213,7 +213,7 @@ def bytes_to_gb(bytes_size):
     """Converts bytes to gigabytes."""
     return bytes_size / (1024**3)
 
-def acquire_overview_data(folder_list):
+def acquire_overview_data(data_path, raw_data_path, folder_list):
 
     # Define the list of folders to process
     # folders_to_check = [
@@ -242,8 +242,8 @@ def acquire_overview_data(folder_list):
     print(f"{'Folder':<30} | {'File Count':<15} | {'Size (GB)':<15}")
     print("-" * 64)
 
-    src_list, r_list = extract_user_raw_data_folders("/mnt/zmdata/home-media-app/data/raw-data"), []
-    prefix = "/mnt/zmdata/home-media-app/data/"
+    src_list, r_list = extract_user_raw_data_folders(raw_data_path), []
+    prefix = data_path
     for src in src_list:
         for folder in folder_list:
             folder = os.path.join(folder, src)

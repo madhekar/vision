@@ -109,6 +109,7 @@ def overview_config_load():
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * * *")
 
         raw_data_path = dict["data-paths"]["raw_data_path"]
+        data_path = dict["data-paths"]["data_path"]
         # input_data_path = dict["data-paths"]["input_data_path"]
         # app_data_path = dict["data-paths"]["app_data_path"]
         # final_data_path = dict["data-paths"]["final_data_path"]
@@ -140,6 +141,7 @@ def overview_config_load():
         # audio_mis_error_path = dict["error-paths"]["audio_mis_error_path"]
 
     return (
+        os.path.join(dr, *data_path.split(os.sep)[1:]),
         os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
         # os.path.join(dr, *input_data_path.split(os.sep)[1:]),
         # os.path.join(dr, *app_data_path.split(os.sep)[1:]),

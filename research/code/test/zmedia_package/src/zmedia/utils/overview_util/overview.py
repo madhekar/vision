@@ -43,7 +43,7 @@ final-paths:
 '''
 def extract_folder_paths():
     (
-    raw_data_path, final_image_data_path, final_video_data_path, final_audio_data_path, final_text_data_path
+    data_path, raw_data_path, final_image_data_path, final_video_data_path, final_audio_data_path, final_text_data_path
     ) = (
         config.overview_config_load()
     )
@@ -51,7 +51,7 @@ def extract_folder_paths():
         final_image_data_path, final_video_data_path, final_text_data_path, final_audio_data_path
         ]
 
-    return (raw_data_path, ovr_path_list)
+    return (data_path, raw_data_path, ovr_path_list)
 
 def filter_selection(df):
     print(f'*** {df}')
@@ -317,9 +317,9 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
        st.altair_chart(ch_size, use_container_width=True)
 
 def execute():
-    raw_data_path, opl = extract_folder_paths() 
+    data_path, raw_data_path, opl = extract_folder_paths() 
 
-    dfi, dff = ss.acquire_overview_data(opl)
+    dfi, dff = ss.acquire_overview_data(data_path, raw_data_path, opl)
    
     efs = ss.extract_user_raw_data_folders(raw_data_path)
 
