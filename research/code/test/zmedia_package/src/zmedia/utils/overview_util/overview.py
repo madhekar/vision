@@ -321,7 +321,7 @@ def execute():
 
     dfi, dff = ss.acquire_overview_data(opl)
    
-    efs = mu.extract_user_raw_data_folders('/mnt/zmdata/home-media-app/data/raw-data')
+    efs = ss.extract_user_raw_data_folders('/mnt/zmdata/home-media-app/data/raw-data')
 
     st.sidebar.markdown('##### :blue[**DATA SOURCES**]')
     #st.sidebar.markdown("""#### <span style='color:#2d4202'><u>SOURCES</u></span>""",unsafe_allow_html=True)

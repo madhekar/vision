@@ -158,7 +158,7 @@ def update_audit_records(audit_path, audit_file_name):
 # get  array of immediate child folders
 def extract_user_raw_data_folders(path):
     print('+++>', path)
-    return next(os.walk(path))[1]
+    return os.listdir(path)
 
 # check if file exists at the path
 def file_exists(fpath):
