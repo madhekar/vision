@@ -284,7 +284,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
 
     ch_count = (
         alt.Chart(dff)
-        .mark_bar(opacity=0.7)
+        .mark_bar(opacity=0.7, orient="horizontal")
         .encode(
             x=alt.Y(
                 "count:Q",

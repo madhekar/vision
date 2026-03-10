@@ -217,33 +217,33 @@ def acquire_overview_data(folder_list):
 
     # Define the list of folders to process
     # folders_to_check = [
-    #     "/home/madhekar/work/home-media-app/data/input-data/img",
-    #     "/home/madhekar/work/home-media-app/data/input-data/video",
-    #     "/home/madhekar/work/home-media-app/data/input-data/txt",
-    #     "/home/madhekar/work/home-media-app/data/input-data/audio",
-    #     "/home/madhekar/work/home-media-app/data/input-data/error/img/duplicate",
-    #     "/home/madhekar/work/home-media-app/data/input-data/error/img/missing-data",
-    #     "/home/madhekar/work/home-media-app/data/input-data/error/img/quality",
-    #     "/home/madhekar/work/home-media-app/data/input-data/error/video/duplicate",
-    #     "/home/madhekar/work/home-media-app/data/input-data/error/video/missing-data",
-    #     "/home/madhekar/work/home-media-app/data/input-data/error/video/quality",
-    #     "/home/madhekar/work/home-media-app/data/input-data/error/txt/duplicate",
-    #     "/home/madhekar/work/home-media-app/data/input-data/error/txt/missing-data",
-    #     "/home/madhekar/work/home-media-app/data/input-data/error/txt/quality",
-    #     "/home/madhekar/work/home-media-app/data/input-data/error/audio/duplicate",
-    #     "/home/madhekar/work/home-media-app/data/input-data/error/audio/missing-data",
-    #     "/home/madhekar/work/home-media-app/data/input-data/error/audio/quality",
-    #     "/home/madhekar/work/home-media-app/data/final-data/img",
-    #     "/home/madhekar/work/home-media-app/data/final-data/video",
-    #     "/home/madhekar/work/home-media-app/data/final-data/txt",
-    #     "/home/madhekar/work/home-media-app/data/final-data/audio",
+    #     "/mnt/zmdata/home-media-app/data/input-data/img",
+    #     "/mnt/zmdata/home-media-app/data/input-data/video",
+    #     "/mnt/zmdata/home-media-app/data/input-data/txt",
+    #     "/mnt/zmdata/home-media-app/data/input-data/audio",
+    #     "/mnt/zmdata/home-media-app/data/input-data/error/img/duplicate",
+    #     "/mnt/zmdata/home-media-app/data/input-data/error/img/missing-data",
+    #     "/mnt/zmdata/home-media-app/data/input-data/error/img/quality",
+    #     "/mnt/zmdata/home-media-app/data/input-data/error/video/duplicate",
+    #     "/mnt/zmdata/home-media-app/data/input-data/error/video/missing-data",
+    #     "/mnt/zmdata/home-media-app/data/input-data/error/video/quality",
+    #     "/mnt/zmdata/home-media-app/data/input-data/error/txt/duplicate",
+    #     "/mnt/zmdata/home-media-app/data/input-data/error/txt/missing-data",
+    #     "/mnt/zmdata/home-media-app/data/input-data/error/txt/quality",
+    #     "/mnt/zmdata/home-media-app/data/input-data/error/audio/duplicate",
+    #     "/mnt/zmdata/home-media-app/data/input-data/error/audio/missing-data",
+    #     "/mnt/zmdata/home-media-app/data/input-data/error/audio/quality",
+    #     "/mnt/zmdata/home-media-app/data/final-data/img",
+    #     "/mnt/zmdata/home-media-app/data/final-data/video",
+    #     "/mnt/zmdata/home-media-app/data/final-data/txt",
+    #     "/mnt/zmdata/home-media-app/data/final-data/audio",
     # ]
 
     print(f"{'Folder':<30} | {'File Count':<15} | {'Size (GB)':<15}")
     print("-" * 64)
 
     src_list, r_list = ['madhekar', 'Samsung USB'], []
-    prefix = "/home/madhekar/work/home-media-app/data/"
+    prefix = "/mnt/zmdata/home-media-app/data/"
     for src in src_list:
         for folder in folder_list:
             folder = os.path.join(folder, src)
@@ -397,6 +397,6 @@ def worker_function(item):
     return item * 2        
 
 if __name__ == '__main__':
-    extract_all_folder_stats("/home/madhekar/work/home-media-app/data/raw-data")
+    extract_all_folder_stats("/mnt/zmdata/home-media-app/data/final-data")
     extract_server_stats()
-    #extract_folderlist_stats(["/home/madhekar/work/home-media-app/data/raw-data/AnjaliBackup", '/home/madhekar/work/home-media-app/data/raw-data/Madhekar'])
+    #extract_folderlist_stats(["/mnt/zmdata/home-media-app/data/raw-data/AnjaliBackup", '/mnt/zmdata/home-media-app/data/raw-data/Madhekar'])
