@@ -32,12 +32,16 @@ def getFiles(rootDir):
             f_list.append(os.path.abspath(fn)) 
     return f_list        
 
-def getImgRecursive(rootDir, chunk_size=10):
+def getImgRecursive(search_folder, chunk_size=10):
     img_files = []
+    img_count = 0 
 
-    for ext in extensions:
-        image_files.extend(search_dir.rglob(ext))
+    for ext in fte.image_types:
+        img_files.extend(search_folder.rglob(ext))
 
+    img_count = len(img_files)
+
+    return img_count, img_files
 
 # recursive call to get all image filenames
 def getRecursive(rootDir, chunk_size=10):
