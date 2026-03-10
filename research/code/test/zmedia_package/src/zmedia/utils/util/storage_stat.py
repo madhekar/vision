@@ -242,7 +242,7 @@ def acquire_overview_data(folder_list):
     print(f"{'Folder':<30} | {'File Count':<15} | {'Size (GB)':<15}")
     print("-" * 64)
 
-    src_list, r_list = ['madhekar', 'Samsung USB'], []
+    src_list, r_list = extract_user_raw_data_folders("/mnt/zmdata/home-media-app/data/raw-data"), []
     prefix = "/mnt/zmdata/home-media-app/data/"
     for src in src_list:
         for folder in folder_list:
