@@ -42,29 +42,16 @@ final-paths:
   text_data_path: /data/final-data/txt
 '''
 def extract_folder_paths():
-    (raw_data_path, input_data_path, app_data_path, final_data_path ,
-    img_dup_error_path, img_qua_error_path, img_mis_error_path,
-    video_dup_error_path, video_qua_error_path, video_mis_error_path,
-    text_dup_error_path, text_qua_error_path, text_mis_error_path,
-    audio_dup_error_path, audio_qua_error_path, audio_mis_error_path,
-    image_data_path, video_data_path, audio_data_path, text_data_path,
+    (
     final_image_data_path, final_video_data_path, final_audio_data_path, final_text_data_path
     ) = (
         config.overview_config_load()
     )
     ovr_path_list = [
-        image_data_path, img_dup_error_path, img_qua_error_path, img_mis_error_path,
-        video_data_path,video_dup_error_path, video_qua_error_path, video_mis_error_path,
-        text_data_path, text_dup_error_path, text_qua_error_path ,text_mis_error_path,
-        audio_data_path, audio_dup_error_path, audio_qua_error_path, audio_mis_error_path,
         final_image_data_path, final_video_data_path, final_text_data_path, final_audio_data_path
         ]
 
-    return (raw_data_path, 
-            input_data_path, 
-            app_data_path, 
-            final_data_path,
-            ovr_path_list)
+    return (ovr_path_list)
 
 def filter_selection(df):
     print(f'*** {df}')
@@ -330,11 +317,11 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
        st.altair_chart(ch_size, use_container_width=True)
 
 def execute():
-    (rdp, idp, adp, fdp, opl) = extract_folder_paths() 
+    opl = extract_folder_paths() 
 
     dfi, dff = ss.acquire_overview_data(opl)
    
-    efs = mu.extract_user_raw_data_folders(rdp)
+    efs = mu.extract_user_raw_data_folders('/mnt/zmdata/home-media-app/data/raw-data')
 
     st.sidebar.markdown('##### :blue[**DATA SOURCES**]')
     #st.sidebar.markdown("""#### <span style='color:#2d4202'><u>SOURCES</u></span>""",unsafe_allow_html=True)
@@ -378,7 +365,7 @@ def execute():
     #st.divider()
 
     st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-    display_folder_details(*ss.extract_all_folder_stats(fdp))
+    display_folder_details(*ss.extract_all_folder_stats('/mnt/zmdata/home-media-app/data/raw-data'))
     #st.divider()
 
     # st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA FOLDER**</u></span>""",unsafe_allow_html=True)
