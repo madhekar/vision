@@ -43,7 +43,7 @@ final-paths:
 '''
 def extract_folder_paths():
     (
-    final_image_data_path, final_video_data_path, final_audio_data_path, final_text_data_path
+    raw_data_path, final_image_data_path, final_video_data_path, final_audio_data_path, final_text_data_path
     ) = (
         config.overview_config_load()
     )
@@ -51,7 +51,7 @@ def extract_folder_paths():
         final_image_data_path, final_video_data_path, final_text_data_path, final_audio_data_path
         ]
 
-    return (ovr_path_list)
+    return (raw_data_path, ovr_path_list)
 
 def filter_selection(df):
     print(f'*** {df}')
@@ -317,11 +317,11 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
        st.altair_chart(ch_size, use_container_width=True)
 
 def execute():
-    opl = extract_folder_paths() 
+    raw_data_path, opl = extract_folder_paths() 
 
     dfi, dff = ss.acquire_overview_data(opl)
    
-    efs = ss.extract_user_raw_data_folders('/mnt/zmdata/home-media-app/data/raw-data')
+    efs = ss.extract_user_raw_data_folders(raw_data_path)
 
     st.sidebar.markdown('##### :blue[**DATA SOURCES**]')
     #st.sidebar.markdown("""#### <span style='color:#2d4202'><u>SOURCES</u></span>""",unsafe_allow_html=True)
@@ -365,7 +365,7 @@ def execute():
     #st.divider()
 
     st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-    display_folder_details(*ss.extract_all_folder_stats('/mnt/zmdata/home-media-app/data/raw-data'))
+    display_folder_details(*ss.extract_all_folder_stats(raw_data_path))
     #st.divider()
 
     # st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA FOLDER**</u></span>""",unsafe_allow_html=True)
