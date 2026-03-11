@@ -316,6 +316,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
     # with c2:   
     st.altair_chart(ch_size, use_container_width=True)
 
+
 def execute():
     data_path, raw_data_path, opl = extract_folder_paths() 
 
