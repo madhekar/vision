@@ -96,19 +96,10 @@ def main():
     logo_path = package_path.joinpath("zm_logo_2.png")
     st.logo(os.path.join(logo_path), size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
     
-    # if current_os == "LINUX":
-
-    #     pg = st.navigation(
-    #         {
-    #             "OVERVIEW": [overview],
-    #             "SEARCH": [multimodal_search],
-    #         }
-    #     )
-    # else:
     pg = st.navigation(
             { 
-                "SEARCH": [multimodal_search],
                 "OVERVIEW": [overview],
+                "SEARCH": [multimodal_search]
             },
             position="sidebar", expanded=False
         )    

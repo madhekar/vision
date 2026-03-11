@@ -293,11 +293,11 @@ def execute():
         st.empty()
         #st.subheader("Overview")
 
-        data_path, raw_data_path, opl = extract_folder_paths() 
+        data_path, final_data_path, opl = extract_folder_paths() 
 
-        dfi, dff = ss.acquire_overview_data(data_path, raw_data_path, opl)
+        dfi, dff = ss.acquire_overview_data(data_path, final_data_path, opl)
     
-        efs = ss.extract_user_raw_data_folders(raw_data_path)
+        efs = ss.extract_user_raw_data_folders(final_data_path)
 
         st.sidebar.markdown('##### :blue[**DATA SOURCES**]')
         #st.sidebar.markdown("""#### <span style='color:#2d4202'><u>SOURCES</u></span>""",unsafe_allow_html=True)
@@ -341,7 +341,7 @@ def execute():
         #st.divider()
 
         st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-        display_folder_details(*ss.extract_all_folder_stats(raw_data_path))
+        display_folder_details(*ss.extract_all_folder_stats(final_data_path))
         #st.divider()
 
         # st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA FOLDER**</u></span>""",unsafe_allow_html=True)

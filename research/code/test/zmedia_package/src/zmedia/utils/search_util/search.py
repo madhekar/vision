@@ -58,7 +58,7 @@ def updateMetadata(client, image_collection,  id, desc, names, dt, loc):
 
 def os_specific_path(img_path):
     linux_prefix = "/mnt/zmdata/"
-    mac_prefix = "/Users/Share/zmdata/"
+    mac_prefix = "/Volumes/zmdata/"
     win_prefix = "c:/Users/Public/zmdata/"
     token = "home-media-app"
     n_pth = ""
@@ -238,6 +238,7 @@ def search_fn(client, cImgs, cTxts):
             if img.shape[2] == 4:
                 img = img[:, :, :3]
                 #img = img.convert("RGB")
+                
             st.session_state["timgs"].append(img)
         for mdata in st.session_state["imgs"]["metadatas"][0][1:]:
             st.write(mdata) #---???
@@ -369,7 +370,13 @@ def search_fn(client, cImgs, cTxts):
 
 def execute():
 
-    vdb, icn, tcn, vcn, acn = config.search_config_load()
+    '''
+        linux_prefix,
+        mac_prefix,
+        win_prefix,
+        token
+    '''
+    vdb, icn, tcn, vcn, acn, lx_prx, mc_prx, wn_prx, tk = config.search_config_load()
     print(vdb, ': ', icn,':', tcn)
     client, img_collection, txt_collection  = init_vdb(vdb, icn, tcn)
 

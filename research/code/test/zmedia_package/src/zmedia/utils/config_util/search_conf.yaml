@@ -6,3 +6,9 @@ vectordb:
   text_collection_name: multimodal_collection_texts
   video_collection_name: multimodal_collection_videos
   audio_collection_name: multimedia_collection_audios
+
+os-prefixes:
+  linux_prefix: /mnt/zmdata/
+  mac_prefix: /Volumes/zmdata/
+  win_prefix: c:/Users/Public/zmdata/
+  token: home-media-app
