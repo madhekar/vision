@@ -289,59 +289,62 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
 
 
 def execute():
-    data_path, raw_data_path, opl = extract_folder_paths() 
+    with st.container():
+        st.subheader("Overview")
 
-    dfi, dff = ss.acquire_overview_data(data_path, raw_data_path, opl)
-   
-    efs = ss.extract_user_raw_data_folders(raw_data_path)
+        data_path, raw_data_path, opl = extract_folder_paths() 
 
-    st.sidebar.markdown('##### :blue[**DATA SOURCES**]')
-    #st.sidebar.markdown("""#### <span style='color:#2d4202'><u>SOURCES</u></span>""",unsafe_allow_html=True)
-    #with st.container(height=100, border=False):        
-    #st.markdown('<div class="scrollable-div">', unsafe_allow_html=True)
-    with st.container(height=100, border=True):
-        for ds in efs:
-            st.sidebar.write(f'**{ds}**')
-            #st.sidebar.caption(ds)
-    st.sidebar.divider()        
-    #st.markdown('</div>', unsafe_allow_html=True)   
-    #st.text_area(label="Data Sources", value=efs)
+        dfi, dff = ss.acquire_overview_data(data_path, raw_data_path, opl)
     
-    st.markdown(
-    """
-    <style>
-            .st-emotion-cache-1cw0ubf
-                {
-                   display:none;
-                }    
+        efs = ss.extract_user_raw_data_folders(raw_data_path)
 
-            .st-emotion-cache-1q6lfs0
-            {
+        st.sidebar.markdown('##### :blue[**DATA SOURCES**]')
+        #st.sidebar.markdown("""#### <span style='color:#2d4202'><u>SOURCES</u></span>""",unsafe_allow_html=True)
+        #with st.container(height=100, border=False):        
+        #st.markdown('<div class="scrollable-div">', unsafe_allow_html=True)
+        with st.container(height=100, border=True):
+            for ds in efs:
+                st.sidebar.write(f'**{ds}**')
+                #st.sidebar.caption(ds)
+        st.sidebar.divider()        
+        #st.markdown('</div>', unsafe_allow_html=True)   
+        #st.text_area(label="Data Sources", value=efs)
+        
+        st.markdown(
+        """
+        <style>
+                .st-emotion-cache-1cw0ubf
+                    {
                     display:none;
-            }    
-    </style>
-    """,
-        unsafe_allow_html=True,
-    )
-    
-    display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
+                    }    
 
-    st.divider()
+                # .st-emotion-cache-1q6lfs0
+                # {
+                #         display:none;
+                # }    
+        </style>
+        """,
+            unsafe_allow_html=True,
+        )
+        
+        display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
 
-    # st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-    # display_folder_details(*ss.extract_all_folder_stats(rdp))
-    #st.divider()
+        st.divider()
 
-    # st.markdown("""##### <span style='color:#2d4202'><u>**INPUT DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-    # display_folder_details(*ss.extract_all_folder_stats(idp))
-    #st.divider()
+        # st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+        # display_folder_details(*ss.extract_all_folder_stats(rdp))
+        #st.divider()
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-    display_folder_details(*ss.extract_all_folder_stats(raw_data_path))
-    #st.divider()
+        # st.markdown("""##### <span style='color:#2d4202'><u>**INPUT DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+        # display_folder_details(*ss.extract_all_folder_stats(idp))
+        #st.divider()
 
-    # st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-    # display_folder_details(*ss.extract_all_folder_stats(adp))
+        st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+        display_folder_details(*ss.extract_all_folder_stats(raw_data_path))
+        #st.divider()
+
+        # st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+        # display_folder_details(*ss.extract_all_folder_stats(adp))
 
 # if __name__ == "__main__":
 #     execute()
