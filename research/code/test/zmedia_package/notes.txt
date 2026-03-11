@@ -214,3 +214,69 @@ Key Points
     pathlib Integration: The files() function returns an object compatible with the pathlib module, allowing for a clean, object-oriented way to navigate and read resources.
     No __init__.py required: The presence or absence of __init__.py files in data directories doesn't change if a directory is a package or not for importlib.resources, though it might be needed for the directory to be considered an importable package itself. 
 
+
+------
+
+
+To access a TOML file (e.g.,
+config.toml, secrets.toml, or any other resource file) within your Streamlit application using importlib.resources, you should treat it as a package resource within your project structure. 
+Prerequisites
+Your project structure should be organized as a Python package, meaning relevant directories must contain __init__.py files to be recognized by the import system, though namespace packages can work without them in Python 3.3+. 
+
+my_streamlit_app/
+├── .streamlit/
+│   ├── config.toml  # Streamlit specific config
+│   └── secrets.toml # Streamlit specific secrets
+├── src/
+│   └── mypackage/
+│       ├── data/
+│       │   └── my_data.toml # Your custom TOML resource file
+│       ├── __init__.py
+│       └── utils.py
+├── app.py
+└── pyproject.toml
+
+Accessing the TOML Resource 
+You can use importlib.resources.files (available in Python 3.9+ or via the importlib_resources backport) to get a pathlib.Path object representing the resource, which allows you to read its contents. 
+Example: Reading a Custom TOML File 
+In src/mypackage/utils.py, you can access my_data.toml as follows:
+python
+
+from importlib.resources import files
+import tomli # or tomllib in Python 3.11+, or the `toml` library
+
+def load_custom_toml(package_name, resource_name):
+    # Get a Traversable object for the package's resource container
+    resource_path = files(package_name).joinpath(resource_name)
+    
+    # Read the bytes and decode, then load the TOML data
+    # Use 'rb' for binary read mode with tomli/tomllib
+    try:
+        # This approach handles cases where the resource is in a zip file or filesystem
+        toml_data = tomli.loads(resource_path.read_bytes().decode('utf-8'))
+        return toml_data
+    except FileNotFoundError:
+        st.error(f"Resource {resource_name} not found in package {package_name}")
+        return None
+
+# Usage in app.py or another module
+# Assuming 'src' is in your Python path and 'mypackage' is the package name
+toml_config = load_custom_toml('mypackage.data', 'my_data.toml')
+if toml_config:
+    st.write("Loaded TOML data:", toml_config)
+
+Example: Accessing Streamlit's config.toml or secrets.toml
+For the standard Streamlit configuration files (~/.streamlit/config.toml or $CWD/.streamlit/config.toml), you would typically use st.secrets (for secrets.toml) or rely on Streamlit's automatic configuration loading for config.toml. 
+
+    For secrets.toml: Use the built-in st.secrets attribute in your app:
+    python
+
+    import streamlit as st
+
+    api_key = st.secrets["api_key"]
+    st.write(f"API Key loaded: {api_key}")
+
+    You do not need importlib for secrets.toml; Streamlit manages this for you.
+    For config.toml: Streamlit loads options from this file automatically when you run your app using streamlit run. You do not access it directly via importlib in your main application logic to modify configuration settings at runtime. 
+
+By using importlib.resources.files for custom packaged data, you ensure your app works consistently whether it's run locally or deployed in environments like Docker or Streamlit Community Cloud where file paths might differ. 
