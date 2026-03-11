@@ -106,9 +106,9 @@ def main():
     #     )
     # else:
     pg = st.navigation(
-            {
-                "OVERVIEW": [overview],
+            { 
                 "SEARCH": [multimodal_search],
+                "OVERVIEW": [overview],
             },
             position="sidebar", expanded=False
         )    
