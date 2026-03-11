@@ -227,12 +227,16 @@ def search_fn(client, cImgs, cTxts):
             # )["documents"][0][0]
 
             # execute image query with search criteria
-            st.session_state["imgs"] = cImgs.query(
+            results = cImgs.query(
                 query_texts=[modalityTxt], 
                 include=["data", "metadatas"], 
                 n_results=10
-            )
-            
+            ) 
+            l = len(results['uris'][0])
+            for i in range(l):
+               results['uris'][0][i] = os_specific_path(results['uris'][0][i])
+            st.session_state["imgs"] = results
+            print('--->', st.session_state["imgs"])
         for img in st.session_state["imgs"]["data"][0][1:]:
             #if img.mode in ("RGBA", "P"):
             if img.shape[2] == 4:
