@@ -47,7 +47,8 @@ def load_app_configuration():
         ap, dp, mp,  = config.setup_config_load()
         #sa.folder_setup(ap, dp, mp)
     else:    
-        cnt = ss.remove_all_files_by_type(root_app, 'I')
+        package_path = resources.files('zmedia')
+        cnt = ss.remove_all_files_by_type(package_path, 'I')
         if cnt > 0:
            print(f' {cnt} : number of files removed')
            #return root_data, root_app
