@@ -307,22 +307,22 @@ def execute():
     #st.markdown('</div>', unsafe_allow_html=True)   
     #st.text_area(label="Data Sources", value=efs)
     
-    # st.markdown(
-    #     """
-    # <style>
-    #         .st-emotion-cache-1cw0ubf
-    #             {
-    #                display:none;
-    #             }    
+    st.markdown(
+        """
+    <style>
+            .st-emotion-cache-1cw0ubf
+                {
+                   display:none;
+                }    
 
-    #         # .st-emotion-cache-vi2kj0
-    #         # {
-    #         #         display:none;
-    #         # }    
-    # </style>
-    # """,
-    #     unsafe_allow_html=True,
-    # )
+            # .st-emotion-cache-vi2kj0
+            # {
+            #         display:none;
+            # }    
+    </style>
+    """,
+        unsafe_allow_html=True,
+    )
     
     display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
 

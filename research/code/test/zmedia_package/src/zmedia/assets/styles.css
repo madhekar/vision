@@ -62,6 +62,10 @@
     padding-right: 1rem;
 }
 
+.stApp .st-emotion-cache {
+    display: none !important;
+}
+
 /* Text area with custom font */
 .st-key-styledtextarea textarea {
     background-color: #e6e6fa;
