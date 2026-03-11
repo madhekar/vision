@@ -290,7 +290,8 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
 
 def execute():
     with st.container():
-        st.subheader("Overview")
+        st.empty()
+        #st.subheader("Overview")
 
         data_path, raw_data_path, opl = extract_folder_paths() 
 
