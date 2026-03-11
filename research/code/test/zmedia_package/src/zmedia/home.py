@@ -30,7 +30,7 @@ st.set_page_config(
     }
 )
 
-BASE_FOLDER = Path('__file__').resolve().parent
+#BASE_FOLDER = Path('__file__').resolve().parent
 
 
 """
