@@ -84,7 +84,7 @@ def main():
         page="pages/overview.py", 
         title="🏠 OVERVIEW", 
         #icon=":bar_chart:", 
-        default=True
+        #default=True
     )
     
     multimodal_search = st.Page(
@@ -109,7 +109,8 @@ def main():
             {
                 "OVERVIEW": [overview],
                 "SEARCH": [multimodal_search],
-            }
+            },
+            position="sidebar", expanded=False
         )    
     pg.run()
 
