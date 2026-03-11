@@ -1,5 +1,7 @@
 import streamlit as st
 from streamlit_extras.app_logo import add_logo
+from importlib.resources import files
+import importlib.resources as resources
 import torch
 from zmedia.utils.config_util import config 
 from zmedia.utils.util import storage_stat as ss
@@ -60,8 +62,10 @@ def load_css(css_path):
 
 def main():        
 
-    css_path = os.path.join(BASE_FOLDER, "assets", "styles.css")
-    print(f'base folder: {BASE_FOLDER} css path: {css_path}')
+    #css_path = os.path.join(BASE_FOLDER, "assets", "styles.css")
+    package_path = resources.files('zmedia.assets')
+    css_path = package_path.joinpath("styles.css")
+    print(f'base folder: {package_path} css path: {css_path}')
     load_css(css_path)
 
     # ar,dr = 
