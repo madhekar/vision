@@ -11,36 +11,7 @@ from utils.util import model_util as mu
 # https://www.color-hex.com/color-palette/164
 colors = ['#6d765b','#A5BFA6']#['#847577','#cfd2cd']#['#f07162','#0081a7']#['#f97171','#8ad6cc']
 #["#ae5a41", "#1b85b8"]#["#636B2F","#BAC095"] #["#9EB8A0", "#58855c"]#['#58855c','#0D3311']#["#BAC095", "#636B2F"]
-'''
-data-paths:
-  raw_data_path: /data/raw-data
-  input_data_path: /data/input-data
-  app_data_path: /data/app-data
-  final_data_path: /data/final-data
-error-paths:
-  img_dup_error_path: /data/input-data/error/img/duplicate
-  img_qua_error_path: /data/input-data/error/img/quality
-  img_mis_error_path: /data/input-data/error/img/missing-data
-  video_dup_error_path: /data/input-data/error/video/duplicate
-  video_qua_error_path: /data/input-data/error/video/quality
-  video_mis_error_path: /data/input-data/error/video/missing-data
-  text_dup_error_path: /data/input-data/error/txt/duplicate
-  text_qua_error_path: /data/input-data/error/txt/quality
-  text_mis_error_path: /data/input-data/error/txt/missing-data
-  audio_dup_error_path: /data/input-data/error/audio/duplicate
-  audio_qua_error_path: /data/input-data/error/audio/quality
-  audio_mis_error_path: /data/input-data/error/audio/missing-data
-input-paths:
-  image_data_path: /data/input-data/img
-  video_data_path: /data/input-data/video
-  audio_data_path: /data/input-data/audio
-  text_data_path: /data/input-data/txt
-final-paths:
-  image_data_path: /data/final-data/img
-  video_data_path: /data/final-data/video
-  audio_data_path: /data/final-data/audio
-  text_data_path: /data/final-data/txt
-'''
+
 def extract_folder_paths():
     (
     data_path, raw_data_path, final_image_data_path, final_video_data_path, final_audio_data_path, final_text_data_path
@@ -336,22 +307,22 @@ def execute():
     #st.markdown('</div>', unsafe_allow_html=True)   
     #st.text_area(label="Data Sources", value=efs)
     
-    st.markdown(
-        """
-    <style>
-            .st-emotion-cache-1cw0ubf
-                {
-                   display:none;
-                }    
+    # st.markdown(
+    #     """
+    # <style>
+    #         .st-emotion-cache-1cw0ubf
+    #             {
+    #                display:none;
+    #             }    
 
-            # .st-emotion-cache-vi2kj0
-            # {
-            #         display:none;
-            # }    
-    </style>
-    """,
-        unsafe_allow_html=True,
-    )
+    #         # .st-emotion-cache-vi2kj0
+    #         # {
+    #         #         display:none;
+    #         # }    
+    # </style>
+    # """,
+    #     unsafe_allow_html=True,
+    # )
     
     display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
 
