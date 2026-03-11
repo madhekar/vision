@@ -319,10 +319,10 @@ def execute():
                     display:none;
                     }    
 
-                # .st-emotion-cache-1q6lfs0
-                # {
-                #         display:none;
-                # }    
+                .st-emotion-cache-f31d5y
+                {
+                        display:none;
+                }    
         </style>
         """,
             unsafe_allow_html=True,
