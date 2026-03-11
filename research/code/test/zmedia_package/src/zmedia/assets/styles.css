@@ -56,10 +56,10 @@
 }
 
 .block-container {
-    padding-top: 2rem;
+    padding-top: 0rem;
     padding-bottom: 0rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 /* Text area with custom font */

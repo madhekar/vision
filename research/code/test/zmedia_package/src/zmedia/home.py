@@ -22,7 +22,7 @@ sys.path.append('..')
 st.set_page_config(
     page_title="zesha: Media Portal (MP)",
     page_icon="../assets/zesha-high-resolution-logo.jpeg",  #check
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
     layout="wide",
     menu_items={
         'About': 'Zesha PC is created by Bhalchandra Madhekar',
