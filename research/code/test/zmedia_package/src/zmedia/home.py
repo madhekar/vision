@@ -1,6 +1,5 @@
 import streamlit as st
 from streamlit_extras.app_logo import add_logo
-from importlib.resources import files
 import importlib.resources as resources
 import torch
 from zmedia.utils.config_util import config 
@@ -93,7 +92,8 @@ def main():
         # icon=":material/search:",
     )
     #add_logo("./assets/zmedia_logo.png", height=200)
-    st.logo(os.path.join(BASE_FOLDER,"assets","zm_logo_2.png"), size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
+    logo_path = package_path.joinpath("zm_logo_2.png")
+    st.logo(os.path.join(logo_path), size="large") #zm/assets/zm_logo-Picsart-BackgroundRemover.png
     
     # if current_os == "LINUX":
 
