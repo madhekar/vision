@@ -56,11 +56,18 @@ def updateMetadata(client, image_collection,  id, desc, names, dt, loc):
         metadatas={"description": desc, "names": names, "datetime" : dt, "location": loc}
     )
 
-def os_specific_path(img_path):
-    linux_prefix = "/mnt/zmdata/"
-    mac_prefix = "/Volumes/zmdata/"
-    win_prefix = "c:/Users/Public/zmdata/"
-    token = "home-media-app"
+# def detect_os_platform_prefix(lx_prx, mc_prx, wn_prx):
+#     platform_system = platform.system()
+#     result = ""
+#     if platform_system == "Windows":
+#         result = wn_prx
+#     elif platform_system == "Linux":
+#         result = lx_prx
+#     elif platform_system == "Darwin":
+#         result = mc_prx
+#     return result    
+
+def os_specific_path(img_path, mac_prefix, win_prefix, linux_prefix, token):
     n_pth = ""
 
     platform_system = platform.system()
@@ -85,10 +92,10 @@ def os_specific_path(img_path):
         if len(parts) > 1:
             n_pth = mac_prefix + token + parts[1]
 
-
+    print(f"new path: {n_pth}")
     return n_pth    
 
-def search_fn(client, cImgs, cTxts):
+def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token):
     # create default application Tabs
     image, video, text = st.tabs(["Image", "Video", "Text"])
 
@@ -232,9 +239,9 @@ def search_fn(client, cImgs, cTxts):
                 include=["data", "metadatas"], 
                 n_results=10
             ) 
-            l = len(results['uris'][0])
-            for i in range(l):
-               results['uris'][0][i] = os_specific_path(results['uris'][0][i])
+            le = len(results['uris'][0])
+            for i in range(le):
+               results['uris'][0][i] = os_specific_path(results['uris'][0][i], mac_prefix, win_prefix, linux_prefix, token)
             st.session_state["imgs"] = results
             print('--->', st.session_state["imgs"])
         for img in st.session_state["imgs"]["data"][0][1:]:
