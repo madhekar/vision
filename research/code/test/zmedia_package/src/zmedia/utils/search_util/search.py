@@ -391,6 +391,6 @@ def execute():
     print(vdb, ': ', icn,':', tcn)
     client, img_collection, txt_collection  = init_vdb(vdb, icn, tcn)
 
-    search_fn(client, img_collection, txt_collection)
+    search_fn(client, img_collection, txt_collection, mc_prx, wn_prx, lx_prx, tk)
 
     
