@@ -15,7 +15,7 @@ config = configparser.ConfigParser()
 
     [OS]
     linux_prefix = "/mnt/zmdata/"
-    mac_prefix = "/Users/Share/zmdata/"
+    mac_prefix = "/Volumes/zmdata/"
     win_prefix = "c:/Users/Public/zmdata/"
 
     [DATAFILE]
