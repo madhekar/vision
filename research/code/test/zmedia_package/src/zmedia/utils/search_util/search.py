@@ -88,11 +88,10 @@ def os_specific_path(img_path, mac_prefix, win_prefix, linux_prefix, token):
 
     elif platform_system == "Darwin":
         parts = img_path.split(token,1)
-        print(parts)
+
         if len(parts) > 1:
             n_pth = mac_prefix + token + parts[1]
 
-    print(f"new path: {n_pth}")
     return n_pth    
 
 def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token):
@@ -234,16 +233,11 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
             # )["documents"][0][0]
 
             # execute image query with search criteria
-            results = cImgs.query(
+            st.session_state["imgs"] = cImgs.query(
                 query_texts=[modalityTxt], 
                 include=["data", "metadatas"], 
                 n_results=10
             ) 
-            le = len(results['uris'][0])
-            for i in range(le):
-               results['uris'][0][i] = os_specific_path(results['uris'][0][i], mac_prefix, win_prefix, linux_prefix, token)
-            st.session_state["imgs"] = results
-            print('--->', st.session_state["imgs"])
         for img in st.session_state["imgs"]["data"][0][1:]:
             #if img.mode in ("RGBA", "P"):
             if img.shape[2] == 4:
@@ -293,7 +287,7 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
             # if im.mode in ("RGBA", "P"):
             #    im = im.convert("RGB")
             nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
-            print(f"***{nim}")
+            #print(f"***{nim}")
             imageLoc = c1.empty()
             display_im = imageLoc.image(nim, use_column_width="always")
             # st.button(st.image(nim, use_column_width="always"))
@@ -388,7 +382,7 @@ def execute():
         token
     '''
     vdb, icn, tcn, vcn, acn, lx_prx, mc_prx, wn_prx, tk = config.search_config_load()
-    print(vdb, ': ', icn,':', tcn)
+    #print(vdb, ': ', icn,':', tcn)
     client, img_collection, txt_collection  = init_vdb(vdb, icn, tcn)
 
     search_fn(client, img_collection, txt_collection, mc_prx, wn_prx, lx_prx, tk)
