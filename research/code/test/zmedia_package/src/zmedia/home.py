@@ -40,6 +40,7 @@ st.set_page_config(
             zmedia_file,
             zmedia_dest
 """
+@st.cache_resource(ttl=1000)
 def load_app_configuration():
     root_data, root_app, current_os = config.app_config_load()
     print(f'app root: {root_app} data root: {root_data}')
@@ -54,7 +55,7 @@ def load_app_configuration():
            #return root_data, root_app
     return current_os
 
-
+@st.cache_resource(ttl=1000)
 def load_css(css_path):
     with open(file=css_path) as f:
         s = f"<style>{f.read()}</style>"
@@ -65,7 +66,7 @@ def main():
     #css_path = os.path.join(BASE_FOLDER, "assets", "styles.css")
     package_path = resources.files('zmedia.assets')
     css_path = package_path.joinpath("styles.css")
-    print(f'base folder: {package_path} css path: {css_path}')
+    # print(f'base folder: {package_path} css path: {css_path}')
     load_css(css_path)
 
     # ar,dr = 
