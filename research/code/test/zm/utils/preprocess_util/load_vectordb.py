@@ -7,6 +7,7 @@ import chardet
 import chromadb as cdb
 import streamlit as st
 from PIL import ImageFile
+import textract as tex
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction as stef
 from chromadb.utils.batch_utils import create_batches
@@ -170,12 +171,13 @@ def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_fold
     """
    
 
+       
     df_urls =  df_data['uri']
     df_ids = df_data['id']
     df_metadata = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].fillna("").T.to_dict().values()
 
     
-    collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadata), uris=df_urls.tolist())
+    collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadata), uris=df_urls.tolist()) 
 
     
     # ls_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
@@ -199,8 +201,9 @@ def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_fold
         for text_f in text_pth:
             if os.path.isfile(text_f):
                 try:  
-                  with open(text_f, 'r', encoding="utf-8", errors='replace') as f:
-                    content = f.read()
+                    val = tex.process(text_f)
+                    #with open(text_f, 'r', encoding="utf-8", errors='replace') as f:
+                    content = val.decode("utf-8")
                     list_of_text.append(content)   
                 except UnicodeDecodeError as e:
                     st.error(f'error: ignoring the text file, could not decode file as ascii: {e}')      

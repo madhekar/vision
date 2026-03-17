@@ -23,12 +23,17 @@ except   Exception as e:
 print(f"count records: {tcollection.count()} name: {tcollection.name} ")
 print(f"count records: {icollection.count()} name: {icollection.name} ")
 # Retrieve all data (be mindful of large collections)
-all_data = icollection.get(
+iall_data = icollection.get(
     include=["metadatas", "embeddings", "documents"]
 )
 
-df = pd.DataFrame(all_data['metadatas'])
-print(df.describe().transpose())
+tall_data = tcollection.get(include=["metadatas", "documents", "embeddings"])
+print('-->', tall_data["ids"], "::", tall_data["embeddings"])
+#print(all_data["ids"], all_data["uris"])
+
+df = pd.DataFrame(iall_data['metadatas'])
+df['ids'] = iall_data["ids"]
+print(df.describe(include='all').transpose())
 pr = df.profile_report(title="My Custom Profiling Report",minimal=True,explorative=False)
 st_profile_report(pr)
 # # Convert metadata to a pandas DataFrame        
