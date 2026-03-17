@@ -220,10 +220,10 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
             st.session_state["imgs"] = cImgs.query(
                 query_uris="./" + similar_image.name,
                 include=["data", "metadatas"],
-                n_results=10,
+                n_results=5,
             )
 
-            st.write(st.session_state["imgs"]) # ---enable to debug
+            #st.write(st.session_state["imgs"]) # ---enable to debug
 
         elif modality_selected == "text":
             # execute text collection query --- TBD fix
@@ -236,7 +236,7 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
             st.session_state["imgs"] = cImgs.query(
                 query_texts=[modalityTxt], 
                 include=["data", "metadatas"], 
-                n_results=10
+                n_results=5
             ) 
         for img in st.session_state["imgs"]["data"][0][1:]:
             #if img.mode in ("RGBA", "P"):
