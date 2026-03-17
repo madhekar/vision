@@ -47,6 +47,48 @@ The people in the painting are all wearing casual clothing, and look happy and r
 The city is in the distance, and is covered in a haze. The people in the painting are looking out at the city as well.\n\nIn the foreground, there is a table with a few chairs around it. 
 The table is covered in a white tablecloth, and there is a v"
 }
+
+import chromadb
+from chromadb.utils.batch_utils import create_batches
+import uuid
+
+# 1. Initialize the Chroma client
+# Use PersistentClient for data to survive program restarts
+client = chromadb.PersistentClient(path="test-large-batch")
+
+# 2. Create a large dummy dataset (e.g., 100,000 items)
+# Each item is a tuple: (id, document, embedding)
+large_batch_data = [(f"{uuid.uuid4()}", f"document {i}", [0.1] * 1536) for i in range(100000)]
+
+# Unpack the data into separate lists for the `create_batches` function
+ids, documents, embeddings = zip(*large_batch_data)
+ids_list, documents_list, embeddings_list = list(ids), list(documents), list(embeddings)
+
+# 3. Use create_batches to split the data
+# The function automatically determines the appropriate batch size based on the client's limits
+batches = create_batches(
+    api=client,
+    ids=ids_list,
+    documents=documents_list,
+    embeddings=embeddings_list
+)
+
+# 4. Get or create a collection
+collection = client.get_or_create_collection("test_collection")
+
+# 5. Iterate through the batches and add them to the collection
+for batch in batches:
+    # Each 'batch' is a tuple: (ids, embeddings, metadatas, documents)
+    # The order for 'collection.add' is (ids, embeddings, metadatas, documents)
+    print(f"Adding batch of size {len(batch[0])}")
+    collection.add(
+        ids=batch[0],
+        embeddings=batch[1],
+        metadatas=batch[2],
+        documents=batch[3]
+    )
+
+print("Finished adding all data in batches.")
 """
 
 def recur_listdir(path):
@@ -176,7 +218,6 @@ def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_fold
     df_ids = df_data['id']
     df_metadata = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].fillna("").T.to_dict().values()
 
-    
     collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadata), uris=df_urls.tolist()) 
 
     
@@ -219,7 +260,11 @@ def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_fold
         st.info(f"starting to add documents in number of batches: {len(batches)}")
 
         for batch in batches:
-            collection_text.add(ids=batch[0], documents=batch[3])
+            print(f"---batch-->: {batch}")
+            collection_text.add(ids=batch[0],
+                                # embeddings=batch[1],
+                                # metadatas=batch[2],
+                                documents=batch[3])
 
         st.info(f"done adding documents: {len(list_of_text)}")
     else:

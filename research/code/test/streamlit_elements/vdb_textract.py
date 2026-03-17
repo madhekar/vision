@@ -1,4 +1,6 @@
 import textract as tx
+#from langchain.text_splitter import RecursiveCharacterTextSplitter as rcts
+from langchain_text_splitters import RecursiveCharacterTextSplitter as rcts
 
 pdf_file = "/home/madhekar/work/vision/research/doc/Corrective_RAG.pdf"
 #"/home/madhekar/work/vision/research/doc/eigen-doc/classEigen_1_1MappedSparseMatrix__inherit__graph.png"
@@ -9,4 +11,7 @@ img_file = "/mnt/zmdata/home-media-app/data/input-data/error/img/quality/madheka
 rtf_file = "/home/madhekar/work/vision/research/doc/loc_data.rtf"
 t = tx.process(pdf_file)
 
-print(t.decode('utf-8'))
+splitter = rcts(chunk_size=500, chunk_overlap=50, separators=["\n\n", "\n", ". ", " "])
+
+chunks = splitter.split_text(t.decode('utf-8'))
+print(chunks)
