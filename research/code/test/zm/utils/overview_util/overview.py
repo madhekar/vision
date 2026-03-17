@@ -5,7 +5,7 @@ from streamlit_dimensions import st_dimensions
 import altair as alt
 from utils.util import storage_stat as ss
 from utils.config_util import config
-from utils.util import model_util as mu
+#from utils.util import model_util as mu
 
 
 # https://www.color-hex.com/color-palette/164
@@ -337,7 +337,7 @@ def execute():
 
     dfi, dff = ss.acquire_overview_data(opl)
    
-    efs = mu.extract_user_raw_data_folders(rdp)
+    efs = ss.extract_user_raw_data_folders(rdp)
 
     st.sidebar.markdown('##### :blue[**DATA SOURCES**]')
     #st.sidebar.markdown("""#### <span style='color:#2d4202'><u>SOURCES</u></span>""",unsafe_allow_html=True)
@@ -371,19 +371,19 @@ def execute():
 
     st.divider()
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+    st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA>>**</u></span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(rdp))
     #st.divider()
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**INPUT DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+    st.markdown("""##### <span style='color:#2d4202'><u>**INPUT DATA>>**</u></span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(idp))
     #st.divider()
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+    st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA>>**</u></span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(fdp))
     #st.divider()
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+    st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA>>**</u></span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(adp))
 
 # if __name__ == "__main__":

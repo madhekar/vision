@@ -109,7 +109,7 @@ def execute():
     ''' 
     source_list = []
     #source_list = get_external_devices(get_user())
-    source_list = mu.extract_user_raw_data_folders(raw_data_path)
+    source_list = ss.extract_user_raw_data_folders(raw_data_path)
     if len(source_list) > 0:
        ext = st.sidebar.selectbox(label="Select Source", options=source_list)
 
