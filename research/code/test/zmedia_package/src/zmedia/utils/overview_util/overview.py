@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import streamlit as st
+import chromadb
 from streamlit_dimensions import st_dimensions
 import altair as alt
 from utils.util import storage_stat as ss
@@ -12,17 +13,27 @@ from utils.util import model_util as mu
 colors = ['#6d765b','#A5BFA6']#['#847577','#cfd2cd']#['#f07162','#0081a7']#['#f97171','#8ad6cc']
 #["#ae5a41", "#1b85b8"]#["#636B2F","#BAC095"] #["#9EB8A0", "#58855c"]#['#58855c','#0D3311']#["#BAC095", "#636B2F"]
 
+
 def extract_folder_paths():
     (
-    data_path, raw_data_path, final_image_data_path, final_video_data_path, final_audio_data_path, final_text_data_path
+    data_path, 
+    raw_data_path, 
+    vectordb_path,
+    image_collection_name,
+    video_collection_name,
+    text_collection_name,
+    audio_collection_name,
+    final_image_data_path, 
+    final_video_data_path, 
+    final_audio_data_path, 
+    final_text_data_path
     ) = (
         config.overview_config_load()
     )
-    ovr_path_list = [
-        final_image_data_path, final_video_data_path, final_text_data_path, final_audio_data_path
-        ]
+    ovr_path_list = [final_image_data_path, final_video_data_path, final_text_data_path, final_audio_data_path]
+    vdb_list = [vectordb_path, image_collection_name, video_collection_name, text_collection_name, audio_collection_name]
 
-    return (data_path, raw_data_path, ovr_path_list)
+    return (data_path, raw_data_path, vdb_list, ovr_path_list)
 
 def filter_selection(df):
     print(f'*** {df}')
@@ -202,6 +213,18 @@ def disc_usage(tm, um, fm, w):
     text = base.mark_text(align='center', radiusOffset=10, color="black").encode(text="size:Q")
     st.altair_chart(pie + text, use_container_width=True)
 
+# def vdb_collection_stats(vdbp, icol, vcol, tcol, acol):
+  
+#   client = chromadb.PersistentClient(path=vdbp)
+
+#   icnt = client.get_collection(name=icol).count()
+#   vcnt = client.get_collection(name=vcol).count()
+#   tcnt = client.get_collection(name=tcol).count()
+#   acnt = client.get_collection(name=acol).count()
+
+#   d = {"img cnt": icnt, "video cnt": vcnt, "text cnt": tcnt, "audio cnt": acnt}
+#   pdb
+
 
 def display_storage_metrics(tm, um, fm, dfi, dff):
     c1,  c3 = st.columns([.3,  0.7])
@@ -215,14 +238,14 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
     #     st.markdown("""##### <span style='color:#2d4202'><u>INPUT DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
     #     #ss.acquire_overview_data(dfi.values.tolist())
     #     filter_selection(dfi)
-    with c3:
-        # st.markdown(
-        #     '<p class="vertical-text">final data folder usage</p>',
-        #     unsafe_allow_html=True,
-        # )
-        st.markdown("""##### <span style='color:#2d4202'><u>FINAL DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
-        #ss.acquire_overview_data(dff.values.tolist())
-        filter_selection(dff)
+    # with c3:
+    #     # st.markdown(
+    #     #     '<p class="vertical-text">final data folder usage</p>',
+    #     #     unsafe_allow_html=True,
+    #     # )
+    #     st.markdown("""##### <span style='color:#2d4202'><u>FINAL DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
+    #     #ss.acquire_overview_data(dff.values.tolist())
+    #     filter_selection(dff)
 
 
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):
@@ -289,11 +312,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
 
 
 def execute():
-    with st.container():
-        st.empty()
-        #st.subheader("Overview")
-
-        data_path, final_data_path, opl = extract_folder_paths() 
+        data_path, final_data_path, vdb_list, opl = extract_folder_paths() 
 
         dfi, dff = ss.acquire_overview_data(data_path, final_data_path, opl)
     
@@ -311,22 +330,22 @@ def execute():
         #st.markdown('</div>', unsafe_allow_html=True)   
         #st.text_area(label="Data Sources", value=efs)
         
-        st.markdown(
-        """
-        <style>
-                .st-emotion-cache-1cw0ubf
-                    {
-                    display:none;
-                    }    
+        # st.markdown(
+        # """
+        # <style>
+        #         .st-emotion-cache-1cw0ubf
+        #             {
+        #             display:none;
+        #             }    
 
-                .st-emotion-cache-f31d5y
-                {
-                        display:none;
-                }    
-        </style>
-        """,
-            unsafe_allow_html=True,
-        )
+        #         .st-emotion-cache-f31d5y
+        #         {
+        #                 display:none;
+        #         }    
+        # </style>
+        # """,
+        #     unsafe_allow_html=True,
+        # )
         
         display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
 
@@ -340,8 +359,8 @@ def execute():
         # display_folder_details(*ss.extract_all_folder_stats(idp))
         #st.divider()
 
-        st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-        display_folder_details(*ss.extract_all_folder_stats(final_data_path))
+        # st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA FOLDER**</u></span>""",unsafe_allow_html=True)
+        # display_folder_details(*ss.extract_all_folder_stats(final_data_path))
         #st.divider()
 
         # st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA FOLDER**</u></span>""",unsafe_allow_html=True)
