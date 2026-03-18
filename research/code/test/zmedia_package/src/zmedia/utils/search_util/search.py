@@ -220,7 +220,7 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
             st.session_state["imgs"] = cImgs.query(
                 query_uris="./" + similar_image.name,
                 include=["data", "metadatas"],
-                n_results=5,
+                n_results=8,
             )
 
             #st.write(st.session_state["imgs"]) # ---enable to debug
@@ -236,7 +236,7 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
             st.session_state["imgs"] = cImgs.query(
                 query_texts=[modalityTxt], 
                 include=["data", "metadatas"], 
-                n_results=5
+                n_results=8
             ) 
         for img in st.session_state["imgs"]["data"][0][1:]:
             #if img.mode in ("RGBA", "P"):
@@ -271,7 +271,7 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
                 return_value="index",
             )
             # img, map = st.tabs(["Img", "Map"])
-            c1, c2 = st.columns([9, 1])
+            c1, c2 = st.columns([7, 3])
 
             # c2.divider()
             col21, col22, col23 = c2.columns([1, 1, 1], gap="small")
