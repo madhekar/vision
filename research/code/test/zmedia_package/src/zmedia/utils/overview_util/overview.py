@@ -312,6 +312,7 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
 
 
 def execute():
+
         data_path, final_data_path, vdb_list, opl = extract_folder_paths() 
 
         dfi, dff = ss.acquire_overview_data(data_path, final_data_path, opl)
@@ -320,15 +321,15 @@ def execute():
 
         st.sidebar.markdown('##### :blue[**DATA SOURCES**]')
         #st.sidebar.markdown("""#### <span style='color:#2d4202'><u>SOURCES</u></span>""",unsafe_allow_html=True)
-        #with st.container(height=100, border=False):        
-        #st.markdown('<div class="scrollable-div">', unsafe_allow_html=True)
-        with st.container(height=100, border=True):
-            for ds in efs:
+        # with st.container(height=100, border=False):        
+        # st.markdown('<div class="scrollable-div">', unsafe_allow_html=True)
+        #with st.sidebar.container(height=100, border=True):
+        for ds in efs:
                 st.sidebar.write(f'**{ds}**')
                 #st.sidebar.caption(ds)
         st.sidebar.divider()        
-        #st.markdown('</div>', unsafe_allow_html=True)   
-        #st.text_area(label="Data Sources", value=efs)
+        st.sidebar.markdown('</div>', unsafe_allow_html=True)   
+        #st.sidebar.text_area(label="Data Sources", value=efs)
         
         # st.markdown(
         # """
@@ -347,9 +348,9 @@ def execute():
         #     unsafe_allow_html=True,
         # )
         
-        display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
+        #display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
 
-        st.divider()
+        #st.divider()
 
         # st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA FOLDER**</u></span>""",unsafe_allow_html=True)
         # display_folder_details(*ss.extract_all_folder_stats(rdp))
