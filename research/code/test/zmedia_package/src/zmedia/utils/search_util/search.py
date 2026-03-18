@@ -303,7 +303,7 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
                 imageLoc.image(nim, use_column_width="always")
             # with map:
             # st.write(
-            #     "<p class='big-font'>sorry, no map is implemented found in search criteria!</p>",
+            #     "<p class='input'>sorry, no map is implemented found in search criteria!</p>",
             #     unsafe_allow_html=True,
             # )
 
@@ -326,20 +326,20 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
                     dt=st.session_state["imgs"]["metadatas"][0][1:][index]["ts"],
                     loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"],
                 )
-            o_desc = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["text"]}</p>'
+            o_desc = f'<p class="input">{st.session_state["imgs"]["metadatas"][0][1:][index]["text"]}</p>'
             c2.markdown(o_desc, unsafe_allow_html=True)
 
             c2.write("<p class='big-font-subh'>People</p>", unsafe_allow_html=True)
-            o_names = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["ppt"]} </p>' #- {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
+            o_names = f'<p class="input">{st.session_state["imgs"]["metadatas"][0][1:][index]["ppt"]} </p>' #- {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
             c2.markdown(o_names, unsafe_allow_html=True)
 
-            c2.write("<p class='big-font-subh'>Date Time</p>", unsafe_allow_html=True)
+            c2.write("<p class='input-subh'>Date Time</p>", unsafe_allow_html=True)
             tts = "0.0" if st.session_state["imgs"]["metadatas"][0][1:][index]["ts"] == "" else st.session_state["imgs"]["metadatas"][0][1:][index]["ts"]
-            o_datetime = f'<p class="big-font">{str(datetime.datetime.fromtimestamp(float(tts)))}</p>'
+            o_datetime = f'<p class="input">{str(datetime.datetime.fromtimestamp(float(tts)))}</p>'
             c2.markdown(o_datetime, unsafe_allow_html=True)
 
             c2.write("<p class='big-font-subh'>Location</p>", unsafe_allow_html=True)
-            o_location = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["loc"]}</p>'
+            o_location = f'<p class="input">{st.session_state["imgs"]["metadatas"][0][1:][index]["loc"]}</p>'
             c2.markdown(o_location, unsafe_allow_html=True)
 
             ll = ast.literal_eval(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"])     
@@ -351,7 +351,7 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
             c2.map(map_data, zoom=12, size=100, color="#ff00ff")
         else:
             st.write(
-                "<p class='big-font'>sorry, no similar images found in search criteria!</p>",
+                "<p class='input'>sorry, no similar images found in search criteria!</p>",
                 unsafe_allow_html=True,
             )
 
@@ -359,7 +359,7 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
     with video:
         # st.header("Similar Videos")
         st.write(
-            "<p class='big-font'>sorry, no similar videos found in search criteria!</p>",
+            "<p class='input'>sorry, no similar videos found in search criteria!</p>",
             unsafe_allow_html=True,
         )
 
@@ -369,7 +369,7 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
             st.text_area(label="Related text", value=st.session_state["document"])
         else:
             st.write(
-                "<p class='big-font'>sorry, no similar documents found in search criteria!</p>",
+                "<p class='input'>sorry, no similar documents found in search criteria!</p>",
                 unsafe_allow_html=True,
             )
 

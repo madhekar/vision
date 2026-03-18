@@ -180,7 +180,7 @@ def search_fn(client, cImgs, cTxts):
     # seach button pressed
     if search_btn:
         # create query on image, also shows similar document in vector database (not using LLM)  -- openclip embedding function!
-        embedding_function = OpenCLIPEmbeddingFunction()
+        #embedding_function = OpenCLIPEmbeddingFunction()
 
         # reset session_state for temperory images for view
         if "timgs" in st.session_state:

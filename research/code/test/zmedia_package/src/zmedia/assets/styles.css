@@ -197,9 +197,9 @@ div[data-testid="stSidebarNav"] ul li{
         }
 
 /* Default style for input font size on larger screens */
-/* # input {
-#     font-size: 1rem !important;
-# } */
+input {
+    font-size: 1rem !important;
+}
 
 /* Media query for screens smaller than 600px */
 @media (max-width: 768px) {
