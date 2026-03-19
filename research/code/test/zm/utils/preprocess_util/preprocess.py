@@ -188,13 +188,13 @@ async def describeImage(args):
 #         yield f_list[i : i + chunk_size]
 
 def new_xform(res):
-    print('1.res:', res)
+
     ll = [list(x) for x in zip(*res)]
-    print('2. ll:', ll)
+
     lr = [[row[3], row[4][1], row[5]] for row in ll]
-    print('3. lr:', lr)
+
     lf = [[row[5], row[0],row[1],row[2][0], row[2][1],row[4][0], row[4][1], row[3]] for row in ll]
-    print('4. lf:', lf)
+
     return lr, lf
 
 def final_xform(alist):
