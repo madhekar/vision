@@ -19,6 +19,8 @@ from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 from concurrent.futures import ThreadPoolExecutor
+
+PIL.Image.MAX_IMAGE_PIXELS = 933120000
 """
 UPDATE METADATA STRUCTURE:
 {
