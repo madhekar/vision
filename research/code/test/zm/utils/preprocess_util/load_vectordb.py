@@ -6,6 +6,7 @@ import uuid
 import chardet
 import chromadb as cdb
 import streamlit as st
+import PIL
 from PIL import ImageFile
 import textract as tex
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
