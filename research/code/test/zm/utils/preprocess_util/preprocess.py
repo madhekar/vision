@@ -164,7 +164,8 @@ async def locationDetails(args, lock):
       except Exception as e:
         st.error(f'exception: {e} occurred in getting lat/ lon or location details for {uri}')
       return str(lat_lon), loc
-     
+
+
 # get image description from LLM
 async def describeImage(args):
     ppt, location, uri = args
@@ -190,9 +191,9 @@ def new_xform(res):
     print('1.res:', res)
     ll = [list(x) for x in zip(*res)]
     print('2. ll:', ll)
-    lr = [[row[2], row[3][1], row[4]] for row in ll]
+    lr = [[row[3], row[4][1], row[5]] for row in ll]
     print('3. lr:', lr)
-    lf = [[row[4], row[0],row[1][0], row[1][1],row[3][0], row[3][1], row[2]] for row in ll]
+    lf = [[row[5], row[0],row[1],row[2][0], row[2][1],row[4][0], row[4][1], row[3]] for row in ll]
     print('4. lf:', lf)
     return lr, lf
 
