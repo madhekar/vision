@@ -4,6 +4,7 @@ import logging
 import itertools as it
 #import cv2
 import numpy as np
+from pathlib import Path
 #from utils.preprocess_util import awaitUtil
 #from utils.preprocess_util import entities as en
 #from utils.preprocess_util import LLM_Next
@@ -87,6 +88,13 @@ async def generateId(args):
     uri= args
     return str(uuid.uuid4()) #[uri, str(uuid.uuid4())]
 
+# get source name from url
+async def sourceName(args):
+    uri = args
+    p = Path(uri).parts
+    return p[7]
+
+
 
 # convert image date time to timestamp
 """
@@ -160,7 +168,7 @@ async def locationDetails(args, lock):
 # get image description from LLM
 async def describeImage(args):
     ppt, location, uri = args
-    ppt1 = ppt if ppt != None else "na"
+    ppt1 = ppt if ppt is not None else "na"
     print(f'ppt: {ppt1}, location: {location}, url: {uri}')
     #d = LLM_Next.fetch_llm_text(imUrl=uri, pipe=p, question="Describe the image with thoughtful insights using additional information provided. ", partial_prompt=ppt, location=location)
     d =  await oln.describe_image( uri, ppt1, location)
@@ -179,13 +187,17 @@ async def describeImage(args):
 #         yield f_list[i : i + chunk_size]
 
 def new_xform(res):
+    print('1.res:', res)
     ll = [list(x) for x in zip(*res)]
+    print('2. ll:', ll)
     lr = [[row[2], row[3][1], row[4]] for row in ll]
+    print('3. lr:', lr)
     lf = [[row[4], row[0],row[1][0], row[1][1],row[3][0], row[3][1], row[2]] for row in ll]
+    print('4. lf:', lf)
     return lr, lf
 
 def final_xform(alist):
-    keys = [ 'uri', 'id', 'ts','type','latlon' ,'loc', 'ppt', 'text']
+    keys = [ 'uri','id','src','ts','type','latlon','loc','ppt','text']
     print(alist)
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
@@ -249,6 +261,7 @@ async def run_workflow(
                 if len(rlist) > 0:
                     res = await asyncio.gather(
                         pool.map(generateId, rlist),
+                        pool.map(sourceName, rlist),
                         pool.map(timestamp, rlist),
                         pool.map(faces_partial_prompt, rlist),
                         #pool.map(partial(img_type_detection,lock=lock), rlist),
