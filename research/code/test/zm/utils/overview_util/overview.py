@@ -340,33 +340,11 @@ def execute():
     efs = ss.extract_user_raw_data_folders(rdp)
 
     st.sidebar.markdown('##### :blue[**DATA SOURCES**]')
-    #st.sidebar.markdown("""#### <span style='color:#2d4202'><u>SOURCES</u></span>""",unsafe_allow_html=True)
-    #with st.container(height=100, border=False):        
-    #st.markdown('<div class="scrollable-div">', unsafe_allow_html=True)
-    with st.container(height=100, border=True):
-        for ds in efs:
-            st.sidebar.write(f'**{ds}**')
-            #st.sidebar.caption(ds)
+    for ds in efs:
+           st.sidebar.write(f'**{ds}**')
     st.sidebar.divider()        
-    #st.markdown('</div>', unsafe_allow_html=True)   
-    #st.text_area(label="Data Sources", value=efs)
+    st.sidebar.markdown('</div>', unsafe_allow_html=True)   
     
-    st.markdown(
-        """
-    <style>
-            .st-emotion-cache-1cw0ubf
-                {
-                   display:none;
-                }    
-
-            # .st-emotion-cache-vi2kj0
-            # {
-            #         display:none;
-            # }    
-    </style>
-    """,
-        unsafe_allow_html=True,
-    )
     display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
 
     st.divider()
