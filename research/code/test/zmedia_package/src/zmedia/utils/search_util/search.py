@@ -102,8 +102,8 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
     if "document" not in st.session_state:
         st.session_state["document"] = []
 
-    if "timgs" not in st.session_state:
-        st.session_state["timgs"] = []
+    if "t_imgs" not in st.session_state:
+        st.session_state["t_imgs"] = []
 
     if "meta" not in st.session_state:
         st.session_state["meta"] = []
@@ -190,8 +190,8 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
         embedding_function = OpenCLIPEmbeddingFunction()
 
         # reset session_state for temperory images for view
-        if "timgs" in st.session_state:
-            st.session_state["timgs"] = []
+        if "t_imgs" in st.session_state:
+            st.session_state["t_imgs"] = []
 
         # reset session_state for metadata
         if "meta" in st.session_state:
@@ -244,7 +244,7 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
                 img = img[:, :, :3]
                 #img = img.convert("RGB")
                 
-            st.session_state["timgs"].append(img)
+            st.session_state["t_imgs"].append(img)
         for mdata in st.session_state["imgs"]["metadatas"][0][1:]:
             st.write(mdata) #---???
             tss =  mdata["ts"] if mdata["ts"]  else "1765060800.0"
@@ -261,11 +261,11 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
             )
     # Image TAB
     with image:
-        if st.session_state["timgs"] and len(st.session_state["timgs"]) > 1:
+        if st.session_state["t_imgs"] and len(st.session_state["t_imgs"]) > 1:
             index = image_select(
                 #label= "Cognatus Images",
                 label_visibility="collapsed",
-                images=st.session_state["timgs"],
+                images=st.session_state["t_imgs"],
                 use_container_width=True,
                 # captions=st.session_state["meta"],
                 index=0,
@@ -284,7 +284,7 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
                 flip = st.button(label="## &#x21C5;")
 
             # with img:
-            im = Image.fromarray(st.session_state["timgs"][index])
+            im = Image.fromarray(st.session_state["t_imgs"][index])
             # if im.mode in ("RGBA", "P"):
             #    im = im.convert("RGB")
             nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
