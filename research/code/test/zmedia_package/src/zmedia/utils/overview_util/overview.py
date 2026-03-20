@@ -226,7 +226,7 @@ def disc_usage(tm, um, fm, w):
 #   pdb
 
 
-def display_storage_metrics(tm, um, fm, dfi, dff):
+def display_storage_metrics(tm, um, fm):
     c1,  c2 = st.columns([0.5,  0.5])
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
@@ -244,18 +244,6 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
          ).properties(
               width = width2
          )
-        #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
-        #st.markdown("""##### <span style='color:#2d4202'><u>INPUT DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
-        #ss.acquire_overview_data(dfi.values.tolist())
-        #filter_selection(dfi)
-    # with c3:
-    #     # st.markdown(
-    #     #     '<p class="vertical-text">final data folder usage</p>',
-    #     #     unsafe_allow_html=True,
-    #     # )
-    #     st.markdown("""##### <span style='color:#2d4202'><u>FINAL DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
-    #     #ss.acquire_overview_data(dff.values.tolist())
-    #     filter_selection(dff)
 
 
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):
