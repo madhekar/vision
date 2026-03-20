@@ -231,19 +231,17 @@ def display_storage_metrics(tm, um, fm):
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
         #st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)  
-        st.caption("disk usage >")      
+        st.write("**disk usage >**")      
         width = st_dimensions(key="c1_width")
         disc_usage(tm, um, fm, width)
     with c2:
-         width2 = st_dimensions(key="c2_width")
          images = {"total": 1600, "sources": [{"source": "Berkeley", "count": 580},{"source": "madhekar", "count": 1020}] }
          df = pd.DataFrame(images)
-         alt.Chart(df).mark_bar().encode(
+         ch = alt.Chart(df).mark_bar().encode(
               x="source:N",
               y="count:Q",
-         ).properties(
-              width = width2
          )
+         st.altair_chart(ch, use_container_width=True)
 
 
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):
