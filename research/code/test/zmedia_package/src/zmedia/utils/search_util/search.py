@@ -263,8 +263,8 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
     with image:
         if st.session_state["t_imgs"] and len(st.session_state["t_imgs"]) > 1:
             index = image_select(
-                #label= "Cognatus Images",
-                label_visibility="collapsed",
+                label= "", #"Cognatus Images",
+                #label_visibility="collapsed",
                 images=st.session_state["t_imgs"],
                 use_container_width=True,
                 # captions=st.session_state["meta"],
