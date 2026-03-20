@@ -235,7 +235,8 @@ def display_storage_metrics(tm, um, fm):
         width = st_dimensions(key="c1_width")
         disc_usage(tm, um, fm, width)
     with c2:
-        images = [{"source": "Berkeley", "count": 580},{"source": "madhekar", "count": 1020},{"source": "samsung", "count": 200}]
+        st.write("**records per modality >**") 
+        images = [{"modality": "Images", "count": 580},{"modality": "Documents", "count": 1020},{"modality": "Videos", "count": 1600},{"modality": "Audios", "count": 100}]
         df = pd.DataFrame(images)
         print(df)
         base = alt.Chart(df).encode(
@@ -243,6 +244,8 @@ def display_storage_metrics(tm, um, fm):
             y="count:Q",
             text='count',
             color='source:N'
+        ).configure(
+            padding={"left":0, "top":5, "right": 0, "bottom": 5}
         )
         ch = base.mark_bar() + base.mark_text(align='center', dy=-10)
         st.altair_chart(ch, use_container_width=True)
