@@ -235,13 +235,17 @@ def display_storage_metrics(tm, um, fm):
         width = st_dimensions(key="c1_width")
         disc_usage(tm, um, fm, width)
     with c2:
-         images = {"total": 1600, "sources": [{"source": "Berkeley", "count": 580},{"source": "madhekar", "count": 1020}] }
-         df = pd.DataFrame(images)
-         ch = alt.Chart(df).mark_bar().encode(
-              x="source:N",
-              y="count:Q",
-         )
-         st.altair_chart(ch, use_container_width=True)
+        images = [{"source": "Berkeley", "count": 580},{"source": "madhekar", "count": 1020},{"source": "samsung", "count": 200}]
+        df = pd.DataFrame(images)
+        print(df)
+        base = alt.Chart(df).encode(
+            x='source:N',
+            y="count:Q",
+            text='count',
+            color='source:N'
+        )
+        ch = base.mark_bar() + base.mark_text(align='center', dy=-10)
+        st.altair_chart(ch, use_container_width=True)
 
 
 def display_folder_details(dfi, dfv, dfd, dfa, dfn):
