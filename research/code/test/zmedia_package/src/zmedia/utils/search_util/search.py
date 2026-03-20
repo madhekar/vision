@@ -275,13 +275,15 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
             c1, c2 = st.columns([7, 3])
 
             # c2.divider()
-            col21, col22, col23 = c2.columns([1, 1, 1], gap="small")
+            col21, col22, col23, cole = c2.columns([1, 1, 1,1], gap="small")
             with col21:
                 right = st.button(label="## &#x21B7;")
             with col22:
                 left = st.button(label="## &#x21B6;")
             with col23:
                 flip = st.button(label="## &#x21C5;")
+            with cole:
+                edit = st.button(label="## &#x270D;")
 
             # with img:
             im = Image.fromarray(st.session_state["t_imgs"][index])
@@ -302,21 +304,6 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
             if flip:
                 nim = nim.rotate(180)
                 imageLoc.image(nim, use_column_width="always")
-            # with map:
-            # st.write(
-            #     "<p class='input'>sorry, no map is implemented found in search criteria!</p>",
-            #     unsafe_allow_html=True,
-            # )
-
-            # c2.divider()
-            colt, cole = c2.columns([0.7, 0.3])
-            with colt:
-                st.markdown(
-                    "<p class='big-font-subh'>Gleeful Desc</p>", unsafe_allow_html=True
-                )
-            with cole:
-                edit = st.button(label="## &#x270D;")
-
             if edit:
                 updateMetadata(
                     client,
@@ -327,28 +314,42 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
                     dt=st.session_state["imgs"]["metadatas"][0][1:][index]["ts"],
                     loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"],
                 )
-            o_desc = f'<p class="input">{st.session_state["imgs"]["metadatas"][0][1:][index]["text"]}</p>'
-            c2.markdown(o_desc, unsafe_allow_html=True)
+            # c2.divider()
+            colt, cole = c2.columns([0.2, 0.8])
+            with colt:
+                st.markdown("<p class='big-font-subh'>Gleeful Desc: </p>", unsafe_allow_html=True)
+            with cole:
+                o_desc = f'<p class="input">{st.session_state["imgs"]["metadatas"][0][1:][index]["text"]}</p>'
+                st.markdown(o_desc, unsafe_allow_html=True)
 
-            c2.write("<p class='big-font-subh'>People</p>", unsafe_allow_html=True)
-            o_names = f'<p class="input">{st.session_state["imgs"]["metadatas"][0][1:][index]["ppt"]} </p>' #- {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
-            c2.markdown(o_names, unsafe_allow_html=True)
+            colt, cole = c2.columns([0.2, 0.8])
+            with colt:
+               st.write("<p class='big-font-subh'>People: </p>", unsafe_allow_html=True)
+            with cole:   
+               o_names = f'<p class="input">{st.session_state["imgs"]["metadatas"][0][1:][index]["ppt"]} </p>' #- {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
+               st.markdown(o_names, unsafe_allow_html=True)
 
-            c2.write("<p class='input-subh'>Date Time</p>", unsafe_allow_html=True)
-            tts = "0.0" if st.session_state["imgs"]["metadatas"][0][1:][index]["ts"] == "" else st.session_state["imgs"]["metadatas"][0][1:][index]["ts"]
-            o_datetime = f'<p class="input">{str(datetime.datetime.fromtimestamp(float(tts)))}</p>'
-            c2.markdown(o_datetime, unsafe_allow_html=True)
+            colt, cole = c2.columns([0.2, 0.8])
+            with colt:
+               st.write("<p class='input-subh'>Date Time: </p>", unsafe_allow_html=True)
+            with cole:   
+                tts = "0.0" if st.session_state["imgs"]["metadatas"][0][1:][index]["ts"] == "" else st.session_state["imgs"]["metadatas"][0][1:][index]["ts"]
+                o_datetime = f'<p class="input">{str(datetime.datetime.fromtimestamp(float(tts)))}</p>'
+                st.markdown(o_datetime, unsafe_allow_html=True)
 
-            c2.write("<p class='big-font-subh'>Location</p>", unsafe_allow_html=True)
-            o_location = f'<p class="input">{st.session_state["imgs"]["metadatas"][0][1:][index]["loc"]}</p>'
-            c2.markdown(o_location, unsafe_allow_html=True)
+            colt, cole = c2.columns([0.2, 0.8])
+            with colt:
+                st.write("<p class='big-font-subh'>Location: </p>", unsafe_allow_html=True)
+            with cole:    
+                o_location = f'<p class="input">{st.session_state["imgs"]["metadatas"][0][1:][index]["loc"]}</p>'
+                st.markdown(o_location, unsafe_allow_html=True)
 
             ll = ast.literal_eval(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"])     
             lat = ll[0] #float(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"][0])
             lon = ll[1] # float(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"][1])
 
             map_data = pd.DataFrame({"lat": [lat], "lon": [lon]})
-            c2.markdown("<p class='big-font-subh'>Map</p>", unsafe_allow_html=True)
+            c2.markdown("<p class='big-font-subh'>Map: </p>", unsafe_allow_html=True)
             c2.map(map_data, zoom=12, size=100, color="#ff00ff")
         else:
             st.write(
