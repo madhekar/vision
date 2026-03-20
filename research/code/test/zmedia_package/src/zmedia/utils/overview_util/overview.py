@@ -240,10 +240,10 @@ def display_storage_metrics(tm, um, fm):
         df = pd.DataFrame(images)
         print(df)
         base = alt.Chart(df).encode(
-            x='source:N',
+            x='modality:N',
             y="count:Q",
             text='count',
-            color='source:N'
+            color='modality:N'
         )
         ch = base.mark_bar() + base.mark_text(align='center', dy=-10)
         st.altair_chart(ch, use_container_width=True)
