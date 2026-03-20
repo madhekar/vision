@@ -325,7 +325,7 @@ def execute():
 
         data_path, final_data_path, vdb_list, opl = extract_folder_paths() 
 
-        dfi, dff = ss.acquire_overview_data(data_path, final_data_path, opl)
+        #dfi, dff = ss.acquire_overview_data(data_path, final_data_path, opl)
     
         efs = ss.extract_user_raw_data_folders(final_data_path)
 
@@ -335,7 +335,7 @@ def execute():
         st.sidebar.divider()        
         st.sidebar.markdown('</div>', unsafe_allow_html=True)   
         
-        display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
+        display_storage_metrics(*ss.extract_server_stats()) #, dfi, dff)
 
         st.divider()
 
