@@ -244,8 +244,6 @@ def display_storage_metrics(tm, um, fm):
             y="count:Q",
             text='count',
             color='source:N'
-        ).configure(
-            padding={"left":0, "top":5, "right": 0, "bottom": 5}
         )
         ch = base.mark_bar() + base.mark_text(align='center', dy=-10)
         st.altair_chart(ch, use_container_width=True)
