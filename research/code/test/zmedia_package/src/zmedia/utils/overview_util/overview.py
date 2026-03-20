@@ -227,18 +227,27 @@ def disc_usage(tm, um, fm, w):
 
 
 def display_storage_metrics(tm, um, fm, dfi, dff):
-    c1,  c3 = st.columns([.3,  0.7])
+    c1,  c2 = st.columns([0.5,  0.5])
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
         #st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)  
-        st.subheader("> disk usage >>")      
+        st.caption("disk usage >")      
         width = st_dimensions(key="c1_width")
         disc_usage(tm, um, fm, width)
-    # with c2:
-    #     #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
-    #     st.markdown("""##### <span style='color:#2d4202'><u>INPUT DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
-    #     #ss.acquire_overview_data(dfi.values.tolist())
-    #     filter_selection(dfi)
+    with c2:
+         width2 = st_dimensions(key="c2_width")
+         images = {"total": 1600, "sources": [{"source": "Berkeley", "count": 580},{"source": "madhekar", "count": 1020}] }
+         df = pd.DataFrame(images)
+         alt.Chart(df).mark_bar().encode(
+              x="source:N",
+              y="count:Q",
+         ).properties(
+              width = width2
+         )
+        #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
+        #st.markdown("""##### <span style='color:#2d4202'><u>INPUT DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
+        #ss.acquire_overview_data(dfi.values.tolist())
+        #filter_selection(dfi)
     # with c3:
     #     # st.markdown(
     #     #     '<p class="vertical-text">final data folder usage</p>',
