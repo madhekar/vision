@@ -198,7 +198,7 @@ def disc_usage(tm, um, fm, w):
     base = alt.Chart(mem).encode(
         theta=alt.Theta("size:Q").stack(True),
         radius=alt.Radius("size").scale(type="sqrt", zero=True),
-        color=alt.Color("size:Q", scale=alt.Scale(scheme="dark2"))
+        color=alt.Color("size:Q", scale=alt.Scale(scheme="dark2"), legend=None)
     )
 
    # 4. Create the pie (arc) layer innerRadius=int(0.05 * v), outerRadius=int(0.2 * v)
@@ -230,7 +230,8 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
     c1,  c3 = st.columns([.3,  0.7])
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
-        st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)        
+        #st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)  
+        st.subheader("> disk usage >>")      
         width = st_dimensions(key="c1_width")
         disc_usage(tm, um, fm, width)
     # with c2:

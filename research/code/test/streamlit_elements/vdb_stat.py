@@ -10,6 +10,7 @@ client = chromadb.PersistentClient("/mnt/zmdata/home-media-app/data/app-data/vec
 
 num_collections = client.count_collections()
 print(f"collections: {num_collections}")
+
 icollection = client.get_collection(name="multimodal_collection_images")
 tcollection = client.get_collection(name="multimodal_collection_texts")
 try:
