@@ -130,9 +130,9 @@ def overview_config_load():
         os.path.join(dr, *final_image_data_path.split(os.sep)[1:]),
 
         os.path.join(dr, *vectordb_path.split(os.sep)[1:]),
-        image_collection_name,
-        video_collection_name,
+        image_collection_name,        
         text_collection_name,
+        video_collection_name,
         audio_collection_name,
 
         os.path.join(dr, *final_image_data_path.split(os.sep)[1:]),

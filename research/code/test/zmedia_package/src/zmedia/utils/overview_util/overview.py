@@ -31,7 +31,7 @@ def extract_folder_paths():
         config.overview_config_load()
     )
     ovr_path_list = [final_image_data_path, final_video_data_path, final_text_data_path, final_audio_data_path]
-    vdb_list = [vectordb_path, image_collection_name, video_collection_name, text_collection_name, audio_collection_name]
+    vdb_list = [vectordb_path, image_collection_name, text_collection_name, video_collection_name,  audio_collection_name]
 
     return (data_path, raw_data_path, vdb_list, ovr_path_list)
 
@@ -144,6 +144,37 @@ def filter_selection(df):
     #     )
     #.add_selection(interval)
 
+def get_vdb_connection(vdb_path):
+    client = None
+    try:
+      client = chromadb.PersistentClient(vdb_path)
+      print(f"number of collections found: {client.count_collections()}")  
+    except Exception as e:
+        print(f"exception occured getting vdb client connection: {e}")  
+    return client    
+
+def get_collection_record_count(vdb_list):
+
+    vdb_path =  vdb_list.pop(0)
+
+    print(vdb_list)
+
+    client = get_vdb_connection(vdb_path=vdb_path)
+
+    collection_count = []
+   
+    for c in vdb_list: 
+        try:
+            cc = client.get_collection(name=c)
+            val = cc.count()
+            collection_count.append({"modality": c.removeprefix("multimodal_collection_"), 'count': val})
+        except Exception as e:
+            print(f"excption occured while getting collection: {c} as: {e}")    
+            collection_count.append({"modality": c.removeprefix("multimodal_collection_"), 'count': 0})
+            continue
+    print(collection_count)    
+    return  collection_count    
+
 
 def disc_usage_1(tm, um, fm, w):
     #v = w["width"]
@@ -226,18 +257,18 @@ def disc_usage(tm, um, fm, w):
 #   pdb
 
 
-def display_storage_metrics(tm, um, fm):
+def display_storage_metrics(tm, um, fm, ld):
     c1,  c2 = st.columns([0.5,  0.5])
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
         #st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)  
-        st.write("**disk usage >**")      
+        st.write("***disk usage***")      
         width = st_dimensions(key="c1_width")
         disc_usage(tm, um, fm, width)
     with c2:
-        st.write("**records per modality >**") 
-        images = [{"modality": "Images", "count": 580},{"modality": "Documents", "count": 1020},{"modality": "Videos", "count": 1600},{"modality": "Audios", "count": 100}]
-        df = pd.DataFrame(images)
+        st.write("***records per modality***") 
+        #images = [{"modality": "Images", "count": 580},{"modality": "Documents", "count": 1020},{"modality": "Videos", "count": 1600},{"modality": "Audios", "count": 100}]
+        df = pd.DataFrame(ld)
         print(df)
         base = alt.Chart(df).encode(
             x='modality:N',
@@ -317,6 +348,8 @@ def execute():
         data_path, final_data_path, vdb_list, opl = extract_folder_paths() 
 
         #dfi, dff = ss.acquire_overview_data(data_path, final_data_path, opl)
+
+        ld = get_collection_record_count(vdb_list=vdb_list)
     
         efs = ss.extract_user_raw_data_folders(final_data_path)
 
@@ -326,7 +359,7 @@ def execute():
         st.sidebar.divider()        
         st.sidebar.markdown('</div>', unsafe_allow_html=True)   
         
-        display_storage_metrics(*ss.extract_server_stats()) #, dfi, dff)
+        display_storage_metrics(*ss.extract_server_stats(), ld) #, dfi, dff)
 
         #st.divider()
 
