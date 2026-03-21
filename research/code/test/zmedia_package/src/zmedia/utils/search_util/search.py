@@ -12,10 +12,10 @@ from PIL import Image, ImageOps
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from streamlit_extras.mandatory_date_range import date_range_picker as drp
 
-#import chromadb as cdb
+import chromadb as cdb
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.data_loaders import ImageLoader
-#from chromadb.config import Settings
+from chromadb.config import Settings
 
 MIN_DT = datetime.datetime(1998, 1, 1)
 MAX_DT = datetime.datetime.now()
@@ -24,7 +24,7 @@ MAX_DT = datetime.datetime.now()
 @st.cache_resource(show_spinner=True)
 def init_vdb(vdp, icn, tcn):
     # vector database persistance
-    client = st.session_state("vdb_client") #cdb.PersistentClient( path=vdp, settings=Settings(allow_reset=True))
+    client = cdb.PersistentClient( path=vdp, settings=Settings(allow_reset=True))
     
     # openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()

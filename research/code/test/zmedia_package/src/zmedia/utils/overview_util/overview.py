@@ -1,7 +1,8 @@
 import os
 import pandas as pd
 import streamlit as st
-import chromadb
+import chromadb as cdb
+from chromadb.config import Settings
 from streamlit_dimensions import st_dimensions
 import altair as alt
 from utils.util import storage_stat as ss
@@ -147,7 +148,7 @@ def filter_selection(df):
 def get_vdb_connection(vdb_path):
     client = None
     try:
-      client = chromadb.PersistentClient(vdb_path)
+      client = cdb.PersistentClient(vdb_path, settings=Settings(allow_reset=True))
       print(f"number of collections found: {client.count_collections()}")  
     except Exception as e:
         print(f"exception occured getting vdb client connection: {e}")  
@@ -159,7 +160,7 @@ def get_collection_record_count(vdb_list):
 
     print(vdb_list)
 
-    client = st.session_state["vdb_client"]
+    client = get_vdb_connection(vdb_path)
 
     collection_count = []
    

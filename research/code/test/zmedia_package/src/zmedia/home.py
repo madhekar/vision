@@ -2,8 +2,8 @@ import streamlit as st
 from streamlit_extras.app_logo import add_logo
 import importlib.resources as resources
 import torch
-import chromadb as cdb
-from chromadb.config import Settings
+# import chromadb as cdb
+# from chromadb.config import Settings
 from zmedia.utils.config_util import config 
 from zmedia.utils.util import storage_stat as ss
 from zmedia.utils.util import setup_app as sa
@@ -62,14 +62,14 @@ def load_css(css_path):
         s = f"<style>{f.read()}</style>"
         st.html(s)
 
-def get_vdb_connection(vdb_path):
-    client = None
-    try:
-      client = cdb.PersistentClient(vdb_path, settings=Settings(allow_reset=True))
-      print(f"number of collections found: {client.count_collections()}")  
-    except Exception as e:
-        print(f"exception occured getting vdb client connection: {e}")  
-    return client    
+# def get_vdb_connection(vdb_path):
+#     client = None
+#     try:
+#       client = cdb.PersistentClient(vdb_path, settings=Settings(allow_reset=True))
+#       print(f"number of collections found: {client.count_collections()}")  
+#     except Exception as e:
+#         print(f"exception occured getting vdb client connection: {e}")  
+#     return client    
 
 def main():        
 
@@ -83,9 +83,9 @@ def main():
     current_os, vdb_path = load_app_configuration()
     print(f"Current Environment: {current_os}")
 
-    client = get_vdb_connection(vdb_path=vdb_path)
-    if "vdb_client" not in st.session_state:
-        st.session_state["vdb_client"] = client
+    # client = get_vdb_connection(vdb_path=vdb_path)
+    # if "vdb_client" not in st.session_state:
+    #     st.session_state["vdb_client"] = client
 
     # if 'app_root' not in st.session_state:
     #     st.session_state['app_root'] = ar
