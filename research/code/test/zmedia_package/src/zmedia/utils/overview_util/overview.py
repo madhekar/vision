@@ -159,7 +159,7 @@ def get_collection_record_count(vdb_list):
 
     print(vdb_list)
 
-    client = get_vdb_connection(vdb_path=vdb_path)
+    client = st.session_state["vdb_client"]
 
     collection_count = []
    

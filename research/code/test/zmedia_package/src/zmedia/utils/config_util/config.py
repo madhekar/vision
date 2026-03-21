@@ -618,7 +618,12 @@ def archive_config_load():
             appdata_path
         )
 """    
-      
+app-config:
+  data_root_path: /mnt/zmdata/home-media-app
+  vdb_path: /data/app-data/vectordb
+  data_root_path_mac: /Volumes/zmdata/home-media-app
+  data_root_path_win: c:/shared/zmdata/home-media-app
+  approot_path: /home/madhekar/work/vision/research/code/test/zm  
 """
 @st.cache_resource
 def app_config_load():
@@ -630,6 +635,7 @@ def app_config_load():
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
 
         data_root = dict["app-config"]["data_root_path"]
+        vdb_path = dict["app-config"]["vdb_path"]
         data_root_mac = dict["app-config"]["data_root_path_mac"]
         data_root_win = dict["app-config"]["data_root_path_win"]
         app_root = dict["app-config"]["approot_path"]
@@ -642,6 +648,7 @@ def app_config_load():
 
         return(
             data_root,
+            os.path.join(data_root, *vdb_path.split(os.sep)[1:]),
             app_root,
             current_os
         )

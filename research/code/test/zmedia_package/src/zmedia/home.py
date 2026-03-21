@@ -2,6 +2,8 @@ import streamlit as st
 from streamlit_extras.app_logo import add_logo
 import importlib.resources as resources
 import torch
+import chromadb as cdb
+from chromadb.config import Settings
 from zmedia.utils.config_util import config 
 from zmedia.utils.util import storage_stat as ss
 from zmedia.utils.util import setup_app as sa
@@ -32,7 +34,6 @@ st.set_page_config(
 
 #BASE_FOLDER = Path('__file__').resolve().parent
 
-
 """
             data_root,
             app_root,
@@ -42,7 +43,7 @@ st.set_page_config(
 """
 @st.cache_resource(ttl=1000)
 def load_app_configuration():
-    root_data, root_app, current_os = config.app_config_load()
+    root_data, vdb_path, root_app, current_os = config.app_config_load()
     print(f'app root: {root_app} data root: {root_data}')
     if not os.path.exists(root_data):
         ap, dp, mp,  = config.setup_config_load()
@@ -53,13 +54,22 @@ def load_app_configuration():
         if cnt > 0:
            print(f' {cnt} : number of files removed')
            #return root_data, root_app
-    return current_os
+    return current_os, vdb_path
 
 @st.cache_resource(ttl=1000)
 def load_css(css_path):
     with open(file=css_path) as f:
         s = f"<style>{f.read()}</style>"
         st.html(s)
+
+def get_vdb_connection(vdb_path):
+    client = None
+    try:
+      client = cdb.PersistentClient(vdb_path, settings=Settings(allow_reset=True))
+      print(f"number of collections found: {client.count_collections()}")  
+    except Exception as e:
+        print(f"exception occured getting vdb client connection: {e}")  
+    return client    
 
 def main():        
 
@@ -70,8 +80,13 @@ def main():
     load_css(css_path)
 
     # ar,dr = 
-    current_os = load_app_configuration()
+    current_os, vdb_path = load_app_configuration()
     print(f"Current Environment: {current_os}")
+
+    client = get_vdb_connection(vdb_path=vdb_path)
+    if "vdb_client" not in st.session_state:
+        st.session_state["vdb_client"] = client
+
     # if 'app_root' not in st.session_state:
     #     st.session_state['app_root'] = ar
 
