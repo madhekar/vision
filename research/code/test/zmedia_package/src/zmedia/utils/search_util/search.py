@@ -350,7 +350,7 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
 
             map_data = pd.DataFrame({"lat": [lat], "lon": [lon]})
             c2.markdown("<p class='big-font-subh'>Map: </p>", unsafe_allow_html=True)
-            c2.map(map_data, zoom=12, size=100, color="#ff00ff")
+            c2.map(map_data, zoom=12, size=80, color="#ff00ff")
         else:
             st.write(
                 "<p class='input'>sorry, no similar images found in search criteria!</p>",
