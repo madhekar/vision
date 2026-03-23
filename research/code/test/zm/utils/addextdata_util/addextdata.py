@@ -175,8 +175,8 @@ def execute():
     st.sidebar.write("External Data Sources")
     ext_source = st.sidebar.selectbox(label="**External Data Sources**", options=devices_list, label_visibility="collapsed")
     
-    #show data already imported data sources
-    source_list = mu.extract_user_raw_data_folders(raw_data_path)
+    #show data already imported data sources extract_user_raw_data_folders
+    source_list = ss.extract_user_raw_data_folders(raw_data_path)
     st.sidebar.write("Existing Imported Data Sources")
     with st.sidebar.container(height=100, border=True):
         for src in source_list:
