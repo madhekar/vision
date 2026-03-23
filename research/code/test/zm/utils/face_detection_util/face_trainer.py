@@ -78,7 +78,7 @@ def train_model(app, img_dataset_path, model_path, model_file, label_path, label
     # Evaluate the classifier
     y_pred = svm_classifier.predict(X_test)
     print("Classification Report:")
-    print(classification_report(y_test, y_pred, target_names=class_names))
+    print(classification_report(y_test, y_pred, labels=range(11), target_names=class_names))
 
     # Save the trained model and label encoder for future use
     print("Saving model and label encoder...")
