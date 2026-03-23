@@ -8,6 +8,7 @@ import ast
 # from streamlit_option_menu import option_menu
 from streamlit_image_select import image_select
 from utils.config_util import config
+import PIL
 from PIL import Image, ImageOps
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from streamlit_extras.mandatory_date_range import date_range_picker as drp
@@ -17,6 +18,7 @@ from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
 
+PIL.Image.MAX_IMAGE_PIXELS = 933120000
 MIN_DT = datetime.datetime(1998, 1, 1)
 MAX_DT = datetime.datetime.now()
 
