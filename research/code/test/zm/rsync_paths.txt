@@ -1,0 +1,37 @@
+
+operational folder sync
+-----------------------
+1. initial raw-data load in model compiler machine - raw-data
+2. trim folders and load data in input-data folders
+3. validate input-data folders filter: 
+   - duplicates, 
+   - bad quality images,
+   - text based images, 
+   - missing metadata images
+4. detect/extract locations from images
+5. train person detector model
+------
+
+6. sync data and metadata from model compiler to user server - input-data, app-data, model
+
+rsync -avzh --progress /mnt/zmdata/home-media-app/data/input-data/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/data/input-data/
+rsync -avzh --progress /mnt/zmdata/home-media-app/data/app-data/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/data/app-data/
+rsync -avzh --progress /mnt/zmdata/home-media-app/model/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/model/
+rsync -avzh -f"+ */" -f"- *" /mnt/zmdata/home-media-app/data/raw-data/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/data/raw-data/
+
+7. edit and fix image metadata files in input-data folder in user server
+
+8. sync input-data from user server to model compiler - input-data, app-data
+
+rsync -avzh --progress /mnt/zmdata/home-media-app/data/input-data/img/ madhekar@192.168.68.128:/mnt/zmdata/home-media-app/data/input-data/img/
+rsync -avzh --progress /mnt/zmdata/home-media-app/data/input-data/error/ madhekar@192.168.68.128:/mnt/zmdata/home-media-app/data/input-data/error/
+
+9. generate final metadata and final-data image files
+
+10. load vector db final file to chromadb 
+
+11. sync final-data and vectordb from model compiler to user server
+
+rsync -avzh --progress  --delete-before /mnt/zmdata/home-media-app/data/app-data/vectordb/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/data/app-data/vectordb/
+rsync -avzh --progress --delete-before /mnt/zmdata/home-media-app/data/final-data/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/data/final-data/
+
