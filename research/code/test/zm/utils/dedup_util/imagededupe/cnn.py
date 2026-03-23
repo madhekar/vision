@@ -63,20 +63,27 @@ def remove_duplicates(input_image_path, archive_duplicates_path):
 
 
 def execute(source_name):
-    input_image_path, archive_dup_path = config.dedup_config_load()
-    input_image_path = os.path.join(input_image_path, source_name)
-    arc_folder_name_dt = mu.get_foldername_by_datetime()
-    archive_dup_path_update = os.path.join(
-        archive_dup_path, source_name, arc_folder_name_dt
-    )
-    sm.add_messages("duplicate", f"s| Images input Folder Path: {input_image_path}")
-    sm.add_messages("duplicate", f"s| Images archive folder path: {archive_dup_path_update}")
-    ss.create_folder(archive_dup_path_update)
+    result = "success"    
+    try:    
+        input_image_path, archive_dup_path = config.dedup_config_load()
+        input_image_path = os.path.join(input_image_path, source_name)
+        arc_folder_name_dt = mu.get_foldername_by_datetime()
+        archive_dup_path_update = os.path.join(
+            archive_dup_path, source_name, arc_folder_name_dt
+        )
+        sm.add_messages("duplicate", f"s| Images input Folder Path: {input_image_path}")
+        sm.add_messages("duplicate", f"s| Images archive folder path: {archive_dup_path_update}")
+        ss.create_folder(archive_dup_path_update)
 
-    #file_paths = [os.path.join(root, name) for root, dirs, files in os.walk(input_image_path) for name in files]
-    remove_duplicates(input_image_path, archive_dup_path_update)
+        #file_paths = [os.path.join(root, name) for root, dirs, files in os.walk(input_image_path) for name in files]
+        remove_duplicates(input_image_path, archive_dup_path_update)
 
-    return "success"
+        ss.remove_empty_image_files_and_folders(input_image_path)
+
+    except Exception as e:
+        sm.add_messages("deduplicate", f"e| Exception occurred {e}")
+        result = "failed"
+    return result 
 
 if __name__=='__main__':
     img_file_list='/home/madhekar/work/home-media-app/data/input-data/img/madhekar'
