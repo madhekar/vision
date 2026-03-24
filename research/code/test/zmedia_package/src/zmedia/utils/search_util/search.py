@@ -57,17 +57,7 @@ def updateMetadata(client, image_collection,  id, desc, names, dt, loc):
         ids=id,
         metadatas={"description": desc, "names": names, "datetime" : dt, "location": loc}
     )
-
-# def detect_os_platform_prefix(lx_prx, mc_prx, wn_prx):
-#     platform_system = platform.system()
-#     result = ""
-#     if platform_system == "Windows":
-#         result = wn_prx
-#     elif platform_system == "Linux":
-#         result = lx_prx
-#     elif platform_system == "Darwin":
-#         result = mc_prx
-#     return result    
+   
 
 def os_specific_path(img_path, mac_prefix, win_prefix, linux_prefix, token):
     n_pth = ""
@@ -202,12 +192,12 @@ def search_fn(client, cImgs, cTxts, mac_prefix, win_prefix, linux_prefix, token)
         if modality_selected == "image":
             # execute text collection query --- TBD fix
 
-            # st.session_state["document"] = cTxts.query(
-            #     query_embeddings=embedding_function("./" + similar_image.name),
-            #     n_results=5,
-            # )["documents"][0][0]
+            st.session_state["document"] = cTxts.query(
+                query_embeddings=embedding_function("./" + similar_image.name),
+                n_results=5,
+            )["documents"][0][0]
 
-            # get location and datetime metadata for an image
+            #get location and datetime metadata for an image
             # qmdata = util.getMetadata(sim.name)
             # dt_format = "%Y-%m-%d %H:%M:%S"
             # st.write(qmdata[3])
