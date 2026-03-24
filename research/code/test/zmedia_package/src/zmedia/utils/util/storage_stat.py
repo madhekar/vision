@@ -384,7 +384,12 @@ def remove_file(file_path):
 
 # get immediate child folders
 def extract_user_raw_data_folders(pth):
-    return os.listdir(pth)
+    folder_list = []
+    try:
+        folder_list =os.listdir(pth)
+    except Exception as e:
+        st.write(f"Unable to access folder: {pth} exception: {e}")
+    return folder_list
 
 def create_folder(cpath):
     try:

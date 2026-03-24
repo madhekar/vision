@@ -234,7 +234,7 @@ def disc_usage(tm, um, fm, w):
     )
 
    # 4. Create the pie (arc) layer innerRadius=int(0.05 * v), outerRadius=int(0.2 * v)
-    pie = base.mark_arc(opacity=0.7, innerRadius=int(.1 * v), outerRadius=int(3 * v), stroke="#fff").encode(
+    pie = base.mark_arc(opacity=0.7, innerRadius=int(.1 * v), outerRadius=int(2 * v), stroke="#fff").encode(
         # alt.Theta("size:Q").stack(True),
         # alt.Radius("size").scale(type="sqrt", zero=True),
         # color=alt.Color("legend_label:N", scale=alt.Scale(scheme="dark2")),  # alt.Legend(title="disc usage")),
