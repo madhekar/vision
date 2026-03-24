@@ -220,10 +220,10 @@ def search_fn(client, cImgs, cTxts):
 
         elif modality_selected == "text":
             # execute text collection query --- TBD fix
-            # st.session_state["document"] = cTxts.query(
-            #     query_texts=modalityTxt,
-            #     n_results=5,
-            # )["documents"][0][0]
+            st.session_state["document"] = cTxts.query(
+                query_texts=modalityTxt,
+                n_results=5,
+            )["documents"][0][0]
 
             # execute image query with search criteria
             st.session_state["imgs"] = cImgs.query(
@@ -256,8 +256,7 @@ def search_fn(client, cImgs, cTxts):
     with image:
         if st.session_state["t_imgs"] and len(st.session_state["t_imgs"]) > 1:
             index = image_select(
-                label= "Cognatus Images",
-                label_visibility="collapsed",
+                label= "Resembling Images",
                 images=st.session_state["t_imgs"],
                 use_container_width=True,
                 # captions=st.session_state["meta"],
