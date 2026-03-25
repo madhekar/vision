@@ -1,1 +1,3 @@
 ffmpeg -i input.mp4 -frames:v 1 output.png
+
+ffmpeg -i VID_20181205_121309.mp4 -frames:v 1 anjali_tour_1.png
