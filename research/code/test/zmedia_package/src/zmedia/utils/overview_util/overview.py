@@ -151,7 +151,7 @@ def get_vdb_connection(vdb_path):
       client = cdb.PersistentClient(vdb_path, settings=Settings(allow_reset=True))
       print(f"number of collections found: {client.count_collections()}")  
     except Exception as e:
-        print(f"exception occured getting vdb client connection: {e}")  
+        print(f"exception occurred getting vdb client connection: {e}")  
     return client    
 
 def get_collection_record_count(vdb_list):
@@ -170,7 +170,7 @@ def get_collection_record_count(vdb_list):
             val = cc.count()
             collection_count.append({"modality": c.removeprefix("multimodal_collection_"), 'count': val})
         except Exception as e:
-            print(f"excption occured while getting collection: {c} as: {e}")    
+            print(f"exception occurred while getting collection: {c} as: {e}")    
             collection_count.append({"modality": c.removeprefix("multimodal_collection_"), 'count': 0})
             continue
     print(collection_count)    
