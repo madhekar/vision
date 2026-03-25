@@ -6,4 +6,6 @@ interval = 633 // 10 = 63
 
 select one frame after every 63 frames
 
-ffmpeg -i input.mp4 -vf "select='not(mod(n\,63))',setpts=N/TB" -r 1 -vframes 10 anjali_ind_tour%03d.png
+ffmpeg -i VID_20181205_121309.mp4 -vf "select='not(mod(n\,63))',setpts=N/TB" -r 1 -vframes 10 anjali_ind_tour%03d.png
+
+
