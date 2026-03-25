@@ -214,8 +214,6 @@ def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_fold
     """
     IMAGE embeddings in vector database
     """
-   
-
        
     df_urls =  df_data['uri']
     df_ids = df_data['id']
@@ -265,8 +263,8 @@ def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_fold
         for batch in batches:
             print(f"---batch-->: {batch}")
             collection_text.add(ids=batch[0],
-                                # embeddings=batch[1],
-                                # metadatas=batch[2],
+                                embeddings=batch[1],
+                                metadatas=batch[2],
                                 documents=batch[3])
 
         st.info(f"done adding documents: {len(list_of_text)}")
