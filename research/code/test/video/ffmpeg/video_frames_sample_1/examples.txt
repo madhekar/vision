@@ -1,3 +1,8 @@
 ffmpeg -i VID_20181205_121309.mp4 -frames:v 1 anjali_tour_1.png
 
 ffprobe -v error -select_streams v:0 -count_frames -show_entries stream=nb_read_frames -print_format csv=nokey=1 VID_20181205_121309.mp4
+
+interval = 633 // 10 = 63
+
+select one frame after every 63 frames
+
