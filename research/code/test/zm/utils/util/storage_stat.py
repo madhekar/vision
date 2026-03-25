@@ -226,7 +226,7 @@ def bytes_to_gb(bytes_size):
     """Converts bytes to gigabytes."""
     return bytes_size / (1024**3)
 
-def acquire_overview_data(folder_list):
+def acquire_overview_data(src_list, folder_list):
 
     # Define the list of folders to process
     # folders_to_check = [
@@ -255,18 +255,18 @@ def acquire_overview_data(folder_list):
     print(f"{'Folder':<30} | {'File Count':<15} | {'Size (GB)':<15}")
     print("-" * 64)
 
-    src_list, r_list = ['madhekar', 'Samsung USB'], []
-    prefix = "/home/madhekar/work/home-media-app/data/"
+    r_list = []
+    prefix = "/mnt/zmdata/home-media-app/data/"
     for src in src_list:
         for folder in folder_list:
             folder = os.path.join(folder, src)
-            #print(f"--->>{folder}")
+            print(f"--->>{folder}")
             if os.path.isdir(folder):
                 count, size_bytes = get_folder_metrics(folder)
                 size_gb = bytes_to_gb(size_bytes)
                 f_trim = folder.removeprefix(prefix)
                 f_trim = f_trim.replace("/error","")
-                # print(f_trim)
+                print(f_trim)
                 n_path = os.path.normpath(f_trim)
                 path_list = n_path.split(os.sep)
                 if len(path_list) ==3:

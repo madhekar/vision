@@ -118,9 +118,6 @@ def filter_selection(df):
     ).transform_filter(
       (alt.datum.count > 0)
     )
-    # .properties(
-    # title= stage,#'File count and Size by Type',
-    # )
 
     # Bar chart for Size (MB)
     size_chart = (
@@ -130,6 +127,7 @@ def filter_selection(df):
                 "size:Q",
                 axis=alt.Axis(grid=True, gridColor="grey"),
                 title="folder Size",
+                scale=alt.Scale(padding=5)
             ),
         )
         .transform_filter(
@@ -233,23 +231,46 @@ def disc_usage(tm, um, fm, w):
     base = alt.Chart(mem).encode(
         theta=alt.Theta("size:Q").stack(True),
         radius=alt.Radius("size").scale(type="sqrt", zero=True),
-        color=alt.Color("legend_label:N", scale=alt.Scale(scheme="dark2"))
+        color=alt.Color("size:Q", scale=alt.Scale(scheme="dark2"), legend=None)
     )
 
    # 4. Create the pie (arc) layer innerRadius=int(0.05 * v), outerRadius=int(0.2 * v)
-    pie = base.mark_arc(opacity=0.7, innerRadius=int(0.1 * v), outerRadius=int(0.3 * v), stroke="#fff").encode(
-        # alt.Theta("size:Q").stack(True),
-        # alt.Radius("size").scale(type="sqrt", zero=True),
-        # color=alt.Color("legend_label:N", scale=alt.Scale(scheme="dark2")),  # alt.Legend(title="disc usage")),
-        # Add tooltip for better interactivity, using the combined label field
+    pie = base.mark_arc(opacity=0.7, innerRadius=int(.1 * v), outerRadius=int(2 * v), stroke="#fff").encode(
         tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N")],
+        
     )
     text = base.mark_text(align='center', radiusOffset=10, color="black").encode(text="size:Q")
-    st.altair_chart(pie + text, use_container_width=True)
+    st.altair_chart(pie + text, use_container_width=True)    
+
+# def disc_usage(tm, um, fm, w):
+
+#     v = w['width'] if w is not None else 400
+#     mem = pd.DataFrame({"disc": ["Total", "Used", "Free"], "size": [tm, um, fm]})
+
+#     # This formats the value as an integer for cleaner presentation in the legend/tooltip
+#     mem["legend_label"] = (mem["disc"] + ":" + mem["size"].astype(str) + "GB")
+
+#     # Encode theta by the value, and color by the new combined label
+#     base = alt.Chart(mem).encode(
+#         theta=alt.Theta("size:Q").stack(True),
+#         radius=alt.Radius("size").scale(type="sqrt", zero=True),
+#         color=alt.Color("legend_label:N", scale=alt.Scale(scheme="dark2"))
+#     )
+
+#    # 4. Create the pie (arc) layer innerRadius=int(0.05 * v), outerRadius=int(0.2 * v)
+#     pie = base.mark_arc(opacity=0.7, innerRadius=int(0.1 * v), outerRadius=int(0.3 * v), stroke="#fff").encode(
+#         # alt.Theta("size:Q").stack(True),
+#         # alt.Radius("size").scale(type="sqrt", zero=True),
+#         # color=alt.Color("legend_label:N", scale=alt.Scale(scheme="dark2")),  # alt.Legend(title="disc usage")),
+#         # Add tooltip for better interactivity, using the combined label field
+#         tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N")],
+#     )
+#     text = base.mark_text(align='center', radiusOffset=10, color="black").encode(text="size:Q")
+#     st.altair_chart(pie + text, use_container_width=True)
 
 
 def display_storage_metrics(tm, um, fm, dfi, dff):
-    c1, c2, c3 = st.columns([.3, 1.0, 1.0])
+    c1, c2, c3 = st.columns([.2, .4, .4])
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
         st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)        
@@ -334,11 +355,11 @@ def display_folder_details(dfi, dfv, dfd, dfa, dfn):
 
 def execute():
     (rdp, idp, adp, fdp, opl) = extract_folder_paths() 
-
-    dfi, dff = ss.acquire_overview_data(opl)
-   
+    
     efs = ss.extract_user_raw_data_folders(rdp)
 
+    dfi, dff = ss.acquire_overview_data(efs, opl)
+   
     st.sidebar.markdown('##### :blue[**DATA SOURCES**]')
     for ds in efs:
            st.sidebar.write(f'**{ds}**')
