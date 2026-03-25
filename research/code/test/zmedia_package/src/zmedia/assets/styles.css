@@ -223,7 +223,7 @@ input {
 
 /* hide_streamlit_style = """
                 <style> */
-                div[data-testid="stToolbar"] {
+                /* div[data-testid="stToolbar"] {
                 visibility: hidden;
                 height: 0%;
                 position: fixed;
@@ -249,7 +249,7 @@ input {
                 footer {
                 visibility: hidden;
                 height: 0%;
-                }
+                } */
                 /* </style>
                 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)  */
