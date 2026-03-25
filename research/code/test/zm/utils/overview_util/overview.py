@@ -345,9 +345,9 @@ def execute():
     st.sidebar.divider()        
     st.sidebar.markdown('</div>', unsafe_allow_html=True)   
     
-    display_storage_metrics(*ss.extract_server_stats(), dfi, dff)
+    display_storage_metrics(*ss.extract_server_stats(),dfi, dff)
 
-    st.divider()
+    st.divider() 
 
     st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA>>**</u></span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(rdp))
