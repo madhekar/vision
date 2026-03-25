@@ -82,12 +82,25 @@ poetry 1.1.12 has requirement packaging<21.0,>=20.4, but you have packaging 24.2
 PyNaCl 1.5.0 is not supported on this platform
 
 
+----
+
+
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+surya-ocr 0.17.1 requires pillow<11.0.0,>=10.2.0, but you have pillow 10.1.0 which is incompatible.
+surya-ocr 0.17.1 requires torch<3.0.0,>=2.7.0, but you have torch 2.3.1 which is incompatible.
+marker-pdf 1.10.2 requires openai<2.0.0,>=1.65.2, but you have openai 2.29.0 which is incompatible.
+marker-pdf 1.10.2 requires regex<2025.0.0,>=2024.4.28, but you have regex 2026.1.15 which is incompatible.
+marker-pdf 1.10.2 requires torch<3.0.0,>=2.7.0, but you have torch 2.3.1 which is incompatible.
+marker-pdf 1.10.2 requires transformers<5.0.0,>=4.45.2, but you have transformers 5.3.0 which is incompatible.
+markdownify 1.2.2 requires beautifulsoup4<5,>=4.9, but you have beautifulsoup4 4.8.2 which is incompatible.
+markdownify 1.2.2 requires six<2,>=1.15, but you have six 1.12.0 which is incompatible.
+
+
 '''
 
 # Example using the Chroma Python client directly
 import chromadb
 from chromadb.utils import embedding_functions
-from torch.optim.lr_scheduler import LRScheduler
 
 # Initialize a persistent client
 client = chromadb.PersistentClient(path="./local_chroma_db") 
@@ -97,3 +110,7 @@ embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(mo
 
 # Create a collection with the embedding function
 collection = client.get_or_create_collection(name="my_collection", embedding_function=embedding_function)
+collection.add(
+    documents=["ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.pyiqa 0.1.13 requires transformers==4.37.2, but you have transformers 5.3.0 which is incompatible."],
+    ids=["23"]
+)
