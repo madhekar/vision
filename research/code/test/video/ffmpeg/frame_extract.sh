@@ -24,7 +24,6 @@ INTERVAL=$(echo "scale=0; $TOTAL_FRAMES / $NUM_FRAMES" | bc)
 if [ "$INTERVAL" -eq 0 ]; then
     INTERVAL=1
 
-
 echo "Total frames: $TOTAL_FRAMES"
 echo "Interval: $INTERVAL"
 echo "Extracting $NUM_FRAMES frames with interval $INTERVAL..."
@@ -34,3 +33,6 @@ echo "Extracting $NUM_FRAMES frames with interval $INTERVAL..."
 # -vsync 0 prevents frame duplication
 # -vframes limits the total output frames
 ffmpeg -i "$VIDEO_FILE" -vf "select='not(mod(n, $INTERVAL))',setpts=N/TB" -vsync 0 -vframes "$NUM_FRAMES" "$OUTPUT_PATTERN"
+
+
+
