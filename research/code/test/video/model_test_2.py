@@ -7,6 +7,9 @@ Summary for LLaVA-NeXT
 LLaVA-NeXT typically requires a specific number of frames sampled uniformly across the video (e.g., 32 or 64). 
 OpenCV (cv2) is the most robust and widely used alternative for this purpose if you cannot fix your torchvision installation. 
 
+pip install torch torchvision torchaudio torchcodec av
+
+
 '''
 
 
