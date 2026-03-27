@@ -1,13 +1,23 @@
 from transformers import pipeline
 
-def summarize_text_ai(text, max_length=150, min_length=40):
+'''
+available tasks are ['any-to-any', 'audio-classification', 'automatic-speech-recognition', 'depth-estimation', 
+'document-question-answering', 'feature-extraction', 'fill-mask', 'image-classification', 'image-feature-extraction', 
+'image-segmentation', 'image-text-to-text', 'keypoint-matching', 'mask-generation', 'ner', 'object-detection', 
+'sentiment-analysis', 'table-question-answering', 'text-classification', 'text-generation', 'text-to-audio', 
+'text-to-speech', 'token-classification', 'video-classification', 'zero-shot-audio-classification', 'zero-shot-classification', 
+'zero-shot-image-classification', 'zero-shot-object-detection']"
+
+'''
+
+def summarize_text_ai(text, max_length=50, min_length=6):
     # Load a pre-trained summarization model (e.g., "t5-small")
-    summarizer = pipeline("summarization", model="t5-small")
+    summarizer = pipeline("text-generation", model="t5-small")
     
     # Generate the summary
     summary = summarizer(text, max_length=max_length, min_length=min_length, do_sample=False)
     
-    return summary[0]['summary_text']
+    return summary
 
 # Example usage with a long text
 long_text = """My experience with AI/ ML contains the following production applications, short descriptions below.
@@ -33,4 +43,4 @@ The RL agent learns a policy that maps states (e.g., augmented prompt, retrieved
 	• The LLM generates a refined response, iteratively improved through the RL feedback loop, and delivers it to the user.
 """
 
-# print(summarize_text_ai(long_text))
+print(summarize_text_ai(long_text))
