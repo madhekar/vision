@@ -40,7 +40,7 @@ def add_subtitles_to_video(video_path, subtitle_path, output_video_path):
 
 # Example usage:
 if __name__ == "__main__":
-    input_video = "my_video.mp4" # Replace with your video file path
+    input_video = "/home/madhekar/Videos/ffmpeg_frames/video_1/VID_20181205_121309.mp4" # Replace with your video file path
     output_srt = "output_subtitles.srt"
     output_video = "video_with_subtitles.mp4"
     
