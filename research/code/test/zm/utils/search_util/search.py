@@ -316,24 +316,24 @@ def search_fn(client, cImgs, cTxts):
             # )
 
             # c2.divider()
-            colt, cole = c2.columns([0.2, 0.8])
-            with colt:
-                st.markdown(
-                    "<p class='big-font-subh'>Gleeful Desc</p>", unsafe_allow_html=True
-                )
-            with cole:
-                edit = st.button(label="## &#x270D;")
+            # colt, cole = c2.columns([0.2, 0.8])
+            # with colt:
+            #     st.markdown(
+            #         "<p class='big-font-subh'>Gleeful Desc</p>", unsafe_allow_html=True
+            #     )
+            # with cole:
+            #     edit = st.button(label="## &#x270D;")
 
-            if edit:
-                updateMetadata(
-                    client,
-                    cImgs,
-                    id=st.session_state["imgs"]["ids"][0][index],
-                    desc=st.session_state["imgs"]["metadatas"][0][1:][index]["text"],
-                    #names=st.session_state["imgs"]["metadatas"][0][1:][index]["names"],
-                    dt=st.session_state["imgs"]["metadatas"][0][1:][index]["ts"],
-                    loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"],
-                )
+            # if edit:
+            #     updateMetadata(
+            #         client,
+            #         cImgs,
+            #         id=st.session_state["imgs"]["ids"][0][index],
+            #         desc=st.session_state["imgs"]["metadatas"][0][1:][index]["text"],
+            #         #names=st.session_state["imgs"]["metadatas"][0][1:][index]["names"],
+            #         dt=st.session_state["imgs"]["metadatas"][0][1:][index]["ts"],
+            #         loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"],
+            #     )
             # o_desc = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["text"]}</p>'
             # c2.markdown(o_desc, unsafe_allow_html=True)
 
