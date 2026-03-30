@@ -62,7 +62,7 @@ def describe_image( frames_path, ppt, location):
     try:
         # Perform inference
         response = client.chat( 
-            model='llava:13',
+            model='llava:13b',
             messages=[
                 {
                     'role': 'system',
