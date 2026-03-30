@@ -1,3 +1,4 @@
+import os
 import ollama
 import base64
 import asyncio
@@ -38,6 +39,27 @@ def create_default_client():
     client = ollama.AsyncClient()
     return client
 
+
+async def caption_image(img):
+
+    client = ollama.Client()
+    if not os.path.exists(img):
+        print(f"Err: Image path does not exists {img}")
+        return ""
+    else:    
+
+       result = client.chat(
+            model='llava:13b',
+            messages=[  
+                {
+                'role': 'user',
+                'content': 'Act as professional copywriter. Write as fun loving and engaging caption for this image.',
+                'images': [img]
+                }
+            ]
+       )
+       return result["message"]["content"]  
+    
 async def describe_image( img_path, ppt, location):
 
     client = ollama.AsyncClient()
@@ -52,7 +74,7 @@ async def describe_image( img_path, ppt, location):
     elif location != "" and ppt == "":
         prompt = f"Describe the image with thoughtful insights using information provided. you must include location {location} in response"
     else: 
-       prompt = f"Describe the image with thoughtful insights in response."
+       prompt = "Describe the image with thoughtful insights in response."
     try:
         # Perform inference
         response = await client.chat( 
