@@ -58,7 +58,7 @@ def describe_image( frames_path, ppt, location):
     elif location != "" and ppt == "":
         prompt = f"Describe the image with thoughtful insights using information provided. you must include location {location} in response"
     else: 
-       prompt = f"Describe the images with thoughtful insights in response."
+       prompt = "Describe the images form a video with thoughtful insights  by connecting them in single coherant response."
     try:
         # Perform inference
         response = client.chat( 
@@ -93,7 +93,7 @@ def describe_image( frames_path, ppt, location):
 
         return response['message']['content']
     except Exception as e:
-        print(f"Error processing image {img_path1}, {img_path2}...: {e}")
+        print(f"Error processing image...: {e}")
         return None
     # finally:
     #     if client:
