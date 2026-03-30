@@ -62,7 +62,7 @@ def describe_image( frames_path, ppt, location):
     try:
         # Perform inference
         response = client.chat( 
-            model='llava',
+            model='llava:13',
             messages=[
                 {
                     'role': 'system',
@@ -87,7 +87,7 @@ def describe_image( frames_path, ppt, location):
                     'images': eimg_list,
                 }
             ],
-            options={'num_predict': 400,  'temperature': 0.8},
+            options={'num_predict': 500,  'temperature': 0.8},
             stream=False # Get full response at once
         )
 
