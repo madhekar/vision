@@ -175,6 +175,12 @@ async def describeImage(args):
     d =  await oln.describe_image( uri, ppt1, location)
     return d
 
+async def caption(args):
+    uri = args
+    cap = await oln.caption_image(uri)
+    return cap 
+
+
 """
 /home/madhekar/work/home-media-app/models/zeshaOpenClip/clip_finetuned.pth
 """
@@ -190,11 +196,11 @@ async def describeImage(args):
 def new_xform(res):
 
     ll = [list(x) for x in zip(*res)]
-
+    
     lr = [[row[3], row[4][1], row[5]] for row in ll]
 
     lf = [[row[5], row[0],row[1],row[2][0], row[2][1],row[4][0], row[4][1], row[3]] for row in ll]
-
+    print(f"ll --- {ll}  lr-- {lr} lf--{lf}")
     return lr, lf
 
 def final_xform(alist):
@@ -266,7 +272,8 @@ async def run_workflow(
                         pool.map(timestamp, rlist),
                         pool.map(faces_partial_prompt, rlist),
                         #pool.map(partial(img_type_detection,lock=lock), rlist),
-                        pool.map(partial(locationDetails, lock=lock), rlist)
+                        pool.map(partial(locationDetails, lock=lock), rlist),
+                        pool.map(caption, rlist),
                     )
                     
                     res.append(rlist)
