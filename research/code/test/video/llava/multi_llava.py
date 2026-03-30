@@ -52,7 +52,7 @@ def caption_image(img):
             messages=[  
                 {
                 'role': 'user',
-                'content': 'Act as professional copywriter. Write as fun loving and engaging caption for this image.',
+                'content': 'Act as professional copywriter. Write an engaging caption for this image.',
                 'images': [img]
                 }
             ]
