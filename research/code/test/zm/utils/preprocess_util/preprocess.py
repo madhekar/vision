@@ -1,6 +1,7 @@
 import os
 import uuid
 import logging
+import PIL
 import itertools as it
 #import cv2
 import numpy as np
@@ -34,6 +35,7 @@ from utils.util import ball_tree as bt
 from functools import partial
 #import dill as pickle
 
+PIL.Image.MAX_IMAGE_PIXELS = 933120000
 d_latitude, d_longitude = 32.968689, -117.184243
 d_loc = 'Madhekar residence in Carmel Valley'
 #m, t, p = LLM.setLLM()
