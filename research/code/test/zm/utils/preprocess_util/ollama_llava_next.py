@@ -52,11 +52,29 @@ async def caption_image(img):
             model='llava',
             messages=[  
                 {
+                    'role': 'system',
+                    'content': 'A chat between a curious human and an artificial intelligence assistant. The assistant is an professional copywriter, '
+                    'gives thoughtful, helpful, short, and polite answers to the human questions. '
+                    'Do not hallucinate and gives very close attention to the details and takes time to process information provided, '
+                    'response must be entirely in prose, absolutely no lists, bullet points, emojis, hash tags, or numbered items should be used. Ensure the information flows seamlessly within paragraphs.'
+                    'Adhere strictly to these guidelines:'
+                    '1. Only provide answer and no extra commentary, additional context or information request.'
+                    '2. Do not reuse the same sentence structure more than once in response.'
+                    '3. Eliminate unclear excessive symbols or gibberish.'
+                    '4. Include addition information provided about people names and places or locations.'
+                    '5. Shorten text while preserving information.'
+                    '6. Preserve clear text as is.'
+                    '7. Skip text that is too unclear or ambiguous.'
+                    '8. Exclude non-factual elements.'
+                    '9. Maintain clarity and information.',
+                },
+                {
                 'role': 'user',
-                'content': 'Act as professional copywriter. Write as fun loving and engaging caption for this image.',
+                'content': 'Write short an engaging caption for this image.',
                 'images': [img]
                 }
-            ]
+            ],
+            options={'num_predict': 30,  'temperature': 0.9},
        )
        return result["message"]["content"]  
     
