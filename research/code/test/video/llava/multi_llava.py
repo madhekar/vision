@@ -52,11 +52,11 @@ def describe_image( frames_path, ppt, location):
 
     # prompt
     if location != "" and ppt != "":
-        prompt = f"Describe the image with thoughtful insights using information provided. you must include names of people {ppt} and location {location} in response"
+        prompt = f"Describe the images form a video with thoughtful insights by connecting them in single coherant response. you must include names of people {ppt} and location {location} in response"
     elif location == "" and ppt != "":
-        prompt = f"Describe the image with thoughtful insights using information provided. you must include names of people {ppt} in response"
+        prompt = f"Describe the images form a video with thoughtful insights by connecting them in single coherant response. you must include names of people {ppt} in response"
     elif location != "" and ppt == "":
-        prompt = f"Describe the image with thoughtful insights using information provided. you must include location {location} in response"
+        prompt = f"Describe the images form a video with thoughtful insights by connecting them in single coherant response. you must include location {location} in response"
     else: 
        prompt = "Describe the images form a video with thoughtful insights  by connecting them in single coherant response."
     try:
