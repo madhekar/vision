@@ -219,7 +219,7 @@ def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_fold
        
     df_urls =  df_data['uri']
     df_ids = df_data['id']
-    df_metadata = df_data[["ts","src","type", "latlon", "loc", "ppt", "text"]].fillna("").T.to_dict().values()
+    df_metadata = df_data[["ts","src","type", "latlon", "loc", "ppt", "caption","text"]].fillna("").T.to_dict().values()
 
     collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadata), uris=df_urls.tolist()) 
 

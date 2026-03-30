@@ -324,6 +324,10 @@ def search_fn(client, cImgs, cTxts):
             o_desc = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["text"]}</p>'
             c2.markdown(o_desc, unsafe_allow_html=True)
 
+            c2.write("<p class='big-font-subh'>Caption</p>", unsafe_allow_html=True)
+            o_caption = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["caption"]} </p>' #- {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
+            c2.markdown(o_caption, unsafe_allow_html=True)
+
             c2.write("<p class='big-font-subh'>People</p>", unsafe_allow_html=True)
             o_names = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["ppt"]} </p>' #- {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
             c2.markdown(o_names, unsafe_allow_html=True)
