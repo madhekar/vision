@@ -197,14 +197,14 @@ def new_xform(res):
 
     ll = [list(x) for x in zip(*res)]
     
-    lr = [[row[3], row[4][1], row[5]] for row in ll]
+    lr = [[row[3], row[4][1], row[6]] for row in ll]
 
-    lf = [[row[5], row[0],row[1],row[2][0], row[2][1],row[4][0], row[4][1], row[3]] for row in ll]
+    lf = [[row[6], row[0],row[1],row[2][0], row[2][1],row[4][0], row[4][1], row[3],row[5]] for row in ll]
     print(f"ll --- {ll}  lr-- {lr} lf--{lf}")
     return lr, lf
 
 def final_xform(alist):
-    keys = [ 'uri','id','src','ts','type','latlon','loc','ppt','text']
+    keys = [ 'uri','id','src','ts','type','latlon','loc','ppt','caption','text']
     print(alist)
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
