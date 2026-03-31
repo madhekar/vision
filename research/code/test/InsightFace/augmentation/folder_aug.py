@@ -12,7 +12,7 @@ augmentation = transforms.Compose([
     transforms.RandomResizedCrop(224),
     transforms.RandomAutocontrast(0.5),
     transforms.RandomAdjustSharpness(0.5)
-    # Add more transforms as needed
+    # Add more transInsightFace/augmentation/folder_aug.pyforms as needed
 ])
 
 def apply_aug(faces_folder):
