@@ -10,7 +10,24 @@ from sklearn.metrics import classification_report
 from sklearn.preprocessing import LabelEncoder
 from insightface.app import FaceAnalysis
 from utils.config_util import config
+'''
+The
+buffalo_l model in InsightFace is highly sensitive to color channel order, and incorrect gender/age estimation is commonly caused by passing RGB images instead of BGR. The get() function in the FaceAnalysis package requires BGR input, which is the default format produced by OpenCV's cv2.imread(). 
+Key Considerations for buffalo_l (Age/Gender):
 
+    BGR Requirement: If you feed RGB images, the model will likely fail to predict correctly, frequently defaulting to incorrect genders (e.g., classifying females as males or vice versa).
+    Ensure Proper Loading: If using Pillow, convert to BGR (e.g., cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)) before feeding to the model.
+    Alternative Models: If 10g_bnkps (part of buffalo_l) is failing on high-quality images, consider using 500m_bnkps or 10g_gnkps for improved robustness.
+    Input Quality & Alignment: Poor alignment or rotation can cause issues. Ensure the input image is properly aligned to a common frame (often done via landmarks). 
+
+Troubleshooting Steps:
+
+    Verify Color Format: Check cv2.imread(path) and verify it is not being converted to RGB prematurely.
+    Add Padding: If faces are too close to the edge, adding 15-25% padding around the image can improve detection and analysis.
+    Check Rotation: Ensure the image is not rotated incorrectly. 
+
+Note: The gender and age detection model, genderage.onnx, generally operates with around 80-90% accuracy, meaning 100% precision is not guaranteed.
+'''
 def init_model():
     # Initialize InsightFace model
     app = FaceAnalysis(allowed_modules=["detection", "recognition"])
@@ -40,7 +57,7 @@ def train_model(app, img_dataset_path, model_path, model_file, label_path, label
 
             try:
                 #img = cv2.imread(image_path)
-                img=np.asarray(Image.open(image_path).convert('RGB'))
+                img=np.asarray(Image.open(image_path).convert('BGR'))
                 if img is None:
                     continue
                 # Get faces from the image
