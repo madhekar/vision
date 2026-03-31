@@ -106,7 +106,7 @@ def predict_img_faces(app, new_image_path, svm_classifier, le):
     llm_partial_pmt = ""
 
     #new_img = cv2.imread(new_image_path)
-    new_img =np.asarray(Image.open(new_image_path).convert('BGR'))
+    new_img =np.asarray(Image.open(new_image_path).convert('RGB'))
     people = []
     # Get face embedding
     faces = app.get(new_img)
