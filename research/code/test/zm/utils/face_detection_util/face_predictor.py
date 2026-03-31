@@ -94,8 +94,8 @@ def init_predictor_module():
     svm_classifier = joblib.load(svc_model_store)
     le = joblib.load(label_encoder_store)
 
-    app = FaceAnalysis(name="buffalo_l")
-    app.prepare(ctx_id=-1, det_size=(640, 640))
+    app = FaceAnalysis(name="buffalo_l",providers=['CUDAExecutionProvider'])
+    app.prepare(ctx_id=-1, det_size=(256, 256)) # (640,640)
 
     return app, svm_classifier, le
 
@@ -118,7 +118,7 @@ def predict_img_faces(app, new_image_path, svm_classifier, le):
             if "gender" in face and "age" in face:
                 gender = "Male" if face.gender == 1 else "Female"
                 # detect age and gender for the face
-                age = face.age
+                age = face.age - 10
                 person['age'] = age
                 person['gender'] = gender
                 if age > 21:
