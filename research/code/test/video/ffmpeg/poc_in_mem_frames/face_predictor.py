@@ -119,6 +119,7 @@ def predict_img_faces(app, new_img_arr, svm_classifier, le):
 
     #new_img = cv2.imread(new_image_path)
     # new_img =np.asarray(Image.open(new_image_path).convert('RGB'))
+    new_img = Image.fromarray(new_img_arr)
     people = []
     # Get face embedding
     faces = app.get(new_img_arr)
@@ -164,7 +165,7 @@ def predict_img_faces(app, new_img_arr, svm_classifier, le):
             person['name'] = predicted_person
 
             x1, y1, x2, y2 = face.bbox.astype(int)
-            cropped_face = new_img[y1:y2, x1:x2]
+            cropped_face = new_img_arr[y1:y2, x1:x2]
 
             #face location in an image
             person['loc'] = (x1, y1)

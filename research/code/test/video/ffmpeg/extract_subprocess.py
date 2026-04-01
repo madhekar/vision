@@ -25,4 +25,4 @@ def extract_fixed_frames(video_path, total_desired_frames=10, output_pattern="fr
     print(f"Extracted approximately {total_desired_frames} frames.")
 
 # Example Usage
-extract_fixed_frames('/home/madhekar/Videos/ffmpeg_frames/video_1/VID_20181205_121309.mp4', 10) 
+extract_fixed_frames("/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_2069.mov", 10) 

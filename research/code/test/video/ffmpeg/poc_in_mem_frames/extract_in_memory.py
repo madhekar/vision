@@ -36,11 +36,22 @@ def extract_frames_to_numpy(video_path, num_frames=10):
 
     print(f"Video dimensions: {width}x{height}, FPS: {fps:.2f}, Total frames: {total_frames}, Extraction interval: every {frame_interval} frames")
 
+    """
+    # 3. Use ffmpeg to extract frames
+        ffmpeg_cmd = [
+            'ffmpeg', '-y', # -y to overwrite output files
+            '-i', video_path,
+            '-r', str(calculated_fps), # Set the calculated rate
+            output_pattern
+        ]
+    """
+
     # FFmpeg command to output raw video frames to stdout
     # The output format is raw video in RGB24 pixel format
     command = [
         'ffmpeg', '-i', video_path,
         '-vf', f'select=not(mod(n\\,{frame_interval}))', # Select frames at interval
+        '-vsync', 'vfr',
         '-frames:v', str(num_frames), # Limit the total number of frames to 10
         '-f', 'rawvideo',
         '-pix_fmt', 'rgb24',
@@ -60,6 +71,9 @@ def extract_frames_to_numpy(video_path, num_frames=10):
             break
         # Convert bytes to a numpy array
         frame = np.frombuffer(raw_frame, np.uint8).reshape((height, width, 3))
+        im = Image.fromarray(frame)
+        im.show()
+        time.sleep(3)
         frames_array = np.append(frames_array, [frame], axis=0)
 
     process.stdout.close()
@@ -79,12 +93,12 @@ for nf in range(10):
 
     img = frames[nf, :, :, :]
 
-    rgb_img = Image.fromarray(img, "RGB")
+    #rgb_img = Image.fromarray(img, "RGB")
 
-    rgb_img.show()
+    # rgb_img.show()
 
-    # llm_partial_pmt = fp_tor.predict_img_faces(app, img, svm_classifier, le)
+    llm_partial_pmt = fp_tor.predict_img_faces(app, img, svm_classifier, le)
 
-    # print(llm_partial_pmt)
+    print(llm_partial_pmt)
 
     time.sleep(3)
