@@ -83,8 +83,8 @@ for nf in range(10):
 
     rgb_img.show()
 
-    llm_partial_pmt = fp_tor.predict_img_faces(app, img, svm_classifier, le)
+    # llm_partial_pmt = fp_tor.predict_img_faces(app, img, svm_classifier, le)
 
-    print(llm_partial_pmt)
+    # print(llm_partial_pmt)
 
     time.sleep(3)
