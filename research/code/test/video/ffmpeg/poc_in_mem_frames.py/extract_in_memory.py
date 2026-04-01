@@ -1,8 +1,10 @@
 import subprocess
 import shlex
 import json
+import time
 import numpy as np
 from PIL import Image
+import face_predictor as fp_tor
 
 def get_video_dims(video_path):
     """Uses ffprobe to get the video frame height and width."""
@@ -67,12 +69,22 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     return frames_array
 
 # Example usage:
-video_file = "/home/madhekar/Videos/ffmpeg_frames/video_1/VID_20181205_121309.mp4"
+video_file = "/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_2069.mov"
+#"/home/madhekar/Videos/ffmpeg_frames/video_1/VID_20181205_121309.mp4"
 frames = extract_frames_to_numpy(video_file, num_frames=10)
 print(f"Shape of extracted frames numpy array: {frames.shape}") 
+app, svm_classifier, le = fp_tor.init_predictor_module()
 
-img = frames[0, :, :, :]
+for nf in range(10):
 
-rgb_img = Image.fromarray(img, "RGB")
+    img = frames[nf, :, :, :]
 
-rgb_img.show()
+    rgb_img = Image.fromarray(img, "RGB")
+
+    rgb_img.show()
+
+    llm_partial_pmt = fp_tor.predict_img_faces(app, img, svm_classifier, le)
+
+    print(llm_partial_pmt)
+
+    time.sleep(3)
