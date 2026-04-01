@@ -10,6 +10,7 @@ def get_video_dims(video_path):
     ffprobe_output = json.loads(ffprobe_output)
     height = ffprobe_output['streams'][0]['height']
     width = ffprobe_output['streams'][0]['width']
+    print(f"video dimentions {height}:{width}")
     return height, width
 
 def extract_frames_to_numpy(video_path, num_frames=10):
@@ -20,6 +21,7 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     # This is a simple approximation; for more accurate frame selection, use frame filters
     cmd_duration = f"ffprobe -v error -select_streams v:0 -show_entries stream=duration -of default=noprint_wrappers=1:nokey=1 {shlex.quote(video_path)}"
     duration = float(subprocess.check_output(cmd_duration, shell=True).decode('utf-8').strip())
+    print(f"video duration: {duration}")
 
     cmd_fps = f"ffprobe -v error -select_streams v:0 -show_entries stream=avg_frame_rate -of default=noprint_wrappers=1:nokey=1 {shlex.quote(video_path)}"
     fps_str = subprocess.check_output(cmd_fps, shell=True).decode('utf-8').strip().split('/')
@@ -27,6 +29,7 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     
     total_frames = int(duration * fps)
     frame_interval = max(1, total_frames // num_frames)
+    print(f"video fps: {fps} total frames: {total_frames} frame interval: {frame_interval}")
 
     print(f"Video dimensions: {width}x{height}, FPS: {fps:.2f}, Total frames: {total_frames}, Extraction interval: every {frame_interval} frames")
 
@@ -45,6 +48,7 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     
     frames_array = np.empty((0, height, width, 3), dtype=np.uint8)
     frame_size = height * width * 3 # 3 bytes per pixel for RGB24
+    print(f"video frame size: {frame_size}")
 
     for _ in range(num_frames):
         # Read raw bytes from stdout pipe
@@ -62,6 +66,6 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     return frames_array
 
 # Example usage:
-# video_file = "input_video.mp4"
-# frames = extract_frames_to_numpy(video_file, num_frames=10)
-# print(f"Shape of extracted frames numpy array: {frames.shape}") 
+video_file = "/home/madhekar/Videos/ffmpeg_frames/video_1/VID_20181205_121309.mp4"
+frames = extract_frames_to_numpy(video_file, num_frames=10)
+print(f"Shape of extracted frames numpy array: {frames.shape}") 
