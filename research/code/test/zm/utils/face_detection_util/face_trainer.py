@@ -57,11 +57,11 @@ def train_model(app, img_dataset_path, model_path, model_file, label_path, label
 
             try:
                 #img = cv2.imread(image_path)
-                # img=np.asarray(Image.open(image_path).convert('RGB'))
-                # if img is None:
-                #     continue
+                img=np.asarray(Image.open(image_path).convert('RGB'))
+                if img is None:
+                    continue
                 # Get faces from the image
-                faces = app.get(image_path)
+                faces = app.get(img)
 
                 # Ensure a face is detected
                 if faces:
