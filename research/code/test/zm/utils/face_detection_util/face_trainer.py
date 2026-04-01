@@ -30,8 +30,8 @@ Note: The gender and age detection model, genderage.onnx, generally operates wit
 '''
 def init_model():
     # Initialize InsightFace model
-    app = FaceAnalysis(allowed_modules=["detection", "recognition"])
-    app.prepare(ctx_id=-1, det_size=(640, 640))  # Use ctx_id=0 for GPU, -1 for CPU
+    app = FaceAnalysis(name="buffalo_l", allowed_modules=["detection", "recognition"], providers=['CUDAExecutionProvider'])
+    app.prepare(ctx_id=-1, det_size=(256, 256))  # Use ctx_id=0 for GPU, -1 for CPU
     return app
 
 
