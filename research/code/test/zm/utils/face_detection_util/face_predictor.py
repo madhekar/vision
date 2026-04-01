@@ -162,8 +162,8 @@ def predict_img_faces(app, new_image_path, svm_classifier, le):
             if em:
               emotion = em[0]["dominant_emotion"]
               if emotion == "angry" or emotion == "sad":
-                  emotion = "natural"
-              person["emotion"] = em[0]["dominant_emotion"]
+                  emo = "natural"
+              person["emotion"] = emo
             else:
               person["emotion"] = "neutral"    
 
