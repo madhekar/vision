@@ -2,6 +2,7 @@ import subprocess
 import shlex
 import json
 import numpy as np
+from PIL import Image
 
 def get_video_dims(video_path):
     """Uses ffprobe to get the video frame height and width."""
@@ -69,3 +70,9 @@ def extract_frames_to_numpy(video_path, num_frames=10):
 video_file = "/home/madhekar/Videos/ffmpeg_frames/video_1/VID_20181205_121309.mp4"
 frames = extract_frames_to_numpy(video_file, num_frames=10)
 print(f"Shape of extracted frames numpy array: {frames.shape}") 
+
+img = frames[0, :, :, :]
+
+rgb_img = Image.fromarray(img, "RGB")
+
+rgb_img.show()
