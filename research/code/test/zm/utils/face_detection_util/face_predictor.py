@@ -118,19 +118,19 @@ def predict_img_faces(app, new_image_path, svm_classifier, le):
             if "gender" in face and "age" in face:
                 gender = "Male" if face.gender == 1 else "Female"
                 # detect age and gender for the face
-                age = face.age - 10
+                age = face.age
                 person['age'] = age
                 person['gender'] = gender
                 if age > 21:
                     if gender == "Female":
-                        person["cnoun"] = "woman"
+                        person["cnoun"] = "soul" #"woman"
                     else:
-                        person["cnoun"] = "man"  
+                        person["cnoun"] = "soul" #"man"  
                 else:
                     if gender == "Female":
-                        person["cnoun"] = "girl"
+                        person["cnoun"] = "soul" #"girl"
                     else:
-                        person["cnoun"] = "boy"    
+                        person["cnoun"] = "soul" #"boy"    
 
             new_embedding = faces[i].embedding
 
@@ -156,10 +156,13 @@ def predict_img_faces(app, new_image_path, svm_classifier, le):
 
             #face location in an image
             person['loc'] = (x1, y1)
-
+            
+            # "sad," "angry," "surprise," "fear," "happy," "disgust," and "neutral"
             em = DeepFace.analyze(cropped_face,actions=['emotion'],enforce_detection=False)
             if em:
-              # face emotion 
+              emotion = em[0]["dominant_emotion"]
+              if emotion == "angry" or emotion == "sad":
+                  emotion = "natural"
               person["emotion"] = em[0]["dominant_emotion"]
             else:
               person["emotion"] = "neutral"    
