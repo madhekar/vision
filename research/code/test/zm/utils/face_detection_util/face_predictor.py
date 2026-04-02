@@ -16,6 +16,7 @@ def count_people(ld):
     cnt_woman = 0
     cnt_boy = 0
     cnt_girl = 0
+    cnt_soul = 0
 
     agg_person = []
     for d in ld:
@@ -28,10 +29,12 @@ def count_people(ld):
                 cnt_boy += 1
             if d["cnoun"] == "girl":
                 cnt_girl += 1
+            if d["cnoun"] == "soul":
+                cnt_girl += 1    
         else:
             agg_person.append({"type": "known", "name": d["name"], "cnoun": d["cnoun"],"emotion": d["emotion"], "loc": d["loc"]})
 
-    agg_person.append({"type": "unknown","cman": cnt_man, "cwoman": cnt_woman,"cboy": cnt_boy,"cgirl": cnt_girl})
+    agg_person.append({"type": "unknown","cman": cnt_man, "cwoman": cnt_woman,"cboy": cnt_boy,"cgirl": cnt_girl, "csoul": cnt_soul})
 
     return agg_person
 
@@ -72,6 +75,13 @@ def create_partial_prompt(agg):
                 else:
                     s = " one girl "
                 txt += s 
+
+            if d["csoul"] > 0:
+                if d["csoul"] > 1:
+                    s = f" {d['csoul']} souls "
+                else:
+                    s = " one soul "
+                txt += s     
             #txt += "in the image."
     return txt
 
@@ -161,7 +171,7 @@ def predict_img_faces(app, new_image_path, svm_classifier, le):
             em = DeepFace.analyze(cropped_face,actions=['emotion'],enforce_detection=False)
             if em:
               emotion = em[0]["dominant_emotion"]
-              if emotion == "angry" or emotion == "sad":
+              if emotion == "angry" or emotion == "sad" or emotion == "fear":
                   emotion = "natural"
               person["emotion"] = emotion
             else:
