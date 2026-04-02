@@ -50,6 +50,10 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     # The output format is raw video in RGB24 pixel format
     command = [
         'ffmpeg', '-i', video_path,
+        # '-f','matroska',
+        # '-c', 'copy - |',
+        '-err_detect', 'aggressive',
+        '-fflags', 'discardcorrupt',
         '-vf', f'select=not(mod(n\\,{frame_interval}))', # Select frames at interval
         '-vsync', 'vfr',
         '-frames:v', str(num_frames), # Limit the total number of frames to 10
@@ -83,7 +87,13 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     return frames_array
 
 # Example usage:
-video_file = "/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_2069.mov"
+video_file = "/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_2245.mov"
+#"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_3172.mov"
+#"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_3172.mov"
+#"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_7284.MOV"
+#"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_8016.MOV"
+#"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_7717.MOV"
+#"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_2069.mov"
 #"/home/madhekar/Videos/ffmpeg_frames/video_1/VID_20181205_121309.mp4"
 frames = extract_frames_to_numpy(video_file, num_frames=10)
 print(f"Shape of extracted frames numpy array: {frames.shape}") 
