@@ -6,6 +6,18 @@ import numpy as np
 from PIL import Image
 import face_predictor as fp_tor
 
+'''
+
+ffmpeg -i "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/57674026128__645EE475-C9B3-4065-B98B-B8DEBADF0166.MOV" 
+-vf cropdetect -f null -
+
+ffmpeg -i /mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/57674026128__645EE475-C9B3-4065-B98B-B8DEBADF0166.MOV 
+-vf "crop=720:960:0:0" -c:a copy out.mov
+
+
+
+'''
+
 def get_video_dims(video_path):
     """Uses ffprobe to get the video frame height and width."""
     cmd = f"ffprobe -v quiet -print_format json -select_streams v:0 -show_entries stream=width,height {shlex.quote(video_path)}"
@@ -87,7 +99,11 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     return frames_array
 
 # Example usage:
-video_file = "/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_2245.mov"
+video_file = "out.mov"
+#"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_8137.mp4.mov"
+#"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7220.MOV"
+#"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7326.mov"
+#"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_2245.mov"
 #"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_3172.mov"
 #"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_3172.mov"
 #"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_7284.MOV"
