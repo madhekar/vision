@@ -119,7 +119,6 @@ def predict_img_faces(app, new_img_arr, svm_classifier, le):
 
     #new_img = cv2.imread(new_image_path)
     # new_img =np.asarray(Image.open(new_image_path).convert('RGB'))
-    new_img = Image.fromarray(new_img_arr)
     people = []
     # Get face embedding
     faces = app.get(new_img_arr)
@@ -156,7 +155,7 @@ def predict_img_faces(app, new_img_arr, svm_classifier, le):
             predicted_person = le.inverse_transform([prediction])[0]
             #literal_eval(str(le.inverse_transform([prediction])[0]).strip())
             confidence = np.max(class_probabilities)
-            if confidence < 0.6:
+            if confidence < 0.5:
                 predicted_person = "unknown"
             else:
                 predicted_person = predicted_person
@@ -189,6 +188,7 @@ def predict_img_faces(app, new_img_arr, svm_classifier, le):
           llm_partial_pmt = create_partial_prompt(agg_cnt)
           print(llm_partial_pmt)
     else:
+        pass
         print("No face detected in the image.")
     return llm_partial_pmt
 
