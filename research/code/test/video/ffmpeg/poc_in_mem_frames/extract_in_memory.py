@@ -7,15 +7,11 @@ from PIL import Image
 import face_predictor as fp_tor
 
 '''
-
 ffmpeg -i "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/57674026128__645EE475-C9B3-4065-B98B-B8DEBADF0166.MOV" 
 -vf cropdetect -f null -
 
 ffmpeg -i /mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/57674026128__645EE475-C9B3-4065-B98B-B8DEBADF0166.MOV 
 -vf "crop=720:960:0:0" -c:a copy out.mov
-
-
-
 '''
 
 def get_video_dims(video_path):
@@ -62,10 +58,6 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     # The output format is raw video in RGB24 pixel format
     command = [
         'ffmpeg', '-i', video_path,
-        # '-f','matroska',
-        # '-c', 'copy - |',
-        '-err_detect', 'aggressive',
-        '-fflags', 'discardcorrupt',
         '-vf', f'select=not(mod(n\\,{frame_interval}))', # Select frames at interval
         '-vsync', 'vfr',
         '-frames:v', str(num_frames), # Limit the total number of frames to 10
