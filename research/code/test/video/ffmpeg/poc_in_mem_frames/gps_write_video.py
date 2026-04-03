@@ -26,7 +26,7 @@ def add_gps_to_video(video_path, lat, lon, alt=0):
     try:
         # Run command and wait for it to finish
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
-        print(f"Successfully updated {video_path}")
+        print(f"Successfully updated {video_path}, result: {result}")
     except subprocess.CalledProcessError as e:
         print(f"Error: {e.stderr}")
 
