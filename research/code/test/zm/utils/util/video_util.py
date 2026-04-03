@@ -52,6 +52,7 @@ def extract_frames_to_numpy(video_path, num_frames=10):
             'ffmpeg', '-y', # -y to overwrite output files
             '-i', video_path,
             '-r', str(calculated_fps), # Set the calculated rate
+            "-loglevel", "error",
             output_pattern
         ]
     """
@@ -65,6 +66,7 @@ def extract_frames_to_numpy(video_path, num_frames=10):
         '-frames:v', str(num_frames), # Limit the total number of frames to 10
         '-f', 'rawvideo',
         '-pix_fmt', 'rgb24',
+        "-loglevel", "error",
         'pipe:'
     ]
 
@@ -200,6 +202,7 @@ def corp_detect_and_crop_video(i_vid):
             "ffmpeg", "-i", i_vid, 
             "-t", "20",  # Analyze first 20 seconds
             "-vf", "cropdetect", 
+            "-loglevel", "error",
             "-f", "null", "-"
         ]
         # Capture stderr because FFmpeg prints logs there
@@ -220,6 +223,7 @@ def corp_detect_and_crop_video(i_vid):
             "-vf", crop_params,            
             "-c:a", "copy",  # Copy audio without re-encoding            
             "-map_metadata", "0", #preserve container metadata
+            "-loglevel", "error",
             t_vid
         ]
         subprocess.run(crop_cmd, check=True)
