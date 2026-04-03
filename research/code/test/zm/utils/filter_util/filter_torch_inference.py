@@ -3,11 +3,8 @@ import ast
 import torch
 from torchvision import transforms
 from utils.config_util import config
-
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 def init():
-
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
     (
         filter_model_path,
         data_path,
@@ -31,7 +28,7 @@ def load_filter_model():
 
     # 1. Load a pre-trained model (e.g., ResNet18)
     # For a custom model, you would define your model architecture and load its state_dict
-    filter_model = torch.load(os.path.join(fmp, fmn), weights_only=False)
+    filter_model = torch.load(os.path.join(fmp, fmn), map_location=torch.device(device),  weights_only=False)
     filter_model.to(device)
     class_mapping = torch.load(os.path.join(fmp, fmc))
     class_mapping = {v: k for k, v in class_mapping.items()}
