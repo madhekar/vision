@@ -78,7 +78,6 @@ def corp_detect_and_crop_video(i_vid):
         crop_cmd = [
             "ffmpeg", "-i", i_vid,
             "-vf", crop_params,            
-            "-map", "0",
             "-c:a", "copy",  # Copy audio without re-encoding            
             "-map_metadata", "0", #preserve container metadata
             t_vid
@@ -96,5 +95,21 @@ def corp_detect_and_crop_video(i_vid):
          print(f"error: in croping video {i_vid} error: {e}")
 
 
+video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7219.MOV"
 
-corp_detect_and_crop_video("/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7219.MOV")
+gps_data = get_video_coordinates(video_file)
+
+#lat, lon, alto=None, None, None
+if gps_data:
+    print(f"gps data: {gps_data}")
+    for entry in gps_data:
+        lat = entry.get("GPSLatitude")
+        lon = entry.get("GPSLongitude")
+        alt = entry.get("GPSAltitude")
+        if lat and lon and alt:
+            print(f"Position: {lat}, {lon}, {alt}")
+
+corp_detect_and_crop_video(video_file)
+
+
+add_gps_to_video(video_file, lat, lon, alt)

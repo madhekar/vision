@@ -31,9 +31,9 @@ def add_gps_to_video(video_path, lat, lon, alt=0):
         print(f"Error: {e.stderr}")
 
 # --- Usage Example ---
-video_file = "my_video.mp4"
-latitude = 32.7157  # San Diego
-longitude = -117.1611
-altitude = 10 
+video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7219.MOV"
+latitude = 37.8667  # San Diego
+longitude = 122.2622
+altitude = 70.231 
 
 add_gps_to_video(video_file, latitude, longitude, altitude)
