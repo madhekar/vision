@@ -9,7 +9,7 @@ import streamlit as st
 from utils.util import video_util as vu
 
 def check_video_quality(v):
-    vu.corp_detect_and_crop_video(v)
+    vu.crop_detect_and_crop_video_workaround(v)
 
 def vq_work_flow(video_dir_path, chunk_size):
 
