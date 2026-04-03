@@ -9,6 +9,7 @@ from utils.config_util import config
 from utils.util import storage_stat as ss
 from utils.missing_util import missing_metadata as mm
 from utils.quality_util import image_quality as iq
+from utils.quality_util import video_quality as vq
 #from utils.dedup_util.md5 import dedup_imgs as di
 from utils.face_detection_util import face_trainer
 #from utils.dedup_util.phash import KDduplicates as kdd
@@ -371,16 +372,28 @@ def exe():
 
     with c3:
         # c3c = c3.container(border=False)
-        # with c3c:           
-            if st.button("Quality Check", use_container_width=True, type="primary"):
+        # with c3c:   
+        img_q, vid_q = st.columns([1,1])
+        with img_q:        
+            if st.button("Img Quality Check", use_container_width=True, type="primary"):
                 with st.status(label="quality", expanded=True) as sc3c:
-                    st.write("quality check starting...")
+                    st.write("image quality check starting...")
                     results = iq.execute(user_source_selected, filter_selection)
                     if results == 'success':
-                        sc3c.update(label="quality complete", state="complete")
+                        sc3c.update(label="image quality complete", state="complete")
                     else:
-                        sc3c.update(label="quality failed", state="error")    
+                        sc3c.update(label="video quality failed", state="error")    
                     sm.show_all_msgs_by_type('quality')
+        with vid_q:
+            if st.button("Vid Quality Check", use_container_width=True, type="primary"):
+                with st.status(label="quality", expanded=True) as sc3c:
+                    st.write("video quality check / fix starting...")
+                    results = vq.execute(user_source_selected, filter_selection)
+                    if results == 'success':
+                        sc3c.update(label="video quality complete", state="complete")
+                    else:
+                        sc3c.update(label="video quality failed", state="error")    
+                    sm.show_all_msgs_by_type('quality')             
 
 
     with c4:

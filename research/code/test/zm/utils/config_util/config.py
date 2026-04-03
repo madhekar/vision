@@ -305,7 +305,11 @@ def dedup_config_load():
     )
 
 """
-
+quality:
+  input_image_path: /data/input-data/img/
+  input_video_path: /data/input-data/video/
+  archive_quality_path: /data/input-data/error/img/quality
+  image_quality_threshold: 15.0
 """
 @st.cache_resource
 def image_quality_config_load():
@@ -318,10 +322,12 @@ def image_quality_config_load():
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * ")
 
         input_image_path = dict["quality"]["input_image_path"]
+        input_video_path = dict["quality"]["input_video_path"]
         archive_quality_path = dict["quality"]["archive_quality_path"]
         image_quality_threshold = dict["quality"]["image_quality_threshold"]
     return (
         os.path.join(dr, *input_image_path.split(os.sep)[1:]),
+        os.path.join(dr, *input_video_path.split(os.sep)[1:]),
         os.path.join(dr, *archive_quality_path.split(os.sep)[1:]),
         image_quality_threshold,
     )

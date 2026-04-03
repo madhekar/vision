@@ -1,4 +1,5 @@
 quality:
   input_image_path: /data/input-data/img/
+  input_video_path: /data/input-data/video/
   archive_quality_path: /data/input-data/error/img/quality
   image_quality_threshold: 15.0

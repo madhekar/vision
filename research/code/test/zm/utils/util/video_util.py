@@ -1,10 +1,12 @@
 import subprocess
+import re
+import os
+import shutil
 import shlex
 import json
 import time
 import numpy as np
 from PIL import Image
-import face_predictor as fp_tor
 
 '''
 ffmpeg -i "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/57674026128__645EE475-C9B3-4065-B98B-B8DEBADF0166.MOV" 
@@ -90,33 +92,43 @@ def extract_frames_to_numpy(video_path, num_frames=10):
 
     return frames_array
 
-# Example usage:
-video_file = "out.mov"
-#"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_8137.mp4.mov"
-#"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7220.MOV"
-#"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7326.mov"
-#"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_2245.mov"
-#"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_3172.mov"
-#"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_3172.mov"
-#"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_7284.MOV"
-#"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_8016.MOV"
-#"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_7717.MOV"
-#"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_2069.mov"
-#"/home/madhekar/Videos/ffmpeg_frames/video_1/VID_20181205_121309.mp4"
-frames = extract_frames_to_numpy(video_file, num_frames=10)
-print(f"Shape of extracted frames numpy array: {frames.shape}") 
-app, svm_classifier, le = fp_tor.init_predictor_module()
+def corp_detect_and_crop_video(i_vid):
+    t_vid = "tvid.mp4"
+    try:
+        # Step 1: Detect crop parameters
+        detect_cmd = [
+            "ffmpeg", "-i", i_vid, 
+            "-t", "20",  # Analyze first 20 seconds
+            "-vf", "cropdetect", 
+            "-f", "null", "-"
+        ]
+        # Capture stderr because FFmpeg prints logs there
 
-for nf in range(10):
+        result = subprocess.run(detect_cmd, stderr=subprocess.PIPE, text=True)
 
-    img = frames[nf, :, :, :]
+        # Extract the last recommended crop value using regex
+        # Looks for strings like "crop=1920:800:0:140"
+        matches = re.findall(r"crop=\d+:\d+:\d+:\d+", result.stderr)
+        if not matches:
+            raise ValueError("no crop area found for: {i_vid}.")
 
-    #rgb_img = Image.fromarray(img, "RGB")
+        crop_params = matches[-1] # Use the most recent/stable detected value
 
-    # rgb_img.show()
+        # Step 2: Apply the crop
+        crop_cmd = [
+            "ffmpeg", "-i", i_vid,
+            "-vf", crop_params,
+            "-c:a", "copy",  # Copy audio without re-encoding
+            t_vid
+        ]
+        subprocess.run(crop_cmd, check=True)
 
-    llm_partial_pmt = fp_tor.predict_img_faces(app, img, svm_classifier, le)
+        # Step 3: Replace the original file
+        #os.replace(t_vid, i_vid)
+        if os.path.exists(i_vid):
+            os.remove(i_vid)     # Remove file
+        
+        shutil.move(t_vid, i_vid)
 
-    print(llm_partial_pmt)
-
-    time.sleep(3)
+    except Exception as e:
+         print(f"error: in croping video {i_vid} error: {e}")
