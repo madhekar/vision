@@ -30,6 +30,7 @@ def corp_detect_and_crop_video(i_vid):
             "ffmpeg", "-i", i_vid,
             "-vf", crop_params,
             "-c:a", "copy",  # Copy audio without re-encoding
+            "-map_metadata", '0', #preserve container metadata
             t_vid
         ]
         subprocess.run(crop_cmd, check=True)
