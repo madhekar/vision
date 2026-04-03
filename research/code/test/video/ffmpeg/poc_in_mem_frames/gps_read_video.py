@@ -14,20 +14,19 @@ def get_video_coordinates(video_path):
         
         # 'metadata' will be a list of dicts. If the video has a GPS track, 
         # it will contain multiple entries for different time steps.
-        return metadata
+        if metadata:
+            print(f"gps data: {metadata}")
+            for entry in metadata:
+                lat = entry.get("GPSLatitude")
+                lon = entry.get("GPSLongitude")
+                alt = entry.get("GPSAltitude")
+                return (lat, lon, alt)
     except subprocess.CalledProcessError as e:
         print(f"Error: {e.stderr}")
         return None
 
 # Usage
 video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7219.MOV"
-gps_data = get_video_coordinates(video_file)
+lat, lon, alt = get_video_coordinates(video_file)
 
-if gps_data:
-    print(f"gps data: {gps_data}")
-    for entry in gps_data:
-        lat = entry.get("GPSLatitude")
-        lon = entry.get("GPSLongitude")
-        alt = entry.get("GPSAltitude")
-        if lat and lon and alt:
-            print(f"Position: {lat}, {lon}, {alt}")
+print(f"GPS Position: {lat}, {lon}, {alt}")

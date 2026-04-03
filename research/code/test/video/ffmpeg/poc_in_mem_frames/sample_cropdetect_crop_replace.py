@@ -17,7 +17,13 @@ def get_video_coordinates(video_path):
         
         # 'metadata' will be a list of dicts. If the video has a GPS track, 
         # it will contain multiple entries for different time steps.
-        return metadata
+        if metadata:
+            print(f"gps data: {metadata}")
+            for entry in metadata:
+                lat = entry.get("GPSLatitude")
+                lon = entry.get("GPSLongitude")
+                alt = entry.get("GPSAltitude")
+                return (lat, lon, alt)
     except subprocess.CalledProcessError as e:
         print(f"Error: {e.stderr}")
         return None
@@ -95,21 +101,10 @@ def corp_detect_and_crop_video(i_vid):
          print(f"error: in croping video {i_vid} error: {e}")
 
 
-video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7219.MOV"
+video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7220.MOV"
 
-gps_data = get_video_coordinates(video_file)
-
-#lat, lon, alto=None, None, None
-if gps_data:
-    print(f"gps data: {gps_data}")
-    for entry in gps_data:
-        lat = entry.get("GPSLatitude")
-        lon = entry.get("GPSLongitude")
-        alt = entry.get("GPSAltitude")
-        if lat and lon and alt:
-            print(f"Position: {lat}, {lon}, {alt}")
+lat, lon, alt = get_video_coordinates(video_file)
 
 corp_detect_and_crop_video(video_file)
-
 
 add_gps_to_video(video_file, lat, lon, alt)
