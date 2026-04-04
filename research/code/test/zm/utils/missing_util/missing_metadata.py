@@ -46,7 +46,7 @@ def filter_missing_image_data(missing_file_path, missing_filter_file_path):
 def execute(source_name):
     sm.add_messages("metadata", "s| starting to analyze missing metadata files...")
 
-    imp, mmp, mmf, mmff= config.missing_metadata_config_load()
+    imp, vmp, mmp, mvmp, mmf, mvmf, mmff, mvmff = config.missing_metadata_config_load()
 
     input_image_path = os.path.join(imp, source_name)
     #clean empty folders if any

@@ -262,7 +262,15 @@ def preprocess_config_load():
     )    
 
 """
-
+missing-metadata:
+  input_image_path: /data/input-data/img
+  input_video_path: /data/input-data/video
+  missing_metadata_path: /data/input-data/error/img/missing-data/
+  missing_video_metadata_path: /data/input-data/error/video/missing-data/
+  missing_metadata_file: missing-metadata-wip.csv
+  missing_video_metadata_file: missing-metadata-wip.csv
+  missing_metadata_filter_file: missing-metadata-filter-wip.csv
+  missing_video_metadata_filter_file: missing-metadata-filter-wip.csv
 """
 @st.cache_resource
 def missing_metadata_config_load():
@@ -274,14 +282,24 @@ def missing_metadata_config_load():
         pprint.pprint(dict)
         pprint.pprint("* * * * * * * * * * * * * * * * * * * *")
         input_image_path = dict["missing-metadata"]["input_image_path"]
+        input_video_path = dict["missing-metadata"]["input_video_path"]
+
         missing_metadata_path = dict["missing-metadata"]["missing_metadata_path"]
+        missing_video_metadata_path = dict["missing-metadata"]["missing_video_metadata_path"]
         missing_metadata_file = dict["missing-metadata"]["missing_metadata_file"]
+        missing_video_metadata_file = dict["missing-metadata"]["missing_video_metadata_file"]
+
         missing_metadata_filter_file = dict["missing-metadata"]["missing_metadata_filter_file"]
+        missing_video_metadata_filter_file = dict["missing-metadata"]["missing_video_metadata_filter_file"]
     return (
         os.path.join(dr, *input_image_path.split(os.sep)[1:]),
+        os.path.join(dr, *input_video_path.split(os.sep)[1:]),
         os.path.join(dr, *missing_metadata_path.split(os.sep)[1:]),
+        os.path.join(dr, *missing_video_metadata_path.split(os.sep)[1:]),
         missing_metadata_file,
-        missing_metadata_filter_file
+        missing_video_metadata_file,
+        missing_metadata_filter_file,
+        missing_video_metadata_filter_file
     )
 
 """

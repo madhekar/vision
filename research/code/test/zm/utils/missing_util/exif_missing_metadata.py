@@ -51,7 +51,7 @@ class ExifTool(object):
         return self.execute("-S", "-f", "-csv", "-n", *filenames)
 
 
-# recursive call to get all image filenames, to be replaced by parquet generator
+# recursive call to get all video filenames, to be replaced by parquet generator
 # def getRecursive(rootDir, chunk_size=10):
 #     f_list = []
 #     for fn in glob.iglob(rootDir + "/**/*", recursive=True):
@@ -89,12 +89,36 @@ def get_missing_metadata_dataframe(fname):
     return dfr.values.tolist()
 
 
-if __name__ == "__main__":
-    root = "/home/madhekar/work/home-media-app/data/input-data/img/madhekar"
-    out_file = "out.csv"
+# if __name__ == "__main__":
+#     root = "/home/madhekar/work/home-media-app/data/input-data/img/madhekar"
+#     out_file = "out.csv"
 
-    create_missing_metadata(out_file, root)
+#     create_missing_metadata(out_file, root)
 
-    df = get_missing_metadata_dataframe(out_file)
+#     df = get_missing_metadata_dataframe(out_file)
 
-    print(df)
+#     print(df)
+
+
+# def execute(source_name):
+
+#     sm.add_messages("metadata", "s| starting to analyze missing metadata files...")
+
+#     imp, ivmp, mmp, mvmp, mmf,mvmf, mvmff, mmff= config.missing_metadata_config_load()
+
+#     input_video_path = os.path.join(imp, source_name)
+#     #clean empty folders if any
+#     #ss.remove_empty_files_and_folders(input_video_path) #remove_empty_folders(input_video_path) 
+
+#     output_file_path = os.path.join(mmp, source_name)
+#     ss.create_folder(output_file_path)
+        
+#     out_file = os.path.join(output_file_path, mmf)    
+    
+#     emm.create_missing_metadata(out_file, input_video_path)
+
+#     emm.get_missing_metadata_dataframe(out_file)
+
+#     filter_missing_video_data(os.path.join(output_file_path, mmf), os.path.join(output_file_path, mmff))
+
+#     create_missing_report(os.path.join(output_file_path, mmf))
