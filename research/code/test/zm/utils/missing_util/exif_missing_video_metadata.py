@@ -6,25 +6,28 @@ from utils.util import storage_stat as ss
 from utils.missing_util import exif_missing_metadata as emm
 from utils.util import statusmsg_util as sm
 
-def extract_video_metadata(directory_path, output_csv="video_metadata.csv"):
+def extract_video_metadata(directory_path, output_csv):
     # command to extract specific tags in CSV format
     command = [
         "exiftool",
         "-csv",                # Output in CSV format
         "-n",                  # Numeric (decimal) GPS values
+        "-r",
         "-GPSLatitude",        # Latitude tag
         "-GPSLongitude",       # Longitude tag
         "-CreateDate",         # Video creation date
         "-ext", "mp4",         # Filter for .mp4 files
         "-ext", "mov",         # Filter for .mov files
         "-ext", "avi",         # Filter for .avi files
+        "-@",
+        "-",
         directory_path
     ]
 
     try:
         # Run command and capture output
         result = subprocess.run(command, capture_output=True, text=True, check=True)
-        
+        print("--->", result.stdout)
         # Write the captured output directly to your file
         with open(output_csv, "w") as f:
             f.write(result.stdout)
@@ -88,9 +91,11 @@ def execute(source_name):
         
     out_file = os.path.join(output_file_path, mvmf)    
     
+    print(f" input video path: {input_video_path} output file: {out_file}")
     extract_video_metadata(input_video_path, out_file)
 
     df = get_missing_metadata_dataframe(out_file)
+    print(f"---> {df}")
 
     filter_missing_video_data(os.path.join(output_file_path, mvmf), os.path.join(output_file_path, mvmff))
 
