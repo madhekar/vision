@@ -1,5 +1,6 @@
 import subprocess
 import os
+import pandas as pd
 from utils.config_util import config as cfg
 from utils.util import storage_stat as ss
 from utils.missing_util import exif_missing_metadata as emm
@@ -42,11 +43,35 @@ def get_missing_metadata_dataframe(fname):
             (df["SourceFile"] != "SourceFile")
             & (df["GPSLongitude"] != "GPSLongitude")
             & (df["GPSLatitude"] != "GPSLatitude")
-            & (df["DateTimeOriginal"] != "DateTimeOriginal")
+            & (df["CreateDate"] != "CreateDate")
         )
     ]
     dfr.to_csv(fname)
     return dfr.values.tolist()
+
+def filter_missing_video_data(missing_file_path, missing_filter_file_path):
+    df = pd.read_csv(missing_file_path)
+    print('----->', df.index.size)
+    #df = format_lat_lon(df)
+    if (df.index.size) > 0:
+       dfm = df[(df['GPSLatitude'] == '-') | (df['GPSLongitude'] == '-') | (df['CreateDate'] == '-')]  
+       dfm.to_csv(missing_filter_file_path,sep=',', index=False)
+    else:
+        sm.add_messages('metadata', f'e| empty or invalid missing metadata file {missing_file_path}') 
+
+def create_missing_report(missing_file_path):
+    df = pd.read_csv(missing_file_path)
+    n_total = len(df)
+    #df = format_lat_lon(df)
+    if df.index.size > 0:
+        n_lon = len(df[df["GPSLongitude"] == "-"])
+        n_lat = len(df[df["GPSLatitude"] == "-"])
+        n_dt = len(df[df["CreateDate"] == "-"])
+
+        sm.add_messages( "metadata", f"w| missing data Longitudes: {n_lon} Latitude: {n_lat} DataTime: {n_dt} of: {n_total} rows")
+    else:
+        #ss.remove_file(missing_file_path)
+        sm.add_messages("metadata","w| missing data Longitudes: 0 Latitude: 0 DataTime: 0 of: 0 rows",)          
 
 def execute(source_name):
 
