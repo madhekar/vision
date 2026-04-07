@@ -1,5 +1,6 @@
 import subprocess
 import os
+import io
 import pandas as pd
 from utils.config_util import config as cfg
 from utils.util import storage_stat as ss
@@ -19,18 +20,22 @@ def extract_video_metadata(directory_path, output_csv):
         "-ext", "mp4",         # Filter for .mp4 files
         "-ext", "mov",         # Filter for .mov files
         "-ext", "avi",         # Filter for .avi files
-        "-@",
-        "-",
+        "-ext", "mkv",
         directory_path
     ]
 
     try:
         # Run command and capture output
         result = subprocess.run(command, capture_output=True, text=True, check=True)
-        print("--->", result.stdout)
-        # Write the captured output directly to your file
-        with open(output_csv, "w") as f:
-            f.write(result.stdout)
+        csv_content = result.stdout
+        
+        processed_csv =  csv_content
+        for _ in range(2):
+           processed_csv = processed_csv.replace(",,", ",-,")
+        processed_csv = processed_csv.replace(",\n", ",-\n")
+
+        df = pd.read_csv(io.StringIO(processed_csv))
+        df.to_csv(output_csv, index=False)
             
         print(f"Success: Metadata saved to {output_csv}")
         
@@ -58,7 +63,7 @@ def filter_missing_video_data(missing_file_path, missing_filter_file_path):
     #df = format_lat_lon(df)
     if (df.index.size) > 0:
        dfm = df[(df['GPSLatitude'] == '-') | (df['GPSLongitude'] == '-') | (df['CreateDate'] == '-')]  
-       dfm.to_csv(missing_filter_file_path,sep=',', index=False)
+       dfm.to_csv(missing_filter_file_path, sep=',', index=False)
     else:
         sm.add_messages('metadata', f'e| empty or invalid missing metadata file {missing_file_path}') 
 
