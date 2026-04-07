@@ -184,6 +184,26 @@ def dataload_config_load():
 
 """
 
+datapaths:
+  raw_data_path: /data/raw-data/
+static-metadata:
+  static_metadata_path: /data/app-data/static-metadata  
+static-faces: 
+  faces_metadata_path: /data/app-data/static-metadata/faces/training/images
+static-filter:
+  filter_metadata_path: /data/app-data/static-metadata/filter/training  
+static-locations:
+  default_location_metadata_path: /data/app-data/static-metadata/locations/default
+  user_location_metadata_path: /data/app-data/static-metadata/locations/user-specific
+  user_location_metadata_file: user-specific.csv
+  final_user_location_metadata_file: static_locations.parquet
+missing-metadata:  
+  missing_metadata_path: /data/input-data/error/img/missing-data
+  missing_metadata_file: missing-metadata-wip.csv
+  missing_metadata_filter_file: missing-metadata-filter-wip.csv
+  missing_video_metadata_path: /data/input-data/error/video/missing-data
+  missing_video_metadata_file: missing-metadata-wip.csv
+  missing_video_metadata_filter_file: missing-metadata-filter-wip.csv
 """
 @st.cache_resource
 def static_metadata_config_load():
@@ -212,6 +232,10 @@ def static_metadata_config_load():
         missing_metadata_file = dict["missing-metadata"]["missing_metadata_file"]
         missing_metadata_filter_file = dict["missing-metadata"]["missing_metadata_filter_file"]
 
+        missing_video_metadata_path = dict["missing-metadata"]["missing_video_metadata_path"]
+        missing_video_metadata_file = dict["missing-metadata"]["missing_video_metadata_file"]
+        missing_video_metadata_filter_file = dict["missing-metadata"]["missing_video_metadata_filter_file"]
+
 
     return (
         os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
@@ -225,6 +249,9 @@ def static_metadata_config_load():
         os.path.join(dr, *missing_metadata_path.split(os.sep)[1:]),
         missing_metadata_file,
         missing_metadata_filter_file,
+        os.path.join(dr, *missing_video_metadata_path.split(os.sep)[1:]),
+        missing_video_metadata_file,
+        missing_video_metadata_filter_file,
     )    
 
 """

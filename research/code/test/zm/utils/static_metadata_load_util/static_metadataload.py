@@ -219,16 +219,30 @@ def execute():
  
     ca, cb, cc, cd = st.columns([0.3, 0.3, 0.3, 0.3], gap="small", vertical_alignment="top")
    
-    with ca:            
-        ca_create = st.button("**user specific locations**", use_container_width=True, type="primary")
-        ca_status = st.status('create user specific locations', state="running", expanded=True)
-        with ca_status:
-            if ca_create:
-                ca.info(f'starting to create user specific static location data for: {user_source_selected}')
-                print(user_location_metadata_file)
-                if not os.path.exists(os.path.join(user_location_metadata_path, user_location_metadata_file)):
-                   generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, default_location_metadata_path, user_location_metadata_path, user_location_metadata_file) 
-                ca_status.update(label='user specific locations complete!', state='complete', expanded=False)
+    with ca:      
+        cai, cav = st.columns([1,1], gap="small", vertical_alignment="top") 
+        with cai:     
+            ca_create = st.button("**user specific locations**", use_container_width=True, type="primary")
+            ca_status = st.status('create user specific locations', state="running", expanded=True)
+            with ca_status:
+                if ca_create:
+                    ca.info(f'starting to create user specific static location data for: {user_source_selected}')
+                    print(user_location_metadata_file)
+                    if not os.path.exists(os.path.join(user_location_metadata_path, user_location_metadata_file)):
+                        generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, default_location_metadata_path, user_location_metadata_path, user_location_metadata_file) 
+                    ca_status.update(label='user specific locations complete!', state='complete', expanded=False)
+
+        with cav:  
+            ca_create = st.button("**user specific video locations**", use_container_width=True, type="primary")
+            ca_status = st.status('create user specific video locations', state="running", expanded=True)
+            with ca_status:
+                if ca_create:
+                    ca.info(f'starting to create user specific static video location data for: {user_source_selected}')
+                    print(user_location_metadata_file)
+                    if not os.path.exists(os.path.join(user_location_metadata_path, user_location_metadata_file)):
+                        generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, default_location_metadata_path, user_location_metadata_path, user_location_metadata_file) 
+                    ca_status.update(label='user specific locations complete!', state='complete', expanded=False)            
+
     with cb:
         cb_metadata = st.button("**aggregate all locations**", use_container_width=True, type="primary")
   

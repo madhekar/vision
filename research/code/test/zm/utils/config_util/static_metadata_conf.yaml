@@ -16,3 +16,6 @@ missing-metadata:
   missing_metadata_path: /data/input-data/error/img/missing-data
   missing_metadata_file: missing-metadata-wip.csv
   missing_metadata_filter_file: missing-metadata-filter-wip.csv
+  missing_video_metadata_path: /data/input-data/error/video/missing-data
+  missing_video_metadata_file: missing-metadata-wip.csv
+  missing_video_metadata_filter_file: missing-metadata-filter-wip.csv
