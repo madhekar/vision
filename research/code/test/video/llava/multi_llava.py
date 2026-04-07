@@ -48,7 +48,7 @@ def caption_image(img):
     else:    
 
        result = client.chat(
-            model='llava',
+            model= 'mapler/llama3-llava-next-8b:latest', #'llava',
             messages=[  
                 {
                 'role': 'user',
