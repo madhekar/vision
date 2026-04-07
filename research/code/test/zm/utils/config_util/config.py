@@ -227,6 +227,8 @@ def static_metadata_config_load():
         user_location_metadata_path = dict["static-locations"]["user_location_metadata_path"]
         user_location_metadata_file = dict["static-locations"]["user_location_metadata_file"]
         final_user_location_metadata_file = dict["static-locations"]["final_user_location_metadata_file"]
+        user_video_location_metadata_file = dict["static-locations"]["user_video_location_metadata_file"]
+        final_video_user_location_metadata_file = dict["static-locations"]["final_video_user_location_metadata_file"]
 
         missing_metadata_path = dict["missing-metadata"]["missing_metadata_path"]
         missing_metadata_file = dict["missing-metadata"]["missing_metadata_file"]
@@ -246,6 +248,8 @@ def static_metadata_config_load():
         os.path.join(dr, *user_location_metadata_path.split(os.sep)[1:]),
         user_location_metadata_file,
         final_user_location_metadata_file,
+        user_video_location_metadata_file,
+        final_video_user_location_metadata_file,
         os.path.join(dr, *missing_metadata_path.split(os.sep)[1:]),
         missing_metadata_file,
         missing_metadata_filter_file,

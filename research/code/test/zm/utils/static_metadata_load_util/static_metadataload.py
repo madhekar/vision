@@ -21,13 +21,14 @@ def generate_user_specific_static_metadata(missing_path, missing_file, location_
 
     # dataframe for all default static locations
     default_df = fpu.combine_all_default_locations(location_path)
-
+    print(f"default locations: {default_df.head()}")
+   
     # additional locations not included in default static locations
     df_unique =  usl.get_unique_locations(pd.read_csv(os.path.join(missing_path, missing_file)),default_df)
 
     #create draft static unique location file
     df_unique.to_csv(os.path.join(user_location_metadata_path, user_location_metadata_file), index=False, encoding="utf-8")
-    #print(f'---->{df_unique} : {len(df_unique)}')
+    print(f'---->{df_unique} : {len(df_unique)}')
 
 def transform_and_add_static_metadata(location_metadata_path, user_location_metadata, user_location_metadata_file, final_parquet_storage):
     fpu.add_all_locations(location_metadata_path, user_location_metadata, user_location_metadata_file, final_parquet_storage)
@@ -43,9 +44,14 @@ def execute():
         user_location_metadata_path,
         user_location_metadata_file,
         final_user_location_metadata_file,
+        user_video_location_metadata_file, 
+        final_video_user_location_metadata_file,
         missing_metadata_path,
         missing_metadata_file,
         missing_metadata_filter_file,
+        missing_video_metadata_path,
+        missing_video_metadata_file,
+        missing_video_metadata_filter_file
     ) = config.static_metadata_config_load()
 
     st.sidebar.subheader("Storage Source", divider="gray")
@@ -61,6 +67,7 @@ def execute():
         os.makedirs(user_location_metadata_path, exist_ok=True)
 
     missing_metadata_path = os.path.join(missing_metadata_path, user_source_selected)
+    missing_video_metadata_path = os.path.join(missing_video_metadata_path, user_source_selected)
 
     # paths to import static location files
     final_user_metadata_storage_path = os.path.join(user_location_metadata_path, final_user_location_metadata_file)
@@ -239,9 +246,9 @@ def execute():
                 if ca_create:
                     ca.info(f'starting to create user specific static video location data for: {user_source_selected}')
                     print(user_location_metadata_file)
-                    if not os.path.exists(os.path.join(user_location_metadata_path, user_location_metadata_file)):
-                        generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, default_location_metadata_path, user_location_metadata_path, user_location_metadata_file) 
-                    ca_status.update(label='user specific locations complete!', state='complete', expanded=False)            
+                    if not os.path.exists(os.path.join(user_location_metadata_path, user_video_location_metadata_file)):
+                        generate_user_specific_static_metadata(missing_video_metadata_path, missing_video_metadata_file, default_location_metadata_path, user_location_metadata_path, user_video_location_metadata_file) 
+                    ca_status.update(label='user specific video locations complete!', state='complete', expanded=False)            
 
     with cb:
         cb_metadata = st.button("**aggregate all locations**", use_container_width=True, type="primary")

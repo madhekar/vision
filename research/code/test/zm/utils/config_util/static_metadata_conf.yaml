@@ -12,6 +12,8 @@ static-locations:
   user_location_metadata_path: /data/app-data/static-metadata/locations/user-specific
   user_location_metadata_file: user-specific.csv
   final_user_location_metadata_file: static_locations.parquet
+  user_video_location_metadata_file: video-user-specific.csv
+  final_video_user_location_metadata_file: video_static_locations.parquet
 missing-metadata:  
   missing_metadata_path: /data/input-data/error/img/missing-data
   missing_metadata_file: missing-metadata-wip.csv
