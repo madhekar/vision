@@ -8,6 +8,7 @@ import pandas as pd
 from utils.config_util import config
 from utils.util import storage_stat as ss
 from utils.missing_util import missing_metadata as mm
+from utils.missing_util import exif_missing_video_metadata as emvm
 from utils.quality_util import image_quality as iq
 from utils.quality_util import video_quality as vq
 #from utils.dedup_util.md5 import dedup_imgs as di
@@ -399,6 +400,8 @@ def exe():
     with c4:
         # c4c = c4.container(border=False)
         # with c4c:
+        img_m,vid_m = st.columns([1,1])
+        with img_m:
             if st.button("Metadata Check", use_container_width=True, type="primary"):
                 with st.status(label='metadata', expanded=True) as sc4c:
                     st.write("metadata check starting...")
@@ -408,6 +411,16 @@ def exe():
                     else:
                         sc4c.update(label="metadata failed", state="error")  
                     sm.show_all_msgs_by_type('metadata')
+        with vid_m:
+            if st.button("Video Metadata Check", use_container_width=True, type="primary"):
+                with st.status(label='metadata', expanded=True) as sc4c:
+                    st.write("metadata check starting...")
+                    results = emvm.execute(user_source_selected)  # test_metadata_sqdm(npar)
+                    if results == "success":
+                        sc4c.update(label="metadata complete", state="complete")
+                    else:
+                        sc4c.update(label="metadata failed", state="error")  
+                    sm.show_all_msgs_by_type('metadata')   
 
 
 
