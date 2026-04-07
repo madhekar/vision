@@ -118,8 +118,8 @@ def get_unique_locations(df_mis, df_def):
     # drop any duplicate data
     dfr= df_notin2.drop_duplicates(subset=['latitude', 'longitude'])
 
-    columns_to_drop = ['SourceFile', 'DateTimeOriginal']
-    dfr.drop(columns=columns_to_drop, inplace=True)
+    #columns_to_drop = ['SourceFile', 'DateTimeOriginal']
+    dfr = dfr.loc[:,['latitude','longitude']] #.drop(columns=columns_to_drop, inplace=True)
 
     print('after duplicate lat lon drop-->',dfr.size, dfr.head())
 

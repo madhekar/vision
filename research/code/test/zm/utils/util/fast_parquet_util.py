@@ -127,7 +127,7 @@ def combine_all_default_locations(location_root):
         )
     return df_comb
 
-def add_all_locations(location_root, user_location_root, user_location_metadata_file, parquet_file_path):
+def add_all_locations(location_root, user_location_root, user_location_metadata_file, user_video_location_metadata_file, parquet_file_path):
     try:
         locations_file_list = glob.glob(os.path.join(location_root, "*.csv"))
         for f in locations_file_list:
@@ -142,6 +142,13 @@ def add_all_locations(location_root, user_location_root, user_location_metadata_
         create_or_append_locations(os.path.join(user_location_root, user_location_metadata_file), parquet_file_path)
     except Exception as e:
         st.error(f"create append locations parquet for file: {f} failed with exception: {e}")
+
+    try:
+        # locations_file_list = glob.glob(os.path.join(user_location_root, user_location_metadata_file))
+        # for f in locations_file_list:
+        create_or_append_locations(os.path.join(user_location_root, user_video_location_metadata_file), parquet_file_path)
+    except Exception as e:
+        st.error(f"create append locations parquet for file: {f} failed with exception: {e}")    
 
 
 def init_location_cache(parquet_file_path):

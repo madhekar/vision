@@ -30,8 +30,8 @@ def generate_user_specific_static_metadata(missing_path, missing_file, location_
     df_unique.to_csv(os.path.join(user_location_metadata_path, user_location_metadata_file), index=False, encoding="utf-8")
     print(f'---->{df_unique} : {len(df_unique)}')
 
-def transform_and_add_static_metadata(location_metadata_path, user_location_metadata, user_location_metadata_file, final_parquet_storage):
-    fpu.add_all_locations(location_metadata_path, user_location_metadata, user_location_metadata_file, final_parquet_storage)
+def transform_and_add_static_metadata(location_metadata_path, user_location_metadata, user_location_metadata_file, user_video_location_metadata_file, final_parquet_storage):
+    fpu.add_all_locations(location_metadata_path, user_location_metadata, user_location_metadata_file, user_video_location_metadata_file, final_parquet_storage)
 
 
 def execute():
@@ -266,7 +266,7 @@ def execute():
                     st.error(f"Exception encountered wile removing metadata file: {e}")
 
                 st.info(f"creating new static metadata storage: {final_user_metadata_storage_path}")
-                transform_and_add_static_metadata( default_location_metadata_path, user_location_metadata_path, user_location_metadata_file, final_user_metadata_storage_path)
+                transform_and_add_static_metadata( default_location_metadata_path, user_location_metadata_path, user_location_metadata_file, user_video_location_metadata_file, final_user_metadata_storage_path)
                 cb_status.update(label="metadata creation complete!", state="complete", expanded=False)  
     with cc:
         cc_metadata = st.button("**Refresh face detection model**", use_container_width=True, type="primary")
