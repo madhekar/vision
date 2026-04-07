@@ -59,7 +59,7 @@ def caption_image(img):
        )
        return result["message"]["content"]   
 
-def describe_image( frames_path, ppt, location):
+def describe_multiple_images( frames_path, ppt, location):
 
     client = ollama.Client()
     
@@ -127,7 +127,7 @@ if __name__ == "__main__":
     
     client = create_default_client()
 
-    m = describe_image(
+    m = describe_multiple_images(
         frames_path,
         ppt,
         location
