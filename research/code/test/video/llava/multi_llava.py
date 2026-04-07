@@ -48,7 +48,7 @@ def caption_image(img):
     else:    
 
        result = client.chat(
-            model='llava:13b',
+            model='llava',
             messages=[  
                 {
                 'role': 'user',
@@ -82,7 +82,7 @@ def describe_image( frames_path, ppt, location):
     try:
         # Perform inference
         response = client.chat( 
-            model='llava:13b',
+            model='llava',
             messages=[
                 {
                     'role': 'system',
@@ -127,16 +127,16 @@ if __name__ == "__main__":
     
     client = create_default_client()
 
-    # m = describe_image(
-    #     frames_path,
-    #     ppt,
-    #     location
-    #     )   
+    m = describe_image(
+        frames_path,
+        ppt,
+        location
+        )   
      
-    # print(f"describe video {m}")
+    print(f"describe video {m}")
 
-    image_for_caption = "/mnt/zmdata/home-media-app/data/final-data/img/Berkeley/80f3b1f6-baca-5e05-9cf8-2046abda2260/IMG_5380.jpeg"
+    # image_for_caption = "/mnt/zmdata/home-media-app/data/final-data/img/Berkeley/80f3b1f6-baca-5e05-9cf8-2046abda2260/IMG_5380.jpeg"
 
-    cap = caption_image(image_for_caption)
+    # cap = caption_image(image_for_caption)
 
-    print(f"caption : {cap}")
+    # print(f"caption : {cap}")
