@@ -91,8 +91,10 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     return frames_array
 
 # Example usage:
-video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_0121.MOV"
-"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7222.mov"
+video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_9040.mov"
+#"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7811.mov"
+#"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7222.mov"
+#"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_0121.MOV"
 # "out.mov"
 #"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_8137.mp4.mov"
 #"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7220.MOV"
@@ -108,7 +110,8 @@ video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8
 frames = extract_frames_to_numpy(video_file, num_frames=10)
 print(f"Shape of extracted frames numpy array: {frames.shape}") 
 app, svm_classifier, le = fp_tor.init_predictor_module()
-
+detected_persons = []
+emotions = []
 for nf in range(10):
 
     img = frames[nf, :, :, :]
@@ -119,6 +122,11 @@ for nf in range(10):
 
     llm_partial_pmt = fp_tor.predict_img_faces(app, img, svm_classifier, le)
 
-    print(llm_partial_pmt)
+    p, e = llm_partial_pmt
+    if p:
+      detected_persons.append(p)
+      emotions.append(e)
+    
+print(f"people detected:{detected_persons} with emotion: {emotions}" )
 
     #time.sleep(3)

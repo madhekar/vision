@@ -26,6 +26,8 @@ def aggregate_partial_prompt(d):
     top_ranked = df_sorted['rank'].min()
 
     df_top_emo = df_sorted[df_sorted['rank'] == top_ranked]['emotion']
+
+    print(f"sorted: {df_sorted.head(10)} top: {df_top_emo.head(10)}")
     if not df_top_emo.empty:
         top_emotion = df_top_emo.iloc[0]
     return top_emotion
@@ -146,7 +148,7 @@ predict known and unknown faces
 '''
 def predict_img_faces(app, new_img_arr, svm_classifier, le):
     llm_partial_pmt = ""
-
+    top_emo = ""
     #new_img = cv2.imread(new_image_path)
     # new_img =np.asarray(Image.open(new_image_path).convert('RGB'))
     people = []
@@ -202,6 +204,7 @@ def predict_img_faces(app, new_img_arr, svm_classifier, le):
             # "sad," "angry," "surprise," "fear," "happy," "disgust," and "neutral"
             em = DeepFace.analyze(cropped_face,actions=['emotion'],enforce_detection=False)
             if em:
+                #person["emotion"] = em[0]["dominant_emotion"]
               emotion = em[0]["dominant_emotion"]
               if emotion == "angry" or emotion == "sad":
                   emotion = "neutral"
@@ -217,7 +220,7 @@ def predict_img_faces(app, new_img_arr, svm_classifier, le):
         if agg_cnt != "":
           llm_partial_pmt = create_partial_prompt(agg_cnt)
           top_emo  = aggregate_partial_prompt(person)
-          print((llm_partial_pmt, top_emo))
+          #print((llm_partial_pmt, top_emo))
     else:
         pass
         print("No face detected in the image.")
