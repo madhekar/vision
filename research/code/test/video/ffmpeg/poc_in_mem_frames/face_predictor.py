@@ -11,11 +11,32 @@ from deepface import DeepFace
 #from utils.config_util import config
 #import streamlit as st
 
+def aggregate_partial_prompt(d):
+    top_emotion = ""
+    emo_rank = {'happy':1, 'surprise':2 ,'neutral':3, 'sad':4, 'fear':5, 'angry':6, 'disgust':7}
+    df = pd.DataFrame(data=d)
+
+    freq = df['emotion'].value_counts()
+    df['freq'] = df['emotion'].map(freq)
+    df['freq_rank'] = df['freq'].rank(method='dense', ascending=False).astype(int)
+    df['emo_rank'] = df['emotion'].map(emo_rank)
+
+    df_sorted = df.sort_values(by=['emo_rank', 'freq_rank'], ascending=[False, True])
+    df_sorted['rank'] =   df_sorted['freq_rank'] + df_sorted['emo_rank'] 
+    top_ranked = df_sorted['rank'].min()
+
+    df_top_emo = df_sorted[df_sorted['rank'] == top_ranked]['emotion']
+    if not df_top_emo.empty:
+        top_emotion = df_top_emo.iloc[0]
+    return top_emotion
+
+
 def count_people(ld):
     cnt_man = 0
     cnt_woman = 0
     cnt_boy = 0
     cnt_girl = 0
+    cnt_soul = 0
 
     agg_person = []
     for d in ld:
@@ -28,10 +49,12 @@ def count_people(ld):
                 cnt_boy += 1
             if d["cnoun"] == "girl":
                 cnt_girl += 1
+            if d['cnoun'] == 'soul':
+                cnt_soul += 1    
         else:
             agg_person.append({"type": "known", "name": d["name"], "cnoun": d["cnoun"],"emotion": d["emotion"], "loc": d["loc"]})
 
-    agg_person.append({"type": "unknown","cman": cnt_man, "cwoman": cnt_woman,"cboy": cnt_boy,"cgirl": cnt_girl})
+    agg_person.append({"type": "unknown","cman": cnt_man, "cwoman": cnt_woman,"cboy": cnt_boy,"cgirl": cnt_girl, "csoul": cnt_soul})
 
     return agg_person
 
@@ -40,7 +63,7 @@ def create_partial_prompt(agg):
     txt = ""
     for d in agg:
         if d["type"] == "known":
-            s = f' "{d["name"]}", a {d["emotion"]} {d["cnoun"]} '#, at {d["loc"]} '  #f'Face at coordinates {d["loc"]} is of "{d["name"]}", a "{d["cnoun"]}" expressing "{d["emotion"]}" emotion. '
+            s = f' "{d["name"]}" ' #, a {d["emotion"]} {d["cnoun"]} '#, at {d["loc"]} '  #f'Face at coordinates {d["loc"]} is of "{d["name"]}", a "{d["cnoun"]}" expressing "{d["emotion"]}" emotion. '
             txt += s
         if d["type"] == "unknown":
             # if txt != "":
@@ -71,6 +94,13 @@ def create_partial_prompt(agg):
                     s = f" {d['cgirl']} girls "
                 else:
                     s = " one girl "
+                txt += s 
+
+            if d['csoul'] > 0:
+                if d['csoul'] > 1:
+                    s = f" {d['csoul']} persons "
+                else:
+                    s = " one person "     
                 txt += s 
             #txt += "in the image."
     return txt
@@ -174,7 +204,7 @@ def predict_img_faces(app, new_img_arr, svm_classifier, le):
             if em:
               emotion = em[0]["dominant_emotion"]
               if emotion == "angry" or emotion == "sad":
-                  emotion = "natural"
+                  emotion = "neutral"
               person["emotion"] = emotion
             else:
               person["emotion"] = "neutral"    
@@ -186,11 +216,14 @@ def predict_img_faces(app, new_img_arr, svm_classifier, le):
         
         if agg_cnt != "":
           llm_partial_pmt = create_partial_prompt(agg_cnt)
-          print(llm_partial_pmt)
+          top_emo  = aggregate_partial_prompt(person)
+          print((llm_partial_pmt, top_emo))
     else:
         pass
         print("No face detected in the image.")
-    return llm_partial_pmt
+
+        
+    return (llm_partial_pmt, top_emo)
 
 
 def execute():
@@ -205,7 +238,7 @@ def execute():
     app, svm_classifier, le = init_predictor_module()
 
     # train model using faces dataset
-    predict_img_faces(app, img, svm_classifier, le)
+    print(predict_img_faces(app, img, svm_classifier, le))
 
 
 if __name__ == "__main__":

@@ -80,8 +80,8 @@ def extract_frames_to_numpy(video_path, num_frames=10):
         # Convert bytes to a numpy array
         frame = np.frombuffer(raw_frame, np.uint8).reshape((height, width, 3))
         im = Image.fromarray(frame)
-        im.show()
-        time.sleep(3)
+        #im.show()
+        #time.sleep(3)
         frames_array = np.append(frames_array, [frame], axis=0)
 
     process.stdout.close()
@@ -91,7 +91,8 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     return frames_array
 
 # Example usage:
-video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7222.mov"
+video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_0121.MOV"
+"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7222.mov"
 # "out.mov"
 #"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_8137.mp4.mov"
 #"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7220.MOV"
@@ -120,4 +121,4 @@ for nf in range(10):
 
     print(llm_partial_pmt)
 
-    time.sleep(3)
+    #time.sleep(3)
