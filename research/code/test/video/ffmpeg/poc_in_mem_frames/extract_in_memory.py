@@ -19,7 +19,7 @@ ffmpeg -i /mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b
 
 def encode_frames(frame):
     _,buf = cv2.imencode(".jpg", frame)
-    return base64.b64decode(buf).decode("utf-8")
+    return base64.b64decode(buf).decode("utf-8").strip()
 
 def get_video_dims(video_path):
     """Uses ffprobe to get the video frame height and width."""
@@ -99,7 +99,8 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     return frames_array
 
 # Example usage:
-video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_9040.mov"
+video_file = "out.mov"
+#"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_9040.mov"
 #"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7811.mov"
 #"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7222.mov"
 #"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_0121.MOV"
@@ -119,19 +120,19 @@ video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8
 frames = extract_frames_to_numpy(video_file, num_frames=10)
 print(f"Shape of extracted frames numpy array: {frames.shape}") 
 
-app, svm_classifier, le = fp_tor.init_predictor_module()
+#app, svm_classifier, le = fp_tor.init_predictor_module()
 
 detected_persons = []
 emotions = []
-frames_enc = []
-for nf in range(10):
+#frames_enc = [ encode_frames(f) for f in frames]
+# for nf in range(10):
 
-    img = frames[nf, :, :, :]
+#     img = frames[nf, :, :, :]
     
-    frames_enc.append(encode_frames(img))
-    #rgb_img = Image.fromarray(img, "RGB")
+#     frames_enc.append(encode_frames(img))
+#     rgb_img = Image.fromarray(img, "RGB")
 
-    # rgb_img.show()
+#     rgb_img.show()
 
     # llm_partial_pmt = fp_tor.predict_img_faces(app, img, svm_classifier, le)
     # p, e = llm_partial_pmt
@@ -139,7 +140,7 @@ for nf in range(10):
     #   detected_persons.append(p)
     #   emotions.append(e)
 
-txt = olvn.describe_multiple_images(frames_path=frames_enc, ppt="Esha", location="India")
+txt = olvn.describe_multiple_images(frames_path=frames, ppt="Esha", location="India")
 
 print(txt)
     
