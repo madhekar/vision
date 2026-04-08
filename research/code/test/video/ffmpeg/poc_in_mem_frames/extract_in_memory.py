@@ -2,9 +2,12 @@ import subprocess
 import shlex
 import json
 import time
+import cv2
 import numpy as np
+import base64
 from PIL import Image
 import face_predictor as fp_tor
+import ollama_llava_video_next as olvn
 
 '''
 ffmpeg -i "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/57674026128__645EE475-C9B3-4065-B98B-B8DEBADF0166.MOV" 
@@ -13,6 +16,10 @@ ffmpeg -i "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8
 ffmpeg -i /mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/57674026128__645EE475-C9B3-4065-B98B-B8DEBADF0166.MOV 
 -vf "crop=720:960:0:0" -c:a copy out.mov
 '''
+
+def encode_frames(frame):
+    _,buf = cv2.imencode(".jpg", frame)
+    return base64.b64decode(buf).decode("utf-8")
 
 def get_video_dims(video_path):
     """Uses ffprobe to get the video frame height and width."""
@@ -87,7 +94,8 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     process.stdout.close()
     process.stderr.close()
     process.wait()
-
+    
+    print(frames_array.shape)
     return frames_array
 
 # Example usage:
@@ -107,26 +115,34 @@ video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8
 #"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_7717.MOV"
 #"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_2069.mov"
 #"/home/madhekar/Videos/ffmpeg_frames/video_1/VID_20181205_121309.mp4"
+
 frames = extract_frames_to_numpy(video_file, num_frames=10)
 print(f"Shape of extracted frames numpy array: {frames.shape}") 
+
 app, svm_classifier, le = fp_tor.init_predictor_module()
+
 detected_persons = []
 emotions = []
+frames_enc = []
 for nf in range(10):
 
     img = frames[nf, :, :, :]
-
+    
+    frames_enc.append(encode_frames(img))
     #rgb_img = Image.fromarray(img, "RGB")
 
     # rgb_img.show()
 
-    llm_partial_pmt = fp_tor.predict_img_faces(app, img, svm_classifier, le)
+    # llm_partial_pmt = fp_tor.predict_img_faces(app, img, svm_classifier, le)
+    # p, e = llm_partial_pmt
+    # if p:
+    #   detected_persons.append(p)
+    #   emotions.append(e)
 
-    p, e = llm_partial_pmt
-    if p:
-      detected_persons.append(p)
-      emotions.append(e)
+txt = olvn.describe_multiple_images(frames_path=frames_enc, ppt="Esha", location="India")
+
+print(txt)
     
-print(f"people detected:{detected_persons} with emotion: {emotions}" )
+#print(f"people detected:{detected_persons} with emotion: {emotions}" )
 
     #time.sleep(3)
