@@ -150,7 +150,7 @@ print(ppt)
 
 print(f"people detected:{detected_persons} with emotion: {emotions}" )
 
-txt = olvn.describe_multiple_images(img_bytes_array, ppt=ppt, location="India")
+txt = olvn.describe_multiple_images(img_bytes_array, ppt=ppt, location="madhekar residance in san diego, california")
 
 print(txt)
     
