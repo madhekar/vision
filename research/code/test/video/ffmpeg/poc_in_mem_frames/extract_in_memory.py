@@ -2,6 +2,7 @@ import subprocess
 import shlex
 import json
 import time
+import re
 from io import BytesIO
 import numpy as np
 import base64
@@ -143,12 +144,16 @@ for nf in range(10):
     if p:
       detected_persons.append(p)
       emotions.append(e)
-ppt = "".join(detected_persons) + " with emotions " + "".join(emotions)
+      #word.strip(' "\'\t\r\n')  re.sub(r"[\s'\"]"," ",word).strip()
+ppt = " ".join(dict.fromkeys([ word.replace(" ", "").replace("'","").replace('"',"") for word in detected_persons])) + " with emotions " + " ".join(list(set(emotions)))
 print(ppt)
+
+print(f"people detected:{detected_persons} with emotion: {emotions}" )
+
 txt = olvn.describe_multiple_images(img_bytes_array, ppt=ppt, location="India")
 
 print(txt)
     
-print(f"people detected:{detected_persons} with emotion: {emotions}" )
+
 
     #time.sleep(3)
