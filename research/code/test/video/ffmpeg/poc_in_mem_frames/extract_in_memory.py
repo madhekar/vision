@@ -2,7 +2,7 @@ import subprocess
 import shlex
 import json
 import time
-
+from io import BytesIO
 import numpy as np
 import base64
 from PIL import Image
@@ -75,6 +75,7 @@ def extract_frames_to_numpy(video_path, num_frames=10):
 
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, bufsize=10**8)
     
+    bytes_array = []
     frames_array = np.empty((0, height, width, 3), dtype=np.uint8)
     frame_size = height * width * 3 # 3 bytes per pixel for RGB24
     print(f"video frame size: {frame_size}")
@@ -91,12 +92,16 @@ def extract_frames_to_numpy(video_path, num_frames=10):
         #time.sleep(3)
         frames_array = np.append(frames_array, [frame], axis=0)
 
+        buf = BytesIO()
+        im.save(buf, format="PNG")
+        bytes_array.append(buf.getvalue()) 
+
     process.stdout.close()
     process.stderr.close()
     process.wait()
     
     print(frames_array.shape)
-    return frames_array
+    return frames_array, bytes_array
 
 # Example usage:
 video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_9040.mov"
@@ -116,7 +121,7 @@ video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8
 #"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_2069.mov"
 #"/home/madhekar/Videos/ffmpeg_frames/video_1/VID_20181205_121309.mp4"
 
-frames = extract_frames_to_numpy(video_file, num_frames=10)
+frames, img_bytes_array = extract_frames_to_numpy(video_file, num_frames=10)
 print(f"Shape of extracted frames numpy array: {frames.shape}") 
 
 app, svm_classifier, le = fp_tor.init_predictor_module()
@@ -138,10 +143,11 @@ for nf in range(10):
     if p:
       detected_persons.append(p)
       emotions.append(e)
+ppt = "".join(detected_persons) + " with emotions " + "".join(emotions)
+print(ppt)
+txt = olvn.describe_multiple_images(img_bytes_array, ppt=ppt, location="India")
 
-#txt = olvn.describe_multiple_images(frames_path=frames, ppt="Esha", location="India")
-
-#print(txt)
+print(txt)
     
 print(f"people detected:{detected_persons} with emotion: {emotions}" )
 
