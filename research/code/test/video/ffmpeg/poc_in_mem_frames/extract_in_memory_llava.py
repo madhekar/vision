@@ -77,34 +77,28 @@ def extract_frames_to_numpy(video_path, num_frames=10):
 
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, bufsize=10**8)
     
-    frames_array = np.empty(0, dtype=np.uint8)
-    frame_size = height * width * 3 # 3 bytes per pixel for RGB24
-    print(f"video frame size: {frame_size}")
+    frame_size = height * width * 3 
     frames_arr = []
     for _ in range(num_frames):
         # Read raw bytes from stdout pipe
         raw_frame = process.stdout.read(frame_size)
         if not raw_frame:
             break
+
         # Convert bytes to a numpy array
         frame = np.frombuffer(raw_frame, np.uint8).reshape((height, width, 3))
         im = Image.fromarray(frame)
         # im.show()
         # time.sleep(3)
-        #frame_base64 = base64.b64encode(im).decode('utf-8')
-        #buf = BytesIO()
-        # img_data = raw_frame.save(buf, format="PNG")
 
         buf = BytesIO()
         im.save(buf, format="PNG")
-        
-        frames_arr.append(buf.getvalue()) # np.append(frames_array, [frame_base64], axis=0)
+        frames_arr.append(buf.getvalue()) 
 
     process.stdout.close()
     process.stderr.close()
     process.wait()
     
-    #print(frames_arr.shape)
     return frames_arr
 
 # Example usage:
@@ -128,23 +122,20 @@ video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8
 frames = extract_frames_to_numpy(video_file, num_frames=10)
 #print(f"Shape of extracted frames numpy array: {frames.shape} : {frames}") 
 
-#app, svm_classifier, le = fp_tor.init_predictor_module()
+app, svm_classifier, le = fp_tor.init_predictor_module()
 
-# detected_persons = []
-# emotions = []
+detected_persons = []
+emotions = []
 #frames_enc = [ encode_frames(f) for f in frames]
-for nf in range(10):
+# for nf in range(10):
 
-    img_bytes = frames[nf]
+#      img_bytes = frames[nf]
     
-    #img_data = base64.b64decode(img)
-#     frames_enc.append(encode_frames(img))
-    #rgb_img = Image.open(img)  #.fromarray(img, "RGB")
-    try:
-      img = Image.open(BytesIO(img_bytes))
-    except Exception as e:
-        print(f"exception: {e}")  
-    img.show()
+#     try:
+#       img = Image.open(BytesIO(img_bytes))
+#     except Exception as e:
+#         print(f"exception: {e}")  
+#     img.show()
 
 #     llm_partial_pmt = fp_tor.predict_img_faces(app, img, svm_classifier, le)
 #     p, e = llm_partial_pmt
@@ -152,6 +143,7 @@ for nf in range(10):
 #       detected_persons.append(p)
 #       emotions.append(e)
 # print(f"people detected:{detected_persons} with emotion: {emotions}" )
+
 txt = olvn.describe_multiple_images(frames=frames, ppt="Esha and shibangi happy", location="at home residance")
 
 print(txt)
