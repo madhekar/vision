@@ -152,7 +152,7 @@ for nf in range(10):
 #       detected_persons.append(p)
 #       emotions.append(e)
 # print(f"people detected:{detected_persons} with emotion: {emotions}" )
-txt = olvn.describe_multiple_images(frames=frames, ppt="Esha", location="India")
+txt = olvn.describe_multiple_images(frames=frames, ppt="Esha and shibangi happy", location="at home residance")
 
 print(txt)
     
