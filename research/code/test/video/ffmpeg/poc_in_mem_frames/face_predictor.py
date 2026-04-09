@@ -72,37 +72,37 @@ def create_partial_prompt(agg):
             #   txt += " and "
             if d["cman"] > 0:
                 if d["cman"] > 1:
-                    s = f" {d['cman']} men "
+                    s = f"{d['cman']} men"
                 else:
-                    s = " one man "
+                    s = "one man"
                 txt += s
 
             if d["cwoman"] > 0:
                 if d["cwoman"] > 1:
-                    s = f" {d['cwoman']} women "
+                    s = f"{d['cwoman']} women"
                 else:
-                    s = " one  woman  "
+                    s = "one  woman"
                 txt += s
 
             if d["cboy"] > 0:
                 if d["cboy"] > 1:
                     s = f" {d['cboy']} boys "
                 else:
-                    s = " one boy "
+                    s = "one boy"
                 txt += s
 
             if d["cgirl"] > 0:
                 if d["cgirl"] > 1:
                     s = f" {d['cgirl']} girls "
                 else:
-                    s = " one girl "
+                    s = "one girl"
                 txt += s 
 
             if d['csoul'] > 0:
                 if d['csoul'] > 1:
-                    s = f" {d['csoul']} persons "
+                    s = f"{d['csoul']} persons"
                 else:
-                    s = " one person "     
+                    s = "one person"     
                 txt += s 
             #txt += "in the image."
     return txt

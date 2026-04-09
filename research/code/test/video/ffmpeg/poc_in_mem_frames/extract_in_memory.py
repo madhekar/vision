@@ -144,8 +144,8 @@ for nf in range(10):
     if p:
       detected_persons.append(p)
       emotions.append(e)
-      #word.strip(' "\'\t\r\n')  re.sub(r"[\s'\"]"," ",word).strip()
-ppt = " ".join(dict.fromkeys([ word.replace(" ", "").replace("'","").replace('"',"") for word in detected_persons])) + " with emotions " + " ".join(list(set(emotions)))
+      #word.strip(' "\'\t\r\n')  re.sub(r"[\s'\"]"," ",word).strip()  word.replace(" ", "").replace("'","").replace('"',"")
+ppt = " ".join(dict.fromkeys([ word.strip().strip('"\'').strip().replace('"',"").strip() for word in detected_persons])) + " with emotions " + " ".join(list(set(emotions)))
 print(ppt)
 
 print(f"people detected:{detected_persons} with emotion: {emotions}" )
