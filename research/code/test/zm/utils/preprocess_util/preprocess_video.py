@@ -146,6 +146,7 @@ def extract_frames_to_numpy(video_path, num_frames=10):
 
 def describe_video(args):
     uri, location = args
+    print(f" ----> {uri} ----> {location}")
     frames, img_bytes_array = extract_frames_to_numpy(uri, num_frames=10)
     print(f"Shape of extracted frames numpy array: {frames.shape}") 
 
@@ -227,7 +228,7 @@ def new_xform(res):
 
     ll = [list(x) for x in zip(*res)]
     
-    lr = [ [row[2], row[1][1]] for row in ll]
+    lr = [ [row[3], row[2][1]] for row in ll]
 
     lf = [[row[2], row[0],row[1][0], row[1][1]] for row in ll]
     print(f"ll --- {ll}  lr-- {lr} lf--{lf}")
