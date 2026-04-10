@@ -42,7 +42,7 @@ import piexif
 import datetime
 import random
 import string
-import time
+import json
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 # define constants
@@ -220,6 +220,63 @@ def format_lat_lon(df):
     df[lat_lon] = df[lat_lon].applymap(lambda x: str(round(float(x) ,6)) if not x == '-' else x )
     print(f'transformed: {df.head()}')
     return df
+
+def extract_video_timestamp(video_path):
+    vmdata = ""
+    # command to extract specific tags in CSV format
+    command = [
+        "exiftool",
+        "-j",
+        "-n",                  # Numeric (decimal) GPS values
+        "-CreateDate",        # Create Date
+        video_path
+    ]
+    
+    try:
+        # Run command and capture output
+        result = subprocess.run(command, capture_output=True, text=True, check=True)
+
+        if result.returncode == 0:
+            d = json.loads(result.stdout)
+            vmdata = d[0]['CreateDate']
+            print(f"Success: Metadata saved to {d[0]['CreateDate']}")
+        else:
+            print(f"Error: {result.stderr}")    
+        
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing ExifTool: {e.stderr}")
+    except FileNotFoundError:
+        print("Error: ExifTool not found. Ensure it is installed and added to your PATH.")
+    return vmdata
+
+def extract_video_latlon(video_path):
+    vmdata = (0.0,0.0)
+    # command to extract specific tags in CSV format
+    command = [
+        "exiftool",
+        "-j",
+        "-n",                  # Numeric (decimal) GPS values
+        "-GPSLatitude",        # Latitude tag
+        "-GPSLongitude",       # Longitude tag
+        video_path
+    ]
+    
+    try:
+        # Run command and capture output
+        result = subprocess.run(command, capture_output=True, text=True, check=True)
+
+        if result.returncode == 0:
+            d = json.loads(result.stdout)
+            vmdata = (d[0]['GPSLatitude'], d[0]['GPSLongitude'])
+            print(f"Success: Metadata saved to {d[0]['GPSLatitude']}")
+        else:
+            print(f"Error: {result.stderr}")    
+        
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing ExifTool: {e.stderr}")
+    except FileNotFoundError:
+        print("Error: ExifTool not found. Ensure it is installed and added to your PATH.")
+    return vmdata
 
 # get GPS information from image file
 def gpsInfo(img):

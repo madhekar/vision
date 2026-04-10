@@ -144,8 +144,9 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     print(frames_array.shape)
     return frames_array, bytes_array
 
-def describe_video(video_file_path, location):
-    frames, img_bytes_array = extract_frames_to_numpy(video_file_path, num_frames=10)
+def describe_video(args):
+    location, uri = args
+    frames, img_bytes_array = extract_frames_to_numpy(uri, num_frames=10)
     print(f"Shape of extracted frames numpy array: {frames.shape}") 
 
     app, svm_classifier, le = fp_tor.init_predictor_module()
@@ -180,7 +181,7 @@ async def locationDetails(args, lock):
         #print(f"-->> {uri}")
         loc = ""
         lat_lon = ()
-        lat_lon = lu.gpsInfo(uri)
+        lat_lon = lu.extract_video_latlon(uri)
         print(f' {lat_lon} : {uri}')
         if lat_lon == ():
             lat_lon = (d_latitude, d_longitude) # default location lat, lon
@@ -202,7 +203,7 @@ async def generateId(args):
 async def timestamp(args):
     uri = args
     print(f'ts--{uri}')
-    ts,uc = lu.getTimestamp(uri) #lu.get_image_exif_info(uri) 
+    ts,uc = lu.extract_video_timestamp(uri) #lu.get_image_exif_info(uri) 
     print(f'*** timestamp: {ts} user comment: {uc}')
     return str(ts), str(uc)
 
@@ -269,7 +270,6 @@ async def run_workflow(
                     res = await asyncio.gather(
                         pool.map(generateId, rlist),
                         pool.map(timestamp, rlist),
-                        #pool.map(partial(img_type_detection,lock=lock), rlist),
                         pool.map(partial(locationDetails, lock=lock), rlist),
                         pool.map(caption, rlist),
                     )
