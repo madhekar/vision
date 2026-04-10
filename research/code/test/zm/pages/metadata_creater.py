@@ -11,7 +11,7 @@ user_source_selected = st.sidebar.selectbox("data source folder", options=ss.ext
 
 st.header("METADATA: GENERATE", divider="gray")
 
-c1, c2, c3 = st.columns([.1, .1, .8])
+c1, c2 = st.columns([.1, .1])
 
 with c1:
         btn_metatdata = st.button(label='Image Metadata Generater', type='primary')

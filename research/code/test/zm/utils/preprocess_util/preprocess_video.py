@@ -145,7 +145,7 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     return frames_array, bytes_array
 
 def describe_video(args):
-    location, uri = args
+    uri, location = args
     frames, img_bytes_array = extract_frames_to_numpy(uri, num_frames=10)
     print(f"Shape of extracted frames numpy array: {frames.shape}") 
 
@@ -203,9 +203,9 @@ async def generateId(args):
 async def timestamp(args):
     uri = args
     print(f'ts--{uri}')
-    ts,uc = lu.extract_video_timestamp(uri) #lu.get_image_exif_info(uri) 
-    print(f'*** timestamp: {ts} user comment: {uc}')
-    return str(ts), str(uc)
+    ts = lu.extract_video_timestamp(uri) #lu.get_image_exif_info(uri) 
+    print(f'*** timestamp: {ts}')
+    return str(ts)
 
 async def caption(args):
     uri = args
@@ -221,6 +221,22 @@ async def append_file(filename, dict_data_list, mode):
            await f.write(stv)
            await f.write(os.linesep)
         await f.close()       
+
+
+def new_xform(res):
+
+    ll = [list(x) for x in zip(*res)]
+    
+    lr = [ [row[2], row[1][1]] for row in ll]
+
+    lf = [[row[2], row[0],row[1][0], row[1][1]] for row in ll]
+    print(f"ll --- {ll}  lr-- {lr} lf--{lf}")
+    return lr, lf
+
+def final_xform(alist):
+    keys = [ 'uri','id','ts','latlon','loc','text']
+    print(alist)
+    return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
 """
 multi processing linux tools
@@ -271,7 +287,7 @@ async def run_workflow(
                         pool.map(generateId, rlist),
                         pool.map(timestamp, rlist),
                         pool.map(partial(locationDetails, lock=lock), rlist),
-                        pool.map(caption, rlist),
+                        #pool.map(caption, rlist),
                     )
                     
                     res.append(rlist)
