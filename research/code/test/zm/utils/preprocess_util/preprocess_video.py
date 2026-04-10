@@ -20,8 +20,8 @@ from utils.config_util import config
 from utils.util import location_util as lu
 from utils.util import model_util as mu
 from utils.util import fast_parquet_util as fpu
-import face_predictor as fp_tor
-import ollama_llava_video_next as olvn
+from utils.face_detection_util import  video_face_predictor as fp_tor
+from utils.preprocess_util import ollama_llava_video_next as olvn
 import streamlit as st
 
 '''
