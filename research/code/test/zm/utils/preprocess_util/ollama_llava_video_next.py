@@ -35,6 +35,8 @@ def encode_image_to_base64(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
     
+
+    
 def create_default_client():
     client = ollama.Client()
     return client
@@ -59,15 +61,15 @@ def caption_image(img):
        )
        return result["message"]["content"]   
 
-def describe_multiple_images( frames_path, ppt, location):
+def describe_multiple_images( frames, ppt, location):
 
     client = ollama.Client()
     
-    eimg_list = []
-    print(f"{frames_path}")
-    for img in os.listdir(frames_path):
-       print(img)
-       eimg_list.append(encode_image_to_base64(os.path.join(frames_path,img)))
+    # eimg_list = []
+    # print(f"{frames_path}")
+    # for img in os.listdir(frames_path):
+    #    print(img)
+    #    eimg_list.append(encode_image_to_base64(os.path.join(frames_path,img)))
     
 
     # prompt
@@ -104,7 +106,7 @@ def describe_multiple_images( frames_path, ppt, location):
                 {
                     'role': 'user',
                     'content': prompt,
-                    'images': eimg_list,
+                    'images': frames,  #eimg_list,
                 }
             ],
             options={'num_predict': 500,  'temperature': 0.8},
