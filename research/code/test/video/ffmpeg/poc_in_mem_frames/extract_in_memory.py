@@ -145,14 +145,18 @@ for nf in range(10):
       detected_persons.append(p)
       emotions.append(e)
       #word.strip(' "\'\t\r\n')  re.sub(r"[\s'\"]"," ",word).strip()  word.replace(" ", "").replace("'","").replace('"',"")
+frames_people_emo ="following people found in video frames: "      
 for i, v in enumerate(zip(detected_persons, emotions)):
-    print(f"frame# {i} person: {v[0]}  emotion: {v[1]}")
-ppt = " ".join(dict.fromkeys([ word.strip().strip('"\'').strip().replace('"',"").strip() for word in detected_persons])) + " with emotions " + " ".join(list(set(emotions)))
-print(ppt)
+    frames_people_emo += f" image {i + 1} {v[0]} in {v[1]} mood, "
 
-print(f"people detected:{detected_persons} with emotion: {emotions}" )
+#     print(f"frame# {i + 1 } person: {v[0]}  emotion: {v[1]}")
+  
+# ppt = " ".join(dict.fromkeys([ word.strip().strip('"\'').strip().replace('"',"").strip() for word in detected_persons])) + " with emotions " + " ".join(list(set(emotions)))
+# print(ppt)
 
-txt = olvn.describe_multiple_images(img_bytes_array, ppt=ppt, location="madhekar residance in san diego, california")
+# print(f"people detected:{detected_persons} with emotion: {emotions}" )
+print(frames_people_emo)  
+txt = olvn.describe_multiple_images(img_bytes_array, ppt=frames_people_emo, location="madhekar residance in san diego, california")
 
 print(txt)
     
