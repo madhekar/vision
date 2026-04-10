@@ -251,7 +251,6 @@ async def run_workflow(
     chunk_size,
     queue_size,
     metadata_path,
-    metadata_file,
     video_metadata_file,
     num_files,
     number_of_instances,
@@ -334,6 +333,7 @@ def execute(user_source_selected):
         video_dir_path,
         metadata_path,
         metadata_file,
+        video_metadata_file,
         chunk_size,
         number_of_instances,
         openclip_finetuned,
@@ -373,9 +373,9 @@ def execute(user_source_selected):
 
     df = None
     try:
-        if os.path.exists(os.path.join(metadata_path, metadata_file)):
+        if os.path.exists(os.path.join(metadata_path, video_metadata_file)):
             data = []
-            with open(os.path.join(metadata_path, metadata_file), mode="r") as f:
+            with open(os.path.join(metadata_path, video_metadata_file), mode="r") as f:
                 res = f.read()
                 res = res.replace("\n", "")
                 res = res.replace("}{", "},{")
@@ -398,7 +398,7 @@ def execute(user_source_selected):
             chunk_size,
             queue_size,
             metadata_path,
-            metadata_file,
+            video_metadata_file,
             number_of_files,
             number_of_instances,
             openclip_finetuned,

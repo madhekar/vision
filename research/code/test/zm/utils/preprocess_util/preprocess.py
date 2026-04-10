@@ -236,7 +236,6 @@ async def run_workflow(
     queue_size,
     metadata_path,
     metadata_file,
-    video_metadata_file,
     num_files,
     number_of_instances,
     openclip_finetuned
@@ -332,6 +331,7 @@ def execute(user_source_selected):
         video_dir_path,
         metadata_path,
         metadata_file,
+        video_metadata_file,
         chunk_size,
         number_of_instances,
         openclip_finetuned,
