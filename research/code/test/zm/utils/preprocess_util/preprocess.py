@@ -309,7 +309,17 @@ async def run_workflow(
 
     status.update(label="process completed!", state="complete", expanded=False)
 
-
+'''
+        os.path.join(dr, *image_dir_path.split(os.sep)[1:]),
+        os.path.join(dr, *video_dir_path.split(os.sep)[1:]),
+        os.path.join(dr, *metadata_path.split(os.sep)[1:]),
+        metadata_file,
+        chunk_size,
+        number_of_instances,
+        openclip_finetuned, 
+        os.path.join(dr, *static_metadata_path.split(os.sep)[1:]),
+        static_metadata_file
+'''
 def execute(user_source_selected):
 
     #if device == "cuda:0":
@@ -318,6 +328,7 @@ def execute(user_source_selected):
     aiomp.set_start_method("fork")
     (
         image_dir_path,
+        video_dir_path,
         metadata_path,
         metadata_file,
         chunk_size,

@@ -1,6 +1,7 @@
 
 import streamlit as st
 from utils.preprocess_util import preprocess as pp
+from utils.preprocess_util import preprocess_video as ppv
 from utils.util import storage_stat as ss
 from utils.config_util import config
 
@@ -10,9 +11,19 @@ user_source_selected = st.sidebar.selectbox("data source folder", options=ss.ext
 
 st.header("METADATA: GENERATE", divider="gray")
 
-btn_metatdata = st.button(label='Metadata Generate', type='primary')
-if btn_metatdata:
-        st.info('step 2: create metadata for search such as annotations location, text, person names etc...')
-        pp.execute(user_source_selected)
+c1, c2, c3 = st.columns([.1, .1, .8])
+
+with c1:
+        btn_metatdata = st.button(label='Image Metadata Generate', type='primary')
+        if btn_metatdata:
+                st.info('step 2: create metadata for search such as annotations location, text, person names etc...')
+                pp.execute(user_source_selected)
+
+with c2:
+        btn_metatdata = st.button(label='Video Metadata Generate', type='primary')
+        if btn_metatdata:
+                st.info('step 2: create metadata for search such as annotations location, text, person names etc...')
+                ppv.execute(user_source_selected)
+
 
    

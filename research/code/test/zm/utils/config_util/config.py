@@ -272,6 +272,7 @@ def preprocess_config_load():
         pprint.pprint("* * * * * * * * * * * * * * * * * * * * *")
 
         image_dir_path = dict["metadata"]["image_dir_path"]
+        video_dir_path = dict["metadata"]["video_dir_path"]
         metadata_path = dict["metadata"]["metadata_path"]
         metadata_file = dict["metadata"]["metadata_file"]
         chunk_size = dict["metadata"]["data_chunk_size"]
@@ -283,6 +284,7 @@ def preprocess_config_load():
         
     return(
         os.path.join(dr, *image_dir_path.split(os.sep)[1:]),
+        os.path.join(dr, *video_dir_path.split(os.sep)[1:]),
         os.path.join(dr, *metadata_path.split(os.sep)[1:]),
         metadata_file,
         chunk_size,

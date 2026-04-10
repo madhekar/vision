@@ -1,6 +1,7 @@
 metadata:
   raw_data_path: /data/raw-data/
   image_dir_path: /data/input-data/img/
+  video_dir_path: /data/input-data/video/
   metadata_path: /data/app-data/metadata/
   metadata_file: metadata.json
   vectordb_path: /data/app-data/vectordb/
