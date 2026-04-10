@@ -104,7 +104,39 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     print(frames_array.shape)
     return frames_array, bytes_array
 
-# Example usage:
+def describe_video_file(video_file_path, location):
+    frames, img_bytes_array = extract_frames_to_numpy(video_file_path, num_frames=10)
+    print(f"Shape of extracted frames numpy array: {frames.shape}") 
+
+    app, svm_classifier, le = fp_tor.init_predictor_module()
+
+    detected_persons = []
+    emotions = []
+    for nf in range(10):
+        img = frames[nf, :, :, :]
+        
+        llm_partial_pmt = fp_tor.predict_img_faces(app, img, svm_classifier, le)
+        p, e = llm_partial_pmt
+        if p:
+          detected_persons.append(p)
+          emotions.append(e)
+
+    frames_people_emo ="following people found in video frames: "      
+    for i, v in enumerate(zip(detected_persons, emotions)):
+        frames_people_emo += f" image {i + 1} {v[0]} in {v[1]} mood, "
+
+    print(frames_people_emo)  
+    txt = olvn.describe_multiple_images(img_bytes_array, ppt=frames_people_emo, location=location)
+
+    print(f"video description: {txt}")
+
+    return txt
+    
+
+
+#time.sleep(3)
+location = "Madhekar residance San Diego, california"
+# # Example usage:
 video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_9040.mov"
 #"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7811.mov"
 #"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7222.mov"
@@ -121,45 +153,4 @@ video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8
 #"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_7717.MOV"
 #"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_2069.mov"
 #"/home/madhekar/Videos/ffmpeg_frames/video_1/VID_20181205_121309.mp4"
-
-frames, img_bytes_array = extract_frames_to_numpy(video_file, num_frames=10)
-print(f"Shape of extracted frames numpy array: {frames.shape}") 
-
-app, svm_classifier, le = fp_tor.init_predictor_module()
-
-detected_persons = []
-emotions = []
-#frames_enc = [ encode_frames(f) for f in frames]
-for nf in range(10):
-
-    img = frames[nf, :, :, :]
-    
-#     frames_enc.append(encode_frames(img))
-#     rgb_img = Image.fromarray(img, "RGB")
-
-#     rgb_img.show()
-
-    llm_partial_pmt = fp_tor.predict_img_faces(app, img, svm_classifier, le)
-    p, e = llm_partial_pmt
-    if p:
-      detected_persons.append(p)
-      emotions.append(e)
-      #word.strip(' "\'\t\r\n')  re.sub(r"[\s'\"]"," ",word).strip()  word.replace(" ", "").replace("'","").replace('"',"")
-frames_people_emo ="following people found in video frames: "      
-for i, v in enumerate(zip(detected_persons, emotions)):
-    frames_people_emo += f" image {i + 1} {v[0]} in {v[1]} mood, "
-
-#     print(f"frame# {i + 1 } person: {v[0]}  emotion: {v[1]}")
-  
-# ppt = " ".join(dict.fromkeys([ word.strip().strip('"\'').strip().replace('"',"").strip() for word in detected_persons])) + " with emotions " + " ".join(list(set(emotions)))
-# print(ppt)
-
-# print(f"people detected:{detected_persons} with emotion: {emotions}" )
-print(frames_people_emo)  
-txt = olvn.describe_multiple_images(img_bytes_array, ppt=frames_people_emo, location="madhekar residance in san diego, california")
-
-print(txt)
-    
-
-
-    #time.sleep(3)
+describe_video_file(video_file, location )
