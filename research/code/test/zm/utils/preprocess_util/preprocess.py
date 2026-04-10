@@ -236,6 +236,7 @@ async def run_workflow(
     queue_size,
     metadata_path,
     metadata_file,
+    video_metadata_file,
     num_files,
     number_of_instances,
     openclip_finetuned

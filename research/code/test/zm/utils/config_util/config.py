@@ -275,6 +275,7 @@ def preprocess_config_load():
         video_dir_path = dict["metadata"]["video_dir_path"]
         metadata_path = dict["metadata"]["metadata_path"]
         metadata_file = dict["metadata"]["metadata_file"]
+        video_metadata_file = dict["metadata"]["video_metadata_file"]
         chunk_size = dict["metadata"]["data_chunk_size"]
         number_of_instances = dict["metadata"]["number_of_instances"]
         openclip_finetuned = dict["models"]["openclip_finetuned"] 
@@ -287,6 +288,7 @@ def preprocess_config_load():
         os.path.join(dr, *video_dir_path.split(os.sep)[1:]),
         os.path.join(dr, *metadata_path.split(os.sep)[1:]),
         metadata_file,
+        video_metadata_file,
         chunk_size,
         number_of_instances,
         openclip_finetuned, 

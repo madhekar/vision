@@ -252,6 +252,7 @@ async def run_workflow(
     queue_size,
     metadata_path,
     metadata_file,
+    video_metadata_file,
     num_files,
     number_of_instances,
     openclip_finetuned
@@ -306,7 +307,7 @@ async def run_workflow(
 
                     st.info(fdictlist)
 
-                    await append_file(os.path.join(metadata_path, metadata_file), fdictlist, 'a+')
+                    await append_file(os.path.join(metadata_path, video_metadata_file), fdictlist, 'a+')
 
                 count = count + len(ilist)
                 count = num if count > num else count

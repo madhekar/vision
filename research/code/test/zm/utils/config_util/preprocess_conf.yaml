@@ -4,6 +4,7 @@ metadata:
   video_dir_path: /data/input-data/video/
   metadata_path: /data/app-data/metadata/
   metadata_file: metadata.json
+  video_metadata_file: video_metadata.json
   vectordb_path: /data/app-data/vectordb/
   data_chunk_size: 10
   number_of_instances: 10
