@@ -145,6 +145,8 @@ for nf in range(10):
       detected_persons.append(p)
       emotions.append(e)
       #word.strip(' "\'\t\r\n')  re.sub(r"[\s'\"]"," ",word).strip()  word.replace(" ", "").replace("'","").replace('"',"")
+for i, v in enumerate(zip(detected_persons, emotions)):
+    print(f"frame# {i} person: {v[0]}  emotion: {v[1]}")
 ppt = " ".join(dict.fromkeys([ word.strip().strip('"\'').strip().replace('"',"").strip() for word in detected_persons])) + " with emotions " + " ".join(list(set(emotions)))
 print(ppt)
 
