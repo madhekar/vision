@@ -144,7 +144,7 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     print(frames_array.shape)
     return frames_array, bytes_array
 
-def describe_video(args):
+async def describe_video(args):
     uri, location = args
     print(f" ----> {uri} ----> {location}")
     frames, img_bytes_array = extract_frames_to_numpy(uri, num_frames=10)
