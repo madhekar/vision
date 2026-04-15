@@ -230,7 +230,7 @@ def new_xform(res):
     
     lr = [ [row[3], row[2][1]] for row in ll]
 
-    lf = [[row[3], row[0], row[1], row[1][0], row[1][1]] for row in ll]
+    lf = [[row[3], row[0], row[1], row[2][0], row[2][1]] for row in ll]
     print(f"ll --- {ll}  lr-- {lr} lf--{lf}")
     return lr, lf
 
