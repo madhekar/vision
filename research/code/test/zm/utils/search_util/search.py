@@ -109,6 +109,9 @@ def search_fn(client, cImgs, cTxts):
     if "imgs" not in st.session_state:
         st.session_state["imgs"] = []
 
+    if "videos" not in st.session_state:
+        st.session_state["videos"] = []    
+
     if "dt_range" not in st.session_state:
         st.session_state["dt_range"] = (
             datetime.datetime(2010, 1, 1),
@@ -179,7 +182,9 @@ def search_fn(client, cImgs, cTxts):
 
         search_btn = st.button(label="## Search", use_container_width=True, type="primary")
 
-    # seach button pressed
+    ''' 
+    **** seach button pressed **** 
+    '''
     if search_btn:
         # create query on image, also shows similar document in vector database (not using LLM)  -- openclip embedding function!
         #embedding_function = OpenCLIPEmbeddingFunction()
@@ -192,6 +197,7 @@ def search_fn(client, cImgs, cTxts):
         if "meta" in st.session_state:
             st.session_state["meta"] = []
 
+        ''' Image Modality selected '''
         if modality_selected == "image":
             # execute text collection query --- TBD fix
 
@@ -220,7 +226,9 @@ def search_fn(client, cImgs, cTxts):
 
             #st.write(st.session_state["imgs"]) # ---enable to debug
 
+            ''' Text Modality selected ''' 
         elif modality_selected == "text":
+            
             # execute text collection query --- TBD fix
             st.session_state["document"] = cTxts.query(
                 query_texts=[modalityTxt],
@@ -254,7 +262,9 @@ def search_fn(client, cImgs, cTxts):
                 + str(datetime.datetime.fromtimestamp(float(tss)))
                 + "]"
             )
-    # Image TAB
+    '''  
+    **** Image TAB ****
+    '''
     with image:
         if st.session_state["t_imgs"] and len(st.session_state["t_imgs"]) > 1:
             index = image_select(
@@ -388,7 +398,9 @@ def search_fn(client, cImgs, cTxts):
                 unsafe_allow_html=True,
             )
 
-    #  Video TAB
+    ''' 
+    **** Video TAB **** 
+    '''
     with video:
         # st.header("Similar Videos")
         st.write(
@@ -396,7 +408,9 @@ def search_fn(client, cImgs, cTxts):
             unsafe_allow_html=True,
         )
 
-    #  Documents Tab
+    ''' 
+    **** Documents Tab **** 
+    '''
     with text:
         if st.session_state["document"] and len(st.session_state["document"]) > 1:
             st.text_area(label="Related text", value=st.session_state["document"])
@@ -406,6 +420,10 @@ def search_fn(client, cImgs, cTxts):
                 unsafe_allow_html=True,
             )
 
+
+'''
+ search execute
+'''
 def execute():
 
     vdb, icn, tcn, vcn, acn = config.search_config_load()
