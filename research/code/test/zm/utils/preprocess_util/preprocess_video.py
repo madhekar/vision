@@ -8,6 +8,8 @@ import numpy as np
 import base64
 import PIL
 from PIL import Image
+from pathlib import Path
+import shutil
 import asyncio
 import multiprocessing as mp
 import pandas as pd
@@ -72,7 +74,22 @@ def get_video_dims(video_path):
     print(f"video dimentions {height}:{width}")
     return height, width
 
+def check_n_create_folders(video_path):
+    v_path = Path(video_path)
+    imm_parent_stem = v_path.stem
+
+    root_path = os.path.split(video_path)[0]
+    frames_folder_path = os.path.join(root_path, "frames", imm_parent_stem)
+    if not os.path.exists(os.path.join(root_path, "frames")):
+        os.makedirs(os.path.join(root_path, "frames"))
+    os.makedirs((frames_folder_path), exist_ok=True)
+    # remove existing frames
+    shutil.rmtree(frames_folder_path)
+    return frames_folder_path
+
 def extract_frames_to_numpy(video_path, num_frames=10):
+
+    frames_n_parent = check_n_create_folders(video_path)
     """Extracts a specified number of frames from a video into a NumPy array."""
     height, width = get_video_dims(video_path)
     
@@ -120,8 +137,9 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     frames_array = np.empty((0, height, width, 3), dtype=np.uint8)
     frame_size = height * width * 3 # 3 bytes per pixel for RGB24
     print(f"video frame size: {frame_size}")
-
-    for _ in range(num_frames):
+    
+    frame_name_prefix ="f_"
+    for i in range(num_frames):
         # Read raw bytes from stdout pipe
         raw_frame = process.stdout.read(frame_size)
         if not raw_frame:
@@ -131,6 +149,10 @@ def extract_frames_to_numpy(video_path, num_frames=10):
         im = Image.fromarray(frame)
         #im.show()
         #time.sleep(3)
+        f_name = frame_name_prefix + str(i) + ".png"
+        print("....", frames_n_parent, f_name)
+        print(f"---->> {os.path.join(frames_n_parent, f_name)}")
+        im.save(os.path.join(frames_n_parent, f_name))
         frames_array = np.append(frames_array, [frame], axis=0)
 
         buf = BytesIO()
@@ -345,6 +367,7 @@ def execute(user_source_selected):
     # add user data source to image input and metadata output paths
     video_dir_path = os.path.join(video_dir_path, user_source_selected)
     number_of_files = mu.count_files_in_path(video_dir_path)
+    #if os.path.exists(video_dir_path) & number_of_files > 0:
 
     if not os.path.exists(video_dir_path):
         st.error(f'exception: image data path for {user_source_selected} does not exists!')
