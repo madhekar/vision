@@ -2,7 +2,9 @@ import subprocess
 import shlex
 import json
 import time
-import io
+import os
+import shutil
+import re
 from io import BytesIO
 import numpy as np
 import base64
@@ -17,6 +19,48 @@ ffmpeg -i "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8
 ffmpeg -i /mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/57674026128__645EE475-C9B3-4065-B98B-B8DEBADF0166.MOV 
 -vf "crop=720:960:0:0" -c:a copy out.mov
 '''
+def corp_detect_and_crop_video(i_vid):
+    t_vid = "tvid.mp4"
+    try:
+        # Step 1: Detect crop parameters
+        detect_cmd = [
+            "ffmpeg", "-i", i_vid, 
+            "-t", "20",  # Analyze first 20 seconds
+            "-vf", "cropdetect", 
+            "-f", "null", "-"
+        ]
+        # Capture stderr because FFmpeg prints logs there
+
+        result = subprocess.run(detect_cmd, stderr=subprocess.PIPE, text=True)
+
+        # Extract the last recommended crop value using regex
+        # Looks for strings like "crop=1920:800:0:140"
+        matches = re.findall(r"crop=\d+:\d+:\d+:\d+", result.stderr)
+        if not matches:
+            raise ValueError("no crop area found for: {i_vid}.")
+
+        crop_params = matches[-1] # Use the most recent/stable detected value
+
+        # Step 2: Apply the crop
+        crop_cmd = [
+            "ffmpeg", "-i", i_vid,
+            "-vf", crop_params,            
+            "-c:a", "copy",  # Copy audio without re-encoding            
+            "-map_metadata", "0", #preserve container metadata
+            t_vid
+        ]
+        subprocess.run(crop_cmd, check=True)
+
+        # Step 3: Replace the original file
+        #os.replace(t_vid, i_vid)
+        if os.path.exists(i_vid):
+            os.remove(i_vid)     # Remove file
+        
+        shutil.move(t_vid, i_vid)
+
+    except Exception as e:
+         print(f"error: in croping video {i_vid} error: {e}")
+
 
 def encode_frames(frame):
     return base64.b64decode(frame).decode("utf-8").strip()
@@ -67,6 +111,7 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     # The output format is raw video in RGB24 pixel format
     command = [
         'ffmpeg', '-i', video_path,
+        '-q:v', '1',
         '-vf', f'select=not(mod(n\\,{frame_interval}))', # Select frames at interval
         '-vsync', 'vfr',
         '-frames:v', str(num_frames), # Limit the total number of frames to 10
@@ -88,8 +133,8 @@ def extract_frames_to_numpy(video_path, num_frames=10):
         # Convert bytes to a numpy array
         frame = np.frombuffer(raw_frame, np.uint8).reshape((height, width, 3))
         im = Image.fromarray(frame)
-        # im.show()
-        # time.sleep(3)
+        im.show()
+        time.sleep(3)
 
         buf = BytesIO()
         im.save(buf, format="PNG")
@@ -102,7 +147,11 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     return frames_arr
 
 # Example usage:
-video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_9040.mov"
+video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7151.MOV"
+#"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7220.MOV"
+#"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7218.MOV"
+#"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7151.MOV"
+#"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_9040.mov"
 #"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7811.mov"
 #"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7222.mov"
 #"/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_0121.MOV"
@@ -118,6 +167,8 @@ video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8
 #"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_7717.MOV"
 #"/mnt/zmdata/home-media-app/data/input-data/video/madhekar/f12a2136-eec9-5957-8cc8-eb55c6884463/IMG_2069.mov"
 #"/home/madhekar/Videos/ffmpeg_frames/video_1/VID_20181205_121309.mp4"
+
+corp_detect_and_crop_video(video_file)
 
 frames = extract_frames_to_numpy(video_file, num_frames=10)
 #print(f"Shape of extracted frames numpy array: {frames.shape} : {frames}") 
