@@ -84,7 +84,7 @@ def check_n_create_folders(video_path):
     frames_folder_path = os.path.join(root_path, "frames", imm_parent_stem)
 
     if not os.path.exists(os.path.join(root_path, "frames")):
-        os.makedirs(os.path.join(root_path, "frames"))
+        os.makedirs(os.path.join(root_path, "frames"), exist_ok=True)
     os.makedirs((frames_folder_path), exist_ok=True)
 
     # remove existing frames
