@@ -80,11 +80,14 @@ def check_n_create_folders(video_path):
 
     root_path = os.path.split(video_path)[0]
     frames_folder_path = os.path.join(root_path, "frames", imm_parent_stem)
+
     if not os.path.exists(os.path.join(root_path, "frames")):
         os.makedirs(os.path.join(root_path, "frames"))
     os.makedirs((frames_folder_path), exist_ok=True)
+
     # remove existing frames
-    shutil.rmtree(frames_folder_path)
+    if mu.count_files_in_path(frames_folder_path) > 0:
+       shutil.rmtree(frames_folder_path)
     return frames_folder_path
 
 def extract_frames_to_numpy(video_path, num_frames=10):
@@ -152,7 +155,8 @@ def extract_frames_to_numpy(video_path, num_frames=10):
         f_name = frame_name_prefix + str(i) + ".png"
         print("....", frames_n_parent, f_name)
         print(f"---->> {os.path.join(frames_n_parent, f_name)}")
-        im.save(os.path.join(frames_n_parent, f_name))
+        im.save(os.path.join(frames_n_parent, f_name), format="PNG")
+        
         frames_array = np.append(frames_array, [frame], axis=0)
 
         buf = BytesIO()

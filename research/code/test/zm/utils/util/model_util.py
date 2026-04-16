@@ -41,7 +41,7 @@ def count_files_in_path(directory):
 def getRecursive(rootDir, chunk_size=10):
     f_list=[]
 
-    for fn in glob.iglob(rootDir + "/**/*", recursive=True):
+    for fn in glob.iglob(rootDir + "/**/*.MOV", recursive=True):
         if not os.path.isdir(os.path.abspath(fn)):
             f_list.append(os.path.abspath(fn))   
   
