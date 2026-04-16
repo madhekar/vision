@@ -256,7 +256,7 @@ def corp_detect_and_crop_video(i_vid):
         detect_cmd = [
             "ffmpeg", "-i", i_vid, 
             "-t", "20",  # Analyze first 20 seconds
-            "-vf", "cropdetect=limit=128",  #increase detection sinsitivity
+            "-vf", "cropdetect=limit=16",  #increase detection sinsitivity
            #"-loglevel", "error",
             "-f", "null", "-"
         ]
