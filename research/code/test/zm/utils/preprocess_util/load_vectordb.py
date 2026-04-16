@@ -92,6 +92,24 @@ for batch in batches:
     )
 
 print("Finished adding all data in batches.")
+
+
+-----
+
+The most straight forward approach would probably be to combine the int representation of two UUIDs with bitwise operators and construct a new UUID from it:
+
+>>> from uuid import *
+
+>>> u1 = uuid4()
+>>> u2 = uuid4()
+>>> u3 = UUID(int=u1.int ^ u2.int, version=4)
+>>> u1, u2, u3
+(UUID('2266aff1-a7be-4c71-bc0d-987779f68bd3'),
+ UUID('284c5065-299f-479c-9d6b-d353012795d7'), 
+ UUID('0a2aff94-8e21-4bed-a166-4b2478d11e04'))
+
+I can't tell you what the best operator for combining here would be, an XOR, OR, AND, or whatever else. 
+
 """
 
 def recur_listdir(path):
