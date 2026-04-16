@@ -101,7 +101,8 @@ def corp_detect_and_crop_video(i_vid):
          print(f"error: in croping video {i_vid} error: {e}")
 
 
-video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7220.MOV"
+video_file = "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/57653982982__006BD7FC-6B6C-4D3B-9545-D537D47E9DE6.MOV"
+# "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_7220.MOV"
 
 lat, lon, alt = get_video_coordinates(video_file)
 

@@ -193,6 +193,27 @@ def add_gps_to_video(video_path, lat, lon, alt=0):
         print(f"Successfully updated {video_path}, result: {result}")
     except subprocess.CalledProcessError as e:
         print(f"Error: {e.stderr}")
+'''
+If FFmpeg fails to find a crop area (e.g., black bars) with cropdetect, the video likely lacks sufficient black borders, has uneven black levels, 
+or the sampling time is too early. Fix this by testing later in the video, increasing the limit of black pixel density, or manually setting
+ dimensions.Key Troubleshooting Steps:Sample Later in the Video: The default check often happens at the start (e.g., logos). Use -ss 60 to 
+ check a later part where black bars are visible:ffmpeg -ss 60 -i input.mp4 -vframes 10 -vf cropdetect -f null -.Increase Limit (Lower Sensitivity): 
+ If black bars are dirty, increase the threshold (0-255). 
+ A higher value makes it less strict about absolute black:ffmpeg -i input.mp4 -vf "cropdetect=limit=30:round=2" -f null -.Manually Set Crop: If auto-detection fails, 
+ manually use the crop filter (width:height:x:y):ffmpeg -i input.mp4 -vf "crop=1920:800:0:140" output.mp4.Avoid Invalid Sizes: 
+ Ensure width/height are even numbers and not larger than the source video.Common Command Pattern:bash# 1. Detect
+ffmpeg -i input.mp4 -vf "cropdetect=24:16:0" -f null -
+# 2. Apply (replace w:h:x:y with output from step 1)
+ffmpeg -i input.mp4 -vf "crop=w:h:x:y" -c:a copy output.mp4
+``` [10]
+FFMPEG cropdetect and crop filters the inside scoopMar 8, 2013 — hello everyone I've got a neat example uh in regards to using FFM Peg and specifically
+the crop detect. and the crop feature that'11:53YouTube·techtiptricksIs there is any way ffmpeg can remove the black bars around this videoApr 29, 2022 — 
+Then throw that in your ffmpeg command when converting it. ... If commands aren't your thing - give Shutter Encoder a try (basical...RedditRemove .mp4 
+video top and bottom black bars using ffmpegSep 11, 2014 — To remove black bars from the top and bottom of a video using ffmpeg, you can use the cropdetect 
+filter: 1. Use `ffmpeg -ss 90 -i ...Super UserShow all
+
+'''
+
 
 def corp_detect_and_crop_video(i_vid):
     t_vid = "tvid.mp4"
@@ -201,21 +222,27 @@ def corp_detect_and_crop_video(i_vid):
         detect_cmd = [
             "ffmpeg", "-i", i_vid, 
             "-t", "20",  # Analyze first 20 seconds
-            "-vf", "cropdetect", 
+            "-vf", "cropdetect=limit=64",  #increase detection sinsitivity
             "-loglevel", "error",
             "-f", "null", "-"
         ]
         # Capture stderr because FFmpeg prints logs there
 
         result = subprocess.run(detect_cmd, stderr=subprocess.PIPE, text=True)
+        print(f"video: {i_vid} *** {result.stdout} *** {result.stderr}")
 
         # Extract the last recommended crop value using regex
         # Looks for strings like "crop=1920:800:0:140"
         matches = re.findall(r"crop=\d+:\d+:\d+:\d+", result.stderr)
         if not matches:
-            raise ValueError("no crop area found for: {i_vid}.")
-
+            raise ValueError(f"no crop area found for: {i_vid}. {result.stdout} ::: {result.stderr} ")
+        
         crop_params = matches[-1] # Use the most recent/stable detected value
+        
+        
+        # add fps before crop
+        crop_params = "fps=30," + crop_params
+        print(f"+++>crops parameters: {crop_params} found for: {i_vid}")
 
         # Step 2: Apply the crop
         crop_cmd = [
@@ -241,11 +268,11 @@ def corp_detect_and_crop_video(i_vid):
 
 def crop_detect_and_crop_video_workaround(i_vid):
   try:
-    lat, lon, alt = get_video_coordinates(i_vid)
+    #lat, lon, alt = get_video_coordinates(i_vid)
 
     corp_detect_and_crop_video(i_vid)
 
-    add_gps_to_video(i_vid, lat, lon, alt)  
+    #add_gps_to_video(i_vid, lat, lon, alt)  
 
   except Exception as e:
       print(f"Error in crop_detect_and_crop_video_workaround {i_vid} : {e}")

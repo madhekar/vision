@@ -64,46 +64,6 @@ def get_loc_name_by_latlon(latlon):
 def encode_frames(frame):
     return base64.b64decode(frame).decode("utf-8").strip()
 
-def corp_detect_and_crop_video(i_vid):
-    t_vid = "tvid.mp4"
-    try:
-        # Step 1: Detect crop parameters
-        detect_cmd = [
-            "ffmpeg", "-i", i_vid, 
-            "-t", "20",  # Analyze first 20 seconds
-            "-vf", "cropdetect", 
-            "-f", "null", "-"
-        ]
-        # Capture stderr because FFmpeg prints logs there
-
-        result = subprocess.run(detect_cmd, stderr=subprocess.PIPE, text=True)
-
-        # Extract the last recommended crop value using regex
-        # Looks for strings like "crop=1920:800:0:140"
-        matches = re.findall(r"crop=\d+:\d+:\d+:\d+", result.stderr)
-        if not matches:
-            raise ValueError("no crop area found for: {i_vid}.")
-
-        crop_params = matches[-1] # Use the most recent/stable detected value
-
-        # Step 2: Apply the crop
-        crop_cmd = [
-            "ffmpeg", "-i", i_vid,
-            "-vf", crop_params,            
-            "-c:a", "copy",  # Copy audio without re-encoding            
-            "-map_metadata", "0", #preserve container metadata
-            t_vid
-        ]
-        subprocess.run(crop_cmd, check=True)
-
-        # Step 3: Replace the original file
-        #os.replace(t_vid, i_vid)
-        if os.path.exists(i_vid):
-            os.remove(i_vid)     # Remove file
-        
-        shutil.move(t_vid, i_vid)
-    except Exception as e:
-        print(f"Error in crop detect and crop function: {e}")    
 
 def get_video_dims(video_path):
     """Uses ffprobe to get the video frame height and width."""
@@ -117,8 +77,6 @@ def get_video_dims(video_path):
 
 def check_n_create_folders(video_path):
 
-    corp_detect_and_crop_video(video_path)
-    
     v_path = Path(video_path)
     imm_parent_stem = v_path.stem
 
