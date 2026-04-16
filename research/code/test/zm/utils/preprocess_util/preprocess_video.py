@@ -152,8 +152,8 @@ def extract_frames_to_numpy(video_path, num_frames=10):
         # Convert bytes to a numpy array
         frame = np.frombuffer(raw_frame, np.uint8).reshape((height, width, 3))
         im = Image.fromarray(frame)
-        im.show()
-        time.sleep(3)
+        #im.show()
+        #time.sleep(3)
         f_name = frame_name_prefix + str(i) + ".png"
         print("....", frames_n_parent, f_name)
         print(f"---->> {os.path.join(frames_n_parent, f_name)}")
