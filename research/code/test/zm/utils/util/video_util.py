@@ -212,6 +212,40 @@ Then throw that in your ffmpeg command when converting it. ... If commands aren'
 video top and bottom black bars using ffmpegSep 11, 2014 — To remove black bars from the top and bottom of a video using ffmpeg, you can use the cropdetect 
 filter: 1. Use `ffmpeg -ss 90 -i ...Super UserShow all
 
+
+-----
+
+Observations - Part - I
+
+I saw a suggestion elsewhere to run the following command to see if there's something wrong with my .mp4.
+
+ffmpeg -v error  -i ~/Desktop/5_minute_sync_output_15mn.mp4 -f null - 2>error.log
+
+When I run the above command, I see a whole bunch of the logs on the lines of what's shown below.
+
+    Application provided invalid, non monotonically increasing dts to muxer in stream 0: 15635 >= 15635
+
+This, from searching and reading up quite a bit, I understand that the decoding timestamp isn't in sequential order.
+
+Observations - Part II
+
+But, inspecting the frames of the same mp4 using the following command and some post processing, 
+I don't see pkt_dts within the frames_info json being out of order for either of the video or audio streams.
+
+ffprobe -loglevel panic -of json -show_frames ~/Desktop/5_minute_sync_output_15mn.mp4
+
+This makes me doubt my initial understanding in Observations - Part - I
+
+Are these 2 things not related? Any help on this will be greatly appreciated.
+
+----
+
+ffmpeg -i /mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/57854971152__EF8FC32B-F899-40B3-83AD-EB803DE53A65.MOV 
+-t 20 -loglevel error -vf cropdetect=limit=128 -f null - 2>&1 | grep "crop="
+
+ffmpeg -i /mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/57854971152__EF8FC32B-F899-40B3-83AD-EB803DE53A65.MOV 
+-t 20 -vf cropdetect=limit=128 -f null - 2>&1 | grep "crop="
+
 '''
 
 
@@ -222,8 +256,8 @@ def corp_detect_and_crop_video(i_vid):
         detect_cmd = [
             "ffmpeg", "-i", i_vid, 
             "-t", "20",  # Analyze first 20 seconds
-            "-vf", "cropdetect=limit=64",  #increase detection sinsitivity
-            "-loglevel", "error",
+            "-vf", "cropdetect=limit=128",  #increase detection sinsitivity
+           #"-loglevel", "error",
             "-f", "null", "-"
         ]
         # Capture stderr because FFmpeg prints logs there
@@ -250,7 +284,7 @@ def corp_detect_and_crop_video(i_vid):
             "-vf", crop_params,            
             "-c:a", "copy",  # Copy audio without re-encoding            
             "-map_metadata", "0", #preserve container metadata
-            "-loglevel", "error",
+            #"-loglevel", "error",
             t_vid
         ]
         subprocess.run(crop_cmd, check=True)
