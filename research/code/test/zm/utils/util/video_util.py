@@ -7,6 +7,7 @@ import json
 import time
 import numpy as np
 from PIL import Image
+from pathlib import Path
 
 '''
 ffmpeg -i "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/57674026128__645EE475-C9B3-4065-B98B-B8DEBADF0166.MOV" 
@@ -15,6 +16,20 @@ ffmpeg -i "/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8
 ffmpeg -i /mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/57674026128__645EE475-C9B3-4065-B98B-B8DEBADF0166.MOV 
 -vf "crop=720:960:0:0" -c:a copy out.mov
 '''
+
+def extract_video_paths_from_metadata(row):
+    vpath = Path(row['uri'])
+    root_path = os.path.split(vpath)[0]
+    parent = vpath.stem
+    frames = "frames"
+    
+    img_frame_list = []
+    frames_path = os.path.join(root_path, frames, parent)
+    #print(frames_path)
+    if os.path.exists(frames_path):
+        img_frame_list = [os.path.join(frames_path, ifile) for ifile in  os.listdir(frames_path)]
+    return img_frame_list
+
 
 def get_video_dims(video_path):
     """Uses ffprobe to get the video frame height and width."""

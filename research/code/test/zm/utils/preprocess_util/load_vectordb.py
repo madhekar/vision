@@ -8,6 +8,7 @@ import chromadb as cdb
 import streamlit as st
 import PIL
 from PIL import ImageFile
+from pathlib import Path
 import textract as tex
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction as stef
@@ -168,6 +169,19 @@ def recur_listdir(path):
 def fileList(path, pattern='**/*', recursive=True):
     files = glob.glob(os.path.join(path, pattern), recursive=recursive)  
     return files      
+
+def extract_paths(row):
+    vpath = Path(row['uri'])
+    root_path = os.path.split(vpath)[0]
+    parent = vpath.stem
+    frames = "frames"
+    
+    img_frame_list = []
+    frames_path = os.path.join(root_path, frames, parent)
+    #print(frames_path)
+    if os.path.exists(frames_path):
+        img_frame_list = [os.path.join(frames_path, ifile) for ifile in  os.listdir(frames_path)]
+    return img_frame_list
 
 # handle new creation on metadata file from scratch
 def load_metadata(metadata_path, metadata_file, image_final_path, image_final_folder):

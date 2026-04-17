@@ -172,7 +172,7 @@ def file_exists(fpath):
        
 # file path to uuid string       
 def create_uuid_from_string(val: str):
-    hex_string = hashlib.md5(val.encode("UTF-8")).hexdigest()
+    hex_string = hashlib.md5(str(val).encode("UTF-8")).hexdigest()
     return str(uuid.UUID(hex=hex_string))       
 
 def extract_subpath(base_path_str, full_path_str):
