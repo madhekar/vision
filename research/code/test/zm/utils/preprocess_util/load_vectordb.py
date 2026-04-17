@@ -200,7 +200,7 @@ def add_imgs_to_vector_db(collection, ids, uris, metadatas):
     )
     print(f"Added {len(ids)}")
 
-def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_folder, text_collection_name, max_workers=20):
+def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_name, text_folder, text_collection_name, max_workers=20):
     
     cdb.api.client.SharedSystemClient.clear_system_cache()
     # vector database persistence
@@ -273,7 +273,7 @@ def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_fold
        
     df_urls =  df_data['uri']
     df_ids = df_data['id']
-    df_metadata = df_data[["ts","src","type", "latlon", "loc", "ppt", "caption","text"]].fillna("").T.to_dict().values()
+    df_metadata = df_data[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
 
     collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadata), uris=df_urls.tolist()) 
 
@@ -284,6 +284,12 @@ def createVectorDB(df_data, vector_db_dir_path, image_collection_name, text_fold
     #     executor.map(add_imgs_to_vector_db, df_data["id"].tolist(), df_data["uri"].tolist(), ls_metadatas)
     
     st.info(f"Info: Done adding number of images: {len(df_urls)}")
+
+    """
+    VIDEO embedding in vector database
+    uri, id, ts, latlon, loc, text
+    """
+    
 
     """
       TEXT Embeddings on vector database
