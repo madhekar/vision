@@ -16,6 +16,7 @@ from chromadb.utils.batch_utils import create_batches
 from chromadb.config import DEFAULT_TENANT, Settings
 from utils.util import model_util as mu
 from utils.util import storage_stat as ss
+from utils.util import video_util as vu
 from utils.config_util import config
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
@@ -170,18 +171,33 @@ def fileList(path, pattern='**/*', recursive=True):
     files = glob.glob(os.path.join(path, pattern), recursive=recursive)  
     return files      
 
-def extract_paths(row):
-    vpath = Path(row['uri'])
-    root_path = os.path.split(vpath)[0]
-    parent = vpath.stem
-    frames = "frames"
-    
-    img_frame_list = []
-    frames_path = os.path.join(root_path, frames, parent)
-    #print(frames_path)
-    if os.path.exists(frames_path):
-        img_frame_list = [os.path.join(frames_path, ifile) for ifile in  os.listdir(frames_path)]
-    return img_frame_list
+
+# handle new creation on metadata file from scratch
+def load_video_metadata(metadata_path, metadata_file, image_final_path, image_final_folder):
+    data = []
+    with open(os.path.join(metadata_path, metadata_file), mode="r") as f:
+        for line in f:
+            data.append(json.loads(line))
+
+        # clean video ids and uri
+        df = pd.DataFrame(data)
+        df.rename(columns={"uri": "vuri"}, inplace=True)
+        df = df.drop(columns=['id']) 
+
+        # create uri for each frame
+        df['uri'] =  df.apply(vu.extract_video_paths_from_metadata, axis=1)
+        df_e = df.explode(['uri'])
+               
+        # create id for each frame       
+        df_e['id'] = df_e['uri'].apply(mu.create_uuid_from_string)
+        df_e.reset_index(drop=True, inplace=True)
+        
+        # df["uri"] = df["uri"].str.replace(
+        #     "input-data/img",
+        #     "final-data/img" #+ image_final_path,
+        # )
+        print(df_e.head(20))
+    return df
 
 # handle new creation on metadata file from scratch
 def load_metadata(metadata_path, metadata_file, image_final_path, image_final_folder):
@@ -214,7 +230,7 @@ def add_imgs_to_vector_db(collection, ids, uris, metadatas):
     )
     print(f"Added {len(ids)}")
 
-def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_name, text_folder, text_collection_name, max_workers=20):
+def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_name, text_folder, text_collection_name, video_collection_name, max_workers=20):
     
     cdb.api.client.SharedSystemClient.clear_system_cache()
     # vector database persistence
@@ -272,6 +288,13 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
             data_loader=image_loader,
         )
 
+        collection_videos = client.get_or_create_collection(
+           name=video_collection_name,
+           embedding_function=embedding_function,
+            metadata={"hnsw:space": "cosine"},
+            data_loader=image_loader,
+        )
+        
         """
           Text collection inside vector database 'chromadb'
         """
@@ -303,7 +326,13 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
     VIDEO embedding in vector database
     uri, id, ts, latlon, loc, text
     """
-    
+    df_video_uris = df_video_data['uri']
+    df__video_ids = df_video_data['id']
+    df_video_metadata = df_video_data(["ts", "latlon", "loc", "text", "vuri"]).fillna("").T.to_dict().values()
+
+    collection_videos.add(ids=df__video_ids, uris=df_video_uris, metadatas=list(df_video_metadata))
+
+    st.info(f"Info: Done adding number of frames for videos: {len(df_video_uris)}")
 
     """
       TEXT Embeddings on vector database
@@ -376,6 +405,7 @@ def execute():
         image_initial_path,
         metadata_path,
         metadata_file,
+        video_metadata_file,
         max_workers,
 
         vectordb_path,
@@ -418,7 +448,9 @@ def execute():
 
         df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file, image_final_path=image_final_path, image_final_folder=arc_folder_name)
 
-        createVectorDB(df_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name, max_workers)
+        df_video_metadata = load_video_metadata(metadata_path=metadata_path, metadata_file=video_metadata_file)
+
+        createVectorDB(df_metadata, df_video_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name, video_collection_name, max_workers)
 
         archive_metadata(metadata_path, arc_folder_name, metadata_file)
 
