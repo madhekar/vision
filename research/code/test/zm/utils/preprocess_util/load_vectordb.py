@@ -96,7 +96,8 @@ print("Finished adding all data in batches.")
 
 -----
 
-The most straight forward approach would probably be to combine the int representation of two UUIDs with bitwise operators and construct a new UUID from it:
+The most straight forward approach would probably 
+be to combine the int representation of two UUIDs with bitwise operators and construct a new UUID from it:
 
 >>> from uuid import *
 
@@ -109,6 +110,41 @@ The most straight forward approach would probably be to combine the int represen
  UUID('0a2aff94-8e21-4bed-a166-4b2478d11e04'))
 
 I can't tell you what the best operator for combining here would be, an XOR, OR, AND, or whatever else. 
+
+To combine two UUIDs into a single valid UUIDv4, you must merge their data while preserving the specific bits that define it as a "Version 4" identifier. 
+Directly concatenating them or using raw bitwise operations without correction will result in a value that is no longer a valid UUID. 
+Recommended Methods for Combining UUIDs
+
+    Bitwise XOR (Python Approach): The most efficient way is to combine the integer representations using the XOR operator. 
+    To ensure the result remains a valid UUIDv4, you must manually set the version (4) and variant (RFC 4122) bits.
+    python
+
+    import uuid
+    u1 = uuid.UUID('...')
+    u2 = uuid.UUID('...')
+    # Combine bits and force version 4
+    combined = uuid.UUID(int=u1.int ^ u2.int, version=4)
+
+    Hashing (UUIDv5 Approach): If you need the result to be deterministic (the same two inputs always produce the same output), use a name-based UUID like UUIDv5. 
+    This hashes a "namespace" UUID with a "name" string (the second UUID) to create a new one.
+    python
+
+    import uuid
+    u1 = uuid.UUID('...') # Acts as namespace
+    u2_str = '...'         # Acts as name
+    combined = uuid.uuid5(u1, u2_str)
+
+    Concatenation (Non-UUID Result): If the final ID does not have to be a 128-bit UUID, simply concatenating the strings with a delimiter 
+    (e.g., uuid1:uuid2) is the only way to avoid data loss, as you cannot fit 256 bits of entropy into a 128-bit slot without the risk of collisions. 
+
+Critical Considerations
+
+    Validity: A standard UUIDv4 must have the digit 4 at the 13th character position and one of 8, 9, a, b at the 17th position. 
+    Using a library's version=4 parameter (like in the Python uuid module) handles this automatically.
+    Collision Risk: Combining two UUIDs does not mathematically decrease the chance of a collision; 
+    it remains dependent on the 122 bits of entropy available in the final UUIDv4 structure.
+    Information Loss: Because two 128-bit values are being compressed into one 128-bit value, the process is lossy. 
+    You cannot "un-combine" the result to get the original two UUIDs back unless you store the mapping separately. 
 
 """
 
