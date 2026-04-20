@@ -251,6 +251,8 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 include=["data", "metadatas"],
                 n_results=10,
             )
+
+            print("****", st.session_state["videos"]["metadatas"][0][1:][0]["vuri"])
             #st.write(st.session_state["imgs"]) # ---enable to debug
 
             ''' Text Modality selected ''' 
@@ -277,6 +279,8 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 n_results=10
             )
             
+
+
         for img in st.session_state["imgs"]["data"][0][1:]:
             #if img.mode in ("RGBA", "P"):
             if img.shape[2] == 4:
@@ -301,7 +305,11 @@ def search_fn(client, cImgs, cTxts, cVideos):
         for vmdata in st.session_state["videos"]["metadatas"][0][1:]:
             #st.write(mdata) #---???
             #tss =  vmdata["ts"] if vmdata["ts"]  else "1765060800.0"
+
+            #print("&&&&", vmdata)
             st.session_state["vmeta"].append(vmdata.get("vuri"))
+
+            print("%%%%", st.session_state["vmeta"])
 
     '''  
     **** Image TAB ****
@@ -445,9 +453,11 @@ def search_fn(client, cImgs, cTxts, cVideos):
     with video:
         st.header("Similar Videos")
         if st.session_state["vmeta"] and len(st.session_state["vmeta"]) > 1:
-             for vid in range(len(st.session_state["t_videos"])):
-                 #st.video(st.session_state["t_videos"]["metadatas"][0][1:]["vuri"])
-                 st.session_state["vmeta"][vid]
+             for vid in st.session_state["vmeta"]:
+                 print("$$$", vid)
+                 video_file = open(vid, "rb")
+                 video_bytes = video_file.read()
+                 st.video(video_bytes)
         else:    
             st.write(
                 "<p class='big-font'>sorry, no similar videos found in search criteria!</p>",
