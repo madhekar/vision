@@ -424,8 +424,6 @@ def search_fn(client, cImgs, cTxts, cVideos):
     **** Video TAB **** 
     '''
     with video:
-        st.header("Similar Videos")
-
         if st.session_state["t_imgs"] and len(st.session_state["t_imgs"]) > 1: 
             index = image_select(
                     label= "Resembling Videos",
@@ -435,6 +433,52 @@ def search_fn(client, cImgs, cTxts, cVideos):
                     index=0,
                     return_value="index",
                 )
+            
+        # colt, cole = st.columns([0.2, 0.8])
+        # with colt:
+        #         st.markdown("<p class='big-font-subh'>Caption: </p>", unsafe_allow_html=True)
+        # with cole:
+        #         o_caption = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["caption"]}</p>'
+        #         st.markdown(o_caption, unsafe_allow_html=True)
+
+
+        colt, cole = st.columns([0.2, 0.8])
+        with colt:
+                st.markdown("<p class='big-font-subh'>Gleeful Desc: </p>", unsafe_allow_html=True)
+        with cole:
+                o_desc = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["text"]}</p>'
+                st.markdown(o_desc, unsafe_allow_html=True)
+
+        # colt, cole = st.columns([0.2, 0.8])
+        # with colt:
+        #        st.write("<p class='big-font-subh'>People: </p>", unsafe_allow_html=True)
+        # with cole:
+        #        o_names = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["ppt"]} </p>' #- {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
+        #        st.markdown(o_names, unsafe_allow_html=True)
+
+        colt, cole = st.columns([0.2, 0.8])
+        with colt:
+               st.write("<p class='input-subh'>Date Time: </p>", unsafe_allow_html=True)
+        with cole:
+                tts = "0.0" if st.session_state["videos"]["metadatas"][0][1:][index]["ts"] == "" else st.session_state["videos"]["metadatas"][0][1:][index]["ts"]
+                o_datetime = f'<p class="input">{str(datetime.datetime.fromtimestamp(float(tts)))}</p>'
+                st.markdown(o_datetime, unsafe_allow_html=True)
+
+        colt, cole = st.columns([0.2, 0.8])
+        with colt:
+                st.write("<p class='big-font-subh'>Location: </p>", unsafe_allow_html=True)
+        with cole:
+                o_location = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["loc"]}</p>'
+                st.markdown(o_location, unsafe_allow_html=True)
+
+
+                ll = ast.literal_eval(st.session_state["videos"]["metadatas"][0][1:][index]["latlon"])     
+                lat = ll[0] #float(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"][0])
+                lon = ll[1] # float(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"][1])
+
+                map_data = pd.DataFrame({"lat": [lat], "lon": [lon]})
+                st.markdown("<p class='big-font-subh'>Map</p>", unsafe_allow_html=True)
+                st.map(map_data, zoom=12, size=80, color="#ff00ff")    
         if st.session_state["vmeta"] and len(st.session_state["vmeta"]) > 1:
              for vid in st.session_state["vmeta"]:
                  print("$$$", vid)
