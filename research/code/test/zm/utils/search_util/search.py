@@ -302,11 +302,12 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 + "]"
             )
 
+        for img in st.session_state["videos"]["data"][0][1:]:
+            #if img.mode in ("RGBA", "P"):
+            if img.shape[2] == 4:
+                img = img[:, :, :3]
+            st.session_state["t_videos"].append(img)
         for vmdata in st.session_state["videos"]["metadatas"][0][1:]:
-            #st.write(mdata) #---???
-            #tss =  vmdata["ts"] if vmdata["ts"]  else "1765060800.0"
-
-            #print("&&&&", vmdata)
             st.session_state["vmeta"].append(vmdata.get("vuri"))
 
             print("%%%%", st.session_state["vmeta"])
@@ -367,34 +368,6 @@ def search_fn(client, cImgs, cTxts, cVideos):
                     dt=st.session_state["imgs"]["metadatas"][0][1:][index]["ts"],
                     loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"],
                 )
-    
-            # with map:
-            # st.write(
-            #     "<p class='big-font'>sorry, no map is implemented found in search criteria!</p>",
-            #     unsafe_allow_html=True,
-            # )
-
-            # c2.divider()
-            # colt, cole = c2.columns([0.2, 0.8])
-            # with colt:
-            #     st.markdown(
-            #         "<p class='big-font-subh'>Gleeful Desc</p>", unsafe_allow_html=True
-            #     )
-            # with cole:
-            #     edit = st.button(label="## &#x270D;")
-
-            # if edit:
-            #     updateMetadata(
-            #         client,
-            #         cImgs,
-            #         id=st.session_state["imgs"]["ids"][0][index],
-            #         desc=st.session_state["imgs"]["metadatas"][0][1:][index]["text"],
-            #         #names=st.session_state["imgs"]["metadatas"][0][1:][index]["names"],
-            #         dt=st.session_state["imgs"]["metadatas"][0][1:][index]["ts"],
-            #         loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"],
-            #     )
-            # o_desc = f'<p class="big-font">{st.session_state["imgs"]["metadatas"][0][1:][index]["text"]}</p>'
-            # c2.markdown(o_desc, unsafe_allow_html=True)
 
             colt, cole = c2.columns([0.2, 0.8])
             with colt:
@@ -452,6 +425,16 @@ def search_fn(client, cImgs, cTxts, cVideos):
     '''
     with video:
         st.header("Similar Videos")
+
+        if st.session_state["t_imgs"] and len(st.session_state["t_imgs"]) > 1: 
+            index = image_select(
+                    label= "Resembling Videos",
+                    images=st.session_state["t_videos"],
+                    use_container_width=True,
+                    # captions=st.session_state["meta"],
+                    index=0,
+                    return_value="index",
+                )
         if st.session_state["vmeta"] and len(st.session_state["vmeta"]) > 1:
              for vid in st.session_state["vmeta"]:
                  print("$$$", vid)
