@@ -192,10 +192,10 @@ def load_video_metadata(metadata_path, metadata_file, image_final_path, image_fi
         df_e['id'] = df_e['uri'].apply(mu.create_uuid_from_string)
         df_e.reset_index(drop=True, inplace=True)
         
-        # df["uri"] = df["uri"].str.replace(
-        #     "input-data/img",
-        #     "final-data/img" #+ image_final_path,
-        # )
+        df["uri"] = df["uri"].str.replace(
+         "input-data/video",
+         "final-data/video" #+ image_final_path,
+        )
         print(df_e.head(20))
     return df
 
@@ -326,6 +326,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
     VIDEO embedding in vector database
     uri, id, ts, latlon, loc, text
     """
+    print("----->>", df_video_data.head())
     df_video_uris = df_video_data['uri']
     df_video_ids = df_video_data['id']
     df_video_metadata = df_video_data(["ts", "latlon", "loc", "text", "vuri"]).fillna("").T.to_dict().values()

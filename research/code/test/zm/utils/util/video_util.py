@@ -18,7 +18,9 @@ ffmpeg -i /mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b
 '''
 
 def extract_video_paths_from_metadata(row):
-    vpath = Path(row['uri'])
+
+    print('----->>',row)
+    vpath = Path(row['vuri'])
     root_path = os.path.split(vpath)[0]
     parent = vpath.stem
     frames = "frames"
