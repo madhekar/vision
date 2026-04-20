@@ -257,14 +257,23 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
         collection_images = client.get_or_create_collection(
             name=image_collection_name,
             embedding_function=embedding_function,
+            metadata={"hnsw:space": "cosine"},
             data_loader=image_loader,
         )    
+
+        collection_videos = client.get_or_create_collection(
+           name=video_collection_name,
+           embedding_function=embedding_function,
+            metadata={"hnsw:space": "cosine"},
+            data_loader=image_loader,
+        )
 
         """
           Text collection inside vector database 'chromadb'
         """
         collection_text = client.get_or_create_collection(
             name=text_collection_name,
+            metadata={"hnsw:space": "cosine"},
             embedding_function=embedding_function,
         )
     else:
