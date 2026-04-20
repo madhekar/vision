@@ -114,6 +114,9 @@ def search_fn(client, cImgs, cTxts, cVideos):
     if "meta" not in st.session_state:
         st.session_state["meta"] = []
 
+    if "vmeta" not in st.session_state:
+        st.session_state["vmeta"] = []    
+
     if "llm_text" not in st.session_state:
         st.session_state["llm_text"] = st.empty()
 
@@ -211,6 +214,9 @@ def search_fn(client, cImgs, cTxts, cVideos):
         if "meta" in st.session_state:
             st.session_state["meta"] = []
 
+        if "vmeta" in st.session_state:
+            st.session_state["vmeta"] = []    
+
         ''' Image Modality selected '''
         if modality_selected == "image":
             # execute text collection query --- TBD fix
@@ -291,6 +297,12 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 + str(datetime.datetime.fromtimestamp(float(tss)))
                 + "]"
             )
+
+        for vmdata in st.session_state["videos"]["metadatas"][0][1:]:
+            #st.write(mdata) #---???
+            #tss =  vmdata["ts"] if vmdata["ts"]  else "1765060800.0"
+            st.session_state["vmeta"].append(vmdata.get("vuri"))
+
     '''  
     **** Image TAB ****
     '''
@@ -431,11 +443,16 @@ def search_fn(client, cImgs, cTxts, cVideos):
     **** Video TAB **** 
     '''
     with video:
-        # st.header("Similar Videos")
-        st.write(
-            "<p class='big-font'>sorry, no similar videos found in search criteria!</p>",
-            unsafe_allow_html=True,
-        )
+        st.header("Similar Videos")
+        if st.session_state["vmeta"] and len(st.session_state["vmeta"]) > 1:
+             for vid in range(len(st.session_state["t_videos"])):
+                 #st.video(st.session_state["t_videos"]["metadatas"][0][1:]["vuri"])
+                 st.session_state["vmeta"][vid]
+        else:    
+            st.write(
+                "<p class='big-font'>sorry, no similar videos found in search criteria!</p>",
+                unsafe_allow_html=True,
+            )
 
     ''' 
     **** Documents Tab **** 
@@ -457,7 +474,7 @@ def execute():
 
     vdb, icn, tcn, vcn, acn = config.search_config_load()
     print(vdb, ': ', icn,':', tcn)
-    client, img_collection, txt_collection, video_collection  = init_vdb(vdb, icn, tcn)
+    client, img_collection, txt_collection, video_collection  = init_vdb(vdb, icn, tcn, vcn)
 
     search_fn(client, img_collection, txt_collection, video_collection)
 
