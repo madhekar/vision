@@ -24,7 +24,7 @@ MAX_DT = datetime.datetime.now()
 
 
 @st.cache_resource(show_spinner=True)
-def init_vdb(vdp, icn, tcn):
+def init_vdb(vdp, icn, tcn, vcn):
     # vector database persistance
     client = cdb.PersistentClient( path=vdp, settings=Settings(allow_reset=True))
     
@@ -38,16 +38,24 @@ def init_vdb(vdp, icn, tcn):
     collection_images = client.get_or_create_collection(
       name=icn, 
       embedding_function=embedding_function, 
+      metadata={"hnsw:space": "cosine"},
       data_loader=image_loader
       )
     
+    collection_videos = client.get_or_create_collection(
+           name=vcn,
+           embedding_function=embedding_function,
+            metadata={"hnsw:space": "cosine"},
+            data_loader=image_loader,
+        )
     #Text collection inside vector database 'chromadb'
     collection_text = client.get_or_create_collection(
       name=tcn,
+      metadata={"hnsw:space": "cosine"},
       embedding_function=embedding_function,
     )
 
-    return client, collection_images, collection_text
+    return client, collection_images, collection_text, collection_videos
 
 def updateMetadata(client, image_collection,  id, desc, names, dt, loc):
     # vector database persistance
@@ -89,7 +97,7 @@ def os_specific_path(img_path):
 
     return n_pth    
 
-def search_fn(client, cImgs, cTxts):
+def search_fn(client, cImgs, cTxts, cVideos):
     # create default application Tabs
     image, video, text = st.tabs(["Image", "Video", "Text"])
 
@@ -99,6 +107,9 @@ def search_fn(client, cImgs, cTxts):
 
     if "t_imgs" not in st.session_state:
         st.session_state["t_imgs"] = []
+
+    if "t_videos" not in st.session_state:
+        st.session_state["t_videos"] = []    
 
     if "meta" not in st.session_state:
         st.session_state["meta"] = []
@@ -193,6 +204,9 @@ def search_fn(client, cImgs, cTxts):
         if "t_imgs" in st.session_state:
             st.session_state["t_imgs"] = []
 
+        if "t_videos" in st.session_state:
+            st.session_state["t_videos"] = []    
+
         # reset session_state for metadata
         if "meta" in st.session_state:
             st.session_state["meta"] = []
@@ -224,6 +238,13 @@ def search_fn(client, cImgs, cTxts):
                 n_results=10,
             )
 
+
+            #execute video query with search criteria
+            st.session_state["videos"] = cVideos.query(
+                query_uris="./" + similar_image.name,
+                include=["data", "metadatas"],
+                n_results=10,
+            )
             #st.write(st.session_state["imgs"]) # ---enable to debug
 
             ''' Text Modality selected ''' 
@@ -237,6 +258,14 @@ def search_fn(client, cImgs, cTxts):
 
             # execute image query with search criteria
             st.session_state["imgs"] = cImgs.query(
+                query_texts=[modalityTxt], 
+                include=["data", "metadatas"], 
+                n_results=10
+            )
+
+
+            # execute video query with search criteria
+            st.session_state["videos"] = cVideos.query(
                 query_texts=[modalityTxt], 
                 include=["data", "metadatas"], 
                 n_results=10
@@ -428,8 +457,8 @@ def execute():
 
     vdb, icn, tcn, vcn, acn = config.search_config_load()
     print(vdb, ': ', icn,':', tcn)
-    client, img_collection, txt_collection  = init_vdb(vdb, icn, tcn)
+    client, img_collection, txt_collection, video_collection  = init_vdb(vdb, icn, tcn)
 
-    search_fn(client, img_collection, txt_collection)
+    search_fn(client, img_collection, txt_collection, video_collection)
 
     
