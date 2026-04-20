@@ -470,6 +470,7 @@ def vectordb_config_load():
 
         raw_data_path = dict["metadata"]["raw_data_path"]
         image_initial_path = dict["metadata"]["image_dir_path"]
+        video_initial_path = dict["metadata"]["video_dir_path"]
         metadata_path = dict["metadata"]["metadata_path"]
         metadata_file = dict["metadata"]["metadata_file"]
         video_metadata_file = dict["metadata"]["video_metadata_file"]
@@ -491,6 +492,7 @@ def vectordb_config_load():
     return(
         os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
         os.path.join(dr, *image_initial_path.split(os.sep)[1:]),
+        os.path.join(dr, *video_initial_path.split(os.sep)[1:]),
         os.path.join(dr, *metadata_path.split(os.sep)[1:]),
         metadata_file,
         video_metadata_file,

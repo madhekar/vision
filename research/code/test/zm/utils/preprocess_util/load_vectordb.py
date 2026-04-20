@@ -331,7 +331,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
     df_video_ids = df_video_data['id']
     df_video_metadata = df_video_data[["ts", "latlon", "loc", "text", "vuri"]].fillna("").T.to_dict().values()
 
-    collection_videos.add(ids=df_video_ids, uris=df_video_uris, metadatas=list(df_video_metadata))
+    collection_videos.add(ids=df_video_ids.tolist(), uris=df_video_uris.tolist(), metadatas=list(df_video_metadata))
 
     st.info(f"Info: Done adding number of frames for videos: {len(df_video_uris)}")
 
@@ -404,6 +404,7 @@ def execute():
     (
         raw_data_path,
         image_initial_path,
+        video_initial_path,
         metadata_path,
         metadata_file,
         video_metadata_file,
@@ -432,14 +433,19 @@ def execute():
     )
 
     image_initial_path = os.path.join(image_initial_path, user_source_selected)
+    video_initial_path = os.path.join(video_initial_path, user_source_selected)
 
     image_final_path = final_multimedia_path(image_final_path, user_source_selected)
+    video_final_path = final_multimedia_path(video_final_path, user_source_selected)
     text_final_path = final_multimedia_path(text_final_path, user_source_selected)
 
-    print(f'final paths: {image_final_path} : { text_final_path}')
+    print(f'final paths: {image_final_path} : {video_final_path} : { text_final_path}')
 
     #copy images in input-data to final-data/datetime
     mu.copy_folder_tree(image_initial_path, image_final_path)
+
+    #copy videos and frames from input-data to final-data
+    mu.copy_folder_tree(video_initial_path, video_final_path)
 
     metadata_path = os.path.join(metadata_path, user_source_selected)
     text_folder_name = os.path.join(text_folder_name, user_source_selected)

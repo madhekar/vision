@@ -319,6 +319,38 @@ async def run_workflow(
         openclip_finetuned, 
         os.path.join(dr, *static_metadata_path.split(os.sep)[1:]),
         static_metadata_file
+
+metadata:
+  raw_data_path: /data/raw-data/
+  image_dir_path: /data/input-data/img/
+  video_dir_path: /data/input-data/video/
+  metadata_path: /data/app-data/metadata/
+  metadata_file: metadata.json
+  video_metadata_file: video_metadata.json
+  vectordb_path: /data/app-data/vectordb/
+  data_chunk_size: 10
+  number_of_instances: 10
+
+models:
+  openclip_finetuned: /models/zeshaOpenClip/clip_finetuned.pth  
+
+vectordb:
+  vectordb_path: /data/app-data/vectordb/
+  image_collection_name: multimodal_collection_images
+  text_collection_name: multimodal_collection_texts
+  video_collection_name: multimodal_collection_videos
+  audio_collection_name: multimedia_collection_audios
+  text_dir_path: /data/input-data/txt/
+
+prod:
+  image_final_path:  /data/final-data/img/
+  text_final_path:  /data/final-data/txt/
+  video_final_path:  /data/final-data/video/
+  audio_final_path: /data/final-data/audio/
+
+static-metadata:
+  static_metadata_path: /data/app-data/static-metadata/locations/user-specific
+  static_metadata_file: static_locations.parquet
 '''
 def execute(user_source_selected):
 
