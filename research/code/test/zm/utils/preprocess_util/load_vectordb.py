@@ -308,11 +308,11 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
     IMAGE embeddings in vector database
     """
        
-    df_urls =  df_data['uri']
+    df_uris =  df_data['uri']
     df_ids = df_data['id']
     df_metadata = df_data[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
 
-    collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadata), uris=df_urls.tolist()) 
+    collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadata), uris=df_uris.tolist()) 
 
     
     # ls_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
@@ -320,17 +320,17 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
     # with ThreadPoolExecutor(max_workers) as executor:
     #     executor.map(add_imgs_to_vector_db, df_data["id"].tolist(), df_data["uri"].tolist(), ls_metadatas)
     
-    st.info(f"Info: Done adding number of images: {len(df_urls)}")
+    st.info(f"Info: Done adding number of images: {len(df_uris)}")
 
     """
     VIDEO embedding in vector database
     uri, id, ts, latlon, loc, text
     """
     df_video_uris = df_video_data['uri']
-    df__video_ids = df_video_data['id']
+    df_video_ids = df_video_data['id']
     df_video_metadata = df_video_data(["ts", "latlon", "loc", "text", "vuri"]).fillna("").T.to_dict().values()
 
-    collection_videos.add(ids=df__video_ids, uris=df_video_uris, metadatas=list(df_video_metadata))
+    collection_videos.add(ids=df_video_ids, uris=df_video_uris, metadatas=list(df_video_metadata))
 
     st.info(f"Info: Done adding number of frames for videos: {len(df_video_uris)}")
 
@@ -448,7 +448,7 @@ def execute():
 
         df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file, image_final_path=image_final_path, image_final_folder=arc_folder_name)
 
-        df_video_metadata = load_video_metadata(metadata_path=metadata_path, metadata_file=video_metadata_file)
+        df_video_metadata = load_video_metadata(metadata_path=metadata_path, metadata_file=video_metadata_file, image_final_path=image_final_path, image_final_folder=arc_folder_name)
 
         createVectorDB(df_metadata, df_video_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name, video_collection_name, max_workers)
 
