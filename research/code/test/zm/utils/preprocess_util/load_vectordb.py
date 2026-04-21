@@ -253,7 +253,9 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
         """
         image_loader = ImageLoader()
 
+        """
         # Images collection defined
+        """
         collection_images = client.get_or_create_collection(
             name=image_collection_name,
             embedding_function=embedding_function,
@@ -261,6 +263,9 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
             data_loader=image_loader,
         )    
 
+        """ 
+        Videos collectoion defined
+        """
         collection_videos = client.get_or_create_collection(
            name=video_collection_name,
            embedding_function=embedding_function,
@@ -289,7 +294,9 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
         # Image collection inside vector database 'chromadb'
         image_loader = ImageLoader()
 
+        """
         # collection images defined
+        # """
         collection_images = client.get_or_create_collection(
             name=image_collection_name,
             embedding_function=embedding_function,
@@ -297,6 +304,9 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
             data_loader=image_loader,
         )
 
+        """
+        # collection images defined
+        """
         collection_videos = client.get_or_create_collection(
            name=video_collection_name,
            embedding_function=embedding_function,
@@ -336,8 +346,8 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
     uri, id, ts, latlon, loc, text
     """
     print("----->>", df_video_data.head())
-    df_video_uris = df_video_data['uri']
-    df_video_ids = df_video_data['id']
+    df_video_uris = df_video_data['uri']  # frame uri
+    df_video_ids = df_video_data['id']  # frame id
     df_video_metadata = df_video_data[["ts", "latlon", "loc", "text", "vuri"]].fillna("").T.to_dict().values()
 
     collection_videos.add(ids=df_video_ids.tolist(), uris=df_video_uris.tolist(), metadatas=list(df_video_metadata))
