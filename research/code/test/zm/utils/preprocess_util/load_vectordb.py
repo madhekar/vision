@@ -370,7 +370,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
         meta = []
         for text_f in text_pth:
             if os.path.isfile(text_f):
-                meta.append({"name": text_f, "ts": str(datetime.now())})
+                
                 print(f"File Name: {text_f}")
                 try:  
                     val = tex.process(text_f)
@@ -378,6 +378,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
                     content = val.decode("utf-8")
                     print(f"======>> {content}")
                     list_of_text.append(content)   
+                    meta.append({"name": text_f, "ts": str(datetime.now())})
                 except UnicodeDecodeError as e:
                     st.error(f'error: ignoring the text file, could not decode file as ascii: {e}')      
                 except FileNotFoundError:
