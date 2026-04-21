@@ -477,7 +477,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 st.write("<p class='input-subh'>Date Time: </p>", unsafe_allow_html=True)
             with cole:
                     tts = "0.0" if st.session_state["videos"]["metadatas"][0][1:][index]["ts"] == "" else st.session_state["videos"]["metadatas"][0][1:][index]["ts"]
-                    o_datetime = f'<p class="input">{str(datetime.datetime.fromtimestamp(float(tts)))}</p>'
+                    o_datetime = f'<p class="input">{str(tts)}</p>' # datetime.datetime.fromtimestamp(float(tts))
                     st.markdown(o_datetime, unsafe_allow_html=True)
 
             colt, cole = st.columns([0.2, 0.8])
