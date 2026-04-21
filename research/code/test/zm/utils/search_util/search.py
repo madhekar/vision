@@ -31,6 +31,7 @@ def init_vdb(vdp, icn, tcn, vcn):
     
     # openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
+    #text_embedding_function = OpenCLIPEmbeddingFunction(model_name="coca_roberta-ViT-B-32") 
 
     # Image collection inside vector database 'chromadb'
     image_loader = ImageLoader()

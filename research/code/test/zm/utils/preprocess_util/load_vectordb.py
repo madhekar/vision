@@ -248,7 +248,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
         # openclip embedding function!
         embedding_function = OpenCLIPEmbeddingFunction()
 
-        text_embedding_function = OpenCLIPEmbeddingFunction(model_name="VIT-B-32", pretrained="laion2b_s34b_b79k")
+        #text_embedding_function = OpenCLIPEmbeddingFunction(model_name="coca_roberta-ViT-B-32")
 
         """ 
         Image collection inside vector database 'chromadb'
@@ -280,8 +280,8 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
         """
         collection_text = client.get_or_create_collection(
             name=text_collection_name,
-            metadata={"hnsw:space": "cosine"},
-            embedding_function=text_embedding_function,
+            #metadata={"hnsw:space": "cosine"},
+            embedding_function=embedding_function,
         )
     else:
         for collection in collections_list:
@@ -373,6 +373,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
                     val = tex.process(text_f)
                     #with open(text_f, 'r', encoding="utf-8", errors='replace') as f:
                     content = val.decode("utf-8")
+                    print(f"=====> {val}  ====== {content}")
                     list_of_text.append(content)   
                 except UnicodeDecodeError as e:
                     st.error(f'error: ignoring the text file, could not decode file as ascii: {e}')      
