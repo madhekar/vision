@@ -17,6 +17,7 @@ import chromadb as cdb
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
+from utils.util import file_type_ext as fte
 
 PIL.Image.MAX_IMAGE_PIXELS = 933120000
 MIN_DT = datetime.datetime(1998, 1, 1)
@@ -48,6 +49,7 @@ def init_vdb(vdp, icn, tcn, vcn):
             metadata={"hnsw:space": "cosine"},
             data_loader=image_loader,
         )
+    
     #Text collection inside vector database 'chromadb'
     collection_text = client.get_or_create_collection(
       name=tcn,
@@ -55,6 +57,7 @@ def init_vdb(vdp, icn, tcn, vcn):
       embedding_function=embedding_function,
     )
 
+    # print("*****", collection_text.peek())
     return client, collection_images, collection_text, collection_videos
 
 def updateMetadata(client, image_collection,  id, desc, names, dt, loc):
@@ -157,7 +160,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             similar_image = st.file_uploader(
                 label="## Select Image",
                 label_visibility="hidden",
-                type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG", "JPEG", "MPG"],
+                type= fte.image_types, #["png", "jpeg", "mpg", "jpg", "PNG", "JPG", "JPEG", "MPG"],
                 help="select image to search similar images",
             )
             im = st.empty()
@@ -254,7 +257,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 n_results=10,
             )
 
-            print("****", st.session_state["videos"]["metadatas"][0][1:][0]["vuri"])
+            #print("****", st.session_state["videos"]["metadatas"][0][1:][0]["vuri"])
             #st.write(st.session_state["imgs"]) # ---enable to debug
 
             ''' 
@@ -265,9 +268,11 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # execute text collection query --- TBD fix
             st.session_state["document"] = cTxts.query(
                 query_texts=[modalityTxt],
+                include=["documents", "distances"], 
                 n_results=5,
-            )["documents"][0][0]
+            )#["documents"][0][0]
 
+            print(">>>>>", st.session_state["document"])
             # execute image query with search criteria
             st.session_state["imgs"] = cImgs.query(
                 query_texts=[modalityTxt], 
@@ -488,13 +493,17 @@ def search_fn(client, cImgs, cTxts, cVideos):
                     st.markdown(o_location, unsafe_allow_html=True)
 
 
-            #         ll = ast.literal_eval(st.session_state["videos"]["metadatas"][0][1:][index]["latlon"])     
-            #         lat = ll[0] #float(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"][0])
-            #         lon = ll[1] # float(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"][1])
+                    ll = ast.literal_eval(st.session_state["videos"]["metadatas"][0][1:][index]["latlon"])  
+                    if ll:   
+                        lat = ll[0] #float(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"][0])
+                        lon = ll[1] # float(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"][1])
+                    else:
+                        lat = 0.0
+                        lon = 0.0    
 
-            #         map_data = pd.DataFrame({"lat": [lat], "lon": [lon]})
-            #         st.markdown("<p class='big-font-subh'>Map</p>", unsafe_allow_html=True)
-            #         st.map(map_data, zoom=12, size=80, color="#ff00ff")    
+                    map_data = pd.DataFrame({"lat": [lat], "lon": [lon]})
+                    st.markdown("<p class='big-font-subh'>Map</p>", unsafe_allow_html=True)
+                    st.map(map_data, zoom=12, size=80, color="#ff00ff")    
       else:    
             st.write(
                 "<p class='big-font'>sorry, no similar videos found in search criteria!</p>",
@@ -506,7 +515,8 @@ def search_fn(client, cImgs, cTxts, cVideos):
     '''
     with text:
         if st.session_state["document"] and len(st.session_state["document"]) > 1:
-            st.text_area(label="Related text", value=st.session_state["document"])
+            for doc in st.session_state["document"]:
+               st.text_area(label="Related text", value=doc)
         else:
             st.write(
                 "<p class='big-font'>sorry, no similar documents found in search criteria!</p>",
