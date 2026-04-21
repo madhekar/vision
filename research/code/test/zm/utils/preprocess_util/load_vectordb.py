@@ -4,6 +4,7 @@ import pandas as pd
 import os
 import uuid
 import chardet
+from datetime import datetime
 import chromadb as cdb
 import streamlit as st
 import PIL
@@ -248,7 +249,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
         # openclip embedding function!
         embedding_function = OpenCLIPEmbeddingFunction()
 
-        text_embedding_function = OpenCLIPEmbeddingFunction(model_name="VIT-B-32", pretrained="laion2b_s34b_b79k")
+        #text_embedding_function = OpenCLIPEmbeddingFunction(model_name="coca_roberta-ViT-B-32")
 
         """ 
         Image collection inside vector database 'chromadb'
@@ -280,8 +281,8 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
         """
         collection_text = client.get_or_create_collection(
             name=text_collection_name,
-            metadata={"hnsw:space": "cosine"},
-            embedding_function=text_embedding_function,
+            #metadata={"hnsw:space": "cosine"},
+            embedding_function=embedding_function,
         )
     else:
         for collection in collections_list:
@@ -366,14 +367,18 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
         #st.info("text paths: \n", "\n".join(text_pth))
 
         list_of_text = []
-
+        meta = []
         for text_f in text_pth:
             if os.path.isfile(text_f):
+                
+                print(f"File Name: {text_f}")
                 try:  
                     val = tex.process(text_f)
                     #with open(text_f, 'r', encoding="utf-8", errors='replace') as f:
                     content = val.decode("utf-8")
+                    print(f"======>> {content}")
                     list_of_text.append(content)   
+                    meta.append({"name": text_f, "ts": str(datetime.now())})
                 except UnicodeDecodeError as e:
                     st.error(f'error: ignoring the text file, could not decode file as ascii: {e}')      
                 except FileNotFoundError:
@@ -381,7 +386,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
 
         ids_txt_list = [str(uuid.uuid4()) for _ in range(len(list_of_text))]
 
-        batches = create_batches(api=client, ids=ids_txt_list, documents=list_of_text)
+        batches = create_batches(api=client, ids=ids_txt_list, metadatas= meta, documents=list_of_text)
 
         st.info(f"number of ids: {len(ids_txt_list)}")
         st.info(f'number of documents: {len(list_of_text)}')

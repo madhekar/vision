@@ -31,6 +31,7 @@ def init_vdb(vdp, icn, tcn, vcn):
     
     # openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
+    #text_embedding_function = OpenCLIPEmbeddingFunction(model_name="coca_roberta-ViT-B-32") 
 
     # Image collection inside vector database 'chromadb'
     image_loader = ImageLoader()
@@ -53,11 +54,11 @@ def init_vdb(vdp, icn, tcn, vcn):
     #Text collection inside vector database 'chromadb'
     collection_text = client.get_or_create_collection(
       name=tcn,
-      metadata={"hnsw:space": "cosine"},
+      #metadata={"hnsw:space": "cosine"},
       embedding_function=embedding_function,
     )
 
-    # print("*****", collection_text.peek())
+    #print("*****", collection_text.peek())
     return client, collection_images, collection_text, collection_videos
 
 def updateMetadata(client, image_collection,  id, desc, names, dt, loc):
@@ -515,7 +516,8 @@ def search_fn(client, cImgs, cTxts, cVideos):
     '''
     with text:
         if st.session_state["document"] and len(st.session_state["document"]) > 1:
-            for doc in st.session_state["document"]:
+            for doc in st.session_state["document"]["documents"]:
+               print(f"*&*&*&*&: {doc} ==== {st.session_state['document']['metadatas']}")
                st.text_area(label="Related text", value=doc)
         else:
             st.write(
