@@ -446,8 +446,8 @@ def search_fn(client, cImgs, cTxts, cVideos):
                  video_bytes = video_file.read()
                  st.video(video_bytes)
 
-        #with c2:
-
+        with c2:
+            #c2.write(st.session_state["videos"]["metadatas"][0][1:][index]["text"])
 
             # # colt, cole = st.columns([0.2, 0.8])
             # # with colt:
@@ -457,13 +457,13 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # #         st.markdown(o_caption, unsafe_allow_html=True)
 
 
-            # colt, cole = st.columns([0.2, 0.8])
+            colt, cole = st.columns([0.2, 0.8])
 
-            # with colt:
-            #         st.markdown("<p class='big-font-subh'>Gleeful Desc: </p>", unsafe_allow_html=True)
-            # with cole:
-            #         o_desc = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["text"]}</p>'
-            #         st.markdown(o_desc, unsafe_allow_html=True)
+            with colt:
+                    st.markdown("<p class='big-font-subh'>Gleeful Desc: </p>", unsafe_allow_html=True)
+            with cole:
+                    o_desc = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["text"]}</p>'
+                    st.markdown(o_desc, unsafe_allow_html=True)
 
             # # colt, cole = st.columns([0.2, 0.8])
             # # with colt:
@@ -472,20 +472,20 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # #        o_names = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["ppt"]} </p>' #- {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
             # #        st.markdown(o_names, unsafe_allow_html=True)
 
-            # colt, cole = st.columns([0.2, 0.8])
-            # with colt:
-            #     st.write("<p class='input-subh'>Date Time: </p>", unsafe_allow_html=True)
-            # with cole:
-            #         tts = "0.0" if st.session_state["videos"]["metadatas"][0][1:][index]["ts"] == "" else st.session_state["videos"]["metadatas"][0][1:][index]["ts"]
-            #         o_datetime = f'<p class="input">{str(datetime.datetime.fromtimestamp(float(tts)))}</p>'
-            #         st.markdown(o_datetime, unsafe_allow_html=True)
+            colt, cole = st.columns([0.2, 0.8])
+            with colt:
+                st.write("<p class='input-subh'>Date Time: </p>", unsafe_allow_html=True)
+            with cole:
+                    tts = "0.0" if st.session_state["videos"]["metadatas"][0][1:][index]["ts"] == "" else st.session_state["videos"]["metadatas"][0][1:][index]["ts"]
+                    o_datetime = f'<p class="input">{str(datetime.datetime.fromtimestamp(float(tts)))}</p>'
+                    st.markdown(o_datetime, unsafe_allow_html=True)
 
-            # colt, cole = st.columns([0.2, 0.8])
-            # with colt:
-            #         st.write("<p class='big-font-subh'>Location: </p>", unsafe_allow_html=True)
-            # with cole:
-            #         o_location = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["loc"]}</p>'
-            #         st.markdown(o_location, unsafe_allow_html=True)
+            colt, cole = st.columns([0.2, 0.8])
+            with colt:
+                    st.write("<p class='big-font-subh'>Location: </p>", unsafe_allow_html=True)
+            with cole:
+                    o_location = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["loc"]}</p>'
+                    st.markdown(o_location, unsafe_allow_html=True)
 
 
             #         ll = ast.literal_eval(st.session_state["videos"]["metadatas"][0][1:][index]["latlon"])     
