@@ -271,7 +271,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             st.session_state["document"] = cTxts.query(
                 query_texts=[modalityTxt],
                 include=["documents", "metadatas", "distances"], 
-                n_results=2,
+                n_results=5,
             )#["documents"][0][0]
 
             print(">>>>>", st.session_state["document"])
@@ -523,15 +523,15 @@ def search_fn(client, cImgs, cTxts, cVideos):
             for idx, doc in enumerate(st.session_state["document"]["documents"][0]):
                 c1, c2 = st.columns([0.8, 0.2])
                 with c1:  
-                    st.text_area(label=f"{idx}", value=str(doc), label_visibility="collapsed")  #st.session_state["document"]["documents"][0][0])
+                    st.text_area(label=f"{idx}", value=str(doc), label_visibility="collapsed", height=300)  #st.session_state["document"]["documents"][0][0])
                 with c2:
                     name, parent = fte.get_basename_parent(st.session_state["document"]["metadatas"][0][idx]["name"])
-                    colt, cole = st.columns([2,8])
+                    colt, cole = st.columns([1,9])
                     with colt:
-                        st.markdown("<p class='big-font-subh'>Document: </p>", unsafe_allow_html=True)
+                        st.markdown("<p class='big-font-subh'>Doc: </p>", unsafe_allow_html=True)
                     with cole:    
                         #txt = f'**{name}**: Document found in: **{parent}**'
-                        st.write(f"**{name}**: Document found in: **{parent}**", unsafe_allow_html=True)
+                        st.write(f"**{name}** found in **{parent}**", unsafe_allow_html=True)
 
                     colt, cole = st.columns([2,8])
                 
