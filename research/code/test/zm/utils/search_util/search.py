@@ -517,22 +517,23 @@ def search_fn(client, cImgs, cTxts, cVideos):
     '''
     with text:
 
-        c1, c2 = st.columns([0.8, 0.2])
+        
         if st.session_state["document"] and len(st.session_state["document"]["documents"][0][0]) > 1:
             # print(f"result---> {len(st.session_state['document']['documents'])}")
             for idx, doc in enumerate(st.session_state["document"]["documents"][0]):
+                c1, c2 = st.columns([0.8, 0.2])
                 with c1:  
-                    st.text_area(label="Related text", value=str(doc))  #st.session_state["document"]["documents"][0][0])
+                    st.text_area(label=f"{idx}", value=str(doc), label_visibility="collapsed")  #st.session_state["document"]["documents"][0][0])
                 with c2:
                     name, parent = fte.get_basename_parent(st.session_state["document"]["metadatas"][0][idx]["name"])
-                    colt, cole = st.column([3,7])
+                    colt, cole = st.columns([2,8])
                     with colt:
                         st.markdown("<p class='big-font-subh'>Document: </p>", unsafe_allow_html=True)
                     with cole:    
-                        txt = f'Similar Document found in {parent} folder namly {name}'
-                        st.markdown(f"<p class='big-font-subh'>:{txt} </p>", unsafe_allow_html=True)
+                        #txt = f'**{name}**: Document found in: **{parent}**'
+                        st.write(f"**{name}**: Document found in: **{parent}**", unsafe_allow_html=True)
 
-                    colt, cole = st.column([3,7])
+                    colt, cole = st.columns([2,8])
                 
                     with colt:
                         st.markdown("<p class='big-font-subh'>Date: </p>", unsafe_allow_html=True)

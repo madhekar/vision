@@ -86,4 +86,4 @@ non_media_types = [
 
 def get_basename_parent(file_path):
     p =Path(file_path)
-    return p.name, p.parent[1] 
+    return p.name, p.parent.parent.name 
