@@ -524,7 +524,10 @@ def search_fn(client, cImgs, cTxts, cVideos):
         if st.session_state["document"] and len(st.session_state["document"]["documents"][0][0]) > 1:
             # print(f"result---> {len(st.session_state['document']['documents'])}")
             for idx, doc in enumerate(st.session_state["document"]["documents"][0]):
-                c1, c2 = st.columns([0.8, 0.2])
+                c0, c1, c2 = st.columns([.01, 0.8, 0.2])
+                cnt  = idx + 1
+                with c0:
+                    st.write(f"**{cnt}**")
                 with c1:  
                     st.text_area(label=f"{idx}", value=str(doc), label_visibility="collapsed", height=300)  #st.session_state["document"]["documents"][0][0])
                 with c2:
