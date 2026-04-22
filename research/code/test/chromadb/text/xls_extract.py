@@ -43,8 +43,9 @@ Are you working with .xls or .xlsx files?
 If you can share a snippet of your read_excel code, I can tell you exactly which command to run.
 
 '''
+xls_file = "/mnt/zmdata/home-media-app/data/input-data/txt/Berkeley/21d6c524-fe73-5118-b20e-1297ae057db6/other numerical integration examples.xls"
 
-df = pd.read_excel("/mnt/zmdata/home-media-app/data/input-data/txt/Berkeley/21d6c524-fe73-5118-b20e-1297ae057db6/Data Analysis Examples.xls")
+df = pd.read_excel(xls_file)
 
 print(df.to_csv())
 
