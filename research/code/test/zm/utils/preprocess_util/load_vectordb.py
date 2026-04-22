@@ -395,7 +395,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
         for batch in batches:
             print(f"---batch-->: {batch}")
             collection_text.add(ids=batch[0],
-                                embeddings=batch[1],
+                                #embeddings=batch[1],
                                 metadatas=batch[2],
                                 documents=batch[3])
 

@@ -1,4 +1,6 @@
 import os
+from pathlib import Path
+
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -22,3 +24,11 @@ def plot_df(df):
     plt.plot(faces, nums)
     plt.xticks(faces, rotation="vertical")
     plt.show()
+
+
+def get_parent_basename(file_path):
+    fpth = Path(file_path)
+
+    if fpth.is_file:
+       pt = fpth.parts
+       

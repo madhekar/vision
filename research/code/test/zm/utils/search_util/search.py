@@ -54,7 +54,7 @@ def init_vdb(vdp, icn, tcn, vcn):
     #Text collection inside vector database 'chromadb'
     collection_text = client.get_or_create_collection(
       name=tcn,
-      #metadata={"hnsw:space": "cosine"},
+      metadata={"hnsw:space": "cosine"},
       embedding_function=embedding_function,
     )
 
@@ -269,8 +269,8 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # execute text collection query --- TBD fix
             st.session_state["document"] = cTxts.query(
                 query_texts=[modalityTxt],
-                include=["documents", "distances"], 
-                n_results=5,
+                include=["documents", "metadatas", "distances"], 
+                n_results=2,
             )#["documents"][0][0]
 
             print(">>>>>", st.session_state["document"])
@@ -515,15 +515,34 @@ def search_fn(client, cImgs, cTxts, cVideos):
     **** Documents Tab **** 
     '''
     with text:
-        if st.session_state["document"] and len(st.session_state["document"]) > 1:
-            for doc in st.session_state["document"]["documents"]:
-               print(f"*&*&*&*&: {doc} ==== {st.session_state['document']['metadatas']}")
-               st.text_area(label="Related text", value=doc)
+
+        c1, c2 = st.columns([0.8, 0.2])
+        if st.session_state["document"] and len(st.session_state["document"]["documents"][0][0]) > 1:
+            # print(f"result---> {len(st.session_state['document']['documents'])}")
+            for idx, doc in enumerate(st.session_state["document"]["documents"][0]):
+                with c1:  
+                    st.text_area(label="Related text", value=str(doc))  #st.session_state["document"]["documents"][0][0])
+                with c2:
+                    colt, cole = st.column([3,7])
+                    with colt:
+                        st.markdown("<p class='big-font-subh'>Document: </p>", unsafe_allow_html=True)
+                    with cole:    
+                        txt = f'Similar Document found in {st.session_state["document"]["metadatas"][0][idx]["name"]} folder namly {st.session_state["document"]["metadatas"][0][idx]["name"]}'
+                        st.markdown(f"<p class='big-font-subh'>:{txt} </p>", unsafe_allow_html=True)
+
+                    colt, cole = st.column([3,7])
+                    with colt:
+                        st.markdown("<p class='big-font-subh'>Date: </p>", unsafe_allow_html=True)
+                    with cole:
+                        o_desc = f'<p class="input">{st.session_state["document"]["metadatas"][0][idx]["ts"]}</p>'
+                        st.markdown(o_desc, unsafe_allow_html=True)
+                        # st.write(st.session_state["document"]["metadatas"][0][idx]["name"])    
+                        # st.write(st.session_state["document"]["metadatas"][0][idx]["ts"])
         else:
-            st.write(
+              st.write(
                 "<p class='big-font'>sorry, no similar documents found in search criteria!</p>",
                 unsafe_allow_html=True,
-            )
+              )
 
 
 '''
