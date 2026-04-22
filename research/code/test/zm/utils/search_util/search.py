@@ -19,6 +19,7 @@ from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
 from utils.util import file_type_ext as fte
 
+
 PIL.Image.MAX_IMAGE_PIXELS = 933120000
 MIN_DT = datetime.datetime(1998, 1, 1)
 MAX_DT = datetime.datetime.now()
@@ -523,14 +524,16 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 with c1:  
                     st.text_area(label="Related text", value=str(doc))  #st.session_state["document"]["documents"][0][0])
                 with c2:
+                    name, parent = fte.get_basename_parent(st.session_state["document"]["metadatas"][0][idx]["name"])
                     colt, cole = st.column([3,7])
                     with colt:
                         st.markdown("<p class='big-font-subh'>Document: </p>", unsafe_allow_html=True)
                     with cole:    
-                        txt = f'Similar Document found in {st.session_state["document"]["metadatas"][0][idx]["name"]} folder namly {st.session_state["document"]["metadatas"][0][idx]["name"]}'
+                        txt = f'Similar Document found in {parent} folder namly {name}'
                         st.markdown(f"<p class='big-font-subh'>:{txt} </p>", unsafe_allow_html=True)
 
                     colt, cole = st.column([3,7])
+                
                     with colt:
                         st.markdown("<p class='big-font-subh'>Date: </p>", unsafe_allow_html=True)
                     with cole:

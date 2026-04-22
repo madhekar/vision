@@ -26,9 +26,4 @@ def plot_df(df):
     plt.show()
 
 
-def get_parent_basename(file_path):
-    fpth = Path(file_path)
 
-    if fpth.is_file:
-       pt = fpth.parts
-       

@@ -1,4 +1,4 @@
-
+from pathlib import Path
 
 image_types = [
     ".jpg",
@@ -82,3 +82,8 @@ non_media_types = [
     ".ts",
     ".cpp"
 ]
+
+
+def get_basename_parent(file_path):
+    p =Path(file_path)
+    return p.name, p.parent[1] 
