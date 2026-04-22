@@ -222,6 +222,9 @@ def search_fn(client, cImgs, cTxts, cVideos):
         if "vmeta" in st.session_state:
             st.session_state["vmeta"] = []    
 
+        if "document" in st.session_state:
+            st.session_state["document"] = []    
+
         ''' 
         Image Modality selected 
         '''
