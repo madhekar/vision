@@ -42,7 +42,17 @@ def filter_missing_image_data(missing_file_path, missing_filter_file_path):
     else:
         sm.add_messages('metadata', f'e| empty or invalid missing metadata file {missing_file_path}') 
           
-
+"""
+missing-metadata:
+  input_image_path: /data/input-data/img
+  input_video_path: /data/input-data/video
+  missing_metadata_path: /data/input-data/error/img/missing-data/
+  missing_video_metadata_path: /data/input-data/error/video/missing-data/
+  missing_metadata_file: missing-metadata-wip.csv
+  missing_video_metadata_file: missing-metadata-wip.csv
+  missing_metadata_filter_file: missing-metadata-filter-wip.csv
+  missing_video_metadata_filter_file: missing-metadata-filter-wip.csv
+"""
 def execute(source_name):
     sm.add_messages("metadata", "s| starting to analyze missing metadata files...")
 

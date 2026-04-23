@@ -41,12 +41,22 @@ def count_files_in_path(directory):
 def getRecursive(rootDir, chunk_size=10):
     f_list=[]
 
-    for fn in glob.iglob(rootDir + "/**/*.MOV", recursive=True):   # TODO fix
+    for fn in glob.iglob(rootDir + "/**/*", recursive=True):   # TODO fix
         if not os.path.isdir(os.path.abspath(fn)):
             f_list.append(os.path.abspath(fn))   
   
     for i in range(0, len(f_list), chunk_size):
         yield f_list[i:i+chunk_size]     
+
+# recursive call to get all image filenames
+def getRecursive_video(rootDir, chunk_size=10):
+    f_list=[]
+
+    for ext in fte.video_types:
+        f_list.extend(glob.glob(rootDir + "/**/" + ext))
+  
+    for i in range(0, len(f_list), chunk_size):
+        yield f_list[i:i+chunk_size]  
       
 def drop_except(df, columns_to_keep):
     columns_to_drop = [col for col in df.columns if col not in columns_to_keep] 

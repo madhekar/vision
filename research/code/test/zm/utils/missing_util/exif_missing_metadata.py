@@ -48,6 +48,7 @@ class ExifTool(object):
         return output[: -len(self.sentinel)]
 
     def get_metadata(self, *filenames):
+        print('----->')
         return self.execute("-S", "-f", "-csv", "-n", *filenames)
 
 
@@ -62,13 +63,15 @@ class ExifTool(object):
 
 
 def create_missing_metadata(fname, root):
+    print(f"---> {fname} --- {root}")
     if os.path.exists(fname):
         os.remove(fname)
-    img_iterator = mu.getRecursive(root, chunk_size=100)
+    img_iterator = mu.getRecursive(root, chunk_size=10)
     nfiles = len(mu.getFiles(rootDir=root))
-    
+    print("--->", nfiles)
     with open(fname, "a") as f:
         for ilist in img_iterator:
+            print(f'--> {ilist}')
             with ExifTool() as et:
                 mdata = et.get_metadata(*ilist)
                 f.write(mdata)

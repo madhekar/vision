@@ -298,7 +298,7 @@ def exe():
     with cd:
             #st.markdown('<div class="single-border">', unsafe_allow_html=True)
             st.caption("**Missing Metadata (file count by type)**")
-            if os.path.exists(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file)):       
+            if os.path.exists(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file)) and os.path.getsize(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file)) > 0:       
                dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file))
                print(dict)
                df = pd.DataFrame.from_dict(dict)

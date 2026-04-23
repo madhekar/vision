@@ -2,6 +2,7 @@ import os
 import ollama
 import base64
 import asyncio
+from pathlib import Path
 
 
 """
@@ -41,21 +42,29 @@ def create_default_client():
     client = ollama.Client()
     return client
 
+
+'''
+/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/frames/IMG_7219/f_1.png
+'''
 def caption_image(img):
 
     client = ollama.Client()
+
     if not os.path.exists(img):
         print(f"Err: Image path does not exists {img}")
         return ""
     else:    
-
+       vid_path = Path(img)
+       stem = str(vid_path.parent.stem)
+       parent = str(vid_path.parent)
+       img_path = os.path.join(parent, "frames", stem, "f_1.png" )
        result = client.chat(
             model='llava',
             messages=[  
                 {
                 'role': 'user',
                 'content': 'Act as professional copywriter. Write an engaging caption for this image.',
-                'images': [img]
+                'images': [img_path]
                 }
             ]
        )

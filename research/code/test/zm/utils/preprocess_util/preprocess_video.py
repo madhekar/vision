@@ -302,13 +302,13 @@ async def run_workflow(
     
 
     lock = asyncio.Lock()
-    img_iterator = mu.getRecursive(video_dir_path, chunk_size=chunk_size)
+    video_iterator = mu.getRecursive_video(video_dir_path, chunk_size=chunk_size)
 
     with st.status("Generating LLM responses...", expanded=True) as status:
         async with Pool(processes=chunk_size,  queuecount=queue_size, maxtasksperchild=1) as pool:  #initializer=pool_init, initargs=(bfs,),
             count = 0
             res = []
-            for ilist in img_iterator:
+            for ilist in video_iterator:
                 rlist = mu.is_processed_batch(ilist, df)
                 print(rlist)
                 if len(rlist) > 0:
@@ -316,7 +316,7 @@ async def run_workflow(
                         pool.map(generateId, rlist),
                         pool.map(timestamp, rlist),
                         pool.map(partial(locationDetails, lock=lock), rlist),
-                        #pool.map(caption, rlist),
+                        pool.map(caption, rlist),
                     )
                     
                     res.append(rlist)
