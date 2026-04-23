@@ -53,8 +53,9 @@ def getRecursive_video(rootDir, chunk_size=10):
     f_list=[]
 
     for ext in fte.video_types:
-        f_list.extend(glob.glob(rootDir + "/**/" + ext))
-  
+        ph = os.path.join(rootDir + "/**/*" + ext)
+        f_list.extend(glob.glob(ph))
+        print(ph, f_list)   
     for i in range(0, len(f_list), chunk_size):
         yield f_list[i:i+chunk_size]  
       
