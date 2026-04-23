@@ -244,7 +244,7 @@ async def timestamp(args):
 
 async def caption(args):
     uri = args
-    cap = await olvn.caption_image(uri)
+    cap = olvn.caption_image(uri)
     return cap 
 
 # appends json rows to file

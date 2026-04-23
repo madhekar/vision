@@ -52,22 +52,25 @@ def caption_image(img):
 
     if not os.path.exists(img):
         print(f"Err: Image path does not exists {img}")
-        return ""
+        return "unk"
     else:    
        vid_path = Path(img)
-       stem = str(vid_path.parent.stem)
-       parent = str(vid_path.parent)
+       stem = vid_path.stem
+       parent = vid_path.parent
        img_path = os.path.join(parent, "frames", stem, "f_1.png" )
-       result = client.chat(
-            model='llava',
-            messages=[  
-                {
-                'role': 'user',
-                'content': 'Act as professional copywriter. Write an engaging caption for this image.',
-                'images': [img_path]
-                }
-            ]
-       )
+       if not os.path.exists(img_path):
+           return "unk"
+       else:
+        result = client.chat(
+                model='llava',
+                messages=[  
+                    {
+                    'role': 'user',
+                    'content': 'Act as professional copywriter. Write an engaging caption for this image.',
+                    'images': [img_path]
+                    }
+                ]
+        )
        return result["message"]["content"]   
 
 def describe_multiple_images( frames, ppt, location):
