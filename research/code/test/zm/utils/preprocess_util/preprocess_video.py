@@ -172,6 +172,12 @@ def extract_frames_to_numpy(video_path, num_frames=10):
     print(frames_array.shape)
     return frames_array, bytes_array
 
+# get source name from url
+async def sourceName(args):
+    uri = args
+    p = Path(uri).parts
+    return p[7]
+
 async def describe_video(args):
     uri, location = args
     print(f" ----> {uri} ----> {location}")
@@ -263,7 +269,7 @@ def new_xform(res):
     return lr, lf
 
 def final_xform(alist):
-    keys = [ 'uri','id','ts','latlon','loc','text']
+    keys = [ 'uri','id','src','ts','latlon','loc','caption','text']
     print(alist)
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
@@ -314,6 +320,7 @@ async def run_workflow(
                 if len(rlist) > 0:
                     res = await asyncio.gather(
                         pool.map(generateId, rlist),
+                        pool.map(sourceName, rlist),
                         pool.map(timestamp, rlist),
                         pool.map(partial(locationDetails, lock=lock), rlist),
                         pool.map(caption, rlist),
