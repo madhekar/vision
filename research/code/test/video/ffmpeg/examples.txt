@@ -25,3 +25,27 @@ Solutions
 
 Why this happens: The MP4 standard does not natively support pcm_s16be audio, and strict compliance in FFmpeg prevents using it, despite the original file perhaps being a camera-recorded MP4. 
 '''
+
+'''
+This error occurs because FFmpeg cannot apply video filters (like fps and crop) to a video stream while simultaneously copying the codec (-c:v copy). 
+Filtering requires decoding the video into raw frames, applying the filters, and then re-encoding the video. Streamcopy (-c copy or -c:v copy) skips the decoding/encoding step entirely, making it impossible to alter the video. 
+How to Fix
+You must remove the video copy command (-c:v copy or -c copy) and instead specify a video encoder (like libx264 or h264) so FFmpeg can re-encode the filtered video. 
+Change this:
+bash
+
+ffmpeg -i input.mp4 -vf "fps=30,crop=1920:1072:0:4" -c:v copy output.mp4
+
+To this (using libx264):
+bash
+
+ffmpeg -i input.mp4 -vf "fps=30,crop=1920:1072:0:4" -c:v libx264 -crf 20 output.mp4
+
+Key Considerations
+
+    Audio Copy: If you want to filter the video but keep the audio exactly as it is (without re-encoding the audio), use -c:v libx264 -c:a copy.
+    Performance: Re-encoding takes more CPU resources than copying.
+    Video Encoder: If libx264 is not available, you can use -c:v mpeg4 or check ffmpeg -codecs for other options. 
+
+
+'''

@@ -266,6 +266,48 @@ ffmpeg -i /mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b
 '''
 
 
+
+'''
+This error occurs because FFmpeg cannot place pcm_s16be (16-bit big-endian PCM) audio into an MP4 container, which often happens when trying to -c copy streams from cameras (e.g., Sony). Fix this by converting the audio to a supported format (like AAC) or using a compatible container (like MKV). 
+Solutions
+
+    Convert Audio to AAC (Recommended for MP4):
+    Re-encode the audio to AAC, which is widely supported in MP4, while copying the video.
+    ffmpeg -i input.mp4 -c:v copy -c:a aac -b:a 128k output.mp4
+    Use MKV Container:
+    Change the output container to Matroska (MKV), which supports this audio format.
+    ffmpeg -i input.mp4 -c copy output.mkv
+    Re-encode Audio/Video:
+    If copying causes issues, re-encode both to ensure compatibility.
+    ffmpeg -i input.mp4 -c:v libx264 -c:a aac output.mp4 
+
+Why this happens: The MP4 standard does not natively support pcm_s16be audio, and strict compliance in FFmpeg prevents using it, despite the original file perhaps being a camera-recorded MP4. 
+'''
+
+'''
+This error occurs because FFmpeg cannot apply video filters (like fps and crop) to a video stream while simultaneously copying the codec (-c:v copy). 
+Filtering requires decoding the video into raw frames, applying the filters, and then re-encoding the video. Streamcopy (-c copy or -c:v copy) skips the decoding/encoding step entirely, making it impossible to alter the video. 
+How to Fix
+You must remove the video copy command (-c:v copy or -c copy) and instead specify a video encoder (like libx264 or h264) so FFmpeg can re-encode the filtered video. 
+Change this:
+bash
+
+ffmpeg -i input.mp4 -vf "fps=30,crop=1920:1072:0:4" -c:v copy output.mp4
+
+To this (using libx264):
+bash
+
+ffmpeg -i input.mp4 -vf "fps=30,crop=1920:1072:0:4" -c:v libx264 -crf 20 output.mp4
+
+Key Considerations
+
+    Audio Copy: If you want to filter the video but keep the audio exactly as it is (without re-encoding the audio), use -c:v libx264 -c:a copy.
+    Performance: Re-encoding takes more CPU resources than copying.
+    Video Encoder: If libx264 is not available, you can use -c:v mpeg4 or check ffmpeg -codecs for other options. 
+
+
+'''
+
 def corp_detect_and_crop_video(i_vid):
     t_vid = "tvid.mp4"
     try:
@@ -298,9 +340,11 @@ def corp_detect_and_crop_video(i_vid):
         # Step 2: Apply the crop
         crop_cmd = [
             "ffmpeg", "-i", i_vid,
-            "-vf", crop_params,            
-            "-c:a", "copy",  # Copy audio without re-encoding            
+            "-vf", crop_params,  
+            "-c:v", "libx264",  # Copy audio without re-encoding       
+            #"-c:a", "aac",       
             "-map_metadata", "0", #preserve container metadata
+            "-crf", "20",
             #"-loglevel", "error",
             t_vid
         ]
