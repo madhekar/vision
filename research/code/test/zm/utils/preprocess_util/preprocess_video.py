@@ -262,9 +262,9 @@ def new_xform(res):
 
     ll = [list(x) for x in zip(*res)]
     
-    lr = [ [row[3], row[2][1]] for row in ll]
+    lr = [ [row[5], row[3][1]] for row in ll]
 
-    lf = [[row[3], row[0], row[1], row[2][0], row[2][1]] for row in ll]
+    lf = [[row[5], row[0], row[1], row[2], row[3][0], row[3][1], row[4]] for row in ll]
     print(f"ll --- {ll}  lr-- {lr} lf--{lf}")
     return lr, lf
 
