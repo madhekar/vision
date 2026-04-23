@@ -56,3 +56,41 @@ If you need to analyze frames (e.g., to find a non-black frame), OpenCV is the b
 Do you need to create a single snapshot at a specific time, or are you looking to generate a grid/contact sheet of multiple frames?
 
 '''
+
+'''
+Streamlit clickable videos can be achieved by embedding video links within markdown, using st.video for playback, or using custom components to detect clicks on video thumbnails. Key approaches include rendering HTML in markdown (unsafe_allow_html=True), using image components (st-clickable-images) to launch videos in a new tab, or triggering callbacks upon interaction. 
+Here are the primary methods for making clickable videos in Streamlit:
+
+    Embed Clickable Links in Markdown: Use st.markdown with <a href="..."> to make a video thumbnail or link clickable.
+    Use st.video: The st.video function natively supports YouTube URLs or local paths for playback.
+    Custom Components: Utilize components like st-clickable-images (from pip install st-clickable-images) to display thumbnails and detect which one was clicked.
+    Create Clickable Dataframe Cells: Render interactive HTML links within Pandas DataFrames using st.write and to_html(escape=False). 
+
+Example Implementation (Clickable Thumbnail):
+python
+
+import streamlit as st
+
+# Display a clickable image that acts as a video link
+st.markdown(
+    """
+    <a href="https://www.youtube.com/watch?v=your_video_id">
+        <img src="https://img.youtube.com/vi/your_video_id/0.jpg" width="300">
+    </a>
+    """,
+    unsafe_allow_html=True
+)
+st.write("Click the image above to watch the video.")
+
+Use code with caution.
+Key Considerations:
+
+    unsafe_allow_html=True: Required in st.markdown to render HTML tags.
+    st.session_state: Necessary to track which video was clicked if you want to update the app content dynamically. 
+
+Would you like to know more about:
+
+    Using callbacks to update the page when a video is clicked?
+    Customizing the layout using columns (st.columns) for multiple videos?
+    Using st-click-detector for more complex interactive elements? 
+'''
