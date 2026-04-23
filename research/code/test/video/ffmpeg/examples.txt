@@ -7,3 +7,21 @@ interval = 633 // 10 = 63
 select one frame after every 63 frames
 
 ffmpeg -i VID_20181205_121309.mp4 -vf "select='not(mod(n\,63))',setpts=N/TB" -r 1 -vframes 10 anjali_ind_tour%03d.png
+
+
+'''
+This error occurs because FFmpeg cannot place pcm_s16be (16-bit big-endian PCM) audio into an MP4 container, which often happens when trying to -c copy streams from cameras (e.g., Sony). Fix this by converting the audio to a supported format (like AAC) or using a compatible container (like MKV). 
+Solutions
+
+    Convert Audio to AAC (Recommended for MP4):
+    Re-encode the audio to AAC, which is widely supported in MP4, while copying the video.
+    ffmpeg -i input.mp4 -c:v copy -c:a aac -b:a 128k output.mp4
+    Use MKV Container:
+    Change the output container to Matroska (MKV), which supports this audio format.
+    ffmpeg -i input.mp4 -c copy output.mkv
+    Re-encode Audio/Video:
+    If copying causes issues, re-encode both to ensure compatibility.
+    ffmpeg -i input.mp4 -c:v libx264 -c:a aac output.mp4 
+
+Why this happens: The MP4 standard does not natively support pcm_s16be audio, and strict compliance in FFmpeg prevents using it, despite the original file perhaps being a camera-recorded MP4. 
+'''
