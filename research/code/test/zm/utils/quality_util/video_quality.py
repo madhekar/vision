@@ -15,7 +15,7 @@ def vq_work_flow(video_dir_path, chunk_size):
 
     nfiles = len(mu.getFiles(video_dir_path))
     print(f'---> nfiles: {nfiles}')
-    vid_iterator = mu.getRecursive(video_dir_path,  chunk_size)
+    vid_iterator = mu.getRecursive_video(video_dir_path,  chunk_size)
     result = []
     with tqdm(total=nfiles, desc='detecting poor quality files', unit='items', unit_scale=True) as pbar:
         #async with Pool(processes=chunk_size) as pool:
