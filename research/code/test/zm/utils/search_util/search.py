@@ -459,12 +459,12 @@ def search_fn(client, cImgs, cTxts, cVideos):
         with c2:
             #c2.write(st.session_state["videos"]["metadatas"][0][1:][index]["text"])
 
-            # # colt, cole = st.columns([0.2, 0.8])
-            # # with colt:
-            # #         st.markdown("<p class='big-font-subh'>Caption: </p>", unsafe_allow_html=True)
-            # # with cole:
-            # #         o_caption = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["caption"]}</p>'
-            # #         st.markdown(o_caption, unsafe_allow_html=True)
+            colt, cole = st.columns([0.2, 0.8])
+            with colt:
+                    st.markdown("<p class='big-font-subh'>Caption: </p>", unsafe_allow_html=True)
+            with cole:
+                    o_caption = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["cap"]}</p>'
+                    st.markdown(o_caption, unsafe_allow_html=True)
 
 
             colt, cole = st.columns([0.2, 0.8])
