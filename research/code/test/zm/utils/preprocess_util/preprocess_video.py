@@ -23,6 +23,7 @@ from utils.config_util import config
 from utils.util import location_util as lu
 from utils.util import model_util as mu
 from utils.util import fast_parquet_util as fpu
+from utils.util import video_util as vu
 from utils.face_detection_util import  video_face_predictor as fp_tor
 from utils.preprocess_util import ollama_llava_video_next as olvn
 import streamlit as st
@@ -403,7 +404,10 @@ def execute(user_source_selected):
         btree = location_initialize_btree(static_metadata_path, static_metadata_file)
         st.session_state.ball_tree = btree
     else:
-        ball_tree = st.session_state.ball_tree        
+        ball_tree = st.session_state.ball_tree
+
+    # clean previouly generated video frames
+    vu.remove_frames_folder(video_dir_path, "frames")    
 
     #btree = location_initialize(static_metadata_path, static_metadata_file)    
 

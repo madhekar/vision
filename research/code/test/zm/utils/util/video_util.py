@@ -373,3 +373,8 @@ def crop_detect_and_crop_video_workaround(i_vid):
       print(f"Error in crop_detect_and_crop_video_workaround {i_vid} : {e}")
 
 
+# cleanup generated folder and files
+def remove_frames_folder(base_path, frames_name):
+    for p in Path(base_path).rglob(frames_name):
+        if p.is_dir():
+            shutil.rmtree(p)

@@ -61,6 +61,7 @@ def caption_image(img):
        img_path = os.path.join(parent, "frames", stem, "f_1.png" )
        print(f"---->{img_path}")
        if not os.path.exists(img_path):
+           print(f"Err: frame path does not exists {img_path}")
            return "unk"
        else:
             result = client.chat(
