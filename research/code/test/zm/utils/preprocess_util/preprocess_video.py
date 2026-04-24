@@ -190,6 +190,8 @@ async def describe_video(args):
     frames, img_bytes_array = extract_frames_to_numpy(uri, num_frames=10)
     print(f"Shape of extracted frames numpy array: {frames.shape}") 
 
+    caption = olvn.caption_image(uri)
+
     app, svm_classifier, le = fp_tor.init_predictor_module()
 
     detected_persons = []
@@ -206,13 +208,13 @@ async def describe_video(args):
     frames_people_emo ="following people found in video frames: "      
     for i, v in enumerate(zip(detected_persons, emotions)):
         frames_people_emo += f" image {i + 1} {v[0]} in {v[1]} mood, "
-
+    
     print(frames_people_emo)  
     txt = olvn.describe_multiple_images(img_bytes_array, ppt=frames_people_emo, location=location)
 
     print(f"video description: {txt}")
 
-    return txt
+    return caption, txt
     
 # get location details as: (latitude, longitude) and address
 async def locationDetails(args, lock):
@@ -268,9 +270,9 @@ def new_xform(res):
 
     ll = [list(x) for x in zip(*res)]
     
-    lr = [ [row[5], row[3][1]] for row in ll]
+    lr = [ [row[4], row[3][1]] for row in ll]
 
-    lf = [[row[5], row[0], row[1], row[2], row[3][0], row[3][1], row[4]] for row in ll]
+    lf = [[row[4], row[0], row[1], row[2], row[3][0], row[3][1]] for row in ll]
     print(f"ll --- {ll}  lr-- {lr} lf--{lf}")
     return lr, lf
 
@@ -329,7 +331,7 @@ async def run_workflow(
                         pool.map(sourceName, rlist),
                         pool.map(timestamp, rlist),
                         pool.map(partial(locationDetails, lock=lock), rlist),
-                        pool.map(caption, rlist),
+                        #pool.map(caption, rlist),
                     )
                     
                     res.append(rlist)
@@ -341,7 +343,7 @@ async def run_workflow(
                     #res1 = await pool.map(describeImage,  rflist)
                     print('****', res1)
 
-                    zlist = [oflist[i] + [res1[0][i]]  for i in range(len(oflist))]
+                    zlist = [oflist[i] + [res1[0][i], res1[1][i]]  for i in range(len(oflist))]
 
                     fdictlist = final_xform(zlist)
 
