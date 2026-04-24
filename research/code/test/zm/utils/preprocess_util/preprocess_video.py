@@ -10,7 +10,7 @@ import base64
 import PIL
 from PIL import Image
 from pathlib import Path
-import shutil
+import shutil, stat
 import asyncio
 import multiprocessing as mp
 import pandas as pd
@@ -75,6 +75,11 @@ def get_video_dims(video_path):
     print(f"video dimentions {height}:{width}")
     return height, width
 
+
+def remove_readonly(func, path, excinfo):
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
+
 def check_n_create_folders(video_path):
 
     v_path = Path(video_path)
@@ -89,7 +94,7 @@ def check_n_create_folders(video_path):
 
     # remove existing frames
     if mu.count_files_in_path(frames_folder_path) > 0:
-       shutil.rmtree(frames_folder_path)
+       shutil.rmtree(frames_folder_path, onerror=remove_readonly)
     return frames_folder_path
 
 def extract_frames_to_numpy(video_path, num_frames=10):
