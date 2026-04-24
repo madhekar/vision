@@ -1,5 +1,41 @@
 import subprocess
 
+'''
+The thumbnail filter in FFmpeg is an algorithmic tool designed to select the most "representative" frame from a specified sequence of frames. Unlike a simple frame extraction (like taking the first frame), it analyzes a batch of frames and picks the one that best captures the visual essence of that segment. 
+How It Works
+The filter analyzes a cluster of n consecutive frames and calculates an average histogram for the entire group. It then selects the single frame whose individual histogram has the smallest "sum of squared errors" compared to that average. This process effectively avoids picking outlier frames, such as sudden flashes, solid black frames, or blurry transitions, in favor of a frame that is most typical of the scene. 
+Basic Usage
+The primary parameter is n, which defines the number of frames to analyze in each batch. 
+
+    Extract one representative frame every 100 frames:
+    bash
+
+    ffmpeg -i input.mp4 -vf "thumbnail=100" -frames:v 1 output.png
+
+    This command looks at the first 100 frames, picks the "best" one, and saves it as a single image.
+    Continuous extraction across a video:
+    bash
+
+    ffmpeg -i input.mp4 -vf "thumbnail=n=100" -vsync 0 out%d.png
+
+    This will output one image for every 100 frames of the video. 
+
+Key Features and Considerations
+
+    Representative Selection: It is often used to generate "meaningful" thumbnails by avoiding black or low-detail frames.
+    Performance: Because it must analyze every frame in the batch (calculating histograms for each), it is computationally slower than simple seeking or the select filter.
+    Chaining Filters: You can combine it with other filters, such as scale, to resize the representative frame immediately.
+    bash
+
+    ffmpeg -i input.mp4 -vf "thumbnail=100,scale=320:-1" -vframes 1 thumb.jpg
+
+    Limitations: It can be "tricky" for generating large storyboards as it increases processing time significantly compared to taking every Nth frame. 
+
+For more advanced needs, such as adding the resulting image back into the video file as an album art cover, you can use the -disposition:v attached_pic command. For comprehensive details, refer to the FFmpeg Filters Documentation. 
+
+'''
+
+
 def generate_thumbnail_subprocess(in_path, out_path, time='00:00:05'):
     command = [
         'ffmpeg',
@@ -12,4 +48,4 @@ def generate_thumbnail_subprocess(in_path, out_path, time='00:00:05'):
     ]
     subprocess.run(command, check=True)
 
-generate_thumbnail_subprocess('input.mp4', 'thumbnail.png')
+generate_thumbnail_subprocess('/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_9040.mov', 'thumbnail_1.png')
