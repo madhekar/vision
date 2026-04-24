@@ -50,28 +50,48 @@ def caption_image(img):
 
     client = ollama.Client()
 
+    img_path = ""
     if not os.path.exists(img):
-        print(f"Err: Image path does not exists {img}")
+        print(f"Err: video path does not exists {img}")
         return "unk"
     else:    
        vid_path = Path(img)
        stem = vid_path.stem
        parent = vid_path.parent
        img_path = os.path.join(parent, "frames", stem, "f_1.png" )
+       print(f"---->{img_path}")
        if not os.path.exists(img_path):
            return "unk"
        else:
-        result = client.chat(
-                model='llava',
-                messages=[  
-                    {
-                    'role': 'user',
-                    'content': 'Act as professional copywriter. Write an engaging caption for this image.',
-                    'images': [img_path]
-                    }
-                ]
-        )
-       return result["message"]["content"]   
+            result = client.chat(
+            model='llava',
+            messages=[  
+                {
+                    'role': 'system',
+                    'content': 'A chat between a curious human and an artificial intelligence assistant. The assistant is an professional copywriter, '
+                    'gives thoughtful, helpful, short, and polite answers to the human questions. '
+                    'Do not hallucinate and gives very close attention to the details and takes time to process information provided, '
+                    'response must be entirely in prose, absolutely no lists, bullet points, emojis, hash tags, or numbered items should be used. Ensure the information flows seamlessly within paragraphs.'
+                    'Adhere strictly to these guidelines:'
+                    '1. Only provide answer and no extra commentary, additional context or information request.'
+                    '2. Do not reuse the same sentence structure more than once in response.'
+                    '3. Eliminate unclear excessive symbols or gibberish.'
+                    '4. Include addition information provided about people names and places or locations.'
+                    '5. Shorten text while preserving information.'
+                    '6. Preserve clear text as is.'
+                    '7. Skip text that is too unclear or ambiguous.'
+                    '8. Exclude non-factual elements.'
+                    '9. Maintain clarity and information.',
+                },
+                {
+                'role': 'user',
+                'content': 'Write short an engaging caption for this image.',
+                'images': [img_path]
+                }
+            ],
+            options={'num_predict': 30,  'temperature': 0.9},
+       )
+       return result["message"]["content"]  
 
 def describe_multiple_images( frames, ppt, location):
 
