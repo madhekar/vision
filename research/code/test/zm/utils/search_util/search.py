@@ -463,7 +463,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             with colt:
                     st.markdown("<p class='big-font-subh'>Caption: </p>", unsafe_allow_html=True)
             with cole:
-                    o_caption = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["cap"]}</p>'
+                    o_caption = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["caption"]}</p>'
                     st.markdown(o_caption, unsafe_allow_html=True)
 
 
