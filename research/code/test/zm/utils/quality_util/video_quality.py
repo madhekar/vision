@@ -1,5 +1,6 @@
 import os
 import time
+import shutil
 from tqdm import tqdm
 from utils.config_util import config
 from utils.util import model_util as mu
@@ -42,6 +43,14 @@ def execute(source_name, filter_list):
         input_video_path_updated = os.path.join(input_video_path, source_name)
         arc_folder_name = mu.get_foldername_by_datetime()     
         archive_quality_path = os.path.join(archive_quality_path, source_name, arc_folder_name)
+
+        #create empty thumbnails folder
+        # thumbnail_path = os.path.join(input_video_path_updated, "thumbnails")
+        # if not os.path.exists(thumbnail_path):
+        #     os.makedirs(os.path.join(input_video_path_updated, "thumbnails"))
+        # else:
+        #     shutil.rmtree(os.path.join(input_video_path_updated, "thumbnails"))
+                
 
         chunk_size = int(mp.cpu_count())
         # queue_count = chunk_size
