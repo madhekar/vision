@@ -15,6 +15,7 @@ from utils.util import fast_parquet_util as fpu
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 PIL.Image.MAX_IMAGE_PIXELS = 933120000
+
 """
 In Streamlit, you can clear elements from the screen and write new ones by using st.empty() as a placeholder that you can replace dynamically, 
 or by utilizing st.session_state and st.rerun() to manage the application's flow and clear inputs. 

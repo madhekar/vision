@@ -114,6 +114,6 @@ def generate_thumbnail_subprocess(in_path, out_path, time='00:00:05'):
     ]
     subprocess.run(command, check=True)
 
-#generate_thumbnail_subprocess('/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_9040.mov', 'thumbnail_1.png')
+generate_thumbnail_subprocess('/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_9040.mov', 'thumbnail_1.png')
 
-generate_scale_down_video('/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_9040.mov', 'scale_down.mov')
+#generate_scale_down_video('/mnt/zmdata/home-media-app/data/input-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/IMG_9040.mov', 'scale_down.mov')

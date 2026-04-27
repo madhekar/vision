@@ -378,3 +378,17 @@ def remove_frames_folder(base_path, frames_name):
     for p in Path(base_path).rglob(frames_name):
         if p.is_dir():
             shutil.rmtree(p)
+
+
+def generate_thumbnail_subprocess(in_path, out_path, time='00:00:05'):
+    command = [
+        'ffmpeg',
+        '-ss', time,
+        '-i', in_path,
+        '-vf', "thumbnail=100,scale=200:-1",
+        '-vframes', '1',
+        '-q:v', '2',  # High quality (1-31, lower is better)
+        out_path,
+        '-y'           # Overwrite output if it exists
+    ]
+    subprocess.run(command, check=True)
