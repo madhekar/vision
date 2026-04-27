@@ -94,3 +94,18 @@ Would you like to know more about:
     Customizing the layout using columns (st.columns) for multiple videos?
     Using st-click-detector for more complex interactive elements? 
 '''
+
+import subprocess
+
+def create_thumb(input_path, output_path):
+    command = [
+        'ffmpeg',
+        '-ss', '00:00:10', # Seek to 10 seconds
+        '-i', input_path,
+        '-vframes', '1',
+        '-q:v', '2',       # Image quality (2-5 is high)
+        output_path
+    ]
+    subprocess.run(command)
+
+create_thumb('input.mp4', 'output.jpg')
