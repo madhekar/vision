@@ -527,6 +527,7 @@ def editor_config_load():
         static_metadata_path = dict["metadata"]["static_metadata_path"]
         static_metadata_file = dict["metadata"]["static_metadata_file"]
         missing_metadata_path = dict["metadata"]["missing_metadata_path"]
+        missing_video_metadata_path = dict["metadata"]["missing_video_metadata_path"]
         missing_metadata_file = dict["metadata"]["missing_metadata_file"]
         missing_metadata_filter_file = dict["metadata"]["missing_metadata_filter_file"]
         missing_metadata_edit_file = dict["metadata"]["missing_metadata_edit_file"]
@@ -539,6 +540,7 @@ def editor_config_load():
         os.path.join(dr, *static_metadata_path.split(os.sep)[1:]),
         static_metadata_file,
         os.path.join(dr, *missing_metadata_path.split(os.sep)[1:]),
+        os.path.join(dr, *missing_video_metadata_path.split(os.sep)[1:]),
         missing_metadata_file,
         missing_metadata_filter_file,
         missing_metadata_edit_file,

@@ -65,7 +65,7 @@ def remove_initialization_on_device_change():
         del st.session_state["edited_image_attributes"]
 
 
-def initialize(smp, smf, mmp, mmf, mmef, hlat, hlon, user_source):
+def initialize(smp, smf, mmp, mvmp, mmf, mmef, hlat, hlon, user_source):
     try:
 
         if "markers" not in st.session_state:
@@ -89,6 +89,12 @@ def initialize(smp, smf, mmp, mmf, mmef, hlat, hlon, user_source):
         else:
             df = st.session_state.df
 
+        if "vdf" not in st.session_state:
+            vdf =  metadata_initialize(mvmp, user_source, mmf )    
+            st.session_state.df = vdf
+        else:
+            vdf = st.session_state.vdf
+
         if "df_loc" not in st.session_state:
             df = location_initialize(smp, user_source, smf)
             st.session_state.df_loc = df
@@ -97,6 +103,9 @@ def initialize(smp, smf, mmp, mmf, mmef, hlat, hlon, user_source):
 
         if "edited_image_attributes" not in st.session_state:
             st.session_state["edited_image_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'DateTimeOriginal'))     
+
+        if "edited_video_attributes" not in st.session_state:
+            st.session_state["edited_video_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'CreateDateTime'))     
 
     except Exception as e:      
         st.error(f"Exception occurred in initializing Metadata Editor: {e}")
@@ -268,7 +277,7 @@ metadata:
 """
 def execute():
 
-    (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon, bsmx, rszp) = get_env()
+    (rdp, smp, smf, mmp, mvmp, mmf, mmff, mmef, hlat, hlon, bsmx, rszp) = get_env()
 
     if 'global_user_source' not in st.session_state:
         st.session_state['global_user_source'] = ""
@@ -291,7 +300,7 @@ def execute():
 
     mmfile = mmff if show_missing else mmf
 
-    initialize(smp, smf, mmp, mmfile, mmef, hlat, hlon, user_source_selected)
+    initialize(smp, smf, mmp, mvmp, mmfile, mmef, hlat, hlon, user_source_selected)
 
     files = pd.read_csv(os.path.join(mmp, user_source_selected, mmfile))['SourceFile']
     
