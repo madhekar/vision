@@ -343,7 +343,7 @@ async def run_workflow(
                     #res1 = await pool.map(describeImage,  rflist)
                     print('****', res1)
 
-                    zlist = [oflist[i] + [res1[0][i], res1[1][i]]  for i in range(len(oflist))]
+                    zlist = [oflist[i] + [res1[0][i][0], res1[0][i][1]]  for i in range(len(oflist))]
 
                     fdictlist = final_xform(zlist)
 
