@@ -357,8 +357,27 @@ def corp_detect_and_crop_video(i_vid):
         
         shutil.move(t_vid, i_vid)
 
+        # Step 4: create thumbnail for video
+        thumbnail_path = get_thumbnail_path(i_vid)
+        generate_thumbnail_subprocess(i_vid, thumbnail_path)
+
     except Exception as e:
          print(f"error: in croping video {i_vid} error: {e}")
+
+def get_thumbnail_path(vid_path):
+    print('----->>',vid_path)
+    
+    vid_root, vid_name = os.path.split(vid_path)
+    bn, _ = os.path.splitext(vid_name)
+    thumbnail_name = bn + ".png"
+
+    thumbnails = "thumbnails"
+
+    thumbnails_path = os.path.join(vid_root, thumbnails)
+    if not os.path.exists(thumbnails_path):
+        os.makedirs(thumbnails_path)
+
+    return os.path.join(thumbnails_path, thumbnail_name)    
 
 
 def crop_detect_and_crop_video_workaround(i_vid):
@@ -378,3 +397,17 @@ def remove_frames_folder(base_path, frames_name):
     for p in Path(base_path).rglob(frames_name):
         if p.is_dir():
             shutil.rmtree(p)
+
+
+def generate_thumbnail_subprocess(in_path, out_path, time='00:00:05'):
+    command = [
+        'ffmpeg',
+        '-ss', time,
+        '-i', in_path,
+        '-vf', "thumbnail=100,scale=200:-1",
+        '-vframes', '1',
+        '-q:v', '2',  # High quality (1-31, lower is better)
+        out_path,
+        '-y'           # Overwrite output if it exists
+    ]
+    subprocess.run(command, check=True)
