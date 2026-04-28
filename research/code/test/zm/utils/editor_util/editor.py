@@ -206,8 +206,11 @@ def showMap(hlat, hlon):
 
         st.session_state['zoom'] = map['zoom']
 
+'''
+/mnt/zmdata/home-media-app/data/input-data/video/GRANDCANYON/27f5e377-04b9-5d21-a4b6-0de5de7eade1/thumbnails/IMGP2372.png
+'''
 #@st.fragment
-def editLocations(files, page, batch_size, row_size):        
+def editLocations(files, page, batch_size, row_size, modality="I"):        
     sindex = select_location_by_country_and_state(st.session_state.df_loc)  
     
     batch = files[(page - 1) * batch_size : page * batch_size]
@@ -253,12 +256,14 @@ def editLocations(files, page, batch_size, row_size):
                 # if r:
                 #     st.session_state["updated_location_list"].append((image, col, r))
                 c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt')) 
-                
-            image = Image.open(image)  
-            image.thumbnail((200,200), Image.Resampling.LANCZOS)
-            c1.image(image, caption=label,use_column_width=True, output_format="JPG")
-            # if lat != "-":
-            #     add_marker(lat, lon, label, image)
+            if modality == "I":    
+                image = Image.open(image)  
+                image.thumbnail((200,200), Image.Resampling.LANCZOS)
+                c1.image(image, caption=label,use_column_width=True, output_format="JPG")
+                # if lat != "-":
+                #     add_marker(lat, lon, label, image)
+            else:
+
             st.divider()    
 
         col = (col + 1) % row_size
@@ -280,7 +285,7 @@ metadata:
 def execute():
 
     (rdp, smp, smf, mmp, mvmp, mmf, mmff, mmef, hlat, hlon, bsmx, rszp) = get_env()
-
+    modality = 'I'
     if 'global_user_source' not in st.session_state:
         st.session_state['global_user_source'] = ""
 
@@ -299,21 +304,23 @@ def execute():
         remove_initialization_on_device_change()
 
     show_missing = st.sidebar.checkbox(label='missing')
-    c1,c2 = st.sidebar.columns([1,3])
+    c1,c2 = st.sidebar.columns([1,2], gap="small")
     with c1:
-        st.write("Edit:")
+        st.write("Edit Options:")
     with c2:    
         edit_choice = st.radio("Edit option:", ["image", "video"], horizontal=True, label_visibility="collapsed")
+    modality = "I" if edit_choice == "Image" else "V"    
 
     mmfile = mmff if show_missing else mmf
 
     initialize(smp, smf, mmp, mvmp, mmfile, mmef, hlat, hlon, user_source_selected)
     
 
-    if edit_choice == "image":
+    if modality == "I":
         files = pd.read_csv(os.path.join(mmp, user_source_selected, mmfile))['SourceFile']
     else:    
-        video_files = pd.read_csv(os.path.join(mvmp, user_source_selected, mmfile))['SourceFile']
+        files = pd.read_csv(os.path.join(mvmp, user_source_selected, mmfile))['SourceFile']
+        print(files)
     
     st.sidebar.subheader("Display Criteria",divider="gray")
 
@@ -350,9 +357,9 @@ def execute():
     st.sidebar.subheader('Locations', divider='gray')
 
     if len(files) > 0:
-       editLocations(files, page, batch_size, row_size)
+       editLocations(files, page, batch_size, row_size, modality)
     else:
-       st.info('No missing metadata images found!')    
+       st.info('No missing metadata modalities found!')    
 
 if __name__ == "__main__":
     execute()
