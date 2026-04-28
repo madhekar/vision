@@ -31,8 +31,8 @@ updating their values in st.session_state via a callback function.
 
 user_device = st.empty()
 def get_env():
-    (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon, bsmx,rszp) = config.editor_config_load()
-    return (rdp, smp, smf, mmp, mmf, mmff, mmef, hlat, hlon, bsmx, rszp)
+    (rdp, smp, smf, mmp, mvmp, mmf, mmff, mmef, hlat, hlon, bsmx,rszp) = config.editor_config_load()
+    return (rdp, smp, smf, mmp, mvmp, mmf, mmff, mmef, hlat, hlon, bsmx, rszp)
 
 @st.cache_resource
 def metadata_initialize(mmp,us,mmf):
@@ -59,6 +59,8 @@ def remove_initialization_on_device_change():
         del st.session_state["editor_audit_msg"]
     if "df" in st.session_state:
         del st.session_state["df"]
+    if "vdf" in st.session_state:
+        del st.session_state["vdf"]
     if "df_loc" in st.session_state:
         del st.session_state["df_loc"]
     if "edited_image_attributes" in st.session_state:
@@ -91,7 +93,7 @@ def initialize(smp, smf, mmp, mvmp, mmf, mmef, hlat, hlon, user_source):
 
         if "vdf" not in st.session_state:
             vdf =  metadata_initialize(mvmp, user_source, mmf )    
-            st.session_state.df = vdf
+            st.session_state.vdf = vdf
         else:
             vdf = st.session_state.vdf
 
@@ -296,13 +298,22 @@ def execute():
         #print(f"--->:{user_device} : {user_source_selected}")
         remove_initialization_on_device_change()
 
-    show_missing = st.sidebar.checkbox(label='missing metadata images')
+    show_missing = st.sidebar.checkbox(label='missing')
+    c1,c2 = st.sidebar.columns([1,3])
+    with c1:
+        st.write("Edit:")
+    with c2:    
+        edit_choice = st.radio("Edit option:", ["image", "video"], horizontal=True, label_visibility="collapsed")
 
     mmfile = mmff if show_missing else mmf
 
     initialize(smp, smf, mmp, mvmp, mmfile, mmef, hlat, hlon, user_source_selected)
+    
 
-    files = pd.read_csv(os.path.join(mmp, user_source_selected, mmfile))['SourceFile']
+    if edit_choice == "image":
+        files = pd.read_csv(os.path.join(mmp, user_source_selected, mmfile))['SourceFile']
+    else:    
+        video_files = pd.read_csv(os.path.join(mvmp, user_source_selected, mmfile))['SourceFile']
     
     st.sidebar.subheader("Display Criteria",divider="gray")
 
@@ -312,8 +323,10 @@ def execute():
     with cr:   
         row_size = st.select_slider("Row Size:", range(1, 10), value= int(rszp))   
         num_batches = ceil(len(files) / batch_size)
+        #num_video_batches = ceil(len(video_files) / batch_size)
     with cp:   
         page = st.selectbox("Page Number:", range(1, num_batches + 1))
+        #video_page = st.swlwctbox("vPage Number:", range(1, num_video_batches))
 
     st.sidebar.subheader('Edited Images', divider="gray")
     config = {
