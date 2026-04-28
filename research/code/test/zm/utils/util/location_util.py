@@ -324,6 +324,23 @@ def set_video_date(vid_path, dt):
     subprocess.run(command)
   except Exception as e:
     print(f"Exception: {e} while setting gps data for {vid_path} ")    
+
+
+def set_video_gps_title(vid_path, lat, lon, title):
+    try:
+        command = [
+            "/usr/bin/exiftool",
+            f"-GPSLatitude={lat}",
+            f"-GPSLatitudeRef={'N' if lat >= 0 else 'S'}",
+            f"-GPSLongitude={lon}",
+            f"-GPSLongitudeRef={'E' if lon >= 0 else 'W'}",
+            f"-Title={title}",
+            "-overwrite_original",  # Overwrite the original file to avoid duplication
+            vid_path
+        ]
+        subprocess.run(command)
+    except Exception as e:
+        print(f"Exception: {e} while setting gps data for {img_path} ")
  
 def get_image_exif_info(image_path):
     user_comment, datetime_original = "",""

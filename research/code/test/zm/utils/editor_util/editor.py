@@ -129,6 +129,14 @@ def update_latitude_longitude(image, latitude, longitude, name):
     lu.set_gps_data(image, latitude, longitude)
     lu.setImgMetadata(image, "","",name)
 
+def update_video_latitude_longitude(vid_path, latitude, longitude, name):
+    #print(st.session_state.df.head())
+    st.session_state.vdf.at[vid_path, "GPSLatitude"] =latitude
+    st.session_state.vdf.at[vid_path, "GPSLongitude"] = longitude
+
+    lu.set_video_gps_title(vid_path, latitude, longitude, name)
+
+
 #@st.fragment
 def update_all_datetime_changes(image, col):
     #print(st.session_state.df.head())
@@ -138,7 +146,7 @@ def update_all_datetime_changes(image, col):
 
 def update_date_changes(video, col):
     dt = st.session_state[f"{col}_{video}"]
-    st.session_state.df.at[video, "CreateDate"] = dt
+    st.session_state.vdf.at[video, "CreateDate"] = dt
     lu.set_video_date(video, dt)
 
 
@@ -264,9 +272,12 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
             else:
                 clk = c2.checkbox(label=f"location_{image}", label_visibility="collapsed")
                 if clk:
-                    update_latitude_longitude(image, sindex['latitude'], sindex['longitude'], sindex['name'])
-                    n_row = pd.Series({"SourceFile": image, "GPSLatitude": sindex["latitude"], "GPSLongitude": sindex['longitude'], "DateTimeOriginal": dt, 'name': sindex['name']})
-                    st.session_state.edited_image_attributes = pd.concat([st.session_state.edited_image_attributes, pd.DataFrame([n_row], columns=n_row.index)]).reset_index(drop=True)
+                    if modality == "I":
+                        update_latitude_longitude(image, sindex['latitude'], sindex['longitude'], sindex['name'])
+                        n_row = pd.Series({"SourceFile": image, "GPSLatitude": sindex["latitude"], "GPSLongitude": sindex['longitude'], "DateTimeOriginal": dt, 'name': sindex['name']})
+                        st.session_state.edited_image_attributes = pd.concat([st.session_state.edited_image_attributes, pd.DataFrame([n_row], columns=n_row.index)]).reset_index(drop=True)
+                    else:
+                        update_video_latitude_longitude(image, sindex['latitude'], sindex['longitude'], sindex['name'])    
                 c2.text("")
                 c2.text("")
                 c2.text("")
@@ -275,7 +286,11 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 # r = c2.selectbox(label=f"location_{image}", label_visibility="collapsed",  options=st.session_state.df_loc.name.values, index=None, on_change=update_all_latlon())
                 # if r:
                 #     st.session_state["updated_location_list"].append((image, col, r))
-                c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt')) 
+                #c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt')) 
+                if modality == "I":
+                    c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
+                else:
+                    c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_date_changes, key=f"dt_{image}", args=(image, 'dt'))    
             if modality == "I":    
                 image = Image.open(image)  
                 image.thumbnail((200,200), Image.Resampling.LANCZOS)
