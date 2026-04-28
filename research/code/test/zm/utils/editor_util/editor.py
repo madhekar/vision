@@ -136,6 +136,12 @@ def update_all_datetime_changes(image, col):
     st.session_state.df.at[image, "DateTimeOriginal"] = dt
     lu.setImgMetadata(image, dt,"","")
 
+def update_date_changes(video, col):
+    dt = st.session_state[f"{col}_{video}"]
+    st.session_state.df.at[video, "CreateDate"] = dt
+    lu.set_video_date(video, dt)
+
+
 def select_location_by_country_and_state(rdf):
     
     c_location_type, c_country, c_state = st.sidebar.columns([.1,.1,.1], gap="small")
@@ -250,7 +256,10 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 c2.empty()
                 c2.text_input(value=lon, label=f"Lon_{image}", label_visibility="collapsed") 
                 c2.empty()
-                c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
+                if modality == "I":
+                    c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_all_datetime_changes, key=f"dt_{image}", args=(image, 'dt'))
+                else:
+                    c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_date_changes, key=f"dt_{image}", args=(image, 'dt'))    
                 add_marker(lat, lon, label, image)
             else:
                 clk = c2.checkbox(label=f"location_{image}", label_visibility="collapsed")
@@ -278,6 +287,8 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 thumbnail_img = os.path.join(root, "thumbnails", thumbnail_name)
                 if os.path.exists(thumbnail_img):
                    c1.image(thumbnail_img, caption=label, use_column_width=True, output_format="PNG")
+                else:
+                    c1.write(label)   
 
 
             st.divider()    

@@ -313,7 +313,18 @@ def setGpsInfo(fn, lat, lon):
     print(f"info obj: {info}")
     photo.modGPSData(info, fn)
 
-
+def set_video_date(vid_path, dt):
+  try:
+    command = [
+        "/user/bin/exiftool",
+        f"-CreateDate={dt}",
+        "-overwriteOriginal",
+        vid_path
+    ]
+    subprocess.run(command)
+  except Exception as e:
+    print(f"Exception: {e} while setting gps data for {vid_path} ")    
+ 
 def get_image_exif_info(image_path):
     user_comment, datetime_original = "",""
     try:
