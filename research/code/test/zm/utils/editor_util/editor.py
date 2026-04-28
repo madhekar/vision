@@ -224,15 +224,27 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
         with grid[col]:
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
 
-            st.session_state.df.reset_index()
-            lat = st.session_state.df.at[image, "GPSLatitude"]
-            lon = st.session_state.df.at[image, "GPSLongitude"]
-            dt = st.session_state.df.at[image, "DateTimeOriginal"]
-            label = os.path.basename(image)
+            if modality == "I":
+                st.session_state.df.reset_index()
+                lat = st.session_state.df.at[image, "GPSLatitude"]
+                lon = st.session_state.df.at[image, "GPSLongitude"]
+                dt = st.session_state.df.at[image, "DateTimeOriginal"]
+                label = os.path.basename(image)
+            else:
+                st.session_state.vdf.reset_index()
+                lat = st.session_state.vdf.at[image, "GPSLatitude"]
+                lon = st.session_state.vdf.at[image, "GPSLongitude"]
+                dt = st.session_state.vdf.at[image, "CreateDate"]
+                label = os.path.basename(image)    
 
             if lat != "-" and lon != '-':
-                lat = round(float(st.session_state.df.at[image, "GPSLatitude"]), 6)
-                lon = round(float(st.session_state.df.at[image, "GPSLongitude"]), 6)
+                if modality == "I":
+                   lat = round(float(st.session_state.df.at[image, "GPSLatitude"]), 6)
+                   lon = round(float(st.session_state.df.at[image, "GPSLongitude"]), 6)
+                else:
+                   lat = round(float(st.session_state.vdf.at[image, "GPSLatitude"]), 6)
+                   lon = round(float(st.session_state.vdf.at[image, "GPSLongitude"]), 6)
+
                 c2.empty()
                 c2.text_input(value=lat, label=f"Lat_{image}", label_visibility="collapsed")  
                 c2.empty()
@@ -245,7 +257,6 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 if clk:
                     update_latitude_longitude(image, sindex['latitude'], sindex['longitude'], sindex['name'])
                     n_row = pd.Series({"SourceFile": image, "GPSLatitude": sindex["latitude"], "GPSLongitude": sindex['longitude'], "DateTimeOriginal": dt, 'name': sindex['name']})
-                    #print(n_row)
                     st.session_state.edited_image_attributes = pd.concat([st.session_state.edited_image_attributes, pd.DataFrame([n_row], columns=n_row.index)]).reset_index(drop=True)
                 c2.text("")
                 c2.text("")
@@ -260,9 +271,14 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 image = Image.open(image)  
                 image.thumbnail((200,200), Image.Resampling.LANCZOS)
                 c1.image(image, caption=label,use_column_width=True, output_format="JPG")
-                # if lat != "-":
-                #     add_marker(lat, lon, label, image)
-            else:
+            else: 
+                root, base = os.path.split(image)
+                name, _ = os.path.splitext(base)
+                thumbnail_name = name + ".png"
+                thumbnail_img = os.path.join(root, "thumbnails", thumbnail_name)
+                if os.path.exists(thumbnail_img):
+                   c1.image(thumbnail_img, caption=label, use_column_width=True, output_format="PNG")
+
 
             st.divider()    
 
@@ -309,13 +325,13 @@ def execute():
         st.write("Edit Options:")
     with c2:    
         edit_choice = st.radio("Edit option:", ["image", "video"], horizontal=True, label_visibility="collapsed")
-    modality = "I" if edit_choice == "Image" else "V"    
+    modality = "I" if edit_choice == "image" else "V"    
 
     mmfile = mmff if show_missing else mmf
 
     initialize(smp, smf, mmp, mvmp, mmfile, mmef, hlat, hlon, user_source_selected)
     
-
+    
     if modality == "I":
         files = pd.read_csv(os.path.join(mmp, user_source_selected, mmfile))['SourceFile']
     else:    
@@ -335,18 +351,18 @@ def execute():
         page = st.selectbox("Page Number:", range(1, num_batches + 1))
         #video_page = st.swlwctbox("vPage Number:", range(1, num_video_batches))
 
-    st.sidebar.subheader('Edited Images', divider="gray")
-    config = {
-        'SourceFile' : st.column_config.TextColumn('image', width='small', required=True),       
-        'GPSLatitude' : st.column_config.NumberColumn('latitude', min_value=-90.0, max_value=90.0, required=True),
-        'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
-        'DateTimeOriginal' : st.column_config.TextColumn('datetime', width="small", required=False)}
+    # st.sidebar.subheader('Edited Images', divider="gray")
+    # config = {
+    #     'SourceFile' : st.column_config.TextColumn('image', width='small', required=True),       
+    #     'GPSLatitude' : st.column_config.NumberColumn('latitude', min_value=-90.0, max_value=90.0, required=True),
+    #     'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
+    #     'DateTimeOriginal' : st.column_config.TextColumn('datetime', width="small", required=False)}
     
-    st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
+    # st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
-    save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) 
-    if save_btn:
-        save_metadata(os.path.join(mmp, user_source_selected), mmf, mmef)
+    # save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) 
+    # if save_btn:
+    #     save_metadata(os.path.join(mmp, user_source_selected), mmf, mmef)
 
     # show world map with locations map
     showMap(hlat=hlat, hlon=hlon)
