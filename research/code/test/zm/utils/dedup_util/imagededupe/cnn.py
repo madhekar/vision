@@ -44,7 +44,7 @@ def remove_duplicates(input_image_path, archive_duplicates_path):
     # min_similarity_threshold can be adjusted (e.g., 0.9 for high similarity)
     duplicates = cnn_encoder.find_duplicates(
         image_dir=input_image_path,
-        min_similarity_threshold=0.90, # Adjust as needed
+        min_similarity_threshold=0.80, # Adjust as needed
         scores=False, # Set to True to get similarity scores
         recursive=True
     )
