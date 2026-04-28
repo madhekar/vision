@@ -36,9 +36,13 @@ def get_env():
 
 @st.cache_resource
 def metadata_initialize(mmp,us,mmf):
-       df = pd.read_csv (os.path.join(mmp, us, mmf)) #('metadata.csv')
-       df.set_index("SourceFile", inplace=True)
-       return df
+       if os.path.exists(os.path.join(mmp, us, mmf)):
+          df = pd.read_csv (os.path.join(mmp, us, mmf)) #('metadata.csv')
+          df.set_index("SourceFile", inplace=True)
+          return df
+       else:
+           print(f"metadata file not found for {us} in {mmp} folder.")
+           return None
 
 @st.cache_resource
 def location_initialize(smp,user_source, smf):
