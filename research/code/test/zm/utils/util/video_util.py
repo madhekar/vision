@@ -399,7 +399,7 @@ def remove_frames_folder(base_path, frames_name):
             shutil.rmtree(p)
 
 
-def generate_thumbnail_subprocess(in_path, out_path, time='00:00:05'):
+def generate_thumbnail_subprocess(in_path, out_path, time='00:00:02'):
     command = [
         'ffmpeg',
         '-ss', time,
