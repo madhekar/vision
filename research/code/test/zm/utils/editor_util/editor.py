@@ -164,7 +164,9 @@ def select_location_by_country_and_state(rdf):
             pass 
 
     with c_country:
-      selected_country = st.selectbox('country', rdf['country'].unique())
+      c_values = list(rdf['country'].unique())
+      default_c = c_values.index('US')
+      selected_country = st.selectbox('country', rdf['country'].unique(), index=default_c)
 
     with c_state:
         frdf = rdf[rdf["country"] == selected_country]
