@@ -143,14 +143,17 @@ def clean_unknown_files_folders(fdest_image, fdest_txt, fdest_video, fdest_audio
         
         idcnt, tdcnt, vdcnt, adcnt =0,0,0,0
         idcnt = ss.remove_empty_image_files_and_folders(fdest_image)
-        # tdcnt = ss.remove_empty_files_and_folders(fdest_txt)  -- TOGO impliment
-        # vdcnt = ss.remove_empty_files_and_folders(fdest_video) -- TOGO impliment
+        tdcnt = ss.remove_empty_files_and_folders(fdest_txt) 
+        vdcnt = ss.remove_empty_files_and_folders(fdest_video)
         # adcnt = ss.remove_empty_files_and_folders(fdest_audio) -- TOGO impliment
     except Exception as e:
             sm.add_messages("validate", f"e|exception: {e} occurred in clean_unknown_files_folders .\n\n")
 
     sm.add_messages("validate", f"s| number of <files> : <folders> cleanup- image:{ifcnt}:{idcnt} text: {tfcnt}:{tdcnt} video: {vfcnt}:{vdcnt} audio: {afcnt}:{adcnt} \n\n")
 
+'''
+execute data load for external data stource
+'''
 def execute(source_name):
     (
         raw_data_path,
@@ -171,17 +174,6 @@ def execute(source_name):
     copy_files_only(os.path.join(raw_data_path, source_name), ipath, tpath, vpath, apath)
 
     clean_unknown_files_folders(ipath, tpath, vpath, apath)
-
-    # source_list = []
-    # # source_list = get_external_devices(get_user())
-    # source_list = mu.extract_user_raw_data_folders(raw_data_path)
-    # if len(source_list) > 0:
-    #     ext = st.sidebar.selectbox(label="Select Source", options=source_list)
-
-    # st.sidebar.caption("CHECK FOLDERS TO TRIM", unsafe_allow_html=True)
-    # display_folder_tree(get_path_as_dict(os.path.join(raw_data_path, ext)))
-    # st.sidebar.button(label="TRIM CHECKED FOLDERS", use_container_width=True)
-    # # c1.text_area(label="External Source Structure", value= display_tree(os.path.join('/media/madhekar/' , ext)))
 
 
 if __name__ == "__main__":
