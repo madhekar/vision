@@ -155,10 +155,10 @@ def update_date_changes(video, col):
 
 def select_location_by_country_and_state(rdf):
     
-    c_location_type, c_country, c_state = st.sidebar.columns([.1,.1,.1], gap="small")
+    c_location_type, c_country, c_state = st.sidebar.columns([.13,.1,.1], gap="small")
     
     with c_location_type:
-        is_public_location = st.selectbox('type', options=('private','public','both'), placeholder="select type of locations to display...")
+        is_public_location = st.selectbox('Type', options=('private','public','both'), placeholder="select location type")
         if is_public_location == 'private':
             rdf = rdf[rdf['name'].str.len() >  15]
         elif is_public_location == 'public':
@@ -169,7 +169,7 @@ def select_location_by_country_and_state(rdf):
     with c_country:
       c_values = list(rdf['country'].unique())
       default_c = c_values.index('US')
-      selected_country = st.selectbox('country', rdf['country'].unique(), index=default_c)
+      selected_country = st.selectbox('Country', rdf['country'].unique(), index=default_c)
 
     with c_state:
         frdf = rdf[rdf["country"] == selected_country]
@@ -177,7 +177,7 @@ def select_location_by_country_and_state(rdf):
         state_values = list(s_frdf["state"].unique())
         if 'CA' in state_values:
            default_state = state_values.index('CA')
-           selected_state = st.selectbox("state", state_values, index=default_state)
+           selected_state = st.selectbox("State", state_values, index=default_state)
         else:   
            selected_state = st.selectbox("select state", state_values)
 
@@ -189,7 +189,7 @@ def select_location_by_country_and_state(rdf):
         default_loc = loc_values.index('Madhekar Residence Home in San Diego')
         selected_location = st.sidebar.selectbox('description', s_ffrdf['name'].unique(), index=default_loc)  
     else:
-        selected_location = st.sidebar.selectbox('description', s_ffrdf['name'].unique())      
+        selected_location = st.sidebar.selectbox('Description', s_ffrdf['name'].unique())      
     
     # with c_selected:
     #     #st.header(f"**{selected_country} :: {selected_state} :: {selected_location}**")
