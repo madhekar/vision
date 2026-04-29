@@ -142,7 +142,7 @@ def exe():
         #with st.container(key="my_container"):
             (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(duplicate_data_path, user_source_selected))
             dfi = dfi.reset_index(names="file_type")
-            st.caption("**Duplicate Images (file count size by type)**")
+            st.caption("**:blue[Duplicate Images]**")
 
             dfi['size'] = dfi['size'].apply(lambda x: x /(pow(1024, 2))).astype(float)
             dfi['count'] = dfi['count'].astype(int)
@@ -187,36 +187,7 @@ def exe():
             # Combine the bar chart and text labels
             chart = size_chart + text_count
             st.altair_chart(chart, use_container_width=True)
-            # ch = (
-            #     alt.Chart(dfi).mark_bar()
-            #     .encode(
-            #         x=alt.X(
-            #             "size:Q",
-            #             axis=alt.Axis(grid=True, gridColor="grey"),
-            #             # scale=alt.Scale(type="log"),
-            #         ),
-            #         y=alt.Y(
-            #             "count:Q",
-            #             axis=alt.Axis(grid=True, gridColor="grey"),
-            #             #scale=alt.Scale(type="log"),
-            #         ),
-            #         # size="file_type:N",
-            #         # shape="source:N",
-            #         color=alt.Color(
-            #             "file_type:N", scale=alt.Scale(scheme="dark2")
-            #         ),  # alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
-            #         tooltip=["file_type", "count", "size"],
-            #     )
-            # )
-            # # st.bar_chart(
-            # #     dfi,
-            # #     horizontal=False,
-            # #     stack=True,
-            # #     use_container_width=True,
-            # #     color=colors,
-            # # )
-
-            # st.altair_chart(ch, use_container_width=True)
+ 
     with cc:
         (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(quality_data_path, user_source_selected))
         dfi = dfi.reset_index(names="file_type")
@@ -260,46 +231,47 @@ def exe():
         st.altair_chart(chart, use_container_width=True)
 
         # video
-        (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(video_quality_data_path, user_source_selected))
-        dfv = dfv.reset_index(names="file_type")
-        st.caption("**:blue[Inferior Videos]**")
+
+        # (dfi, dfv, dfd, dfa, dfn) = ss.extract_all_folder_stats(os.path.join(video_quality_data_path, user_source_selected))
+        # dfv = dfv.reset_index(names="file_type")
+        # st.caption("**:blue[Inferior Videos]**")
         
-        dfv["size"] = dfv["size"].apply(lambda x: x / (pow(1024, 2))).astype(float)
-        dfv["connt"] = dfv["count"].astype(int)
+        # dfv["size"] = dfv["size"].apply(lambda x: x / (pow(1024, 2))).astype(float)
+        # dfv["connt"] = dfv["count"].astype(int)
 
-        base = (
-            alt.Chart(dfv)
-            .encode(
-                y=alt.Y(
-                    "file_type:N",
-                    sort="-x",
-                    title="File Type",
-                    axis=alt.Axis(grid=True, gridColor="grey"),
-                ),  # Sort descending by x-value
-                color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
-                tooltip=["file_type", "count", "size"],
-            )
-            # .properties(
-            #     title="File count and Size by Type",
-            # )
-        )
+        # base = (
+        #     alt.Chart(dfv)
+        #     .encode(
+        #         y=alt.Y(
+        #             "file_type:N",
+        #             sort="-x",
+        #             title="File Type",
+        #             axis=alt.Axis(grid=True, gridColor="grey"),
+        #         ),  # Sort descending by x-value
+        #         color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
+        #         tooltip=["file_type", "count", "size"],
+        #     )
+        #     # .properties(
+        #     #     title="File count and Size by Type",
+        #     # )
+        # )
 
-        # Bar chart for Size (MB)
-        size_chart = base.mark_bar(opacity=0.7).encode(
-            x=alt.X("size:Q", axis=alt.Axis(grid=True, gridColor="grey"), title="Total Size MB"),
-            color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
-        )
+        # # Bar chart for Size (MB)
+        # size_chart = base.mark_bar(opacity=0.7).encode(
+        #     x=alt.X("size:Q", axis=alt.Axis(grid=True, gridColor="grey"), title="Total Size MB"),
+        #     color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
+        # )
 
-        # Text labels for count on the bars
-        text_count = size_chart.mark_text(
-            align="left",
-            baseline="middle",
-            dx=3,  # Nudges text to the right of the bar
-        ).encode(x="size:Q", text="count:Q", color=alt.value("black"))
+        # # Text labels for count on the bars
+        # text_count = size_chart.mark_text(
+        #     align="left",
+        #     baseline="middle",
+        #     dx=3,  # Nudges text to the right of the bar
+        # ).encode(x="size:Q", text="count:Q", color=alt.value("black"))
 
-        # Combine the bar chart and text labels
-        chart = size_chart + text_count
-        st.altair_chart(chart, use_container_width=True)
+        # # Combine the bar chart and text labels
+        # chart = size_chart + text_count
+        # st.altair_chart(chart, use_container_width=True)
 
         
     with cd:
