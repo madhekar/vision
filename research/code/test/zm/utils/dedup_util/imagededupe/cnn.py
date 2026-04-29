@@ -35,7 +35,7 @@ def archive_images(image_path, archive_path, duplicate_filter_img_list):
         print("no duplicate or filtered images Found.:)")
         sm.add_messages("duplicate", "s| no duplicate or filtered images Found.")
 
-def remove_duplicates(input_image_path, archive_duplicates_path):
+def remove_duplicates(input_image_path, archive_duplicates_path, similarity_threshold):
 
     # 1. Initialize the CNN encoder
     cnn_encoder = CNN()
@@ -44,7 +44,7 @@ def remove_duplicates(input_image_path, archive_duplicates_path):
     # min_similarity_threshold can be adjusted (e.g., 0.9 for high similarity)
     duplicates = cnn_encoder.find_duplicates(
         image_dir=input_image_path,
-        min_similarity_threshold=0.80, # Adjust as needed
+        min_similarity_threshold=similarity_threshold, # Adjust as needed
         scores=False, # Set to True to get similarity scores
         recursive=True
     )
@@ -65,7 +65,7 @@ def remove_duplicates(input_image_path, archive_duplicates_path):
 def execute(source_name):
     result = "success"    
     try:    
-        input_image_path, archive_dup_path = config.dedup_config_load()
+        input_image_path, archive_dup_path, similarity_threshold = config.dedup_config_load()
         input_image_path = os.path.join(input_image_path, source_name)
         arc_folder_name_dt = mu.get_foldername_by_datetime()
         archive_dup_path_update = os.path.join(
@@ -76,7 +76,7 @@ def execute(source_name):
         ss.create_folder(archive_dup_path_update)
 
         #file_paths = [os.path.join(root, name) for root, dirs, files in os.walk(input_image_path) for name in files]
-        remove_duplicates(input_image_path, archive_dup_path_update)
+        remove_duplicates(input_image_path, archive_dup_path_update, similarity_threshold)
 
         ss.remove_empty_image_files_and_folders(input_image_path)
 

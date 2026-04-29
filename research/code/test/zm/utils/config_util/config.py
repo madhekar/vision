@@ -352,9 +352,11 @@ def dedup_config_load():
 
         input_image_path = dict["duplicate"]["input_image_path"]
         archive_dup_path = dict["duplicate"]["archive_dup_path"]
+        simarity_thrishold = dict["dupilcate"]["simarity_thrishold"]
     return (
         os.path.join(dr, *input_image_path.split(os.sep)[1:]),
-        os.path.join(dr, *archive_dup_path.split(os.sep)[1:])
+        os.path.join(dr, *archive_dup_path.split(os.sep)[1:]),
+        simarity_thrishold
     )
 
 """
