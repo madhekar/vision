@@ -59,9 +59,7 @@ def display_folder_stats(flist):
                 color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
                 tooltip=["file_type", "count", "size"],
                )
-                # .properties(
-                #     title="File count and Size by Type",
-                # )
+
                 )
 
                 # Bar chart for Size (MB)
@@ -80,24 +78,6 @@ def display_folder_stats(flist):
                 # Combine the bar chart and text labels
                 chart = size_chart + text_count
                 st.altair_chart(chart, use_container_width=True)
-
-                ###
-                # st.bar_chart(
-                #     df['count'],
-                #     stack=True,
-                #     horizontal=False,
-                #     y_label="total file count per filetype",
-                #     color=colors[0]
-                # )
-                # st.bar_chart(
-                #     df["size"],
-                #     stack=True,
-                #     horizontal=False,
-                #     y_label="total file size per filetype (MB)",
-                #     color=colors[1]
-                # )
-            # else:
-            #     st.error(f'Non Existant or Empty folder {folder}')    
 
         col = (col + 1) % row_size
     
@@ -119,8 +99,8 @@ def execute():
 
     data = get_path_as_dict( os.path.join(raw_data_path, ext))
     checked= display_folder_tree( data)
-    btrim = st.sidebar.button(label="TRIM CHECKED FOLDERS",use_container_width=True, type="primary") 
-    # c1.text_area(label="External Source Structure", value= display_tree(os.path.join('/media/madhekar/' , ext)))
+    btrim = st.sidebar.button(label="TRIM FOLDERS",use_container_width=True, type="primary") 
+   
     if btrim:
         for rs in checked:
             fo = rs.split("@@")[0]
