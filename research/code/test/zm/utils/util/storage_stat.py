@@ -311,6 +311,7 @@ other unknown files
 def trim_unknown_files(image_path):
     cnt = 0
     mac_file_pattern = "._"
+    folder_pattern =".jpg.files"
     # total files
     total_items = 0
     for dp, dns, fns in os.walk(image_path):
@@ -320,13 +321,25 @@ def trim_unknown_files(image_path):
         for root, dirs, files in os.walk(image_path):
             for file in files:
                 if file.startswith(mac_file_pattern):
+                    file_path = os.path.join(root, file)
                     try:
-                        os.remove(os.path.join(root, file))
+                        os.remove(file_path)
                         #print(f'removed {os.path.join(root, file)}')
                         cnt += 1
                     except OSError as e:
-                        print(f"exception: {e} removing empty file {file}.")
+                        print(f"exception: {e} removing unwanted file {file_path}.")
                 pbar.update(1)        
+            for d in dirs:
+                if d.endswith(folder_pattern):   
+                    dir_path = os.path_join(root, d) 
+                    try:
+                        os.remove(dir_path)
+                        #print(f'removed {os.path.join(root, file)}')
+                        cnt += 1
+                    except OSError as e:
+                        print(f"exception: {e} cleaning folder {dir_path}.")
+                pbar.update(1)    
+                    
     return cnt
 
 def remove_all_files_by_type(root_folder, type):
