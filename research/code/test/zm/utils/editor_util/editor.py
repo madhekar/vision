@@ -137,7 +137,6 @@ def update_video_latitude_longitude(vid_path, latitude, longitude, name):
     #print(st.session_state.df.head())
     st.session_state.vdf.at[vid_path, "GPSLatitude"] =latitude
     st.session_state.vdf.at[vid_path, "GPSLongitude"] = longitude
-
     lu.set_video_gps_title(vid_path, latitude, longitude, name)
 
 
