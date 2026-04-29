@@ -388,7 +388,31 @@ def image_quality_config_load():
     )
 
 """
+duplicate:
+  base_path: /data/input-data/error/img/duplicate
 
+quality:
+  base_path: /data/input-data/error/img/quality
+  video_base_path: /data/input-data/error/video/quality
+missing: 
+  base_path: /data/input-data/error/img/missing-data
+  video_base_path: /data/input-data/error/video/missing-data
+  video_missing_metadata_file: missing-metadata-wip.csv
+  video_missing_metadata_filter_file: missing-metadata-filter-wip.csv
+  missing_metadata_file: missing-metadata-wip.csv
+  missing_metadata_filter_file: missing-metadata-filter-wip.csv
+
+metadata:
+  base_path: /data/app-data/metadata
+
+static-metadata:
+  base_path:  /data/app-data/static-metadata 
+
+vectordb:
+  base_path: /data/app-data/vectordb
+
+raw-data:
+  base_path:  /data/raw-data
 """
 @st.cache_resource
 def data_validation_config_load():
@@ -405,10 +429,15 @@ def data_validation_config_load():
         duplicate_data_path = dict["duplicate"]["base_path"]
 
         quality_data_path = dict["quality"]["base_path"]
+        video_quality_data_path = dict["quality"]["video_base_path"]
 
         missing_metadata_path = dict["missing"]["base_path"]        
         missing_metadata_file = dict["missing"]["missing_metadata_file"]
         missing_metadata_filter_file = dict["missing"]["missing_metadata_filter_file"]
+
+        video_missing_metadata_path = dict["missing"]["video_base_path"]        
+        video_missing_metadata_file = dict["missing"]["video_missing_metadata_file"]
+        video_missing_metadata_filter_file = dict["missing"]["video_missing_metadata_filter_file"]
 
         metadata_file_path = dict["metadata"]["base_path"]
 
@@ -419,9 +448,13 @@ def data_validation_config_load():
         os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
         os.path.join(dr, *duplicate_data_path.split(os.sep)[1:]),
         os.path.join(dr, *quality_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *video_quality_data_path.split(os.sep)[1:]),
         os.path.join(dr, *missing_metadata_path.split(os.sep)[1:]),
+        os.path.join(dr, *video_missing_metadata_path.split(os.sep)[1:]),
         missing_metadata_file,
         missing_metadata_filter_file,
+        video_missing_metadata_file,
+        video_missing_metadata_filter_file,
         os.path.join(dr, *metadata_file_path.split(os.sep)[1:]),
         os.path.join(dr, *static_metadata_file_path.split(os.sep)[1:]),
         os.path.join(dr, *vectordb_path.split(os.sep)[1:])

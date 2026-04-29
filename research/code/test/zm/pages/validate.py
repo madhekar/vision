@@ -44,14 +44,20 @@ def color_selectbox(n_element: int, color: str):
 def extract_user_raw_data_folders(pth):
     return next(os.walk(pth))[1]
 
+
+
 def exe():
     (
         raw_data_path,
         duplicate_data_path,
         quality_data_path,
+        video_quality_data_path,        
         missing_metadata_path,
+        video_missing_metadata_path,
         missing_metadata_file,
         missing_metadata_filter_file,
+        video_missing_metadata_file,
+        video_missing_metadata_filter_file,
         metadata_file_path,
         static_metadata_file_path,
         vectordb_path,
@@ -300,8 +306,10 @@ def exe():
             st.caption("**Missing Metadata (file count by type)**")
             if os.path.exists(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file)) and os.path.getsize(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file)) > 0:       
                dict = ss.extract_stats_of_metadata_file(os.path.join( missing_metadata_path,  user_source_selected, missing_metadata_file))
+
                print(dict)
                df = pd.DataFrame.from_dict(dict)
+
                print(df)
             
                ch = alt.Chart(df).mark_bar(opacity=0.7).encode(
@@ -323,23 +331,33 @@ def exe():
                     tooltip=["categories", "values"],
                 )
                st.altair_chart(ch, use_container_width=True)
-            # st.bar_chart(
-            #     dfi,
-            #     horizontal=False,
-            #     stack=True,
-            #     use_container_width=True,
-            #     color=colors,
-            # )
+            else:
+                st.error(f"s| missing metadata file not present {missing_metadata_file}.") 
 
-              
-            #    st.bar_chart(
-            #         df,
-            #         horizontal=False,
-            #         stack=True,
-            #         y_label="number of images",
-            #         use_container_width=True,
-            #         color=alt.Color("categories:N", scale=alt.Scale(scheme="dark2")), #['#ae5a41']#,'#1b85b8','#559e83']#,'#c3cb71']#['#c09b95','#bac095','#95bac0','#9b95c0']#["#BAC095", "#A2AA70", "#848C53", "#636B2F"], #colors = ["#636B2F", "#BAC095"]
-            #    )
+            if os.path.exists(os.path.join( video_missing_metadata_path,  user_source_selected, video_missing_metadata_file)) and os.path.getsize(os.path.join( video_missing_metadata_path,  user_source_selected, video_missing_metadata_file)) > 0:       
+                   vdict = ss.extract_stats_of_video_metadata_file(os.path.join( video_missing_metadata_path,  user_source_selected, video_missing_metadata_file))
+
+                   vdf = pd.DataFrame.from_dict(vdict)
+
+                   ch = alt.Chart(vdf).mark_bar(opacity=0.7).encode(
+                    x=alt.Y(
+                        "values:Q",
+                        axis=alt.Axis(grid=True, gridColor="grey", title=None),
+                        # scale=alt.Scale(type="log"),
+                    ),
+                    y=alt.X(
+                        "categories:N",
+                        axis=alt.Axis(grid=True, gridColor="grey", title=None),
+                        #scale=alt.Scale(type="log"),
+                    ),
+                    # size="file_type:N",
+                    # shape="source:N",
+                    color=alt.Color(
+                        "categories:N", scale=alt.Scale(scheme="dark2")
+                    ),  # alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
+                    tooltip=["categories", "values"],
+                   )
+                   st.altair_chart(ch, use_container_width=True)
             else:
                 st.error(f"s| missing metadata file not present {missing_metadata_file}.")     
     ###

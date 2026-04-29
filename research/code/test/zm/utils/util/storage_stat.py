@@ -194,7 +194,27 @@ def extract_stats_of_metadata_file(metadata_path):
 
     return ret_dict
     
+def extract_stats_of_video_metadata_file(metadata_path):
+    ret_dict = {}
+    print(metadata_path)
+    mdf = pd.read_csv(metadata_path)
+    
+    if mdf.index.size > 0:
+        tot = mdf.shape[0]
+        clat = mdf[mdf['GPSLatitude'] == "-"].shape[0]
+        clon = mdf[mdf['GPSLatitude'] == "-"].shape[0]
+        lat_lon = clat if clat > clon else clon
+        cdatetime = mdf[mdf['CreateDate'] == "-"].shape[0]
+        correct = mdf[(mdf['CreateDate'] != "-") & (mdf['GPSLatitude'] != "-")].shape[0]
+    else:
+        tot, lat_lon, cdatetime, correct = 0, 0, 0, 0
+    cat = ["datetime", "lat-lon", "correct","total"]
+    vals = [cdatetime, lat_lon, correct, tot]
+    ret_dict['categories'] = cat
+    ret_dict['values'] = vals
+    print(ret_dict)
 
+    return ret_dict
 
 def get_folder_metrics(folder_path):
     """

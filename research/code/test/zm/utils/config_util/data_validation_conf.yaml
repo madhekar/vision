@@ -3,9 +3,12 @@ duplicate:
 
 quality:
   base_path: /data/input-data/error/img/quality
-
+  video_base_path: /data/input-data/error/video/quality
 missing: 
   base_path: /data/input-data/error/img/missing-data
+  video_base_path: /data/input-data/error/video/missing-data
+  video_missing_metadata_file: missing-metadata-wip.csv
+  video_missing_metadata_filter_file: missing-metadata-filter-wip.csv
   missing_metadata_file: missing-metadata-wip.csv
   missing_metadata_filter_file: missing-metadata-filter-wip.csv
 
