@@ -348,14 +348,17 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
     VIDEO embedding in vector database
     uri, id, ts, latlon, loc, text
     """
-    print("----->>", df_video_data.head())
-    df_video_uris = df_video_data['uri']  # frame uri
-    df_video_ids = df_video_data['id']  # frame id
-    df_video_metadata = df_video_data[["ts", "latlon", "loc", "text", "vuri"]].fillna("").T.to_dict().values()
+    if df_video_data is not None:
+        print("----->>", df_video_data.head())
+        df_video_uris = df_video_data['uri']  # frame uri
+        df_video_ids = df_video_data['id']  # frame id
+        df_video_metadata = df_video_data[["ts", "latlon", "loc", "text", "vuri"]].fillna("").T.to_dict().values()
 
-    collection_videos.add(ids=df_video_ids.tolist(), uris=df_video_uris.tolist(), metadatas=list(df_video_metadata))
+        collection_videos.add(ids=df_video_ids.tolist(), uris=df_video_uris.tolist(), metadatas=list(df_video_metadata))
 
-    st.info(f"Info: Done adding number of frames for videos: {len(df_video_uris)}")
+        st.info(f"Info: Done adding number of frames for videos: {len(df_video_uris)}")
+    else:
+        st.error("video data does not exists for")  
 
     """
       TEXT Embeddings on vector database
@@ -469,9 +472,10 @@ def execute():
 
     #copy images in input-data to final-data/datetime
     mu.copy_folder_tree(image_initial_path, image_final_path)
-
-    #copy videos and frames from input-data to final-data
-    mu.copy_folder_tree(video_initial_path, video_final_path)
+    
+    if video_initial_path.is_dir() and any(video_initial_path.iterdir()):
+        #copy videos and frames from input-data to final-data
+        mu.copy_folder_tree(video_initial_path, video_final_path)
 
     metadata_path = os.path.join(metadata_path, user_source_selected)
     text_folder_name = os.path.join(text_folder_name, user_source_selected)
