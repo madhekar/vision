@@ -32,13 +32,7 @@ st.set_page_config(
 
 #BASE_FOLDER = Path('__file__').resolve().parent
 
-"""
-            data_root,
-            app_root,
-            zmedia_path,
-            zmedia_file,
-            zmedia_dest
-"""
+
 @st.cache_resource(ttl=1000)
 def load_app_configuration():
     root_data, vdb_path, root_app, current_os = config.app_config_load()
