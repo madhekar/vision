@@ -1,4 +1,4 @@
-
+from pathlib import Path
 
 image_types = [
     ".jpg",
@@ -22,20 +22,26 @@ image_types = [
 ]
 video_types = [
     ".mp4",
+    ".MP4",
     ".avi",
+    ".AVI",
     ".mkv",
+    ".MKV",
     ".mov",
+    ".MOV",
     ".wmv",
+    ".WMV",
     ".flv",
+    ".FLV",
     ".mpeg",
-    ".mov",
+    ".MPEG",
     ".eps",
     ".sbd",
     ".ra",
     ".au",
     ".wma",
     ".wmv",
-    ".3gp",
+    ".3gp"
 ]
 audio_types = [
     ".mp3",
@@ -82,3 +88,8 @@ non_media_types = [
     ".ts",
     ".cpp"
 ]
+
+
+def get_basename_parent(file_path):
+    p =Path(file_path)
+    return p.name, p.parent.parent.name 

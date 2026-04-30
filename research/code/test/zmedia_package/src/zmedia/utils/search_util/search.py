@@ -17,6 +17,8 @@ import chromadb as cdb
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
+from utils.util import file_type_ext as fte
+
 
 PIL.Image.MAX_IMAGE_PIXELS = 933120000
 MIN_DT = datetime.datetime(1998, 1, 1)
@@ -30,6 +32,7 @@ def init_vdb(vdp, icn, tcn, vcn):
     
     # openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
+    #text_embedding_function = OpenCLIPEmbeddingFunction(model_name="coca_roberta-ViT-B-32") 
 
     # Image collection inside vector database 'chromadb'
     image_loader = ImageLoader()
@@ -42,13 +45,13 @@ def init_vdb(vdp, icn, tcn, vcn):
       data_loader=image_loader
       )
     
-    collection_videos = client.get_or_create_collection(      
-           name=vcn,					      
-           embedding_function=embedding_function,	      
-            metadata={"hnsw:space": "cosine"},		      
-            data_loader=image_loader,			      
-        )	
-
+    collection_videos = client.get_or_create_collection(
+           name=vcn,
+           embedding_function=embedding_function,
+            metadata={"hnsw:space": "cosine"},
+            data_loader=image_loader,
+        )
+    
     #Text collection inside vector database 'chromadb'
     collection_text = client.get_or_create_collection(
       name=tcn,
@@ -56,6 +59,7 @@ def init_vdb(vdp, icn, tcn, vcn):
       embedding_function=embedding_function,
     )
 
+    #print("*****", collection_text.peek())
     return client, collection_images, collection_text, collection_videos
 
 def updateMetadata(client, image_collection,  id, desc, names, dt, loc):
@@ -66,9 +70,12 @@ def updateMetadata(client, image_collection,  id, desc, names, dt, loc):
         ids=id,
         metadatas={"description": desc, "names": names, "datetime" : dt, "location": loc}
     )
-   
 
-def os_specific_path(img_path, mac_prefix, win_prefix, linux_prefix, token):
+def os_specific_path(img_path):
+    linux_prefix = "/mnt/zmdata/"
+    mac_prefix = "/Users/Share/zmdata/"
+    win_prefix = "c:/Users/Public/zmdata/"
+    token = "home-media-app"
     n_pth = ""
 
     platform_system = platform.system()
@@ -89,13 +96,13 @@ def os_specific_path(img_path, mac_prefix, win_prefix, linux_prefix, token):
 
     elif platform_system == "Darwin":
         parts = img_path.split(token,1)
-
+        print(parts)
         if len(parts) > 1:
             n_pth = mac_prefix + token + parts[1]
 
     return n_pth    
 
-def search_fn(client, cImgs, cTxts,cVideos):
+def search_fn(client, cImgs, cTxts, cVideos):
     # create default application Tabs
     image, video, text = st.tabs(["Image", "Video", "Text"])
 
@@ -107,13 +114,13 @@ def search_fn(client, cImgs, cTxts,cVideos):
         st.session_state["t_imgs"] = []
 
     if "t_videos" not in st.session_state:
-       st.session_state["t_videos"] = []    
+        st.session_state["t_videos"] = []    
 
     if "meta" not in st.session_state:
         st.session_state["meta"] = []
 
     if "vmeta" not in st.session_state:
-        st.session_state["vmeta"] = []
+        st.session_state["vmeta"] = []    
 
     if "llm_text" not in st.session_state:
         st.session_state["llm_text"] = st.empty()
@@ -155,7 +162,7 @@ def search_fn(client, cImgs, cTxts,cVideos):
             similar_image = st.file_uploader(
                 label="## Select Image",
                 label_visibility="hidden",
-                type=["png", "jpeg", "mpg", "jpg", "PNG", "JPG", "JPEG", "MPG"],
+                type= fte.image_types, #["png", "jpeg", "mpg", "jpg", "PNG", "JPG", "JPEG", "MPG"],
                 help="select image to search similar images",
             )
             im = st.empty()
@@ -194,32 +201,33 @@ def search_fn(client, cImgs, cTxts,cVideos):
 
         search_btn = st.button(label="## Search", use_container_width=True, type="primary")
 
-        ''' 						      
-        **** seach button pressed **** 			      
-        '''	
+
+    ''' 
+    **** seach button pressed **** 
+    '''
     if search_btn:
         # create query on image, also shows similar document in vector database (not using LLM)  -- openclip embedding function!
-        embedding_function = OpenCLIPEmbeddingFunction()
+        #embedding_function = OpenCLIPEmbeddingFunction()
 
         # reset session_state for temperory images for view
         if "t_imgs" in st.session_state:
             st.session_state["t_imgs"] = []
 
         if "t_videos" in st.session_state:
-            st.session_state["t_videos"] = []     
+            st.session_state["t_videos"] = []    
 
         # reset session_state for metadata
         if "meta" in st.session_state:
             st.session_state["meta"] = []
 
-        if "vmeta" in st.session_state:	
-            st.session_state["vmeta"] = [] 
+        if "vmeta" in st.session_state:
+            st.session_state["vmeta"] = []    
 
-        if "document" in st.session_state:	
-            st.session_state["document"] = [] 
-    
-        ''' 						  
-        Image Modality selected 			
+        if "document" in st.session_state:
+            st.session_state["document"] = []    
+
+        ''' 
+        Image Modality selected 
         '''
         if modality_selected == "image":
             # execute text collection query --- TBD fix
@@ -229,7 +237,7 @@ def search_fn(client, cImgs, cTxts,cVideos):
             #     n_results=5,
             # )["documents"][0][0]
 
-            #get location and datetime metadata for an image
+            # get location and datetime metadata for an image
             # qmdata = util.getMetadata(sim.name)
             # dt_format = "%Y-%m-%d %H:%M:%S"
             # st.write(qmdata[3])
@@ -247,49 +255,55 @@ def search_fn(client, cImgs, cTxts,cVideos):
                 n_results=10,
             )
 
-            #execute video query with search criteria	      
-            st.session_state["videos"] = cVideos.query(	      
-                query_uris="./" + similar_image.name,	      
-                include=["data", "metadatas"],		      
-                n_results=10,				      
-            )						      
-							      
-            #print("****", st.session_state["videos"]["metada 
-            #st.write(st.session_state["imgs"]) # ---enable t	            #st.write(st.session_state["imgs"]) # ---enable t
 
-            ''' 					      
-            Text Modality selected 			      
-            ''' 		
+            #execute video query with search criteria
+            st.session_state["videos"] = cVideos.query(
+                query_uris="./" + similar_image.name,
+                include=["data", "metadatas"],
+                n_results=10,
+            )
+
+            #print("****", st.session_state["videos"]["metadatas"][0][1:][0]["vuri"])
+            #st.write(st.session_state["imgs"]) # ---enable to debug
+
+            ''' 
+            Text Modality selected 
+            ''' 
         elif modality_selected == "text":
+            
             # execute text collection query --- TBD fix
             st.session_state["document"] = cTxts.query(
                 query_texts=[modalityTxt],
+                include=["documents", "metadatas", "distances"], 
                 n_results=5,
-            ) #["documents"][0][0]
+            )#["documents"][0][0]
 
+            print(">>>>>", st.session_state["document"])
             # execute image query with search criteria
             st.session_state["imgs"] = cImgs.query(
                 query_texts=[modalityTxt], 
                 include=["data", "metadatas"], 
                 n_results=10
-            ) 
+            )
 
-            # execute video query with search criteria	     
+
+            # execute video query with search criteria
             st.session_state["videos"] = cVideos.query(
-                query_texts=[modalityTxt],
-                include=["data", "metadatas"],
+                query_texts=[modalityTxt], 
+                include=["data", "metadatas"], 
                 n_results=10
             )
+            
+
 
         for img in st.session_state["imgs"]["data"][0][1:]:
             #if img.mode in ("RGBA", "P"):
             if img.shape[2] == 4:
                 img = img[:, :, :3]
                 #img = img.convert("RGB")
-                
             st.session_state["t_imgs"].append(img)
         for mdata in st.session_state["imgs"]["metadatas"][0][1:]:
-            st.write(mdata) #---???
+            #st.write(mdata) #---???
             tss =  mdata["ts"] if mdata["ts"]  else "1765060800.0"
             st.session_state["meta"].append(
                 "Desc:["
@@ -303,24 +317,24 @@ def search_fn(client, cImgs, cTxts,cVideos):
                 + "]"
             )
 
-        for img in st.session_state["videos"]["data"][0][1:]: 
-            #if img.mode in ("RGBA", "P"):		      
-            if img.shape[2] == 4:			      
-                img = img[:, :, :3]			      
-            st.session_state["t_videos"].append(img)	      
-        for vmdata in st.session_state["videos"]["metadatas"]:
-            st.session_state["vmeta"].append(vmdata.get("vuri")) 
+        for img in st.session_state["videos"]["data"][0][1:]:
+            #if img.mode in ("RGBA", "P"):
+            if img.shape[2] == 4:
+                img = img[:, :, :3]
+            st.session_state["t_videos"].append(img)
+        for vmdata in st.session_state["videos"]["metadatas"][0][1:]:
+            st.session_state["vmeta"].append(vmdata.get("vuri"))
+
+            print("%%%%", st.session_state["vmeta"])
+      
 							      
-        print("%%%%", st.session_state["vmeta"])	      
-							      
-    '''  						      
-    **** Image TAB ****					      
-    '''							      
+    '''  
+    **** Image TAB ****
+    '''
     with image:
         if st.session_state["t_imgs"] and len(st.session_state["t_imgs"]) > 1:
             index = image_select(
                 label= "Resembling Images",
-                #label_visibility="collapsed",
                 images=st.session_state["t_imgs"],
                 use_container_width=True,
                 # captions=st.session_state["meta"],
@@ -339,14 +353,14 @@ def search_fn(client, cImgs, cTxts,cVideos):
             with col23:
                 flip = st.button(label="## &#x21C5;")
             with cole:
-                edit = st.button(label="## &#x270D;")
+                edit = st.button(label="## &#x270D;")    
 
             # with img:
             im = Image.fromarray(st.session_state["t_imgs"][index])
             # if im.mode in ("RGBA", "P"):
             #    im = im.convert("RGB")
             nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
-            #print(f"***{nim}")
+            print(f"***{nim}")
             imageLoc = c1.empty()
             display_im = imageLoc.image(nim, use_column_width="always")
             # st.button(st.image(nim, use_column_width="always"))
@@ -370,12 +384,12 @@ def search_fn(client, cImgs, cTxts,cVideos):
                     dt=st.session_state["imgs"]["metadatas"][0][1:][index]["ts"],
                     loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"],
                 )
-            # c2.divider()
-            colt, cole = c2.columns([0.2, 0.8])		  
+
+            colt, cole = c2.columns([0.2, 0.8])
             with colt:
                 st.markdown("<p class='big-font-subh'>Caption: </p>", unsafe_allow_html=True)
             with cole:
-                o_caption = f'<p class="input">{st.session_st["imgs"]["metadatas"][0][1:][index]["Caption"]}</p>'
+                o_caption = f'<p class="input">{st.session_state["imgs"]["metadatas"][0][1:][index]["caption"]}</p>'
                 st.markdown(o_caption, unsafe_allow_html=True)
 
 
@@ -389,14 +403,14 @@ def search_fn(client, cImgs, cTxts,cVideos):
             colt, cole = c2.columns([0.2, 0.8])
             with colt:
                st.write("<p class='big-font-subh'>People: </p>", unsafe_allow_html=True)
-            with cole:   
+            with cole:
                o_names = f'<p class="input">{st.session_state["imgs"]["metadatas"][0][1:][index]["ppt"]} </p>' #- {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
                st.markdown(o_names, unsafe_allow_html=True)
 
             colt, cole = c2.columns([0.2, 0.8])
             with colt:
                st.write("<p class='input-subh'>Date Time: </p>", unsafe_allow_html=True)
-            with cole:   
+            with cole:
                 tts = "0.0" if st.session_state["imgs"]["metadatas"][0][1:][index]["ts"] == "" else st.session_state["imgs"]["metadatas"][0][1:][index]["ts"]
                 o_datetime = f'<p class="input">{str(datetime.datetime.fromtimestamp(float(tts)))}</p>'
                 st.markdown(o_datetime, unsafe_allow_html=True)
@@ -404,20 +418,21 @@ def search_fn(client, cImgs, cTxts,cVideos):
             colt, cole = c2.columns([0.2, 0.8])
             with colt:
                 st.write("<p class='big-font-subh'>Location: </p>", unsafe_allow_html=True)
-            with cole:    
+            with cole:
                 o_location = f'<p class="input">{st.session_state["imgs"]["metadatas"][0][1:][index]["loc"]}</p>'
                 st.markdown(o_location, unsafe_allow_html=True)
+
 
             ll = ast.literal_eval(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"])     
             lat = ll[0] #float(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"][0])
             lon = ll[1] # float(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"][1])
 
             map_data = pd.DataFrame({"lat": [lat], "lon": [lon]})
-            c2.markdown("<p class='big-font-subh'>Map: </p>", unsafe_allow_html=True)
+            c2.markdown("<p class='big-font-subh'>Map</p>", unsafe_allow_html=True)
             c2.map(map_data, zoom=12, size=80, color="#ff00ff")
         else:
             st.write(
-                "<p class='input'>sorry, no similar images found in search criteria!</p>",
+                "<p class='big-font'>sorry, no similar images found in search criteria!</p>",
                 unsafe_allow_html=True,
             )
 
