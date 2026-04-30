@@ -174,7 +174,7 @@ def fileList(path, pattern='**/*', recursive=True):
 
 
 # handle new creation on metadata file from scratch
-def load_video_metadata(metadata_path, metadata_file, image_final_path, image_final_folder):
+def load_video_metadata(metadata_path, metadata_file):
     data = []
     with open(os.path.join(metadata_path, metadata_file), mode="r") as f:
         for line in f:
@@ -201,7 +201,7 @@ def load_video_metadata(metadata_path, metadata_file, image_final_path, image_fi
     return df_e
 
 # handle new creation on metadata file from scratch
-def load_metadata(metadata_path, metadata_file, image_final_path, image_final_folder):
+def load_metadata(metadata_path, metadata_file):
     data = []
     with open(os.path.join(metadata_path, metadata_file), mode="r") as f:
         for line in f:
@@ -479,9 +479,9 @@ def execute():
     b_load_metadata = st.button(f"load metadata: {user_source_selected}", type="primary")
     if b_load_metadata:
 
-        df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file, image_final_path=image_final_path, image_final_folder=arc_folder_name)
+        df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file)
 
-        df_video_metadata = load_video_metadata(metadata_path=metadata_path, metadata_file=video_metadata_file, image_final_path=image_final_path, image_final_folder=arc_folder_name)
+        df_video_metadata = load_video_metadata(metadata_path=metadata_path, metadata_file=video_metadata_file)
 
         createVectorDB(df_metadata, df_video_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name, video_collection_name, max_workers)
 
