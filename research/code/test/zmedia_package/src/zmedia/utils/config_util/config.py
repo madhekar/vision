@@ -487,11 +487,6 @@ def search_config_load():
         video_collection_name = dict["vectordb"]["video_collection_name"]
         audio_collection_name = dict["vectordb"]["audio_collection_name"]
 
-        linux_prefix = dict["os-prefixes"]["linux_prefix"]
-        mac_prefix = dict["os-prefixes"]["mac_prefix"]
-        win_prefix = dict["os-prefixes"]["win_prefix"]
-        token = dict["os-prefixes"]["token"]
-
     return (
         os.path.join(dr, *vectordb_path.split(os.sep)[1:]),
         image_collection_name,
@@ -499,10 +494,6 @@ def search_config_load():
         video_collection_name,
         audio_collection_name,
 
-        linux_prefix,
-        mac_prefix,
-        win_prefix,
-        token
     )
 
 """
