@@ -473,7 +473,7 @@ def execute():
     #copy images in input-data to final-data/datetime
     mu.copy_folder_tree(image_initial_path, image_final_path)
     
-    if video_initial_path.is_dir() and any(video_initial_path.iterdir()):
+    if os.path.exists(os.path.join(video_initial_path)) and any(Path(video_initial_path).iterdir()):
         #copy videos and frames from input-data to final-data
         mu.copy_folder_tree(video_initial_path, video_final_path)
 
