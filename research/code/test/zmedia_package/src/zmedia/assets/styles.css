@@ -56,14 +56,10 @@
 }
 
 .block-container {
-    padding-top: 0rem;
+    padding-top: 2rem;
     padding-bottom: 0rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-
-.stApp .st-emotion-cache {
-    display: none !important;
+    padding-left: 3rem;
+    padding-right: 3rem;
 }
 
 /* Text area with custom font */
@@ -197,59 +193,26 @@ div[data-testid="stSidebarNav"] ul li{
         }
 
 /* Default style for input font size on larger screens */
-input {
-    font-size: 1rem !important;
-}
+/* # input {
+#     font-size: 1rem !important;
+# } */
 
 /* Media query for screens smaller than 600px */
 @media (max-width: 768px) {
     input {
-        font-size: .3rem !important; /* Increase font size on mobile for better readability */
+        font-size: .5rem !important; /* Increase font size on mobile for better readability */
     }
 }
 
 /* Media query for screens larger than 900px */
 @media (min-width: 769px) and (max-width: 1024px) {
     input {
-        font-size: .5rem !important; /* Increase font size on mobile for better readability */
+        font-size: .8rem !important; /* Increase font size on mobile for better readability */
     }
 }
 
 @media (min-width: 1025px) {
     input {
-        font-size: .8rem !important; /* Increase font size on mobile for better readability */
+        font-size: 1.2rem !important; /* Increase font size on mobile for better readability */
     }
 }
-
-/* hide_streamlit_style = """
-                <style> */
-                /* div[data-testid="stToolbar"] {
-                visibility: hidden;
-                height: 0%;
-                position: fixed;
-                }
-                div[data-testid="stDecoration"] {
-                visibility: hidden;
-                height: 0%;
-                position: fixed;
-                }
-                div[data-testid="stStatusWidget"] {
-                visibility: hidden;
-                height: 0%;
-                position: fixed;
-                }
-                #MainMenu {
-                visibility: hidden;
-                height: 0%;
-                }
-                header {
-                visibility: hidden;
-                height: 0%;
-                }
-                footer {
-                visibility: hidden;
-                height: 0%;
-                } */
-                /* </style>
-                """
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)  */
