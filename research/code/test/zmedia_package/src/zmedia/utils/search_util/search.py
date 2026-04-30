@@ -308,7 +308,7 @@ def search_fn(client, cImgs, cTxts,cVideos):
             if img.shape[2] == 4:			      
                 img = img[:, :, :3]			      
             st.session_state["t_videos"].append(img)	      
-        for vmdata in st.session_state["videos"]["metadatas"] 
+        for vmdata in st.session_state["videos"]["metadatas"]:
             st.session_state["vmeta"].append(vmdata.get("vuri")) 
 							      
         print("%%%%", st.session_state["vmeta"])	      

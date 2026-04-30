@@ -351,11 +351,11 @@ def execute():
         remove_initialization_on_device_change()
 
     show_missing = st.sidebar.checkbox(label='missing')
-    c1,c2 = st.sidebar.columns([1,2], gap="small")
+    c1,c2 = st.sidebar.columns([1,1.7], gap="small")
     with c1:
-        st.write("Edit Options:")
+        st.write("**Edit Options:**")
     with c2:    
-        edit_choice = st.radio("Edit option:", ["image", "video"], horizontal=True, label_visibility="collapsed")
+        edit_choice = st.radio("Edit option:", ["image", "video"], horizontal=True)#, label_visibility="collapsed")
     modality = "I" if edit_choice == "image" else "V"    
 
     mmfile = mmff if show_missing else mmf
