@@ -480,8 +480,11 @@ def execute():
     if b_load_metadata:
 
         df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file)
-
-        df_video_metadata = load_video_metadata(metadata_path=metadata_path, metadata_file=video_metadata_file)
+     
+        if os.path.exists(os.path.join(metadata_path, video_metadata_file)):
+            df_video_metadata = load_video_metadata(metadata_path=metadata_path, metadata_file=video_metadata_file)
+        else:
+            df_video_metadata = None
 
         createVectorDB(df_metadata, df_video_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name, video_collection_name, max_workers)
 
