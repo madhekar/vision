@@ -450,7 +450,7 @@ def search_fn(client, cImgs, cTxts,cVideos):
             with colt:
                     st.markdown("<p class='big-font-subh'>Caption: </p>", unsafe_allow_html=True)
             with cole:
-                    o_caption = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["cap"]}</p>'
+                    o_caption = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["caption"]}</p>'
                     st.markdown(o_caption, unsafe_allow_html=True)
 
 
@@ -502,7 +502,6 @@ def search_fn(client, cImgs, cTxts,cVideos):
                 unsafe_allow_html=True,
             )
 
-
     ''' 
     **** Documents Tab **** 
     '''
@@ -550,10 +549,10 @@ def execute():
         win_prefix,
         token
     '''
-    vdb, icn, tcn, vcn, acn, lx_prx, mc_prx, wn_prx, tk = config.search_config_load()
-    #print(vdb, ': ', icn,':', tcn)
-    client, img_collection, txt_collection  = init_vdb(vdb, icn, tcn)
+    vdb, icn, tcn, vcn, acn = config.search_config_load()
+    print(vdb, ': ', icn,':', tcn)
+    client, img_collection, txt_collection, video_collection  = init_vdb(vdb, icn, tcn, vcn)
 
-    search_fn(client, img_collection, txt_collection, mc_prx, wn_prx, lx_prx, tk)
+    search_fn(client, img_collection, txt_collection, video_collection)
 
     
