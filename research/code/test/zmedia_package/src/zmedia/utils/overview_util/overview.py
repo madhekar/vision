@@ -218,7 +218,7 @@ def disc_usage_1(tm, um, fm, w):
 
     # st.altair_chart(b, width='stretch')
 
-def disc_usage(tm, um, fm, w):
+def disc_usage(tm, um, fm,w):
 
     v = w['width'] if w is not None else 400
     mem = pd.DataFrame({"disc": ["Total", "Used", "Free"], "size": [tm, um, fm]})
@@ -229,12 +229,12 @@ def disc_usage(tm, um, fm, w):
     # Encode theta by the value, and color by the new combined label
     base = alt.Chart(mem).encode(
         theta=alt.Theta("size:Q").stack(True),
-        radius=alt.Radius("size").scale(type="sqrt", zero=True),
+        radius=alt.Radius("size").scale(type="linear", zero=True),
         color=alt.Color("size:Q", scale=alt.Scale(scheme="dark2"), legend=None)
     )
 
    # 4. Create the pie (arc) layer innerRadius=int(0.05 * v), outerRadius=int(0.2 * v)
-    pie = base.mark_arc(opacity=0.7, innerRadius=int(.15 * v), outerRadius=int(1.5 * v), stroke="#fff").encode(
+    pie = base.mark_arc(opacity=0.7, innerRadius=int(.4 * v), outerRadius=int(.7 * v), stroke="#fff").encode(
         tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N")],
         
     )
