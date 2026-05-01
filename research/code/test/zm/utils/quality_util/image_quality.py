@@ -179,6 +179,7 @@ def archive_images(image_path, archive_path, quality_filter_img_list):
 
         print(f"\n\n saved {round(space_saved / 1000000)} mb of Space, {image_cnt} images archived.")
         sm.add_messages("quality",f"s| saved {round(space_saved / 1000000)} mb of Space, {image_cnt} images archived.")
+        ss.remove_empty_image_files_and_folders(image_path)
     else:
         print("no quality or filtered images Found.:)")
         sm.add_messages("quality", "s| no quality or filtered images Found.")

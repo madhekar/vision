@@ -60,7 +60,7 @@ def remove_duplicates(input_image_path, archive_duplicates_path, similarity_thre
     to_remove = [e[1] for e in unique_combination_set]    
     if len(to_remove) > 0:
         archive_images(image_path=input_image_path, archive_path=archive_duplicates_path, duplicate_filter_img_list=to_remove)
-
+        ss.remove_empty_image_files_and_folders(input_image_path)
 
 def execute(source_name):
     result = "success"    
