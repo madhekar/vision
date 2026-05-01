@@ -338,7 +338,10 @@ def missing_metadata_config_load():
     )
 
 """
-
+duplicate:
+  input_image_path: /data/input-data/img
+  archive_dup_path: /data/input-data/error/img/duplicate
+  similarity_threshold: 0.8
 """
 @st.cache_resource
 def dedup_config_load():
@@ -352,11 +355,12 @@ def dedup_config_load():
 
         input_image_path = dict["duplicate"]["input_image_path"]
         archive_dup_path = dict["duplicate"]["archive_dup_path"]
-        simarity_thrishold = dict["dupilcate"]["simarity_thrishold"]
+        similarity_threshold = dict["duplicate"]["similarity_threshold"]
+
     return (
         os.path.join(dr, *input_image_path.split(os.sep)[1:]),
         os.path.join(dr, *archive_dup_path.split(os.sep)[1:]),
-        simarity_thrishold
+        similarity_threshold,
     )
 
 """
