@@ -81,7 +81,7 @@ def execute(source_name):
         ss.remove_empty_image_files_and_folders(input_image_path)
 
     except Exception as e:
-        sm.add_messages("deduplicate", f"e| Exception occurred {e}")
+        sm.add_messages("duplicate", f"e| Exception occurred {e}")
         result = "failed"
     return result 
 
