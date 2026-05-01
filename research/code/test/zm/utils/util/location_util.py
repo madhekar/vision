@@ -340,7 +340,7 @@ def set_video_gps_title(vid_path, lat, lon, title):
         ]
         subprocess.run(command)
     except Exception as e:
-        print(f"Exception: {e} while setting gps data for {img_path} ")
+        print(f"Exception: {e} while setting gps data for {vid_path} ")
  
 def get_image_exif_info(image_path):
     user_comment, datetime_original = "",""

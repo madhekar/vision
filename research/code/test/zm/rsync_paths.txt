@@ -24,7 +24,7 @@ rsync -avzh -f"+ */" -f"- *" /mnt/zmdata/home-media-app/data/raw-data/ madhekar@
 8. sync input-data from user server to model compiler - input-data, app-data
 
 rsync -avzh --progress /mnt/zmdata/home-media-app/data/input-data/img/ madhekar@192.168.68.128:/mnt/zmdata/home-media-app/data/input-data/img/
-rsync -avzh --progress /mnt/zmdata/home-media-app/data/input-data/error/ madhekar@192.168.68.128:/mnt/zmdata/home-media-app/data/input-data/error/
+rsync -avzh --progress /mnt/zmdata/home-media-app/data/input-data/video/ madhekar@192.168.68.128:/mnt/zmdata/home-media-app/data/input-data/video/
 
 9. generate final metadata and final-data image files
 
@@ -35,3 +35,8 @@ rsync -avzh --progress /mnt/zmdata/home-media-app/data/input-data/error/ madheka
 rsync -avzh --progress  --delete-before /mnt/zmdata/home-media-app/data/app-data/vectordb/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/data/app-data/vectordb/
 rsync -avzh --progress --delete-before /mnt/zmdata/home-media-app/data/final-data/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/data/final-data/
 
+-----
+
+specific data for input-data image and video files
+
+rsync -avzh --progress /mnt/zmdata/home-media-app/data/input-data/img/ madhekar@192.168.68.128:/mnt/zmdata/home-media-app/data/input-data/img/
