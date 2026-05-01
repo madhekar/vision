@@ -88,7 +88,7 @@ def execute(source_name):
     imp, vmp, mmp, mvmp, mmf, mvmf, mmff, mvmff = cfg.missing_metadata_config_load()
 
     input_video_path = os.path.join(vmp, source_name)
-    if os.path.exists(input_video_path):
+    if ss.check_path_n_files_exists(input_video_path):
         #clean empty folders if any
         #ss.remove_empty_files_and_folders(input_image_path) #remove_empty_folders(input_image_path) 
 
@@ -106,5 +106,6 @@ def execute(source_name):
         filter_missing_video_data(os.path.join(output_file_path, mvmf), os.path.join(output_file_path, mvmff))
 
         create_missing_report(os.path.join(output_file_path, mvmf))
+    
 
 

@@ -246,9 +246,10 @@ def execute():
                 if ca_create:
                     ca.info(f'starting to create user specific static video location data for: {user_source_selected}')
                     print(user_location_metadata_file)
-                    if not os.path.exists(os.path.join(user_location_metadata_path, user_video_location_metadata_file)):
-                        generate_user_specific_static_metadata(missing_video_metadata_path, missing_video_metadata_file, default_location_metadata_path, user_location_metadata_path, user_video_location_metadata_file) 
-                    ca_status.update(label='user specific video locations complete!', state='complete', expanded=False)            
+                    if ss.check_path_n_files_exists(missing_metadata_path):
+                        if not os.path.exists(os.path.join(user_location_metadata_path, user_video_location_metadata_file)):
+                            generate_user_specific_static_metadata(missing_video_metadata_path, missing_video_metadata_file, default_location_metadata_path, user_location_metadata_path, user_video_location_metadata_file) 
+                        ca_status.update(label='user specific video locations complete!', state='complete', expanded=False)            
 
     with cb:
         cb_metadata = st.button("**aggregate all locations**", use_container_width=True, type="primary")

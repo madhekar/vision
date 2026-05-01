@@ -435,7 +435,16 @@ def create_folder(cpath):
     try:
         os.makedirs(cpath, exist_ok=True)
     except OSError as e:
-        print(f' Error  creating folder {cpath} : {e}')    
+        print(f' Error  creating folder {cpath} : {e}')
+
+def check_path_n_files_exists(pth):
+    if os.path.exists(pth):
+        if os.path.getsize(pth) < 0:
+           return True
+        else:
+            return False
+    else:
+        return False        
 
 def worker_function(item):
     """A function to be executed in a separate process."""
