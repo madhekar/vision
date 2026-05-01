@@ -88,22 +88,23 @@ def execute(source_name):
     imp, vmp, mmp, mvmp, mmf, mvmf, mmff, mvmff = cfg.missing_metadata_config_load()
 
     input_video_path = os.path.join(vmp, source_name)
-    #clean empty folders if any
-    #ss.remove_empty_files_and_folders(input_image_path) #remove_empty_folders(input_image_path) 
+    if os.path.exists(input_video_path):
+        #clean empty folders if any
+        #ss.remove_empty_files_and_folders(input_image_path) #remove_empty_folders(input_image_path) 
 
-    output_file_path = os.path.join(mvmp, source_name)
-    ss.create_folder(output_file_path)
+        output_file_path = os.path.join(mvmp, source_name)
+        ss.create_folder(output_file_path)
+            
+        out_file = os.path.join(output_file_path, mvmf)    
         
-    out_file = os.path.join(output_file_path, mvmf)    
-    
-    print(f" input video path: {input_video_path} output file: {out_file}")
-    extract_video_metadata(input_video_path, out_file)
+        print(f" input video path: {input_video_path} output file: {out_file}")
+        extract_video_metadata(input_video_path, out_file)
 
-    df = get_missing_metadata_dataframe(out_file)
-    print(f"---> {df}")
+        df = get_missing_metadata_dataframe(out_file)
+        print(f"---> {df}")
 
-    filter_missing_video_data(os.path.join(output_file_path, mvmf), os.path.join(output_file_path, mvmff))
+        filter_missing_video_data(os.path.join(output_file_path, mvmf), os.path.join(output_file_path, mvmff))
 
-    create_missing_report(os.path.join(output_file_path, mvmf))
+        create_missing_report(os.path.join(output_file_path, mvmf))
 
 
