@@ -26,6 +26,15 @@ pip install py3exiv2
 
 See Dependences on page Developers
 
+
+A non-zero exit status 1 in ExifTool while setting GPS data indicates that at least one file was not updated, 
+typically due to a minor error. When setting GPS coordinates, ExifTool often requires more than just latitude and longitude; 
+it requires specific reference tags (North/South/East/West), and errors can occur if these are missing, the file format is incompatible, 
+or the file is corrupted.Here are the most common causes and fixes based on ExifTool documentation and forum posts:1. 
+
+Missing Reference Tags (N/S/E/W)GPS data is split into multiple tags (latitude, latitude reference, longitude, longitude reference). 
+If you only set the numbers, it may fail.Fix: Use the wildcard * to set the reference tags automatically along with the coordinates:exiftool -GPSLatitude*=56.9359 -GPSLongitude*=-4.4651 -GPSAltitude*=30.42 image.jpg.2. File Corruption or "Minor Errors"If the image was edited by other software, it might have incorrect metadata offsets.Fix: Use the -m option to ignore minor errors, or the -F option to attempt to fix incorrect offsets:exiftool -m -GPSLatitude*=....3. Invalid GPS Dates or TimesIf you are setting GPSTimeStamp or GPSDateStamp, they must be in UTC. The GPSDateStamp must be in YYYY:mm:dd format, and GPSTimeStamp must be HH:MM:SS.Fix: Ensure your data formatting follows the EXIF standard, not local time.4. Incorrect Quote Usage (Windows PowerShell)If you are using PowerShell, it behaves differently with quotes compared to Bash or CMD.Fix: Try changing double quotes (") to single quotes (') around arguments.5. Writing to Read-Only Files or Unsupported FormatsFix: Verify the file is not set to Read-Only and that the format (e.g., MP4, JPG) supports the type of metadata you are writing.Troubleshooting StepsTo see exactly why the command failed, run this command to see the metadata structure:exiftool -g1 -a -s -GPSL* filename.jpg.If you are using a script, ensure you are capturing stderr to see the error message.Note: For maximum compatibility, it is recommended to write to JPG files rather than raw files (like .ORF).
+
 """
 
 #import pyexiv2
@@ -293,16 +302,19 @@ def gpsInfo(img):
 
 def set_gps_data(img_path, lat, lon):
     try:
+        print(f"----> {img_path} {lat} {lon}")
         command = [
             "/usr/bin/exiftool",
-            f"-GPSLatitude={lat}",
+            "-m",
+            "-F",
+            f"-GPSLatitude={str(lat)}",
             f"-GPSLatitudeRef={'N' if lat >= 0 else 'S'}",
-            f"-GPSLongitude={lon}",
+            f"-GPSLongitude={str(lon)}",
             f"-GPSLongitudeRef={'E' if lon >= 0 else 'W'}",
             "-overwrite_original",  # Overwrite the original file to avoid duplication
             img_path
         ]
-        subprocess.run(command)
+        subprocess.run(command, check=True)
     except Exception as e:
         print(f"Exception: {e} while setting gps data for {img_path} ")
 
@@ -329,11 +341,17 @@ def set_video_date(vid_path, dt):
 def set_video_gps_title(vid_path, lat, lon, title):
     try:
         command = [
+            
             "/usr/bin/exiftool",
-            f"-GPSLatitude={lat}",
-            f"-GPSLatitudeRef={'N' if lat >= 0 else 'S'}",
-            f"-GPSLongitude={lon}",
-            f"-GPSLongitudeRef={'E' if lon >= 0 else 'W'}",
+            "-validate", 
+            "-warning", 
+            "-a",
+            "-m",
+            "-MakerNotes=",
+            f"-GPSLatitude*={str(lat)}",
+            f"-GPSLatitudeRef*={'N' if lat >= 0 else 'S'}",
+            f"-GPSLongitude*={str(lon)}",
+            f"-GPSLongitudeRef*={'E' if lon >= 0 else 'W'}",
             f"-Title={title}",
             "-overwrite_original",  # Overwrite the original file to avoid duplication
             vid_path

@@ -120,7 +120,7 @@ def clear_markers():
     st.session_state["markers"].clear()
 
 def add_marker(lat, lon, label, url):
-    print(f'added marker at: {lat} : {lon}')
+    #print(f'added marker at: {lat} : {lon}')
     marker = fl.Marker([lat, lon], popup=url, tooltip=label)
     st.session_state["markers"].append(marker)
 
@@ -131,7 +131,7 @@ def update_latitude_longitude(image, latitude, longitude, name):
     st.session_state.df.at[image, "GPSLongitude"] = longitude
     #lu.setGpsInfo(image, latitude, longitude)
     lu.set_gps_data(image, latitude, longitude)
-    lu.setImgMetadata(image, "","",name)
+    #lu.setImgMetadata(image, "","",name)
 
 def update_video_latitude_longitude(vid_path, latitude, longitude, name):
     #print(st.session_state.df.head())
@@ -382,18 +382,32 @@ def execute():
         page = st.selectbox("Page Number:", range(1, num_batches + 1))
         #video_page = st.swlwctbox("vPage Number:", range(1, num_video_batches))
 
-    # st.sidebar.subheader('Edited Images', divider="gray")
-    # config = {
-    #     'SourceFile' : st.column_config.TextColumn('image', width='small', required=True),       
-    #     'GPSLatitude' : st.column_config.NumberColumn('latitude', min_value=-90.0, max_value=90.0, required=True),
-    #     'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
-    #     'DateTimeOriginal' : st.column_config.TextColumn('datetime', width="small", required=False)}
-    
-    # st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
+    if modality == "I":
+        st.sidebar.subheader('Edited Images', divider="gray")
+        config = {
+            'SourceFile' : st.column_config.TextColumn('image', width='small', required=True),       
+            'GPSLatitude' : st.column_config.NumberColumn('latitude', min_value=-90.0, max_value=90.0, required=True),
+            'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
+            'DateTimeOriginal' : st.column_config.TextColumn('datetime', width="small", required=False)}
+        
+        st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
-    # save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) 
-    # if save_btn:
-    #     save_metadata(os.path.join(mmp, user_source_selected), mmf, mmef)
+        save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) 
+        if save_btn:
+            save_metadata(os.path.join(mmp, user_source_selected), mmf, mmef)
+    else:
+        st.sidebar.subheader('Edited Images', divider="gray")
+        config = {
+            'SourceFile' : st.column_config.TextColumn('image', width='small', required=True),       
+            'GPSLatitude' : st.column_config.NumberColumn('latitude', min_value=-90.0, max_value=90.0, required=True),
+            'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
+            'CreateDate' : st.column_config.TextColumn('datetime', width="small", required=False)}
+        
+        st.session_state["edited_Video_attributes"] = st.sidebar.data_editor(st.session_state["edited_Video_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
+
+        save_btn = st.sidebar.button(label="Save: Video Metadata",  use_container_width=True) 
+        if save_btn:
+            save_metadata(os.path.join(mvmp, user_source_selected), mmf, mmef)
 
     # show world map with locations map
     showMap(hlat=hlat, hlon=hlon)
