@@ -39,4 +39,5 @@ rsync -avzh --progress --delete-before /mnt/zmdata/home-media-app/data/final-dat
 
 specific data for input-data image and video files
 
-rsync -avzh --progress /mnt/zmdata/home-media-app/data/input-data/img/ madhekar@192.168.68.128:/mnt/zmdata/home-media-app/data/input-data/img/
+rsync -avzh --progress /mnt/zmdata/home-media-app/data/input-data/ madhekar@192.168.68.128:/mnt/zmdata/home-media-app/data/input-data/
+rsync -avzh --progress /mnt/zmdata/home-media-app/data/app-data/ madhekar@192.168.68.128:/mnt/zmdata/home-media-app/data/app-data/

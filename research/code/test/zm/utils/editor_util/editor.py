@@ -111,7 +111,7 @@ def initialize(smp, smf, mmp, mvmp, mmf, mmef, hlat, hlon, user_source):
             st.session_state["edited_image_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'DateTimeOriginal'))     
 
         if "edited_video_attributes" not in st.session_state:
-            st.session_state["edited_video_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'CreateDateTime'))     
+            st.session_state["edited_video_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'CreateDate'))     
 
     except Exception as e:      
         st.error(f"Exception occurred in initializing Metadata Editor: {e}")
@@ -120,7 +120,7 @@ def clear_markers():
     st.session_state["markers"].clear()
 
 def add_marker(lat, lon, label, url):
-    print(f'added marker at: {lat} : {lon}')
+    #print(f'added marker at: {lat} : {lon}')
     marker = fl.Marker([lat, lon], popup=url, tooltip=label)
     st.session_state["markers"].append(marker)
 
@@ -131,7 +131,7 @@ def update_latitude_longitude(image, latitude, longitude, name):
     st.session_state.df.at[image, "GPSLongitude"] = longitude
     #lu.setGpsInfo(image, latitude, longitude)
     lu.set_gps_data(image, latitude, longitude)
-    lu.setImgMetadata(image, "","",name)
+    #lu.setImgMetadata(image, "","",name)
 
 def update_video_latitude_longitude(vid_path, latitude, longitude, name):
     #print(st.session_state.df.head())
@@ -198,6 +198,8 @@ def select_location_by_country_and_state(rdf):
 
 
 def save_metadata( mmp, mmf, mmef):
+
+    st.session_state.df.reset_index()
     st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",",index=True)
 
     if os.path.exists(mmp):
@@ -206,7 +208,20 @@ def save_metadata( mmp, mmf, mmef):
         os.makedirs(mmp)
         st.session_state.edited_image_attributes.to_csv(os.path.join(mmp, mmef), index=False, header=False)   
 
-    st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0)
+    #st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0) ???
+
+def save_video_metadata( mvmp, mmf, mmef):
+
+    st.session_state.vdf.reset_index()
+    st.session_state.vdf.to_csv(os.path.join(mvmp, mmf), sep=",",index=True)
+
+    if os.path.exists(mvmp):
+        st.session_state.edited_video_attributes.to_csv(os.path.join(mvmp, mmef), mode='a', index=False, header=False)
+    else:
+        os.makedirs(mvmp)
+        st.session_state.edited_video_attributes.to_csv(os.path.join(mvmp, mmef), index=False, header=False)   
+
+    #st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0) ???    
 
 #@st.fragment
 def showMap(hlat, hlon):
@@ -244,13 +259,13 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
 
             if modality == "I":
-                st.session_state.df.reset_index()
+                #st.session_state.df.reset_index()
                 lat = st.session_state.df.at[image, "GPSLatitude"]
                 lon = st.session_state.df.at[image, "GPSLongitude"]
                 dt = st.session_state.df.at[image, "DateTimeOriginal"]
                 label = os.path.basename(image)
             else:
-                st.session_state.vdf.reset_index()
+                #st.session_state.vdf.reset_index()
                 lat = st.session_state.vdf.at[image, "GPSLatitude"]
                 lon = st.session_state.vdf.at[image, "GPSLongitude"]
                 dt = st.session_state.vdf.at[image, "CreateDate"]
@@ -382,18 +397,32 @@ def execute():
         page = st.selectbox("Page Number:", range(1, num_batches + 1))
         #video_page = st.swlwctbox("vPage Number:", range(1, num_video_batches))
 
-    # st.sidebar.subheader('Edited Images', divider="gray")
-    # config = {
-    #     'SourceFile' : st.column_config.TextColumn('image', width='small', required=True),       
-    #     'GPSLatitude' : st.column_config.NumberColumn('latitude', min_value=-90.0, max_value=90.0, required=True),
-    #     'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
-    #     'DateTimeOriginal' : st.column_config.TextColumn('datetime', width="small", required=False)}
-    
-    # st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
+    if modality == "I":
+        st.sidebar.subheader('Edited Images', divider="gray")
+        config = {
+            'SourceFile' : st.column_config.TextColumn('image', width='small', required=True),       
+            'GPSLatitude' : st.column_config.NumberColumn('latitude', min_value=-90.0, max_value=90.0, required=True),
+            'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
+            'DateTimeOriginal' : st.column_config.TextColumn('datetime', width="small", required=False)}
+        
+        st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
-    # save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) 
-    # if save_btn:
-    #     save_metadata(os.path.join(mmp, user_source_selected), mmf, mmef)
+        save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) 
+        if save_btn:
+            save_metadata(os.path.join(mmp, user_source_selected), mmf, mmef)
+    else:
+        st.sidebar.subheader('Edited Images', divider="gray")
+        config = {
+            'SourceFile' : st.column_config.TextColumn('image', width='small', required=True),       
+            'GPSLatitude' : st.column_config.NumberColumn('latitude', min_value=-90.0, max_value=90.0, required=True),
+            'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
+            'CreateDate' : st.column_config.TextColumn('datetime', width="small", required=False)}
+        
+        st.session_state["edited_Video_attributes"] = st.sidebar.data_editor(st.session_state["edited_Video_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
+
+        save_btn = st.sidebar.button(label="Save: Video Metadata",  use_container_width=True) 
+        if save_btn:
+            save_video_metadata(os.path.join(mvmp, user_source_selected), mmf, mmef)
 
     # show world map with locations map
     showMap(hlat=hlat, hlon=hlon)
