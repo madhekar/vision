@@ -200,7 +200,7 @@ def select_location_by_country_and_state(rdf):
 def save_metadata( mmp, mmf, mmef):
 
     st.session_state.df.reset_index()
-    st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",",index=False)
+    st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",",index=True)
 
     if os.path.exists(mmp):
         st.session_state.edited_image_attributes.to_csv(os.path.join(mmp, mmef), mode='a', index=False, header=False)
@@ -213,7 +213,7 @@ def save_metadata( mmp, mmf, mmef):
 def save_video_metadata( mvmp, mmf, mmef):
 
     st.session_state.vdf.reset_index()
-    st.session_state.vdf.to_csv(os.path.join(mvmp, mmf), sep=",",index=False)
+    st.session_state.vdf.to_csv(os.path.join(mvmp, mmf), sep=",",index=True)
 
     if os.path.exists(mvmp):
         st.session_state.edited_video_attributes.to_csv(os.path.join(mvmp, mmef), mode='a', index=False, header=False)
