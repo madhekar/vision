@@ -262,7 +262,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 n_results=10,
             )
 
-            #print("****", st.session_state["videos"]["metadatas"][0][1:][0]["vuri"])
+            print("****", st.session_state["videos"])
             #st.write(st.session_state["imgs"]) # ---enable to debug
 
             ''' 
@@ -438,7 +438,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
     **** Video TAB **** 
     '''
     with video:
-      if st.session_state["t_imgs"] and len(st.session_state["t_imgs"]) > 1: 
+      if st.session_state["t_videos"] and len(st.session_state["t_videos"]) > 1: 
         index = image_select(
                     label= "Resembling Videos",
                     images=st.session_state["t_videos"],
