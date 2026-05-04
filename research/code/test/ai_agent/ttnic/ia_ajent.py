@@ -24,7 +24,7 @@ Here are the first 5 rows:
 
 
 # create the dataframe
-df = pd.read_csv("Titanic-Dataset.csv")
+df = pd.read_csv("./Titanic-Dataset.csv")
 
 
 SYSTEM_PROMPT = SYSTEM_PROMPT.format(
