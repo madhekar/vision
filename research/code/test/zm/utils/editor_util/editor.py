@@ -206,7 +206,7 @@ def save_metadata( mmp, mmf, mmef):
         os.makedirs(mmp)
         st.session_state.edited_image_attributes.to_csv(os.path.join(mmp, mmef), index=False, header=False)   
 
-    st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0)
+    #st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0) ???
 
 #@st.fragment
 def showMap(hlat, hlon):
