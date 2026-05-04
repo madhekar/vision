@@ -111,7 +111,7 @@ def initialize(smp, smf, mmp, mvmp, mmf, mmef, hlat, hlon, user_source):
             st.session_state["edited_image_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'DateTimeOriginal'))     
 
         if "edited_video_attributes" not in st.session_state:
-            st.session_state["edited_video_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'CreateDateTime'))     
+            st.session_state["edited_video_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'CreateDate'))     
 
     except Exception as e:      
         st.error(f"Exception occurred in initializing Metadata Editor: {e}")
@@ -198,7 +198,9 @@ def select_location_by_country_and_state(rdf):
 
 
 def save_metadata( mmp, mmf, mmef):
-    st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",",index=True)
+
+    st.session_state.df.reset_index()
+    st.session_state.df.to_csv(os.path.join(mmp, mmf), sep=",",index=False)
 
     if os.path.exists(mmp):
         st.session_state.edited_image_attributes.to_csv(os.path.join(mmp, mmef), mode='a', index=False, header=False)
@@ -207,6 +209,19 @@ def save_metadata( mmp, mmf, mmef):
         st.session_state.edited_image_attributes.to_csv(os.path.join(mmp, mmef), index=False, header=False)   
 
     #st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0) ???
+
+def save_video_metadata( mvmp, mmf, mmef):
+
+    st.session_state.vdf.reset_index()
+    st.session_state.vdf.to_csv(os.path.join(mvmp, mmf), sep=",",index=False)
+
+    if os.path.exists(mvmp):
+        st.session_state.edited_video_attributes.to_csv(os.path.join(mvmp, mmef), mode='a', index=False, header=False)
+    else:
+        os.makedirs(mvmp)
+        st.session_state.edited_video_attributes.to_csv(os.path.join(mvmp, mmef), index=False, header=False)   
+
+    #st.session_state.edited_image_attributes = st.session_state.edited_image_attributes.head(0) ???    
 
 #@st.fragment
 def showMap(hlat, hlon):
@@ -244,13 +259,13 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
 
             if modality == "I":
-                st.session_state.df.reset_index()
+                #st.session_state.df.reset_index()
                 lat = st.session_state.df.at[image, "GPSLatitude"]
                 lon = st.session_state.df.at[image, "GPSLongitude"]
                 dt = st.session_state.df.at[image, "DateTimeOriginal"]
                 label = os.path.basename(image)
             else:
-                st.session_state.vdf.reset_index()
+                #st.session_state.vdf.reset_index()
                 lat = st.session_state.vdf.at[image, "GPSLatitude"]
                 lon = st.session_state.vdf.at[image, "GPSLongitude"]
                 dt = st.session_state.vdf.at[image, "CreateDate"]
@@ -407,7 +422,7 @@ def execute():
 
         save_btn = st.sidebar.button(label="Save: Video Metadata",  use_container_width=True) 
         if save_btn:
-            save_metadata(os.path.join(mvmp, user_source_selected), mmf, mmef)
+            save_video_metadata(os.path.join(mvmp, user_source_selected), mmf, mmef)
 
     # show world map with locations map
     showMap(hlat=hlat, hlon=hlon)
