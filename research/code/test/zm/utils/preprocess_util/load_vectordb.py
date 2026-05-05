@@ -192,7 +192,7 @@ def load_video_metadata(metadata_path, metadata_file):
         df_e = df.explode(['uri'])
                
         df.dropna()        
-        print("---*", df['uri'].tostring())
+        print("---*", df['uri'])
         # create id for each frame       
         df_e['id'] = df_e['uri'].apply(lambda x: mu.create_uuid_from_string(x))
         df_e.reset_index(drop=True, inplace=True)
