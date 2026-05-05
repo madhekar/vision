@@ -262,7 +262,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 n_results=10,
             )
 
-            print("****", st.session_state["videos"])
+            print("**videos**", st.session_state["videos"])
             #st.write(st.session_state["imgs"]) # ---enable to debug
 
             ''' 
