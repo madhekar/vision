@@ -187,10 +187,14 @@ def load_video_metadata(metadata_path, metadata_file):
 
         # create uri for each frame
         df['uri'] =  df.apply(vu.extract_video_paths_from_metadata, axis=1)
+
+        #df_err = df[df['uri'].apply(lambda x: os.path.exists(str(x)))]
         df_e = df.explode(['uri'])
                
+        df.dropna()        
+        print("---*", df['uri'].tostring())
         # create id for each frame       
-        df_e['id'] = df_e['uri'].apply(mu.create_uuid_from_string)
+        df_e['id'] = df_e['uri'].apply(lambda x: mu.create_uuid_from_string(x))
         df_e.reset_index(drop=True, inplace=True)
         
         df_e["uri"] = df_e["uri"].str.replace(
@@ -352,7 +356,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
         print("----->>", df_video_data.head())
         df_video_uris = df_video_data['uri']  # frame uri
         df_video_ids = df_video_data['id']  # frame id
-        df_video_metadata = df_video_data[["ts", "latlon", "loc", "caption" ,"text", "vuri"]].fillna("").T.to_dict().values()
+        df_video_metadata = df_video_data[["ts", "src", "latlon", "loc", "caption" ,"text", "vuri"]].fillna("").T.to_dict().values()
 
         collection_videos.add(ids=df_video_ids.tolist(), uris=df_video_uris.tolist(), metadatas=list(df_video_metadata))
 
@@ -490,6 +494,7 @@ def execute():
         else:
             df_video_metadata = None
 
+        print(df_video_metadata)
         createVectorDB(df_metadata, df_video_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name, video_collection_name, max_workers)
 
         archive_metadata(metadata_path, arc_folder_name, metadata_file)
