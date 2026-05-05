@@ -352,7 +352,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
         print("----->>", df_video_data.head())
         df_video_uris = df_video_data['uri']  # frame uri
         df_video_ids = df_video_data['id']  # frame id
-        df_video_metadata = df_video_data[["ts", "latlon", "loc", "text", "vuri"]].fillna("").T.to_dict().values()
+        df_video_metadata = df_video_data[["ts", "latlon", "loc", "caption" ,"text", "vuri"]].fillna("").T.to_dict().values()
 
         collection_videos.add(ids=df_video_ids.tolist(), uris=df_video_uris.tolist(), metadatas=list(df_video_metadata))
 
