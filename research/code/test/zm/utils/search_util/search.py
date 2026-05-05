@@ -524,7 +524,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
     '''
     with text:
 
-        if st.session_state["document"] and len(st.session_state["document"]["documents"][0][0]) > 0:
+        if st.session_state["document"] and len(st.session_state["document"]["documents"]) > 1:
             # print(f"result---> {len(st.session_state['document']['documents'])}")
             for idx, doc in enumerate(st.session_state["document"]["documents"][0]):
                 c0, c1, c2 = st.columns([.01, 0.8, 0.2])

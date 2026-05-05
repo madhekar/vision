@@ -41,3 +41,13 @@ specific data for input-data image and video files
 
 rsync -avzh --progress /mnt/zmdata/home-media-app/data/input-data/ madhekar@192.168.68.128:/mnt/zmdata/home-media-app/data/input-data/
 rsync -avzh --progress /mnt/zmdata/home-media-app/data/app-data/ madhekar@192.168.68.128:/mnt/zmdata/home-media-app/data/app-data/
+
+
+
+------
+copy user device specific data to GPU machine for generation
+------
+
+rsync -avzh --progress /mnt/zmdata/home-media-app/data/input-data/img/"Samsung USB"/ madhekar@192.168.68.128:/mnt/zmdata/home-media-app/data/input-data/img/"Samsung USB"/
+rsync -avzh --progress /mnt/zmdata/home-media-app/data/input-data/error/img/missing-data/"Samsung USB"/ madhekar@192.168.68.128:/mnt/zmdata/home-media-app/data/input-data/error/img/missing-data/"Samsung USB"/
+rsync -avzh --progress /mnt/zmdata/home-media-app/data/app-data/static-metadata/locations/ madhekar@192.168.68.128:/mnt/zmdata/home-media-app/data/app-data/static-metadata/locations/
