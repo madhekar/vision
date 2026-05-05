@@ -293,6 +293,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 n_results=10
             )
             
+            print("**videos**", cVideos.count(), "***",  st.session_state["videos"])
 
 
         for img in st.session_state["imgs"]["data"][0][1:]:
