@@ -237,7 +237,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold,image_size_limit, image
                     # update image types using exif api        
                     b_write_comment(sfes)
  
-                    qres = list(map(partial(is_valid_size_and_score, threshold, image_size_limit, image_width_limit, image_height_limit),il))
+                    qres = list(map(partial(is_valid_size_and_score, [threshold, image_size_limit, image_width_limit, image_height_limit]),il))
                     #print(f"*-* {qres}") 
                     #print(f'filter {rfes}:{sfes} quality {qres}')
 
