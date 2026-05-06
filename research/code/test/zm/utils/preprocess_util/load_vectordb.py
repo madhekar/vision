@@ -239,9 +239,9 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
     
     cdb.api.client.SharedSystemClient.clear_system_cache()
     # vector database persistence
-    client = cdb.PersistentClient( path=vector_db_dir_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=True))
+    client = cdb.PersistentClient( path=vector_db_dir_path, tenant=DEFAULT_TENANT) #, settings=Settings(allow_reset=True))
 
-    client.clear_system_cache()
+    st.info(f"chromadb heart beat: {client.heartbeat()}")
 
     # list of collections
     collections_list = client.list_collections()
@@ -348,6 +348,8 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
     
     st.info(f"Info: Done adding number of images: {len(df_uris)}")
 
+    client.clear_system_cache()
+
     """
     VIDEO embedding in vector database
     uri, id, ts, latlon, loc, text
@@ -364,6 +366,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
     else:
         st.error("video data does not exists for")  
 
+    client.clear_system_cache()
     """
       TEXT Embeddings on vector database
     """
@@ -410,7 +413,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
     else:
         st.warning(f'no text documents found in {text_folder}')    
 
-    client.persist()
+    # client.persist() - not available anymore
     client.clear_system_cache()
 
     return collection_images, collection_text, collection_videos
