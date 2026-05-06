@@ -500,7 +500,7 @@ def execute():
 
         #print(df_video_metadata)
         ci,ct,cv = createVectorDB(df_metadata, df_video_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name, video_collection_name, max_workers)
-        st.info(f"done adding images: {ci.count}  documents: {ct.count} and videos: {cv.count}")
+        st.info(f"done adding images: {ci.count()}  documents: {ct.count()} and videos: {cv.count()}")
 
         archive_metadata(metadata_path, arc_folder_name, metadata_file)
 
