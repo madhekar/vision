@@ -119,19 +119,20 @@ def b_write_comment(dl):
 def is_valid_size_and_score(args, img):
       threshold = args
       try:  
-        if img is not None and os.path.getsize(img) > 512:
+        if img is not None and os.path.getsize(img) > 100000:
             im = Image.open(img).convert("RGB")
 
             h, w = im.size
 
             if w < 512 or h < 512:
+                print(f"eliminated: {img} {h}:{w}")
                 return img
             
             im_tensor = transform(im).unsqueeze(0).to(device)
             score = iqa_metric(im_tensor)
             f_score = score.item()
 
-            print(f'{img} :: {h}:{w} :: {f_score}')
+            print(f'{img} :: {h}:{w} :: {f_score} :: {threshold}')
 
             res = img if f_score > threshold else ""
             return res
