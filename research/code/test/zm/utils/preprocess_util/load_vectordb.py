@@ -239,7 +239,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
     
     cdb.api.client.SharedSystemClient.clear_system_cache()
     # vector database persistence
-    client = cdb.PersistentClient( path=vector_db_dir_path, tenant=DEFAULT_TENANT) #, settings=Settings(allow_reset=True))
+    client = cdb.PersistentClient( path=vector_db_dir_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=False))
 
     st.info(f"chromadb heart beat: {client.heartbeat()}")
 
@@ -248,87 +248,87 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
 
     st.info(f'Info: Existing collections: {collections_list}')
 
-    if len(collections_list) == 0:    
+    # if len(collections_list) == 0:    
 
-        # openclip embedding function!
-        embedding_function = OpenCLIPEmbeddingFunction()
+    #     # openclip embedding function!
+    #     embedding_function = OpenCLIPEmbeddingFunction()
 
-        #text_embedding_function = OpenCLIPEmbeddingFunction(model_name="coca_roberta-ViT-B-32")
+    #     #text_embedding_function = OpenCLIPEmbeddingFunction(model_name="coca_roberta-ViT-B-32")
 
-        """ 
-        Image collection inside vector database 'chromadb'
-        """
-        image_loader = ImageLoader()
+    #     """ 
+    #     Image collection inside vector database 'chromadb'
+    #     """
+    #     image_loader = ImageLoader()
 
-        """
-        # Images collection defined
-        """
-        collection_images = client.get_or_create_collection(
-            name=image_collection_name,
-            embedding_function=embedding_function,
-            metadata={"hnsw:space": "cosine"},
-            data_loader=image_loader,
-        )    
+    #     """
+    #     # Images collection defined
+    #     """
+    #     collection_images = client.get_or_create_collection(
+    #         name=image_collection_name,
+    #         embedding_function=embedding_function,
+    #         metadata={"hnsw:space": "cosine"},
+    #         data_loader=image_loader,
+    #     )    
 
-        """ 
-        Videos collectoion defined
-        """
-        collection_videos = client.get_or_create_collection(
-           name=video_collection_name,
-           embedding_function=embedding_function,
-            metadata={"hnsw:space": "cosine"},
-            data_loader=image_loader,
-        )
+    #     """ 
+    #     Videos collectoion defined
+    #     """
+    #     collection_videos = client.get_or_create_collection(
+    #        name=video_collection_name,
+    #        embedding_function=embedding_function,
+    #         metadata={"hnsw:space": "cosine"},
+    #         data_loader=image_loader,
+    #     )
 
-        """
-          Text collection inside vector database 'chromadb'
-        """
-        collection_text = client.get_or_create_collection(
-            name=text_collection_name,
-            #metadata={"hnsw:space": "cosine"},
-            embedding_function=embedding_function,
-        )
-    else:
-        for collection in collections_list:
-          client.delete_collection(collection)
+    #     """
+    #       Text collection inside vector database 'chromadb'
+    #     """
+    #     collection_text = client.get_or_create_collection(
+    #         name=text_collection_name,
+    #         #metadata={"hnsw:space": "cosine"},
+    #         embedding_function=embedding_function,
+    #     )
+    # else:
+    #     for collection in collections_list:
+    #       client.delete_collection(collection)
 
         # reset chromadb persistant store
         #client.reset()
 
-        #openclip embedding function!
-        embedding_function = OpenCLIPEmbeddingFunction()
+    #openclip embedding function!
+    embedding_function = OpenCLIPEmbeddingFunction()
 
-        # Image collection inside vector database 'chromadb'
-        image_loader = ImageLoader()
+    # Image collection inside vector database 'chromadb'
+    image_loader = ImageLoader()
 
-        """
-        # collection images defined
-        # """
-        collection_images = client.get_or_create_collection(
-            name=image_collection_name,
-            embedding_function=embedding_function,
-            metadata={"hnsw:space": "cosine"},
-            data_loader=image_loader,
-        )
+    """
+    # collection images defined
+    # """
+    collection_images = client.get_or_create_collection(
+        name=image_collection_name,
+        embedding_function=embedding_function,
+        metadata={"hnsw:space": "cosine"},
+        data_loader=image_loader,
+    )
 
-        """
-        # collection images defined
-        """
-        collection_videos = client.get_or_create_collection(
-           name=video_collection_name,
-           embedding_function=embedding_function,
-            metadata={"hnsw:space": "cosine"},
-            data_loader=image_loader,
-        )
-        
-        """
-          Text collection inside vector database 'chromadb'
-        """
-        collection_text = client.get_or_create_collection(
-            name=text_collection_name,
-            metadata={"hnsw:space": "cosine"},
-            embedding_function=embedding_function,
-        )
+    """
+    # collection images defined
+    """
+    collection_videos = client.get_or_create_collection(
+        name=video_collection_name,
+        embedding_function=embedding_function,
+        metadata={"hnsw:space": "cosine"},
+        data_loader=image_loader,
+    )
+    
+    """
+        Text collection inside vector database 'chromadb'
+    """
+    collection_text = client.get_or_create_collection(
+        name=text_collection_name,
+        metadata={"hnsw:space": "cosine"},
+        embedding_function=embedding_function,
+    )
 
     """
     IMAGE embeddings in vector database
