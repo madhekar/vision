@@ -4,3 +4,6 @@ dataload:
   input_video_path: /data/input-data/video/
   input_txt_path: /data/input-data/txt/
   input_audio_path: /data/input-data/audio/
+datalimit:
+  image_size_limit: 200000  
+

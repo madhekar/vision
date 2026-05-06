@@ -387,7 +387,7 @@ def remove_empty_folders(path_absolute):
                 print(f"exception: {e} removing empty folder {path}")
     return cnt
 
-def remove_empty_files_and_folders(root_folder):
+def remove_empty_files_and_folders(root_folder, size_limit):
     fc, dc = 0, 0
     mac_file_pattern = '._'
     for dpath, dnames, files in os.walk(root_folder, topdown=False):
@@ -398,7 +398,7 @@ def remove_empty_files_and_folders(root_folder):
                 f = Image.open(fp)
                 f.verify()
                 f.close()
-                if os.path.getsize(fp) < 200000 or fn.startswith(mac_file_pattern):
+                if os.path.getsize(fp) < size_limit or fn.startswith(mac_file_pattern):
                     try:
                         os.remove(fp)
                         fc +=1

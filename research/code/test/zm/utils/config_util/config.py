@@ -156,7 +156,8 @@ def overview_config_load():
     )
 
 """
-
+datalimit:
+  image_size_limit: 200000  
 """
 @st.cache_resource
 def dataload_config_load():
@@ -174,12 +175,15 @@ def dataload_config_load():
         input_video_path = dict["dataload"]["input_video_path"]
         input_audio_path = dict["dataload"]["input_audio_path"]
 
+        image_size_limit = dict["datalimit"]["image_size_limit"]
+
     return (
         os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
         os.path.join(dr, *input_image_path.split(os.sep)[1:]),
         os.path.join(dr, *input_txt_path.split(os.sep)[1:]),
         os.path.join(dr, *input_video_path.split(os.sep)[1:]),
-        os.path.join(dr, *input_audio_path.split(os.sep)[1:])
+        os.path.join(dr, *input_audio_path.split(os.sep)[1:]),
+        image_size_limit
     )
 
 """

@@ -133,7 +133,7 @@ def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
   input_txt_path: '/home/madhekar/work/home-media-app/data/input-data/txt/'
   input_audio_path: '/home/madhekar/work/home-media-app/data/input-data/audio/'
 '''
-def clean_unknown_files_folders(fdest_image, fdest_txt, fdest_video, fdest_audio):
+def clean_unknown_files_folders(fdest_image, fdest_txt, fdest_video, fdest_audio, size_limit):
     try:
 
         ifcnt = ss.trim_unknown_files(fdest_image)        
@@ -142,7 +142,7 @@ def clean_unknown_files_folders(fdest_image, fdest_txt, fdest_video, fdest_audio
         afcnt = ss.trim_unknown_files(fdest_audio)
         
         idcnt, tdcnt, vdcnt, adcnt =0,0,0,0
-        idcnt = ss.remove_empty_files_and_folders(fdest_image)
+        idcnt = ss.remove_empty_files_and_folders(fdest_image, size_limit)
         tdcnt = ss.remove_empty_folders(fdest_txt) 
         vdcnt = ss.remove_empty_folders(fdest_video)
         # adcnt = ss.remove_empty_folders(fdest_audio) -- TOGO impliment
@@ -153,6 +153,8 @@ def clean_unknown_files_folders(fdest_image, fdest_txt, fdest_video, fdest_audio
 
 '''
 execute data load for external data stource
+datalimit:
+  image_size_limit: 200000  
 '''
 def execute(source_name):
     (
@@ -160,7 +162,8 @@ def execute(source_name):
         input_image_path,
         input_txt_path,
         input_video_path,
-        input_audio_path
+        input_audio_path,
+        image_size_limit
     ) = config.dataload_config_load()
 
     """
@@ -171,7 +174,7 @@ def execute(source_name):
     vpath = os.path.join(input_video_path, source_name)
     apath = os.path.join(input_audio_path, source_name)
 
-    copy_files_only(os.path.join(raw_data_path, source_name), ipath, tpath, vpath, apath)
+    copy_files_only(os.path.join(raw_data_path, source_name), ipath, tpath, vpath, apath, image_size_limit)
 
     clean_unknown_files_folders(ipath, tpath, vpath, apath)
 
