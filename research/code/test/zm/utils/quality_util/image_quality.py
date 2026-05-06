@@ -28,6 +28,33 @@ from functools import partial
 import streamlit as st
 
 """
+
+In the context of the pyiqa library, the NIQE (Naturalness Image Quality Evaluator) metric typically outputs a score ranging from 0 to 100, 
+where lower values indicate better perceptual quality.Because NIQE is a "completely blind" no-reference metric, there is no single universal 
+"pass/fail" threshold. Instead, thresholds are context-dependent and often determined empirically for specific tasks:Common Threshold InterpretationsBest 
+Possible Quality: A score of 0 represents the best possible theoretical quality.High Quality Filtering: 
+Some research implementations use a threshold of <30 for dataset filtering (e.g., in super-resolution workflows) to exclude images with high 
+blockiness or artifacts.Relative Comparison: Because scores are not absolute indicators of human preference across all datasets, they are best used to 
+compare images within the same distribution or task (e.g., comparing different denoising algorithms).Implementation in pyiqaYou can use the pyiqa toolbox 
+Read the Docs to calculate NIQE scores and apply your own thresholds as follows:pythonimport pyiqa
+import torch
+
+# Load the NIQE metric
+metric = pyiqa.create_metric('niqe', device=torch.device('cuda'))
+
+# Calculate score for an image (lower is better)
+score = metric('path/to/image.jpg')
+
+# Example threshold-based logic
+THRESHOLD = 30.0
+if score < THRESHOLD:
+    print("Image passes quality check")
+else:
+    print("Image quality is below threshold")
+Use code with caution.Key ConsiderationsPatch Size: PyIQA's implementation defaults to a patch size of 96x96, 
+though values between 32 and 160 generally remain stable.Sensitivity: NIQE is highly sensitive to noise and blur, making it effective for identifying 
+"unnatural" artifacts but potentially inconsistent when comparing images with different types of stylistic distortions
+
 madhekar@madhekar-UM690:~/work/vision/research/code/test/multipage_app$ inxi -G
 Graphics:
   Device-1: AMD Rembrandt driver: amdgpu v: kernel
