@@ -410,6 +410,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
     else:
         st.warning(f'no text documents found in {text_folder}')    
 
+    client.persist()
     client.clear_system_cache()
 
     return collection_images, collection_text, collection_videos
