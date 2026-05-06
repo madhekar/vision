@@ -412,7 +412,7 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
 
     client.clear_system_cache()
 
-    return collection_images, collection_text
+    return collection_images, collection_text, collection_videos
 
 '''
 ok for now! todo
@@ -494,8 +494,9 @@ def execute():
         else:
             df_video_metadata = None
 
-        print(df_video_metadata)
-        createVectorDB(df_metadata, df_video_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name, video_collection_name, max_workers)
+        #print(df_video_metadata)
+        ci,ct,cv = createVectorDB(df_metadata, df_video_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name, video_collection_name, max_workers)
+        st.info(f"done adding images: {ci.count}  documents: {ct.count} and videos: {cv.count}")
 
         archive_metadata(metadata_path, arc_folder_name, metadata_file)
 
