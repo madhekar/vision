@@ -398,7 +398,7 @@ def remove_empty_files_and_folders(root_folder):
                 f = Image.open(fp)
                 f.verify()
                 f.close()
-                if os.path.getsize(fp) < 512 or fn.startswith(mac_file_pattern):
+                if os.path.getsize(fp) < 150000 or fn.startswith(mac_file_pattern):
                     try:
                         os.remove(fp)
                         fc +=1
