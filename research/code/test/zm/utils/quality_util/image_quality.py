@@ -117,14 +117,14 @@ def b_write_comment(dl):
             )
       
 def is_valid_size_and_score(args, img):
-      threshold = args
+      threshold, size_lmt, width_lmt, height_lmt = args
       try:  
-        if img is not None and os.path.getsize(img) > 100000:
+        if img is not None and os.path.getsize(img) > size_lmt:
             im = Image.open(img).convert("RGB")
 
             h, w = im.size
 
-            if w < 512 or h < 512:
+            if w < width_lmt or h < height_lmt:
                 print(f"eliminated: {img} {h}:{w}")
                 return img
             
@@ -213,7 +213,7 @@ def archive_images(image_path, archive_path, quality_filter_img_list):
         sm.add_messages("quality", "s| no quality or filtered images Found.")
 
 
-def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_list):
+def iq_work_flow(image_dir_path, archive_path, threshold,image_size_limit, image_width_limit, image_height_limit,chunk_size, filter_list):
     print(f"%%% {filter_list}")
     str_filter = ' '.join(filter_list)
     nfiles = len(mu.getFiles(image_dir_path))
@@ -237,7 +237,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold, chunk_size, filter_lis
                     # update image types using exif api        
                     b_write_comment(sfes)
  
-                    qres = list(map(partial(is_valid_size_and_score, threshold),il))
+                    qres = list(map(partial(is_valid_size_and_score, threshold, image_size_limit, image_width_limit, image_height_limit),il))
                     #print(f"*-* {qres}") 
                     #print(f'filter {rfes}:{sfes} quality {qres}')
 
@@ -259,7 +259,13 @@ def execute(source_name, filter_list):
         print(filter_list)
         #mp.set_start_method("fork")
         #mp.freeze_support()
-        (input_image_path, input_video_path, archive_quality_path, image_quality_threshold) = config.image_quality_config_load()
+        (input_image_path, 
+         input_video_path, 
+         archive_quality_path, 
+         image_quality_threshold, 
+         image_size_limit, 
+         image_width_limit, 
+         image_height_limit) = config.image_quality_config_load()
 
         input_image_path_updated = os.path.join(input_image_path, source_name)
         input_video_path_updated = os.path.join(input_video_path, source_name)
@@ -277,6 +283,9 @@ def execute(source_name, filter_list):
                 input_image_path_updated,
                 archive_quality_path,
                 image_quality_threshold,
+                image_size_limit, 
+                image_width_limit, 
+                image_height_limit,
                 chunk_size,
                 filter_list
             )

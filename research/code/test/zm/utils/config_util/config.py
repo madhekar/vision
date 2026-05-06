@@ -373,6 +373,15 @@ quality:
   input_video_path: /data/input-data/video/
   archive_quality_path: /data/input-data/error/img/quality
   image_quality_threshold: 15.0
+
+  quality:
+  input_image_path: /data/input-data/img/
+  input_video_path: /data/input-data/video/
+  archive_quality_path: /data/input-data/error/img/quality
+  image_quality_threshold: 10.0
+  image_size_limit: 200000
+  image_width_limit: 1024
+  image_height_limit: 1024
 """
 @st.cache_resource
 def image_quality_config_load():
@@ -388,11 +397,18 @@ def image_quality_config_load():
         input_video_path = dict["quality"]["input_video_path"]
         archive_quality_path = dict["quality"]["archive_quality_path"]
         image_quality_threshold = dict["quality"]["image_quality_threshold"]
+        image_size_limit = dict["quality"]["image_size_limit"]
+        image_width_limit = dict["quality"]["image_width_limit"]
+        image_height_limit = dict["quality"]["image_height_limit"]
+
     return (
         os.path.join(dr, *input_image_path.split(os.sep)[1:]),
         os.path.join(dr, *input_video_path.split(os.sep)[1:]),
         os.path.join(dr, *archive_quality_path.split(os.sep)[1:]),
         image_quality_threshold,
+        image_size_limit,
+        image_width_limit,
+        image_height_limit
     )
 
 """
