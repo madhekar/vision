@@ -69,6 +69,8 @@ def remove_initialization_on_device_change():
         del st.session_state["df_loc"]
     if "edited_image_attributes" in st.session_state:
         del st.session_state["edited_image_attributes"]
+    if "edited_video_attributes" in st.session_state:
+        del st.session_state["edited_video_attributes"]    
 
 
 def initialize(smp, smf, mmp, mvmp, mmf, mmef, hlat, hlon, user_source):
@@ -298,6 +300,8 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                         st.session_state.edited_image_attributes = pd.concat([st.session_state.edited_image_attributes, pd.DataFrame([n_row], columns=n_row.index)]).reset_index(drop=True)
                     else:
                         update_video_latitude_longitude(image, sindex['latitude'], sindex['longitude'], sindex['name'])    
+                        n_row = pd.Series({"SourceFile": image, "GPSLatitude": sindex["latitude"], "GPSLongitude": sindex['longitude'], "CreateDate": dt, 'name': sindex['name']})
+                        st.session_state.edited_video_attributes = pd.concat([st.session_state.edited_video_attributes, pd.DataFrame([n_row], columns=n_row.index)]).reset_index(drop=True)
                 c2.text("")
                 c2.text("")
                 c2.text("")
@@ -418,7 +422,7 @@ def execute():
             'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
             'CreateDate' : st.column_config.TextColumn('datetime', width="small", required=False)}
         
-        st.session_state["edited_Video_attributes"] = st.sidebar.data_editor(st.session_state["edited_Video_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
+        st.session_state["edited_video_attributes"] = st.sidebar.data_editor(st.session_state["edited_video_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
 
         save_btn = st.sidebar.button(label="Save: Video Metadata",  use_container_width=True) 
         if save_btn:

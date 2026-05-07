@@ -31,14 +31,19 @@ def vq_work_flow(video_dir_path, chunk_size):
         #pool.join()
     print(result)
 
-
+'''
+        image_quality_threshold,
+        image_size_limit,
+        image_width_limit,
+        image_height_limit
+'''
 def execute(source_name, filter_list):
     result = "success"
     try:
         print(filter_list)
         #mp.set_start_method("fork")
         #mp.freeze_support()
-        (input_image_path, input_video_path, archive_quality_path, image_quality_threshold) = config.image_quality_config_load()
+        (input_image_path, input_video_path, archive_quality_path, image_quality_threshold, _, _,_) = config.image_quality_config_load()
 
         input_video_path_updated = os.path.join(input_video_path, source_name)
         arc_folder_name = mu.get_foldername_by_datetime()     
