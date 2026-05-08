@@ -9,6 +9,9 @@ src/zmedia.egg-info/dependency_links.txt
 src/zmedia.egg-info/entry_points.txt
 src/zmedia.egg-info/requires.txt
 src/zmedia.egg-info/top_level.txt
+src/zmedia/../../../../../../../../.streamlit/config.toml
+src/zmedia/../../../../../../../../.streamlit/credentials.toml
+src/zmedia/../../../../../../../../.streamlit/machine_id_v4
 src/zmedia/assets/Logofield_2-10_generated.jpg
 src/zmedia/assets/styles.css
 src/zmedia/assets/zm_logo_2.png
