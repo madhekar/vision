@@ -1,5 +1,5 @@
 altair==5.5.0
-chromadb==0.5.3
+chromadb==0.6.3
 geopy==2.4.1
 GPSPhoto==2.2.3
 matplotlib==3.10.5

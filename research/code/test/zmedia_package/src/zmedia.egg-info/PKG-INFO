@@ -4,7 +4,7 @@ Version: 0.1.0
 Summary: A Streamliti zmedia app packaged as a Python package
 Requires-Python: >=3.10
 Requires-Dist: altair==5.5.0
-Requires-Dist: chromadb==0.5.3
+Requires-Dist: chromadb==0.6.3
 Requires-Dist: geopy==2.4.1
 Requires-Dist: GPSPhoto==2.2.3
 Requires-Dist: matplotlib==3.10.5

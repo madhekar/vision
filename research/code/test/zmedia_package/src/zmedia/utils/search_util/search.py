@@ -16,7 +16,7 @@ from streamlit_extras.mandatory_date_range import date_range_picker as drp
 import chromadb as cdb
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.data_loaders import ImageLoader
-from chromadb.config import Settings
+from chromadb.config import Settings, DEFAULT_TENANT
 from utils.util import file_type_ext as fte
 
 
@@ -28,7 +28,7 @@ MAX_DT = datetime.datetime.now()
 @st.cache_resource(show_spinner=True)
 def init_vdb(vdp, icn, tcn, vcn):
     # vector database persistance
-    client = cdb.PersistentClient( path=vdp, settings=Settings(allow_reset=True))
+    client = cdb.PersistentClient( path=vdp, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=False))
     
     # openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
@@ -440,7 +440,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
     **** Video TAB **** 
     '''
     with video:
-      if st.session_state["t_imgs"] and len(st.session_state["t_imgs"]) > 1: 
+      if st.session_state["t_videos"] and len(st.session_state["t_videos"]) > 1: 
         index = image_select(
                     label= "Resembling Videos",
                     images=st.session_state["t_videos"],
@@ -459,15 +459,6 @@ def search_fn(client, cImgs, cTxts, cVideos):
                  st.video(video_bytes)
 
         with c2:
-            #c2.write(st.session_state["videos"]["metadatas"][0][1:][index]["text"])
-
-            # colt, cole = st.columns([0.2, 0.8])
-            # with colt:
-            #         st.markdown("<p class='big-font-subh'>Caption: </p>", unsafe_allow_html=True)
-            # with cole:
-            #         o_caption = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["caption"]}</p>'
-            #         st.markdown(o_caption, unsafe_allow_html=True)
-
 
             colt, cole = st.columns([0.2, 0.8])
 
@@ -477,12 +468,6 @@ def search_fn(client, cImgs, cTxts, cVideos):
                     o_desc = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["text"]}</p>'
                     st.markdown(o_desc, unsafe_allow_html=True)
 
-            # # colt, cole = st.columns([0.2, 0.8])
-            # # with colt:
-            # #        st.write("<p class='big-font-subh'>People: </p>", unsafe_allow_html=True)
-            # # with cole:
-            # #        o_names = f'<p class="input">{st.session_state["videos"]["metadatas"][0][1:][index]["ppt"]} </p>' #- {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
-            # #        st.markdown(o_names, unsafe_allow_html=True)
 
             colt, cole = st.columns([0.2, 0.8])
             with colt:
@@ -522,7 +507,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
     '''
     with text:
 
-        if st.session_state["document"] and len(st.session_state["document"]["documents"][0][0]) > 1:
+        if st.session_state["document"] and len(st.session_state["document"]["documents"][0]) > 1:
             # print(f"result---> {len(st.session_state['document']['documents'])}")
             for idx, doc in enumerate(st.session_state["document"]["documents"][0]):
                 c0, c1, c2 = st.columns([.01, 0.8, 0.2])

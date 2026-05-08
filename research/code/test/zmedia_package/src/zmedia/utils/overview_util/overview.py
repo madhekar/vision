@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import streamlit as st
 import chromadb as cdb
-from chromadb.config import Settings
+from chromadb.config import Settings, DEFAULT_TENANT
 from streamlit_dimensions import st_dimensions
 import altair as alt
 from utils.util import storage_stat as ss
@@ -14,6 +14,52 @@ from utils.util import model_util as mu
 colors = ['#6d765b','#A5BFA6']#['#847577','#cfd2cd']#['#f07162','#0081a7']#['#f97171','#8ad6cc']
 #["#ae5a41", "#1b85b8"]#["#636B2F","#BAC095"] #["#9EB8A0", "#58855c"]#['#58855c','#0D3311']#["#BAC095", "#636B2F"]
 
+'''
+altair==5.5.0
+chromadb==0.5.3  --0.6.3
+#country_converter==1.3.2
+#fastparquet==2025.12.0
+geopy==2.4.1
+GPSPhoto==2.2.3
+matplotlib==3.10.5 #3.10.8
+numpy==1.26.4
+pandas==2.2.2
+piexif==1.1.3
+Pillow==10.1.0   #12.1.1
+PyYAML==6.0.3
+scikit_learn==1.5.0
+
+# streamlit==1.55.0
+# streamlit_dimensions==0.0.1
+# streamlit_extras==0.7.8
+# streamlit_image_select==0.6.0
+
+#
+streamlit==1.39.0
+streamlit-aggrid==1.2.1.post2
+streamlit-avatar==0.1.3
+streamlit-camera-input-live==0.2.0
+streamlit-card==1.0.2
+streamlit-dimensions==0.0.1
+streamlit-embedcode==0.1.2
+streamlit-extras==0.6.0
+streamlit-image-coordinates==0.1.9
+streamlit-image-select==0.6.0
+streamlit-keyup==0.3.0
+streamlit-option-menu==0.4.0
+streamlit-toggle-switch==1.0.2
+streamlit-tree-select==0.0.5
+streamlit-vertical-slider==2.5.5
+streamlit_faker==0.0.4
+streamlit_folium==0.22.1
+streamlit_imagegrid==0.0.7
+
+#
+torch==2.2.2
+open-clip-torch==2.24.0
+#tqdm==4.67.3
+
+'''
 
 def extract_folder_paths():
     (
@@ -148,7 +194,7 @@ def extract_folder_paths():
 def get_vdb_connection(vdb_path):
     client = None
     try:
-      client = cdb.PersistentClient(vdb_path, settings=Settings(allow_reset=True))
+      client = cdb.PersistentClient(vdb_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=False))
       print(f"number of collections found: {client.count_collections()}")  
     except Exception as e:
         print(f"exception occurred getting vdb client connection: {e}")  
