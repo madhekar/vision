@@ -82,114 +82,6 @@ def extract_folder_paths():
 
     return (data_path, raw_data_path, vdb_list, ovr_path_list)
 
-# def filter_selection(df):
-#     print(f'*** {df}')
-#     #interval = alt.selection_interval(encodings=['x','y'])
-#     # 1. Define the first dropdown selection
-#     source_selection = alt.selection_point(
-#         fields=["source"], 
-#         bind="legend", 
-#         name="source"
-#     )
-#     # For a dropdown *widget*, use bind=alt.binding_select(options=...)
-#     source_dropdown = alt.binding_select(
-#         options=sorted(df["source"].unique().tolist()), name="Select source"
-#     )
-
-#     source_selection = alt.selection_point(
-#         name="SelectSource",
-#         fields=["source"], 
-#         bind=source_dropdown,
-#         value="madhekar"
-#         )
-
-#     #df['combined_category'] = df['data_type'] +',' + df['data_attrib']
-
-#     # # 2. Define the second dropdown selection
-#     # data_stage_dropdown = alt.binding_select(
-#     #     options=sorted(df["data_stage"].unique().tolist()), name="Select data stage "
-#     # )
-#     # data_stage_selection = alt.selection_point(
-#     #     fields=["data_stage"], bind=data_stage_dropdown
-#     # )
-
-#     #3. Define the third selection
-#     # data_type_dropdown = alt.binding_select(
-#     #     options=sorted(df["data_type"].unique().tolist()), name="Select data type "
-#     # )
-#     # data_type_selection = alt.selection_point(
-#     #     fields=["data_type"], bind=data_type_dropdown
-#     # )
-
-
-#     df['size'] = df['size'].astype(float)
-#     df['count'] = df['count'].astype(int)
-
-#     base = alt.Chart(df).encode(
-
-#     y=alt.Y('count:Q', sort='-x', axis=alt.Axis(grid=False, gridColor="grey"), title='file count'), # Sort descending by x-value
-#     yOffset="data_attrib:N",
-#     color=alt.Color("data_type:N", scale=alt.Scale( scheme='dark2')),
-#     tooltip=['data_type', 'data_attrib','count', 'size']
-#     ).transform_filter(
-#       (alt.datum.count > 0)
-#     )
-#     # .properties(
-#     # title= stage,#'File count and Size by Type',
-#     # )
-
-#     # Bar chart for Size (MB)
-#     size_chart = (
-#         base.mark_bar(opacity=0.7, orient="vertical")
-#         .encode(
-#             x=alt.X(
-#                 "data_type:N",
-#                 axis=alt.Axis(grid=False, gridColor="grey"),
-#                 title="data type",
-#             ),
-#         )
-#         .transform_filter(
-#             # Combine both selections using logical AND
-#             source_selection  # & data_type_selection
-#         )
-#         .add_params(source_selection)
-#     )
-
-#     # Text labels for count on the bars
-#     text_count = size_chart.mark_text(
-#         align='left',
-#         baseline='middle',
-#         dx=5 # Nudges text to the right of the bar
-#     ).transform_filter(
-#         # Combine both selections using logical AND
-#         source_selection #& data_type_selection
-#     ).add_params( source_selection )
-#     # .facet(
-#     # column='data_attrib:N'
-#     # )
-#     #.properties(selection=interval)
-#     #.interactive()
-#     # st.markdown("""<style> 
-#     #             .vega-bind {
-#     #             text-align:right;
-#     #             }</style> """, unsafe_allow_html=True)
-#     st.altair_chart(size_chart + text_count, use_container_width=True) #| chart.encode(x="size:Q"))
-#     # Combine the bar chart and text labels
-#     # chart = size_chart + text_count
-#     # st.altair_chart(chart, width='stretch')
-#     # Create the chart
-#     # chart = (
-#     #     alt.Chart(df)
-#     #     .mark_bar()
-#     #     .encode(
-#     #         x=alt.X("count:Q", axis=alt.Axis(grid=True, gridColor='grey')),
-#     #         y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
-#     #         #size="count:Q",
-#     #         shape="data_type:N",
-#     #         color= alt.Color("data_attrib:N", scale=alt.Scale( scheme='dark2')),#alt.condition(interval,"data_attrib:N",alt.value('lightgray')),
-#     #         tooltip=["source", "data_stage", "data_type", "data_attrib", 'count', 'size'],
-#     #     )
-#     #.add_selection(interval)
 
 def get_vdb_connection(vdb_path):
     client = None
@@ -294,75 +186,9 @@ def display_storage_metrics(tm, um, fm, ld):
         ch = base.mark_bar() + base.mark_text(align='center', dy=-10)
         st.altair_chart(ch, use_container_width=True)
 
-
-# def display_folder_details(dfi, dfv, dfd, dfa, dfn):
-#     dfi['type'] ='image'
-#     dfv["type"] = "video"
-#     dfd['type'] ='text'
-#     dfa["type"] = "audio"
-#     dfn["type"] = "other"
-#     dff = pd.concat([dfi, dfv, dfd, dfa, dfn])
-
-#     # c1, c2 = st.columns([1, 1])
-#     # with c1:
-#     dff = dff.reset_index(names="file_type")
-
-#     ch_count = (
-#         alt.Chart(dff)
-#         .mark_bar(opacity=0.7, orient="horizontal")
-#         .encode(
-#             x=alt.Y(
-#                 "count:Q",
-#                 axis=alt.Axis(grid=True, gridColor="grey"),
-#                 title="Number of files by type",
-#             ),
-#             y=alt.X("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
-#             xOffset="type:N",
-#             color=alt.Color("file_type:N", scale=alt.Scale(scheme="dark2")),
-#             tooltip=["type:N", "file_type:N", "count:Q"],
-#             # text="Number of files by type"
-#         )
-#         .properties(
-#             # width='container',
-#             title=f"File Count- Imgage:{int(dfi['count'].sum())}  Video:{int(dfv['count'].sum())}  Text:{int(dfd['count'].sum())}  Audio:{int(dfa['count'].sum())}  Other:{int(dfn['count'].sum())}"
-#         )
-#         .configure(padding={"left": 0, "top": 5, "right": 0, "bottom": 5})
-#     )
-
-#     ch_size = (
-#         alt.Chart(dff)
-#         .mark_bar(opacity=0.7)
-#         .encode(
-#             x=alt.X(
-#                 "size:Q",
-#                 axis=alt.Axis(grid=True, gridColor="grey"),
-#                 title="Storage size by file type",
-#                 #scale=alt.Scale(type="log")
-#             ),
-#             y=alt.Y("type:N", axis=alt.Axis(grid=True, gridColor="grey")),
-#             xOffset="type:N",
-#             color=alt.Color("file_type:N", scale=alt.Scale( scheme='dark2')),
-#             tooltip=["type:N", "file_type:N", "size:Q"],
-#         )
-#         .properties(
-#             #width='container',
-#             title=f"Files Size- Image:{int(dfi['size'].sum())} GB  Video:{int(dfv['size'].sum())} GB  Text:{int(dfd['size'].sum())} GB  Audio:{int(dfa['size'].sum())} GB  Other:{int(dfn['size'].sum())} GB"
-#         ).configure(
-#             padding={"left":0, "top":5, "right": 0, "bottom": 5}
-#         )
-#     )
-#     # c1, c2 = st.columns([.5,.5])
-#     # with c1:
-#     st.altair_chart(ch_count, use_container_width=True)
-#     # with c2:   
-#     st.altair_chart(ch_size, use_container_width=True)
-
-
 def execute():
 
         data_path, final_data_path, vdb_list, opl = extract_folder_paths() 
-
-        #dfi, dff = ss.acquire_overview_data(data_path, final_data_path, opl)
 
         ld = get_collection_record_count(vdb_list=vdb_list)
     
@@ -376,22 +202,6 @@ def execute():
         
         display_storage_metrics(*ss.extract_server_stats(), ld) #, dfi, dff)
 
-        #st.divider()
-
-        # st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-        # display_folder_details(*ss.extract_all_folder_stats(rdp))
-        #st.divider()
-
-        # st.markdown("""##### <span style='color:#2d4202'><u>**INPUT DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-        # display_folder_details(*ss.extract_all_folder_stats(idp))
-        #st.divider()
-
-        # st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-        # display_folder_details(*ss.extract_all_folder_stats(final_data_path))
-        #st.divider()
-
-        # st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA FOLDER**</u></span>""",unsafe_allow_html=True)
-        # display_folder_details(*ss.extract_all_folder_stats(adp))
 
 if __name__ == "__main__":
     execute()
