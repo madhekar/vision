@@ -280,3 +280,31 @@ For the standard Streamlit configuration files (~/.streamlit/config.toml or $CWD
     For config.toml: Streamlit loads options from this file automatically when you run your app using streamlit run. You do not access it directly via importlib in your main application logic to modify configuration settings at runtime. 
 
 By using importlib.resources.files for custom packaged data, you ensure your app works consistently whether it's run locally or deployed in environments like Docker or Streamlit Community Cloud where file paths might differ. 
+
+-------
+
+
+ Openclaw sends a massive context each time. You will be surprised how much it would cost if you are connecting to a frontier model like gemini-3.1pro-preview. 
+ All frontier model APIs do just a bit of caching and quickly discard them, so if you send request every a few minutes, you will each time send like 200K token to the server. 
+ It will blow up your wallet quite fast. So connecting it to local LLM actually makes sense.
+
+And same problem is there for local LLM, you will be surprised how slow it is. I am running on 5090, the sweet spot is qwen3.5 35B-A3B, and set context window to 64K. 
+It is definitely not as powerful as frontier models, but good enough for common stuff. while also being able to fit in 5090, 27B is slower, I just cannot bear the wait time.
+
+The good thing is that open claw can dynamically switch model. I ask open claw to use Claude if I am asking it to edit some important system files. 
+Also the unique thing of using open claw is those cron jobs, I just set the task with different models depending on how difficult they are. 
+I have a daily arxiv paper reading/summary pipeline, I let local models to handle retrieval/initial assessment, and then let gemini to deep dive on just a couple. 
+This makes sense financially, otherwise it could easily blow away significant $ without ever noticing... 
+
+
+ I tried the Openclaw with Ollama qwen3.5:latest. Here are my experiences
+
+    Very poor speed- It takes a lot of patience for the model to respond
+
+    Accuracy - I couldn't figure out when the model is done it's part or still processing
+
+    Reliability - Totally not as of now , it breaks the tasks or research in the midway no reason no error nothing
+
+Do let me know if you got some luck 
+
+----
