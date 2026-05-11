@@ -246,23 +246,6 @@ def disc_usage_1(tm, um, fm, w):
 
     st.altair_chart(bar + text, use_container_width=True)
 
-    # b = (
-    #     alt.Chart(mem)
-    #     .mark_bar()
-    #     .encode(
-    #         y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey")),
-    #         x=alt.X("disc:N", axis=alt.Axis(grid=True, gridColor="grey")),
-    #         color="disc:N",
-    #         #size="size:Q",
-    #         tooltip=['disc', 'size']
-    #     ).properties(
-    #         padding={"bottom": 50}
-    #     ).configure_view(
-    #         strokeWidth=1
-    #     )
-    # )
-
-    # st.altair_chart(b, width='stretch')
 
 def disc_usage(tm, um, fm,w):
 
@@ -286,18 +269,6 @@ def disc_usage(tm, um, fm,w):
     )
     text = base.mark_text(align='center', radiusOffset=10, color="black").encode(text="size:Q")
     st.altair_chart(pie + text, use_container_width=True)
-
-# def vdb_collection_stats(vdbp, icol, vcol, tcol, acol):
-  
-#   client = chromadb.PersistentClient(path=vdbp)
-
-#   icnt = client.get_collection(name=icol).count()
-#   vcnt = client.get_collection(name=vcol).count()
-#   tcnt = client.get_collection(name=tcol).count()
-#   acnt = client.get_collection(name=acol).count()
-
-#   d = {"img cnt": icnt, "video cnt": vcnt, "text cnt": tcnt, "audio cnt": acnt}
-#   pdb
 
 
 def display_storage_metrics(tm, um, fm, ld):
