@@ -65,7 +65,7 @@ def caption_image(img):
            return "unk"
        else:
             result = client.chat(
-            model='llava',
+            model='llava:34b',
             messages=[  
                 {
                     'role': 'system',

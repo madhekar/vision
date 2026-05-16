@@ -49,7 +49,7 @@ async def caption_image(img):
     else:    
 
        result = client.chat(
-            model='llava',
+            model='llava:34b',
             messages=[  
                 {
                     'role': 'system',
@@ -96,7 +96,7 @@ async def describe_image( img_path, ppt, location):
     try:
         # Perform inference
         response = await client.chat( 
-            model='llava',
+            model='llava:34b',
             messages=[
                 {
                     'role': 'system',
