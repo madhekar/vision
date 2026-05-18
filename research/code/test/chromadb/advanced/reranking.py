@@ -1,4 +1,4 @@
-import chromadb
+
 from PIL import Image
 import torch
 import chromadb as cdb
