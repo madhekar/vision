@@ -24,7 +24,6 @@ def rerank_image_search(img_url, image_collection):
         candidate_uris = results["uris"][0]
         #candidate_embeddings = results["embeddings"][0]
         d = dict(zip(results["uris"][0], results["metadatas"][0]))
-        #print(f"mapping {d}")
 
         # Deep Reranking (Cross-Encoder)
         # Create pairs: [Query Image, Candidate Image] for the cross-encoder to score
@@ -36,7 +35,7 @@ def rerank_image_search(img_url, image_collection):
         # Predict relevance scores
         scores = reranker_model.predict(pairs)
 
-        # 5. Sort and Display Top K Results
+        # Sort and Display Top K Results
         # Combine URIs and their scores, then sort by relevance
         scored_results = list(zip(candidate_uris, scores))
         reranked_results = sorted(scored_results, key=lambda x: x[1], reverse=True)
