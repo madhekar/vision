@@ -76,7 +76,7 @@ def rerank_image_search(img_url, image_collection, txt_collection, video_collect
             #query_embeddings=[query_embedding],
             query_uris=img_url,
             n_results=50,
-            include=["uris", "documents", "embeddings"]
+            include=["uris", "documents", "embeddings", "metadatas"]
         )
 
         # Extract candidates
