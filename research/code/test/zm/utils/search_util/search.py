@@ -4,6 +4,7 @@ from pathlib import WindowsPath
 import datetime
 import pandas as pd
 import ast
+import os
 
 # from streamlit_option_menu import option_menu
 from streamlit_image_select import image_select
@@ -18,6 +19,7 @@ from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings, DEFAULT_TENANT
 from utils.util import file_type_ext as fte
+from utils.util import chroma_util as cu
 
 
 PIL.Image.MAX_IMAGE_PIXELS = 933120000
@@ -253,7 +255,9 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 include=["data", "metadatas"],
                 n_results=10,
             )
-
+    
+            im_array = cu.rerank_image_search(os.path.join('./', similar_image.name), cImgs)
+            print(f"image array: {im_array}")
 
             #execute video query with search criteria
             st.session_state["videos"] = cVideos.query(
