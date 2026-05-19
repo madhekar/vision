@@ -78,8 +78,9 @@ def rerank_image_text_search(text, image_collection):
         candidate_texts = [v["text"] for v in results['metadatas'][0]] #results["metadatas"][0]["text"]
         #print(f"candidate text: {candidate_texts}")
         #candidate_embeddings = results["embeddings"][0]
+        #d = {k: {sk: v} for k, sk, v in zip(candidate_texts, results["uris"][0], results["metadatas"][0])}
         d = {k: [v1, v2] for k, v1, v2 in zip(candidate_texts, results["uris"][0], results["metadatas"][0])}
-        print(f"----+++ {d}")
+        #print(f"----+++ {d}")
         #d = dict(zip(results["uris"][0], results["metadatas"][0]))
 
         # Deep Reranking (Cross-Encoder)
@@ -101,8 +102,10 @@ def rerank_image_text_search(text, image_collection):
         reranked_images = []
         top_k = 10
         for i, (t, score) in enumerate(reranked_results[:top_k]):
-            reranked_images.append([t, d[t]])
-            print(f"***Rank {i+1} | Text: {t} | Cross-Encoder Score: {score:.4f} | caption: {d[t]}")
+            reranked_images.append(d[t])
+            #print(f"***Rank {i+1} | Text: {t} | Cross-Encoder Score: {score:.4f} | reranked: {reranked_images}")
+
+        print(f"****reranked: {reranked_images}")
 
         return (reranked_images) 
 
