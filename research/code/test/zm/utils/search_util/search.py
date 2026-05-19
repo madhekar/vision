@@ -309,7 +309,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             #     #img = img.convert("RGB")
             st.session_state["t_imgs"].append(img[0])
         for i, mdata in enumerate(st.session_state["imgs"]):
-            st.write(mdata) #---???
+            #st.write(mdata) #---???
             tss =  mdata[1]["ts"] if mdata[1]["ts"]  else "1765060800.0"
             st.session_state["meta"].append(
                 "Desc:["
