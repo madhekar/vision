@@ -257,6 +257,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # )
     
             st.session_state["imgs"] = cu.rerank_image_search(os.path.join('./', similar_image.name), cImgs)
+            
             print(f"image array: {st.session_state['imgs']}")
 
             #execute video query with search criteria
