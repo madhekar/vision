@@ -1,3 +1,4 @@
+import re
 from sentence_transformers import CrossEncoder
 from PIL import Image
 import numpy as np
@@ -6,6 +7,13 @@ import chromadb as cdb
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings, DEFAULT_TENANT
+
+
+def _preprocess_query(query: str) -> str:
+    query = query.strip().lower()
+    query = re.sub(r'[^\w\s?!]', '', query)  # Strip special characters
+    return " ".join(query.split())  # Remove extra spaces
+
 
 def rerank_image_search(img_url, image_collection):
 

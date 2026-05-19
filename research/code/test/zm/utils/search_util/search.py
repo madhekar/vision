@@ -181,7 +181,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 placeholder="search modality types for...",
                 disabled=False,
             )
-
+            modalityTxt = cu._preprocess_query(modalityTxt)
         st.divider()
 
         def date_change():
@@ -257,7 +257,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # )
     
             st.session_state["imgs"] = cu.rerank_image_search(os.path.join('./', similar_image.name), cImgs)
-            
+
             print(f"image array: {st.session_state['imgs']}")
 
             #execute video query with search criteria
