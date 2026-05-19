@@ -17,7 +17,7 @@ def rerank_image_search(img_url, image_collection):
         results = image_collection.query(
             query_uris=img_url,
             include=["uris", "metadatas"],
-            n_results=50,
+            n_results=100,
         )
 
         # Extract candidates
