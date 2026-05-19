@@ -307,7 +307,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             #     #img = img.convert("RGB")
             st.session_state["t_imgs"].append(img[0])
         for mdata in st.session_state["imgs"]:
-            st.write(mdata[1]) #---???
+            #st.write(mdata[1]) #---???
             tss =  mdata[1]["ts"] if mdata[1]["ts"]  else "1765060800.0"
             st.session_state["meta"].append(
                 "Desc:["
@@ -406,7 +406,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             with colt:
                st.write("<p class='big-font-subh'>People: </p>", unsafe_allow_html=True)
             with cole:
-               o_names = f'<p class="input">{st.session_state["imgs"][index][1]["ppt"]} </p>' #- {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
+               o_names = f'<p class="input">{st.session_state["imgs"][index][1]["ppt"]} </p>'
                st.markdown(o_names, unsafe_allow_html=True)
 
             colt, cole = c2.columns([0.2, 0.8])
@@ -426,8 +426,8 @@ def search_fn(client, cImgs, cTxts, cVideos):
 
 
             ll = ast.literal_eval(st.session_state["imgs"][index][1]["latlon"])     
-            lat = ll[0] #float(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"][0])
-            lon = ll[1] # float(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"][1])
+            lat = ll[0] 
+            lon = ll[1]
 
             map_data = pd.DataFrame({"lat": [lat], "lon": [lon]})
             c2.markdown("<p class='big-font-subh'>Map</p>", unsafe_allow_html=True)
