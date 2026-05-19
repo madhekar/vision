@@ -278,7 +278,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             st.session_state["document"] = cTxts.query(
                 query_texts=[modalityTxt],
                 include=["documents", "metadatas", "distances"], 
-                n_results=5,
+                n_results=10,
             )#["documents"][0][0]
 
             print(">>>>>", st.session_state["document"])
@@ -540,7 +540,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 with c0:
                     st.write(f"**{cnt}**")
                 with c1:  
-                    st.text_area(label=f"{idx}", value=str(doc), label_visibility="collapsed", height=300)  #st.session_state["document"]["documents"][0][0])
+                    st.text_area(label=f"{idx}", value=str(doc), label_visibility="collapsed", height=150)  #st.session_state["document"]["documents"][0][0])
                 with c2:
                     name, parent = fte.get_basename_parent(st.session_state["document"]["metadatas"][0][idx]["name"])
                     colt, cole = st.columns([1,9])
