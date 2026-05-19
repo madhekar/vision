@@ -306,17 +306,17 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # if img.shape[2] == 4:
             #     img = img[:, :, :3]
             #     #img = img.convert("RGB")
-            st.session_state["t_imgs"].append(img[0])
-        for mdata in st.session_state["imgs"]:
-            st.write(mdata[1]) #---???
-            tss =  mdata[0][1]["ts"] if mdata[0][1]["ts"]  else "1765060800.0"
+            st.session_state["t_imgs"].append(img[1][0])
+        for i, mdata in enumerate(st.session_state["imgs"]):
+            st.write(mdata) #---???
+            tss =  mdata[1][1]["ts"] if mdata[1][1]["ts"]  else "1765060800.0"
             st.session_state["meta"].append(
                 "Desc:["
-                + mdata[1]["text"]
+                + mdata[1][1]["text"]
                 # + "] ) People: ["
                 # + mdata.get("names")
                 + "] Location: ["
-                + mdata[1]["loc"]
+                + mdata[1][1]["loc"]
                 + "] Date: ["
                 + str(datetime.datetime.fromtimestamp(float(tss)))
                 + "]"
