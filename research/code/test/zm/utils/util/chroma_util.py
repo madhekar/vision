@@ -58,7 +58,7 @@ def rerank_video_search(thumb_img_url, video_collection):
         results = video_collection.query(
             query_uris=thumb_img_url,
             include=["uris", "metadatas"],
-            n_results=50,
+            n_results=100,
         )
 
         # Extract candidates
