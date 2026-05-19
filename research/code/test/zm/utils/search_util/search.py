@@ -283,12 +283,12 @@ def search_fn(client, cImgs, cTxts, cVideos):
 
             print(">>>>>", st.session_state["document"])
             # execute image query with search criteria
-            st.session_state["imgs"] = cImgs.query(
-                query_texts=[modalityTxt], 
-                include=["data", "metadatas"], 
-                n_results=10
-            )
-
+            # st.session_state["imgs"] = cImgs.query(
+            #     query_texts=[modalityTxt], 
+            #     include=["data", "metadatas"], 
+            #     n_results=10
+            # )
+            st.session_state["imgs"] = cu.rerank_image_text_search(modalityTxt, cImgs)
 
             # execute video query with search criteria
             st.session_state["videos"] = cVideos.query(
@@ -308,8 +308,8 @@ def search_fn(client, cImgs, cTxts, cVideos):
             #     #img = img.convert("RGB")
             st.session_state["t_imgs"].append(img[0])
         for mdata in st.session_state["imgs"]:
-            #st.write(mdata[1]) #---???
-            tss =  mdata[1]["ts"] if mdata[1]["ts"]  else "1765060800.0"
+            st.write(mdata[1]) #---???
+            tss =  mdata[0][1]["ts"] if mdata[0][1]["ts"]  else "1765060800.0"
             st.session_state["meta"].append(
                 "Desc:["
                 + mdata[1]["text"]
