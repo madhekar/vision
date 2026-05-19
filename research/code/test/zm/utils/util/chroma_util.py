@@ -9,6 +9,7 @@ from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings, DEFAULT_TENANT
 
 
+# clean query string
 def _preprocess_query(query: str) -> str:
     query = query.strip().lower()
     query = re.sub(r'[^\w\s?!]', '', query)  # Strip special characters
@@ -116,9 +117,8 @@ def rerank_video_search(thumb_img_url, video_collection):
 
         # Extract candidates
         candidate_uris = results["uris"][0]
-        #candidate_embeddings = results["embeddings"][0]
         d = dict(zip(results["uris"][0], results["metadatas"][0]))
-        #print(f"mapping {d}")
+
 
         # Deep Reranking (Cross-Encoder)
         # Create pairs: [Query Image, Candidate Image] for the cross-encoder to score
@@ -130,7 +130,7 @@ def rerank_video_search(thumb_img_url, video_collection):
         # Predict relevance scores
         scores = reranker_model.predict(pairs)
 
-        # 5. Sort and Display Top K Results
+        # Sort and Display Top K Results
         # Combine URIs and their scores, then sort by relevance
         scored_results = list(zip(candidate_uris, scores))
         reranked_results = sorted(scored_results, key=lambda x: x[1], reverse=True)
@@ -140,7 +140,7 @@ def rerank_video_search(thumb_img_url, video_collection):
         top_k = 10
         for i, (uri, score) in enumerate(reranked_results[:top_k]):
             reranked_videos.append([uri, d[uri]])
-            print(f"Rank {i+1} | Image: {uri} | Cross-Encoder Score: {score:.4f} | caption: {d[uri]['caption']}")
+            #print(f"Rank {i+1} | Image: {uri} | Cross-Encoder Score: {score:.4f} | caption: {d[uri]['caption']}")
 
         return (reranked_videos) 
 
