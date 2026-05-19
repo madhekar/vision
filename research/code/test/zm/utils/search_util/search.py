@@ -340,7 +340,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
     with image:
         if st.session_state["t_imgs"] and len(st.session_state["t_imgs"]) > 1:
             index = image_select(
-                label= "Resembling Images",
+                label= "analogous images",
                 images=st.session_state["t_imgs"],
                 use_container_width=True,
                 # captions=st.session_state["meta"],
@@ -448,7 +448,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
     with video:
       if st.session_state["t_videos"] and len(st.session_state["t_videos"]) > 1: 
         index = image_select(
-                    label= "Resembling Videos",
+                    label= "analogous videos",
                     images=st.session_state["t_videos"],
                     use_container_width=True,
                     # captions=st.session_state["meta"],
