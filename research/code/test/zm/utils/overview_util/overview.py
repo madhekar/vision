@@ -77,14 +77,14 @@ def filter_selection(df):
     )
     # For a dropdown *widget*, use bind=alt.binding_select(options=...)
     source_dropdown = alt.binding_select(
-        options=sorted(df["source"].unique().tolist()), name="Select source"
+        options=sorted(df["source"].unique().tolist()), name="select source"
     )
 
     source_selection = alt.selection_point(
         name="SelectSource",
         fields=["source"], 
         bind=source_dropdown,
-        value="madhekar"
+        value=df['source'].unique().tolist()[0]
         )
 
     #df['combined_category'] = df['data_type'] +',' + df['data_attrib']
