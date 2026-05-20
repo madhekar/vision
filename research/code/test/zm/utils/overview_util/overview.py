@@ -126,7 +126,7 @@ def filter_selection(df):
             x=alt.X(
                 "size:Q",
                 axis=alt.Axis(grid=True, gridColor="grey"),
-                title="folder Size",
+                title="size(GB)",
                 scale=alt.Scale(padding=5)
             ),
         )
