@@ -249,23 +249,9 @@ def search_fn(client, cImgs, cTxts, cVideos):
             #    st.session_state["dt_range"][1].timestamp(),
             # )
 
-            # execute image query with search criteria
-            # st.session_state["imgs"] = cImgs.query(
-            #     query_uris="./" + similar_image.name,
-            #     include=["data", "metadatas"],
-            #     n_results=10,
-            # )
-    
             st.session_state["imgs"] = cu.rerank_image_search(os.path.join('./', similar_image.name), cImgs)
-
             print(f"image array: {st.session_state['imgs']}")
 
-            #execute video query with search criteria
-            # st.session_state["videos"] = cVideos.query(
-            #     query_uris="./" + similar_image.name,
-            #     include=["data", "metadatas"],
-            #     n_results=10,
-            # )
             st.session_state["videos"] = cu.rerank_video_search(os.path.join('./', similar_image.name), cVideos)
             print("**videos**", st.session_state["videos"])
 
@@ -282,20 +268,10 @@ def search_fn(client, cImgs, cTxts, cVideos):
             )#["documents"][0][0]
 
             print(">>>>>", st.session_state["document"])
-            # execute image query with search criteria
-            # st.session_state["imgs"] = cImgs.query(
-            #     query_texts=[modalityTxt], 
-            #     include=["data", "metadatas"], 
-            #     n_results=10
-            # )
+
             st.session_state["imgs"] = cu.rerank_image_text_search(modalityTxt, cImgs)
 
             # execute video query with search criteria
-            # st.session_state["videos"] = cVideos.query(
-            #     query_texts=[modalityTxt], 
-            #     include=["data", "metadatas"], 
-            #     n_results=100
-            # )
             st.session_state["videos"] = cu.rerank_video_text_search(modalityTxt, cVideos)
             print("**videos**", cVideos.count(), "***",  st.session_state["videos"])
 
