@@ -370,20 +370,17 @@ def execute():
 
     st.divider() 
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA>>**</u></span>""",unsafe_allow_html=True)
-    display_folder_details(*ss.extract_all_folder_stats(rdp))
-    #st.divider()
-
     st.markdown("""##### <span style='color:#2d4202'><u>**INPUT DATA>>**</u></span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(idp))
-    #st.divider()
 
     st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA>>**</u></span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(fdp))
-    #st.divider()
 
     st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA>>**</u></span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(adp))
+
+    st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA>>**</u></span>""",unsafe_allow_html=True)
+    display_folder_details(*ss.extract_all_folder_stats(rdp))
 
 # if __name__ == "__main__":
 #     execute()
