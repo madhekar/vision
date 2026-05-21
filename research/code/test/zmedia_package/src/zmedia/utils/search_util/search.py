@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import platform
 from pathlib import WindowsPath
@@ -18,7 +19,7 @@ from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings, DEFAULT_TENANT
 from utils.util import file_type_ext as fte
-
+from utils.util import chroma_util as cu
 
 PIL.Image.MAX_IMAGE_PIXELS = 933120000
 MIN_DT = datetime.datetime(1998, 1, 1)
@@ -181,6 +182,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             )
 
         st.divider()
+        modalityTxt = cu._preprocess_query(modalityTxt)
 
         def date_change():
             st.session_state["dt_range"] = st.session_state.mySlider
@@ -249,19 +251,23 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # )
 
             # execute image query with search criteria
-            st.session_state["imgs"] = cImgs.query(
-                query_uris="./" + similar_image.name,
-                include=["data", "metadatas"],
-                n_results=10,
-            )
+            st.session_state["imgs"] = cu.rerank_image_search(os.path.join('./', similar_image.name), cImgs)
+
+            # st.session_state["imgs"] = cImgs.query(
+            #     query_uris="./" + similar_image.name,
+            #     include=["data", "metadatas"],
+            #     n_results=10,
+            # )
 
 
             #execute video query with search criteria
-            st.session_state["videos"] = cVideos.query(
-                query_uris="./" + similar_image.name,
-                include=["data", "metadatas"],
-                n_results=10,
-            )
+            st.session_state["videos"] = cu.rerank_video_search(os.path.join('./', similar_image.name), cVideos)
+
+            # st.session_state["videos"] = cVideos.query(
+            #     query_uris="./" + similar_image.name,
+            #     include=["data", "metadatas"],
+            #     n_results=10,
+            # )
 
             #print("****", st.session_state["videos"]["metadatas"][0][1:][0]["vuri"])
             #st.write(st.session_state["imgs"]) # ---enable to debug
