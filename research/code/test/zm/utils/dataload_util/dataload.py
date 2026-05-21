@@ -72,7 +72,7 @@ def total_number_files_n_folders(src_dir):
    return nfolders, nfiles
 
 ## possible performance issue 
-def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio ):
+def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio, image_size_limit):
 
     img_items, txt_items, vid_items, adu_items = ([] for i in range(4))
    
