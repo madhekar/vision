@@ -112,13 +112,13 @@ def rerank_video_search(thumb_img_url, video_collection):
         results = video_collection.query(
             query_uris=thumb_img_url,
             include=["uris", "metadatas"],
-            n_results=100,
+            n_results=10,
         )
 
         # Extract candidates
         candidate_uris = results["uris"][0]
         d = dict(zip(results["uris"][0], results["metadatas"][0]))
-
+        dr = [results["uris"][0], results["metadatas"][0]]
 
         # Deep Reranking (Cross-Encoder)
         # Create pairs: [Query Image, Candidate Image] for the cross-encoder to score
@@ -143,6 +143,7 @@ def rerank_video_search(thumb_img_url, video_collection):
             #print(f"Rank {i+1} | Image: {uri} | Cross-Encoder Score: {score:.4f} | caption: {d[uri]['caption']}")
 
         return (reranked_videos) 
+        #return (dr)
 
 
 def rerank_video_text_search(text, video_collection):
