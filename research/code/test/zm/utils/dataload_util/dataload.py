@@ -176,7 +176,7 @@ def execute(source_name):
 
     copy_files_only(os.path.join(raw_data_path, source_name), ipath, tpath, vpath, apath, image_size_limit)
 
-    clean_unknown_files_folders(ipath, tpath, vpath, apath)
+    clean_unknown_files_folders(ipath, tpath, vpath, apath, image_size_limit)
 
 
 if __name__ == "__main__":
