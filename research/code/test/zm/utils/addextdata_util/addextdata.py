@@ -153,6 +153,12 @@ def copy_folders_with_files(src_dir, dest_dir):
 
 """
 raw_data_path, input_image_path, input_txt_path, input_video_path, input_audio_path
+        os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *input_image_path.split(os.sep)[1:]),
+        os.path.join(dr, *input_txt_path.split(os.sep)[1:]),
+        os.path.join(dr, *input_video_path.split(os.sep)[1:]),
+        os.path.join(dr, *input_audio_path.split(os.sep)[1:]),
+        image_size_limit
 """
 
 def execute():
@@ -161,7 +167,8 @@ def execute():
         input_image_path,
         input_txt_path,
         input_video_path,
-        input_audio_path
+        input_audio_path,
+        image_size_limit
         
     ) = config.dataload_config_load()
 
