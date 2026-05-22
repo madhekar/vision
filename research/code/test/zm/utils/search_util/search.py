@@ -265,7 +265,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 query_texts=[modalityTxt],
                 include=["documents", "metadatas", "distances"], 
                 n_results=10,
-            )#["documents"][0][0]
+            )
 
             print(">>>>>", st.session_state["document"])
 
@@ -277,13 +277,13 @@ def search_fn(client, cImgs, cTxts, cVideos):
 
 
         for img in st.session_state["imgs"]:
-            print(f"img ---> {img}")
             #if img.mode in ("RGBA", "P"):
             #img = Image.open(img)
             # if img.shape[2] == 4:
             #     img = img[:, :, :3]
             #     #img = img.convert("RGB")
             st.session_state["t_imgs"].append(img[0])
+            
         for i, mdata in enumerate(st.session_state["imgs"]):
             #st.write(mdata) #---???
             tss =  mdata[1]["ts"] if mdata[1]["ts"]  else "1765060800.0"
@@ -305,6 +305,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # if img.shape[2] == 4:
             #     img = img[:, :, :3]
             st.session_state["t_videos"].append(img[0])
+            
         for vmdata in st.session_state["videos"]: #["metadatas"][0][1:]:
             st.session_state["vmeta"].append(vmdata[1]["vuri"])
 
