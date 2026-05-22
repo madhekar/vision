@@ -253,24 +253,9 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # execute image query with search criteria
             st.session_state["imgs"] = cu.rerank_image_search(os.path.join('./', similar_image.name), cImgs)
 
-            # st.session_state["imgs"] = cImgs.query(
-            #     query_uris="./" + similar_image.name,
-            #     include=["data", "metadatas"],
-            #     n_results=10,
-            # )
-
-
             #execute video query with search criteria
             st.session_state["videos"] = cu.rerank_video_search(os.path.join('./', similar_image.name), cVideos)
-
-            # st.session_state["videos"] = cVideos.query(
-            #     query_uris="./" + similar_image.name,
-            #     include=["data", "metadatas"],
-            #     n_results=10,
-            # )
-
-            #print("****", st.session_state["videos"]["metadatas"][0][1:][0]["vuri"])
-            #st.write(st.session_state["imgs"]) # ---enable to debug
+            print("***Videos***", st.session_state["videos"])
 
             ''' 
             Text Modality selected 
@@ -281,33 +266,25 @@ def search_fn(client, cImgs, cTxts, cVideos):
             st.session_state["document"] = cTxts.query(
                 query_texts=[modalityTxt],
                 include=["documents", "metadatas", "distances"], 
-                n_results=5,
+                n_results=10,
             )#["documents"][0][0]
 
             print(">>>>>", st.session_state["document"])
-            # execute image query with search criteria
-            st.session_state["imgs"] = cImgs.query(
-                query_texts=[modalityTxt], 
-                include=["data", "metadatas"], 
-                n_results=10
-            )
-
+            
+            st.session_state["imgs"] = cu.rerank_image_text_search(modalityTxt, cImgs) 
 
             # execute video query with search criteria
-            st.session_state["videos"] = cVideos.query(
-                query_texts=[modalityTxt], 
-                include=["data", "metadatas"], 
-                n_results=10
-            )
-            
+            st.session_state["videos"] = cu.rerank_video_text_search(modalityTxt, cVideos)
+            print("**videos**", cVideos.count(), "***",  st.session_state["videos"]) 
 
 
-        for img in st.session_state["imgs"]["data"][0][1:]:
+        for img in st.session_state["imgs"]:
             #if img.mode in ("RGBA", "P"):
-            if img.shape[2] == 4:
-                img = img[:, :, :3]
+            #if img.shape[2] == 4:
+                #img = img[:, :, :3]
                 #img = img.convert("RGB")
             st.session_state["t_imgs"].append(img)
+
         for mdata in st.session_state["imgs"]["metadatas"][0][1:]:
             #st.write(mdata) #---???
             tss =  mdata["ts"] if mdata["ts"]  else "1765060800.0"
