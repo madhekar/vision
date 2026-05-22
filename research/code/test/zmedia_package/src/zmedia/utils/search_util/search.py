@@ -526,8 +526,6 @@ def search_fn(client, cImgs, cTxts, cVideos):
                     with cole:
                         o_desc = f'<p class="input">{st.session_state["document"]["metadatas"][0][idx]["ts"]}</p>'
                         st.markdown(o_desc, unsafe_allow_html=True)
-                        # st.write(st.session_state["document"]["metadatas"][0][idx]["name"])    
-                        # st.write(st.session_state["document"]["metadatas"][0][idx]["ts"])
         else:
               st.write(
                 "<p class='big-font'>sorry, no similar documents found in search criteria!</p>",
