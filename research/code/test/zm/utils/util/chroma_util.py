@@ -118,7 +118,9 @@ def rerank_video_search(thumb_img_url, video_collection):
         # Extract candidates
         candidate_uris = results["uris"][0]
         d = dict(zip(results["uris"][0], results["metadatas"][0]))
-        dr = [results["uris"][0], results["metadatas"][0]]
+        #dr = [results["uris"][0], results["metadatas"][0]]
+
+        print(f"=====>{d}")
 
         # Deep Reranking (Cross-Encoder)
         # Create pairs: [Query Image, Candidate Image] for the cross-encoder to score
