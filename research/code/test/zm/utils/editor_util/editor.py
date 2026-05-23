@@ -156,7 +156,7 @@ def update_date_changes(video, col):
 
 
 def select_location_by_country_and_state(rdf):
-    
+    print(f"rdf: {rdf}")
     c_location_type, c_country, c_state = st.sidebar.columns([.13,.1,.1], gap="small")
     
     with c_location_type:
