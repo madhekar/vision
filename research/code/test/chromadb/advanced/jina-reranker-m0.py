@@ -5,14 +5,15 @@ from transformers import AutoModel
 model = AutoModel.from_pretrained(
     'jinaai/jina-reranker-m0', 
     torch_dtype="auto", 
-    trust_remote_code=True
+    trust_remote_code=True,
+    attn_implementation="flash_attention_2"
 ).to('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Define the query and a mix of text/image documents
 query = "What does the Golden Gate bridge look like?"
 documents = [
     "https://cdn.britannica.com/68/170868-050-8DDE8263/Golden-Gate-Bridge-San-Francisco.jpg",
-    "A document about bridge engineering.",
+    "A document about bridge engineering in san francisco.",
     "https://raw.githubusercontent.com/jina-ai/multimodal-reranker-test/main/handelsblatt-preview.png"
 ]
 
