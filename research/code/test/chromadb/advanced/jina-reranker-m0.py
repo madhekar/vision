@@ -6,7 +6,7 @@ model = AutoModel.from_pretrained(
     'jinaai/jina-reranker-m0', 
     torch_dtype="auto", 
     trust_remote_code=True,
-    attn_implementation="flash_attention_2"
+    #attn_implementation="flash_attention_2"
 ).to('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Define the query and a mix of text/image documents
