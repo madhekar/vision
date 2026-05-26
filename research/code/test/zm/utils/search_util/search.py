@@ -250,10 +250,10 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # )
 
             st.session_state["imgs"] = cu.rerank_image_search(os.path.join('./', similar_image.name), cImgs)
-            print(f"image array: {st.session_state['imgs']}")
+            #print(f"image array: {st.session_state['imgs']}")
 
             st.session_state["videos"] = cu.rerank_video_search(os.path.join('./', similar_image.name), cVideos)
-            print("**videos**", st.session_state["videos"])
+            #print("**videos**", st.session_state["videos"])
 
             ''' 
             Text Modality selected 
@@ -267,13 +267,13 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 n_results=10,
             )
 
-            print(">>>>>", st.session_state["document"])
+            #print(">>>>>", st.session_state["document"])
 
             st.session_state["imgs"] = cu.rerank_image_text_search(modalityTxt, cImgs)
 
             # execute video query with search criteria
-            st.session_state["videos"] = cu.rerank_video_text_search(modalityTxt, cVideos)
-            print("**videos**", cVideos.count(), "***",  st.session_state["videos"])
+            st.session_state["videos"] = cu.rerank_video_text_search(modalityTxt, cVideos, rekank=True)
+            #print("**videos**", cVideos.count(), "***",  st.session_state["videos"])
 
 
         for img in st.session_state["imgs"]:
@@ -299,17 +299,18 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 + "]"
             )
 
-        print(f'-----videos rerank {st.session_state["videos"]}')
-        for img in st.session_state["videos"]: #["data"][0][1:]:
+        #print(f'-----videos rerank {st.session_state["videos"]}')
+        for vmdata in st.session_state["videos"]: #["data"][0][1:]:
             #if img.mode in ("RGBA", "P"):
             # if img.shape[2] == 4:
             #     img = img[:, :, :3]
-            st.session_state["t_videos"].append(img[0])
+            st.session_state["t_videos"].append(vmdata[0])
             
-        for vmdata in st.session_state["videos"]: #["metadatas"][0][1:]:
+        for vmdata in st.session_state["videos"]:
+            print("%%%%", st.session_state["vmeta"])
             st.session_state["vmeta"].append(vmdata[1]["vuri"])
 
-            print("%%%%", st.session_state["vmeta"])
+            
 
     '''  
     **** Image TAB ****
