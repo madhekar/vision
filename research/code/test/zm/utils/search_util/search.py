@@ -252,7 +252,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             st.session_state["imgs"] = cu.rerank_image_search(os.path.join('./', similar_image.name), cImgs)
             #print(f"image array: {st.session_state['imgs']}")
 
-            st.session_state["videos"] = cu.rerank_video_search(os.path.join('./', similar_image.name), cVideos)
+            st.session_state["videos"] = cu.rerank_video_search(os.path.join('./', similar_image.name), cVideos, rerank=False)
             #print("**videos**", st.session_state["videos"])
 
             ''' 
@@ -272,7 +272,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             st.session_state["imgs"] = cu.rerank_image_text_search(modalityTxt, cImgs)
 
             # execute video query with search criteria
-            st.session_state["videos"] = cu.rerank_video_text_search(modalityTxt, cVideos, rekank=True)
+            st.session_state["videos"] = cu.rerank_video_text_search(modalityTxt, cVideos, rekank=False)
             #print("**videos**", cVideos.count(), "***",  st.session_state["videos"])
 
 
