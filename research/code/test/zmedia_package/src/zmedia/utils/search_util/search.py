@@ -251,10 +251,10 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # )
 
             # execute image query with search criteria
-            st.session_state["imgs"] = cu.rerank_image_search(os.path.join('./', similar_image.name), cImgs)
+            st.session_state["imgs"] = cu.rerank_image_search(os.path.join('./', similar_image.name), cImgs, rmax=100, top=30)
 
             #execute video query with search criteria
-            st.session_state["videos"] = cu.rerank_video_search(os.path.join('./', similar_image.name), cVideos)
+            st.session_state["videos"] = cu.rerank_video_search(os.path.join('./', similar_image.name), cVideos, rerank=False, rmax=100, top=30)
             print("***Videos***", st.session_state["videos"])
 
             ''' 
@@ -271,10 +271,10 @@ def search_fn(client, cImgs, cTxts, cVideos):
 
             print(">>>>>", st.session_state["document"])
             
-            st.session_state["imgs"] = cu.rerank_image_text_search(modalityTxt, cImgs) 
+            st.session_state["imgs"] = cu.rerank_image_text_search(modalityTxt, cImgs, rmax=100, top=30) 
 
             # execute video query with search criteria
-            st.session_state["videos"] = cu.rerank_video_text_search(modalityTxt, cVideos)
+            st.session_state["videos"] = cu.rerank_video_text_search(modalityTxt, cVideos, rekank=False, rmax=20, top=10)
             print("**videos**", cVideos.count(), "***",  st.session_state["videos"]) 
 
 
@@ -369,7 +369,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             #         loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"],
             #     )
 
-            colt, cole = c2.columns([0.2, 0.8])
+            colt, cole = c2.columns([0.1, 0.9])
             with colt:
                 st.markdown("<p class='big-font-subh'>Caption: </p>", unsafe_allow_html=True)
             with cole:
@@ -377,21 +377,21 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 st.markdown(o_caption, unsafe_allow_html=True)
 
 
-            colt, cole = c2.columns([0.2, 0.8])
+            colt, cole = c2.columns([0.1, 0.9])
             with colt:
-                st.markdown("<p class='big-font-subh'>Gleeful Desc: </p>", unsafe_allow_html=True)
+                st.markdown("<p class='big-font-subh'>Desc: </p>", unsafe_allow_html=True)
             with cole:
                 o_desc = f'<p class="input">{st.session_state["imgs"][index][1]["text"]}</p>'
                 st.markdown(o_desc, unsafe_allow_html=True)
 
-            colt, cole = c2.columns([0.2, 0.8])
+            colt, cole = c2.columns([0.1, 0.9])
             with colt:
                st.write("<p class='big-font-subh'>People: </p>", unsafe_allow_html=True)
             with cole:
                o_names = f'<p class="input">{st.session_state["imgs"][index][1]["ppt"]} </p>' #- {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
                st.markdown(o_names, unsafe_allow_html=True)
 
-            colt, cole = c2.columns([0.2, 0.8])
+            colt, cole = c2.columns([0.1, 0.9])
             with colt:
                st.write("<p class='input-subh'>Date Time: </p>", unsafe_allow_html=True)
             with cole:
@@ -399,7 +399,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 o_datetime = f'<p class="input">{str(datetime.datetime.fromtimestamp(float(tts)))}</p>'
                 st.markdown(o_datetime, unsafe_allow_html=True)
 
-            colt, cole = c2.columns([0.2, 0.8])
+            colt, cole = c2.columns([0.1, 0.9])
             with colt:
                 st.write("<p class='big-font-subh'>Location: </p>", unsafe_allow_html=True)
             with cole:
@@ -444,7 +444,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
 
         with c2:
 
-            colt, cole = st.columns([0.2, 0.8])
+            colt, cole = st.columns([0.1, 0.9])
             with colt:
                     st.markdown("<p class='big-font-subh'>Caption: </p>", unsafe_allow_html=True)
             with cole:
@@ -454,24 +454,24 @@ def search_fn(client, cImgs, cTxts, cVideos):
                     except Exception as e:
                         print(f"Error: {e}")
                         st.markdown("None", unsafe_allow_html=True)
-            colt, cole = st.columns([0.2, 0.8])
+            colt, cole = st.columns([0.1, 0.9])
 
             with colt:
-                    st.markdown("<p class='big-font-subh'>Gleeful Desc: </p>", unsafe_allow_html=True)
+                    st.markdown("<p class='big-font-subh'>Desc: </p>", unsafe_allow_html=True)
             with cole:
                     o_desc = f'<p class="input">{st.session_state["videos"][index][1]["text"]}</p>'
                     st.markdown(o_desc, unsafe_allow_html=True)
 
 
-            colt, cole = st.columns([0.2, 0.8])
+            colt, cole = st.columns([0.1, 0.9])
             with colt:
                 st.write("<p class='input-subh'>Date Time: </p>", unsafe_allow_html=True)
             with cole:
-                    tts = "0.0" if st.session_state[["videos"][index][1]["ts"] == "" else st.session_state["videos"][index][1]["ts"]
+                    tts = "0.0" if st.session_state["videos"][index][1]["ts"] == "" else st.session_state["videos"][index][1]["ts"]
                     o_datetime = f'<p class="input">{str(tts)}</p>' # datetime.datetime.fromtimestamp(float(tts))
                     st.markdown(o_datetime, unsafe_allow_html=True)
 
-            colt, cole = st.columns([0.2, 0.8])
+            colt, cole = st.columns([0.1, 0.9])
             with colt:
                     st.write("<p class='big-font-subh'>Location: </p>", unsafe_allow_html=True)
             with cole:
