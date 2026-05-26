@@ -13,7 +13,7 @@ model = AutoModel.from_pretrained(
 query = "What does the Golden Gate bridge look like?"
 documents = [
     "https://cdn.britannica.com/68/170868-050-8DDE8263/Golden-Gate-Bridge-San-Francisco.jpg",
-    "A document about bridge engineering in san francisco.",
+    "A document about bridges in san francisco.",
     "https://raw.githubusercontent.com/jina-ai/multimodal-reranker-test/main/handelsblatt-preview.png"
 ]
 
