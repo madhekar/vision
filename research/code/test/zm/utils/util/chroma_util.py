@@ -108,7 +108,6 @@ def rerank_video_search(thumb_img_url, video_collection, rerank=False):
         # (You can use a cross-encoder trained on image-text tasks or text if your query is text-based)     
         reranked_videos = []
 
-
         # Retrieve top 20 candidate images from ChromaDB
         results = video_collection.query(
             query_uris=thumb_img_url,
