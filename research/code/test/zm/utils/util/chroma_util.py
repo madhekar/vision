@@ -99,7 +99,7 @@ def rerank_image_text_search(text, image_collection, top=50):
             reranked_images.append(d[t])
             #print(f"***Rank {i+1} | Text: {t} | Cross-Encoder Score: {score:.4f} | reranked: {reranked_images}")
 
-        print(f"****reranked: {reranked_images}")
+        #print(f"****reranked: {reranked_images}")
 
         return (reranked_images) 
 
@@ -124,11 +124,8 @@ def rerank_video_search(thumb_img_url, video_collection, rerank=False):
 
         if not rerank:
              res = set(dm.keys())
-             i = 0
-             for url in res:
-                if i <= 10:
+             for url in list(res)[:10]:
                    reranked_videos.append(dm[url])
-                   i += 1
         else:     
 
             reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
@@ -180,12 +177,8 @@ def rerank_video_text_search(text, video_collection, rekank=False):
 
         if not rekank:
              res = set(dm.keys())
-             print("^^^^",res)
-             i = 0
-             for url in res:
-                if i <= 10:
+             for url in list(res)[:10]:
                    reranked_videos.append(dm[url])
-                   i += 1
         else:
             reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
             # Deep Reranking (Cross-Encoder)
@@ -210,6 +203,6 @@ def rerank_video_text_search(text, video_collection, rekank=False):
                 reranked_videos.append(d[t])
                 #print(f"***Rank {i+1} | Text: {t} | Cross-Encoder Score: {score:.4f} | reranked: {reranked_images}")
 
-            print(f"****reranked videos: {reranked_videos}")
+            #print(f"****reranked videos: {reranked_videos}")
 
         return (reranked_videos) 
