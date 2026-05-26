@@ -16,7 +16,7 @@ def _preprocess_query(query: str) -> str:
     return " ".join(query.split())  # Remove extra spaces
 
 
-def rerank_image_search(img_url, image_collection, top=50):
+def rerank_image_search(img_url, image_collection, rmax=100, top=30):
 
         # Cross-encoder for precise reranking 
         # (You can use a cross-encoder trained on image-text tasks or text if your query is text-based)
@@ -26,7 +26,7 @@ def rerank_image_search(img_url, image_collection, top=50):
         results = image_collection.query(
             query_uris=img_url,
             include=["uris", "metadatas"],
-            n_results=100,
+            n_results=rmax,
         )
 
         # Extract candidates
@@ -60,7 +60,7 @@ def rerank_image_search(img_url, image_collection, top=50):
         return (reranked_images)    
 
 
-def rerank_image_text_search(text, image_collection, top=50):
+def rerank_image_text_search(text, image_collection, rmax=100, top=30):
 
         # Cross-encoder for precise reranking 
         # (You can use a cross-encoder trained on image-text tasks or text if your query is text-based)
@@ -70,7 +70,7 @@ def rerank_image_text_search(text, image_collection, top=50):
         results = image_collection.query(
                 query_texts=[text], 
                 include=["data", "metadatas"], 
-                n_results=100
+                n_results=rmax
         )
         
         # Extract candidates
@@ -103,7 +103,7 @@ def rerank_image_text_search(text, image_collection, top=50):
 
         return (reranked_images) 
 
-def rerank_video_search(thumb_img_url, video_collection, rerank=False):
+def rerank_video_search(thumb_img_url, video_collection, rerank=False, rmax=20, top=10):
              # Cross-encoder for precise reranking 
         # (You can use a cross-encoder trained on image-text tasks or text if your query is text-based)     
         reranked_videos = []
@@ -112,7 +112,7 @@ def rerank_video_search(thumb_img_url, video_collection, rerank=False):
         results = video_collection.query(
             query_uris=thumb_img_url,
             include=["uris", "metadatas"],
-            n_results=20,
+            n_results=rmax,
         )
 
         # Extract candidates
@@ -124,7 +124,7 @@ def rerank_video_search(thumb_img_url, video_collection, rerank=False):
 
         if not rerank:
              res = set(dm.keys())
-             for url in list(res)[:10]:
+             for url in list(res)[:top]:
                    reranked_videos.append(dm[url])
         else:     
 
@@ -146,7 +146,7 @@ def rerank_video_search(thumb_img_url, video_collection, rerank=False):
 
             # Print top 10 reranked images
     
-            top_k = 10
+            top_k = top
             for i, (uri, score) in enumerate(reranked_results[:top_k]):
                 reranked_videos.append([uri, d[uri]])
                 #print(f"Rank {i+1} | Image: {uri} | Cross-Encoder Score: {score:.4f} | caption: {d[uri]['caption']}")
@@ -155,7 +155,7 @@ def rerank_video_search(thumb_img_url, video_collection, rerank=False):
         #return (dr)
 
 
-def rerank_video_text_search(text, video_collection, rekank=False):
+def rerank_video_text_search(text, video_collection, rekank=False, rmax=20, top=10):
 
         # Cross-encoder for precise reranking 
         # (You can use a cross-encoder trained on image-text tasks or text if your query is text-based)
@@ -166,7 +166,7 @@ def rerank_video_text_search(text, video_collection, rekank=False):
         results = video_collection.query(
                 query_texts=[text], 
                 include=["data", "metadatas"], 
-                n_results=20
+                n_results=rmax
         )
 
         # Extract candidates
@@ -177,7 +177,7 @@ def rerank_video_text_search(text, video_collection, rekank=False):
 
         if not rekank:
              res = set(dm.keys())
-             for url in list(res)[:10]:
+             for url in list(res)[:top]:
                    reranked_videos.append(dm[url])
         else:
             reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
@@ -198,7 +198,7 @@ def rerank_video_text_search(text, video_collection, rekank=False):
 
             # Print top 10 reranked videos
             
-            top_k = 10
+            top_k = top
             for i, (t, score) in enumerate(reranked_results[:top_k]):
                 reranked_videos.append(d[t])
                 #print(f"***Rank {i+1} | Text: {t} | Cross-Encoder Score: {score:.4f} | reranked: {reranked_images}")
