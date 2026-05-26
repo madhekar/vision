@@ -310,8 +310,6 @@ def search_fn(client, cImgs, cTxts, cVideos):
             print("%%%%", st.session_state["vmeta"])
             st.session_state["vmeta"].append(vmdata[1]["vuri"])
 
-            
-
     '''  
     **** Image TAB ****
     '''
