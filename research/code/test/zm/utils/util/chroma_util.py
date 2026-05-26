@@ -163,16 +163,22 @@ def rerank_video_text_search(text, video_collection, rekank=False):
         results = video_collection.query(
                 query_texts=[text], 
                 include=["data", "metadatas"], 
-                n_results=10
+                n_results=20
         )
 
         # Extract candidates
         candidate_texts = [v["text"] for v in results['metadatas'][0]] #results["metadatas"][0]["text"]
+        vid_url = [v["vuri"] for v in results['metadatas'][0]]
         d = {k: [v1, v2] for k, v1, v2 in zip(candidate_texts, results["uris"][0], results["metadatas"][0])}
+        dm = {k: [v1, v2] for k, v1, v2 in zip(vid_url, results["uris"][0], results["metadatas"][0])}
 
         if not rekank:
-             for k in d.keys():
-                 reranked_videos.append(d[k])
+             res = set(dm.keys())
+             i = 0
+             for url in res:
+                if i <= 10:
+                   reranked_videos.append(dm[url])
+                   i += 1
         else:
             reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
             # Deep Reranking (Cross-Encoder)
