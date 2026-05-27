@@ -33,6 +33,7 @@ src/zmedia/utils/search_util/search.py
 src/zmedia/utils/util/__init__.py
 src/zmedia/utils/util/adddata_util.py
 src/zmedia/utils/util/ball_tree.py
+src/zmedia/utils/util/chroma_util.py
 src/zmedia/utils/util/exif_custom_tag.py
 src/zmedia/utils/util/fast_parquet_util.py
 src/zmedia/utils/util/file_type_ext.py
