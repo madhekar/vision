@@ -7,7 +7,9 @@ import chromadb as cdb
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings, DEFAULT_TENANT
-
+from transformers import RobertaTokenizer
+# Load from a specific folder
+tokenizer = RobertaTokenizer.from_pretrained('~/.cache/huggingface/hub/')
 
 # clean query string
 def _preprocess_query(query: str) -> str:
