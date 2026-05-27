@@ -38,7 +38,7 @@ streamlit_folium==0.22.1
 streamlit_imagegrid==0.0.7
 
 #
-torch==2.2.2
+torch==2.11.0 #2.2.2
 open-clip-torch==2.24.0
 sentence-transformers==5.3.0
 #tqdm==4.67.3
