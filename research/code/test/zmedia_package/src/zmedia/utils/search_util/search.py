@@ -407,7 +407,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 st.markdown(o_location, unsafe_allow_html=True)
 
 
-            ll = ast.literal_eval(st.session_state["imgs"]["metadatas"][0][1:][index]["latlon"])     
+            ll = ast.literal_eval(st.session_state["imgs"][index][1]["latlon"])     
             lat = ll[0] 
             lon = ll[1] 
 
