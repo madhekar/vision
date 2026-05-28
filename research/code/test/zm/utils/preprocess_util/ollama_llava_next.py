@@ -96,7 +96,7 @@ async def describe_image( img_path, ppt, location):
     try:
         # Perform inference
         response = await client.chat( 
-            model='gemma4:31b', #'llava:34b',
+            model='gemma4:26b', #'llava:34b',
             messages=[
                 {
                     'role': 'system',
