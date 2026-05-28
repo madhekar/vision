@@ -75,6 +75,8 @@ async def caption_image(img):
                 }
             ],
             options={'num_predict': 30,  'temperature': 0.9},
+            stream=False,
+            think=False
        )
        print(result)
        return result["message"]["content"]  
