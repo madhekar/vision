@@ -383,10 +383,13 @@ def execute():
     
     
     if modality == "I":
-        files = pd.read_csv(os.path.join(mmp, user_source_selected, mmfile))['SourceFile']
+        df = pd.read_csv(os.path.join(mmp, user_source_selected, mmfile)) #['SourceFile']
+        df.sort_values(by='DateTimeOriginal', ascending=True,inplace=True)
+        files = df['SourceFile']
     else:    
-        files = pd.read_csv(os.path.join(mvmp, user_source_selected, mmfile))['SourceFile']
-        print(files)
+        df = pd.read_csv(os.path.join(mvmp, user_source_selected, mmfile)) #['SourceFile']
+        df.sort_values(by="CreateDate", ascending=True, inplace=True)
+        files = df['SourceFile']
     
     st.sidebar.subheader("Display Criteria",divider="gray")
 
