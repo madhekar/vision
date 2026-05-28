@@ -439,7 +439,7 @@ def create_folder(cpath):
 
 def check_path_n_files_exists(pth):
     if os.path.exists(pth):
-        if os.path.getsize(pth) < 0:
+        if os.path.getsize(pth) > 0:
            return True
         else:
             return False
