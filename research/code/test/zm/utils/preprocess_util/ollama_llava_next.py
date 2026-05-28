@@ -123,9 +123,10 @@ async def describe_image( img_path, ppt, location):
                 }
             ],
             options={'num_predict': 300,  'temperature': 0.7},
-            stream=False # Get full response at once
+            stream=False, # Get full response at once
+            think=False
         )
-        print(response)
+        
         return response['message']['content']
     except Exception as e:
         print(f"Error processing image {img_path}...: {e}")
