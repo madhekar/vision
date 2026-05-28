@@ -76,6 +76,7 @@ async def caption_image(img):
             ],
             options={'num_predict': 30,  'temperature': 0.9},
        )
+       print(result)
        return result["message"]["content"]  
     
 async def describe_image( img_path, ppt, location):
@@ -124,7 +125,7 @@ async def describe_image( img_path, ppt, location):
             options={'num_predict': 300,  'temperature': 0.7},
             stream=False # Get full response at once
         )
-
+        print(response)
         return response['message']['content']
     except Exception as e:
         print(f"Error processing image {img_path}...: {e}")
