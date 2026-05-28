@@ -49,7 +49,7 @@ async def caption_image(img):
     else:    
 
        result = client.chat(
-            model='llava:34b',
+            model='gemma4:26b',#'llava:34b',
             messages=[  
                 {
                     'role': 'system',
