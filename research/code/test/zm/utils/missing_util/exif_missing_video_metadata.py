@@ -89,17 +89,19 @@ def execute(source_name):
 
     input_video_path = os.path.join(vmp, source_name)
     if ss.check_path_n_files_exists(input_video_path):
+
         #clean empty folders if any
-        #ss.remove_empty_files_and_folders(input_image_path) #remove_empty_folders(input_image_path) 
+        ss.remove_empty_files_and_folders(input_video_path) #remove_empty_folders(input_image_path) 
 
         output_file_path = os.path.join(mvmp, source_name)
-        ss.create_folder(output_file_path)
+        if not os.path.exists(output_file_path):
+            ss.create_folder(output_file_path)
             
         out_file = os.path.join(output_file_path, mvmf)    
         
         print(f" input video path: {input_video_path} output file: {out_file}")
         extract_video_metadata(input_video_path, out_file)
-
+        
         df = get_missing_metadata_dataframe(out_file)
         print(f"---> {df}")
 

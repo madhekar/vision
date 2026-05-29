@@ -49,7 +49,7 @@ async def caption_image(img):
     else:    
 
        result = client.chat(
-            model='llava:34b',
+            model='gemma4:26b',#'llava:34b',
             messages=[  
                 {
                     'role': 'system',
@@ -70,12 +70,15 @@ async def caption_image(img):
                 },
                 {
                 'role': 'user',
-                'content': 'Write short an engaging caption for this image.',
+                'content': 'Write short and an engaging caption for this image.',
                 'images': [img]
                 }
             ],
             options={'num_predict': 30,  'temperature': 0.9},
+            stream=False,
+            think=False
        )
+       print(result)
        return result["message"]["content"]  
     
 async def describe_image( img_path, ppt, location):
@@ -96,7 +99,7 @@ async def describe_image( img_path, ppt, location):
     try:
         # Perform inference
         response = await client.chat( 
-            model='llava:34b',
+            model='gemma4:26b', #'llava:34b',
             messages=[
                 {
                     'role': 'system',
@@ -122,9 +125,10 @@ async def describe_image( img_path, ppt, location):
                 }
             ],
             options={'num_predict': 300,  'temperature': 0.7},
-            stream=False # Get full response at once
+            stream=False, # Get full response at once
+            think=False
         )
-
+        
         return response['message']['content']
     except Exception as e:
         print(f"Error processing image {img_path}...: {e}")
