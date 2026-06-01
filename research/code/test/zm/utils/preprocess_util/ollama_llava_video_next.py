@@ -91,6 +91,8 @@ def caption_image(img):
                 }
             ],
             options={'num_predict': 30,  'temperature': 0.9},
+            stream=False,
+            think=False
        )
        return result["message"]["content"]  
 
@@ -143,7 +145,8 @@ def describe_multiple_images( frames, ppt, location):
                 }
             ],
             options={'num_predict': 500,  'temperature': 0.8},
-            stream=False # Get full response at once
+            stream=False, # Get full response at once
+            think=False
         )
 
         return response['message']['content']
