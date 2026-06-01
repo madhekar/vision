@@ -21,7 +21,7 @@ transformer = LLMGraphTransformer(
 )
 
 # 3. Define source data
-text = """
+text = """Harvard’s Memorial Church with grand columns and hanging banners displaying Harvard shields.
 Google developed the Gemma 4 family of open-weights models. 
 Jeff Dean works at Google in Mountain View, California.
 """
