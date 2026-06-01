@@ -82,7 +82,7 @@ def location_initialize_btree(smp, smf):
     
 def get_loc_name_by_latlon(latlon):
     nm = st.session_state.ball_tree.get_location_name_for_latlong(latlon[0], latlon[1])
-    print(f'lat-lon: {latlon} => loc name: {nm}')
+    #print(f'lat-lon: {latlon} => loc name: {nm}')
     return nm
 
 # uuid4 id for vector database
@@ -106,9 +106,9 @@ File "/home/madhekar/work/vision/research/code/test/zm/utils/util/location_util.
 """
 async def timestamp(args):
     uri = args
-    print(f'ts--{uri}')
+    #print(f'ts--{uri}')
     ts,uc = lu.getTimestamp(uri) #lu.get_image_exif_info(uri) 
-    print(f'*** timestamp: {ts} user comment: {uc}')
+    #print(f'*** timestamp: {ts} user comment: {uc}')
     return str(ts), str(uc)
 
 async def faces_partial_prompt(args):
@@ -154,7 +154,7 @@ async def locationDetails(args, lock):
         loc = ""
         lat_lon = ()
         lat_lon = lu.gpsInfo(uri)
-        print(f' {lat_lon} : {uri}')
+        #print(f' {lat_lon} : {uri}')
         if lat_lon == ():
             lat_lon = (d_latitude, d_longitude) # default location lat, lon
             loc = d_loc # default location description
@@ -172,7 +172,7 @@ async def locationDetails(args, lock):
 async def describeImage(args):
     ppt, location, uri = args
     ppt1 = ppt if ppt is not None else "na"
-    print(f'ppt: {ppt1}, location: {location}, url: {uri}')
+    #print(f'ppt: {ppt1}, location: {location}, url: {uri}')
     #d = LLM_Next.fetch_llm_text(imUrl=uri, pipe=p, question="Describe the image with thoughtful insights using additional information provided. ", partial_prompt=ppt, location=location)
     d =  await oln.describe_image( uri, ppt1, location)
     return d
@@ -202,12 +202,12 @@ def new_xform(res):
     lr = [[row[3], row[4][1], row[6]] for row in ll]
 
     lf = [[row[6], row[0],row[1],row[2][0], row[2][1],row[4][0], row[4][1], row[3],row[5]] for row in ll]
-    print(f"ll --- {ll}  lr-- {lr} lf--{lf}")
+    #print(f"ll --- {ll}  lr-- {lr} lf--{lf}")
     return lr, lf
 
 def final_xform(alist):
     keys = [ 'uri','id','src','ts','type','latlon','loc','ppt','caption','text']
-    print(alist)
+    #print(alist)
     return [{k:v for k,v in zip(keys, sublist)} for sublist in alist]
 
 # appends json rows to file
@@ -254,7 +254,7 @@ async def run_workflow(
      
     # num_files = len(glob.glob(os.path.join(image_dir_path,'/**/*')))
     num = num_files - num
-    print(f'processing files in: {image_dir_path} total files: {num_files}') 
+    #print(f'processing files in: {image_dir_path} total files: {num_files}') 
     
 
     lock = asyncio.Lock()
@@ -266,7 +266,7 @@ async def run_workflow(
             res = []
             for ilist in img_iterator:
                 rlist = mu.is_processed_batch(ilist, df)
-                print(rlist)
+                #print(rlist)
                 if len(rlist) > 0:
                     res = await asyncio.gather(
                         pool.map(generateId, rlist),
@@ -280,12 +280,12 @@ async def run_workflow(
                     
                     res.append(rlist)
 
-                    print('*===>', res)
+                    #print('*===>', res)
                     rflist, oflist = new_xform(res)
 
                     res1 = await asyncio.gather(pool.map(describeImage,  rflist))
                     #res1 = await pool.map(describeImage,  rflist)
-                    print('****', res1)
+                    #print('****', res1)
 
                     zlist = [oflist[i] + [res1[0][i]]  for i in range(len(oflist))]
 
@@ -419,7 +419,7 @@ def execute(user_source_selected):
     # bcreate_metadata = st.button("start metadata creation")
     # if bcreate_metadata:
 
-    print(df)
+    #print(df)
 
     try:
         asyncio.run(run_workflow(
