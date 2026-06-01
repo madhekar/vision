@@ -65,7 +65,7 @@ def caption_image(img):
            return "unk"
        else:
             result = client.chat(
-            model='llava:34b',
+            model='gemma4:26b', #34b',
             messages=[  
                 {
                     'role': 'system',
@@ -117,7 +117,7 @@ def describe_multiple_images( frames, ppt, location):
     try:
         # Perform inference
         response = client.chat( 
-            model= 'mapler/llama3-llava-next-8b:latest',  #'llava',
+            model= 'gemma4:26b',#'mapler/llama3-llava-next-8b:latest',  #'llava',
             messages=[
                 {
                     'role': 'system',
