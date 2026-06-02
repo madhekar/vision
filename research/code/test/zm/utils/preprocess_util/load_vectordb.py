@@ -248,52 +248,6 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
 
     st.info(f'Info: Existing collections: {collections_list}')
 
-    # if len(collections_list) == 0:    
-
-    #     # openclip embedding function!
-    #     embedding_function = OpenCLIPEmbeddingFunction()
-
-    #     #text_embedding_function = OpenCLIPEmbeddingFunction(model_name="coca_roberta-ViT-B-32")
-
-    #     """ 
-    #     Image collection inside vector database 'chromadb'
-    #     """
-    #     image_loader = ImageLoader()
-
-    #     """
-    #     # Images collection defined
-    #     """
-    #     collection_images = client.get_or_create_collection(
-    #         name=image_collection_name,
-    #         embedding_function=embedding_function,
-    #         metadata={"hnsw:space": "cosine"},
-    #         data_loader=image_loader,
-    #     )    
-
-    #     """ 
-    #     Videos collectoion defined
-    #     """
-    #     collection_videos = client.get_or_create_collection(
-    #        name=video_collection_name,
-    #        embedding_function=embedding_function,
-    #         metadata={"hnsw:space": "cosine"},
-    #         data_loader=image_loader,
-    #     )
-
-    #     """
-    #       Text collection inside vector database 'chromadb'
-    #     """
-    #     collection_text = client.get_or_create_collection(
-    #         name=text_collection_name,
-    #         #metadata={"hnsw:space": "cosine"},
-    #         embedding_function=embedding_function,
-    #     )
-    # else:
-    #     for collection in collections_list:
-    #       client.delete_collection(collection)
-
-        # reset chromadb persistant store
-        #client.reset()
 
     #openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()
@@ -330,43 +284,53 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
         embedding_function=embedding_function,
     )
 
+    return client, collection_images, collection_videos, collection_videos
+
     """
     IMAGE embeddings in vector database
     """
+    def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, collection_images):
+
+        df_data = load_metadata(image_metadata_path, image_metadata_file)
        
-    df_uris =  df_data['uri']
-    df_ids = df_data['id']
-    df_metadata = df_data[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
+        df_uris =  df_data['uri']
+        df_ids = df_data['id']
+        df_metadata = df_data[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
 
-    collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadata), uris=df_uris.tolist()) 
+        collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadata), uris=df_uris.tolist()) 
 
-    
-    # ls_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
+        
+        # ls_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
 
-    # with ThreadPoolExecutor(max_workers) as executor:
-    #     executor.map(add_imgs_to_vector_db, df_data["id"].tolist(), df_data["uri"].tolist(), ls_metadatas)
-    
-    st.info(f"Info: Done adding number of images: {len(df_uris)}")
+        # with ThreadPoolExecutor(max_workers) as executor:
+        #     executor.map(add_imgs_to_vector_db, df_data["id"].tolist(), df_data["uri"].tolist(), ls_metadatas)
+        
+        st.info(f"Info: Done adding number of images: {len(df_uris)}")
 
-    client.clear_system_cache()
+        client.clear_system_cache()
 
     """
     VIDEO embedding in vector database
     uri, id, ts, latlon, loc, text
     """
-    if df_video_data is not None:
-        print("----->>", df_video_data.head())
-        df_video_uris = df_video_data['uri']  # frame uri
-        df_video_ids = df_video_data['id']  # frame id
-        df_video_metadata = df_video_data[["ts", "src", "latlon", "loc", "caption" ,"text", "vuri"]].fillna("").T.to_dict().values()
+    def populate_videos_in_vdb(client, video_metadata_path, video_metadata_file, collection_videos):
 
-        collection_videos.add(ids=df_video_ids.tolist(), uris=df_video_uris.tolist(), metadatas=list(df_video_metadata))
+        if df_video_data is not None:
+            print("----->>", df_video_data.head())
+            df_video_uris = df_video_data['uri']  # frame uri
+            df_video_ids = df_video_data['id']  # frame id
+            df_video_metadata = df_video_data[["ts", "src", "latlon", "loc", "caption" ,"text", "vuri"]].fillna("").T.to_dict().values()
 
-        st.info(f"Info: Done adding number of frames for videos: {len(df_video_uris)}")
-    else:
-        st.error("video data does not exists for")  
+            collection_videos.add(ids=df_video_ids.tolist(), uris=df_video_uris.tolist(), metadatas=list(df_video_metadata))
 
-    client.clear_system_cache()
+            st.info(f"Info: Done adding number of frames for videos: {len(df_video_uris)}")
+        else:
+            st.error("video data does not exists for")  
+
+        client.clear_system_cache()
+
+
+
     """
       TEXT Embeddings on vector database
     """
