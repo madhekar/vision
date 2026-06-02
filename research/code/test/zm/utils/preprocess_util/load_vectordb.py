@@ -235,11 +235,11 @@ def add_imgs_to_vector_db(collection, ids, uris, metadatas):
     )
     print(f"Added {len(ids)}")
 
-def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_name, text_folder, text_collection_name, video_collection_name, max_workers=20):
+def createVectorDB(vector_db_dir_path, image_collection_name, text_collection_name, video_collection_name, max_workers):
     
     cdb.api.client.SharedSystemClient.clear_system_cache()
     # vector database persistence
-    client = cdb.PersistentClient( path=vector_db_dir_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=False))
+    client = cdb.PersistentClient( path=vector_db_dir_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=False, num_threads=max_workers))
 
     st.info(f"chromadb heart beat: {client.heartbeat()}")
 
@@ -284,7 +284,8 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
         embedding_function=embedding_function,
     )
 
-    return client, collection_images, collection_videos, collection_videos
+    return client, collection_images, collection_videos, collection_text
+
 
 """
 IMAGE embeddings in vector database
@@ -296,15 +297,18 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
         df_uris =  df_data['uri']
         df_ids = df_data['id']
         df_metadata = df_data[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
+        BATCH_SZ = 100
+        for batch in create_batches(
+            ids=df_ids.tolist(),
+            metadatas=list(df_metadata),
+            uris=df_uris.tolist(),
+            batch_size= BATCH_SZ
+        ):
+          collection_images.add(ids=batch[0], 
+                                metadatas=batch[1], 
+                                uris=batch[2]) 
+          st.info(f"added {len(batch)} image metadata.")
 
-        collection_images.add(ids=df_ids.tolist(), metadatas=list(df_metadata), uris=df_uris.tolist()) 
-
-        
-        # ls_metadatas = df_data[["ts","type", "latlon", "loc", "ppt", "text"]].T.to_dict().values()
-
-        # with ThreadPoolExecutor(max_workers) as executor:
-        #     executor.map(add_imgs_to_vector_db, df_data["id"].tolist(), df_data["uri"].tolist(), ls_metadatas)
-        
         st.info(f"Info: Done adding number of images: {len(df_uris)}")
 
         client.clear_system_cache()
@@ -323,7 +327,18 @@ def populate_videos_in_vdb(client, video_metadata_path, video_metadata_file, col
         df_video_ids = df_video_data['id']  # frame id
         df_video_metadata = df_video_data[["ts", "src", "latlon", "loc", "caption" ,"text", "vuri"]].fillna("").T.to_dict().values()
 
-        collection_videos.add(ids=df_video_ids.tolist(), uris=df_video_uris.tolist(), metadatas=list(df_video_metadata))
+        BATCH_SZ = 100
+        for batch in create_batches(
+            ids=df_video_ids.tolist(),
+            metadatas=list(df_video_metadata),
+            uris=df_video_uris.tolist(),
+            batch_size= BATCH_SZ
+        ):
+          collection_videos.add(ids=batch[0], 
+                                metadatas=batch[1], 
+                                uris=batch[2]) 
+          st.info(f"added {len(batch)} video metadata.")
+
 
         st.info(f"Info: Done adding number of frames for videos: {len(df_video_uris)}")
     else:
@@ -354,7 +369,7 @@ def populate_text_in_vdb(client, text_folder, collection_text):
                     val = tex.process(text_f)
                     #with open(text_f, 'r', encoding="utf-8", errors='replace') as f:
                     content = val.decode("utf-8")
-                    print(f"======>> {content}")
+                    #print(f"======>> {content}")
                     list_of_text.append(content)   
                     meta.append({"name": text_f, "ts": str(datetime.now())})
                 except UnicodeDecodeError as e:
@@ -376,15 +391,15 @@ def populate_text_in_vdb(client, text_folder, collection_text):
                                 #embeddings=batch[1],
                                 metadatas=batch[2],
                                 documents=batch[3])
+            st.info(f"added {len(batch)} text metadata.")
 
-        st.info(f"done adding documents: {len(list_of_text)}")
+        st.info(f"done adding documents: {len(list_of_text)}") 
     else:
         st.warning(f'no text documents found in {text_folder}')    
 
     # client.persist() - not available anymore
     client.clear_system_cache()
-
-
+    
 '''
 ok for now! todo
 '''
