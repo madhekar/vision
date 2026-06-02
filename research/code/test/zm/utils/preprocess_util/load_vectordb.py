@@ -319,28 +319,28 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
         #df_data = batch_load_metadata(image_metadata_path, image_metadata_file)
         # Use chunksize to return an iterator
         chunk_size = 500
-        chunks = []
+        #chunks = []
         with pd.read_json(os.path.join(image_metadata_path, image_metadata_file), lines=True, chunksize=chunk_size) as reader:
-                for chunk in reader:
+                for df_chunk in reader:
                     # Process your batch chunk here if needed
-                    chunks.append(chunk)
+                    #chunks.append(chunk)
                     
-                    print(chunks)
-                    
-                    p_data = [json.loads(item) for item in chunks]
-                    # single DataFrame
-                    df_data = pd.DataFrame(p_data)
+                    #print(chunk)
 
-                    df_data["uri"] = df_data["uri"].str.replace(
+                    #p_data = [json.loads(item) for item in chunks]
+                    # single DataFrame
+                    #df_data = chunk #pd.DataFrame(p_data)
+
+                    df_chunk["uri"] = df_chunk["uri"].str.replace(
                     "input-data/img",
                     "final-data/img" #+ image_final_path,
                     )
        
-                    print(df_data.head())
+                    print(df_chunk.head())
 
-                    df_uris =  df_data['uri']
-                    df_ids = df_data['id']
-                    df_metadata = df_data[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
+                    df_uris =  df_chunk['uri']
+                    df_ids = df_chunk['id']
+                    df_metadata = df_chunk[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
                     try:
                         collection_images.add(ids=df_ids.tolist(), 
                                                 metadatas=list(df_metadata), 
@@ -348,7 +348,6 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
                         st.info(f"added {chunk_size} image metadata.")
 
                         # clear memory after each batch
-                        del df_data
                         gc.collect()
 
                     except Exception as e:
