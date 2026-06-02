@@ -235,7 +235,7 @@ def add_imgs_to_vector_db(collection, ids, uris, metadatas):
     )
     print(f"Added {len(ids)}")
 
-def createVectorDB(vector_db_dir_path, image_collection_name, text_collection_name, video_collection_name, max_workers):
+def createVectorDB(vector_db_dir_path, image_collection_name, text_collection_name, video_collection_name):
     
     cdb.api.client.SharedSystemClient.clear_system_cache()
     # vector database persistence
@@ -474,7 +474,7 @@ def execute():
     if b_load_metadata:
 
         #print(df_video_metadata) client, collection_images, collection_videos, collection_videos
-        c, ci,ct,cv = createVectorDB(vectordb_path, image_collection_name, text_folder_name, text_collection_name, video_collection_name, max_workers)
+        c, ci,ct,cv = createVectorDB(vectordb_path, image_collection_name, text_collection_name, video_collection_name)
 
         populate_images_in_vdb(client=c, image_metadata_path=metadata_path, image_metadata_file=metadata_file, collection_images=ci)
         st.info(f"done adding images to vector database total items in collection: {ci.count()}")
