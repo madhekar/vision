@@ -301,12 +301,12 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
         for batch in create_batches(
             ids=df_ids.tolist(),
             metadatas=list(df_metadata),
-            uris=df_uris.tolist(),
+            documents=df_uris.tolist(),
             batch_size= BATCH_SZ
         ):
           collection_images.add(ids=batch[0], 
-                                metadatas=batch[1], 
-                                uris=batch[2]) 
+                                metadatas=batch[2], 
+                                uris=batch[3]) 
           st.info(f"added {len(batch)} image metadata.")
 
         st.info(f"Info: Done adding number of images: {len(df_uris)}")
@@ -335,8 +335,8 @@ def populate_videos_in_vdb(client, video_metadata_path, video_metadata_file, col
             batch_size= BATCH_SZ
         ):
           collection_videos.add(ids=batch[0], 
-                                metadatas=batch[1], 
-                                uris=batch[2]) 
+                                metadatas=batch[2], 
+                                uris=batch[3]) 
           st.info(f"added {len(batch)} video metadata.")
 
 
