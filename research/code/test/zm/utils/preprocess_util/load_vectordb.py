@@ -315,23 +315,38 @@ IMAGE embeddings in vector database
 """
 def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, collection_images):
 
-        df_data = batch_load_metadata(image_metadata_path, image_metadata_file)
-       
-        df_uris =  df_data['uri']
-        df_ids = df_data['id']
-        df_metadata = df_data[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
-        for batch in create_batches(
-            api=client,
-            ids=df_ids.tolist(),
-            metadatas=list(df_metadata),
-            documents=df_uris.tolist(),
-        ):
-          collection_images.add(ids=batch[0], 
-                                metadatas=batch[2], 
-                                uris=batch[3]) 
-          st.info(f"added {len(batch)} image metadata.")
+        #df_data = batch_load_metadata(image_metadata_path, image_metadata_file)
+        # Use chunksize to return an iterator
+        chunk_size = 1000
+        chunks = []
+        with pd.read_json(os.path.join(image_metadata_path, image_metadata_file), lines=True, chunksize=chunk_size) as reader:
+                for chunk in reader:
+                    # Process your batch chunk here if needed
+                    chunks.append(chunk)
 
-        st.info(f"Info: Done adding number of images: {len(df_uris)}")
+                    # single DataFrame
+                    df_data = pd.concat(chunks, ignore_index=True)
+
+                    df_data["uri"] = df_data["uri"].str.replace(
+                    "input-data/img",
+                    "final-data/img" #+ image_final_path,
+                    )
+       
+                    df_uris =  df_data['uri']
+                    df_ids = df_data['id']
+                    df_metadata = df_data[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
+                    for batch in create_batches(
+                        api=client,
+                        ids=df_ids.tolist(),
+                        metadatas=list(df_metadata),
+                        documents=df_uris.tolist(),
+                    ):
+                     collection_images.add(ids=batch[0], 
+                                            metadatas=batch[2], 
+                                            uris=batch[3]) 
+                     st.info(f"added {len(batch)} image metadata.")
+
+                    st.info(f"Info: Done adding number of images: {len(df_uris)}")
 
         client.clear_system_cache()
 
