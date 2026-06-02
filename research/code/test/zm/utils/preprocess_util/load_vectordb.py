@@ -331,7 +331,7 @@ def populate_videos_in_vdb(client, video_metadata_path, video_metadata_file, col
         for batch in create_batches(
             ids=df_video_ids.tolist(),
             metadatas=list(df_video_metadata),
-            uris=df_video_uris.tolist(),
+            documents=df_video_uris.tolist(),
             batch_size= BATCH_SZ
         ):
           collection_videos.add(ids=batch[0], 
