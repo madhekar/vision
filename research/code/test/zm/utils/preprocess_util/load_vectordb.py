@@ -285,7 +285,7 @@ def createVectorDB(vector_db_dir_path, image_collection_name, text_collection_na
     collection_images = client.get_or_create_collection(
         name=image_collection_name,
         embedding_function=embedding_function,
-        metadata={"hnsw:space": "cosine"},
+        metadata={"hnsw:space": "cosine", "hnsw:batch_size":500},
         data_loader=image_loader,
     )
 
