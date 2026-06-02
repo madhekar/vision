@@ -297,12 +297,11 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
         df_uris =  df_data['uri']
         df_ids = df_data['id']
         df_metadata = df_data[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
-        BATCH_SZ = 100
         for batch in create_batches(
+            api=client,
             ids=df_ids.tolist(),
             metadatas=list(df_metadata),
             documents=df_uris.tolist(),
-            batch_size= BATCH_SZ
         ):
           collection_images.add(ids=batch[0], 
                                 metadatas=batch[2], 
@@ -327,12 +326,11 @@ def populate_videos_in_vdb(client, video_metadata_path, video_metadata_file, col
         df_video_ids = df_video_data['id']  # frame id
         df_video_metadata = df_video_data[["ts", "src", "latlon", "loc", "caption" ,"text", "vuri"]].fillna("").T.to_dict().values()
 
-        BATCH_SZ = 100
         for batch in create_batches(
+            api=client,
             ids=df_video_ids.tolist(),
             metadatas=list(df_video_metadata),
             documents=df_video_uris.tolist(),
-            batch_size= BATCH_SZ
         ):
           collection_videos.add(ids=batch[0], 
                                 metadatas=batch[2], 
