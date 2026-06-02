@@ -326,7 +326,7 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
                     chunks.append(chunk)
 
                     # single DataFrame
-                    df_data = pd.DataFrame(chunks, ignore_index=True)
+                    df_data = pd.DataFrame(chunks)
 
                     df_data["uri"] = df_data["uri"].str.replace(
                     "input-data/img",
