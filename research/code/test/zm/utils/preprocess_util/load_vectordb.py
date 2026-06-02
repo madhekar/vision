@@ -347,10 +347,9 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
                                             uris=df_uris.tolist()) 
                     st.info(f"added {chunk_size} image metadata.")
                     client.persist()
-                    client.clear_system_cache()
                     gc.collect()
-
-                st.info(f"Info: Done adding number of images: {len(df_uris)}")
+        client.clear_system_cache()
+        st.info(f"Info: Done adding number of images: {len(df_uris)}")
 
         
 
