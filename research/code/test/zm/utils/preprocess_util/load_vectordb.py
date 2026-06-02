@@ -317,7 +317,7 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
 
         #df_data = batch_load_metadata(image_metadata_path, image_metadata_file)
         # Use chunksize to return an iterator
-        chunk_size = 1000
+        chunk_size = 100
         chunks = []
         with pd.read_json(os.path.join(image_metadata_path, image_metadata_file), lines=True, chunksize=chunk_size) as reader:
                 for chunk in reader:
@@ -345,10 +345,11 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
                                             metadatas=batch[2], 
                                             uris=batch[3]) 
                      st.info(f"added {len(batch)} image metadata.")
+                     client.clear_system_cache()
 
-                    st.info(f"Info: Done adding number of images: {len(df_uris)}")
+                st.info(f"Info: Done adding number of images: {len(df_uris)}")
 
-        client.clear_system_cache()
+        
 
 """
 VIDEO embedding in vector database
