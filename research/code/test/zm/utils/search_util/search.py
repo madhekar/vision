@@ -30,7 +30,7 @@ MAX_DT = datetime.datetime.now()
 @st.cache_resource(show_spinner=True)
 def init_vdb(vdp, icn, tcn, vcn):
     # vector database persistance
-    client = cdb.PersistentClient( path=vdp, tenant=DEFAULT_TENANT ,settings=Settings(allow_reset=False))
+    client = cdb.PersistentClient( path=vdp, tenant=DEFAULT_TENANT ,settings=Settings(allow_reset=False, num_threads=8))
     
     # openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()

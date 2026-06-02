@@ -239,7 +239,7 @@ def createVectorDB(vector_db_dir_path, image_collection_name, text_collection_na
     
     cdb.api.client.SharedSystemClient.clear_system_cache()
     # vector database persistence
-    client = cdb.PersistentClient( path=vector_db_dir_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=False, num_threads=max_workers))
+    client = cdb.PersistentClient( path=vector_db_dir_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=False, num_threads=8))
 
     st.info(f"chromadb heart beat: {client.heartbeat()}")
 
