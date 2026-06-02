@@ -220,6 +220,29 @@ def load_metadata(metadata_path, metadata_file):
         print(df.head(10))
     return df
 
+def batch_load_metadata(metadata_path, metadata_file):
+    # Define the batch/chunk size (number of rows per batch)
+    chunk_size = 10000
+    chunks = []
+
+    # Use chunksize to return an iterator
+    with pd.read_json(os.path.join(metadata_path, metadata_file), lines=True, chunksize=chunk_size) as reader:
+        for chunk in reader:
+            # Process your batch chunk here if needed
+            chunks.append(chunk)
+
+    # Combine chunks into a single DataFrame
+    final_df = pd.concat(chunks, ignore_index=True)
+
+    final_df["uri"] = final_df["uri"].str.replace(
+            "input-data/img",
+            "final-data/img" #+ image_final_path,
+    )
+
+    print(final_df.head())
+
+    return final_df
+
 def detect_encoding(fp):
     with open(fp, 'rb') as f:
         raw_data = f.read()
@@ -292,7 +315,7 @@ IMAGE embeddings in vector database
 """
 def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, collection_images):
 
-        df_data = load_metadata(image_metadata_path, image_metadata_file)
+        df_data = batch_load_metadata(image_metadata_path, image_metadata_file)
        
         df_uris =  df_data['uri']
         df_ids = df_data['id']
