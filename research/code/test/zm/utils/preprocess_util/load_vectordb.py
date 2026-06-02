@@ -326,28 +326,31 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
                     chunks.append(chunk)
 
                     # single DataFrame
-                    df_data = pd.concat(chunks, ignore_index=True)
+                    df_data = pd.DataFrame(chunks, ignore_index=True)
 
                     df_data["uri"] = df_data["uri"].str.replace(
                     "input-data/img",
                     "final-data/img" #+ image_final_path,
                     )
        
+                    print(df_data.head())
+
                     df_uris =  df_data['uri']
                     df_ids = df_data['id']
                     df_metadata = df_data[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
-                    # for batch in create_batches(
-                    #     api=client,
-                    #     ids=df_ids.tolist(),
-                    #     metadatas=list(df_metadata),
-                    #     documents=df_uris.tolist(),
-                    # ):
-                    collection_images.add(ids=df_ids.tolist(), 
-                                            metadatas=list(df_metadata), 
-                                            uris=df_uris.tolist()) 
-                    st.info(f"added {chunk_size} image metadata.")
-                    # client.persist()
-                    gc.collect()
+                    try:
+                        collection_images.add(ids=df_ids.tolist(), 
+                                                metadatas=list(df_metadata), 
+                                                uris=df_uris.tolist()) 
+                        st.info(f"added {chunk_size} image metadata.")
+
+                        # clear memory after each batch
+                        del df_data
+                        gc.collect()
+
+                    except Exception as e:
+                        print(f"Batch failed with exception {e}")    
+
         client.clear_system_cache()
         st.info(f"Info: Done adding number of images: {len(df_uris)}")
 
