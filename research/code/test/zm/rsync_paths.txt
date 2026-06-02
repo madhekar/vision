@@ -14,10 +14,10 @@ operational folder sync
 
 6. sync data and metadata from model compiler to user server - input-data, app-data, model
 
-rsync -avzh --progress /mnt/zmdata/home-media-app/data/input-data/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/data/input-data/
-rsync -avzh --progress /mnt/zmdata/home-media-app/data/app-data/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/data/app-data/
-rsync -avzh --progress /mnt/zmdata/home-media-app/models/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/models/
-rsync -avzh -f"+ */" -f"- *" /mnt/zmdata/home-media-app/data/raw-data/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/data/raw-data/
+rsync -avzh -I --progress /mnt/zmdata/home-media-app/data/input-data/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/data/input-data/
+rsync -avzh -I --progress /mnt/zmdata/home-media-app/data/app-data/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/data/app-data/
+rsync -avzh -I --progress /mnt/zmdata/home-media-app/models/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/models/
+rsync -avzh -I -f"+ */" -f"- *" /mnt/zmdata/home-media-app/data/raw-data/ madhekar@192.168.68.121:/mnt/zmdata/home-media-app/data/raw-data/
 
 7. edit and fix image metadata files in input-data folder in user server
 
