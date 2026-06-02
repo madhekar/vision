@@ -324,9 +324,10 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
                 for chunk in reader:
                     # Process your batch chunk here if needed
                     chunks.append(chunk)
-
+                    
+                    p_data = [json.loads(item) for item in chunks]
                     # single DataFrame
-                    df_data = pd.DataFrame(chunks)
+                    df_data = pd.DataFrame(p_data)
 
                     df_data["uri"] = df_data["uri"].str.replace(
                     "input-data/img",
