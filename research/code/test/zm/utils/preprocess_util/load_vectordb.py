@@ -286,10 +286,10 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
 
     return client, collection_images, collection_videos, collection_videos
 
-    """
-    IMAGE embeddings in vector database
-    """
-    def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, collection_images):
+"""
+IMAGE embeddings in vector database
+"""
+def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, collection_images):
 
         df_data = load_metadata(image_metadata_path, image_metadata_file)
        
@@ -309,31 +309,35 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
 
         client.clear_system_cache()
 
-    """
-    VIDEO embedding in vector database
-    uri, id, ts, latlon, loc, text
-    """
-    def populate_videos_in_vdb(client, video_metadata_path, video_metadata_file, collection_videos):
+"""
+VIDEO embedding in vector database
+uri, id, ts, latlon, loc, text
+"""
+def populate_videos_in_vdb(client, video_metadata_path, video_metadata_file, collection_videos):
+        
+    if os.path.exists(os.path.join(video_metadata_path, video_metadata_file)):
+        df_video_data = load_video_metadata(metadata_path=video_metadata_path, metadata_file=video_metadata_file)
 
-        if df_video_data is not None:
-            print("----->>", df_video_data.head())
-            df_video_uris = df_video_data['uri']  # frame uri
-            df_video_ids = df_video_data['id']  # frame id
-            df_video_metadata = df_video_data[["ts", "src", "latlon", "loc", "caption" ,"text", "vuri"]].fillna("").T.to_dict().values()
+        #print("----->>", df_video_data.head())
+        df_video_uris = df_video_data['uri']  # frame uri
+        df_video_ids = df_video_data['id']  # frame id
+        df_video_metadata = df_video_data[["ts", "src", "latlon", "loc", "caption" ,"text", "vuri"]].fillna("").T.to_dict().values()
 
-            collection_videos.add(ids=df_video_ids.tolist(), uris=df_video_uris.tolist(), metadatas=list(df_video_metadata))
+        collection_videos.add(ids=df_video_ids.tolist(), uris=df_video_uris.tolist(), metadatas=list(df_video_metadata))
 
-            st.info(f"Info: Done adding number of frames for videos: {len(df_video_uris)}")
-        else:
-            st.error("video data does not exists for")  
+        st.info(f"Info: Done adding number of frames for videos: {len(df_video_uris)}")
+    else:
+        st.error("video data does not exists for")  
 
         client.clear_system_cache()
 
 
 
-    """
-      TEXT Embeddings on vector database
-    """
+"""
+    TEXT Embeddings on vector database
+"""
+
+def populate_text_in_vdb(client, text_folder, collection_text):
     #if text_collection_name not in collections_list:
 
     text_pth = fileList(text_folder)
@@ -380,7 +384,6 @@ def createVectorDB(df_data, df_video_data, vector_db_dir_path, image_collection_
     # client.persist() - not available anymore
     client.clear_system_cache()
 
-    return collection_images, collection_text, collection_videos
 
 '''
 ok for now! todo
@@ -455,15 +458,20 @@ def execute():
     b_load_metadata = st.button(f"load metadata: {user_source_selected}", type="primary")
     if b_load_metadata:
 
-        df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file)
+        # df_metadata = load_metadata(metadata_path=metadata_path, metadata_file=metadata_file)
      
-        if os.path.exists(os.path.join(metadata_path, video_metadata_file)):
-            df_video_metadata = load_video_metadata(metadata_path=metadata_path, metadata_file=video_metadata_file)
-        else:
-            df_video_metadata = None
+        # if os.path.exists(os.path.join(metadata_path, video_metadata_file)):
+        #     df_video_metadata = load_video_metadata(metadata_path=metadata_path, metadata_file=video_metadata_file)
+        # else:
+        #     df_video_metadata = None
 
-        #print(df_video_metadata)
-        ci,ct,cv = createVectorDB(df_metadata, df_video_metadata, vectordb_path, image_collection_name, text_folder_name, text_collection_name, video_collection_name, max_workers)
+        #print(df_video_metadata) client, collection_images, collection_videos, collection_videos
+        c, ci,ct,cv = createVectorDB(vectordb_path, image_collection_name, text_folder_name, text_collection_name, video_collection_name, max_workers)
+
+        populate_images_in_vdb(client=c, collection_images=ci)
+        st.info(f"done adding images to vector database: {ci.count()}")
+
+        
         st.info(f"done adding images: {ci.count()}  documents: {ct.count()} and videos: {cv.count()}")
 
         archive_metadata(metadata_path, arc_folder_name, metadata_file)
