@@ -317,7 +317,7 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
 
         #df_data = batch_load_metadata(image_metadata_path, image_metadata_file)
         # Use chunksize to return an iterator
-        chunk_size = 100
+        chunk_size = 500
         chunks = []
         with pd.read_json(os.path.join(image_metadata_path, image_metadata_file), lines=True, chunksize=chunk_size) as reader:
                 for chunk in reader:
@@ -335,17 +335,17 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
                     df_uris =  df_data['uri']
                     df_ids = df_data['id']
                     df_metadata = df_data[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
-                    for batch in create_batches(
-                        api=client,
-                        ids=df_ids.tolist(),
-                        metadatas=list(df_metadata),
-                        documents=df_uris.tolist(),
-                    ):
-                     collection_images.add(ids=batch[0], 
-                                            metadatas=batch[2], 
-                                            uris=batch[3]) 
-                     st.info(f"added {len(batch)} image metadata.")
-                     client.clear_system_cache()
+                    # for batch in create_batches(
+                    #     api=client,
+                    #     ids=df_ids.tolist(),
+                    #     metadatas=list(df_metadata),
+                    #     documents=df_uris.tolist(),
+                    # ):
+                    collection_images.add(ids=df_ids.tolist(), 
+                                            metadatas=list(df_metadata), 
+                                            uris=df_uris.tolist()) 
+                    st.info(f"added {chunk_size} image metadata.")
+                    client.clear_system_cache()
 
                 st.info(f"Info: Done adding number of images: {len(df_uris)}")
 
