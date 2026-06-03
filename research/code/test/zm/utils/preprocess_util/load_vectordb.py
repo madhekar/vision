@@ -175,14 +175,14 @@ def fileList(path, pattern='**/*', recursive=True):
 
 
 # handle new creation on metadata file from scratch
-def load_video_metadata(metadata_path, metadata_file):
-    data = []
-    with open(os.path.join(metadata_path, metadata_file), mode="r") as f:
-        for line in f:
-            data.append(json.loads(line))
+def refactor_video_metadata(df): #(metadata_path, metadata_file):
+    # data = []
+    # with open(os.path.join(metadata_path, metadata_file), mode="r") as f:
+    #     for line in f:
+    #         data.append(json.loads(line))
 
-        # clean video ids and uri
-        df = pd.DataFrame(data)
+    #     # clean video ids and uri
+    #     df = pd.DataFrame(data)
         df.rename(columns={"uri": "vuri"}, inplace=True)
         df = df.drop(columns=['id']) 
 
@@ -203,7 +203,7 @@ def load_video_metadata(metadata_path, metadata_file):
          "final-data/video" #+ image_final_path,
         )
         print(df_e.head(20))
-    return df_e
+        return df_e
 
 # handle new creation on metadata file from scratch
 def load_metadata(metadata_path, metadata_file):
@@ -316,28 +316,17 @@ IMAGE embeddings in vector database
 """
 def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, collection_images):
 
-        #df_data = batch_load_metadata(image_metadata_path, image_metadata_file)
+    if os.path.exists(os.path.join(image_metadata_path, image_metadata_file)):
         # Use chunksize to return an iterator
         chunk_size = 500
-        #chunks = []
         with pd.read_json(os.path.join(image_metadata_path, image_metadata_file), lines=True, chunksize=chunk_size) as reader:
                 for df_chunk in reader:
-                    # Process your batch chunk here if needed
-                    #chunks.append(chunk)
-                    
-                    #print(chunk)
-
-                    #p_data = [json.loads(item) for item in chunks]
-                    # single DataFrame
-                    #df_data = chunk #pd.DataFrame(p_data)
 
                     df_chunk["uri"] = df_chunk["uri"].str.replace(
                     "input-data/img",
                     "final-data/img" #+ image_final_path,
                     )
        
-                    print(df_chunk.head())
-
                     df_uris =  df_chunk['uri']
                     df_ids = df_chunk['id']
                     df_metadata = df_chunk[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
@@ -351,12 +340,12 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
                         gc.collect()
 
                     except Exception as e:
-                        print(f"Batch failed with exception {e}")    
+                        print(f"image batch failed with exception: {e}")    
 
         client.clear_system_cache()
         st.info(f"Info: Done adding number of images: {len(df_uris)}")
-
-        
+    else:
+        st.info(f"Error: images metadata file : {os.path.join(image_metadata_path, image_metadata_file)} does not exist.")
 
 """
 VIDEO embedding in vector database
@@ -365,32 +354,35 @@ uri, id, ts, latlon, loc, text
 def populate_videos_in_vdb(client, video_metadata_path, video_metadata_file, collection_videos):
         
     if os.path.exists(os.path.join(video_metadata_path, video_metadata_file)):
-        df_video_data = load_video_metadata(metadata_path=video_metadata_path, metadata_file=video_metadata_file)
 
-        #print("----->>", df_video_data.head())
-        df_video_uris = df_video_data['uri']  # frame uri
-        df_video_ids = df_video_data['id']  # frame id
-        df_video_metadata = df_video_data[["ts", "src", "latlon", "loc", "caption" ,"text", "vuri"]].fillna("").T.to_dict().values()
+        chunk_size = 500
+        with pd.read_json(os.path.join(video_metadata_path, video_metadata_file), lines=True, chunksize=chunk_size) as reader:
+                for df_chunk in reader:
 
-        for batch in create_batches(
-            api=client,
-            ids=df_video_ids.tolist(),
-            metadatas=list(df_video_metadata),
-            documents=df_video_uris.tolist(),
-        ):
-          collection_videos.add(ids=batch[0], 
-                                metadatas=batch[2], 
-                                uris=batch[3]) 
-          st.info(f"added {len(batch)} video metadata.")
+                    df_video_data = refactor_video_metadata(df_chunk)
 
+                    #print("----->>", df_video_data.head())
+                    df_video_uris = df_video_data['uri']  # frame uri
+                    df_video_ids = df_video_data['id']  # frame id
+                    df_video_metadata = df_video_data[["ts", "src", "latlon", "loc", "caption" ,"text", "vuri"]].fillna("").T.to_dict().values()
 
-        st.info(f"Info: Done adding number of frames for videos: {len(df_video_uris)}")
+                    try:
+                        collection_videos.add(ids=df_video_ids.tolist(), 
+                                                metadatas=list(df_video_metadata), 
+                                                uris=df_video_uris.tolist()) 
+                        
+                        st.info(f"added {chunk_size} video metadata.")
+
+                        # clear memory after each batch
+                        gc.collect()
+
+                    except Exception as e:
+                        print(f"video batch failed with exception: {e}")    
+
+                st.info(f"Info: Done adding number of frames for videos: {len(df_video_uris)}")
+                client.clear_system_cache()
     else:
-        st.error("video data does not exists for")  
-
-        client.clear_system_cache()
-
-
+        st.error(f"Error: videos metadata file: {os.path.join(video_metadata_path, video_metadata_file)} does not exist.")  
 
 """
     TEXT Embeddings on vector database
