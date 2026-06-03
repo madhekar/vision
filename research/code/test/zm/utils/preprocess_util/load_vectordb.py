@@ -302,13 +302,13 @@ def createVectorDB(vector_db_dir_path, image_collection_name, text_collection_na
     """
         Text collection inside vector database 'chromadb'
     """
-    collection_text = client.get_or_create_collection(
+    collection_texts = client.get_or_create_collection(
         name=text_collection_name,
         metadata={"hnsw:space": "cosine"},
         embedding_function=embedding_function,
     )
 
-    return client, collection_images, collection_videos, collection_text
+    return client, collection_images, collection_texts, collection_videos
 
 
 """
@@ -522,35 +522,35 @@ def execute():
     text_final_path = final_multimedia_path(text_final_path, user_source_selected)
 
     print(f'final paths: {image_final_path} : {video_final_path} : { text_final_path}')
-
-    #copy images in input-data to final-data/datetime
-    mu.copy_folder_tree(image_initial_path, image_final_path)
+    if os.path.exists(os.path.join(image_initial_path)) and any(Path(image_initial_path).iterdir()):
+        #copy images in input-data to final-data/datetime
+        mu.copy_folder_tree(image_initial_path, image_final_path)
     
     if os.path.exists(os.path.join(video_initial_path)) and any(Path(video_initial_path).iterdir()):
         #copy videos and frames from input-data to final-data
         mu.copy_folder_tree(video_initial_path, video_final_path)
 
     metadata_path = os.path.join(metadata_path, user_source_selected)
-    text_folder_name = os.path.join(text_folder_name, user_source_selected)
+    text_folder_path = os.path.join(text_folder_name, user_source_selected)
 
     b_load_metadata = st.button(f"load metadata: {user_source_selected}", type="primary")
     if b_load_metadata:
 
-        #print(df_video_metadata) client, collection_images, collection_videos, collection_videos
-        c, ci,ct,cv = createVectorDB(vectordb_path, image_collection_name, text_collection_name, video_collection_name)
+        #print(df_video_metadata) client, collection_images, collection_texts, collection_videos
+        client, collection_img ,collection_txt, collection_video = createVectorDB(vectordb_path, image_collection_name, text_collection_name, video_collection_name)
 
-        populate_images_in_vdb(client=c, image_metadata_path=metadata_path, image_metadata_file=metadata_file, collection_images=ci)
-        st.info(f"done adding images to vector database total items in collection: {ci.count()}")
+        populate_images_in_vdb(client=client, image_metadata_path=metadata_path, image_metadata_file=metadata_file, collection_images=collection_img)
+        #st.info(f"done adding images to vector database total items in collection: {ci.count()}")
 
-        populate_videos_in_vdb(client=c, video_metadata_path=metadata_path, video_metadata_file=video_metadata_file, collection_videos=cv)
-        st.info(f"done adding videos to vector database total items in collection: {cv.count()}")
+        populate_videos_in_vdb(client=client, video_metadata_path=metadata_path, video_metadata_file=video_metadata_file, collection_videos=collection_video)
+        #st.info(f"done adding videos to vector database total items in collection: {cv.count()}")
 
-        populate_text_in_vdb(client=c, text_folder=text_folder_name, collection_text=ct)
-        st.info(f"done adding text documents to vector database total items in collection: {ct.count()}")
+        populate_text_in_vdb(client=client, text_folder=text_folder_path, collection_text=collection_txt)
+        #st.info(f"done adding text documents to vector database total items in collection: {collection_txt.count()}")
 
-        st.info(f"done adding images: {ci.count()}  documents: {ct.count()} and videos: {cv.count()}")
+        st.info(f"done adding images: {collection_img.count()}  documents: {collection_txt.count()} and videos: {collection_video.count()}")
 
-        archive_metadata(metadata_path, arc_folder_name, metadata_file)
+        #archive_metadata(metadata_path, arc_folder_name, metadata_file)
 
         #mu.remove_files_folders(image_initial_path)
         #mu.remove_files_folders(text_folder_name)
