@@ -371,7 +371,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
 
             colt, cole = c2.columns([0.1, 0.9])
             with colt:
-                st.markdown("<p class='big-font-subh'>Caption: </p>", unsafe_allow_html=True)
+                st.markdown("<p class='big-font-subh'>Title: </p>", unsafe_allow_html=True)
             with cole:
                 o_caption = f'<p class="input">{st.session_state["imgs"][index][1]["caption"]}</p>'
                 st.markdown(o_caption, unsafe_allow_html=True)
@@ -386,14 +386,14 @@ def search_fn(client, cImgs, cTxts, cVideos):
 
             colt, cole = c2.columns([0.1, 0.9])
             with colt:
-               st.write("<p class='big-font-subh'>People: </p>", unsafe_allow_html=True)
+               st.write("<p class='big-font-subh'>Folks: </p>", unsafe_allow_html=True)
             with cole:
                o_names = f'<p class="input">{st.session_state["imgs"][index][1]["ppt"]} </p>' #- {st.session_state["imgs"]["metadatas"][0][1:][index]["names"]}</p>'
                st.markdown(o_names, unsafe_allow_html=True)
 
             colt, cole = c2.columns([0.1, 0.9])
             with colt:
-               st.write("<p class='input-subh'>Date Time: </p>", unsafe_allow_html=True)
+               st.write("<p class='input-subh'>DT: </p>", unsafe_allow_html=True)
             with cole:
                 tts = "0.0" if st.session_state["imgs"][index][1]["ts"] == "" else st.session_state["imgs"][index][1]["ts"]
                 o_datetime = f'<p class="input">{str(datetime.datetime.fromtimestamp(float(tts)))}</p>'
@@ -401,7 +401,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
 
             colt, cole = c2.columns([0.1, 0.9])
             with colt:
-                st.write("<p class='big-font-subh'>Location: </p>", unsafe_allow_html=True)
+                st.write("<p class='big-font-subh'>Area: </p>", unsafe_allow_html=True)
             with cole:
                 o_location = f'<p class="input">{st.session_state["imgs"][index][1]["loc"]}</p>'
                 st.markdown(o_location, unsafe_allow_html=True)
@@ -412,7 +412,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             lon = ll[1] 
 
             map_data = pd.DataFrame({"lat": [lat], "lon": [lon]})
-            c2.markdown("<p class='big-font-subh'>Map</p>", unsafe_allow_html=True)
+            #c2.markdown("<p class='big-font-subh'>Map</p>", unsafe_allow_html=True)
             c2.map(map_data, zoom=12, size=80, color="#ff00ff")
         else:
             st.write(
@@ -446,7 +446,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
 
             colt, cole = st.columns([0.1, 0.9])
             with colt:
-                    st.markdown("<p class='big-font-subh'>Caption: </p>", unsafe_allow_html=True)
+                    st.markdown("<p class='big-font-subh'>Title: </p>", unsafe_allow_html=True)
             with cole:
                     try:
                        o_caption = f'<p class="input">{st.session_state["videos"][index][1]["caption"]}</p>'
@@ -465,7 +465,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
 
             colt, cole = st.columns([0.1, 0.9])
             with colt:
-                st.write("<p class='input-subh'>Date Time: </p>", unsafe_allow_html=True)
+                st.write("<p class='input-subh'>DT: </p>", unsafe_allow_html=True)
             with cole:
                     tts = "0.0" if st.session_state["videos"][index][1]["ts"] == "" else st.session_state["videos"][index][1]["ts"]
                     o_datetime = f'<p class="input">{str(tts)}</p>' # datetime.datetime.fromtimestamp(float(tts))
@@ -473,7 +473,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
 
             colt, cole = st.columns([0.1, 0.9])
             with colt:
-                    st.write("<p class='big-font-subh'>Location: </p>", unsafe_allow_html=True)
+                    st.write("<p class='big-font-subh'>Area: </p>", unsafe_allow_html=True)
             with cole:
                     o_location = f'<p class="input">{st.session_state["videos"][index][1]["loc"]}</p>'
                     st.markdown(o_location, unsafe_allow_html=True)
@@ -488,7 +488,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
                         lon = 0.0    
 
                     map_data = pd.DataFrame({"lat": [lat], "lon": [lon]})
-                    st.markdown("<p class='big-font-subh'>Map</p>", unsafe_allow_html=True)
+                    #st.markdown("<p class='big-font-subh'>Map</p>", unsafe_allow_html=True)
                     st.map(map_data, zoom=12, size=80, color="#ff00ff")    
       else:    
             st.write(
