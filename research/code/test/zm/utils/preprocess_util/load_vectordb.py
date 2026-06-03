@@ -331,7 +331,7 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
                     df_ids = df_chunk['id']
                     df_metadata = df_chunk[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
 
-                    
+                    print(list(df_metadata))
                     try:
                         collection_images.add(ids=df_ids.tolist(), 
                                                 metadatas=list(df_metadata), 
