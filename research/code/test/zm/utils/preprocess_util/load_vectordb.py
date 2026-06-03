@@ -330,6 +330,8 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
                     df_uris =  df_chunk['uri']
                     df_ids = df_chunk['id']
                     df_metadata = df_chunk[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
+
+                    
                     try:
                         collection_images.add(ids=df_ids.tolist(), 
                                                 metadatas=list(df_metadata), 
@@ -455,6 +457,31 @@ def final_multimedia_path(f_path, user_selection):
         os.makedirs(f_path)
     return f_path    
 
+
+
+'''
+        os.path.join(dr, *raw_data_path.split(os.sep)[1:]),
+        os.path.join(dr, *image_initial_path.split(os.sep)[1:]),
+        os.path.join(dr, *video_initial_path.split(os.sep)[1:]),
+        os.path.join(dr, *metadata_path.split(os.sep)[1:]),
+        metadata_file,
+        video_metadata_file,
+        max_worker_instances,
+
+        os.path.join(dr, *vectordb_path.split(os.sep)[1:]),
+        image_collection_name,
+        text_collection_name,
+        video_collection_name,
+        audio_collection_name,
+
+        os.path.join(dr, *text_dir_path.split(os.sep)[1:]),
+
+        os.path.join(dr, *image_final_path.split(os.sep)[1:]),
+        os.path.join(dr, *text_final_path.split(os.sep)[1:]),
+        os.path.join(dr, *video_final_path.split(os.sep)[1:]),
+        os.path.join(dr, *audio_final_path.split(os.sep)[1:])
+
+'''
 def execute():
     (
         raw_data_path,
