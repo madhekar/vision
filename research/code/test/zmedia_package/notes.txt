@@ -308,3 +308,29 @@ This makes sense financially, otherwise it could easily blow away significant $ 
 Do let me know if you got some luck 
 
 ----
+
+To build and install a local Python package, the modern standard is to configure a pyproject.toml file in your root directory and use pip or build to handle the processing.Here is the step-by-step guide to setting up, building, and installing your local package.1. Set Up Your Directory StructureCreate a standard src/ layout for your project. This structure isolates your package code from your root configuration files.textmy_project/
+├── pyproject.toml
+├── README.md
+└── src/
+    └── my_package/
+        ├── __init__.py
+        └── module.py
+Use code with caution.my_project/: Your root workspace directory.src/my_package/: The folder containing your actual code (the folder name is what you will type when you write import my_package).__init__.py: An empty file that tells Python this folder is a package.2. Create the pyproject.toml FileCreate a pyproject.toml file in the root directory to store your metadata and define your build engine (such as hatchling or setuptools).toml[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "my_package"
+version = "0.1.0"
+description = "A short description of my local package"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "requests>=2.28.0",
+]
+Use code with caution.3. Install for Local Development (Editable Mode)If you are still writing or testing code, install the package in editable mode. This creates a link to your source folder so any changes you make to your .py files are instantly active without needing a reinstall.Run this command from your root my_project/ folder:bashpip install -e .
+Use code with caution.(Alternatively, you can run python -m pip install -e . to ensure it targets your specific active virtual environment).4. Build into a Distribution ArchiveIf you are done developing and want to build compilation files (a .whl file and a .tar.gz source file) to share with others, use the official Python build frontend.Install the build tool:bashpip install build
+Use code with caution.Run the compiler from your root directory:bashpython -m build
+Use code with caution.This command compiles your code and places your final distribution assets into a newly created dist/ folder.5. Install the Built Package ElsewhereYou can now take the generated .whl or .tar.gz file from your dist/ directory and install it on any other local project environment:bashpip install dist/my_package-0.1.0-py3-none-any.whl
+Use code with caution.If you'd like to tailor this further, tell me:Will this package contain C extensions or compile steps, or is it pure Python?Do you need to include command-line scripts (CLI tools) that users can run directly from their terminal?Do you plan to eventually share this internally on a private git server or publish it to PyPI?

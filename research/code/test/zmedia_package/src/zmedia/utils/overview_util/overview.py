@@ -59,6 +59,17 @@ torch==2.2.2
 open-clip-torch==2.24.0
 #tqdm==4.67.3
 
+app launcher linux mint
+-----------------------
+
+[Desktop Entry]
+Name=zMedia
+Exec=/home/madhekar/.local/bin/zmedia\n
+Comment=zesha media browser application
+Terminal=true
+PrefersNonDefaultGPU=true
+Icon=cinnamon-panel-launcher
+Type=Application
 '''
 
 def extract_folder_paths():
