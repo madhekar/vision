@@ -1,0 +1,13 @@
+[theme]
+primaryColor="#60665A"
+backgroundColor="#e2e5de"
+secondaryBackgroundColor="#cdd0c2"
+textColor="#262730"
+font="sans serif"
+baseFontSize="1rem"
+
+[browser]
+gatherUsageStats=false
+
+[server]
+maxMessageSize = 1000
