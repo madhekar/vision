@@ -61,11 +61,21 @@ open-clip-torch==2.24.0
 
 app launcher linux mint
 -----------------------
-
+ok changes .local python3 libraries
 [Desktop Entry]
 Name=zMedia
 Exec=/home/madhekar/.local/bin/zmedia\n
 Comment=zesha media browser application
+Terminal=true
+PrefersNonDefaultGPU=true
+Icon=cinnamon-panel-launcher
+Type=Application
+
+good - isolated python3 libraries
+[Desktop Entry]
+Name=zm
+Exec=./.zmedia/bin/zmedia
+Comment=zmedia app launcher
 Terminal=true
 PrefersNonDefaultGPU=true
 Icon=cinnamon-panel-launcher
