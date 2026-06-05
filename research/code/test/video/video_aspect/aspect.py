@@ -1,0 +1,48 @@
+import subprocess
+import os
+import shutil
+
+def preserve_aspect_scale_video(i_vid):
+    t_vid = "tvid.mp4"
+    try:
+        # # Step 1: Detect crop parameters
+        # detect_cmd = [
+        #     "ffmpeg", "-i", i_vid, 
+        #     "-t", "20",  # Analyze first 20 seconds
+        #     "-vf", "cropdetect", 
+        #     "-f", "null", "-"
+        # ]
+        # # Capture stderr because FFmpeg prints logs there
+
+        # result = subprocess.run(detect_cmd, stderr=subprocess.PIPE, text=True)
+
+        # # Extract the last recommended crop value using regex
+        # # Looks for strings like "crop=1920:800:0:140"
+        # matches = re.findall(r"crop=\d+:\d+:\d+:\d+", result.stderr)
+        # if not matches:
+        #     raise ValueError("no crop area found for: {i_vid}.")
+
+        # crop_params = matches[-1] # Use the most recent/stable detected value
+
+        # Step 2: Apply the crop
+        crop_cmd = [
+            "ffmpeg", "-i", i_vid,
+            "-vf", "scale", "-1:1080",            
+            "-c:a", "copy",  # Copy audio without re-encoding            
+            "-map_metadata", "0", #preserve container metadata
+            t_vid
+        ]
+        subprocess.run(crop_cmd, check=True)
+
+        # Step 3: Replace the original file
+        #os.replace(t_vid, i_vid)
+        if os.path.exists(i_vid):
+            os.remove(i_vid)     # Remove file
+        
+        shutil.move(t_vid, i_vid)
+
+    except Exception as e:
+         print(f"error: in croping video {i_vid} error: {e}")
+
+
+preserve_aspect_scale_video("/home/madhekar/tmp/VID_20181205_171018.mp4")
