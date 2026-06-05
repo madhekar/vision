@@ -336,6 +336,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # with cole:
             #     edit = st.button(label="## &#x270D;")    
 
+            st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)   # ---extrimental
             # with img:
             im = Image.open(st.session_state["t_imgs"][index])
             # if im.mode in ("RGBA", "P"):
@@ -345,6 +346,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             imageLoc = c1.empty()
             display_im = imageLoc.image(nim, use_column_width="always")
             # st.button(st.image(nim, use_column_width="always"))
+            st.markdown('</div>', unsafe_allow_html=True)  # ---extrimental
 
             if right:
                 nim = nim.rotate(-90)
@@ -369,7 +371,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
 
             colt, cole = c2.columns([0.1, 0.9])
             with colt:
-                st.markdown("<p class='big-font-subh'>Caption: </p>", unsafe_allow_html=True)
+                st.markdown("<p class='big-font-subh'>Title: </p>", unsafe_allow_html=True)
             with cole:
                 o_caption = f'<p class="input">{st.session_state["imgs"][index][1]["caption"]}</p>'
                 st.markdown(o_caption, unsafe_allow_html=True)
@@ -384,14 +386,14 @@ def search_fn(client, cImgs, cTxts, cVideos):
 
             colt, cole = c2.columns([0.1, 0.9])
             with colt:
-               st.write("<p class='big-font-subh'>People: </p>", unsafe_allow_html=True)
+               st.write("<p class='big-font-subh'>Folks: </p>", unsafe_allow_html=True)
             with cole:
                o_names = f'<p class="input">{st.session_state["imgs"][index][1]["ppt"]} </p>'
                st.markdown(o_names, unsafe_allow_html=True)
 
             colt, cole = c2.columns([0.1, 0.9])
             with colt:
-               st.write("<p class='input-subh'>Date Time: </p>", unsafe_allow_html=True)
+               st.write("<p class='input-subh'>DT: </p>", unsafe_allow_html=True)
             with cole:
                 tts = "0.0" if st.session_state["imgs"][index][1]["ts"] == "" else st.session_state["imgs"][index][1]["ts"]
                 o_datetime = f'<p class="input">{str(datetime.datetime.fromtimestamp(float(tts)))}</p>'
@@ -399,7 +401,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
 
             colt, cole = c2.columns([0.1, 0.9])
             with colt:
-                st.write("<p class='big-font-subh'>Location: </p>", unsafe_allow_html=True)
+                st.write("<p class='big-font-subh'>Area: </p>", unsafe_allow_html=True)
             with cole:
                 o_location = f'<p class="input">{st.session_state["imgs"][index][1]["loc"]}</p>'
                 st.markdown(o_location, unsafe_allow_html=True)
@@ -434,11 +436,13 @@ def search_fn(client, cImgs, cTxts, cVideos):
         c1, c2 = st.columns([7, 3])    
 
         with c1:
+                 st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)   # ---extrimental
                  vid  = st.session_state["vmeta"][index]
                  print("$$$", vid)
                  video_file = open(vid, "rb")
                  video_bytes = video_file.read()
                  st.video(video_bytes)
+                 st.markdown('</div>', unsafe_allow_html=True)  # ---extrimental
 
         with c2:
             #c2.write(st.session_state["videos"]["metadatas"][0][1:][index]["text"])

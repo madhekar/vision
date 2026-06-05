@@ -23,5 +23,5 @@ for col in cols:
             '<div class="responsive-img-container">', 
             unsafe_allow_html=True
         )
-        st.image("https://static.streamlit.io/examples/dog.jpg")
+        st.image("/mnt/zmdata/home-media-app/data/input-data/img/madhekar/74eef5fc-ffae-5e08-b3bf-62964dd279e7/IMG_9479.PNG")
         st.markdown('</div>', unsafe_allow_html=True)

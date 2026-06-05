@@ -316,9 +316,11 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 else:
                     c2.text_input(value=dt,label=f"dt_{image}", label_visibility="collapsed", on_change=update_date_changes, key=f"dt_{image}", args=(image, 'dt'))    
             if modality == "I":    
+                st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)   # ---extrimental
                 image = Image.open(image)  
                 image.thumbnail((200,200), Image.Resampling.LANCZOS)
                 c1.image(image, caption=label,use_column_width=True, output_format="JPG")
+                st.markdown('</div>', unsafe_allow_html=True)  # ---extrimental
             else: 
                 root, base = os.path.split(image)
                 name, _ = os.path.splitext(base)

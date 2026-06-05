@@ -161,6 +161,13 @@ div[data-testid="stSidebarNav"] ul li{
     color: rgb(107, 3, 90);
 }
 
+.responsive-img-container img {
+        width: 100% !important;
+        height: 80% !important; /* Forces uniform height across row */
+        object-fit: cover !important; /* Crops cleanly instead of squishing */
+        border-radius: 8px;
+}
+
 /* Target the logo in the header and collapsed control */
     div[data-testid="stSidebarHeader"] > img, 
     div[data-testid="collapsedControl"] > img {
