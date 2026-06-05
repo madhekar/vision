@@ -113,11 +113,13 @@
 }
 
 div[class*="st-key-my_custom_container"] {
+        max-height: 80vh;
         max-height: 80dvh;
         overflow-y: auto; /* Adds a scrollbar if content overflows */
     }
 
 div[class*="st-key-my_custom_container_image"] {
+        max-height: 60vh;
         max-height: 60dvh;
         overflow-y: auto; /* Adds a scrollbar if content overflows */
     }     
