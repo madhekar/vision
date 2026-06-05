@@ -1,22 +1,35 @@
 import streamlit as st
 
 
-def display(vido,vidm):
+def display(vid_input,vid_modified):
     co, cm = st.columns([1,1])
 
     with co:
-        video_file = open(vido, "rb")
+        st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)
+        video_file = open(vid_input, "rb")
         video_bytes = video_file.read()
         st.video(video_bytes)
-
+        st.markdown('</div>', unsafe_allow_html=True)
     with cm:
-        video_file = open(vidm, "rb")
+        st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)
+        video_file = open(vid_modified, "rb")
         video_bytes = video_file.read()
         st.video(video_bytes)
+        st.markdown('</div>', unsafe_allow_html=True)
 
+st.html("""
+    <style>
+    .responsive-img-container img {
+        width: 100% !important;
+        height: 250px !important; /* Forces uniform height across row */
+        object-fit: cover !important; /* Crops cleanly instead of squishing */
+        border-radius: 8px;
+    }
+    </style>
+""")
 
 st.set_page_config(
-    page_title="zesha: Media Portal (MP)",
+    page_title="Media Portal (MP)",
     initial_sidebar_state="expanded",
     layout="wide"
 )
