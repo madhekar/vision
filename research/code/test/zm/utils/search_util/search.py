@@ -450,7 +450,6 @@ def search_fn(client, cImgs, cTxts, cVideos):
         with c1:  
             with st.container(key="my_custom_container"):#(height=500, border=False):
                  vid  = st.session_state["vmeta"][index]
-                 print("$$$", vid)
                  video_file = open(vid, "rb")
                  video_bytes = video_file.read()
                  st.video(video_bytes)

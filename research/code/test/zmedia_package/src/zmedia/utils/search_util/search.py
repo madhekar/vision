@@ -340,34 +340,35 @@ def search_fn(client, cImgs, cTxts, cVideos):
             #     edit = st.button(label="## &#x270D;")    
 
             # with img:
-            im = Image.open(st.session_state["t_imgs"][index])
-            # if im.mode in ("RGBA", "P"):
-            #    im = im.convert("RGB")
-            nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
-            print(f"***{nim}")
-            imageLoc = c1.empty()
-            display_im = imageLoc.image(nim, use_column_width="always")
-            # st.button(st.image(nim, use_column_width="always"))
+            with st.container(key="my_custom_container_image"): 
+                im = Image.open(st.session_state["t_imgs"][index])
+                # if im.mode in ("RGBA", "P"):
+                #    im = im.convert("RGB")
+                nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
+                print(f"***{nim}")
+                imageLoc = c1.empty()
+                display_im = imageLoc.image(nim, use_column_width="always")
+                # st.button(st.image(nim, use_column_width="always"))
 
-            if right:
-                nim = nim.rotate(-90)
-                imageLoc.image(nim, use_column_width="always")
-            if left:
-                nim = nim.rotate(90)
-                imageLoc.image(nim, use_column_width="always")
-            if flip:
-                nim = nim.rotate(180)
-                imageLoc.image(nim, use_column_width="always")
-            # if edit:
-            #     updateMetadata(
-            #         client,
-            #         cImgs,
-            #         id=st.session_state["imgs"]["ids"][0][index],
-            #         desc=st.session_state["imgs"]["metadatas"][0][1:][index]["text"],
-            #         #names=st.session_state["imgs"]["metadatas"][0][1:][index]["names"],
-            #         dt=st.session_state["imgs"]["metadatas"][0][1:][index]["ts"],
-            #         loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"],
-            #     )
+                if right:
+                    nim = nim.rotate(-90)
+                    imageLoc.image(nim, use_column_width="always")
+                if left:
+                    nim = nim.rotate(90)
+                    imageLoc.image(nim, use_column_width="always")
+                if flip:
+                    nim = nim.rotate(180)
+                    imageLoc.image(nim, use_column_width="always")
+                # if edit:
+                #     updateMetadata(
+                #         client,
+                #         cImgs,
+                #         id=st.session_state["imgs"]["ids"][0][index],
+                #         desc=st.session_state["imgs"]["metadatas"][0][1:][index]["text"],
+                #         #names=st.session_state["imgs"]["metadatas"][0][1:][index]["names"],
+                #         dt=st.session_state["imgs"]["metadatas"][0][1:][index]["ts"],
+                #         loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"],
+                #     )
 
             colt, cole = c2.columns([0.1, 0.9])
             with colt:
@@ -436,8 +437,8 @@ def search_fn(client, cImgs, cTxts, cVideos):
         c1, c2 = st.columns([7, 3])    
 
         with c1:
+            with st.container(key="my_custom_container"):
                  vid  = st.session_state["vmeta"][index]
-                 print("$$$", vid)
                  video_file = open(vid, "rb")
                  video_bytes = video_file.read()
                  st.video(video_bytes)
