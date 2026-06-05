@@ -40,7 +40,7 @@ st.markdown(
     """
     <style>
     div[class*="st-key-my_custom_container"] {
-        height: 50vh;
+        max-height: 70vh;
         overflow-y: auto; /* Adds a scrollbar if content overflows */
     }
     </style>
