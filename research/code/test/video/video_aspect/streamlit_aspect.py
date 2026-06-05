@@ -1,7 +1,7 @@
 import streamlit as st
+from streamlit_js_eval import streamlit_js_eval
 
-
-def display(vid_input,vid_modified):
+def display(vid_input,vid_modified, ht):
     co, cm = st.columns([1,1])
 
     with co:
@@ -13,7 +13,9 @@ def display(vid_input,vid_modified):
             #st.markdown('</div>', unsafe_allow_html=True)
     with cm:
         #st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)
-        with st.container(): 
+        print("----", ht)
+        #ht = ht -100
+        with st.container(height=ht): 
             st.markdown('<div class="dynamic-container">', unsafe_allow_html=True)
     
             video_file = open(vid_modified, "rb")
@@ -68,5 +70,12 @@ o_vidio = "/home/madhekar/tmp/VID_20181205_171018.mp4"
 s_video = "/home/madhekar/tmp/output_1080p_video.mp4"
 st.title("video comparision")    
 
-display(o_vidio, s_video)
+height = streamlit_js_eval(js_expressions='screen.height', key='SCR')
+st.write(f"height: {height}")
+
+# cw= None# st.get_container_width
+# sw = st.screen_width
+
+# st.write(cw,"::" ,sw)
+display(o_vidio, s_video, height)
 

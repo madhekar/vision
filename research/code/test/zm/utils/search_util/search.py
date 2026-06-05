@@ -138,7 +138,17 @@ def search_fn(client, cImgs, cTxts, cVideos):
             datetime.datetime(2010, 1, 1),
             datetime.datetime(2025, 1, 1),
         )
-
+    st.markdown(
+    """
+    <style>
+    .dynamic-container {
+        max-height: 80vh; 
+        overflow-y: auto;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+    )
     # define application sidebar
     with st.sidebar:
 
@@ -336,37 +346,39 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # with cole:
             #     edit = st.button(label="## &#x270D;")    
 
-            st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)   # ---extrimental
+            #st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)   # ---extrimental
             # with img:
-            im = Image.open(st.session_state["t_imgs"][index])
-            # if im.mode in ("RGBA", "P"):
-            #    im = im.convert("RGB")
-            nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
-            print(f"***{nim}")
-            imageLoc = c1.empty()
-            display_im = imageLoc.image(nim, use_column_width="always")
-            # st.button(st.image(nim, use_column_width="always"))
-            st.markdown('</div>', unsafe_allow_html=True)  # ---extrimental
 
-            if right:
-                nim = nim.rotate(-90)
-                imageLoc.image(nim, use_column_width="always")
-            if left:
-                nim = nim.rotate(90)
-                imageLoc.image(nim, use_column_width="always")
-            if flip:
-                nim = nim.rotate(180)
-                imageLoc.image(nim, use_column_width="always")
-            # if edit:
-            #     updateMetadata(
-            #         client,
-            #         cImgs,
-            #         id=st.session_state["imgs"]["ids"][0][index],
-            #         desc=st.session_state["imgs"]["metadatas"][0][1:][index]["text"],
-            #         #names=st.session_state["imgs"]["metadatas"][0][1:][index]["names"],
-            #         dt=st.session_state["imgs"]["metadatas"][0][1:][index]["ts"],
-            #         loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"],
-            #     )
+            with st.container(key="my_custom_container_image"):  
+                im = Image.open(st.session_state["t_imgs"][index])
+                # if im.mode in ("RGBA", "P"):
+                #    im = im.convert("RGB")
+                nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
+                print(f"***{nim}")
+                imageLoc = c1.empty()
+                display_im = imageLoc.image(nim, use_column_width="always")
+                # st.button(st.image(nim, use_column_width="always"))
+                #st.markdown('</div>', unsafe_allow_html=True)  # ---extrimental
+
+                if right:
+                    nim = nim.rotate(-90)
+                    imageLoc.image(nim, use_column_width="always")
+                if left:
+                    nim = nim.rotate(90)
+                    imageLoc.image(nim, use_column_width="always")
+                if flip:
+                    nim = nim.rotate(180)
+                    imageLoc.image(nim, use_column_width="always")
+                # if edit:
+                #     updateMetadata(
+                #         client,
+                #         cImgs,
+                #         id=st.session_state["imgs"]["ids"][0][index],
+                #         desc=st.session_state["imgs"]["metadatas"][0][1:][index]["text"],
+                #         #names=st.session_state["imgs"]["metadatas"][0][1:][index]["names"],
+                #         dt=st.session_state["imgs"]["metadatas"][0][1:][index]["ts"],
+                #         loc=st.session_state["imgs"]["metadatas"][0][1:][index]["loc"],
+                #     )
 
 
             colt, cole = c2.columns([0.1, 0.9])
@@ -435,8 +447,8 @@ def search_fn(client, cImgs, cTxts, cVideos):
                 )
         c1, c2 = st.columns([7, 3])    
 
-        with c1:
-                 st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)   # ---extrimental
+        with c1:  
+            with st.container(key="my_custom_container"):#(height=500, border=False):
                  vid  = st.session_state["vmeta"][index]
                  print("$$$", vid)
                  video_file = open(vid, "rb")
