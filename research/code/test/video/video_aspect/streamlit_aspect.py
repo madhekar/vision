@@ -20,6 +20,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
     layout="wide"
 )
+
 o_vidio = "/home/madhekar/tmp/VID_20181205_171018.mp4"
 s_video = "/home/madhekar/tmp/output_1080p_video.mp4"
 st.title("video comparision")    
