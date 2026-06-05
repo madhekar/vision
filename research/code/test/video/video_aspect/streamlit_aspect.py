@@ -12,11 +12,15 @@ def display(vid_input,vid_modified):
             st.video(video_bytes)
             #st.markdown('</div>', unsafe_allow_html=True)
     with cm:
-        st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)
-        video_file = open(vid_modified, "rb")
-        video_bytes = video_file.read()
-        st.video(video_bytes)
-        st.markdown('</div>', unsafe_allow_html=True)
+        #st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)
+        with st.container(): 
+            st.markdown('<div class="dynamic-container">', unsafe_allow_html=True)
+    
+            video_file = open(vid_modified, "rb")
+            video_bytes = video_file.read()
+            st.video(video_bytes)
+            st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 st.set_page_config(
@@ -46,6 +50,18 @@ st.markdown(
     </style>
     """,
     unsafe_allow_html=True
+)
+
+st.markdown(
+    """
+    <style>
+    .dynamic-container {
+        max-height: 80vh; 
+        overflow-y: auto;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
 )
 
 o_vidio = "/home/madhekar/tmp/VID_20181205_171018.mp4"
