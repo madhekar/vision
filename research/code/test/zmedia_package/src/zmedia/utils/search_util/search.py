@@ -342,10 +342,7 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # with img:
             with st.container(key="my_custom_container_image"): 
                 im = Image.open(st.session_state["t_imgs"][index])
-                # if im.mode in ("RGBA", "P"):
-                #    im = im.convert("RGB")
                 nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
-                print(f"***{nim}")
                 imageLoc = c1.empty()
                 display_im = imageLoc.image(nim, use_column_width="always")
                 # st.button(st.image(nim, use_column_width="always"))
