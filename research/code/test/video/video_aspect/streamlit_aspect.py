@@ -13,15 +13,15 @@ def display(vid_input,vid_modified, ht):
             #st.markdown('</div>', unsafe_allow_html=True)
     with cm:
         #st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)
-        print("----", ht)
+        st.write("----", ht)
         #ht = ht -100
-        with st.container(height=ht): 
-            st.markdown('<div class="dynamic-container">', unsafe_allow_html=True)
+        # with st.container(key="my_custom_container_image"):
+        #     #st.markdown('<div class="dynamic-container">', unsafe_allow_html=True)
     
-            video_file = open(vid_modified, "rb")
-            video_bytes = video_file.read()
-            st.video(video_bytes)
-            st.markdown('</div>', unsafe_allow_html=True)
+        #     video_file = open(vid_modified, "rb")
+        #     video_bytes = video_file.read()
+        #     st.video(video_bytes)
+        #     st.markdown('</div>', unsafe_allow_html=True)
 
 
 
@@ -42,18 +42,52 @@ st.html("""
     </style>
 """)
 
+# import streamlit as st
+
+# st.set_page_config(layout="wide")
+
+# # Assign a key so we can style this specific container
+# with st.container(key="my-vh-container", border=True):
+#     st.write("This container will take up 80% of the screen height.")
+
+# st.markdown(
+#     """
+#     <style>
+#         .st-key-my_vh_container {
+#             height: 80vh;
+#             overflow-y: auto; /* Adds a scrollbar if content overflows */
+#         }
+#     </style>
+#     """,
+#     unsafe_allow_html=True
+# )
+
+
 st.markdown(
     """
     <style>
     div[class*="st-key-my_custom_container"] {
-        max-height: 70vh;
-        overflow-y: auto; /* Adds a scrollbar if content overflows */
+        max-height: 60vh !important;
+        max-height: 60dvh !important;
+        overflow-y: auto  !important; /* Adds a scrollbar if content overflows */
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
+st.markdown(
+    """
+    <style>
+    div[class*="st-key-my_custom_container_image"] {
+        max-height: 80vh !important;
+        max-height: 80dvh !important;
+        overflow-y: auto !important; /* Adds a scrollbar if content overflows */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 st.markdown(
     """
     <style>
