@@ -185,13 +185,13 @@ def disc_usage(tm, um, fm,w):
 
 
 def display_storage_metrics(tm, um, fm, ld):
-    c1,  c2 = st.columns([0.5,  0.5])
+    c1,  c2 = st.columns([1, 1])
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
         #st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)  
         st.write("***disk usage***")      
-        width = st_dimensions(key="c1_width")
-        disc_usage(tm, um, fm, width)
+        #width = st_dimensions(key="c1_width")
+        disc_usage(tm, um, fm) #, width)
 
     with c2:
         st.write("***records per modality***") 
