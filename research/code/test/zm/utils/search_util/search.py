@@ -18,6 +18,7 @@ import chromadb as cdb
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings, DEFAULT_TENANT
+from sentence_transformers import CrossEncoder
 from utils.util import file_type_ext as fte
 from utils.util import chroma_util as cu
 
@@ -26,6 +27,10 @@ PIL.Image.MAX_IMAGE_PIXELS = 933120000
 MIN_DT = datetime.datetime(1998, 1, 1)
 MAX_DT = datetime.datetime.now()
 
+@st.cache_resource(show_spinner=True)
+def init_rerank_model():
+    reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+    return reranker_model
 
 @st.cache_resource(show_spinner=True)
 def init_vdb(vdp, icn, tcn, vcn):
@@ -104,7 +109,7 @@ def os_specific_path(img_path):
 
     return n_pth    
 
-def search_fn(client, cImgs, cTxts, cVideos):
+def search_fn(rr_model, cImgs, cTxts, cVideos):
     # create default application Tabs
     image, video, text = st.tabs(["Image", "Video", "Text"])
 
@@ -259,10 +264,10 @@ def search_fn(client, cImgs, cTxts, cVideos):
             #    st.session_state["dt_range"][1].timestamp(),
             # )
 
-            st.session_state["imgs"] = cu.rerank_image_search(os.path.join('./', similar_image.name), cImgs, rmax=50, top=30)
+            st.session_state["imgs"] = cu.rerank_image_search(rr_model, os.path.join('./', similar_image.name), cImgs, rmax=50, top=30)
             #print(f"image array: {st.session_state['imgs']}")
 
-            st.session_state["videos"] = cu.rerank_video_search(os.path.join('./', similar_image.name), cVideos, rerank=False, rmax=20, top=10)
+            st.session_state["videos"] = cu.rerank_video_search(rr_model, os.path.join('./', similar_image.name), cVideos, rerank=False, rmax=20, top=10)
             #print("**videos**", st.session_state["videos"])
 
             ''' 
@@ -279,10 +284,10 @@ def search_fn(client, cImgs, cTxts, cVideos):
 
             #print(">>>>>", st.session_state["document"])
 
-            st.session_state["imgs"] = cu.rerank_image_text_search(modalityTxt, cImgs, rmax=50, top=30)
+            st.session_state["imgs"] = cu.rerank_image_text_search(rr_model, modalityTxt, cImgs, rmax=50, top=30)
 
             # execute video query with search criteria
-            st.session_state["videos"] = cu.rerank_video_text_search(modalityTxt, cVideos, rekank=False, rmax=20, top=10)
+            st.session_state["videos"] = cu.rerank_video_text_search(rr_model, modalityTxt, cVideos, rekank=False, rmax=20, top=10)
             #print("**videos**", cVideos.count(), "***",  st.session_state["videos"])
 
 
@@ -566,6 +571,8 @@ def execute():
     print(vdb, ': ', icn,':', tcn)
     client, img_collection, txt_collection, video_collection  = init_vdb(vdb, icn, tcn, vcn)
 
-    search_fn(client, img_collection, txt_collection, video_collection)
+    rr_model = init_rerank_model()
+
+    search_fn(rr_model, img_collection, txt_collection, video_collection)
 
     
