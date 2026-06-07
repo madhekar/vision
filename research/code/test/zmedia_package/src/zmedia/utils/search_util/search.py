@@ -257,10 +257,10 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
             # )
 
             # execute image query with search criteria
-            st.session_state["imgs"] = cu.rerank_image_search(rr_model, os.path.join(rr_model, './', similar_image.name), cImgs, rmax=20, top=9)
+            st.session_state["imgs"] = cu.rerank_image_search(rr_model, os.path.join('./', similar_image.name), cImgs, rmax=20, top=9)
 
             #execute video query with search criteria
-            st.session_state["videos"] = cu.rerank_video_search(rr_model, os.path.join('./', similar_image.name), cVideos, rerank=False, rmax=20, top=9)
+            st.session_state["videos"] = cu.rerank_video_search(rr_model, os.path.join('./', similar_image.name), cVideos, rerank=True, rmax=20, top=9)
             print("***Videos***", st.session_state["videos"])
 
             ''' 
@@ -280,7 +280,7 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
             st.session_state["imgs"] = cu.rerank_image_text_search(rr_model, modalityTxt, cImgs, rmax=20, top=9) 
 
             # execute video query with search criteria
-            st.session_state["videos"] = cu.rerank_video_text_search(rr_model, modalityTxt, cVideos, rekank=False, rmax=20, top=9)
+            st.session_state["videos"] = cu.rerank_video_text_search(rr_model, modalityTxt, cVideos, rekank=True, rmax=20, top=9)
             print("**videos**", cVideos.count(), "***",  st.session_state["videos"]) 
 
 
