@@ -25,6 +25,11 @@ PIL.Image.MAX_IMAGE_PIXELS = 933120000
 MIN_DT = datetime.datetime(1998, 1, 1)
 MAX_DT = datetime.datetime.now()
 
+@st.cache_resource(show_spinner=False)
+def init_rerank_model();
+     reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+     return reranker_model
+
 
 @st.cache_resource(show_spinner=True)
 def init_vdb(vdp, icn, tcn, vcn):
@@ -64,7 +69,7 @@ def init_vdb(vdp, icn, tcn, vcn):
     return client, collection_images, collection_text, collection_videos
 
 def updateMetadata(client, image_collection,  id, desc, names, dt, loc):
-    # vector database persistance
+    # vector database persistence
     #client = cdb.PersistentClient(path=storage_path, settings=Settings(allow_reset=True))
     col = client.get_collection(image_collection)
     col.update(
@@ -103,7 +108,7 @@ def os_specific_path(img_path):
 
     return n_pth    
 
-def search_fn(client, cImgs, cTxts, cVideos):
+def search_fn(rr_model, cImgs, cTxts, cVideos):
     # create default application Tabs
     image, video, text = st.tabs(["Image", "Video", "Text"])
 
@@ -251,10 +256,10 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # )
 
             # execute image query with search criteria
-            st.session_state["imgs"] = cu.rerank_image_search(os.path.join('./', similar_image.name), cImgs, rmax=20, top=9)
+            st.session_state["imgs"] = cu.rerank_image_search(os.path.join(rr_model, './', similar_image.name), cImgs, rmax=20, top=9)
 
             #execute video query with search criteria
-            st.session_state["videos"] = cu.rerank_video_search(os.path.join('./', similar_image.name), cVideos, rerank=False, rmax=20, top=9)
+            st.session_state["videos"] = cu.rerank_video_search(rr_model, os.path.join('./', similar_image.name), cVideos, rerank=False, rmax=20, top=9)
             print("***Videos***", st.session_state["videos"])
 
             ''' 
@@ -265,16 +270,16 @@ def search_fn(client, cImgs, cTxts, cVideos):
             # execute text collection query --- TBD fix
             st.session_state["document"] = cTxts.query(
                 query_texts=[modalityTxt],
-                include=["documents", "metadatas", "distances"], 
+                include=["documents", "metadatas"], #, "distances"], 
                 n_results=10,
             )
 
             #print(">>>>>", st.session_state["document"])
             
-            st.session_state["imgs"] = cu.rerank_image_text_search(modalityTxt, cImgs, rmax=20, top=9) 
+            st.session_state["imgs"] = cu.rerank_image_text_search(rr_model, modalityTxt, cImgs, rmax=20, top=9) 
 
             # execute video query with search criteria
-            st.session_state["videos"] = cu.rerank_video_text_search(modalityTxt, cVideos, rekank=False, rmax=20, top=9)
+            st.session_state["videos"] = cu.rerank_video_text_search(rr_model, modalityTxt, cVideos, rekank=False, rmax=20, top=9)
             print("**videos**", cVideos.count(), "***",  st.session_state["videos"]) 
 
 
@@ -543,6 +548,8 @@ def execute():
     print(vdb, ': ', icn,':', tcn)
     client, img_collection, txt_collection, video_collection  = init_vdb(vdb, icn, tcn, vcn)
 
-    search_fn(client, img_collection, txt_collection, video_collection)
+    rr_model = init_rerank_model()
+
+    search_fn(rr_model, img_collection, txt_collection, video_collection)
 
     

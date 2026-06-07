@@ -16,11 +16,11 @@ def _preprocess_query(query: str) -> str:
     return " ".join(query.split())  # Remove extra spaces
 
 
-def rerank_image_search(img_url, image_collection, rmax=100, top=30):
+def rerank_image_search(rr_model, img_url, image_collection, rmax=100, top=30):
 
         # Cross-encoder for precise reranking 
         # (You can use a cross-encoder trained on image-text tasks or text if your query is text-based)
-        reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+        #reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
         # Retrieve top 100 candidate images from ChromaDB
         results = image_collection.query(
@@ -43,7 +43,7 @@ def rerank_image_search(img_url, image_collection, rmax=100, top=30):
             pairs.append([img_url, uri])
 
         # Predict relevance scores
-        scores = reranker_model.predict(pairs)
+        scores = rr_model.predict(pairs)
 
         # Sort and Display Top K Results
         # Combine URIs and their scores, then sort by relevance
@@ -60,11 +60,11 @@ def rerank_image_search(img_url, image_collection, rmax=100, top=30):
         return (reranked_images)    
 
 
-def rerank_image_text_search(text, image_collection, rmax=100, top=30):
+def rerank_image_text_search(rr_model, text, image_collection, rmax=100, top=30):
 
         # Cross-encoder for precise reranking 
         # (You can use a cross-encoder trained on image-text tasks or text if your query is text-based)
-        reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+        #reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
         # Retrieve top 100 candidate images from ChromaDB
         results = image_collection.query(
@@ -85,7 +85,7 @@ def rerank_image_text_search(text, image_collection, rmax=100, top=30):
             pairs.append([text, txt])
 
         # Predict relevance scores
-        scores = reranker_model.predict(pairs)
+        scores = rr_model.predict(pairs)
 
         # Sort and Display Top K Results
         # Combine URIs and their scores, then sort by relevance
@@ -103,7 +103,7 @@ def rerank_image_text_search(text, image_collection, rmax=100, top=30):
 
         return (reranked_images) 
 
-def rerank_video_search(thumb_img_url, video_collection, rerank=False, rmax=20, top=10):
+def rerank_video_search(rr_model, thumb_img_url, video_collection, rerank=False, rmax=20, top=10):
              # Cross-encoder for precise reranking 
         # (You can use a cross-encoder trained on image-text tasks or text if your query is text-based)     
         reranked_videos = []
@@ -128,7 +128,7 @@ def rerank_video_search(thumb_img_url, video_collection, rerank=False, rmax=20, 
                    reranked_videos.append(dm[url])
         else:     
 
-            reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+            #reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
             # Deep Reranking (Cross-Encoder)
             # Create pairs: [Query Image, Candidate Image] for the cross-encoder to score
             pairs = []
@@ -137,7 +137,7 @@ def rerank_video_search(thumb_img_url, video_collection, rerank=False, rmax=20, 
                 pairs.append([thumb_img_url, uri])
 
             # Predict relevance scores
-            scores = reranker_model.predict(pairs)
+            scores = rr_model.predict(pairs)
 
             # Sort and Display Top K Results
             # Combine URIs and their scores, then sort by relevance
@@ -155,7 +155,7 @@ def rerank_video_search(thumb_img_url, video_collection, rerank=False, rmax=20, 
         #return (dr)
 
 
-def rerank_video_text_search(text, video_collection, rekank=False, rmax=20, top=10):
+def rerank_video_text_search(rr_model, text, video_collection, rekank=False, rmax=20, top=10):
 
         # Cross-encoder for precise reranking 
         # (You can use a cross-encoder trained on image-text tasks or text if your query is text-based)
@@ -180,7 +180,7 @@ def rerank_video_text_search(text, video_collection, rekank=False, rmax=20, top=
              for url in list(res)[:top]:
                    reranked_videos.append(dm[url])
         else:
-            reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+            #reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
             # Deep Reranking (Cross-Encoder)
             # Create pairs: [Query Image, Candidate Image] for the cross-encoder to score
             pairs = []
@@ -189,7 +189,7 @@ def rerank_video_text_search(text, video_collection, rekank=False, rmax=20, top=
                 pairs.append([text, txt])
 
             # Predict relevance scores
-            scores = reranker_model.predict(pairs)
+            scores = rr_model.predict(pairs)
 
             # Sort and Display Top K Results
             # Combine URIs and their scores, then sort by relevance
