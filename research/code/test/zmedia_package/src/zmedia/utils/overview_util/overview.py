@@ -162,7 +162,7 @@ def disc_usage_1(tm, um, fm, w):
 
 def disc_usage(tm, um, fm,w):
 
-    v = w['width'] if w is not None else 400
+    v = w['width'] if w is not None else 1000
     mem = pd.DataFrame({"disc": ["Total", "Used", "Free"], "size": [tm, um, fm]})
 
     # This formats the value as an integer for cleaner presentation in the legend/tooltip
@@ -176,7 +176,7 @@ def disc_usage(tm, um, fm,w):
     )
 
    # 4. Create the pie (arc) layer innerRadius=int(0.05 * v), outerRadius=int(0.2 * v)
-    pie = base.mark_arc(opacity=0.7, innerRadius=int(.2 * v), outerRadius=int(.7 * v), stroke="#fff").encode(
+    pie = base.mark_arc(opacity=0.7, innerRadius=int(.01* v), outerRadius=int(.03 * v), stroke="#fff").encode(
         tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N")],
         
     )
@@ -190,8 +190,9 @@ def display_storage_metrics(tm, um, fm, ld):
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
         #st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)  
         st.write("***disk usage***")      
-        #width = st_dimensions(key="c1_width")
-        disc_usage(tm, um, fm) #, width)
+        width = st_dimensions(key="c1_width")
+        print(f"width {width}")
+        disc_usage(tm, um, fm , width)
 
     with c2:
         st.write("***records per modality***") 
