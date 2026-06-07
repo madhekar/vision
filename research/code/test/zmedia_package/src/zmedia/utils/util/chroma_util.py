@@ -1,5 +1,5 @@
 import re
-from sentence_transformers import CrossEncoder
+
 from PIL import Image
 import numpy as np
 import torch

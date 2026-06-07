@@ -18,6 +18,7 @@ import chromadb as cdb
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings, DEFAULT_TENANT
+from sentence_transformers import CrossEncoder
 from utils.util import file_type_ext as fte
 from utils.util import chroma_util as cu
 
@@ -26,7 +27,7 @@ MIN_DT = datetime.datetime(1998, 1, 1)
 MAX_DT = datetime.datetime.now()
 
 @st.cache_resource(show_spinner=False)
-def init_rerank_model();
+def init_rerank_model():
      reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
      return reranker_model
 
