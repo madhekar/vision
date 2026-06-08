@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import pandas as pd
 import streamlit as st
 from streamlit_dimensions import st_dimensions
@@ -235,7 +236,7 @@ def disc_usage(tm, um, fm, w):
     )
 
    # 4. Create the pie (arc) layer innerRadius=int(0.05 * v), outerRadius=int(0.2 * v)
-    pie = base.mark_arc(opacity=0.7, innerRadius=int(.18 * v), outerRadius=int(.2 * v), stroke="#fff").encode(
+    pie = base.mark_arc(opacity=0.7, innerRadius=int(.19 * v), outerRadius=int(.2 * v), stroke="#fff").encode(
         tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N")],
         
     )
@@ -270,6 +271,8 @@ def disc_usage(tm, um, fm, w):
 
 
 def display_storage_metrics(tm, um, fm, dfi, dff):
+
+
     c1, c2, c3 = st.columns([.2, .4, .4])
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
