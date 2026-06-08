@@ -69,14 +69,14 @@ def main():
 
     overview = st.Page( 
         page="pages/overview.py", 
-        title="🏠 OVERVIEW", 
+        title="🏠 Overview", 
         #icon=":bar_chart:", 
         default=True
     )
     
     multimodal_search = st.Page(
         page="pages/multimodal_search.py",
-        title="🔎 SEARCH",
+        title="🔎 Search",
         # icon=":material/search:",
     )
     #add_logo("./assets/zmedia_logo.png", height=200)

@@ -171,12 +171,12 @@ def disc_usage(tm, um, fm,w):
     # Encode theta by the value, and color by the new combined label
     base = alt.Chart(mem).encode(
         theta=alt.Theta("size:Q").stack(True),
-        #radius=alt.Radius("size").scale(type="linear", zero=True),
+        radius=alt.Radius("size").scale(type="log", zero=True),
         color=alt.Color("size:Q", scale=alt.Scale(scheme="dark2"), legend=None)
     )
 
    # 4. Create the pie (arc) layer innerRadius=int(0.05 * v), outerRadius=int(0.2 * v)
-    pie = base.mark_arc(opacity=0.7, innerRadius=int(.02 * v), outerRadius=int(.021 * v), stroke="#fff", cornerRadius=3, strokeWidth=1, color="darkgreen").encode(
+    pie = base.mark_arc(opacity=0.7, innerRadius=int(.02 * v), outerRadius=int(.021 * v), stroke="#fff", cornerRadius=3, strokeWidth=1).encode(
         tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N")],
         
     )
@@ -207,7 +207,7 @@ def display_storage_metrics(tm, um, fm, ld):
             text='count',
             color='modality:N'
         )
-        ch = base.mark_bar() + base.mark_text(align='center', dy=-10)
+        ch = base.mark_arc() + base.mark_text(align='center', dy=-10)
         st.altair_chart(ch, use_container_width=True)
 
 def execute():
