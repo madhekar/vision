@@ -285,7 +285,11 @@ def createVectorDB(vector_db_dir_path, image_collection_name, text_collection_na
     collection_images = client.get_or_create_collection(
         name=image_collection_name,
         embedding_function=embedding_function,
-        metadata={"hnsw:space": "cosine", "hnsw:batch_size":500},
+        metadata={"hnsw:space": "cosine",      # cosine, l2, or ip
+                  "hnsw:M" : 24,               # max connections per node default: 16
+                  "hnsw:construction_ef": 200, # quality of graph build default: 100 
+                  "hnsw:search_ef": 100,       # throoughness of search default: 10
+                  "hnsw:batch_size":500},
         data_loader=image_loader,
     )
 
@@ -295,7 +299,7 @@ def createVectorDB(vector_db_dir_path, image_collection_name, text_collection_na
     collection_videos = client.get_or_create_collection(
         name=video_collection_name,
         embedding_function=embedding_function,
-        metadata={"hnsw:space": "cosine"},
+        metadata={"hnsw:space": "cosine", "hnsw:M" : 24, "hnsw:construction_ef": 200, "hnsw:search_ef": 100},
         data_loader=image_loader,
     )
     
@@ -304,7 +308,7 @@ def createVectorDB(vector_db_dir_path, image_collection_name, text_collection_na
     """
     collection_texts = client.get_or_create_collection(
         name=text_collection_name,
-        metadata={"hnsw:space": "cosine"},
+        metadata={"hnsw:space": "cosine", "hnsw:M" : 24, "hnsw:construction_ef": 200, "hnsw:search_ef": 100},
         embedding_function=embedding_function,
     )
 

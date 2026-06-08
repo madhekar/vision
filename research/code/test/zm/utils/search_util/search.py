@@ -322,7 +322,7 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
             st.session_state["t_videos"].append(vmdata[0])
             
         for vmdata in st.session_state["videos"]:
-            print("%%%%", st.session_state["vmeta"])
+            #print("%%%%", st.session_state["vmeta"])
             st.session_state["vmeta"].append(vmdata[1]["vuri"])
 
     '''  
@@ -359,7 +359,7 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
                 # if im.mode in ("RGBA", "P"):
                 #    im = im.convert("RGB")
                 nim = ImageOps.expand(im, border=(2, 2, 2, 2), fill=(200, 200, 200))
-                print(f"***{nim}")
+                #print(f"***{nim}")
                 imageLoc = c1.empty()
                 display_im = imageLoc.image(nim, use_column_width="always")
                 # st.button(st.image(nim, use_column_width="always"))
