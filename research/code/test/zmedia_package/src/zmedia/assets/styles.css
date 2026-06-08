@@ -173,6 +173,10 @@ div[data-testid="stSidebarNav"] ul li{
     color: rgb(107, 3, 90);
 }
 
+[data-testid="stMetricValue"] {
+    font-size: 100px;
+}
+
 /* Target the logo in the header and collapsed control */
     div[data-testid="stSidebarHeader"] > img, 
     div[data-testid="collapsedControl"] > img {
