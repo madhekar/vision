@@ -185,7 +185,7 @@ def disc_usage(tm, um, fm,w):
 
 
 def display_storage_metrics(tm, um, fm, ld, cc):
-    c0, c1, c2, c3 = st.columns([1, 1, 1, 1], gap="large")
+    c0, c1, c2, c3 = st.columns([.2, 1, 1, .2], gap="large")
     # with c0:
     #     st.markdown("<div style='text-align: center;'> Collections </div>", unsafe_allow_html=True)
     #     # text= alt.Chart(cc).mark_text(
