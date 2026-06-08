@@ -299,7 +299,10 @@ def createVectorDB(vector_db_dir_path, image_collection_name, text_collection_na
     collection_videos = client.get_or_create_collection(
         name=video_collection_name,
         embedding_function=embedding_function,
-        metadata={"hnsw:space": "cosine", "hnsw:M" : 24, "hnsw:construction_ef": 200, "hnsw:search_ef": 100},
+        metadata={"hnsw:space": "cosine", 
+                  "hnsw:M" : 24, 
+                  "hnsw:construction_ef": 200, 
+                  "hnsw:search_ef": 100},
         data_loader=image_loader,
     )
     
@@ -308,7 +311,10 @@ def createVectorDB(vector_db_dir_path, image_collection_name, text_collection_na
     """
     collection_texts = client.get_or_create_collection(
         name=text_collection_name,
-        metadata={"hnsw:space": "cosine", "hnsw:M" : 24, "hnsw:construction_ef": 200, "hnsw:search_ef": 100},
+        metadata={"hnsw:space": "cosine", 
+                  "hnsw:M" : 24, 
+                  "hnsw:construction_ef": 200, 
+                  "hnsw:search_ef": 100},
         embedding_function=embedding_function,
     )
 
