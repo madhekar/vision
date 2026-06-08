@@ -103,7 +103,7 @@ def os_specific_path(img_path):
 
     elif platform_system == "Darwin":
         parts = img_path.split(token,1)
-        print(parts)
+        #print(parts)
         if len(parts) > 1:
             n_pth = mac_prefix + token + parts[1]
 

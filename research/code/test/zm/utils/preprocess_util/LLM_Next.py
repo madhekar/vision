@@ -33,7 +33,7 @@ outputs = model.generate(**inputs, repetition_penalty=1.5)
 
 # Decode the generated tokens to get the text
 caption = processor.batch_decode(outputs, skip_special_tokens=True)[0]
-print(caption)
+#print(caption)
 
 """
 
@@ -54,7 +54,7 @@ prompt = (
     "<|start_header_id|>assistant<|end_header_id|>\n\n"
 )
 outputs = pipe(image, prompt=prompt, generate_kwargs={"max_new_tokens": 200})
-print(outputs)
+#print(outputs)
 [{'generated_text': 'user\n\n\nWhat are these?assistant\n\nThese are two cats, one brown and one gray, lying on a pink blanket. sleep. brown and gray cat sleeping on a pink blanket.'}]
 
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
