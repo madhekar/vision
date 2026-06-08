@@ -36,7 +36,7 @@ st.set_page_config(
 @st.cache_resource(ttl=1000)
 def load_app_configuration():
     root_data, vdb_path, root_app, current_os = config.app_config_load()
-    print(f'app root: {root_app} data root: {root_data}')
+    #print(f'app root: {root_app} data root: {root_data}')
     if not os.path.exists(root_data):
         ap, dp, mp,  = config.setup_config_load()
         #sa.folder_setup(ap, dp, mp)
@@ -63,7 +63,7 @@ def main():
     load_css(css_path)
 
     current_os, vdb_path = load_app_configuration()
-    print(f"Current Environment: {current_os}")
+    #print(f"Current Environment: {current_os}")
 
     sys.dont_write_bytecode = True
 

@@ -178,27 +178,21 @@ def disc_usage(tm, um, fm,w):
    # 4. Create the pie (arc) layer innerRadius=int(0.05 * v), outerRadius=int(0.2 * v)
     pie = base.mark_arc(opacity=0.7, innerRadius=int(.02 * v), outerRadius=int(.021 * v), stroke="#fff", cornerRadius=3, strokeWidth=1).encode(
         tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N")],
-        
     )
     text = base.mark_text(align='center', radiusOffset=10, color="black").encode(text="size:Q")
     st.altair_chart(pie + text, use_container_width=True)
 
 
 def display_storage_metrics(tm, um, fm, ld):
-    c1,  c2 = st.columns([1, 1])
-    with c1:
-        #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
-        #st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)  
-        #st.write("***disk usage***")      
+    c1,  c2 = st.columns([1, 1], gap="large")
+    with c1:   
         st.markdown("<div style='text-align: center;'> Disk Usage </div>", unsafe_allow_html=True)
         width = st_dimensions(key="c1_width")
         print(f"width {width}")
         disc_usage(tm, um, fm , width)
 
     with c2:
-        #st.write("***records per modality***") 
         st.markdown("<div style='text-align: center;'> Data per Modality </div>", unsafe_allow_html=True)
-        #images = [{"modality": "Images", "count": 580},{"modality": "Documents", "count": 1020},{"modality": "Videos", "count": 1600},{"modality": "Audios", "count": 100}]
         df = pd.DataFrame(ld)
         print(df)
         base = alt.Chart(df).encode(
@@ -207,7 +201,7 @@ def display_storage_metrics(tm, um, fm, ld):
             text='count',
             color='modality:N'
         )
-        ch = base.mark_bar(color='salmon', sort='ascending') + base.mark_text(align='center', fontWeight="bold", dy=-10)
+        ch = base.mark_bar(color='salmon') + base.mark_text(align='center', fontWeight="bold", dy=-10)
         st.altair_chart(ch, use_container_width=True)
 
 def execute():
