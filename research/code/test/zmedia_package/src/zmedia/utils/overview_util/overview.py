@@ -108,10 +108,11 @@ def get_vdb_connection(vdb_path):
     client = None
     try:
       client = cdb.PersistentClient(vdb_path, tenant=DEFAULT_TENANT, settings=Settings(allow_reset=False))
-      print(f"number of collections found: {client.count_collections()}")  
+      cc = client.count_collections()
+      print(f"number of collections found: {cc}")  
     except Exception as e:
         print(f"exception occurred getting vdb client connection: {e}")  
-    return client    
+    return client , cc   
 
 def get_collection_record_count(vdb_list):
 
@@ -119,7 +120,7 @@ def get_collection_record_count(vdb_list):
 
     print(vdb_list)
 
-    client = get_vdb_connection(vdb_path)
+    client, num_collections = get_vdb_connection(vdb_path)
 
     collection_count = []
    
@@ -133,7 +134,7 @@ def get_collection_record_count(vdb_list):
             collection_count.append({"modality": c.removeprefix("multimodal_collection_"), 'count': 0})
             continue
     print(collection_count)    
-    return  collection_count    
+    return  collection_count, num_collections    
 
 
 def disc_usage_1(tm, um, fm, w):
@@ -183,8 +184,19 @@ def disc_usage(tm, um, fm,w):
     st.altair_chart(pie + text, use_container_width=True)
 
 
-def display_storage_metrics(tm, um, fm, ld):
-    c1,  c2 = st.columns([1, 1], gap="large")
+def display_storage_metrics(tm, um, fm, ld, cc):
+    c0, c1,  c2 = st.columns([1, 1, 1], gap="large")
+    with c0:
+        st.markdown("<div style='text-align: center;'> Collections </div>", unsafe_allow_html=True)
+        # text= alt.Chart(cc).mark_text(
+        #     size=50,
+        #     fontWeight="bold",
+        #     color="darkblue",
+        #     align="center",
+        #     baseline="middle"
+        # ).encode(text='sum(collections):Q')
+        # st.altair_chart(text)
+        st.metric(label="Total Collections", value=cc, delta=0)
     with c1:   
         st.markdown("<div style='text-align: center;'> Disk Usage </div>", unsafe_allow_html=True)
         width = st_dimensions(key="c1_width")
@@ -208,8 +220,9 @@ def execute():
 
         data_path, final_data_path, vdb_list, opl = extract_folder_paths() 
 
-        ld = get_collection_record_count(vdb_list=vdb_list)
+        ld, cc = get_collection_record_count(vdb_list=vdb_list)
     
+        #cc_data = pd.DataFrame({'collectons' : [cc]})
         efs = ss.extract_user_raw_data_folders(final_data_path)
 
         st.sidebar.markdown('##### :blue[**DATA SOURCES**]')
@@ -218,7 +231,9 @@ def execute():
         st.sidebar.divider()        
         st.sidebar.markdown('</div>', unsafe_allow_html=True)   
         
-        display_storage_metrics(*ss.extract_server_stats(), ld) #, dfi, dff)
+        st.divider()
+
+        display_storage_metrics(*ss.extract_server_stats(), ld, cc) #, dfi, dff)
 
 
 if __name__ == "__main__":

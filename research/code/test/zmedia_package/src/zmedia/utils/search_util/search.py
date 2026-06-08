@@ -261,7 +261,7 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
 
             #execute video query with search criteria
             st.session_state["videos"] = cu.rerank_video_search(rr_model, os.path.join('./', similar_image.name), cVideos, rerank=False, rmax=20, top=9)
-            print("***Videos***", st.session_state["videos"])
+            #print("***Videos***", st.session_state["videos"])
 
             ''' 
             Text Modality selected 
