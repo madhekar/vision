@@ -73,55 +73,55 @@ def main():
 
     overview = st.Page( 
         page="pages/overview.py", 
-        title="🏠 OVERVIEW", 
+        title="🏠 Overview",#" OVERVIEW", 
         #icon=":bar_chart:", 
         default=True
     )
     data_extadd = st.Page(
         page="pages/data_extadd.py",
-        title="📥 ADD",
+        title="📥  Add",#" ADD",
         #icon=":material/group_work:",
     )
 
     data_trim = st.Page(
         page="pages/data_trim.py",
-        title="✂️ TRIM",
+        title="✂️  Trim", #" TRIM",
         #icon=":material/group_work:",
     )
 
     data_validation = st.Page(
         page="pages/validate.py",
-        title="🧐 VALIDATE",
+        title="🧐  Validate", # VALIDATE",
         #icon=":material/group_work:",
     )
 
     data_correction = st.Page(
         page='pages/metadata_correction.py',
-        title="✍️ EDIT",
+        title="✍️  Edit" #" EDIT",
         #icon=":material/edit:"
     )
 
     metadata_creater = st.Page(
         page="pages/metadata_creater.py",
-        title="⚙️ GENERATE",
+        title="⚙️ Generate",# " GENERATE",
         # icon=":material/engineering:",
     )
 
     metadata_loader = st.Page(
         page="pages/metadata_loader.py",
-        title="🛠️ LOAD",
+        title="🛠️  Load", #" LOAD",
         # icon=":material/published_with_changes:",
     )
 
     static_metadata_loader = st.Page(
         page="pages/static_metadata_loader.py",
-        title="🪄✨ CREATE",
+        title="✨  Create", #"🪄 CREATE",
         # icon=":material/published_with_changes:",
     )
 
     multimodal_search = st.Page(
         page="pages/multimodal_search.py",
-        title="🔎 SEARCH",
+        title="🔎  Search", #" SEARCH",
         # icon=":material/search:",
     )
     #add_logo("./assets/zmedia_logo.png", height=200)
