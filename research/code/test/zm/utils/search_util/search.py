@@ -48,21 +48,33 @@ def init_vdb(vdp, icn, tcn, vcn):
     collection_images = client.get_or_create_collection(
       name=icn, 
       embedding_function=embedding_function, 
-      metadata={"hnsw:space": "cosine"},
+      metadata={"hnsw:space": "cosine",
+                "hnsw:M" : 24, 
+                "hnsw:construction_ef": 200, 
+                "hnsw:search_ef": 100},
       data_loader=image_loader
       )
     
     collection_videos = client.get_or_create_collection(
            name=vcn,
            embedding_function=embedding_function,
-            metadata={"hnsw:space": "cosine"},
+            metadata={
+                "hnsw:space": "cosine",
+                "hnsw:M" : 24, 
+                "hnsw:construction_ef": 200, 
+                "hnsw:search_ef": 100},
             data_loader=image_loader,
         )
     
     #Text collection inside vector database 'chromadb'
     collection_text = client.get_or_create_collection(
       name=tcn,
-      metadata={"hnsw:space": "cosine"},
+      metadata={"hnsw:space": "cosine",
+                "hnsw:M" : 24, 
+                "hnsw:construction_ef": 200, 
+                "hnsw:search_ef": 100
+                },
+
       embedding_function=embedding_function,
     )
 

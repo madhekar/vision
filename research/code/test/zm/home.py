@@ -73,31 +73,31 @@ def main():
 
     overview = st.Page( 
         page="pages/overview.py", 
-        title="🏠 Overview",#" OVERVIEW", 
+        title="🏠 Overview",
         #icon=":bar_chart:", 
         default=True
     )
     data_extadd = st.Page(
         page="pages/data_extadd.py",
-        title="📥  Add",#" ADD",
+        title="📥  Add",
         #icon=":material/group_work:",
     )
 
     data_trim = st.Page(
         page="pages/data_trim.py",
-        title="✂️  Trim", #" TRIM",
+        title="✂️  Trim",
         #icon=":material/group_work:",
     )
 
     data_validation = st.Page(
         page="pages/validate.py",
-        title="🧐  Validate", # VALIDATE",
+        title="🧐  Validate",
         #icon=":material/group_work:",
     )
 
     data_correction = st.Page(
         page='pages/metadata_correction.py',
-        title="✍️  Edit" #" EDIT",
+        title="✍️  Edit",
         #icon=":material/edit:"
     )
 
@@ -109,19 +109,19 @@ def main():
 
     metadata_loader = st.Page(
         page="pages/metadata_loader.py",
-        title="🛠️  Load", #" LOAD",
+        title="🛠️  Load",
         # icon=":material/published_with_changes:",
     )
 
     static_metadata_loader = st.Page(
         page="pages/static_metadata_loader.py",
-        title="✨  Create", #"🪄 CREATE",
+        title="✨  Create",
         # icon=":material/published_with_changes:",
     )
 
     multimodal_search = st.Page(
         page="pages/multimodal_search.py",
-        title="🔎  Search", #" SEARCH",
+        title="🔎  Search",
         # icon=":material/search:",
     )
     #add_logo("./assets/zmedia_logo.png", height=200)
