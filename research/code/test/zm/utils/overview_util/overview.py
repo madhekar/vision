@@ -231,7 +231,7 @@ def disc_usage(tm, um, fm, w):
     base = alt.Chart(mem).encode(
         theta=alt.Theta("size:Q").stack(True),
         radius=alt.Radius("size").scale(type="log", zero=True),
-        color=alt.Color("size:Q", scale=alt.Scale(scheme="category10"), legend=None)
+        color=alt.Color("size:Q", scale=alt.Scale(scheme="dark2"), legend=None)
     )
 
    # 4. Create the pie (arc) layer innerRadius=int(0.05 * v), outerRadius=int(0.2 * v)
@@ -274,12 +274,12 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
            
-        st.markdown("""##### <div style='text-align: center;color:#2d4202'>Disk Usage</div>""",unsafe_allow_html=True)        
+        st.markdown("""##### <div style='text-align: center; color:#2d4202'>Disk Usage</div>""",unsafe_allow_html=True)        
         width = st_dimensions(key="c1_width")
         disc_usage(tm, um, fm, width)
     with c2:
         #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
-        st.markdown("""##### <div style='text-align: center;color:#2d4202'>Input Data</div>""",unsafe_allow_html=True)
+        st.markdown("""##### <div style='text-align: center; color:#2d4202'>Input Data</div>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dfi.values.tolist())
         filter_selection(dfi)
     with c3:
@@ -287,7 +287,7 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
         #     '<p class="vertical-text">final data folder usage</p>',
         #     unsafe_allow_html=True,
         # )
-        st.markdown("""##### <span style='color:#2d4202'><u>FINAL DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
+        st.markdown("""##### <div style=' text-align: center; color:#2d4202'>Final Data</div>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dff.values.tolist())
         filter_selection(dff)
 
@@ -371,16 +371,16 @@ def execute():
 
     st.divider() 
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**INPUT DATA>>**</u></span>""",unsafe_allow_html=True)
+    st.markdown("""##### <span style='color:#2d4202'>**INPUT DATA**</span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(idp))
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**FINAL DATA>>**</u></span>""",unsafe_allow_html=True)
+    st.markdown("""##### <span style='color:#2d4202'>**FINAL DATA**</span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(fdp))
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**APP DATA>>**</u></span>""",unsafe_allow_html=True)
+    st.markdown("""##### <span style='color:#2d4202'>**APP DATA**</span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(adp))
 
-    st.markdown("""##### <span style='color:#2d4202'><u>**RAW DATA>>**</u></span>""",unsafe_allow_html=True)
+    st.markdown("""##### <span style='color:#2d4202'>**RAW DATA**</span>""",unsafe_allow_html=True)
     display_folder_details(*ss.extract_all_folder_stats(rdp))
 
 # if __name__ == "__main__":
