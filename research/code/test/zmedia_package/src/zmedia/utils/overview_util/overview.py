@@ -207,7 +207,7 @@ def display_storage_metrics(tm, um, fm, ld):
             text='count',
             color='modality:N'
         )
-        ch = base.mark_arc() + base.mark_text(align='center', dy=-10)
+        ch = base.mark_bar(color='salmon', sort='ascending') + base.mark_text(align='center', fontWeight="bold", dy=-10)
         st.altair_chart(ch, use_container_width=True)
 
 def execute():
