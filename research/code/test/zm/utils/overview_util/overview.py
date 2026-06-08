@@ -230,12 +230,12 @@ def disc_usage(tm, um, fm, w):
     # Encode theta by the value, and color by the new combined label
     base = alt.Chart(mem).encode(
         theta=alt.Theta("size:Q").stack(True),
-        radius=alt.Radius("size").scale(type="sqrt", zero=True),
-        color=alt.Color("size:Q", scale=alt.Scale(scheme="dark2"), legend=None)
+        radius=alt.Radius("size").scale(type="log", zero=True),
+        color=alt.Color("size:Q", scale=alt.Scale(scheme="category10"), legend=None)
     )
 
    # 4. Create the pie (arc) layer innerRadius=int(0.05 * v), outerRadius=int(0.2 * v)
-    pie = base.mark_arc(opacity=0.7, innerRadius=int(.1 * v), outerRadius=int(2 * v), stroke="#fff").encode(
+    pie = base.mark_arc(opacity=0.7, innerRadius=int(.18 * v), outerRadius=int(.2 * v), stroke="#fff").encode(
         tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N")],
         
     )
@@ -273,12 +273,13 @@ def display_storage_metrics(tm, um, fm, dfi, dff):
     c1, c2, c3 = st.columns([.2, .4, .4])
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
-        st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)        
+           
+        st.markdown("""##### <div style='text-align: center;color:#2d4202'>Disk Usage</div>""",unsafe_allow_html=True)        
         width = st_dimensions(key="c1_width")
         disc_usage(tm, um, fm, width)
     with c2:
         #st.markdown('<p class="vertical-text">input data folder usage</p>', unsafe_allow_html=True)
-        st.markdown("""##### <span style='color:#2d4202'><u>INPUT DATA FOLDER usage</u></span>""",unsafe_allow_html=True)
+        st.markdown("""##### <div style='text-align: center;color:#2d4202'>Input Data</div>""",unsafe_allow_html=True)
         #ss.acquire_overview_data(dfi.values.tolist())
         filter_selection(dfi)
     with c3:

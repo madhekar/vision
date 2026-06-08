@@ -171,12 +171,12 @@ def disc_usage(tm, um, fm,w):
     # Encode theta by the value, and color by the new combined label
     base = alt.Chart(mem).encode(
         theta=alt.Theta("size:Q").stack(True),
-        radius=alt.Radius("size").scale(type="linear", zero=True),
+        #radius=alt.Radius("size").scale(type="linear", zero=True),
         color=alt.Color("size:Q", scale=alt.Scale(scheme="dark2"), legend=None)
     )
 
    # 4. Create the pie (arc) layer innerRadius=int(0.05 * v), outerRadius=int(0.2 * v)
-    pie = base.mark_arc(opacity=0.7, innerRadius=int(.02* v), outerRadius=int(.025 * v), stroke="#fff").encode(
+    pie = base.mark_arc(opacity=0.7, innerRadius=int(.02 * v), outerRadius=int(.021 * v), stroke="#fff", cornerRadius=3, strokeWidth=1, color="darkgreen").encode(
         tooltip=["disc:N", "size:Q", alt.Tooltip("legend_label:N")],
         
     )
@@ -189,13 +189,15 @@ def display_storage_metrics(tm, um, fm, ld):
     with c1:
         #st.markdown('<p class="vertical-text">DISK usage</p>', unsafe_allow_html=True)
         #st.markdown("""##### <span style='color:#2d4202'><u>DISK usage</u></span>""",unsafe_allow_html=True)  
-        st.write("***disk usage***")      
+        #st.write("***disk usage***")      
+        st.markdown("<div style='text-align: center;'> Disk Usage </div>", unsafe_allow_html=True)
         width = st_dimensions(key="c1_width")
         print(f"width {width}")
         disc_usage(tm, um, fm , width)
 
     with c2:
-        st.write("***records per modality***") 
+        #st.write("***records per modality***") 
+        st.markdown("<div style='text-align: center;'> Data per Modality </div>", unsafe_allow_html=True)
         #images = [{"modality": "Images", "count": 580},{"modality": "Documents", "count": 1020},{"modality": "Videos", "count": 1600},{"modality": "Audios", "count": 100}]
         df = pd.DataFrame(ld)
         print(df)
