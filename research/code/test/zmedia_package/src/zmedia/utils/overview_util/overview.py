@@ -173,13 +173,13 @@ def display_storage_metrics(tm, um, fm, ld, cc):
     c0, c1, c2, c3 = st.columns([.2, 1, 1, .2], gap="large", vertical_alignment="center")
 
     with c1:   
-        st.markdown("<div style='text-align: center; font-weight: bold;'> Disk Usage </div>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align: center; font-weight: bold; padding-top: 30px;'> Disk Usage </div>", unsafe_allow_html=True)
         width = st_dimensions(key="c1_width")
         print(f"width {width}")
         disc_usage(tm, um, fm , width)
 
     with c2:
-        st.markdown("<div style='text-align: center; font-weight: bold;'> Data/ Modality </div>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align: center; font-weight: bold; padding-top: 30px;'> Data/ Modality </div>", unsafe_allow_html=True)
         df = pd.DataFrame(ld)
 
         base = alt.Chart(df).encode(
@@ -193,8 +193,8 @@ def display_storage_metrics(tm, um, fm, ld, cc):
         bar = base.mark_bar()
         text = base.mark_text(align='center', fontWeight="bold", dy=-10)
         ch =  alt.layer(bar , text)
-        final_chart = ch.configure_axis(labelFontSize=20, titleFontSize=30, labelFontWeight="bold", titleFontWeight="bold").configure_legend(
-            strokeColor='gray',  padding=10, cornerRadius=10, orient='top-right').configure(padding={"top": 40}).properties(width='container', height=500)
+        final_chart = ch.configure_axis(labelFontSize=20, titleFontSize=40, labelFontWeight="bold", titleFontWeight="bold").configure_legend(
+            strokeColor='gray', fillColor='#f9f9f', padding=10, cornerRadius=10, orient='top-left').configure(padding={"top": 100}).properties(width='container', height=500)
         st.altair_chart(final_chart, use_container_width=True)
 
 
