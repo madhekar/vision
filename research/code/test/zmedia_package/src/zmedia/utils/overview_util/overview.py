@@ -165,7 +165,7 @@ def disc_usage(tm, um, fm,w):
     )
     text = base.mark_text(align='center', radiusOffset=10, color="black").encode(text="size:Q")
     final_layer = alt.layer(pie , text)
-    final_chart =  final_layer.configure_axis(labelFontSize=20).configure(padding={"top": 200})
+    final_chart =  final_layer.configure_axis(labelFontSize=20).configure(padding={"top": 40}).properties(width='container', height={'step': 200}).configure_axis(labelFontSize=20, titleFontSize=30, labelFontWeight="bold", titleFontWeight="bold")
     st.altair_chart(final_chart, use_container_width=True)
 
 
@@ -193,8 +193,8 @@ def display_storage_metrics(tm, um, fm, ld, cc):
         bar = base.mark_bar()
         text = base.mark_text(align='center', fontWeight="bold", dy=-10)
         ch =  alt.layer(bar , text)
-        final_chart = ch.configure_axis(labelFontSize=15, titleFontSize=20).configure_legend(
-            strokeColor='gray', fillColor='#EEEEEE', padding=10, cornerRadius=10, orient='top-right').configure(padding={"top": 200})
+        final_chart = ch.configure_axis(labelFontSize=20, titleFontSize=30, labelFontWeight="bold", titleFontWeight="bold").configure_legend(
+            strokeColor='gray',  padding=10, cornerRadius=10, orient='top-right').configure(padding={"top": 40}).properties(width='container', height={'step': 200})
         st.altair_chart(final_chart, use_container_width=True)
 
 
@@ -213,7 +213,6 @@ def execute():
         st.sidebar.divider()        
         st.sidebar.markdown('</div>', unsafe_allow_html=True)   
         
-        st.divider()
 
         display_storage_metrics(*ss.extract_server_stats(), ld, cc) #, dfi, dff)
 
