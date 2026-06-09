@@ -173,15 +173,17 @@ def display_storage_metrics(tm, um, fm, ld, cc):
     c0, c1, c2, c3 = st.columns([.2, 1, 1, .2], gap="large", vertical_alignment="center")
 
     with c1:   
-        st.markdown("<div style='text-align: center; font-weight: bold; padding-top: 30px;'> Disk Usage </div>", unsafe_allow_html=True)
+        st.html("<div style='padding-top: 30px;'></div>")
+        st.markdown("<div style='text-align: center; font-weight: bold;'> Disk Usage </div>", unsafe_allow_html=True)
+        st.html("<div style='padding-top: 10px;'></div>")
         width = st_dimensions(key="c1_width")
         print(f"width {width}")
         disc_usage(tm, um, fm , width)
 
     with c2:
-        st.markdown("<div style='text-align: center; font-weight: bold; padding-top: 30px;'> Data/ Modality </div>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align: center; font-weight: bold;'> Data/ Modality </div>", unsafe_allow_html=True)
+        st.html("<div style='padding-top: 40px;'></div>")
         df = pd.DataFrame(ld)
-
         base = alt.Chart(df).encode(
             x='modality:N',
             y="count:Q",

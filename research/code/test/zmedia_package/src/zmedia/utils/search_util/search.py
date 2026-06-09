@@ -312,11 +312,8 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
             #    img = img[:, :, :3]
             st.session_state["t_videos"].append(vmdata[0])
 
-        for vmdata in st.session_state["videos"]: #["metadatas"][0][1:]:
+        for vmdata in st.session_state["videos"]:
             st.session_state["vmeta"].append(vmdata[1]["vuri"])
-
-            #print("%%%%", st.session_state["vmeta"])
-      
 
     '''  
     **** Image TAB ****
@@ -332,7 +329,7 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
                 return_value="index",
             )
             # img, map = st.tabs(["Img", "Map"])
-            c1, c2 = st.columns([7, 3])
+            c1, c2 = st.columns([7.5, 2.5])
 
             # c2.divider()
             col21, col22, col23, cole = c2.columns([1, 1, 1,1], gap="small")
@@ -416,7 +413,6 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
             lon = ll[1] 
 
             map_data = pd.DataFrame({"lat": [lat], "lon": [lon]})
-            #c2.markdown("<p class='big-font-subh'>Map</p>", unsafe_allow_html=True)
             c2.map(map_data, zoom=12, size=80, color="#ff00ff")
         else:
             st.write(
@@ -437,7 +433,7 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
                     index=0,
                     return_value="index",
                 )
-        c1, c2 = st.columns([7, 3])    
+        c1, c2 = st.columns([7.5, 2.5])    
 
         with c1:
             with st.container(key="my_custom_container"):
@@ -472,7 +468,7 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
                 st.write("<p class='input-subh'>DT: </p>", unsafe_allow_html=True)
             with cole:
                     tts = "0.0" if st.session_state["videos"][index][1]["ts"] == "" else st.session_state["videos"][index][1]["ts"]
-                    o_datetime = f'<p class="input">{str(tts)}</p>' # datetime.datetime.fromtimestamp(float(tts))
+                    o_datetime = f'<p class="input">{str(tts)}</p>'
                     st.markdown(o_datetime, unsafe_allow_html=True)
 
             colt, cole = st.columns([0.1, 0.9])
@@ -492,7 +488,6 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
                         lon = 0.0    
 
                     map_data = pd.DataFrame({"lat": [lat], "lon": [lon]})
-                    #st.markdown("<p class='big-font-subh'>Map</p>", unsafe_allow_html=True)
                     st.map(map_data, zoom=12, size=80, color="#ff00ff")    
       else:    
             st.write(
@@ -520,7 +515,6 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
                     with colt:
                         st.markdown("<p class='big-font-subh'>Doc: </p>", unsafe_allow_html=True)
                     with cole:    
-                        #txt = f'**{name}**: Document found in: **{parent}**'
                         st.write(f"**{name}** found in **{parent}**", unsafe_allow_html=True)
 
                     colt, cole = st.columns([2,8])
