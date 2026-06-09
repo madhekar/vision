@@ -13,6 +13,11 @@ from utils.util import model_util as mu
 # https://www.color-hex.com/color-palette/164
 colors = ['#6d765b','#A5BFA6']#['#847577','#cfd2cd']#['#f07162','#0081a7']#['#f97171','#8ad6cc']
 #["#ae5a41", "#1b85b8"]#["#636B2F","#BAC095"] #["#9EB8A0", "#58855c"]#['#58855c','#0D3311']#["#BAC095", "#636B2F"]
+#[ , , ,  ]
+
+disc_usage_colors = ['#792318', '#5B643E','#C89839' ]
+data_modality_colors = ['#7B533B', '#AB5E16', '#314350', '#792318']
+
 
 '''
 altair==5.5.0
@@ -137,28 +142,30 @@ def get_collection_record_count(vdb_list):
     return  collection_count, num_collections    
 
 
-def disc_usage_1(tm, um, fm, w):
-    #v = w["width"]
-    mem = pd.DataFrame({"disc": ["Total", "Used", "Free"], "size": [tm, um, fm]})
+# def disc_usage_1(tm, um, fm, w):
+#     #v = w["width"]
+#     mem = pd.DataFrame({"disc": ["Total", "Used", "Free"], "size": [tm, um, fm]})
 
-    bar = (
-        alt.Chart(mem)
-        .mark_bar(opacity=0.7)
-        .encode(
-            y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey"), title="Disc Storage Size in GB"),
-            x=alt.X("disc:N", axis=alt.Axis(grid=True, gridColor="grey"), title="Disc Storage Category"),
-            color=alt.Color("disc:N", scale=alt.Scale( scheme='dark2'), legend= None ) #alt.Legend(labelFontWeight="bold",labelColor="black", labelFontSize=20))#range=['#5A86AD', '#A3B18A', '#C17C74']))
-        )
-    )
-    text = bar.mark_text(
-        align="center",
-        baseline="middle",
-        dy=-5,
-        fontWeight="bold",
-        color="black"
-    ).encode(text="size")
+#     bar = (
+#         alt.Chart(mem)
+#         .mark_bar(opacity=0.7)
+#         .encode(
+#             y=alt.Y("size:Q", axis=alt.Axis(grid=True, gridColor="grey"), title="Disc Size (GB)"),
+#             x=alt.X("disc:N", axis=alt.Axis(grid=True, gridColor="grey"), title="Category"),
+#             color=alt.Color("disc:N", legend= None, scale=alt.Scale( 
+#                 domain=["Total", "Used", "Free"],
+#                 range=disc_usage_colors)) 
+#         )
+#     )
+#     text = bar.mark_text(
+#         align="center",
+#         baseline="middle",
+#         dy=-10,
+#         fontWeight="bold",
+#         color="black"
+#     ).encode(text="size")
 
-    st.altair_chart(bar + text, use_container_width=True)
+#     st.altair_chart(bar + text, use_container_width=True)
 
 
 def disc_usage(tm, um, fm,w):
@@ -173,8 +180,11 @@ def disc_usage(tm, um, fm,w):
     base = alt.Chart(mem).encode(
         theta=alt.Theta("size:Q").stack(True),
         radius=alt.Radius("size").scale(type="log", zero=True),
-        color=alt.Color("size:Q", scale=alt.Scale(scheme="dark2"), legend=None)
-    )
+        #color=alt.Color("size:Q", scale=alt.Scale(scheme="dark2"), legend=None)
+        color=alt.Color("disc:N", legend= None, scale=alt.Scale( 
+                domain=["Total", "Used", "Free"],
+                range=disc_usage_colors)) 
+        )
 
    # 4. Create the pie (arc) layer innerRadius=int(0.05 * v), outerRadius=int(0.2 * v)
     pie = base.mark_arc(opacity=0.7, innerRadius=int(.02 * v), outerRadius=int(.021 * v), stroke="#fff", cornerRadius=3, strokeWidth=1).encode(
