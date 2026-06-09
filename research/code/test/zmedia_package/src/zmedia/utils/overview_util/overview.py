@@ -185,7 +185,7 @@ def disc_usage(tm, um, fm,w):
 
 
 def display_storage_metrics(tm, um, fm, ld, cc):
-    c0, c1, c2, c3 = st.columns([.2, 1, 1, .2], gap="large")
+    c0, c1, c2, c3 = st.columns([.2, 1, 1, .2], gap="large", vertical_alignment="center")
     # with c0:
     #     st.markdown("<div style='text-align: center;'> Collections </div>", unsafe_allow_html=True)
     #     # text= alt.Chart(cc).mark_text(
@@ -211,10 +211,13 @@ def display_storage_metrics(tm, um, fm, ld, cc):
             x='modality:N',
             y="count:Q",
             text='count',
-            color='modality:N'
-        )
-        ch = base.mark_bar(color='salmon') + base.mark_text(align='center', fontWeight="bold", dy=-10)
+            color=alt.Color('modality:N', scale=alt.Scale(scheme="category20")
+        ))
+        text = base.mark_text(align='center', fontWeight="bold", dy=-10)
+        ch = base.mark_bar() + text
         st.altair_chart(ch, use_container_width=True)
+
+        st.divider()
 
 def execute():
 
