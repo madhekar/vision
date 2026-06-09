@@ -165,7 +165,7 @@ def disc_usage(tm, um, fm,w):
     )
     text = base.mark_text(align='center', radiusOffset=10, color="black").encode(text="size:Q")
     final_layer = alt.layer(pie , text)
-    final_chart =  final_layer.configure_axis(labelFontSize=20).configure(padding={"top": 40}).properties(width='container', height={'step': 200}).configure_axis(labelFontSize=20, titleFontSize=30, labelFontWeight="bold", titleFontWeight="bold")
+    final_chart =  final_layer.configure_axis(labelFontSize=20).configure(padding={"top": 40}).properties(width='container', height=500).configure_axis(labelFontSize=20, titleFontSize=30, labelFontWeight="bold", titleFontWeight="bold")
     st.altair_chart(final_chart, use_container_width=True)
 
 
@@ -194,7 +194,7 @@ def display_storage_metrics(tm, um, fm, ld, cc):
         text = base.mark_text(align='center', fontWeight="bold", dy=-10)
         ch =  alt.layer(bar , text)
         final_chart = ch.configure_axis(labelFontSize=20, titleFontSize=30, labelFontWeight="bold", titleFontWeight="bold").configure_legend(
-            strokeColor='gray',  padding=10, cornerRadius=10, orient='top-right').configure(padding={"top": 40}).properties(width='container', height={'step': 200})
+            strokeColor='gray',  padding=10, cornerRadius=10, orient='top-right').configure(padding={"top": 40}).properties(width='container', height=500)
         st.altair_chart(final_chart, use_container_width=True)
 
 
