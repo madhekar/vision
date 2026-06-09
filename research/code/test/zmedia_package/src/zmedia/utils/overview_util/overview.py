@@ -165,11 +165,9 @@ def disc_usage(tm, um, fm,w):
     )
     text = base.mark_text(align='center', radiusOffset=10, color="black").encode(text="size:Q")
     final_layer = alt.layer(pie , text)
-    final_chart =  final_layer.properties(
-        title="Disc Usage"
-    ).configure_axisTop(
-        labelPadding=50
-    )
+    final_chart =  final_layer.configure_axis(labelFontSize=20).configure(
+                padding={"top": 200}
+            )
     st.altair_chart(final_chart, use_container_width=True)
 
 
@@ -177,13 +175,13 @@ def display_storage_metrics(tm, um, fm, ld, cc):
     c0, c1, c2, c3 = st.columns([.2, 1, 1, .2], gap="large", vertical_alignment="center")
 
     with c1:   
-        #st.markdown("<div style='text-align: center;'> Disk Usage </div>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align: center;'> Disk Usage </div>", unsafe_allow_html=True)
         width = st_dimensions(key="c1_width")
         print(f"width {width}")
         disc_usage(tm, um, fm , width)
 
     with c2:
-        st.markdown("<div style='text-align: center;'> Data per Modality </div>", unsafe_allow_html=True)
+        st.markdown("<div style='text-align: center;'> Data/ Modality </div>", unsafe_allow_html=True)
         df = pd.DataFrame(ld)
         print(df)
         base = alt.Chart(df).encode(
@@ -197,11 +195,10 @@ def display_storage_metrics(tm, um, fm, ld, cc):
         bar = base.mark_bar()
         text = base.mark_text(align='center', fontWeight="bold", dy=-10)
         ch =  alt.layer(bar , text)
-        final_chart = ch.configure_axisTop(
-            labelPadding=50
-        ).properties(
-            title="Data/ Modality"
-        )
+        final_chart = ch.configure_axis(labelFontSize=15, titleFontSize=20).configure_legend(
+            strokeColor='gray', fillColor='#EEEEEE', padding=10, cornerRadius=10, orient='top-right').configure(
+                padding={"top": 200}
+            )
         st.altair_chart(final_chart, use_container_width=True)
 
 
