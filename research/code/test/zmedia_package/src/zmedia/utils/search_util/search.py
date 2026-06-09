@@ -103,7 +103,7 @@ def os_specific_path(img_path):
 
     elif platform_system == "Darwin":
         parts = img_path.split(token,1)
-        print(parts)
+        #print(parts)
         if len(parts) > 1:
             n_pth = mac_prefix + token + parts[1]
 
@@ -281,7 +281,7 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
 
             # execute video query with search criteria
             st.session_state["videos"] = cu.rerank_video_text_search(rr_model, modalityTxt, cVideos, rekank=False, rmax=20, top=9)
-            print("**videos**", cVideos.count(), "***",  st.session_state["videos"]) 
+            #print("**videos**", cVideos.count(), "***",  st.session_state["videos"]) 
 
 
         for img in st.session_state["imgs"]:
@@ -540,7 +540,7 @@ def execute():
         token
     '''
     vdb, icn, tcn, vcn, acn = config.search_config_load()
-    print(vdb, ': ', icn,':', tcn)
+    #print(vdb, ': ', icn,':', tcn)
     client, img_collection, txt_collection, video_collection  = init_vdb(vdb, icn, tcn, vcn)
 
     rr_model = init_rerank_model()
