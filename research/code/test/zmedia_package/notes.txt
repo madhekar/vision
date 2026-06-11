@@ -334,3 +334,62 @@ Use code with caution.(Alternatively, you can run python -m pip install -e . to 
 Use code with caution.Run the compiler from your root directory:bashpython -m build
 Use code with caution.This command compiles your code and places your final distribution assets into a newly created dist/ folder.5. Install the Built Package ElsewhereYou can now take the generated .whl or .tar.gz file from your dist/ directory and install it on any other local project environment:bashpip install dist/my_package-0.1.0-py3-none-any.whl
 Use code with caution.If you'd like to tailor this further, tell me:Will this package contain C extensions or compile steps, or is it pure Python?Do you need to include command-line scripts (CLI tools) that users can run directly from their terminal?Do you plan to eventually share this internally on a private git server or publish it to PyPI?
+
+openclaw infer model run --model ollama/gemma4:26b --prompt "wha is capital of india?"
+
+                                                                                                                                                                    
+how do I invoke and send message to application from openclaw?                                                                                                      
+                                                                                                                                                                    
+
+To send a message to an external application (like Discord, Telegram, or WhatsApp) from OpenClaw, you primarily use the sessions_send tool.                         
+                                                                                                                                                                    
+The method depends on whether you are communicating within the OpenClaw ecosystem or to an external service configured via a gateway.                               
+                                                                                                                                                                    
+### 1. Sending messages to other OpenClaws/Sessions                                                                                                                 
+                                                                                                                                                                    
+If you have another active session (e.g., a sub-agent, a Discord bot session, or a companion agent) and you know its sessionKey, use the sessions_send tool.        
+                                                                                                                                                                    
+Tool: sessions_send(sessionKey, message)                                                                                                                            
+                                                                                                                                                                    
+- sessionKey: The unique identifier for the target session (e.g., "subagent_123" or "discord_bot_main"). You can find these using sessions_list.                    
+- message: The string content you want to send.                                                                                                                     
+                                                                                                                                                                    
+Example (Conceptual):                                                                                                                                               
+If I want to tell a sub-agent "Task complete," I would call:                                                                                                        
+sessions_send(sessionKey="subagent_abc", message="Task complete")                                                                                                   
+                                                                                                                                                                    
+────────────────────────────────────────────────────────────────────────────────                                                                                    
+                                                                                                                                                                    
+### 2. Sending messages to External Apps (Discord, Telegram, etc.)                                                                                                  
+                                                                                                                                                                    
+To send messages to real-world applications outside of the OpenClaw environment, you must have a Gateway configured with the appropriate provider (e.g., a Discord  
+Bot or a Telegram Bot).                                                                                                                                             
+                                                                                                                                                                    
+In this context, "invoking" usually happens through one of two ways:                                                                                                
+                                                                                                                                                                    
+#### A. Automated via Python/Shell (The exec method)                                                                                                                
+                                                                                                                                                                    
+If you have a script or a CLI tool installed on your system that interacts with an API (like a python messenger.py script), you can use the exec tool to trigger it.
+                                                                                                                                                                    
+- How: Write a small script in your workspace that uses the app's SDK (e.g., discord.py or python-telegram-bot) and then run it via exec.                           
+- Use case: Sending a one-off notification when a long-running task finishes.                                                                                       
+                                                                                                                                                                    
+#### B. Integrated via "Skills" (The Scalable method)                                                                                                               
+                                                                                                                                                                    
+The most robust way is to use or create an AgentSkill. A skill can wrap the complex logic of authentication and API calls into a simple tool call that I (the agent)
+can use directly.                                                                                                                                                   
+                                                                                                                                                                    
+- How: You define a skill (e.g., discord-notifier) that internally uses the necessary libraries. I then simply call discord_notifier(channel="general",             
+message="Hello!").                                                                                                                                                  
+                                                                                                                                                                    
+────────────────────────────────────────────────────────────────────────────────                                                                                    
+                                                                                                                                                                    
+### 3. Summary Workflow for you (The User)                                                                                                                          
+                                                                                                                                                                    
+If you want me to send a message right now:                                                                                                                         
+                                                                                                                                                                    
+1. Ensure connectivity: Make sure your Gateway is running and the relevant provider (Discord/Telegram) is configured in your config.                                
+2. Provide the target: Tell me where (which channel or session) and what (the content).                                                                             
+3. I will use the tool: I will then execute sessions_send or a specific Skill tool to push that message out.                                                        
+                                                                                                                                                                    
+Which application are you specifically trying to reach? If you tell me, I can check if I already have a way to talk to it! 
