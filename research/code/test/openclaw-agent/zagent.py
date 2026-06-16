@@ -143,3 +143,9 @@ sought-after locations for people seeking year-round comfortable living.
 
 
 '''
+
+cat <<EOF > ModelFile
+FROM gemma4:26b
+PARAMETER num_ctx 131072
+PARAMETER num_gpu 999
+EOF
