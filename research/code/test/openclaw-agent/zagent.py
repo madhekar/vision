@@ -170,3 +170,19 @@ prompt_injection_mode = "compact"
 Once configured, you can download specific database skills, such as chromadb-memory, from the LobeHub Skills Marketplace or the Claude MCP Directory.Install the skill using the ZeroClaw CLI:bashzeroclaw skills install chromadb-memory
 
 '''
+
+'''
+nomic-embed-text is a state-of-the-art, open-source text embedding model developed by Nomic AI. 
+It excels at capturing the semantic meaning of text into numerical vectors and is widely used for Retrieval-Augmented Generation (RAG), 
+semantic search, and text clustering.Key FeaturesMassive Context Window: Supports an 8,192-token context length, making it ideal for processing 
+large document chunks.Open Source & Reproducible: The weights, training code, and curated training data are fully open and auditable.
+High Performance: Consistently outperforms closed-source models like OpenAI text-embedding-ada-002 and text-embedding-3-small on major short- and 
+long-context benchmarks.Multilingual Mixture-of-Experts: Newer versions (like v2-MoE) provide robust performance across roughly 100 languages.How 
+to Use ItBecause of its open nature, you can deploy and run nomic-embed-text in multiple ways depending on your architecture:Locally via Ollama: 
+You can easily run it on your own machine. First, install Ollama, then run ollama run nomic-embed-text in your terminal to generate embeddings.Via 
+Nomic API: You can use the Nomic Atlas Embedding API, which allows you to process production workloads with 1 million free tokens included.
+Via Hugging Face: You can download the weights and view model documentation directly on the Nomic Hugging Face Hub.Coding ExampleWhen using it 
+programmatically with the official Nomic Python client or Hugging Face, you must specify a prefix (task type) to get the best results. Common task 
+prefixes include:search_document: For embedding document chunks prior to search.search_query: For embedding user search terms.classification or clustering: 
+For analytical data processing.For more implementation options and documentation, check out the Nomic Text Embeddings Documentation.
+'''
