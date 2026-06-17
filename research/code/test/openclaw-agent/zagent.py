@@ -144,8 +144,29 @@ sought-after locations for people seeking year-round comfortable living.
 
 '''
 
+'''
 cat <<EOF > ModelFile
 FROM gemma4:26b
 PARAMETER num_ctx 131072
 PARAMETER num_gpu 999
 EOF
+'''
+
+
+
+'''
+Configuring ChromaDB for ZeroClaw skills involves spinning up a ChromaDB container, configuring an embedding model, and updating your config.toml file to integrate it with the chromadb-memory skill.Step 1: Run ChromaDB and Embedding ModelsZeroClaw relies on an external vector database for its advanced memory and skill retrieval capabilities.Start ChromaDB (via Docker): Run the following command in your terminal:bashdocker run -d --name chromadb -p 8100:8000 chromadb/chroma:latest
+Pull an Embedding Model: ZeroClaw requires a text embedder. Pull the nomic-embed-text model via Ollama with:bashollama pull nomic-embed-text
+Step 2: Configure config.tomlOpen your ZeroClaw configuration file located at ~/.zeroclaw/config.toml and define the ChromaDB memory connection parameters:toml[skills.chromadb]
+chromaUrl = "http://localhost:8100"
+ollamaUrl = "http://localhost:11434"
+embeddingModel = "nomic-embed-text"
+
+# Define the UUID for your specific ChromaDB collection
+collectionId = "your-collection-uuid-here" 
+Step 3: Enable Open Skills and Skill InvocationZeroClaw requires explicit permission to synchronize and load community or external skills.Enable open skills in your config.toml:toml[skills]
+open_skills_enabled = true
+prompt_injection_mode = "compact"
+Once configured, you can download specific database skills, such as chromadb-memory, from the LobeHub Skills Marketplace or the Claude MCP Directory.Install the skill using the ZeroClaw CLI:bashzeroclaw skills install chromadb-memory
+
+'''
