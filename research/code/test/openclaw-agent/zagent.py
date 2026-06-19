@@ -223,6 +223,10 @@ and revoke the API keys or app permissions you granted it to prevent any lingeri
 '''
 
 '''
+
+zeroclaw agent -a zmedia  # chat with this agent in your terminal
+zerocode                   # launch the TUI
+
 zeroclaw status
 zeroclaw doctor
 zeroclaw service restart
