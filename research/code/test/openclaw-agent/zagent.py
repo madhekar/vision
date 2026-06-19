@@ -186,3 +186,18 @@ programmatically with the official Nomic Python client or Hugging Face, you must
 prefixes include:search_document: For embedding document chunks prior to search.search_query: For embedding user search terms.classification or clustering: 
 For analytical data processing.For more implementation options and documentation, check out the Nomic Text Embeddings Documentation.
 '''
+
+'''
+zeroclaw status
+zeroclaw doctor
+zeroclaw service restart
+
+zeroclaw agent -a zmedia_agent 
+flatpak install flathub com.github.eneshecan.WhatsAppForLinux
+
+zeroclaw webhooks gmail setup --account bmadhekar@gmail.com
+zeroclaw skills list
+ngrok http 42617
+ngrok config add-authtoken 3FMVwIBQo9T1n2bbZCgpsql3Hgd_txrp3JmNzB8qyyjNhG41
+
+'''
