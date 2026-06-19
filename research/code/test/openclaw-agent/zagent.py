@@ -185,6 +185,41 @@ Via Hugging Face: You can download the weights and view model documentation dire
 programmatically with the official Nomic Python client or Hugging Face, you must specify a prefix (task type) to get the best results. Common task 
 prefixes include:search_document: For embedding document chunks prior to search.search_query: For embedding user search terms.classification or clustering: 
 For analytical data processing.For more implementation options and documentation, check out the Nomic Text Embeddings Documentation.
+
+
+To completely uninstall ZeroClaw (or OpenClaw/Clawbot) and remove all its background services and hidden data, 
+follow this step-by-step cleanup process:
+
+1. Stop and Uninstall the Service
+
+Open your terminal (Terminal on macOS/Linux, or PowerShell/Command Prompt on Windows) and run the following commands:
+
+Stop the daemon: zeroclaw service stop
+
+Uninstall the daemon service: zeroclaw service uninstall
+
+2. Remove Hidden Application Data
+
+ZeroClaw creates hidden folders in your user directory for state, configuration, and logs. 
+Remove them by running:
+
+Linux/macOS: rm -rf ~/.zeroclaw
+(If using OpenClaw/Claw variants, also check for: rm -rf ~/.openclaw )
+
+3. Delete the Executable
+
+Remove the main ZeroClaw binary from your system path:
+
+Homebrew (macOS/Linux): 
+
+brew uninstall zeroclaw
+
+Cargo/Bootstrap install: rm ~/.cargo/bin/zeroclaw
+
+4. Revoke Access (Important)
+
+If you paired ZeroClaw with third-party platforms (like OpenAI, Discord, or webhooks), ensure you log into those respective accounts 
+and revoke the API keys or app permissions you granted it to prevent any lingering external access.
 '''
 
 '''
