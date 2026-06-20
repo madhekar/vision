@@ -150,6 +150,8 @@ FROM gemma4:26b
 PARAMETER num_ctx 131072
 PARAMETER num_gpu 999
 EOF
+
+ollama create gemma4:26b-1 -f Modelfile
 '''
 
 
