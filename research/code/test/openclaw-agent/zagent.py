@@ -287,19 +287,41 @@ backend.auth.raw = "qcjqoqccvqtyzelp"  # or use keyring
 
 message.send.backend.type = "smtp"
 message.send.backend.host = "smtp.gmail.com"
-message.send.backend.port = 587
-message.send.backend.encryption.type = "start-tls"
+message.send.backend.port = 465
+message.send.backend.encryption.type = "tls"
 message.send.backend.login = "bmadhekar@gmail.com"
 message.send.backend.auth.type = "password"
 message.send.backend.auth.raw = "qcjqoqccvqtyzelp"
 
 [accounts.bmadhekar.folder.aliases]
-deafts = "Drafts"
+drafts = "Drafts"
 inbox= "INBOX"
 sent = "Sent Messages"
-trach = "[Gmail]/Trash"
+trash = "[Gmail]/Trash"
 
+-----
 
+[accounts.bmadhekar]
+email = "bmadhekar@gmail.com"
+display-name = "Bhalchandra Madhekar"
+from = "Bhalchandra Madhekar <bmadhekar@gmail.com>"
+default = true
+
+imap.server = "imaps://imap.gmail.com:993"
+imap.sasl.plain.username = "bmadhekar@gmail.com"
+imap.sasl.plain.password = "qcjqoqccvqtyzelp" # Or use imap.auth.keyring 
+
+smtp.server = "smtps://smtp.gmail.com:465"
+smtp.sasl.plain.username = "bmadhekar@gmail.com"
+smtp.sasl.plain.password = "qcjqoqccvqtyzelp" # Or use smtp.auth.keyring
+
+[accounts.bmadhekar.folder.aliases]
+drafts = "Drafts"
+inbox= "INBOX"
+sent = "Sent Messages"
+trash = "[Gmail]/Trash"
+
+------
 
 [accounts.personal]
 default = true
@@ -321,4 +343,27 @@ smtp.login = "bmadhekar@gmail.com"
 smtp.auth.type = "passwd"
 smtp.auth.raw = "qcjqoqccvqtyzelp"
 
+'''
+
+'''
+The attempt to send the email using `himalaya` failed due to a TLS error: 
+`cannot connect to smtp server using tls`. This usually indicates a mismatch in how the SMTP server expects to handle encrypted connections 
+(e.g., trying to use STARTTLS when the server expects implicit TLS, or vice-versa).
+
+
+To configure Gmail SMTP in the Himalaya CLI using an App Password, you must enable 2-Step Verification on your Google Account and generate a 
+dedicated 16-digit password. Himalaya authenticates using the smtps or smtp protocol.Himalaya SMTP Settings for GmailSMTP Server: smtp.gmail.comSMTP Port 
+(SSL): 465 (Recommended with smtps://)SMTP Port (TLS): 587Username: Your full Gmail addressPassword: Your generated 16-digit Google App PasswordEncryption 
+Type: SSL/TLS or STARTTLS depending on your portExample ~/.config/himalaya/config.toml (or ~/.config/himalaya/config.json)toml[accounts.gmail]
+default = true
+imap.server = "imaps://imap.gmail.com:993"
+imap.sasl.plain.username = "your.name@gmail.com"
+imap.sasl.plain.password = "xxxx-xxxx-xxxx-xxxx" # Or use imap.auth.keyring 
+
+smtp.server = "smtps://smtp.gmail.com:465"
+smtp.sasl.plain.username = "your.name@gmail.com"
+smtp.sasl.plain.password = "xxxx-xxxx-xxxx-xxxx" # Or use smtp.auth.keyring
+Use code with caution.How to Get Your App PasswordGo to your Google Account Security page.Turn on 2-Step Verification if it isn't already.
+Click on App Passwords (you may need to log in again).Create a new app password for a custom app, name it something like Himalaya CLI, 
+and click Generate.Copy the 16-character password provided. Paste this into your configuration file or enter it during the interactive himalaya configure setup.If you'd like, let me know:Are you using Himalaya as a standalone CLI, via a REPL, or inside Vim/Neovim?Do you need help configuring your IMAP settings for reading mail as well?I can tailor the exact configuration lines for your specific Himalaya setup.
 '''
