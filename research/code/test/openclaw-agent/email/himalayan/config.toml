@@ -38,3 +38,40 @@ sent = "Sent Mail"
 drafts = "Drafts"
 trash = "Trash"
 
+'''
+#working 
+
+[accounts.bmadhekar]
+email = "bmadhekar@gmail.com"
+display-name = "Bhalchandra Madhekar"
+from = "Bhalchandra Madhekar <bmadhekar@gmail.com>"
+default = true
+
+backend.type = "imap"
+backend.host = "imap.gmail.com"
+backend.port = 993
+backend.login = "bmadhekar@gmail.com"
+backend.auth.type = "password"
+backend.auth.raw = "qcjqoqccvqtyzelp"  # or use keyring
+#imap.server = "imaps://imap.gmail.com:993"
+#backend.sasl.plain.username = "bmadhekar@gmail.com"
+#backend.sasl.plain.password = "qcjqoqccvqtyzelp" # Or use imap.auth.keyring
+
+message.send.backend.type = "smtp"
+message.send.backend.host = "smtp.gmail.com"
+message.send.backend.port = 465
+message.send.backend.login = "bmadhekar@gmail.com"
+message.send.backend.auth.type = "password"
+message.send.backend.auth.raw = "qcjqoqccvqtyzelp"
+#smtp.server = "smtps://smtp.gmail.com:465"
+#message.send.backend.sasl.plain.username = "bmadhekar@gmail.com"
+#message.send.backend.sasl.plain.password = "qcjqoqccvqtyzelp" # Or use smtp.auth.keyring
+
+[accounts.bmadhekar.folder.aliases]
+drafts = "Drafts"
+inbox= "INBOX"
+sent = "Sent Messages"
+trash = "[Gmail]/Trash"
+
+
+'''
