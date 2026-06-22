@@ -1,0 +1,40 @@
+# Global settings
+display-name = "Your Name"
+downloads-dir = "~/Downloads"
+signature = """
+--
+Regards,
+Your Name
+"""
+
+# Account configuration blocks
+[accounts.personal]
+default = true
+email = "bmadhekar@gmail.com"
+display-name = "Personal Account"
+
+# Inbound email configuration (IMAP)
+backend.type = "imap"
+backend.host = "imap.gmail.com"
+backend.port = 993
+backend.encryption.type = "tls"
+backend.login = "bmadhekar@gmail.com"
+backend.auth.type = "password"
+backend.auth.raw = "qcjqoqccvqtyzelp"  # Securely fetches password via password manager
+
+# Outbound email configuration (SMTP)
+message.send.backend.type = "smtp"
+message.send.backend.host = "smtp.gmail.com"
+message.send.backend.port = 587
+message.send.backend.encryption.type = "start-tls"
+message.send.backend.login = "bmadhekar@gmail.com"
+message.send.backend.auth.type = "password"
+message.send.backend.auth.raw = "qcjqoqccvqtyzelp"
+
+# Folder synchronization aliases (Optional: Useful for services like Gmail)
+[accounts.personal.folder.aliases]
+inbox = "INBOX"
+sent = "Sent Mail"
+drafts = "Drafts"
+trash = "Trash"
+
