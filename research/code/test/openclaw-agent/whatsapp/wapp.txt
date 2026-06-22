@@ -1,0 +1,65 @@
+ZeroClaw's WhatsApp channel (src/channels/whatsapp.rs) currently only supports the WhatsApp Business Cloud API, which requires:
+
+    A Meta developer account and business verification
+    A dedicated phone number registered through Meta Business Suite
+    A publicly reachable HTTPS endpoint for webhook delivery
+    An access token, phone number ID, app secret, and verify token
+    Template message approval for outbound messaging
+
+This is a significant barrier for personal use, small teams, CI/CD agents, and self-hosted deployments. Most users already have a personal WhatsApp account and just want to connect their agent to it — the same way they'd link WhatsApp Web to a browser.
+
+OpenClaw solved this by using the WhatsApp Web multi-device protocol (via Baileys), allowing users to connect with a simple QR code scan from their phone. No Meta approval, no webhooks, no business verification. This is their most popular channel integration with 5,000+ active installations.
+Proposal
+
+Add a WhatsApp Web channel (WhatsAppWebChannel) that connects via the WhatsApp Web multi-device protocol, alongside the existing Business API channel. Users should be able to choose either method based on their needs.
+Recommended approach
+
+Use the whatsapp-rust crate (v0.2.0, MIT license) — a pure Rust implementation of the WhatsApp Web protocol inspired by whatsmeow (Go) and Baileys (TypeScript). Key properties:
+
+    Pure Rust, async/await, Tokio-native — fits ZeroClaw's stack perfectly
+    QR code and pair-code authentication — scan from phone or enter a code
+    Persistent sessions with auto-reconnect — survives gateway restarts
+    E2E encrypted messages (Signal Protocol) — privacy preserved
+    SQLite storage backend — session state persists across restarts
+    Modular architecture — pluggable storage, transport, HTTP client
+    Groups, media, reactions, typing indicators — full feature set
+    No browser dependency — pure WebSocket protocol, no Selenium/Puppeteer
+
+Architecture
+
+The implementation fits cleanly into ZeroClaw's existing channel trait system:
+
+[channels.whatsapp_web]          # NEW — WhatsApp Web protocol
+mode = "personal"                # or "dedicated" for separate number
+auth_dir = "~/.zeroclaw/state/whatsapp_web"
+dm_policy = "allowlist"          # "allowlist" | "pairing" | "open"
+allowed_numbers = ["+15551234567"]
+group_policy = "ignore"          # "ignore" | "allowlist" | "mention_only"
+
+New files
+File 	Purpose
+src/channels/whatsapp_web.rs 	WhatsAppWebChannel implementing Channel trait
+src/config/schema.rs 	WhatsAppWebConfig struct (parallel to existing WhatsAppConfig)
+Channel trait mapping
+Trait method 	WhatsApp Web implementation
+name() 	"whatsapp_web"
+listen() 	Event loop on whatsapp-rust Bot events — receives messages in real-time via WebSocket
+send() 	client.send_message(jid, message) — direct send, no webhook needed
+health_check() 	Check WebSocket connection state
+start_typing() / stop_typing() 	client.set_chat_presence(Composing/Paused)
+supports_draft_updates() 	true — WhatsApp supports message editing
+Authentication flow
+
+    User runs zeroclaw channels login --channel whatsapp_web
+    Gateway displays QR code in terminal (or pair code for headless)
+    User scans with WhatsApp on their phone (Settings > Linked Devices)
+    Session credentials stored in auth_dir (encrypted SQLite)
+    Subsequent starts auto-reconnect without re-scanning
+
+Security model
+Control 	Implementation
+DM allowlist 	allowed_numbers in config — same pattern as existing WhatsApp Business channel
+Pairing mode 	Optional one-time bind code (like Telegram's /bind) for first-contact approval
+Group filtering 	group_policy controls whether agent responds in groups
+Rate limiting 	Existing SecurityPolicy rate limiter applies
+Self-chat mode 	Optional self_chat_mode = true for using your own number to talk to the agent
