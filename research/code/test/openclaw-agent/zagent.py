@@ -242,3 +242,83 @@ ngrok http 42617
 ngrok config add-authtoken 3FMVwIBQo9T1n2bbZCgpsql3Hgd_txrp3JmNzB8qyyjNhG41
 
 '''
+
+'''
+Himalaya configurations require precise TOML syntax. To fix backend syntax errors, ensure your ~/.config/himalaya/config.toml groups accounts correctly and strictly defines backend.type, message.send.backend.type, and their associated properties.Here is a verified, working TOML structure for a standard IMAP/SMTP account:toml[accounts.personal]
+default = true
+email = "you@example.com"
+display-name = "Your Name"
+
+# Receiving (IMAP) backend
+backend.type = "imap"
+backend.host = "imap.example.com"
+backend.port = 993
+backend.encryption.type = "tls"
+backend.login = "you@example.com"
+backend.auth.type = "password"
+backend.auth.cmd = "pass show email/imap" 
+
+# Sending (SMTP) backend
+message.send.backend.type = "smtp"
+message.send.backend.host = "smtp.example.com"
+message.send.backend.port = 587
+message.send.backend.encryption.type = "start-tls"
+message.send.backend.login = "you@example.com"
+message.send.backend.auth.type = "password"
+message.send.backend.auth.cmd = "pass show email/smtp"
+Use code with caution.Common Backend Syntax Fixes:Account Hierarchy: Ensure every backend setting lives under the correct account block, such as [accounts.personal].Quotation Marks: Double-check that all string values (like host URLs, types, and commands) are enclosed in double quotes.Missing Keys: Verify you haven't accidentally combined backend directives and message.send.backend keys from older, obsolete formats.To validate your configuration interactively or rebuild the file from scratch without manual editing, run the configuration wizard:bashhimalaya account configure personal
+Use code with caution.
+'''
+
+'''
+[accounts.bmadhekar]
+email = "bmadhekar@gmail.com"
+display-name = "Bhalchandra Madhekar"
+from = "Bhalchandra Madhekar <bmadhekar@gmail.com>"
+default = true
+
+backend.type = "imap"
+backend.host = "imap.gmail.com"
+backend.port = 993
+backend.encryption.type = "tls"
+backend.login = "bmadhekar@gmail.com"
+backend.auth.type = "password"
+backend.auth.raw = "qcjqoqccvqtyzelp"  # or use keyring
+
+message.send.backend.type = "smtp"
+message.send.backend.host = "smtp.gmail.com"
+message.send.backend.port = 587
+message.send.backend.encryption.type = "start-tls"
+message.send.backend.login = "bmadhekar@gmail.com"
+message.send.backend.auth.type = "password"
+message.send.backend.auth.raw = "qcjqoqccvqtyzelp"
+
+[accounts.bmadhekar.folder.aliases]
+deafts = "Drafts"
+inbox= "INBOX"
+sent = "Sent Messages"
+trach = "[Gmail]/Trash"
+
+
+
+[accounts.personal]
+default = true
+email = "bmadhekar@gmail.com"
+display-name = "Bhalchandra Madhekar"
+downloads-dir = "/home/madhekar/Downloads"
+backend = "imap"
+message.send.backend = "smtp"
+imap.host = "imap.gmail.com"
+imap.port = 993
+imap.encryption = "tls"
+imap.login = "bmadhekar@gmail.com"
+imap.auth.type = "passwd"
+imap.auth.raw = "qcjqoqccvqtyzelp"
+smtp.host = "smtp.gmail.com"
+smtp.port = 465
+smtp.encryption = "tls"
+smtp.login = "bmadhekar@gmail.com"
+smtp.auth.type = "passwd"
+smtp.auth.raw = "qcjqoqccvqtyzelp"
+
+'''
