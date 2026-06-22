@@ -14,6 +14,11 @@ smtp.sasl.plain.username = "your.name@gmail.com"
 smtp.sasl.plain.password = "xxxx-xxxx-xxxx-xxxx" # Or use smtp.auth.keyring
 Use code with caution.How to Get Your App PasswordGo to your Google Account Security page.Turn on 2-Step Verification if it isn't already.Click on App Passwords (you may need to log in again).Create a new app password for a custom app, name it something like Himalaya CLI, and click Generate.Copy the 16-character password provided. Paste this into your configuration file or enter it during the interactive himalaya configure setup.If you'd like, let me know:Are you using Himalaya as a standalone CLI, via a REPL, or inside Vim/Neovim?Do you need help configuring your IMAP settings for reading mail as well?I can tailor the exact configuration lines for your specific Himalaya setup.
 
+
+https://skills.re/skills/agentscope-ai/CoPaw/himalaya
+
+https://github.com/pimalaya/himalaya
+
 '''
 
 send email to bmadhekar@gmail.com consolidating information about USA IRAN deal with subject "Iran deal" and message body as consolidated text.
