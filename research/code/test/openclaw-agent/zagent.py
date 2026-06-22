@@ -307,13 +307,25 @@ display-name = "Bhalchandra Madhekar"
 from = "Bhalchandra Madhekar <bmadhekar@gmail.com>"
 default = true
 
-imap.server = "imaps://imap.gmail.com:993"
-imap.sasl.plain.username = "bmadhekar@gmail.com"
-imap.sasl.plain.password = "qcjqoqccvqtyzelp" # Or use imap.auth.keyring 
+backend.type = "imap"
+backend.host = "imap.gmail.com"
+backend.port = 993
+backend.login = "bmadhekar@gmail.com"
+backend.auth.type = "password"
+backend.auth.raw = "qcjqoqccvqtyzelp"  # or use keyring
+#imap.server = "imaps://imap.gmail.com:993"
+#backend.sasl.plain.username = "bmadhekar@gmail.com"
+#backend.sasl.plain.password = "qcjqoqccvqtyzelp" # Or use imap.auth.keyring 
 
-smtp.server = "smtps://smtp.gmail.com:465"
-smtp.sasl.plain.username = "bmadhekar@gmail.com"
-smtp.sasl.plain.password = "qcjqoqccvqtyzelp" # Or use smtp.auth.keyring
+message.send.backend.type = "smtp"
+message.send.backend.host = "smtp.gmail.com"
+message.send.backend.port = 465
+message.send.backend.login = "bmadhekar@gmail.com"
+message.send.backend.auth.type = "password"
+message.send.backend.auth.raw = "qcjqoqccvqtyzelp"
+#smtp.server = "smtps://smtp.gmail.com:465"
+#message.send.backend.sasl.plain.username = "bmadhekar@gmail.com"
+#message.send.backend.sasl.plain.password = "qcjqoqccvqtyzelp" # Or use smtp.auth.keyring
 
 [accounts.bmadhekar.folder.aliases]
 drafts = "Drafts"
@@ -365,5 +377,11 @@ smtp.sasl.plain.username = "your.name@gmail.com"
 smtp.sasl.plain.password = "xxxx-xxxx-xxxx-xxxx" # Or use smtp.auth.keyring
 Use code with caution.How to Get Your App PasswordGo to your Google Account Security page.Turn on 2-Step Verification if it isn't already.
 Click on App Passwords (you may need to log in again).Create a new app password for a custom app, name it something like Himalaya CLI, 
-and click Generate.Copy the 16-character password provided. Paste this into your configuration file or enter it during the interactive himalaya configure setup.If you'd like, let me know:Are you using Himalaya as a standalone CLI, via a REPL, or inside Vim/Neovim?Do you need help configuring your IMAP settings for reading mail as well?I can tailor the exact configuration lines for your specific Himalaya setup.
+and click Generate.Copy the 16-character password provided. Paste this into your configuration file or enter it during the interactive himalaya configure setup.
+If you'd like, let me know:Are you using Himalaya as a standalone CLI, via a REPL, or inside Vim/Neovim?Do you need help configuring your IMAP settings for reading mail as well?I can tailor the exact configuration lines for your specific Himalaya setup.
+
+I was unable to send the email because `himalaya` does not have a configured backend for sending messages (like an SMTP server). 
+The command itself is now correctly formatted, but it requires an active account configuration to function.
+
+
 '''
