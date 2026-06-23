@@ -118,7 +118,8 @@ The message could not be sent because the recipient `18589522575` is not in my a
 
 ----
 
-toml[agents.admin]
+toml
+[agents.admin]
 system_prompt = "You are the head system admin. You coordinate tasks and have access to the file system."
 tools = ["shell", "file"]
 provider = "ollama"
@@ -144,3 +145,25 @@ allowed_groups = ["120363406148723745@g.us"] # Replace with your specific WhatsA
 
 dm_policy = "allowlist"
 allowed_numbers = ["+15551234567"]
+
+***
+
+[channels.whatsapp.zwhatsapp]
+enabled = true
+mode = "personal"
+session_path = "/var/lib/zeroclaw/whatsapp.session"
+
+group_policy = "allowlist"
+allowed_groups = ["120363406148723745@g.us"] # Replace with your specific WhatsApp group JID
+
+dm_policy = "allowlist"
+allowed_numbers = ["+15551234567"]
+
+approval_timeout_secs = 17
+interrupt_on_new_message = false
+mention_only = true
+reply_min_interval_secs = 0
+reply_queue_depth_max = 0
+self_chat_mode = false
+excluded_tools = ["shell", "file_read", "file_write", "file_edit"]
+pair_phone = "18589522575"
