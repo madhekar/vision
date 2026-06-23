@@ -116,6 +116,7 @@ The exact error message you see when running cargo buildI can help you troublesh
 🤔 Thinking (round 2)...
 The message could not be sent because the recipient `18589522575` is not in my authorized WhatsApp contact list. I need to be part of a shared peer group with that number to send messages to it.
 
+id="AC7604BC299644921E7E305E465D883C"
 
 toml
 [agents.admin]
