@@ -22,3 +22,5 @@ https://github.com/pimalaya/himalaya
 '''
 
 send email to bmadhekar@gmail.com consolidating information about USA IRAN deal with subject "Iran deal" and message body as consolidated text.
+
+send email using himalaya to bmadhekar@gmail.com consolidating information about USA India Tarrif with subject "India Tarrif" and message body as consolidated text.
