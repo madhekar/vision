@@ -98,4 +98,20 @@ Use code with caution.Recompile the project with the whatsapp-web feature flag e
 
 cargo build --features whatsapp-web --release
 
-Use code with caution.(Alternatively, if you are using cargo install, you can use cargo install --path . --features whatsapp-web --force)Once the build completes, restart your ZeroClaw daemon or run the onboard wizard again to pair your WhatsApp session using the QR code.If the compilation still fails or if you run into WebSocket issues while generating the QR code, tell me:What Operating System you are using (e.g., Ubuntu, Windows, Docker)The exact error message you see when running cargo buildI can help you troubleshoot the build.
+Use code with caution.(Alternatively, if you are using cargo install, you can use 
+
+cargo install --path . --features whatsapp-web --force
+
+)Once the build completes, restart your ZeroClaw daemon or run the onboard wizard again to pair your WhatsApp session using the QR code.
+If the compilation still fails or if you run into WebSocket issues while generating the QR code, tell me:What Operating System you are using (e.g., Ubuntu, Windows, Docker)
+The exact error message you see when running cargo buildI can help you troubleshoot the build.
+
+----
+
+> send whatsapp message to 18589522575 "hi how re u?"
+🤔 Thinking...
+💬 Got 1 tool call(s) (228s)
+⏳ send_message_to_peer
+❌ send_message_to_peer (0s): target "18589522575" is not on agent "zmedia"'s resolved peer set for channel "whatsapp"; add a [peer_groups.<name>] entry that lists both this agent and the target before sending
+🤔 Thinking (round 2)...
+The message could not be sent because the recipient `18589522575` is not in my authorized WhatsApp contact list. I need to be part of a shared peer group with that number to send messages to it.

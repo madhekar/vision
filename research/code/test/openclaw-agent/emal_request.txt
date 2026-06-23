@@ -19,8 +19,16 @@ https://skills.re/skills/agentscope-ai/CoPaw/himalaya
 
 https://github.com/pimalaya/himalaya
 
+The technique has been saved to your workflow memory under the key `himalaya_email_sending_method_workflow`.
+
+Yes, I will be able to use it. Because this technique has been stored in my long-term memory, 
+it becomes part of the context I retrieve and consider whenever I perform tasks involving the `himalaya` CLI or sending emails via the shell. 
+Whenever I encounter a similar task, I will recall this instruction to ensure the email is formatted correctly using a heredoc to avoid parsing errors.
+
 '''
 
 send email to bmadhekar@gmail.com consolidating information about USA IRAN deal with subject "Iran deal" and message body as consolidated text.
 
 send email using himalaya to bmadhekar@gmail.com consolidating information about Indian Diet with subject "India diet" and message body as consolidated text.
+
+send email using himalaya to bmadhekar@gmail.com consolidating information about Modi's prime ministership in India with subject "Modi" and message body as consolidated text.
