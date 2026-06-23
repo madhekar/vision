@@ -115,3 +115,32 @@ The exact error message you see when running cargo buildI can help you troublesh
 ❌ send_message_to_peer (0s): target "18589522575" is not on agent "zmedia"'s resolved peer set for channel "whatsapp"; add a [peer_groups.<name>] entry that lists both this agent and the target before sending
 🤔 Thinking (round 2)...
 The message could not be sent because the recipient `18589522575` is not in my authorized WhatsApp contact list. I need to be part of a shared peer group with that number to send messages to it.
+
+----
+
+toml[agents.admin]
+system_prompt = "You are the head system admin. You coordinate tasks and have access to the file system."
+tools = ["shell", "file"]
+provider = "ollama"
+model = "deepseek-coder"
+timeout_seconds = 120
+
+[agents.researcher]
+system_prompt = "You are a research assistant. Scour the web and summarize findings concisely."
+tools = ["web_search", "http"]
+provider = "openai"
+model = "gpt-4o"
+timeout_seconds = 60
+
+--
+[channels.whatsapp]
+enabled = true
+mode = "personal"
+session_path = "/var/lib/zeroclaw/whatsapp.session"
+
+# Peer group routing
+group_policy = "allowlist"
+allowed_groups = ["120363406148723745@g.us"] # Replace with your specific WhatsApp group JID
+
+dm_policy = "allowlist"
+allowed_numbers = ["+15551234567"]
