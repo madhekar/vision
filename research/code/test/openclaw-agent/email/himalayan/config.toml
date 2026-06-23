@@ -20,7 +20,7 @@ backend.port = 993
 backend.encryption.type = "tls"
 backend.login = "bmadhekar@gmail.com"
 backend.auth.type = "password"
-backend.auth.raw = "qcjqoqccvqtyzelp"  # Securely fetches password via password manager
+backend.auth.raw = "unknown"  # Securely fetches password via password manager
 
 # Outbound email configuration (SMTP)
 message.send.backend.type = "smtp"
@@ -29,7 +29,7 @@ message.send.backend.port = 587
 message.send.backend.encryption.type = "start-tls"
 message.send.backend.login = "bmadhekar@gmail.com"
 message.send.backend.auth.type = "password"
-message.send.backend.auth.raw = "qcjqoqccvqtyzelp"
+message.send.backend.auth.raw = "unknown"
 
 # Folder synchronization aliases (Optional: Useful for services like Gmail)
 [accounts.personal.folder.aliases]

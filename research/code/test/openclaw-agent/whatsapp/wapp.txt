@@ -87,3 +87,15 @@ Validation performed:
 All targeted checks/tests passed in this environment.
 
 Sorry for the turnaround time, and thank you for the detailed design context in this thread.
+
+
+------
+
+To resolve this error, you need to manually rebuild the ZeroClaw binary using the specific build flag for the WhatsApp Web feature. 
+By default, ZeroClaw builds without it to save on dependencies.Step-by-Step FixOpen your terminal and navigate to the directory 
+where your ZeroClaw project is located:bashcd zeroclaw
+Use code with caution.Recompile the project with the whatsapp-web feature flag enabled by running:bash
+
+cargo build --features whatsapp-web --release
+
+Use code with caution.(Alternatively, if you are using cargo install, you can use cargo install --path . --features whatsapp-web --force)Once the build completes, restart your ZeroClaw daemon or run the onboard wizard again to pair your WhatsApp session using the QR code.If the compilation still fails or if you run into WebSocket issues while generating the QR code, tell me:What Operating System you are using (e.g., Ubuntu, Windows, Docker)The exact error message you see when running cargo buildI can help you troubleshoot the build.
