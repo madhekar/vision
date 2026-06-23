@@ -1,0 +1,11 @@
+A ZeroClaw daemon or another service may already be running on this port.
+Try one of:
+
+    open http://127.0.0.1:42617
+    zeroclaw gateway get-paircode
+    zeroclaw gateway start --port 42618
+
+To inspect the listener:
+    lsof -nP -iTCP:42617 -sTCP:LISTEN
+
+----

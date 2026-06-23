@@ -1,0 +1,117 @@
+ZeroClaw's WhatsApp channel (src/channels/whatsapp.rs) currently only supports the WhatsApp Business Cloud API, which requires:
+
+    A Meta developer account and business verification
+    A dedicated phone number registered through Meta Business Suite
+    A publicly reachable HTTPS endpoint for webhook delivery
+    An access token, phone number ID, app secret, and verify token
+    Template message approval for outbound messaging
+
+This is a significant barrier for personal use, small teams, CI/CD agents, and self-hosted deployments. Most users already have a personal WhatsApp account and just want to connect their agent to it — the same way they'd link WhatsApp Web to a browser.
+
+OpenClaw solved this by using the WhatsApp Web multi-device protocol (via Baileys), allowing users to connect with a simple QR code scan from their phone. No Meta approval, no webhooks, no business verification. This is their most popular channel integration with 5,000+ active installations.
+Proposal
+
+Add a WhatsApp Web channel (WhatsAppWebChannel) that connects via the WhatsApp Web multi-device protocol, alongside the existing Business API channel. Users should be able to choose either method based on their needs.
+Recommended approach
+
+Use the whatsapp-rust crate (v0.2.0, MIT license) — a pure Rust implementation of the WhatsApp Web protocol inspired by whatsmeow (Go) and Baileys (TypeScript). Key properties:
+
+    Pure Rust, async/await, Tokio-native — fits ZeroClaw's stack perfectly
+    QR code and pair-code authentication — scan from phone or enter a code
+    Persistent sessions with auto-reconnect — survives gateway restarts
+    E2E encrypted messages (Signal Protocol) — privacy preserved
+    SQLite storage backend — session state persists across restarts
+    Modular architecture — pluggable storage, transport, HTTP client
+    Groups, media, reactions, typing indicators — full feature set
+    No browser dependency — pure WebSocket protocol, no Selenium/Puppeteer
+
+Architecture
+
+The implementation fits cleanly into ZeroClaw's existing channel trait system:
+
+[channels.whatsapp_web]          # NEW — WhatsApp Web protocol
+mode = "personal"                # or "dedicated" for separate number
+auth_dir = "~/.zeroclaw/state/whatsapp_web"
+dm_policy = "allowlist"          # "allowlist" | "pairing" | "open"
+allowed_numbers = ["+15551234567"]
+group_policy = "ignore"          # "ignore" | "allowlist" | "mention_only"
+
+New files
+File 	Purpose
+src/channels/whatsapp_web.rs 	WhatsAppWebChannel implementing Channel trait
+src/config/schema.rs 	WhatsAppWebConfig struct (parallel to existing WhatsAppConfig)
+Channel trait mapping
+Trait method 	WhatsApp Web implementation
+name() 	"whatsapp_web"
+listen() 	Event loop on whatsapp-rust Bot events — receives messages in real-time via WebSocket
+send() 	client.send_message(jid, message) — direct send, no webhook needed
+health_check() 	Check WebSocket connection state
+start_typing() / stop_typing() 	client.set_chat_presence(Composing/Paused)
+supports_draft_updates() 	true — WhatsApp supports message editing
+Authentication flow
+
+    User runs zeroclaw channels login --channel whatsapp_web
+    Gateway displays QR code in terminal (or pair code for headless)
+    User scans with WhatsApp on their phone (Settings > Linked Devices)
+    Session credentials stored in auth_dir (encrypted SQLite)
+    Subsequent starts auto-reconnect without re-scanning
+
+Security model
+Control 	Implementation
+DM allowlist 	allowed_numbers in config — same pattern as existing WhatsApp Business channel
+Pairing mode 	Optional one-time bind code (like Telegram's /bind) for first-contact approval
+Group filtering 	group_policy controls whether agent responds in groups
+Rate limiting 	Existing SecurityPolicy rate limiter applies
+Self-chat mode 	Optional self_chat_mode = true for using your own number to talk to the agent
+
+
+-----
+
+
+What was fixed deeply:
+
+    Resolved WhatsApp Web feature build break (ChannelMessage.thread_ts now populated).
+    Enforced consistent allowlist semantics (allowed_numbers = [] now deny-all; "*" allow-all).
+    Fixed inbound routing to reply to originating chat JID (DM/group-safe) and skipped empty/non-text payloads.
+    Hardened outbound/typing recipient handling to support JID recipients without incorrect E.164 allowlist rejection.
+    Added explicit ambiguous-config detection/warning when both Cloud and Web selectors are set; preserved Cloud precedence for backward compatibility.
+    Extended onboarding wizard with mode selection (WhatsApp Web vs Cloud API).
+    Updated README + channel/config references to document dual-backend behavior and setup.
+
+Validation performed:
+
+    cargo check --no-default-features --features whatsapp-web
+    cargo test --no-default-features --features whatsapp-web whatsapp_web_ -- --nocapture
+    cargo test --no-default-features --features whatsapp-web whatsapp_config_backend_type_ -- --nocapture
+
+All targeted checks/tests passed in this environment.
+
+Sorry for the turnaround time, and thank you for the detailed design context in this thread.
+
+
+------
+
+To resolve this error, you need to manually rebuild the ZeroClaw binary using the specific build flag for the WhatsApp Web feature. 
+By default, ZeroClaw builds without it to save on dependencies.Step-by-Step FixOpen your terminal and navigate to the directory 
+where your ZeroClaw project is located:bashcd zeroclaw
+Use code with caution.Recompile the project with the whatsapp-web feature flag enabled by running:bash
+
+cargo build --features whatsapp-web --release
+
+Use code with caution.(Alternatively, if you are using cargo install, you can use 
+
+cargo install --path . --features whatsapp-web --force
+
+)Once the build completes, restart your ZeroClaw daemon or run the onboard wizard again to pair your WhatsApp session using the QR code.
+If the compilation still fails or if you run into WebSocket issues while generating the QR code, tell me:What Operating System you are using (e.g., Ubuntu, Windows, Docker)
+The exact error message you see when running cargo buildI can help you troubleshoot the build.
+
+----
+
+> send whatsapp message to 18589522575 "hi how re u?"
+🤔 Thinking...
+💬 Got 1 tool call(s) (228s)
+⏳ send_message_to_peer
+❌ send_message_to_peer (0s): target "18589522575" is not on agent "zmedia"'s resolved peer set for channel "whatsapp"; add a [peer_groups.<name>] entry that lists both this agent and the target before sending
+🤔 Thinking (round 2)...
+The message could not be sent because the recipient `18589522575` is not in my authorized WhatsApp contact list. I need to be part of a shared peer group with that number to send messages to it.
