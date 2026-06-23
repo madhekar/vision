@@ -134,7 +134,7 @@ model = "gpt-4o"
 timeout_seconds = 60
 
 --
-[channels.whatsapp]
+[channels.whatsapp.zwhatsapp]
 enabled = true
 mode = "personal"
 session_path = "/var/lib/zeroclaw/whatsapp.session"
