@@ -106,9 +106,24 @@ cargo install --path . --features whatsapp-web --force
 If the compilation still fails or if you run into WebSocket issues while generating the QR code, tell me:What Operating System you are using (e.g., Ubuntu, Windows, Docker)
 The exact error message you see when running cargo buildI can help you troubleshoot the build.
 
+The important clue is that the runtime is reporting the WhatsApp Cloud API validation error even though the config shown is for personal WhatsApp Web mode. 
+In current config selection, WhatsApp Web mode depends on session_path; mode = "personal" and pair_phone do not select the Web backend by themselves. 
+So this likely needs either an onboarding fix that writes the required Web session_path, or a clearer validation/error path when personal Web setup is missing it.
+
+@justjuangui if you take this PR, please keep that distinction in the fix: personal/QR pairing should end up on the Web backend path, not the Cloud API path, 
+and the error should tell the user what field is missing if onboarding cannot complete it automatically. 
+This is related to the broader WhatsApp Web repair work in #6246 / #6706, but I would keep this issue focused on the onboarding/backend-selection failure.
+
+[channels.whatsapp_web]          # NEW — WhatsApp Web protocol
+mode = "personal"                # or "dedicated" for separate number
+auth_dir = "~/.zeroclaw/state/whatsapp_web"
+dm_policy = "allowlist"          # "allowlist" | "pairing" | "open"
+allowed_numbers = ["+15551234567"]
+group_policy = "ignore"          # "ignore" | "allowlist" | "mention_only"
+
 ----
 
-> send whatsapp message to 18589522575 "hi how re u?"
+> send whatsapp message to +18589522575 "hi how re u?"
 🤔 Thinking...
 💬 Got 1 tool call(s) (228s)
 ⏳ send_message_to_peer
