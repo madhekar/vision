@@ -1,0 +1,189 @@
+schema_version = 3
+
+[memory]
+backend = "sqlite.sqlite"
+
+
+
+[agents]
+
+[agents.zmedia]
+runtime_profile = "unbounded"
+model_provider = "ollama.default"
+risk_profile = "yolo"
+
+[agents.admin]
+system_prompt = "You are the head system admin. You coordinate tasks and have access to the file system."
+tools = ["shell", "file"]
+model_provider = "ollama.default"
+model =   "nomic-embed-text:v1.5" #"deepseek-coder"
+timeout_seconds = 120
+risk_profile = "hardened"
+
+[risk_profiles.hardened]
+level = "supervised"
+
+[agents.researcher]
+system_prompt = "You are a research assistant. Scour the web and summarize findings concisely."
+tools = ["web_search", "http"]
+model_provider = "ollama.default" #"openai"
+model = "nomic-embed-text:v1.5" #"gpt-4o"
+timeout_seconds = 60
+risk_profile = "hardened"
+
+[onboard_state]
+quickstart_completed = true
+
+[gateway]
+allow_public_bind = false
+web_dist_dir = "/home/madhekar/work/zeroclaw/web/dist"
+paired_tokens = ["enc2:577d8e74b58baecf9fd7031ee2af9f7104beb7616a0e7e7c9a9bfb107a4dda47032d13a6c39c7f3d249f8e050538ee1a21ab3d8b4424a22df9c83d706f9fee862b66f1962a8fe5f7347e5366533f08d3fb31342ade469ed50d25e609"]
+
+[risk_profiles]
+
+[risk_profiles.yolo]
+allowed_commands = ["*"]
+block_high_risk_commands = false
+level = "full"
+require_approval_for_medium_risk = false
+sandbox_enabled = false
+workspace_only = false
+
+[runtime_profiles.unbounded]
+agentic = true
+agentic_timeout_secs = 1800
+compact_context = false
+delegation_timeout_secs = 900
+keep_tool_context_turns = 8
+max_actions_per_hour = 4294967295
+max_context_tokens = 128000
+max_cost_per_day_cents = 4294967295
+max_delegation_depth = 8
+max_history_messages = 200
+max_system_prompt_chars = 64000
+max_tool_iterations = 100
+max_tool_result_chars = 64000
+memory_recall_limit = 10
+parallel_tools = true
+shell_timeout_secs = 600
+strict_tool_parsing = false
+
+[risk_profiles.yolo.delegation_policy]
+mode = "forbidden"
+
+[runtime_profiles]
+
+[runtime_profiles.unbounded.context_compression]
+enabled = true
+identifier_policy = "strict"
+max_passes = 3
+protect_first_n = 3
+protect_last_n = 4
+source_max_chars = 50000
+summary_max_chars = 4000
+threshold_ratio = 0.5
+timeout_secs = 60
+tool_result_retrim_chars = 2000
+
+[runtime_profiles.unbounded.eval]
+enabled = false
+max_retries = 1
+min_quality_score = 0.5
+
+[runtime_profiles.unbounded.history_pruning]
+collapse_tool_results = true
+enabled = false
+keep_recent = 4
+max_tokens = 8192
+
+[runtime_profiles.unbounded.thinking]
+default_level = "medium"
+native_thinking = false
+
+[runtime_profiles.unbounded.tool_receipts]
+enabled = false
+inject_system_prompt = true
+show_in_response = false
+
+[providers]
+
+[providers.models]
+
+[providers.models.ollama]
+
+[providers.models.ollama.default]
+
+# "ollama" triggers the native Ollama API behavior
+provider = "ollama"
+# Make sure your base URL points directly to port 11434 without /v1
+url = "http://localhost:11434"
+# Use the exact model name and tag you pulled into Ollama
+model = "gemma4:26b"
+
+[providers.models.embedding]
+provider = "ollama"
+url = "http://localhost:11434"
+# Use a smaller embedding model
+model = "nomic-embed-text:v1.5"
+
+[autonomy]
+level = "full"                     # Allows maximum command execution privileges
+block_high_risk_commands = false   # Allows specific shell tools if needed
+workspace_only = false             # Lets the agent look at absolute paths
+
+allowed_commands = [
+    "himalaya-repl", 
+    "which himalaya-repl"
+]
+
+allowed_roots = [
+    "~/.config/himalaya",
+    "~/.config/zeroclaw",
+    "~/.cargo/bin/himalaya-repl"
+    "~/.zeroclaw"
+]
+
+[observability]
+enabled=true
+backend = "prometheus"
+
+[channels]
+
+#[channels.whatsapp.default]
+#approval_timeout_secs = 0
+#dm_policy = "allowlist"
+#enabled = true
+#group_policy = "allowlist"
+#interrupt_on_new_message = false
+#mention_only = false
+#mode = "personal"
+#reply_min_interval_secs = 0
+#reply_queue_depth_max = 0
+#self_chat_mode = false
+#excluded_tools = ["shell", "file_read", "file_write", "file_edit"]
+
+#[channels_config.whatsapp]
+#session_path =  "~/.zeroclaw/data/sessions/whatsapp.session.db"# "~/.zeroclaw/state/whatsapp-web/session.db"
+#pair_phone = "+18589522575"   # optional; omit to use QR flow
+#pair_code = ""               # optional custom pair code
+#allowed_numbers = ["*"]  # E.164 format, or ["*"] for all
+
+[channels.whatsapp.zwhatsapp]
+enabled = true
+mode = "personal"
+session_path = "~/.zeroclaw/data/sessions/whatsapp.session.db"
+
+# Peer group routing
+group_policy = "allowlist"
+allowed_groups = ["AC7604BC299644921E7E305E465D883C@g.us"] # Replace with your specific WhatsApp group JID
+
+dm_policy = "allowlist"
+allowed_numbers = ["*"]
+external_peers = ["+18589522575"]
+
+
+[peer_groups.zwhatsapp]
+members=['zmedia','+18589522575']
+#agents = ["zmedia"]
+external_peers = ["+18589522575"]
+#channels = ["whatsapp.zwhatsapp"]
