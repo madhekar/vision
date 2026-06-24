@@ -33,6 +33,17 @@ madhekar@madhekar-UM690:~/work/vision/research/code$ himalaya --debug account li
 |---------------------------------|---------------------------------|------------------------------|
 | bmadhekar                       | IMAP, SMTP                      | yes                          |
 
+
+himalaya message write -H "To:bmadhekar@gmail.com" -H "Subject: subject text here" "Message body here"
+
+cat << 'EOF' | himalaya template send
+From: bmadhekar@gmail.com
+To: recipient@example.com
+Subject: replace this subject
+
+replace with actual message text.
+EOF
+
 '''
 
 send email to bmadhekar@gmail.com consolidating information about USA IRAN deal with subject "Iran deal" and message body as consolidated text.
