@@ -44,14 +44,30 @@ Subject: replace this subject
 replace with actual message text.
 EOF
 
+The 600s (10-minute) limit is a hard ceiling in the agent's shell environment. Once a task exceeds this time, 
+the process is killed to prevent runaway resources or system lockups.
 
+To bypass this issue, use one of the following methods depending on your exact setup:
+
+Update your config.toml: 
+If you have access to the agent's core config, you can override the default execution threshold. Open the file and adjust the timeoutSeconds setting under your execution defaults.
+
+Explicitly instruct the LLM: The execution timeout is passed dynamically as a parameter to the shell tool. You can guide the agent in your prompt to set a longer duration 
+(e.g., "Run this command and use a timeout of 1800 seconds").
+
+Run tasks in the background: For processes like heavy installations or compiles, append & or use nohup (e.g., nohup your_command > output.log 2>&1 &). 
+This detaches the process from the agent's direct execution tracking, allowing the process to finish in the host OS without killing your active session.
+If you want to troubleshoot this further, let me know:What specific command is timing out?Are you using the default settings or customizing your config.toml?
+
+I can help optimize the script or suggest the exact command-line flags to bypass the limit.
 
 '''
+summerize the latest 5 emails in my indox.
 
 send email to bmadhekar@gmail.com consolidating information about USA IRAN deal with subject "Iran deal" and message body as consolidated text.
 
 send email using himalaya to bmadhekar@gmail.com consolidating information about Indian Diet with subject "India diet" and message body as consolidated text.
 
-send email using himalaya to bmadhekar@gmail.com consolidating information about Modi's prime ministership in India with subject "Modi" and message body as consolidated text.
+send email using himalayan skills at /home/madhekar/.zeroclaw/data/skills/himalayan to bmadhekar@gmail.com consolidating information about Modi's prime ministership in India with subject "Modi" and message body as consolidated text.
 
 
