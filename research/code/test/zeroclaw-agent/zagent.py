@@ -154,8 +154,16 @@ EOF
 ollama create gemma4:26b-1 -f Modelfile
 '''
 
+'''
+cat <<EOF > ModelFile
+FROM gemma4:26b
+PARAMETER num_ctx 131072
+PARAMETER num_gpu 999
+PARAMETER num_thread 16
+EOF
 
-
+ollama create gemma4:26b-ctx-gpu-thread -f Modelfile
+'''
 '''
 Configuring ChromaDB for ZeroClaw skills involves spinning up a ChromaDB container, configuring an embedding model, and updating your config.toml file to integrate it with the chromadb-memory skill.Step 1: Run ChromaDB and Embedding ModelsZeroClaw relies on an external vector database for its advanced memory and skill retrieval capabilities.Start ChromaDB (via Docker): Run the following command in your terminal:bashdocker run -d --name chromadb -p 8100:8000 chromadb/chroma:latest
 Pull an Embedding Model: ZeroClaw requires a text embedder. Pull the nomic-embed-text model via Ollama with:bashollama pull nomic-embed-text
