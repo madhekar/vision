@@ -1,0 +1,51 @@
+In the context of the Rust-based AI agent ZeroClaw, a ChromaDB skill is an agent extension that enables your assistant to query and update a local vector database to achieve long-term memory or Retrieval-Augmented Generation (RAG).The integration works by embedding a user's prompt via your local language model (like Ollama), querying ChromaDB for the closest neighbors, and injecting that historical context into the agent's active memory.Typical Skill Structure (SKILL.md)A custom ChromaDB skill in ZeroClaw uses a structured file—often maintained in the user community's zeroclaw-skills repository on GitHub—that pairs natural language instructions with executable logic:yaml---
+name: chromadb-memory
+version: 1.0.0
+description: "Long-term memory via local ChromaDB vector store"
+author: "zeroclaw-community"
+dependencies:
+  - ollama
+  - python-chromadb
+---
+
+# Instruction for ZeroClaw
+Whenever the user asks "Do you remember..." or mentions a past event, trigger the `query_memory` tool. 
+
+# Tool Definitions
+[Tool: query_memory]
+- trigger: "Search memories"
+- execution: "python3 scripts/chroma_search.py --query '{{user_input}}'"
+- output_injection: "Add the returned context to <chromadb-memories>"
+
+Use code with caution.How the Process FlowsTrigger: You send a query to ZeroClaw (e.g., "What were the sales forecasts we discussed last week?").
+Embedding & Search: The agent's skill pipeline embeds your message using a local model (e.g., nomic-embed-text with 768 dimensions) and queries ChromaDB 
+for nearest matches.Context Injection: Results that exceed a minimum similarity score are automatically appended to your agent’s active context.Agent Response: 
+The AI answers with access to the retrieved knowledge base.Practical Implementation ExampleA ChromaDB skill relies on an external script or API call to interact 
+directly with your database. A standard Python execution script for this tool would look like this:pythonimport chromadb
+from sentence_transformers import SentenceTransformer
+
+# Connect to local ChromaDB instance
+client = chromadb.PersistentClient(path="/home/user/.zeroclaw/workspace/chroma_db")
+collection = client.get_collection(name="agent_memories")
+
+# Embed incoming query
+model = SentenceTransformer('nomic-embed-text')
+query_text = "past sales forecasts"
+query_embedding = model.encode(query_text).tolist()
+
+# Search the vector store
+results = collection.query(
+    query_embeddings=[query_embedding],
+    n_results=3
+)
+
+# Return nearest documents to ZeroClaw
+for doc in results['documents'][0]:
+    print(f"Memory found: {doc}")
+Use code with caution.Managing Your SkillsInstalling Skills: You can search and add community-contributed skills directly using the CLI: 
+zeroclaw skills install chromadb-memory.Configuration: Core behavior guidelines and data paths are configured in your TOML file at ~/.zeroclaw/config.toml.If you're 
+looking to build your own, let me know what specific files or data sources you are trying to feed to your agent so we can outline the exact implementation steps!9 
+siteschromadb-memory | Skills Marketplace - LobeHubJun 8, 2026 — How It Works * You send a message. * Plugin embeds your message via Ollama (nomic-embed-text, 768 dimensions) 
+* Queries ChromaDB f...LobeHubzeroclaw-labs/zeroclaw-skills: Official skill registry for ... - GitHubJun 23, 2026 — The registry lists them and CI checks structure; 
+we make no representation about the author's identity, intent, or the skill's run...GitHubI need some help with skills and usage · zeroclaw-labs ... - GitHubJun 16, 2026 — 
+Check zeroclaw logs for errors connecting to Ollama. Skills installed but not found: Skills are installed under the skills/ direct...GitHubShow all        
