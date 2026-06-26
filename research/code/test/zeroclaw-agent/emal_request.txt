@@ -62,12 +62,13 @@ If you want to troubleshoot this further, let me know:What specific command is t
 I can help optimize the script or suggest the exact command-line flags to bypass the limit.
 
 '''
-summerize the latest 5 emails in my indox.
+
+Run this command and use a timeout of 1800 seconds. summerize the latest 5 emails in my indox. 
 
 send email to bmadhekar@gmail.com consolidating information about USA IRAN deal with subject "Iran deal" and message body as consolidated text.
 
-send email using himalaya to bmadhekar@gmail.com consolidating information about Indian Diet with subject "India diet" and message body as consolidated text.
+Run this command and use a timeout of 1800 seconds. send email using himalaya to bmadhekar@gmail.com consolidating information about Indian Diet with subject "India diet" and message body as consolidated text.
 
-send email using himalayan skills at /home/madhekar/.zeroclaw/data/skills/himalayan to bmadhekar@gmail.com consolidating information about Modi's prime ministership in India with subject "Modi" and message body as consolidated text.
+Run this command and use a timeout of 1800 seconds. send email using himalayan skills to bmadhekar@gmail.com consolidating information about Modi's prime ministership in India with subject "Modi" and message body as consolidated text.
 
 

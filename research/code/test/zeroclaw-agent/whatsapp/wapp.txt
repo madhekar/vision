@@ -121,8 +121,32 @@ dm_policy = "allowlist"          # "allowlist" | "pairing" | "open"
 allowed_numbers = ["+15551234567"]
 group_policy = "ignore"          # "ignore" | "allowlist" | "mention_only"
 
-----
+*****
+[channels.whatsapp.zwhatsapp]
+enabled = true
+mode = "personal"
+session_path = "~/.zeroclaw/data/sessions/whatsapp.session.db"
 
+# Peer group routing
+group_policy = "allowlist"
+allowed_groups = ["AC7604BC299644921E7E305E465D883C@g.us"] # Replace with your specific WhatsApp group JID
+
+dm_policy = "allowlist"
+allowed_numbers = ["+18589522575"]
+external_peers = ["+18589522575"]
+
+[peer_groups.zwhatsapp]
+members = [ "zmedia", '+18589522575']
+targets=['+18589522575']
+agents = ["zmedia"]
+#external_peers = ["+18589522575"]
+
+*****
+
+----
+suggest fix in my current toml configuration /home/madhekar/.zeroclaw/config.toml
+
+send_message_to_peer(channel="zwhatsapp", target="+18589522575", message="hi how re u?")
 > send whatsapp message to +18589522575 "hi how re u?"
 🤔 Thinking...
 💬 Got 1 tool call(s) (228s)
@@ -187,3 +211,37 @@ reply_queue_depth_max = 0
 self_chat_mode = false
 excluded_tools = ["shell", "file_read", "file_write", "file_edit"]
 pair_phone = "18589522575"
+
+
+To enable messaging to a specific recipient, you need to define a shared **peer group** in my configuration. This ensures that I only communicate with authorized contacts.
+
+Here are some examples of how these configurations typically look:
+
+### 1. WhatsApp Example (The one you need)
+If you want me to be able to message `+18589522575` on WhatsApp, the configuration needs an entry like this:
+```ini
+[peer_groups.whatsapp_contacts]
+agents = ["zmedia"]
+targets = ["+18589522575", "+1234567890"]
+```
+
+### 2. Telegram Example
+To allow me to chat with a specific user or group on Telegram:
+```ini
+[peer_groups.telegram_friends]
+agents = ["zmedia"]
+targets = ["@user_handle", "123456789"]
+```
+
+### 3. Discord Example
+If I am managing a subset of Discord channels:
+```ini
+[peer_groups.discord_support]
+agents = ["zmedia"]
+targets = ["112233445566778899"]  # Channel or User ID
+```
+
+**Summary of what's required:**
+*   **`agents`**: My identifier (e.g., `zmedia`).
+*   **`targets`**: The recipient's identifier (the phone number, handle, or ID).
+*   **The Connection**: Both the agent and the target must be listed in the same group for the "resolved peer set" to match.
