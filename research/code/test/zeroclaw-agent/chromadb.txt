@@ -49,3 +49,10 @@ siteschromadb-memory | Skills Marketplace - LobeHubJun 8, 2026 — How It Works 
 * Queries ChromaDB f...LobeHubzeroclaw-labs/zeroclaw-skills: Official skill registry for ... - GitHubJun 23, 2026 — The registry lists them and CI checks structure; 
 we make no representation about the author's identity, intent, or the skill's run...GitHubI need some help with skills and usage · zeroclaw-labs ... - GitHubJun 16, 2026 — 
 Check zeroclaw logs for errors connecting to Ollama. Skills installed but not found: Skills are installed under the skills/ direct...GitHubShow all        
+
+
+Implementing Skills in ZeroClawIf you are adding this query skill directly into the ZeroClaw architecture, 
+community plugins and workflows use a SKILL.md file. The registry allows developers to pin script parameters (like URLs and collection limits) 
+directly into the agent's toolbelt.If you'd like, let me know:Is your ChromaDB instance running locally or remotely?Are you looking to wire this 
+up as an MCP (Model Context Protocol) tool for the ZeroClaw agent?What embedding model do you currently use for your documents?I can help generate the exact 
+configuration files or specific API integrations you need.
