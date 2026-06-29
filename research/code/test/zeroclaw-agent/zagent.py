@@ -424,4 +424,6 @@ openclaw gateway start
 
  journalctl -u zeroclaw --since "10 minutes ago"
 
+ 
+ cargo install --locked --path . --features "whatsapp-web embedded-web"   -- try it
 '''
