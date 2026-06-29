@@ -245,3 +245,47 @@ targets = ["112233445566778899"]  # Channel or User ID
 *   **`agents`**: My identifier (e.g., `zmedia`).
 *   **`targets`**: The recipient's identifier (the phone number, handle, or ID).
 *   **The Connection**: Both the agent and the target must be listed in the same group for the "resolved peer set" to match.
+
+
+-----
+
+
+When attempting to compile or run the ZeroClaw WhatsApp Web channel, users generally face a few specific issues related to feature flags, runtime errors, and connectivity.
+
+The primary compilation and runtime issues can be addressed with the following solutions:1. 
+
+1. Compilation Failures (Missing Features / Flags)
+
+The Issue: Attempting to run cargo install or cargo build without explicitly telling the Rust compiler to include WhatsApp Web support results in missing channel errors.
+
+The Fix: ZeroClaw disables the WhatsApp Web feature by default to save memory. 
+Clean and rebuild your project using the dedicated feature flag:
+
+cargo build --release --locked --features whatsapp-web
+
+Afterward, install locally with:
+
+cargo install --path . --force --locked
+
+2. Rust Library (wa-rs) Threading Errors
+
+The Issue: On certain versions, compiling with --features whatsapp-web results in Tokio runtime errors (e.g., future cannot be sent between threads safely) 
+within src/channels/whatsapp_web.rs.
+
+The Fix: Ensure you are running the latest version of the repository. Check your code against the official ZeroClaw 
+
+Issues Board for upstream patches related to the wa-rs wrapper.
+
+3. Runtime Issue: QR Code Fails to Render in Terminal
+
+The Issue: During the zeroclaw onboard --channels-only setup, the onboard wizard prompts you to scan the code, but no QR code graphic prints to the console.
+
+The Fix: This is typically caused by session database conflicts. 
+Delete your stale session files and restart the onboard flow from scratch:rm -rf ~/.zeroclaw/state/whatsapp-web/session.dbzeroclaw onboard --channels-only4. 
+Runtime Issue: "No Active WhatsApp Web Listener"The Issue: The logs indicate the channel is connected and linked, but messages fail to send or the bot fails to respond.The Fix: 
+
+The WhatsApp Web WebSocket connection can silently go stale or die. Restart the daemon or gateway process to re-establish the connection:zeroclaw gateway restart 
+(or send a SIGUSR1 kill signal to the gateway PID).5. Known Channel LimitationsMedia Dropped: The native WhatsApp Web channel in ZeroClaw only processes text messages; 
+voice notes, images, and documents are silently ignored.No web_fetch: Using advanced tools like web_fetch directly inside WhatsApp Web chats is currently unsupported; 
+the bot will state it cannot use the web browser tool inside the WhatsApp environment.If you tell me what exact error logs you are seeing (or which version of 
+ZeroClaw/Rust you are running), I can help provide a more specific command to resolve your compilation block!
