@@ -422,7 +422,6 @@ openclaw gateway start
 
  cargo build --features whatsapp-web
 
-
  journalctl -u zeroclaw --since "10 minutes ago"
 
 '''
