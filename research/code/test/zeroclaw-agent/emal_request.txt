@@ -63,7 +63,7 @@ I can help optimize the script or suggest the exact command-line flags to bypass
 
 '''
 
-Run this command and use a timeout of 1800 seconds. summerize the latest 2 emails in my indox. 
+Run this command and use a timeout of 1800 seconds. use himalaya skill to summerize the latest 2 emails in my indox. 
 
 send email to bmadhekar@gmail.com consolidating information about USA IRAN deal with subject "Iran deal" and message body as consolidated text.
 

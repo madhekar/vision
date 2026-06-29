@@ -122,7 +122,7 @@ allowed_numbers = ["+15551234567"]
 group_policy = "ignore"          # "ignore" | "allowlist" | "mention_only"
 
 *****
-[channels.whatsapp.zwhatsapp]
+[channels]
 enabled = true
 mode = "personal"
 session_path = "~/.zeroclaw/data/sessions/whatsapp.session.db"
@@ -147,7 +147,7 @@ agents = ["zmedia"]
 suggest fix in my current toml configuration /home/madhekar/.zeroclaw/config.toml
 
 send_message_to_peer(channel="zwhatsapp", target="+18589522575", message="hi how re u?")
-> send whatsapp message to +18589522575 "hi how re u?"
+> send whatsapp message to +18589522575 "hi how re u?" using watsapp channel.
 🤔 Thinking...
 💬 Got 1 tool call(s) (228s)
 ⏳ send_message_to_peer
