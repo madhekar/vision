@@ -392,4 +392,38 @@ I was unable to send the email because `himalaya` does not have a configured bac
 The command itself is now correctly formatted, but it requires an active account configuration to function.
 
 
+zeroclaw self-test
+
+  ✓ 1/12 config — loaded from /home/madhekar/.zeroclaw/config.toml
+  ✓ 2/12 workspace — /home/madhekar/.zeroclaw/data (writable)
+  ✓ 3/12 sqlite — memory.db opens and responds
+  ✓ 4/12 model_providers — 74 model providers available
+  ✓ 5/12 tools — 3 enabled agent(s); 6 core tools per registry
+  ✗ 6/12 channels — 6 compiled channel types, 1 compiled/configured; configured but not compiled: WhatsApp. Build from source with `./install.sh --source --preset full`, `--features channels-full`, or the specific `channel-*` feature.
+  ✓ 7/12 security — zmedia=Full, admin=Supervised, researcher=Supervised
+  ✓ 8/12 version — v0.8.1
+  ✓ 9/12 web_dist_dir — /home/madhekar/work/zeroclaw/web/dist (literal path)
+  ✓ 10/12 gateway — health OK at http://127.0.0.1:3011/health
+  ✓ 11/12 memory — write/read/delete round-trip OK
+  ✗ 12/12 websocket — handshake failed at ws://127.0.0.1:3011/ws/chat: HTTP error: 401 Unauthorized
+
+
+  # 1. Stop any currently running background instance
+openclaw gateway stop
+
+# 2. Re-initialize the service settings
+openclaw gateway install --force
+
+# 3. Start it back up
+openclaw gateway start
+
+
+./install.sh --source --preset full --features channels-full
+
+ cargo build --features whatsapp-web
+
+ journalctl -u zeroclaw --since "10 minutes ago"
+
+ 
+ cargo install --locked --path . --features "whatsapp-web embedded-web"   -- try it
 '''
