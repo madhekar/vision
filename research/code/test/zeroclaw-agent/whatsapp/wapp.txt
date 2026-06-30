@@ -147,7 +147,7 @@ agents = ["zmedia"]
 suggest fix in my current toml configuration /home/madhekar/.zeroclaw/config.toml
 
 send_message_to_peer(channel="zwhatsapp", target="+18589522575", message="hi how re u?")
-> send whatsapp message to +18589522575 "hi how re u?" using watsapp channel.
+> schedule to send whatsapp message to +18589522575 "hi how re u?" using whatsapp channel in 10.
 🤔 Thinking...
 💬 Got 1 tool call(s) (228s)
 ⏳ send_message_to_peer
@@ -289,3 +289,66 @@ The WhatsApp Web WebSocket connection can silently go stale or die. Restart the 
 voice notes, images, and documents are silently ignored.No web_fetch: Using advanced tools like web_fetch directly inside WhatsApp Web chats is currently unsupported; 
 the bot will state it cannot use the web browser tool inside the WhatsApp environment.If you tell me what exact error logs you are seeing (or which version of 
 ZeroClaw/Rust you are running), I can help provide a more specific command to resolve your compilation block!
+
+
+
+----
+
+To make this work, you need to update the configuration file where your `peer_groups` are defined (likely an MCP config or an agent environment config). You must add an entry that explicitly links this agent (**zmedia**) with the target number (**+1_858_952_2575**).
+
+Here are two specific ways to fix it:
+
+### Option 1: Create a new dedicated group (Recommended)
+This is the cleanest method if you only want to authorize this specific contact for use with this agent.
+
+**Add this to your configuration:**
+```json
+"peer_groups": {
+  "whatsapp_authorized": ["zmedia", "+18589522575"]
+}
+```
+*Then, use the channel name `whatsapp_authorized` in your request.*
+
+### Option 2: Update an existing group
+If you want to use one of the groups I found in my memory (like `whatsapp_contacts`), you must add the number and the agent to that specific list.
+
+**Modify your existing entry like this:**
+```json
+"peer_groups": {
+  "whatsapp_contacts": ["zmedia", "+18589522575", "other_previously_authorized_numbers..."]
+}
+```
+*Then, use the channel name `whatsapp_contacts` in your request.*
+
+### Summary of what to check:
+1.  **The Agent Name:** Ensure the list contains `"zmedia"`.
+2.  **The Target Number:** Ensure it includes `"+18589522575"` exactly as you are typing it in the command.
+3.  **The Channel Reference:** The string used in your `using <channel>` command must match the key name provided in the `peer_groups` object (e.g., if the key is `whatsapp_authorized`, use `whatsapp_authorized`).
+
+
+----
+
+[channels]
+
+[channels.whatsapp.zwhatsapp]
+#peer_group = "whatsapp_contacts"
+enabled = true
+mode = "personal"
+session_path = "~/.zeroclaw/data/sessions/whatsapp.session.db"
+
+# Peer group routing
+group_policy = "allowlist"
+allowed_groups = ["AC7604BC299644921E7E305E465D883C@g.us"] # Replace with your specific WhatsApp group JID
+
+dm_policy = "allowlist"
+allowed_numbers = ["+18589522575", "+18583808555"]
+external_peers = ['zmedia', "+18583808555", "+18589522575"]
+approval_timeout_secs = 600
+excluded_tools = []
+
+[peer_groups.whatsapp.zwhatsapp]
+enabled = true
+members = [ 'zmedia', '+18589522575', '+18583808555', "admin", "researcher"]
+external_peers = ['zmedia', "+18583808555", "+18589522575"]
+targets = ['+18589522575']
+#agents = ["zmedia"]
