@@ -245,3 +245,22 @@ targets = ["112233445566778899"]  # Channel or User ID
 *   **`agents`**: My identifier (e.g., `zmedia`).
 *   **`targets`**: The recipient's identifier (the phone number, handle, or ID).
 *   **The Connection**: Both the agent and the target must be listed in the same group for the "resolved peer set" to match.
+
+
+What was fixed deeply:
+
+Resolved WhatsApp Web feature build break (ChannelMessage.thread_ts now populated).
+Enforced consistent allowlist semantics (allowed_numbers = [] now deny-all; "*" allow-all).
+Fixed inbound routing to reply to originating chat JID (DM/group-safe) and skipped empty/non-text payloads.
+Hardened outbound/typing recipient handling to support JID recipients without incorrect E.164 allowlist rejection.
+Added explicit ambiguous-config detection/warning when both Cloud and Web selectors are set; preserved Cloud precedence for backward compatibility.
+Extended onboarding wizard with mode selection (WhatsApp Web vs Cloud API).
+Updated README + channel/config references to document dual-backend behavior and setup.
+Validation performed:
+
+cargo check --no-default-features --features whatsapp-web
+cargo test --no-default-features --features whatsapp-web whatsapp_web_ -- --nocapture
+cargo test --no-default-features --features whatsapp-web whatsapp_config_backend_type_ -- --nocapture
+All targeted checks/tests passed in this environment.
+
+Sorry for the turnaround time, and thank you for the detailed design context in this thread.
