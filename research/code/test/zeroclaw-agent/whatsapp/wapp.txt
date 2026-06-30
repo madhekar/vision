@@ -352,4 +352,5 @@ members = [ 'zmedia', '+18589522575', '+18583808555', "admin", "researcher"]
 external_peers = ['zmedia', "+18583808555", "+18589522575"]
 targets = ['+18589522575']
 #agents = ["zmedia"]
-openclaw cron add --name "wa-test" --at "+2m" --delete-after-run --announce --channel whatsapp --to "<phone>" --session isolated --timeout-seconds 60 --message "test"
+
+openclaw cron add --name "wa-test" --at "+2m" --delete-after-run --announce --channel whatsapp --to "+18589522575" --session isolated --timeout-seconds 60 --message "test"
