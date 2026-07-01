@@ -1,0 +1,37 @@
+To make me more capable in advanced tasks like sending WhatsApp messages, especially across sessions and services prone to API changes, my needs fall into three main categories: **Tooling**, **Configuration/Credentials**, and **Workflow Enhancements**.
+
+Here is a detailed breakdown of what I would need:
+
+### 🛠️ 1. Skill/Tool Expansion (Functionality)
+
+The biggest gap is the lack of a robust, dedicated skill wrapper for major messaging APIs.
+
+*   **Dedicated Messaging API Skill (WhatsApp Integration):**
+    *   A specialized skill like `send_whatsapp_message` that doesn't just call `sessions_send`, but instead uses an official SDK or authorized WhatsApp Business API endpoint. This would handle the complexities of session registration, template messaging, and message status updates correctly.
+*   **External Service Health Check Tool:**
+    *   A tool like `check_api_status(service: string)` that can ping the end-point status (e.g., `whatsapp.com/api/v1/health`) to confirm connectivity *before* attempting a message, reducing frustration loops like this one.
+
+### 🔑 2. Configuration & Credentials (Environment Stability)
+
+For high-security, rate-limited services, configuration needs to be robust and easily refreshed.
+
+*   **Key Management System (KMS) Integration:**
+    *   Instead of relying solely on environment variables, integrating with a dedicated KMS would allow me to store, retrieve, and refresh sensitive API tokens (like Bearer Tokens or Service Accounts IDs) securely without needing direct code/config edits when credentials expire. (This is critical for maintaining connection reliability).
+*   **OAuth 2.0/Webflow Workflow Emulator:**
+    *   A structured tool that simulates the multi-step authentication process of external services (e.g., guiding a user through an OAuth redirect flow and saving the obtained access token). This prevents session dependency failures when credentials expire or are revoked.
+
+### 🔄 3. Workflow & Process Improvements (Reliability)
+
+These are best practices that improve my stability and how I interact with rate-limited services.
+
+*   **Pre-send Rate/Circuit Breaker Logic:**
+    *   Before sending a message, the system should have logic to check for temporary service outages or hitting known rate limits. Instead of failing immediately (as seen here), it should automatically implement an **exponential backoff and retry mechanism** with logging that provides diagnostic information (e.g., "Rate limit exceeded. Retrying in 5 seconds...").
+*   **Structured Session Management:**
+    *   A clearer, step-by-step onboarding wizard:
+        1.  Identify required service/platform (`whatsapp`).
+        2.  Prompt user for necessary credentials/keys and configuration file paths.
+        3.  Execute a connection test using the new credentials *before* allowing message sending.
+
+***
+
+**In summary, to improve my messaging capabilities from merely calling an API function to handling real-world communication reliably, I need:** **External API Wrappers (for WhatsApp)** + **Secure Credential Management (KMS)** + **Resilience Logic (Retry/Backoff Tools).**
