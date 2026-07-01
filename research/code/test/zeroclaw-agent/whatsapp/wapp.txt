@@ -147,7 +147,7 @@ agents = ["zmedia"]
 suggest fix in my current toml configuration /home/madhekar/.zeroclaw/config.toml
 
 send_message_to_peer(channel="zwhatsapp", target="+18589522575", message="hi how re u?")
-> schedule to send whatsapp message to +18589522575 "hi how re u?" using whatsapp channel in 10.
+> schedule to send whatsapp message to +18589522575 "hi how re u?" using whatsapp channel in 2min.
 🤔 Thinking...
 💬 Got 1 tool call(s) (228s)
 ⏳ send_message_to_peer
@@ -353,4 +353,17 @@ external_peers = ['zmedia', "+18583808555", "+18589522575"]
 targets = ['+18589522575']
 #agents = ["zmedia"]
 
-openclaw cron add --name "wa-test" --at "+2m" --delete-after-run --announce --channel whatsapp --to "+18589522575" --session isolated --timeout-seconds 60 --message "test"
+cron add --name "wa-test" --at "+2m" --delete-after-run --announce --channel whatsapp --to "+18589522575" --session isolated --timeout-seconds 600 --message "test"
+cron add-at '+2m' 'send whatsapp message' --name "wa-test"  --delete-after-run --announce --channel whatsapp --to "+18589522575" --session isolated --timeout-seconds 600 --message "test"
+
+The failure was due to a timeout when attempting to connect to the `ollama` model provider (`gemma4-zm-26-4`). Specifically, it failed after three attempts because 
+the request to `http://localhost:11434/v1/chat/completions` timed out.
+
+
+curl http://localhost:11434/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gemma4-zm-26-4",
+    "messages": [{"role": "user", "content": "Why is the sky blue?"}],
+    "stream": false
+  }'
