@@ -44,3 +44,8 @@ Use code with caution.🛠️ Permanent Resolution StepsIf you want to use the n
 Use code with caution.macOS / Linux:bashsudo npm i -g clawhub
 Use code with caution.2. Add NPM Global Bin to your PATHIf you already installed it but still get "command not found," your system does not know where to look for the clawhub file.macOS / Linux:Open your terminal profile (e.g., ~/.bashrc or ~/.zshrc) and add the following line to the bottom:bashexport PATH="$HOME/.npm-global/bin:$PATH"
 Use code with caution.Save the file and apply the changes by running: source ~/.zshrc (or .bashrc).Windows 11 / 10:Press the Windows Key and type environment variables, then select Edit the system environment variables.Click Environment Variables at the bottom.Under User variables, select Path and click Edit.Click New and add your global npm path (typically C:\Users\<YourUsername>\AppData\Roaming\npm).Click OK to save and restart your terminal/command prompt.3. Alternative: Use OpenClaw Built-in ConfiguratorIf you are trying to configure skills within the core OpenClaw framework, you can bypass the direct CLI install by forcing OpenClaw's internal manager to fetch it:bashopenclaw configure
+
+
+------
+
+
