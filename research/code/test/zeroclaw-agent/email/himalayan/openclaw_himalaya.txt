@@ -31,3 +31,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 brew doctor
 
 If you are encountering a specific error message, please share it so I can provide a more tailored fix!
+
+------
+
+ Installed himalaya v1.0.0 -> /home/madhekar/.openclaw/workspace/skills/himalaya
