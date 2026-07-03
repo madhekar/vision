@@ -367,3 +367,17 @@ curl http://localhost:11434/v1/chat/completions \
     "messages": [{"role": "user", "content": "Why is the sky blue?"}],
     "stream": false
   }'
+
+  ------
+
+
+  The "did not get web session ready" or "No active WhatsApp Web listener" error in OpenClaw usually occurs due to corrupted local session files, an outdated Baileys library regression, or a gateway synchronization desync where the CLI believes it is connected but the underlying websocket path has failed.Follow these steps to clean your environment and establish a fresh, working session.1. Wipe Corrupted Session and Credential DataIf your credentials directory contains stale or conflicted session tokens, OpenClaw will fail to complete the handshake.Log out of the channel entirely to stop the loop:bashopenclaw channels logout --channel whatsapp
+Use code with caution.Stop the OpenClaw gateway:bashopenclaw gateway stop
+Use code with caution.Manually delete the stale authentication directories:bashrm -rf ~/.openclaw/credentials/whatsapp/
+rm -rf ~/.openclaw/devices/
+rm -rf /var/lib/openclaw/data/whatsapp/
+Use code with caution.(Note: The exact path depends on your setup method. If you use a customized session_path in your config.json, verify and clear that directory instead).2. Update OpenClaw (Fixes Baileys Regression)Versions near 2026.2.25 suffered from a known underlying architecture bug where the bundled @whiskeysockets/baileys package failed to persist session tokens correctly.Run your environment's global update tool (e.g., npm update -g openclaw) to ensure you are on version 2026.3.x or later, which resolves the connection pairing dropouts.3. Initialize and Scan SmoothlyWhen linking your phone, the WebSocket communication with Meta's servers has a very tight expiration window.Maximize your terminal screen and make the font large enough to prevent the terminal from warping or breaking the generated QR code string.Start the gateway freshly:bashopenclaw gateway start
+Use code with caution.Trigger the login process:bashopenclaw channels login --channel whatsapp --account default
+Use code with caution.Scan the QR code within 60 seconds.⚠️ CRITICAL: Once scanned, do not press any keys or type inside the terminal. Let the scripts execute entirely on their own until you see the confirmation prompt return to your standard root user path. Interrupted terminal processes during authentication cause immediate session injection failure.4. Verify and Restart the PipelineIf the status looks good but the message tool still complains about a missing web listener, a manual bounce is required to map the listener socket.Reboot the daemon to refresh the active messaging gateway:bashopenclaw restart
+Use code with caution.Probe the status to ensure it shows linked, running, connected:bashopenclaw channels status --probe
+Use code with caution.If you are running this inside a containerized setup, would you like to know how to adjust your Docker Compose volume mappings to keep these WhatsApp session keys safe from being wiped when the container restarts
