@@ -105,5 +105,101 @@ drafts = "Drafts"
 inbox= "INBOX"
 sent = "Sent Messages"
 trash = "[Gmail]/Trash"
---------
+--
 
+To streamline this process, you should move away from "copy-pasting" and instead use a structured workflow. Since I can already perform web searches and execute shell commands, the most efficient way to handle this in the future is to use a "Research & Dispatch" pattern.
+
+I recommend we create a specialized himalaya-dispatch skill (or a saved instruction) that follows this template:
+🚀 The "Streamlined Research-to-Email" Workflow
+
+Instead of you manually prompting me with the raw text, you can simply say:
+
+    "Research [Topic] and email a summary to [Recipient]."
+
+Here is how I will execute that internally using a predefined template:
+1. The Systematic Plan
+
+    Search: Use web_search to find recent, authoritative information on the topic.
+    Synthesize: Read the results and structure them into:
+        Executive Summary (High-level overview).
+        Key Details/Events (Dates, locations, or core data points).
+        Supporting Links/Sources (For verification).
+    Format via Template: I will use a standard MML (MIME Meta Language) template to ensure the email looks professional and is easy for you to read.
+    Dispatch: Execute himalaya template send using the structured content.
+
+2. My Proposed Email Template (The "Digest" Format)
+
+I will use this structure whenever you ask for a "summary email":
+
+From: bmadhekar@gmail.com
+To: [Recipient]
+Subject: 📊 Briefing: [Topic Name] - [Date]
+
+### 📌 Executive Summary
+[2-3 sentence overview of the topic and why it matters.]
+
+### 🔍 Key Findings & Details
+* **[Sub-topic A]:** [Details/Dates/Facts]
+* **[Sub-topic B]:** [Details/Dates/Facts]
+* **[Sub-topic C]:** [Details/Dates/Facts]
+
+### 🔗 Reference Sources
+* [Source Name](URL)
+* [Source Name](URL)
+
+---
+To streamline this process, you should move away from "copy-pasting" and instead use a structured workflow. 
+Since I can already perform web searches and execute shell commands, the most efficient way to handle this in the future is to use a "Research & Dispatch" pattern.
+
+I recommend we create a specialized himalaya-dispatch skill (or a saved instruction) that follows this template:
+
+ The "Streamlined Research-to-Email" Workflow
+
+Instead of you manually prompting me with the raw text, you can simply say:
+
+    "Research [Topic] and email a summary to [Recipient]."
+
+Here is how I will execute that internally using a predefined template:
+
+1. The Systematic Plan
+
+ Search: Use web_search to find recent, authoritative information on the topic.
+ Synthesize: Read the results and structure them into:
+        Executive Summary (High-level overview).
+        Key Details/Events (Dates, locations, or core data points).
+        Supporting Links/Sources (For verification).
+ Format via Template: I will use a standard MML (MIME Meta Language) template to ensure the email looks professional and is easy for you to read.
+ Dispatch: Execute himalaya template send using the structured content.
+
+2. My Proposed Email Template (The "Digest" Format)
+
+I will use this structure whenever you ask for a "summary email":
+
+From: bmadhekar@gmail.com
+To: [Recipient]
+Subject: 📊 Briefing: [Topic Name] - [Date]
+
+### 📌 Executive Summary
+[2-3 sentence overview of the topic and why it matters.]
+
+### 🔍 Key Findings & Details
+* **[Sub-topic A]:** [Details/Dates/Facts]
+* **[Sub-topic B]:** [Details/Dates/Facts]
+* **[Sub-topic C]:** [Details/Dates/Facts]
+
+### 🔗 Reference Sources
+* [Source Name](URL)
+* [Source Name](URL)
+
+---
+*Generated via OpenClaw Research Assistant*
+
+🛠️ How to make this "Permanent"
+
+If you like this approach, I can use the skill_workshop tool to create a new skill called research-dispatch. This would allow me to:
+
+    Input: A single topic and an email address.
+    Action: Automatically run the search $\rightarrow$ summarize $\rightarrow$ template $\rightarrow$ send sequence without 
+    you needing to provide the content yourself.
+
+Would you like me to propose creating this research-dispatch skill for you?
