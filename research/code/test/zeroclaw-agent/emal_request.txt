@@ -203,3 +203,47 @@ If you like this approach, I can use the skill_workshop tool to create a new ski
     you needing to provide the content yourself.
 
 Would you like me to propose creating this research-dispatch skill for you?
+
+
+------
+
+
+The himalaya skill is a powerful CLI-based email management tool that allows me to interact with your email accounts directly from the terminal using IMAP and SMTP protocols. 
+It is much more than just a "send" tool; it provides full programmatic access to your inbox.
+
+Here is a breakdown of the capabilities I have through this skill:
+1. 📧 Outbound Communication (SMTP)
+
+I can compose and send emails in several ways:
+
+    Template Sending: As we used earlier, I can use himalaya template send to inject structured content (like research summaries) into an email. 
+    This is highly reliable for automation.
+    Direct Writing: I can use himalaya message write to compose new messages from scratch.
+    Automated Replies/Forwards: I can programmatically reply to existing threads or forward important information to other recipients.
+
+2. 📥 Inbound Management (IMAP)
+
+I can "read" your digital world by accessing your inbox:
+
+    Inbox Triage: I can list recent emails (himalaya envelope list) to check for urgent updates, mentions, or instructions from you.
+    Deep Reading: I can read the full content of specific messages (himalaya message read <id>) to understand context or extract data.
+    Searching: I can search your entire history for specific keywords, senders, or subjects (e.g., searching for "invoice" or "meeting").
+
+3. 📁 Organization & Automation
+
+I can act as a personal mail clerk:
+
+    Folder Management: I can move, copy, or organize emails into different folders (e.g., moving newsletters to an "Archive" folder).
+    Flagging: I can mark messages as seen, flagged, or important to help you prioritize your inbox.
+    Attachment Handling: I can download attachments from incoming emails directly to the workspace (himalaya attachment download).
+
+4. 🛠️ Technical Integration
+
+Because it is a CLI tool, I can integrate email with other tasks:
+
+    Workflow Automation: Like the research-dispatch skill we just built—performing web research and immediately emailing the results.
+    Alerting: I can set up routines to check your email at specific intervals (via cron) and notify you if something critical arrives.
+
+Summary of Usage:
+I use this skill whenever you ask me to "check my mail," "send an update," or "forward this info." It turns my role from a passive listener into an active participant in your 
+communication workflow.
