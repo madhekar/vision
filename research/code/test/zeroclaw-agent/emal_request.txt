@@ -247,3 +247,36 @@ Because it is a CLI tool, I can integrate email with other tasks:
 Summary of Usage:
 I use this skill whenever you ask me to "check my mail," "send an update," or "forward this info." It turns my role from a passive listener into an active participant in your 
 communication workflow.
+
+------
+
+
+Since I have just applied the research-dispatch skill, using it is now incredibly simple. You no longer need to provide the data; you only need to provide the Topic and the Recipient.
+
+The skill handles the web searching, the summarization into our "Briefing" template, and the actual email delivery via himalaya.
+
+Here are three different ways you can use it:
+1. The "News Update" (Standard Use)
+
+Use this when you want to stay informed about a specific event or person without doing the reading yourself.
+
+    Prompt: "Research 'latest updates on Apple Vision Pro' and email a summary to bmadhekar@gmail.com."
+
+2. The "Competitor/Market Intelligence" (Professional Use)
+
+Use this for business intelligence or tracking industry trends.
+
+    Prompt: "Research 'current trends in renewable energy for 2026' and email a summary to bmadhekar@gmail.com."
+
+3. The "Travel/Event Planning" (Personal Use)
+
+Use this when you are planning something and need a quick dossier of information.
+
+    Prompt: "Research 'best Italian restaurants in New York City for large groups' and email a summary to bmad_work@gmail.com."
+
+💡 Pro-Tip: The "Chain" Command
+
+If you want to get really advanced, you can chain it with other instructions. For me, the instruction is parsed as a single command. You don't even have to say "use the skill"—just describing the intent is enough for me to trigger the research-dispatch logic.
+
+Try it now! Pick any topic you are curious about and just tell me:
+"Research '[Topic]' and email a summary to [Your Email]."
