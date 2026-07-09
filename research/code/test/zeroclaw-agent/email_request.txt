@@ -353,3 +353,13 @@ If you are monitoring via top or system resource monitors, you will likely see:
 Essentially: The "heavy" research is done; the "intelligent" synthesis is about to begin.
 
 I am currently preparing the final summary block to be sent via agentmail. I will trigger the tool call in my very next response.
+
+------
+
+madhekar@madhekar-UM690:~$ openclaw skills workshop apply agentmail-summary-20260708-b2ec2cf34f
+│
+◇  
+
+OpenClaw 2026.6.11 (e085fa1) — Making 'I'll automate that later' happen now.
+
+Applied agentmail-summary-20260708-b2ec2cf34f -> /home/madhekar/.openclaw/workspace/skills/agentmail-summary/SKILL.md
