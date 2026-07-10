@@ -163,6 +163,9 @@ PARAMETER num_thread 16
 EOF
 
 ollama create gemma4:26b-ctx-gpu-thread -f Modelfile
+
+openclaw models set ollama/gemma4-zm-e4b-4:latest
+
 '''
 '''
 Configuring ChromaDB for ZeroClaw skills involves spinning up a ChromaDB container, configuring an embedding model, and updating your config.toml file to integrate it with the chromadb-memory skill.Step 1: Run ChromaDB and Embedding ModelsZeroClaw relies on an external vector database for its advanced memory and skill retrieval capabilities.Start ChromaDB (via Docker): Run the following command in your terminal:bashdocker run -d --name chromadb -p 8100:8000 chromadb/chroma:latest
@@ -426,4 +429,14 @@ openclaw gateway start
 
  
  cargo install --locked --path . --features "whatsapp-web embedded-web"   -- try it
+'''
+
+
+
+'''    "heartbeat": {
+        "every": "45m",
+        "lightContext": true,
+        "modal": "ollama/gemma4:e4b",
+        "activeHours": {"start": "00:00", "end": "23:00"}
+      }
 '''
