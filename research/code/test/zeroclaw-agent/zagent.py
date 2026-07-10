@@ -440,3 +440,12 @@ openclaw gateway start
         "activeHours": {"start": "00:00", "end": "23:00"}
       }
 '''
+'''
+commands
+-------------
+openclaw logs --follow
+openclaw plugins list --enabled --verbose
+openclaw plugins inspect codex
+
+
+'''
