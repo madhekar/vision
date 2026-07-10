@@ -446,6 +446,6 @@ commands
 openclaw logs --follow
 openclaw plugins list --enabled --verbose
 openclaw plugins inspect codex
-
+openclaw security audit
 
 '''
