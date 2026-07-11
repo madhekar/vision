@@ -429,6 +429,21 @@ openclaw gateway start
 
  
  cargo install --locked --path . --features "whatsapp-web embedded-web"   -- try it
+
+
+ The direct equivalent of 0.0.0.0 depends entirely on your context: for standard IPv6 networking, the equivalent is ::, while for modern applications like the OpenClaw AI platform, the equivalent option is "remote" or "auto".
+ 
+ The specific alternative or equivalent configurations vary by system context:
+ 
+ 🌐 By Networking Protocols
+ 
+ IPv6 Equivalent: :: (or [::]). Just like 0.0.0.0 in IPv4, this tells the system to listen on all available IPv6 interfaces.
+ 
+ Dual-Stack (IPv4 + IPv6): :: (when IPv6-only binding is disabled). On most modern operating systems, binding a socket to :: allows it to accept both IPv4 and IPv6 traffic simultaneously
+ 
+ .🤖 By Software Applications (e.g., OpenClaw Gateway)
+ 
+ If you are configuring application-level configuration files (such as an AI gateway like ⁠OpenClaw), 0.0.0.0 is used to allow remote access. Its config equivalents typically are:bind = "remote" or bind = "auto": Instructs the gateway to expose itself publicly or automatically select all interfaces.bind = "lan": Restricts visibility specifically to your local area network interfaces, rather than opening up completely to the internet.🛡️ Secure Alternatives (If you do not want public exposure)Binding to 0.0.0.0 means anyone who can reach your machine's IP can connect to your gateway. If you are troubleshooting or want to limit access, use these instead:127.0.0.1 (IPv4) or ::1 (IPv6): Known as localhost. It restricts traffic strictly to the local machine.Specific LAN IP: (e.g., 192.168.1.50). Binds the gateway strictly to a single physical network card rather than all of them.Are you setting this up in a specific configuration file (like a config.toml or json file), or are you writing a script / command? Share the platform or tool you are using so I can give you the exact syntax.
 '''
 
 
