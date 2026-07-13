@@ -463,4 +463,27 @@ openclaw plugins list --enabled --verbose
 openclaw plugins inspect codex
 openclaw security audit
 
+To approve your "openclaw Skill Workshop Proposal", locate the proposal's ID and use the exact apply decision in the CLI. 
+Run the following command in your terminal, replacing <proposal-id> with the specific ID of your proposal:bashopenclaw skills workshop apply <proposal-id>
+
+
+openclaw gateway call web.login.wait --params '{"timeoutMs":120000}' --timeout 130000 --json
+
+{
+  "ok": false,
+  "error": {
+    "type": "gateway_transport_error",
+    "kind": "closed",
+    "message": "gateway closed (1006 abnormal closure (no close frame)): no close reason",
+    "code": 1006,
+    "reason": "no close reason"
+  },
+  "gateway": {
+    "url": "ws://127.0.0.1:18789",
+    "urlSource": "local loopback",
+    "bindDetail": "Bind: tailnet"
+  }
+}
+
 '''
+
