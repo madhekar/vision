@@ -462,6 +462,18 @@ openclaw logs --follow
 openclaw plugins list --enabled --verbose
 openclaw plugins inspect codex
 openclaw security audit
+openclaw gateway status --deep
+openclaw gateway stability --json
+
+
+openclaw plugins install @openclaw/parallel-plugin
+ openclaw plugins update @openclaw/discord@2026.6.11
+ openclaw doctor --repair
+ export OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS=1
+npm cache clean --force
+
+
+
 
 To approve your "openclaw Skill Workshop Proposal", locate the proposal's ID and use the exact apply decision in the CLI. 
 Run the following command in your terminal, replacing <proposal-id> with the specific ID of your proposal:bashopenclaw skills workshop apply <proposal-id>
