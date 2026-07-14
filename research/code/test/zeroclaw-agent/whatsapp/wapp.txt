@@ -383,7 +383,11 @@ Use code with caution.Probe the status to ensure it shows linked, running, conne
 Use code with caution.If you are running this inside a containerized setup, would you like to know how to adjust your Docker Compose volume mappings to keep these WhatsApp session keys safe from being wiped when the container restarts
 
 
------ fix? ----
+----- fix? not working ----
+https://github.com/openclaw/openclaw/issues/52838
+https://primeclaws.com/news/how-to-connect-whatsapp-to-openclaw
+https://lumadock.com/tutorials/connect-openclaw-to-whatsapp-qr-code
+
 # Clone the source at the release tag
 git clone --depth 1 --branch v2026.3.22 https://github.com/openclaw/openclaw.git /tmp/openclaw-src
 
