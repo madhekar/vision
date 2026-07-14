@@ -381,3 +381,21 @@ Use code with caution.Trigger the login process:bashopenclaw channels login --ch
 Use code with caution.Scan the QR code within 60 seconds.⚠️ CRITICAL: Once scanned, do not press any keys or type inside the terminal. Let the scripts execute entirely on their own until you see the confirmation prompt return to your standard root user path. Interrupted terminal processes during authentication cause immediate session injection failure.4. Verify and Restart the PipelineIf the status looks good but the message tool still complains about a missing web listener, a manual bounce is required to map the listener socket.Reboot the daemon to refresh the active messaging gateway:bashopenclaw restart
 Use code with caution.Probe the status to ensure it shows linked, running, connected:bashopenclaw channels status --probe
 Use code with caution.If you are running this inside a containerized setup, would you like to know how to adjust your Docker Compose volume mappings to keep these WhatsApp session keys safe from being wiped when the container restarts
+
+
+----- fix? ----
+# Clone the source at the release tag
+git clone --depth 1 --branch v2026.3.22 https://github.com/openclaw/openclaw.git /tmp/openclaw-src
+
+# Copy WhatsApp extension into the npm install
+cp -r /tmp/openclaw-src/extensions/whatsapp $(npm root -g)/openclaw/dist/extensions/whatsapp
+
+# Remove workspace: protocol refs and install deps
+cd $(npm root -g)/openclaw/dist/extensions/whatsapp
+python3 -c "import json; d=json.load(open('package.json')); d.pop('devDependencies',None); d.pop('peerDependencies',None); d.pop('peerDependenciesMeta',None); json.dump(d,open('package.json','w'),indent=2)"
+npm install --omit=dev
+
+# Restart gateway
+openclaw gateway restart
+
+-----------
