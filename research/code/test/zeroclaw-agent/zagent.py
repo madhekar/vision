@@ -499,3 +499,65 @@ openclaw gateway call web.login.wait --params '{"timeoutMs":120000}' --timeout 1
 
 '''
 
+'''
+The system health audit is complete. While the Node.js version issue has been resolved and the OpenClaw gateway is running securely on loopback, the scan identified several **moderate-to-high security risks** that should be addressed.
+
+### 🛡️ Audit Summary: **Moderate Risk**
+The system's core service (OpenClaw) is well-isolated, but the underlying host has significant network exposure and lacks active firewall management.
+
+---
+
+### 🔍 Key Findings
+
+| Severity | Finding | Why it matters |
+| :--- | :--- | :--- |
+| 🔴 **High** | **No Active Firewall Detected** | No standard tool (`ufw` or `firewalld`) was detected. There is currently no network-level filtering to block unauthorized incoming traffic. |
+| 🟡 **Medium** | **SSH Exposed Globally** | SSH is listening on `0.0.0.0:22`. Anyone with network access to this machine can attempt to brute-force your credentials. |
+| 🟡 **Medium** | **Ollama Exposed Globally** | The Ollama service is listening on `*:11434`. This allows anyone on the network to use your GPU/CPU resources for AI inference. |
+| 🟢 **Low** | **Gateway is Secure** | The OpenClaw gateway is correctly bound to `127.0.0.1`, meaning it is not reachable from outside the local machine. |
+
+---
+
+### 📋 Recommended Hardening Plan
+
+#### **Phase 1: Immediate Network Defense**
+1. **Install/Configure `ufw`:** I recommend installing and enabling `ufw` (Uncomplicated Firewall) to explicitly allow only necessary traffic.
+2. **Restrict SSH:** Configure the SSH daemon to listen only on a specific interface or via a VPN, rather than all interfaces.
+
+#### **Phase 2: Service Isolation**
+1. **Bind Ollama to Localhost:** Update your Ollama configuration to bind to `127.0.0.1` so it is only accessible by local agents.
+2. **Close Unused Ports:** Investigate and close ports like `445` (SMB) and `139` (NetBIOS) which were detected as listening globally.
+
+#### **Phase 3: Maintenance & Auditing**
+1. **Enable Auto-Updates:** Ensure `unattended-upgrades` is active on your Linux Mint host.
+2. **Automate Scans:** I can set up a scheduled task to run this deep security audit weekly.
+
+---
+
+**How would you like to proceed?**
+I can begin **Phase 1** immediately by attempting to install and configure `ufw` for you, or we can focus on restricting the Ollama/SSH listening addresses first.
+'''
+
+'''
+I attempted to install and configure `ufw`, but the process failed because **`sudo` requires your password** for authentication, and I do not have access to enter it directly in this shell.
+
+To complete this security hardening, I need you to run the following command in your terminal:
+
+```bash
+sudo apt-get update && sudo apt-get install -y ufw && sudo ufw allow ssh && sudo ufw allow 18789 && sudo ufw --force enable && sudo ufw status verbose
+```
+
+### What this command does:
+1. **`apt-get update`**: Refreshes your package lists.
+2. **`apt-get install -y ufw`**: Installs the Uncomplicated Firewall.
+3. **`ufw allow ssh`**: **CRITICAL!** This ensures you don't lock yourself out of your own machine by allowing SSH traffic.
+4. **`ufw allow 18789`**: Allows traffic to your OpenClaw gateway port so you can continue using the dashboard.
+5. **`ufw --force enable`**: Turns the firewall on immediately without a manual confirmation prompt.
+6. **`ufw status verbose`**: Shows you the final rule list for verification.
+
+**⚠️ IMPORTANT WARNING:**
+Before running this, please ensure that **Port 18789** (or whatever port your specific web interface uses) is indeed what you want to keep open. 
+If you use a different port for other services, you should add an `allow` rule for them as well before enabling the firewall.
+
+**Once you have run this, please paste the output back here so I can verify the configuration and proceed with Phase 2 (Service Isolation).**
+'''
