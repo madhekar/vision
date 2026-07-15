@@ -1,0 +1,4 @@
+FROM gemma4:26b
+PARAMETER num_ctx 131072
+PARAMETER num_gpu 999
+PARAMETER num_thread 6
