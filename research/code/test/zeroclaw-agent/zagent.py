@@ -472,6 +472,16 @@ openclaw plugins install @openclaw/parallel-plugin
  export OPENCLAW_ALLOW_OLDER_BINARY_DESTRUCTIVE_ACTIONS=1
 npm cache clean --force
 
+openclaw infer model run --gateway --model ollama/qwen3.5:9b --prompt "what is finantical capitol of India." --json
+openclaw gateway stability --bundle latest --export
+openclaw gateway stability --bundle latest
+
+
+madhekar@madhekar-UM690:~$ qmd search "router notes" --json -n 10 -c memory-root-main -c memory-dir-main
+Collection not found: memory-root-main
+madhekar@madhekar-UM690:~$ openclaw memory status --deep
+
+
 
 
 
@@ -560,4 +570,8 @@ Before running this, please ensure that **Port 18789** (or whatever port your sp
 If you use a different port for other services, you should add an `allow` rule for them as well before enabling the firewall.
 
 **Once you have run this, please paste the output back here so I can verify the configuration and proceed with Phase 2 (Service Isolation).**
+'''
+
+'''
+An OpenClaw lane task error is almost always a timeout or failure caused by your upstream LLM, an API usage limit, or local server backpressure. It signifies that the agent's main processing lane got stuck waiting for a response from the AI model.For a general overview of how to diagnose and auto-restart stuck gateway lanes:6:55OpenClaw Not Working? Fix It in 2 Minutes (Hostinger Guide)Kevin Jeppesen - The Operator VaultYouTube · Feb 15, 2026How to Fix the Lane Task Error1. Check API Limits and BalancesIf your model times out, it is often due to hitting an API limit (e.g., hitting a free-tier limit or running out of credits).Check your AI provider's dashboard (e.g., OpenAI, Anthropic, or OpenRouter) to confirm your account has an active balance.If using a local model, verify the instance (like Ollama) is actively running and hasn't crashed.2. Adjust Timeouts for Local ModelsIf you are running a local LLM or a model with slow reasoning capabilities, the default OpenClaw timeout may be too aggressive.Increase your agent's timeout threshold in your configuration files to prevent the gateway from dropping the connection before the model has finished thinking.3. Run the Diagnostic DoctorOpenClaw features a built-in repair utility that scans and resolves configuration issues.Open your terminal and run: openclaw doctor --deep --yes to let the system auto-resolve most session and routing errors.4. Restart Your GatewayLong-running sessions can accumulate memory leaks or corrupted state locks.Fully restart your system by running: openclaw gateway restart.
 '''
