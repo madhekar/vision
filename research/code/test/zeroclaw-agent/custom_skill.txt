@@ -307,3 +307,6 @@ openclaw agents unbind --agent work --bind telegram:ops
 openclaw agents set-identity --workspace ~/.openclaw/workspace --from-identity
 openclaw agents set-identity --agent main --avatar avatars/openclaw.png
 openclaw agents delete work
+
+openclaw plugins install @openclaw/parallel-plugin
+openclaw gateway restart
