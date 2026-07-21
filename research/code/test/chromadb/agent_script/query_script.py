@@ -1,16 +1,13 @@
 import chromadb
 import json
-from chromadb.config import Settings
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 
 class ChromaQuerier:
     def __init__(self, collection_name: str, persist_directory: str = "./chroma_db"):
         """Initialize the ChromaDB client and load the collection."""
         self.client = chromadb.PersistentClient(path=persist_directory)
-            # openclip embedding function!
         self.embedding_function = OpenCLIPEmbeddingFunction()
-        self.collection = self.client.get_or_create_collection(name=collection_name, 
-                                                               embedding_function=self.embedding_function)
+        self.collection = self.client.get_or_create_collection(name=collection_name, embedding_function=self.embedding_function)
 
     def get_collection_count(self) -> int:
         """Return the total number of documents in the collection."""
@@ -24,9 +21,7 @@ class ChromaQuerier:
         )
 
     def query_with_metadata(self, query_texts: list, where_filter: dict, n_results: int = 2) -> dict:
-        """
-        Return similarity search results with complex metadata filtering.
-        
+        """Return similarity search results with complex metadata filtering.
         Example where_filter:
         {"$and": [{"category": {"$eq": "research"}}, {"year": {"$gte": 2024}}]}
         """
