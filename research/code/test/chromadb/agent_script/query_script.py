@@ -16,14 +16,14 @@ class ChromaQuerier:
         """Return the total number of documents in the collection."""
         return self.collection.count()
 
-    def query_collection(self, query_texts: list, n_results: int = 5) -> dict:
+    def query_collection(self, query_texts: list, n_results: int = 2) -> dict:
         """Return semantic similarity search results for given query texts."""
         return self.collection.query(
             query_texts=query_texts,
             n_results=n_results
         )
 
-    def query_with_metadata(self, query_texts: list, where_filter: dict, n_results: int = 5) -> dict:
+    def query_with_metadata(self, query_texts: list, where_filter: dict, n_results: int = 2) -> dict:
         """
         Return similarity search results with complex metadata filtering.
         
@@ -40,17 +40,19 @@ class ChromaQuerier:
 # Example Usage
 # ==========================================
 if __name__ == "__main__":
+
     chroma_path = "/mnt/zmdata/home-media-app/data/app-data/vectordb/"
     img_collection_name = "multimodal_collection_images"
+
     querier = ChromaQuerier(collection_name=img_collection_name, persist_directory=chroma_path)
     
     # 1. Get count
-    print(f"\n Total documents: {querier.get_collection_count()}")
+    print(f"\n Total documents: \n {querier.get_collection_count()}")
     
     # 2. Basic Query
-    results = querier.query_collection(query_texts=["esha"], n_results=5)
+    results = querier.query_collection(query_texts=["esha"], n_results=2)
     
-    print("\n Basic Query Results:", json.dumps(results, indent=4))
+    print("\n Basic Query Results: \n", json.dumps(results, indent=2))
     
     # 3. Complex Metadata Query (e.g., category is 'research' AND year >= 2024)
     metadata_filter = {
@@ -64,4 +66,4 @@ if __name__ == "__main__":
         where_filter=metadata_filter,
         n_results=5
     )
-    print("\n Filtered Metadata Results:", filtered_results)
+    print("\n Filtered Metadata Results: \n", json.dumps(filtered_results, indent=2))
