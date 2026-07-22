@@ -1,0 +1,41 @@
+---
+name: my_custom_tool
+version: 1.0
+description: Runs my custom Python class process on the local machine.
+permissions:
+  - local_execution
+---
+
+### Description
+This skill triggers a local Python script `my_tool.py` which processes user data deterministically.
+
+### Usage
+Use this tool whenever the user requests a custom process.
+
+### Execution Command
+Execute this exact shell command to run the script:
+```bash
+python3 ~/.openclaw/workspace/scripts/my_tool.py "argument"
+```
+
+
+import sys
+import json
+
+class MyCustomTool:
+    def __init__(self, data_path):
+        self.data_path = data_path
+
+    def run_process(self, argument):
+        # Deterministic logic goes here
+        result = {"status": "success", "input": argument, "processed": True}
+        return result
+
+if __name__ == "__main__":
+    # OpenClaw agents can pass arguments via CLI or as JSON payloads
+    user_input = sys.argv[1] if len(sys.argv) > 1 else "default"
+    
+    tool = MyCustomTool("data.json")
+    output = tool.run_process(user_input)
+    
+    print(json.dumps(output))
