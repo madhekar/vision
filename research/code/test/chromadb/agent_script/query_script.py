@@ -38,10 +38,7 @@ class ChromaQuerier:
         )
     
     def query_with_image_metadata(self, query_texts: list, where_filter: dict, n_results: int = 2) -> dict:
-        """Return similarity search results with complex metadata filtering for image collection.
-        Example where_filter:
-        {"$and": [{"category": {"$eq": "research"}}, {"year": {"$gte": 2024}}]}
-        """
+        """Return similarity search results with complex metadata filtering for image collection."""
         return self.img_collection.query(
             query_texts=query_texts,
             n_results=n_results,
@@ -49,10 +46,7 @@ class ChromaQuerier:
         )
 
     def query_with_video_metadata(self, query_texts: list, where_filter: dict, n_results: int = 2) -> dict:
-        """Return similarity search results with complex metadata filtering for video collection.
-        Example where_filter:
-        {"$and": [{"category": {"$eq": "research"}}, {"year": {"$gte": 2024}}]}
-        """
+        """Return similarity search results with complex metadata filtering for video collection."""
         return self.vid_collection.query(
             query_texts=query_texts,
             n_results=n_results,
@@ -60,10 +54,7 @@ class ChromaQuerier:
         )
     
     def query_with_text_metadata(self, query_texts: list, where_filter: dict, n_results: int = 2) -> dict:
-        """Return similarity search results with complex metadata filtering for text collection.
-        Example where_filter:
-        {"$and": [{"category": {"$eq": "research"}}, {"year": {"$gte": 2024}}]}
-        """
+        """Return similarity search results with complex metadata filtering for text collection."""
         return self.txt_collection.query(
             query_texts=query_texts,
             n_results=n_results,
