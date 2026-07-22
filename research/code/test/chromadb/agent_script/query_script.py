@@ -38,7 +38,7 @@ class ChromaQuerier:
         )
     
     def query_with_image_metadata(self, query_texts: list, where_filter: dict, n_results: int = 2) -> dict:
-        """Return similarity search results with complex metadata filtering.
+        """Return similarity search results with complex metadata filtering for image collection.
         Example where_filter:
         {"$and": [{"category": {"$eq": "research"}}, {"year": {"$gte": 2024}}]}
         """
@@ -49,7 +49,7 @@ class ChromaQuerier:
         )
 
     def query_with_video_metadata(self, query_texts: list, where_filter: dict, n_results: int = 2) -> dict:
-        """Return similarity search results with complex metadata filtering.
+        """Return similarity search results with complex metadata filtering for video collection.
         Example where_filter:
         {"$and": [{"category": {"$eq": "research"}}, {"year": {"$gte": 2024}}]}
         """
@@ -60,7 +60,7 @@ class ChromaQuerier:
         )
     
     def query_with_text_metadata(self, query_texts: list, where_filter: dict, n_results: int = 2) -> dict:
-        """Return similarity search results with complex metadata filtering.
+        """Return similarity search results with complex metadata filtering for text collection.
         Example where_filter:
         {"$and": [{"category": {"$eq": "research"}}, {"year": {"$gte": 2024}}]}
         """
@@ -86,12 +86,12 @@ if __name__ == "__main__":
                             persist_directory=chroma_path)
     
     # 1. Get count
-    print(f"\n Total documents: \n {querier.get_collection_count()}")
+    print(f"\n Total modalities per type: \n {querier.get_collection_count()}")
     
     # 2. Basic Query
     results = querier.query_image_collection(query_texts=["esha"], n_results=2)
     
-    print("\n Basic Query Results: \n", json.dumps(results, indent=2))
+    print("\n Basic Query Results (image collection): \n", json.dumps(results, indent=2))
     
     # 3. Complex Metadata Query (e.g., category is 'research' AND year >= 2024)
     metadata_filter = {
@@ -105,4 +105,42 @@ if __name__ == "__main__":
         where_filter=metadata_filter,
         n_results=2
     )
-    print("\n Filtered Metadata Results: \n", json.dumps(filtered_results, indent=2))
+    print("\n Filtered Metadata Results (image collection): \n", json.dumps(filtered_results, indent=2))
+
+    # 4. Basic Query
+    results = querier.query_video_collection(query_texts=["esha"], n_results=2)
+    
+    print("\n Basic Query Results (video collection): \n", json.dumps(results, indent=2))
+    
+    # 5. Complex Metadata Query (e.g., category is 'research' AND year >= 2024)
+    metadata_filter = {
+        "$and": [
+            {"src": {"$eq": "ASSORT_K30"}},
+            {"ts": {"$gte": 946717260}}
+        ]
+    }
+    filtered_results = querier.query_with_video_metadata(
+        query_texts=["neural networks berkeley"], 
+        where_filter=metadata_filter,
+        n_results=2
+    )
+    print("\n Filtered Metadata Results (video collection): \n", json.dumps(filtered_results, indent=2))
+
+    # 6. Basic Query
+    results = querier.query_text_collection(query_texts=["esha"], n_results=2)
+    
+    print("\n Basic Query Results (text collection): \n", json.dumps(results, indent=2))
+    
+    # 7. Complex Metadata Query (e.g., category is 'research' AND year >= 2024)
+    metadata_filter = {
+        "$and": [
+            {"src": {"$eq": "ASSORT_K30"}},
+            {"ts": {"$gte": 946717260}}
+        ]
+    }
+    filtered_results = querier.query_with_text_metadata(
+        query_texts=["neural networks berkeley"], 
+        where_filter=metadata_filter,
+        n_results=2
+    )
+    print("\n Filtered Metadata Results (text collection): \n", json.dumps(filtered_results, indent=2))
