@@ -2,7 +2,7 @@ import chromadb
 import json
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 
-class ChromaQuerier:
+class chroma_query_executor:
     def __init__(self, img_collection: str = "multimodal_collection_images", vid_collection: str = "multimodal_collection_videos", txt_collection: str = "multimodal_collection_texts", persist_directory: str = "/mnt/zmdata/home-media-app/data/app-data/vectordb/"):
         """Initialize the ChromaDB client and load the collection."""
         self.client = chromadb.PersistentClient(path=persist_directory)
@@ -69,7 +69,7 @@ class ChromaQuerier:
 # ==========================================
 if __name__ == "__main__":
 
-    querier = ChromaQuerier()  
+    querier = chroma_query_executor()  
     
     # 1. Get count
     print(f"\n Total modalities per type: \n {querier.get_collection_count()}")
