@@ -3,7 +3,7 @@ import json
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 
 class ChromaQuerier:
-    def __init__(self, img_collection: str, vid_collection: str, txt_collection: str, persist_directory: str = "./chroma_db"):
+    def __init__(self, img_collection: str = "multimodal_collection_images", vid_collection: str = "multimodal_collection_videos", txt_collection: str = "multimodal_collection_texts", persist_directory: str = "/mnt/zmdata/home-media-app/data/app-data/vectordb/"):
         """Initialize the ChromaDB client and load the collection."""
         self.client = chromadb.PersistentClient(path=persist_directory)
         self.embedding_function = OpenCLIPEmbeddingFunction()
@@ -37,28 +37,31 @@ class ChromaQuerier:
             n_results=n_results
         )
     
-    def query_with_image_metadata(self, query_texts: list, where_filter: dict, n_results: int = 2) -> dict:
+    def query_with_image_metadata(self, query_texts: list, src_filter: str, ts_filter: int,  n_results: int = 2) -> dict:
         """Return similarity search results with complex metadata filtering for image collection."""
+        metadata_filter = '{ "$and": [{"src": {"$eq": "' + src_filter + '" }},{"ts": {"$gte":' + str(ts_filter) +'}}]}'
         return self.img_collection.query(
             query_texts=query_texts,
             n_results=n_results,
-            where=where_filter
+            where= json.loads(metadata_filter)
         )
 
-    def query_with_video_metadata(self, query_texts: list, where_filter: dict, n_results: int = 2) -> dict:
+    def query_with_video_metadata(self, query_texts: list, src_filter: str, ts_filter: int,  n_results: int = 2) -> dict:
         """Return similarity search results with complex metadata filtering for video collection."""
+        metadata_filter = '{ "$and": [{"src": {"$eq": "' + src_filter + '" }},{"ts": {"$gte":' + str(ts_filter) +'}}]}'
         return self.vid_collection.query(
             query_texts=query_texts,
             n_results=n_results,
-            where=where_filter
+            where=json.loads(metadata_filter)
         )
     
-    def query_with_text_metadata(self, query_texts: list, where_filter: dict, n_results: int = 2) -> dict:
+    def query_with_text_metadata(self, query_texts: list, src_filter: str, ts_filter: int, n_results: int = 2) -> dict:
         """Return similarity search results with complex metadata filtering for text collection."""
+        metadata_filter = '{ "$and": [{"src": {"$eq": "' + src_filter + '" }},{"ts": {"$gte":' + str(ts_filter) +'}}]}'
         return self.txt_collection.query(
             query_texts=query_texts,
             n_results=n_results,
-            where=where_filter
+            where=json.loads(metadata_filter)
         )
 
 # ==========================================
@@ -66,15 +69,17 @@ class ChromaQuerier:
 # ==========================================
 if __name__ == "__main__":
 
+    """     
     chroma_path = "/mnt/zmdata/home-media-app/data/app-data/vectordb/"
     img_collection_name = "multimodal_collection_images"
     vid_collection_name = "multimodal_collection_videos"
-    txt_collection_name = "multimodal_collection_texts"
+    txt_collection_name = "multimodal_collection_texts" """
 
-    querier = ChromaQuerier(img_collection=img_collection_name, 
-                            vid_collection=vid_collection_name,
-                            txt_collection=txt_collection_name,
-                            persist_directory=chroma_path)
+    querier = ChromaQuerier()  
+    """ img_collection=img_collection_name, 
+        vid_collection=vid_collection_name,
+        txt_collection=txt_collection_name,
+        persist_directory=chroma_path """
     
     # 1. Get count
     print(f"\n Total modalities per type: \n {querier.get_collection_count()}")
@@ -85,15 +90,10 @@ if __name__ == "__main__":
     print("\n Basic Query Results (image collection): \n", json.dumps(results, indent=2))
     
     # 3. Complex Metadata Query (e.g., category is 'research' AND year >= 2024)
-    metadata_filter = {
-        "$and": [
-            {"src": {"$eq": "ASSORT_K30"}},
-            {"ts": {"$gte": 946717260}}
-        ]
-    }
     filtered_results = querier.query_with_image_metadata(
         query_texts=["neural networks berkeley"], 
-        where_filter=metadata_filter,
+        src_filter = "ASSORT_K30",
+        ts_filter=946717260,
         n_results=2
     )
     print("\n Filtered Metadata Results (image collection): \n", json.dumps(filtered_results, indent=2))
@@ -104,15 +104,10 @@ if __name__ == "__main__":
     print("\n Basic Query Results (video collection): \n", json.dumps(results, indent=2))
     
     # 5. Complex Metadata Query (e.g., category is 'research' AND year >= 2024)
-    metadata_filter = {
-        "$and": [
-            {"src": {"$eq": "ASSORT_K30"}},
-            {"ts": {"$gte": 946717260}}
-        ]
-    }
     filtered_results = querier.query_with_video_metadata(
         query_texts=["neural networks berkeley"], 
-        where_filter=metadata_filter,
+        src_filter = "ASSORT_K30",
+        ts_filter=946717260,
         n_results=2
     )
     print("\n Filtered Metadata Results (video collection): \n", json.dumps(filtered_results, indent=2))
@@ -123,15 +118,10 @@ if __name__ == "__main__":
     print("\n Basic Query Results (text collection): \n", json.dumps(results, indent=2))
     
     # 7. Complex Metadata Query (e.g., category is 'research' AND year >= 2024)
-    metadata_filter = {
-        "$and": [
-            {"src": {"$eq": "ASSORT_K30"}},
-            {"ts": {"$gte": 946717260}}
-        ]
-    }
     filtered_results = querier.query_with_text_metadata(
         query_texts=["neural networks berkeley"], 
-        where_filter=metadata_filter,
+        src_filter = "ASSORT_K30",
+        ts_filter=946717260,
         n_results=2
     )
     print("\n Filtered Metadata Results (text collection): \n", json.dumps(filtered_results, indent=2))
