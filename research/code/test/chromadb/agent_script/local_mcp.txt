@@ -1,4 +1,8 @@
- Running OpenClaw locally with MCP tools (practical setup guide)
+No OpenClaw-managed MCP servers configured in /home/madhekar/.openclaw/openclaw.json. Add one with openclaw mcp set <name> '{"command":"uvx","args":["context7-mcp"]}'.
+Note: this command only shows OpenClaw-managed mcp.servers entries and does not include mcporter servers from config/mcporter.json.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Running OpenClaw locally with MCP tools (practical setup guide)
 
 OpenClaw (moltbot/clawdbot) has been surprisingly Awesome.
 
