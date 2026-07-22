@@ -77,8 +77,13 @@ if __name__ == "__main__":
 
     chroma_path = "/mnt/zmdata/home-media-app/data/app-data/vectordb/"
     img_collection_name = "multimodal_collection_images"
+    vid_collection_name = "multimodal_collection_videos"
+    txt_collection_name = "multimodal_collection_texts"
 
-    querier = ChromaQuerier(collection_name=img_collection_name, persist_directory=chroma_path)
+    querier = ChromaQuerier(img_collection=img_collection_name, 
+                            vid_collection=vid_collection_name,
+                            txt_collection=txt_collection_name,
+                            persist_directory=chroma_path)
     
     # 1. Get count
     print(f"\n Total documents: \n {querier.get_collection_count()}")
