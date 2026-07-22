@@ -89,7 +89,7 @@ if __name__ == "__main__":
     print(f"\n Total documents: \n {querier.get_collection_count()}")
     
     # 2. Basic Query
-    results = querier.query_collection(query_texts=["esha"], n_results=2)
+    results = querier.query_image_collection(query_texts=["esha"], n_results=2)
     
     print("\n Basic Query Results: \n", json.dumps(results, indent=2))
     
@@ -100,9 +100,9 @@ if __name__ == "__main__":
             {"ts": {"$gte": 946717260}}
         ]
     }
-    filtered_results = querier.query_with_metadata(
+    filtered_results = querier.query_with_image_metadata(
         query_texts=["neural networks berkeley"], 
         where_filter=metadata_filter,
-        n_results=5
+        n_results=2
     )
     print("\n Filtered Metadata Results: \n", json.dumps(filtered_results, indent=2))
