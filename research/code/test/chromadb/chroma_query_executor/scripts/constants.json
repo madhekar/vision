@@ -1,0 +1,14 @@
+{
+  "collections": {
+    "image_collection_name": "multimodal_collection_images",
+    "video_collection_name": "multimodal_collection_videos", 
+    "text_collection_name": "multimodal_collection_texts"
+  },
+  "paths": {
+    "persist_directory": "/mnt/zmdata/home-media-app/data/app-data/vectordb/"
+  },
+  "queries": {
+    "default_n_results": 2,
+    "max_queries_per_batch": 50
+  }
+}
