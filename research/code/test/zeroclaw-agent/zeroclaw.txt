@@ -630,3 +630,27 @@ In rough order of "highest signal first":
     Foundational RFCs (in the issue tracker): #5574 (microkernel), #5576 (docs), #5577 (governance), #5579 (CI), #5615 (AI co-authorship), #5653 (zero-compromise).
 
 TL;DR — the four sentences that matter. Build a tiny trait crate that defines Provider, Channel, Tool, and Memory, and refuse to let the runtime depend on anything else. Default to Supervised autonomy with sandbox-on, workspace-bounded, and HMAC-receipted tool calls — make YOLO loud and obvious. Ship one OpenAI-compatible adapter and you've shipped twenty providers. Generate every reference doc from the code, gate every breaking change behind a stability tier, and reject any PR that mixes concerns.
+
+To access and manage debug logs in OpenClaw, run openclaw logs --follow --json or view official documentation on the OpenClaw Debugging Guide and OpenClaw Gateway Logging.
+
+Accessing Logs
+
+Live streaming: Run openclaw logs --follow --json in your terminal to tail real-time output.
+
+File storage path: Persistent logs are typically stored in /tmp/openclaw/ or ~/.openclaw/logs/ depending on your setup.
+
+Raw stream logging: Use pnpm gateway:watch --raw-stream to capture raw assistant streams before filtering.
+
+Enabling Debug Level
+
+CLI flag: Pass --log-level debug when launching commands (e.g., openclaw --log-level debug gateway run).
+
+Environment variable: Set export OPENCLAW_LOG_LEVEL=debug
+
+.Config file: Update your ~/.openclaw/openclaw.json with "logging": { "level": "debug" }.
+
+If you'd like, let me know:
+
+Are you trying to debug a specific channel (Discord, Telegram, etc.) or a custom skill?
+
+Are you running OpenClaw locally or on a remote VPS?I can give you the exact command or filter to find your error.
