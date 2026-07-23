@@ -81,7 +81,7 @@ if __name__ == "__main__":
     print(f"\n Total modalities per type: \n {querier.get_collection_count()}")
     
     # 2. Basic Query
-    results = querier.query_image_collection(query_texts=["esha"], n_results=2)
+    results = querier.query_image_collection(query_texts=["esha"])
     
     print("\n Basic Query Results (image collection): \n", json.dumps(results, indent=2))
     
@@ -90,12 +90,11 @@ if __name__ == "__main__":
         query_texts=["neural networks berkeley"], 
         src_filter = "ASSORT_K30",
         ts_filter=946717260,
-        n_results=2
     )
     print("\n Filtered Metadata Results (image collection): \n", json.dumps(filtered_results, indent=2))
 
     # 4. Basic Query
-    results = querier.query_video_collection(query_texts=["esha"], n_results=2)
+    results = querier.query_video_collection(query_texts=["esha"])
     
     print("\n Basic Query Results (video collection): \n", json.dumps(results, indent=2))
     
@@ -104,12 +103,11 @@ if __name__ == "__main__":
         query_texts=["neural networks berkeley"], 
         src_filter = "ASSORT_K30",
         ts_filter=946717260,
-        n_results=2
     )
     print("\n Filtered Metadata Results (video collection): \n", json.dumps(filtered_results, indent=2))
 
     # 6. Basic Query
-    results = querier.query_text_collection(query_texts=["esha"], n_results=2)
+    results = querier.query_text_collection(query_texts=["esha"])
     
     print("\n Basic Query Results (text collection): \n", json.dumps(results, indent=2))
     
@@ -118,7 +116,6 @@ if __name__ == "__main__":
         query_texts=["neural networks berkeley"], 
         src_filter = "ASSORT_K30",
         ts_filter=946717260,
-        n_results=2
     )
     print("\n Filtered Metadata Results (text collection): \n", json.dumps(filtered_results, indent=2))
 
