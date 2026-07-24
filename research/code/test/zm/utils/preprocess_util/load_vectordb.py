@@ -288,7 +288,7 @@ def createVectorDB(vector_db_dir_path, image_collection_name, text_collection_na
         metadata={"hnsw:space": "cosine",      # cosine, l2, or ip
                   "hnsw:M" : 24,               # max connections per node default: 16
                   "hnsw:construction_ef": 200, # quality of graph build default: 100 
-                  "hnsw:search_ef": 100,       # throoughness of search default: 10
+                  "hnsw:search_ef": 100,       # through-ness of search default: 10
                   "hnsw:batch_size":500},
         data_loader=image_loader,
     )
@@ -327,7 +327,7 @@ IMAGE embeddings in vector database
 def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, collection_images):
 
     if os.path.exists(os.path.join(image_metadata_path, image_metadata_file)):
-        # Use chunksize to return an iterator
+        # Use chunk-size to return an iterator
         chunk_size = 500
         with pd.read_json(os.path.join(image_metadata_path, image_metadata_file), lines=True, chunksize=chunk_size) as reader:
                 for df_chunk in reader:
@@ -339,7 +339,7 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
        
                     df_uris =  df_chunk['uri']
                     df_ids = df_chunk['id']
-                    df_metadata = df_chunk[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text"]].fillna("").T.to_dict().values()
+                    df_metadata = df_chunk[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text", "uri"]].fillna("").T.to_dict().values()
 
                     print(list(df_metadata))
                     try:
