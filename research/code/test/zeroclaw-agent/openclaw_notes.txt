@@ -30,3 +30,4 @@ Permanent Configuration (Current User)
 
 To ensure the setting persists every time you open a new terminal, add the export commands to your shell's configuration file.Open your configuration file:For Bash (default on most distributions): Open ~/.bashrc.For Zsh (default on macOS and some Linux distros): Open ~/.zshrc.Append these lines to the very bottom of the file:bashexport EDITOR="nano"
 export VISUAL="nano"
+
