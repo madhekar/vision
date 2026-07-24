@@ -1,0 +1,85 @@
+# My Async Skill
+
+## Description
+An asynchronous skill that executes long-running tasks concurrently without blocking the agent's main loop. Ideal for fetching APIs or processing large files.
+
+## Invocation Triggers
+"run async task", "async processing", "background job"
+
+## Requirements
+- Python 3.x
+- `aiohttp` or standard `asyncio`
+
+
+----
+
+import asyncio
+import json
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("AsyncSkill")
+
+class AsyncSkill:
+    """
+    A standalone OpenClaw skill demonstrating asyncio capabilities.
+    Does not require an MCP server and can be triggered via native tool calls.
+    """
+    
+    def __init__(self):
+        self.name = "MyAsyncSkill"
+
+    async def _long_operation(self, duration: int, task_id: str) -> dict:
+        """Simulates an asynchronous background operation."""
+        logger.info(f"Task {task_id} starting. Sleeping for {duration} seconds...")
+        await asyncio.sleep(duration)
+        logger.info(f"Task {task_id} completed.")
+        return {"status": "success", "task_id": task_id, "waited_seconds": duration}
+
+    async def execute(self, arguments: str) -> str:
+        """
+        Main method invoked by OpenClaw's core loop.
+        Arguments are passed as a JSON string from the LLM.
+        """
+        try:
+            args = json.loads(arguments)
+            duration = args.get("duration", 5)
+            task_id = args.get("task_id", "default-123")
+            
+            # Execute async coroutine concurrently
+            result = await self._long_operation(duration, task_id)
+            
+            return json.dumps(result)
+            
+        except Exception as e:
+            error_response = {"status": "error", "message": str(e)}
+            return json.dumps(error_response)
+
+# Example local test
+if __name__ == "__main__":
+    skill = AsyncSkill()
+    test_args = json.dumps({"duration": 2, "task_id": "test-001"})
+    
+    loop = asyncio.get_event_loop()
+    response = loop.run_until_complete(skill.execute(test_args))
+    print("Skill Output:", response)
+
+
+-----
+
+'''
+
+To build a native Python skill for OpenClaw using asyncio without the Model Context Protocol (MCP), 
+define a custom class that implements the execute method. The OpenClaw Personal AI Assistant daemon detects standard SKILL.md metadata, 
+injecting your class into the system prompt to allow for tool calls.
+
+1. Project Directory StructureCreate a folder named ~/openclaw/skills/my_async_skill/ and add the following two files:
+
+2. Integration and Usage
+
+Once your files are in place, restart the OpenClaw gateway to register the new module.
+
+How it triggers: The LLM maps the skill’s description from SKILL.md to the Python method and automatically passes user queries via JSON arguments.
+
+Execution: Your asyncio code runs independently, feeding data back to the conversation interface.
+,,,
