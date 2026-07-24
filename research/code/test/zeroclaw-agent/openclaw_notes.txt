@@ -9,3 +9,5 @@ That directory contains session history files from all your OpenClaw conversatio
 The folder has grown to 16MB total. These are just logs/history files storing your conversations. They're not being actively used by OpenClaw except when you specifically request conversation history from a previous session.
 
 If this is cluttering things up, I could help clean it out - but first let me check if these sessions might be needed for anything specific or if they should stay around:
+
+

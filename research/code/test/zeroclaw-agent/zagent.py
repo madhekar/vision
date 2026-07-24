@@ -465,6 +465,16 @@ openclaw security audit
 openclaw gateway status --deep
 openclaw gateway stability --json
 
+openclaw --version
+openclaw status --all
+openclaw models status
+openclaw logs --follow | grep -vi bonjour
+openclaw --version && openclaw status --all && openclaw models status
+openclaw models status --probe
+openclaw models status --probeopenclaw models status --probe
+
+
+openclaw logs --follow --json | jq 'select(.error_type == "auth" or .error_type == "rate_limit")'
 
 openclaw plugins install @openclaw/parallel-plugin
  openclaw plugins update @openclaw/discord@2026.6.11
