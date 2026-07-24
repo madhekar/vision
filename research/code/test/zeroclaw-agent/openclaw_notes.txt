@@ -12,7 +12,21 @@ If this is cluttering things up, I could help clean it out - but first let me ch
 
 ------
 
-To configure your default command-line text editor in Linux, you need to set the $EDITOR and $VISUAL environment variables in your shell profile.Here is how to configure it temporarily, permanently for yourself, or globally for all users.Temporary ConfigurationTo change the editor only for your current terminal session, export the variables directly into the command line:bashexport EDITOR="nano"
+To configure your default command-line text editor in Linux, you need to set the $EDITOR and $VISUAL environment variables in your shell profile.
+
+Here is how to configure it temporarily, permanently for yourself, or globally for all users.
+
+Temporary Configuration
+
+To change the editor only for your current terminal session, export the variables directly into the command line:
+
+bash
+export EDITOR="nano"
 export VISUAL="nano"
-Use code with caution.(Replace "nano" with "vim", "emacs", or your preferred editor).Permanent Configuration (Current User)To ensure the setting persists every time you open a new terminal, add the export commands to your shell's configuration file.Open your configuration file:For Bash (default on most distributions): Open ~/.bashrc.For Zsh (default on macOS and some Linux distros): Open ~/.zshrc.Append these lines to the very bottom of the file:bashexport EDITOR="nano"
+
+Use code with caution.(Replace "nano" with "vim", "emacs", or your preferred editor).
+
+Permanent Configuration (Current User)
+
+To ensure the setting persists every time you open a new terminal, add the export commands to your shell's configuration file.Open your configuration file:For Bash (default on most distributions): Open ~/.bashrc.For Zsh (default on macOS and some Linux distros): Open ~/.zshrc.Append these lines to the very bottom of the file:bashexport EDITOR="nano"
 export VISUAL="nano"
