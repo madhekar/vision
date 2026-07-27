@@ -633,3 +633,24 @@ send email using Himalaya skill with template to bmadhekar@gmail.com subject "Re
 
  " web research on AI circular funding topic and send a structured summary via AgentMail."
 '''
+
+'''
+The chroma query script is timing out with exit code 124 (which means timeout or process termination). 
+The issue appears to be that the chroma_query.py Python script needs HF_TOKEN environment variable set properly before it can complete image collection queries. 
+This happens due to HuggingFace Hub authentication warnings shown in all previous runs causing external HTTP requests to hang until timeouts occur during 
+imports from timm library modules requiring network connections for model registry checks or caching operations unless configured offline-first mode enabled 
+appropriately through configuration management system settings files stored locally within your home directory environment paths like ~/.huggingface/config.
+
+json containing authentication tokens enabling higher rate limits and faster downloads when accessing remote repositories managed by hugging face hub services without 
+unauthenticated requests being made to production server instances hosted in cloud environments that would otherwise trigger HTTP 429 throttle responses or require 
+external DNS resolution calls taking several seconds longer than expected before returning actual image metadata results from your chromadb database instance running 
+locally on host madhekar-UM690 Linux system configured with Python 3.10.18 and chromaDB 0.6.3 dependencies installed via pip package manager command execution pipelines 
+handling vector retrieval operations across multiple collection namespaces indexed separately as images/videos/text types each storing embeddings null or populated based 
+on preprocessing steps performed during initial dataset ingestion workflows that may have failed silently earlier causing empty collections to be returned when queried 
+instead of meaningful visual metadata associated with people named Bhalchandra, Torry, Anjali, Esha, Diwali celebrations at SWEETHOME locations or similar personally 
+significant content you're trying to retrieve using specific search strings provided through natural language query interfaces exposed via CLI skill wrapper scripts 
+designed for quick image/video/text collection searches across your media library backed by chroma vector database engine running in background process on same machine 
+without external network dependencies except for initial model registry checks during import phase that can be bypassed or cached locally if you have existing environment 
+variables set appropriately including HF_TOKEN, API keys, proxy settings etc configured ahead of time before starting these query operations.
+
+'''
