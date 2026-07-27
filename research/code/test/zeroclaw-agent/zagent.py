@@ -473,6 +473,10 @@ openclaw --version && openclaw status --all && openclaw models status
 openclaw models status --probe
 openclaw models status --probeopenclaw models status --probe
 
+ openclaw sandbox explain
+ openclaw sandbox list
+
+
 
 openclaw logs --follow --json | jq 'select(.error_type == "auth" or .error_type == "rate_limit")'
 
@@ -622,4 +626,10 @@ json
   }
 }
 Use code with caution.For step-by-step visual troubleshooting and checking internal agent memory search:
+'''
+
+'''
+send email using Himalaya skill with template to bmadhekar@gmail.com subject "Research: " message after doing research on AI circular funding.
+
+ " web research on AI circular funding topic and send a structured summary via AgentMail."
 '''

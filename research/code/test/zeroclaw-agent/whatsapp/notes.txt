@@ -35,3 +35,24 @@ These are best practices that improve my stability and how I interact with rate-
 ***
 
 **In summary, to improve my messaging capabilities from merely calling an API function to handling real-world communication reliably, I need:** **External API Wrappers (for WhatsApp)** + **Secure Credential Management (KMS)** + **Resilience Logic (Retry/Backoff Tools).**
+
+
+,
+    "whatsapp": {
+      "allowFrom": [
+        "+18589522575"
+      ],
+      "chunkMode": "length",
+      "debounceMs": 0,
+      "dmPolicy": "pairing",
+      "enabled": true,
+      "groupAllowFrom": [
+        "+18589522575"
+      ],
+      "groupPolicy": "allowlist",
+      "mediaMaxMb": 50,
+      "selfChatMode": true,
+      "sendReadReceipts": true,
+      "textChunkLimit": 4000
+    }
+  }
