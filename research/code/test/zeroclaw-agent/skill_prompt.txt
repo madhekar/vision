@@ -15,12 +15,12 @@ Openclaw skill notes
                                   “SWEETHOME”, 
                                   “GRANDCANYON”, 
                                   “Berkeley”, 
-                                  “ASSORT_K30”)
+                                  “ASSORT_K30”
 
                  - sample prompts:
 
 		- use “chroma_query_executor” skill to return “get_collection_count” 
-                       - use “chroma_query_executor” skill to return “query_image_collection” with query_text as [“”, “”]
+                       - use “chroma_query_executor” skill to return “query_image_collection” with query_text as [“Bhalchandra”, “Torry”]
                        - use “chroma_query_executor” skill to return “query_video_collection” with query_text as [“”, “”]
                        - use “chroma_query_executor” skill to return “query_text_collection” with query_text as [“”, “”]
 
