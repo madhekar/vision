@@ -493,6 +493,10 @@ openclaw memory status --deep
 openclaw gateway diagnostics export
 
 
+openclaw config set agents.defaults.sandbox.mode "non-main"
+openclaw config set agents.defaults.sandbox.scope "session"
+openclaw config set agents.defaults.sandbox.workspaceAccess "none"
+openclaw config set agents.defaults.sandbox.docker.network "bridge"
 
 
 To approve your "openclaw Skill Workshop Proposal", locate the proposal's ID and use the exact apply decision in the CLI. 
