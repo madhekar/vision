@@ -26,7 +26,7 @@ from skills.chroma_query_executor.scripts.chroma_query import getCollectionCount
 getCollectionCount()
 ```
 ```bash
-python3 ~/.openclaw/workspace/skills/chroma_query_executor/scripts/chroma_query.py getCollectionCount
+python3 ~/.openclaw/workspace/skills/chroma_query_executor/scripts/chroma_query.py get_collection_count
 ```
 
 ### Query Image Collection and return results
