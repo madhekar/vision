@@ -1,0 +1,27 @@
+Openclaw skill notes
+—————————-
+
+
+	- Himalaya
+
+	- Agentmail
+
+	- stock-prices
+		- use “stock-prices” skill to research stock ticker “XOM” and return details.
+
+	- chroma-query-executor 
+                  -sources: 
+                                  “Samsung USB”, 
+                                  “SWEETHOME”, 
+                                  “GRANDCANYON”, 
+                                  “Berkeley”, 
+                                  “ASSORT_K30”)
+
+                 - sample prompts:
+
+		- use “chroma_query_executor” skill to return “get_collection_count” 
+                       - use “chroma_query_executor” skill to return “query_image_collection” with query_text as [“”, “”]
+                       - use “chroma_query_executor” skill to return “query_video_collection” with query_text as [“”, “”]
+                       - use “chroma_query_executor” skill to return “query_text_collection” with query_text as [“”, “”]
+
+                      - use “chroma_query_executor” skill to return “query_with_image_metadata” with query_text as [“Anjali”, “diwali”], src_filter as “SWEETHOME”, and ts_filter as 946717268.
