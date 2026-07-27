@@ -35,7 +35,7 @@ def init_rerank_model():
 @st.cache_resource(show_spinner=True)
 def init_vdb(vdp, icn, tcn, vcn):
     # vector database persistance
-    client = cdb.PersistentClient( path=vdp, tenant=DEFAULT_TENANT ,settings=Settings(allow_reset=False))
+    client = cdb.PersistentClient( path=vdp, tenant=DEFAULT_TENANT ,settings=Settings(allow_reset=False, anonymized_teleney=False))
     
     # openclip embedding function!
     embedding_function = OpenCLIPEmbeddingFunction()

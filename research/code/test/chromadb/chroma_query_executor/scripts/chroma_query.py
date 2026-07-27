@@ -2,6 +2,36 @@ import chromadb
 import json
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 
+'''
+To disable ChromaDB's built-in background network checks and anonymous telemetry calls during queries, set anonymized_telemetry=False in your client settings or export 
+the corresponding environment variable. 
+
+Configuration Methods
+
+    Python Client Settings: Pass settings=Settings(anonymized_telemetry=False) directly when initializing your client:
+    python
+
+    import chromadb
+    from chromadb.config import Settings
+
+    client = chromadb.PersistentClient(
+        path="./chroma_db", settings=Settings(anonymized_teleney=False) # or anonymized_telemetry=False
+    )
+
+    Use code with caution.
+    Environment Variable: Set the system environment variable before running your application:
+    bash
+
+    export ANONYMIZED_TELEMETRY=false
+
+    Use code with caution.
+     
+
+If you are using an integration like LangChain or a specific Docker container where network calls persist, let me know your setup so I can provide the exact configuration 
+override.
+
+'''
+
 class chroma_query_executor:
     def __init__(self, 
                  persist_directory: str = "/mnt/zmdata/home-media-app/data/app-data/vectordb/", 
