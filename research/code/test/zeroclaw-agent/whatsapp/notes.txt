@@ -56,3 +56,15 @@ These are best practices that improve my stability and how I interact with rate-
       "textChunkLimit": 4000
     }
   }
+
+  ----
+
+  Built-In Diagnostics
+  
+  If the interval still shows as disabled or ignores your specifications, use the system's explicit debugging tools to locate the exact point of failure:
+  
+  Check configuration parsing: Run openclaw config get agents.defaults.heartbeat to see exactly what the gateway reads.
+  
+  Examine the skip reasons: Run openclaw system heartbeat last to see if a specific error or rule (e.g., activeHours constraints) skipped the loop.
+  
+  Stream live errors: Run openclaw logs --follow and trigger a manual cycle with openclaw system event --mode now to inspect the exact gateway traceback.
