@@ -68,3 +68,7 @@ These are best practices that improve my stability and how I interact with rate-
   Examine the skip reasons: Run openclaw system heartbeat last to see if a specific error or rule (e.g., activeHours constraints) skipped the loop.
   
   Stream live errors: Run openclaw logs --follow and trigger a manual cycle with openclaw system event --mode now to inspect the exact gateway traceback.
+
+  -----
+
+  Install Chromium on Linux/WSL/Docker: Run sudo apt update && sudo apt install chromium-browser (or google-chrome-stable) inside your Linux environment so OpenClaw can auto-detect the binary.Explicitly Set Executable Path: Use openclaw config set browser.executablePath <path-to-browser> to point OpenClaw directly to your installed browser binary if auto-detection fails.Use a Remote Node: Run OpenClaw on a host machine with a full desktop OS (like macOS or Windows) using openclaw node run instead of a headless Linux environment.
