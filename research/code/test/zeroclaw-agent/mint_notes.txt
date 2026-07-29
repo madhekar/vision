@@ -1,0 +1,27 @@
+
+
+What I usually do is create a custom rule in /etc/sysctl.d/ instead of editing the main sysctl file. Change directory to sysctl.d and create your file:
+
+cd /etc/sysctl.d/ 
+sudo touch 60-my-swappiness.conf
+
+Then run your favourite text editor:
+
+sudo nano 60-my-swappiness.conf
+
+Enter your value at the top of the file, for example, vm.swappiness = 10 (there must be spaces between swappiness and the value as shown).
+
+As it recommends in the readme in /etc/sysctl.d/, run
+
+sudo service procps start
+
+for the system to read the new values and then reboot.
+
+The reason why we use 60 at the start of the my-swappiness.conf is so that your custom rule overrides any other rules in the directory.
+
+Check that you have the correct swappiness with
+
+cat /proc/sys/vm/swappiness
+10
+
+This works for me, but there is more guidance on swap and swappiness in the Ubuntu guide if you need any more detailed information.
