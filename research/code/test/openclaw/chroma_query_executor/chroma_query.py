@@ -5,7 +5,7 @@ from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 
 
 class chroma_query_executor:
-    '''handles chromadb query function intents'''
+    '''handles chromadb query functions supported by agent'''
     def __init__(self, 
                  persist_directory: str = "/mnt/zmdata/home-media-app/data/app-data/vectordb/", 
                  img_collection: str = "multimodal_collection_images", 
@@ -21,7 +21,7 @@ class chroma_query_executor:
         self.txt_collection = self.client.get_or_create_collection(name=txt_collection, embedding_function=self.embedding_function)
         self.n_results = n_results
 
-    def get_collection_count(self) -> int:
+    def get_collection_count(self) -> list[int]:
         """Return the array total number of items in a collection for each modality."""
         return [self.img_collection.count(), self.vid_collection.count(), self.txt_collection.count()]
 
