@@ -28,10 +28,14 @@ class chroma_query_executor:
 
     def query_image_collection(self, query_texts: list) -> dict:
         """Return semantic similarity search results for given query texts for image collection."""
-        return self.img_collection.query(
+        img_res =  self.img_collection.query(
             query_texts=query_texts,
             n_results=self.n_results
         )
+        arr = []
+        for ir in img_res["metadatas"][0]:
+           arr.append({"caption": ir["caption"] , "description": ir["text"]})
+        return arr
 
     def query_video_collection(self, query_texts: list) -> dict:
         """Return semantic similarity search results for given query texts for video collection."""

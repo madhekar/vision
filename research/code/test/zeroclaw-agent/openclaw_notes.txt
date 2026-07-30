@@ -34,4 +34,6 @@ export VISUAL="nano"
 use “chroma_query_executor” skill to invoke 'query_video_collection([“India”] )' only return the "vuri" tag values in the result.
 use “chroma_query_executor” skill to call 'get_collections_count()' only return the result, no additional verbiage.
 
+use “chroma_query_executor” skill to invoke 'query_image_collection([“San Diego”] )' only return the result.
+
 sudo sysctl -w vm.swappiness=10
