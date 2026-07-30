@@ -32,6 +32,6 @@ To ensure the setting persists every time you open a new terminal, add the expor
 export VISUAL="nano"
 
 use “chroma_query_executor” skill to invoke 'query_video_collection([“India”] )' only return the "vuri" tag values in the result.
-use “chroma_query_executor” skill to call 'get_collections_count()' only return the result, no additinal verbiage.
+use “chroma_query_executor” skill to call 'get_collections_count()' only return the result, no additional verbiage.
 
 sudo sysctl -w vm.swappiness=10
