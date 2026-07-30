@@ -1,0 +1,3 @@
+FROM qwen3.5:9b 
+PARAMETER num_ctx 64000
+PARAMETER num_thread 4 
