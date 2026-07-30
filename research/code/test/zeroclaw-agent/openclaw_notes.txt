@@ -37,3 +37,28 @@ use “chroma_query_executor” skill to call 'get_collections_count()' only ret
 use “chroma_query_executor” skill to invoke 'query_image_collection([“San Diego”] )' only return the result.
 
 sudo sysctl -w vm.swappiness=10
+-------------------------------
+
+
+Small models in OpenClaw trigger security warnings because they struggle to resist prompt injection when connected to live web tools. 
+Enabling a sandbox and turning off web access prevents malicious web text from taking over the system.
+
+Security Risks of Small Models
+
+Prompt Injection: Small models easily mistake hidden text on web pages for real instructions.
+
+Unsafe Actions: Without limits, an injected model can run dangerous commands or leak private data.
+
+Tool Control: Web search and browser tools give the model hands on the internet, multiplying the damage of a takeover.
+
+How to Secure Your Setup
+
+Disable Web Tools: Turn off group:web and browser tools in your configuration.
+
+Turn on Sandboxing: Enable Docker-based isolation so any runaway code runs in a locked box.
+
+Use Allowlists: Restrict what commands and files the agent can touch.
+
+If you want help updating your configuration file, tell me:
+   What model name you are using (e.g., Qwen, Llama)
+   Which messaging channels you have active (Discord, WhatsApp, etc.)
