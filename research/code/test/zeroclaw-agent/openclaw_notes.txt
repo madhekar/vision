@@ -62,3 +62,33 @@ Use Allowlists: Restrict what commands and files the agent can touch.
 If you want help updating your configuration file, tell me:
    What model name you are using (e.g., Qwen, Llama)
    Which messaging channels you have active (Discord, WhatsApp, etc.)
+
+
+context list
+--------------   
+
+🧠 Context breakdown
+Workspace: /home/madhekar/.openclaw/workspace
+Bootstrap max/file: 20,000 chars
+Bootstrap max/total: 60,000 chars
+Sandbox: mode=off sandboxed=false
+System prompt (run): 35,234 chars (~8,809 tok) (Project Context 13,745 chars (~3,437 tok))
+
+Injected workspace files:
+
+    AGENTS.md: OK | raw 8,654 chars (~2,164 tok) | injected 8,654 chars (~2,164 tok)
+    SOUL.md: OK | raw 3,279 chars (~820 tok) | injected 3,279 chars (~820 tok)
+    TOOLS.md: OK | raw 499 chars (~125 tok) | injected 499 chars (~125 tok)
+    IDENTITY.md: OK | raw 563 chars (~141 tok) | injected 563 chars (~141 tok)
+    USER.md: OK | raw 358 chars (~90 tok) | injected 358 chars (~90 tok)
+    HEARTBEAT.md: OK | raw 243 chars (~61 tok) | injected 243 chars (~61 tok)
+
+Skills list (system prompt text): 7,557 chars (~1,890 tok) (20 skills)
+Skills: agentmail-cli, browser-automation, chroma_query_executor, clawhub, diagram-maker, find-skills, healthcheck, himalaya, meme-maker, nano-pdf, node-connect, node-inspect-debugger, python-debugpy, skill-creator, spike, stock-prices, taskflow, taskflow-inbox-triage, video-frames, weather
+Tool list (system prompt text): 0 chars (~0 tok)
+Tool schemas (JSON): 35,410 chars (~8,853 tok) (counts toward context; not shown as text)
+Tools: read, edit, write, apply_patch, exec, process, whatsapp_login, nodes, cron, message, tts, gateway, agents_list, get_goal, create_goal, update_goal, skill_workshop, update_plan, sessions_list, sessions_history, sessions_send, sessions_spawn, sessions_yield, subagents, session_status, web_search, web_fetch, image, pdf, browser, … (+3 more)
+
+Session tokens (cached): 567 total / ctx=262,144
+
+Inline shortcut: a command token inside normal text (e.g. “hey /status”) that runs immediately (allowlisted senders only) and is stripped before the model sees the remaining message.
