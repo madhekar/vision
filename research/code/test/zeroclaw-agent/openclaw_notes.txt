@@ -31,7 +31,8 @@ Permanent Configuration (Current User)
 To ensure the setting persists every time you open a new terminal, add the export commands to your shell's configuration file.Open your configuration file:For Bash (default on most distributions): Open ~/.bashrc.For Zsh (default on macOS and some Linux distros): Open ~/.zshrc.Append these lines to the very bottom of the file:bashexport EDITOR="nano"
 export VISUAL="nano"
 
-use chroma-query-executor skill to invoke 'query_video_collection([“India”] )' only return the "vuri" tag values in the result.
+use chroma-query-executor skill to invoke 'query_video_collection([“India”] )' only return the result.
+use chroma-query-executor skill to invoke 'query_video_collection_uri([“India”] )' only return the "vuri" tag values in the result.
 use chroma-query-executor skill to call 'get_collections_count()' only return the result, no additional verbiage.
 
 use chroma-query-executor skill to invoke 'query_image_collection([“San Diego”] )' only return the result.
