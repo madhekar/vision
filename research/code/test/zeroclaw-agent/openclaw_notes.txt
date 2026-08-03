@@ -37,9 +37,19 @@ use chroma-query-executor skill to call 'get_collections_count()' only return th
 
 use chroma-query-executor skill to invoke 'query_image_collection([“San Diego”] )' only return the result.
 
+
+------
+use chroma-query-executor skill to invoke 'query_video_collection' 'india' only return the result.
 use chroma-query-executor skill to call 'query_with_image_metadata' 'esha' 'ASSORT_K30' 946717260 only return the result, no additional verbiage.
 
 
+Email th file "/home/madhekar/.openclaw/media/outbound/IMG_6165.jpeg" to bmadhekar@gmail.com
+
+message send --target Bhal --media "/home/madhekar/.openclaw/media/outbound/IMG_6165.jpeg" 
+
+message send --target Bhal --media /home/madhekar/.openclaw/media/outbound/aug_0_tmp_original_esha1.png_4b44cc86-fd14-449e-a37f-a5a857414736.png
+
+-------------------------------
 sudo sysctl -w vm.swappiness=10
 -------------------------------
 
@@ -96,3 +106,6 @@ Tools: read, edit, write, apply_patch, exec, process, whatsapp_login, nodes, cro
 Session tokens (cached): 567 total / ctx=262,144
 
 Inline shortcut: a command token inside normal text (e.g. “hey /status”) that runs immediately (allowlisted senders only) and is stripped before the model sees the remaining message.
+
+
+This error occurs because a third-party or unofficial plugin in OpenClaw is trying to use a restricted runtime helper. Specifically, <Quote>“openBlobStore, openKeyedStore, openSyncKeyedStore, withLease, openChannelIngressQueue, and openChannelIngressDrain are available only to bundled plugins and trusted official plugin installations in this release.”, as noted by [OpenClaw Docs](https://docs.openclaw.ai/plugins/sdk-runtime).</Quote>Common FixesDisable Unofficial Plugins: Turn off or remove untrusted extensions (such as community-installed Copilot or Codex plugins) in your openclaw.json configuration file if they trigger this boot crash.Use Official/Trusted Paths: Ensure your plugins are loaded from the official bundled channels rather than custom paths (plugins.load.paths) that flag the runtime context as untrusted.Update the Gateway: Upgrade your OpenClaw instance to the latest version to make sure your environment matches the expected plugin permission policies.If you can share which specific plugin or extension you are trying to load, I can help you configure your openclaw.json to properly enable or bypass it.
