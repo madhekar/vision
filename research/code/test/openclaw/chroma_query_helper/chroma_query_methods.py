@@ -2,7 +2,8 @@ import chromadb
 import json
 import sys
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
-
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning, module="timm")
 
 '''handles chromadb query functions supported by agent'''
 def chroma_query_init():
@@ -102,12 +103,14 @@ if __name__=="__main__":
     method_name = sys.argv[1]
 
     if method_name == "get_collection_count":
-        get_collection_count()
+        print(get_collection_count())
 
     elif method_name == "query_image_collection":
-        query_image_collection(sys.argv[2])
+        print(query_image_collection(sys.argv[2]))
+
     elif method_name == "query_video_collection":
-        query_image_collection(sys.argv[2])    
+        print(query_video_collection(sys.argv[2]))    
+        
     elif method_name == "query_text_collection":
-        query_image_collection(sys.argv[2])        
+        print(query_text_collection(sys.argv[2]))        
         
