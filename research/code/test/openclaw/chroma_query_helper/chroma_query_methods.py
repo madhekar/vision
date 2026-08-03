@@ -1,5 +1,6 @@
 import chromadb
 import json
+import sys
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 
 
@@ -97,3 +98,16 @@ def query_with_text_metadata( query_texts: list, src_filter: str, ts_filter: int
         where=json.loads(metadata_filter)
     )
 
+if __name__=="__main__":
+    method_name = sys.argv[1]
+
+    if method_name == "get_collection_count":
+        get_collection_count()
+
+    elif method_name == "query_image_collection":
+        query_image_collection(sys.argv[2])
+    elif method_name == "query_video_collection":
+        query_image_collection(sys.argv[2])    
+    elif method_name == "query_text_collection":
+        query_image_collection(sys.argv[2])        
+        
