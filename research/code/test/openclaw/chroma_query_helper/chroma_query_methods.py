@@ -113,4 +113,12 @@ if __name__=="__main__":
         
     elif method_name == "query_text_collection":
         print(query_text_collection(sys.argv[2]))        
-        
+
+    elif method_name == "query_with_image_metadata":
+        print(query_with_image_metadata(sys.argv[2], sys.argv[3], sys.argv[4])) 
+
+    elif method_name == "query_with_video_metadata":
+        print(query_with_video_metadata(sys.argv[2], sys.argv[3], sys.argv[4])) 
+
+    elif method_name == "query_with_text_metadata":
+        print(query_with_text_metadata(sys.argv[2], sys.argv[3], sys.argv[4]))          
