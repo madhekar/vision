@@ -158,6 +158,9 @@ Hello, please find the requested file attached to this message.
 -------
 himalaya template send < draft.txt
 
+himalaya template send < /home/madhekar/.openclaw/workspace/skills/himalaya/email_draft.txt
+
+himalaya template send < /home/madhekar/tmp/email_draft.txt
 ------
 
 To send an image attachment using the Himalaya CLI email tool inside OpenClaw, use the himalaya write command combined with the -a or --attachment flag pointing to your image file path.
@@ -179,3 +182,9 @@ himalaya --version runs and your config file is active at
 OpenClaw Integration: 
 
 If executing via an OpenClaw agent prompt, instruct the agent to use its configured Himalaya skill to draft or send the message with the designated media file path attached.
+
+-----
+
+himalaya write --to bmadhekar@gmail.com --subject "Here is your image" --attachment /home/madhekar/Pictures/IMG_2039.JPG
+
+----
