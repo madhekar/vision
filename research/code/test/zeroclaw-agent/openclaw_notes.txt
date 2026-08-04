@@ -145,3 +145,17 @@ If you can share which specific plugin or extension you are trying to load, I ca
 agentmail/ himalaya
 
 "Send an email to bmadhekar@gmail.com with the subject Project Report and body Please find the attached esha photo.. Attach the file located at /home/madhekar/Pictures/IMG_2039.JPG using AgentMail."
+
+-------
+From: bmadhekar@gmail.com
+To: bmadhekar@gmail.com
+Subject: ZMedia Message
+
+Hello, please find the requested file attached to this message.
+
+<#part type="image/jpg" filename="/home/madhekar/Pictures/IMG_2039.JPG" disposition="attachment">
+<#/part>
+-------
+himalaya template send < draft.txt
+
+------
