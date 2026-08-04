@@ -182,13 +182,4 @@ If executing via an OpenClaw agent prompt, instruct the agent to use its configu
 
 ------
 
-cat << 'EOF' | himalaya template send
-From: you@example.com
-To: recipient@example.com
-Subject: Dynamic Image Email
-
-<#part type=text/html>
-<p>Hello, here is your image:</p>
-<img src="https://example.com" alt="Dynamic Image">
-<#/part>
-EOF
+cat << 'EOF' | himalaya template send From: you@example.com To: recipient@example.com Subject: Dynamic Image Email <#part type=text/html> <p>Hello, here is your image:</p> <img src="https://example.com" alt="Dynamic Image"> <#/part> EOF
