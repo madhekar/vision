@@ -49,6 +49,13 @@ message send --target Bhal --media "/home/madhekar/.openclaw/media/outbound/IMG_
 
 message send --target Bhal --media /home/madhekar/.openclaw/media/outbound/aug_0_tmp_original_esha1.png_4b44cc86-fd14-449e-a37f-a5a857414736.png
 
+message send --target Bhal --media /home/madhekar/Pictures/IMG_2039.JPG
+
+openclaw message send --target Bhal --media /home/madhekar/Pictures/IMG_2039.JPG --message "esha photo"
+
+openclaw message send --target Bhal --media /mnt/zmdata/home-media-app/data/final-data/img/Berkeley/0cf38971-942c-506f-8ebb-108278a85bfa/IMG_0047.jpeg --message "esha photo"
+
+
 -------------------------------
 sudo sysctl -w vm.swappiness=10
 -------------------------------
