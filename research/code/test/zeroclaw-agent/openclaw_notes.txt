@@ -53,7 +53,17 @@ message send --target Bhal --media /home/madhekar/Pictures/IMG_2039.JPG
 
 openclaw message send --target Bhal --media /home/madhekar/Pictures/IMG_2039.JPG --message "esha photo"
 
+---------
 openclaw message send --target Bhal --media /mnt/zmdata/home-media-app/data/final-data/img/Berkeley/0cf38971-942c-506f-8ebb-108278a85bfa/IMG_0047.jpeg --message "esha photo"
+Success! The second photo has been sent:
+
+    Message ID: 1534244295828312105
+    Sent to Discord user: Bhal (user:1134290180988215326)
+    Status: sent ✓
+
+IMG_0047.jpeg from the Berkeley collection with caption "esha photo" has been delivered.
+---------
+openclaw message send --target Bhal --media /mnt/zmdata/home-media-app/data/final-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/57104886521__AEE42CD9-E79B-4F19-A56A-7EA5D6859217.MOV --message "esha video"
 
 
 -------------------------------
