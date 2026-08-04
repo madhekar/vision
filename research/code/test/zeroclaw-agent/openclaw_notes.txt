@@ -65,6 +65,13 @@ IMG_0047.jpeg from the Berkeley collection with caption "esha photo" has been de
 ---------
 openclaw message send --target Bhal --media /mnt/zmdata/home-media-app/data/final-data/video/Berkeley/794131d8-f8b3-5535-8f14-b9712e2c5169/57104886521__AEE42CD9-E79B-4F19-A56A-7EA5D6859217.MOV --message "esha video"
 
+Success! The video has been sent:
+
+    Message ID: 1534248463267663952
+    Sent to Discord user: Bhal (user:1134290180988215326)
+    Status: sent ✓
+
+Video file: IMG_0047.jpeg from the Berkeley collection with caption "esha photo" has been delivered.
 
 -------------------------------
 sudo sysctl -w vm.swappiness=10
