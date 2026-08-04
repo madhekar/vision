@@ -40,6 +40,7 @@ use chroma-query-executor skill to invoke 'query_image_collection([â€œSan Diegoâ
 
 ------
 use chroma-query-executor skill to invoke 'query_video_collection' 'india' only return the result.
+use chroma-query-executor skill to invoke 'query_video_collection_uri' 'india' only return the result.
 use chroma-query-executor skill to call 'query_with_image_metadata' 'esha' 'ASSORT_K30' 946717260 only return the result, no additional verbiage.
 
 
@@ -53,6 +54,7 @@ message send --target Bhal --media /home/madhekar/Pictures/IMG_2039.JPG
 
 openclaw message send --target Bhal --media /home/madhekar/Pictures/IMG_2039.JPG --message "esha photo"
 
+use chroma-query-executor skill to invoke 'query_video_collection_uri' 'math' only return the result. then process the list of uris returned  exec command openclaw message send --target Bhal --media uri item --message "esha video"
 ---------
 openclaw message send --target Bhal --media /mnt/zmdata/home-media-app/data/final-data/img/Berkeley/0cf38971-942c-506f-8ebb-108278a85bfa/IMG_0047.jpeg --message "esha photo"
 Success! The second photo has been sent:
