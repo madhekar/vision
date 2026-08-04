@@ -138,3 +138,10 @@ This error occurs because a third-party or unofficial plugin in OpenClaw is tryi
 Specifically, <Quote>“openBlobStore, openKeyedStore, openSyncKeyedStore, withLease, openChannelIngressQueue, and openChannelIngressDrain are available 
 only to bundled plugins and trusted official plugin installations in this release.”, as noted by [OpenClaw Docs](https://docs.openclaw.ai/plugins/sdk-runtime).</Quote>Common FixesDisable Unofficial Plugins: Turn off or remove untrusted extensions (such as community-installed Copilot or Codex plugins) in your openclaw.json configuration file if they trigger this boot crash.Use Official/Trusted Paths: Ensure your plugins are loaded from the official bundled channels rather than custom paths (plugins.load.paths) that flag the runtime context as untrusted.Update the Gateway: Upgrade your OpenClaw instance to the latest version to make sure your environment matches the expected plugin permission policies.
 If you can share which specific plugin or extension you are trying to load, I can help you configure your openclaw.json to properly enable or bypass it.
+
+
+------
+
+agentmail
+
+"Send an email to bmadhekar@gmail.com with the subject Project Report and body Please find the attached esha photo.. Attach the file located at /home/madhekar/Pictures/IMG_2039.JPG using AgentMail."
