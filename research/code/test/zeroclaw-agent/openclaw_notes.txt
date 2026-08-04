@@ -142,6 +142,6 @@ If you can share which specific plugin or extension you are trying to load, I ca
 
 ------
 
-agentmail
+agentmail/ himalaya
 
 "Send an email to bmadhekar@gmail.com with the subject Project Report and body Please find the attached esha photo.. Attach the file located at /home/madhekar/Pictures/IMG_2039.JPG using AgentMail."
