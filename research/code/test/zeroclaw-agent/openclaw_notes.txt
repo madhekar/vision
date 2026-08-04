@@ -159,3 +159,23 @@ Hello, please find the requested file attached to this message.
 himalaya template send < draft.txt
 
 ------
+
+To send an image attachment using the Himalaya CLI email tool inside OpenClaw, use the himalaya write command combined with the -a or --attachment flag pointing to your image file path.
+
+Command Usage
+
+Run the write command with the file path specified:
+
+himalaya write --to recipient@example.com --subject "Here is your image" --attachment /absolute/path/to/image.png
+
+Requirements & Steps
+
+Verify CLI Setup: Ensure 
+
+himalaya --version runs and your config file is active at 
+
+~/.config/himalaya/config.toml.File Path: Provide the absolute path to the image file you want to attach.
+
+OpenClaw Integration: 
+
+If executing via an OpenClaw agent prompt, instruct the agent to use its configured Himalaya skill to draft or send the message with the designated media file path attached.
