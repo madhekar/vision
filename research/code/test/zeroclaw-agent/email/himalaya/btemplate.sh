@@ -2,9 +2,9 @@
 
 # Construct and pipe MML template directly into himalaya template send
 cat << EOF | himalaya template send
-From: $0
+From: bmadhekar@gmail.com
 To: $1
-Subject: $2
+Subject: "$2 - $(date +%F)"
 
 Hello,
 
