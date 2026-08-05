@@ -190,7 +190,7 @@ himalaya write --to bmadhekar@gmail.com --subject "Here is your image" --attachm
 ----
 ------
 
-cat << 'EOF' | himalaya template send From: you@example.com To: recipient@example.com Subject: Dynamic Image Email <#part type=text/html> <p>Hello, here is your image:</p> <img src="https://example.com" alt="Dynamic Image"> <#/part> EOF
+cat << 'EOF' | himalaya template send From: bmadhekar@gmail.com To: bmadhekar@gmail.com Subject: Dynamic Image Email <#part type=text/html> <p>Hello, here is your image:</p> <img src="/home/madhekar/Pictures/IMG_2039.JPG" alt="Dynamic Image"> <#/part> EOF
 
 -------
 cat << 'EOF' | himalaya template send
