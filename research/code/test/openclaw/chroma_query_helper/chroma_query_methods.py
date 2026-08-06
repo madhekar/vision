@@ -1,9 +1,12 @@
+import os
 import chromadb
 import json
 import sys
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
+from  compress_video_helper import compress_video
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning, module="timm")
+max_bytes = 20 * 1024 * 1024
 
 '''handles chromadb query functions supported by agent'''
 def chroma_query_init():
@@ -55,7 +58,11 @@ def query_video_collection_uri( query_texts: list) -> list:
     # Return ONLY the "vuri" tag values (videos)
     arr = []
     for vr in result["metadatas"][0]:
-        arr.append({"url": vr["vuri"]})
+        if os.path.getsize(vr["vuri"]) > max_bytes:
+           cvideo = compress_video(vr["vuri"], 20)
+           arr.append({"url": cvideo, "caption": vr["caption"], "text": vr["text"]})
+        else:
+          arr.append({"url": vr["vuri"], "caption": vr["caption"], "text": vr["text"]})    
     return arr
 
 
@@ -98,6 +105,7 @@ def query_with_text_metadata( query_texts: list, src_filter: str, ts_filter: int
         n_results=n_results,
         where=json.loads(metadata_filter)
     )
+
 
 if __name__=="__main__":
     method_name = sys.argv[1]

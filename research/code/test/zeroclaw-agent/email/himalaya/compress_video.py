@@ -62,6 +62,8 @@ def compress_video(input_file, target_size_mb):
             
     print(f"Finished! Saved as: {output_file}")
 
+    return output_file
+
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         print("Usage: python compress.py <input_video> <target_size_in_mb>")

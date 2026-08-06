@@ -213,4 +213,8 @@ use chroma-query-executor skill to invoke 'query_video_collection_uri' 'math' on
 
 openclaw message send --target Bhal --media uri item --message "esha video"
 
-
+------
+execute bash script send_email_w_attach.sh with parameters "bmadhekar@gmail.com" "caption-rubrik" "/mnt/zmdata/home-media-app/data/input-data/video/GRANDCANYON/27f5e377-04b9-5d21-a4b6-0de5de7eade1/IMGP2382_compressed.mp4" "video description"
+------
+use chroma-query-executor skill to invoke 'query_video_collection_uri' 'math' only return the result. then process the list of uris, captions, and texts returned. and execute bash script send_email_w_attach.sh with parameters 'bmadhekar@gmail.com' 'caption' 'uri' 'text'
+------
