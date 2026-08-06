@@ -75,6 +75,8 @@ Success! The video has been sent:
 
 Video file: IMG_0047.jpeg from the Berkeley collection with caption "esha photo" has been delivered.
 
+use send_media_w_discord.sh script with 'Bhal' '/home/madhekar/temp/old_samsung_USB/Samsung_USB/20251017-103458/2a98fafb-a921-519f-8561-ed25ccd997de/c4259126-46c1-4557-ae06-6b982db0c056-1.jpg' 'kumar photo'
+
 -------------------------------
 sudo sysctl -w vm.swappiness=10
 -------------------------------
@@ -218,6 +220,8 @@ execute bash script send_email_w_attach.sh with parameters "bmadhekar@gmail.com"
 ------
 use chroma-query-executor skill to invoke 'query_video_collection_uri' 'math' only return the result. then process the list of uris, captions, and texts returned. and execute bash script send_email_w_attach.sh with parameters 'bmadhekar@gmail.com' 'caption' 'uri' 'text'
 ------
+execute bash script send_email_w_attach.sh with parameters "bmadhekar@gmail.com" "rubrik" "/home/madhekar/temp/old_samsung_USB/Samsung_USB/20250916-135618/b6f657c7-7b7f-5415-82b7-e005846a6ef5/826d8b0d-38f3-4e64-b7ff-a98502049c45-1.jpg" "image description"
+
 openclaw models auth list --provider openai
 Agent: main
 Auth state store: ~/.openclaw/agents/main/agent/openclaw-agent.sqlite
