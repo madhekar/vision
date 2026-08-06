@@ -218,3 +218,9 @@ execute bash script send_email_w_attach.sh with parameters "bmadhekar@gmail.com"
 ------
 use chroma-query-executor skill to invoke 'query_video_collection_uri' 'math' only return the result. then process the list of uris, captions, and texts returned. and execute bash script send_email_w_attach.sh with parameters 'bmadhekar@gmail.com' 'caption' 'uri' 'text'
 ------
+openclaw models auth list --provider openai
+Agent: main
+Auth state store: ~/.openclaw/agents/main/agent/openclaw-agent.sqlite
+Provider: openai
+Profiles: (none)
+------
