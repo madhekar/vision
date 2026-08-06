@@ -222,8 +222,11 @@ use chroma-query-executor skill to invoke 'query_video_collection_uri' 'math' on
 ------
 execute bash script send_email_w_attach.sh with parameters "bmadhekar@gmail.com" "rubrik" "/home/madhekar/temp/old_samsung_USB/Samsung_USB/20250916-135618/b6f657c7-7b7f-5415-82b7-e005846a6ef5/826d8b0d-38f3-4e64-b7ff-a98502049c45-1.jpg" "image description"
 
+----
 use /home/madhekar/.openclaw/workspace/scripts/send_media_w_discord.sh script with parameters 'Bhal' '/home/madhekar/temp/old_samsung_USB/Samsung_USB/b6f657c7-7b7f-5415-82b7-e005846a6ef5/f6b572ec-a56f-4d66-b900-fa61b48ce005.jpg' 'kumar photo'
-
+----
+use chroma-query-executor skill to run 'query_video_collection_uri' with 'math' then pipe the uri into bash script send_email_w_attach.sh with parameters "bmadhekar@gmail.com" "caption-rubrik" uri "video description"
+----
 openclaw models auth list --provider openai
 Agent: main
 Auth state store: ~/.openclaw/agents/main/agent/openclaw-agent.sqlite
