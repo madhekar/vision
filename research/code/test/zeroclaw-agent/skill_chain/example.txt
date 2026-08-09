@@ -1,0 +1,79 @@
+To run specific methods with arguments inside a child Python script from a parent script using subprocess, you must expose those internal methods via a Command Line Interface (CLI) in the child script. The subprocess.run() function can only execute files from the operating system level; it cannot target internal Python functions directly without a CLI parser like sys.argv or argparse.Step 1: Set Up the Child Script (script.py)Add a CLI entry point to your child script. This allows the script to read command-line parameters, determine which method to invoke, and pass the accompanying arguments.python# script.py
+import argparse
+
+def method_one(x, y):
+    print(f"Method One executed with x={x} and y={y}")
+    return x + y
+
+def method_two(message, repeat):
+    for _ in range(int(repeat)):
+        print(f"Method Two: {message}")
+
+if __name__ == "__main__":
+    # Create the top-level parser
+    parser = argparse.ArgumentParser(description="Run specific methods.")
+    subparsers = parser.add_parser_創造_subparsers(dest="method", required=True)
+
+    # Sub-parser for method_one
+    parser_one = subparsers.add_parser("method_one")
+    parser_one.add_argument("--x", type=int, required=True)
+    parser_one.add_argument("--y", type=int, required=True)
+
+    # Sub-parser for method_two
+    parser_two = subparsers.add_parser("method_two")
+    parser_two.add_argument("--message", type=str, required=True)
+    parser_two.add_argument("--repeat", type=int, default=1)
+
+    # Parse arguments and route to the correct function
+    args = parser.parse_args()
+    
+    if args.method == "method_one":
+        method_one(args.x, args.y)
+    elif args.method == "method_two":
+        method_two(args.message, args.repeat)
+Use code with caution.Step 2: Call the Methods Using subprocess.run()In your main execution script, pass the command and arguments as a list of strings. Avoid using shell=True to maintain security against injection vulnerabilities.python# main.py
+import subprocess
+import sys
+
+def run_child_method(command_list):
+    try:
+        # Use sys.executable to ensure the same Python environment is used
+        result = subprocess.run(
+            [sys.executable, "script.py"] + command_list,
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        print(f"--- Execution Output ---")
+        print(result.stdout)
+    except subprocess.CalledProcessError as e:
+        print(f"An error occurred: {e.stderr}", file=sys.stderr)
+
+# Example 1: Execute method_one with numerical arguments
+print("Calling Method One...")
+run_child_method(["method_one", "--x", "10", "--y", "20"])
+
+# Example 2: Execute method_two with string and repeat arguments
+print("Calling Method Two...")
+run_child_method(["method_two", "--message", "Hello World", "--repeat", "3"])
+Use code with caution.Alternative: Dynamic Utility Handling (Quick sys.argv Setup)If you want a highly minimal setup without argparse, read positions directly from sys.argv. Note that all items passed to subprocess.run() must be explicitly converted to strings.python# script_simple.py
+import sys
+
+def greet(name):
+    print(f"Hello, {name}!")
+
+def add(a, b):
+    print(int(a) + int(b))
+
+if __name__ == "__main__":
+    # sys.argv[1] is the method name, subsequent indexes are arguments
+    method_name = sys.argv[1]
+    
+    if method_name == "greet":
+        greet(sys.argv[2])
+    elif method_name == "add":
+        add(sys.argv[2], sys.argv[3])
+Use code with caution.Execute this simpler script from Python like this:python# Execution
+subprocess.run([sys.executable, "script_simple.py", "greet", "Alice"])
+subprocess.run([sys.executable, "script_simple.py", "add", "5", "7"])
+Use code with caution.If you want to customize this further, tell me:What specific arguments (data types) do your methods require?Do you need to stream output in real-time, or is capturing it at the end sufficient?I can write the precise boilerplate parser for your exact parameters.
