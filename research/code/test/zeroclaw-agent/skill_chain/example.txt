@@ -31,7 +31,12 @@ if __name__ == "__main__":
         method_one(args.x, args.y)
     elif args.method == "method_two":
         method_two(args.message, args.repeat)
-Use code with caution.Step 2: Call the Methods Using subprocess.run()In your main execution script, pass the command and arguments as a list of strings. Avoid using shell=True to maintain security against injection vulnerabilities.python# main.py
+Use code with caution.S
+
+tep 2: Call the Methods Using subprocess.run()In your main execution script, 
+pass the command and arguments as a list of strings. Avoid using shell=True to maintain 
+security against injection vulnerabilities.python# main.py
+
 import subprocess
 import sys
 
@@ -56,7 +61,10 @@ run_child_method(["method_one", "--x", "10", "--y", "20"])
 # Example 2: Execute method_two with string and repeat arguments
 print("Calling Method Two...")
 run_child_method(["method_two", "--message", "Hello World", "--repeat", "3"])
-Use code with caution.Alternative: Dynamic Utility Handling (Quick sys.argv Setup)If you want a highly minimal setup without argparse, read positions directly from sys.argv. Note that all items passed to subprocess.run() must be explicitly converted to strings.python# script_simple.py
+Use code with caution.Alternative: Dynamic Utility Handling (Quick sys.argv Setup)If you want a 
+highly minimal setup without argparse, read positions directly from sys.argv. 
+Note that all items passed to subprocess.run() must be explicitly converted to strings.python# script_simple.py
+
 import sys
 
 def greet(name):
