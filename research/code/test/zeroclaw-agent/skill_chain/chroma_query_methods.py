@@ -58,9 +58,9 @@ def query_video_collection_uri( query_texts: list) -> list:
     for vr in result["metadatas"][0]:
         if os.path.getsize(vr["vuri"]) > max_bytes:
            cvideo = compress_video(vr["vuri"], 20)
-           arr.append({"url": cvideo, "caption": vr["caption"], "text": vr["text"]})
+           arr.append({"url": cvideo, "caption": vr["caption"].replace('"', ''), "text": vr["text"]})
         else:
-          arr.append({"url": vr["vuri"], "caption": vr["caption"], "text": vr["text"]})    
+          arr.append({"url": vr["vuri"], "caption": vr["caption"].replace('"', ''), "text": vr["text"]})    
     #arr = ["/Users/bhal/Cabinet Storage.jpg", "Esha highschool", "torry pines ..."]
     print(arr)
     return arr
