@@ -1,4 +1,4 @@
-
+import ast
 import sys
 import json
 import subprocess
@@ -16,19 +16,21 @@ if len(sys.argv) > 1:
 
     cp = subprocess.run([sys.executable, "-c", cmd_1], 
                             capture_output=True, 
-                            text=True
+                            text=True,
+                            check=True
                             )
-    print(cp.returncode)
-    
-    #print("after call", result.stdout)
+    arr = cp.stdout
+    valid_arr = ast.literal_eval(arr)
 
-#     cmd2 = [sys.executable, 
-#             "./send_email_w_attach.sh",
-#             "bmadhekar@gmail.com",
-#             uri_list[0], 
-#             uri_list[1], 
-#             uri_list[2]]
+    cmd2 = ["./send_email_w_attach.sh",
+            "bmadhekar@gmail.com",
+            valid_arr[0]['url'], 
+            valid_arr[0]['caption'], 
+            valid_arr[0]['text'],
+            "--debug"]
 
-#     sub.run(cmd2, shell=True, stdout=sub.PIPE, stderr=sub.PIPE, text=True)
+    print(cmd2)
+    cp2=subprocess.run(cmd2, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    print(cp2.stdout, cp2.stderr)
 else:
     print("No arguments provided.")

@@ -32,27 +32,27 @@ def compress_video(input_file, target_size_mb):
         print("Error: Target size is too small for this video duration.")
         return
 
-    print(f"Targeting: {target_size_mb} MB | Video Bitrate: {video_bitrate_kbps} kbps")
+    #print(f"Targeting: {target_size_mb} MB | Video Bitrate: {video_bitrate_kbps} kbps")
 
     # Pass 1
     pass1_cmd = [
-        'ffmpeg', '-y', '-i', input_file, 
+        'ffmpeg', '-y', '-loglevel', 'quiet', '-i', input_file, 
         '-c:v', 'libx264', '-b:v', f'{video_bitrate_kbps}k',
         '-pass', '1', '-an', '-f', 'mp4', os.devnull if os.name != 'nt' else 'NUL'
     ]
     
     # Pass 2
     pass2_cmd = [
-        'ffmpeg', '-y', '-i', input_file, 
+        'ffmpeg', '-y', '-loglevel', 'quiet', '-i', input_file, 
         '-c:v', 'libx264', '-b:v', f'{video_bitrate_kbps}k',
         '-pass', '2', '-c:a', 'aac', '-b:a', f'{audio_bitrate_kbps}k', 
         output_file
     ]
 
-    print("Running Pass 1...")
+    #print("Running Pass 1...")
     subprocess.run(pass1_cmd)
     
-    print("Running Pass 2...")
+    #print("Running Pass 2...")
     subprocess.run(pass2_cmd)
     
     # Clean up two-pass log files
@@ -60,7 +60,7 @@ def compress_video(input_file, target_size_mb):
         if file.startswith('ffmpeg2pass'):
             os.remove(file)
             
-    print(f"Finished! Saved as: {output_file}")
+    #print(f"Finished! Saved as: {output_file}")
 
     return output_file
 

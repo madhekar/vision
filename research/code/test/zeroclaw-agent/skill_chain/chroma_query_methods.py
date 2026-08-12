@@ -1,5 +1,6 @@
 import os
 import chromadb
+from chromadb.config import Settings
 import json
 import sys
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
@@ -11,7 +12,7 @@ max_bytes = 20 * 1024 * 1024
 '''handles chromadb query functions supported by agent'''
 def chroma_query_init():
     """Initialize the ChromaDB client and load the collection."""
-    client = chromadb.PersistentClient(path="/mnt/zmdata/home-media-app/data/app-data/vectordb/")
+    client = chromadb.PersistentClient(path="/mnt/zmdata/home-media-app/data/app-data/vectordb/", settings=Settings(anonymized_telemetry=False))
     embedding_function = OpenCLIPEmbeddingFunction()
     img_collection = client.get_or_create_collection(name="multimodal_collection_images", embedding_function=embedding_function)
     vid_collection = client.get_or_create_collection(name="multimodal_collection_videos", embedding_function=embedding_function)
@@ -61,7 +62,7 @@ def query_video_collection_uri( query_texts: list) -> list:
         else:
           arr.append({"url": vr["vuri"], "caption": vr["caption"], "text": vr["text"]})    
     #arr = ["/Users/bhal/Cabinet Storage.jpg", "Esha highschool", "torry pines ..."]
-    #print(arr)
+    print(arr)
     return arr
 
 

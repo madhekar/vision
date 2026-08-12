@@ -10,9 +10,9 @@ Hello,
 
 One years ago,
 
-rubric - $2
+rubric - $3
 narrative  - $4
 
-<#part filename="$3" name="basename $3">
+<#part filename="$2" name="basename $2">
 <#/part>
 EOF

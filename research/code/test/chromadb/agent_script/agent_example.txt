@@ -39,3 +39,19 @@ if __name__ == "__main__":
     output = tool.run_process(user_input)
     
     print(json.dumps(output))
+
+
+------
+
+
+The error Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given is a known dependency bug in ChromaDB caused by a breaking change in PostHog's Python SDK.This typically happens if you are using applications like Open WebUI, Vanna AI, or NVIDIA AI Workbench that rely on ChromaDB under the hood. This error is purely cosmetic, but you can resolve it using the methods below.Option 1: Downgrade the PostHog Package (Recommended)The root cause is posthog upgrading to version 6.0.0 or higher, which broke ChromaDB's telemetry integration. Forcing a version below 6.0.0 fixes the issue.Run this command in your Python environment:bashpip install "posthog>=2.4.0,<6.0.0"
+Use code with caution.If you manage dependencies via a requirements.txt file, update or add the following line:textposthog>=2.4.0,<6.0.0
+Use code with caution.Option 2: Completely Disable TelemetryBecause this error only occurs when ChromaDB tries to send anonymous usage data, you can stop the errors entirely by opting out of telemetry.Via Environment Variables: Set this variable in your system or your Docker container configuration:bashANONYMIZED_TELEMETRY=False
+Use code with caution.Via Python Code: If you initialize the client directly, add the telemetry setting to your configuration:pythonimport chromadb
+from chromadb.config import Settings
+
+client = chromadb.Client(Settings(anonymized_telemetry=False))
+Use code with caution.Option 3: Update ChromaDBIf you are running an older version of ChromaDB, update it to the latest release, as newer versions have patched the internal PostHog dependency range.bashpip install --upgrade chromadb
+Use code with caution.
+
+---
