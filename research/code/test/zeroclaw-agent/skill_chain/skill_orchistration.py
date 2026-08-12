@@ -5,7 +5,7 @@ import subprocess
 
 module = "chroma_query_methods"
 method = "query_video_collection_uri"
-arg = "'Esha'" #sys.argv[1]
+arg = "'Madhekar'" #sys.argv[1]
 # Check if arguments were passed
 if len(sys.argv) > 1:
     print("First argument:", sys.argv[1])
@@ -13,20 +13,16 @@ if len(sys.argv) > 1:
     cmd_1 = f"import {module}; {module}.{method}({arg})"
 
     print(cmd_1)
-#     cmd1 = ["python3", "./chroma_query_methods.py", 
-#             "query_video_collections_uri", 
-#             sys.argv[1]]
-    with subprocess.run([sys.executable, "-c", cmd_1], 
-                            stdout=subprocess.PIPE, 
-                            stderr=subprocess.STDOUT, 
-                            #capture_output=True, 
-                            text=True) as process:
-        for line in process.stdout:
-            print(line, end="")
+
+    cp = subprocess.run([sys.executable, "-c", cmd_1], 
+                            capture_output=True, 
+                            text=True
+                            )
+    print(cp.returncode)
     
     #print("after call", result.stdout)
 
-#     cmd2 = ["python3", 
+#     cmd2 = [sys.executable, 
 #             "./send_email_w_attach.sh",
 #             "bmadhekar@gmail.com",
 #             uri_list[0], 
