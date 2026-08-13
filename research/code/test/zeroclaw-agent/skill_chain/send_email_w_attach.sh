@@ -8,10 +8,12 @@ Subject: ZMedia - $(date +%m/%d/%Y)
 
 Hello,
 
-One years ago,
+<#part type=text/html>
+<p><b>One years ago</b></p>,
 
-rubric - $3
-narrative  - $4
+<p><u>rubric</u></p> - $3
+<p><u>narrative</u></p>  - $4
+<#/part>
 
 <#part filename="$2" name="basename $2">
 <#/part>
