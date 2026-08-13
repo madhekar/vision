@@ -8,7 +8,7 @@ def get_duration(input_file):
         'ffprobe', '-v', 'error', '-show_entries', 'format=duration',
         '-of', 'json', input_file
     ]
-    result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True, check=True)
     data = json.loads(result.stdout)
     return float(data['format']['duration'])
 
@@ -50,10 +50,10 @@ def compress_video(input_file, target_size_mb):
     ]
 
     #print("Running Pass 1...")
-    subprocess.run(pass1_cmd)
+    subprocess.run(pass1_cmd, check=False)
     
     #print("Running Pass 2...")
-    subprocess.run(pass2_cmd)
+    subprocess.run(pass2_cmd, check=False)
     
     # Clean up two-pass log files
     for file in os.listdir('.'):

@@ -6,8 +6,9 @@ import sys
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from  compress_video_helper import compress_video
 import warnings
+
 warnings.filterwarnings("ignore", category=FutureWarning, module="timm")
-max_bytes = 20 * 1024 * 1024
+max_bytes = 5 * 1024 * 1024
 
 '''handles chromadb query functions supported by agent'''
 def chroma_query_init():
