@@ -6,18 +6,16 @@ From: bmadhekar@gmail.com
 To: $1
 Subject: ZMedia - $(date +%m/%d/%Y)
 
-<#multipart type=alternative>
-<#part type=text/html>
+<#part type="text/html">
 <html>
   <body>
     <p>Hello,</p>
     <p><b>Archived Media found One years ago,</b></p>
-    <p><b>Rubric</b></p> : <p>$3</p>
-    <p><b>Narrative</b></p>  : <p>$4</p>
+    <p><b>Rubric</b> : $3</p>
+    <p><b>Narrative</b>  : $4</p>
   </body>
 </html>   
 <#/part> 
-<#multipart type=alternative>
 <#part filename="$2" name="basename $2">
 <#/part>
 EOF
