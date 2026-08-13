@@ -55,3 +55,161 @@ Use code with caution.Option 3: Update ChromaDBIf you are running an older versi
 Use code with caution.
 
 ---
+
+Based on my investigation, here are several ways to dynamically invoke skill_orchistration.py with different search strings:
+✅ Best Methods (Ranked)
+1. Direct Python Command Line (Simplest)
+
+python3 /path/to/skill_orchistration.py "your_search_term"
+# or for multiple terms separated by space
+python3 /path/to/skill_orchistration.py "search term here"
+
+2. Using xargs with stdin (Batch processing)
+
+Create a file list and process dynamically:
+
+echo -e "India\nSan Diego\nNew York" | xargs python3 /path/to/skill_orchistration.py -- {}
+# Each term passed to the script in turn
+
+3. Shell Function (Reusable)
+
+Add this to your .bashrc or current session:
+
+run_orchistration() {
+    local query="$1"
+    echo "Running query for: $query"
+    
+    # Validate the term contains only safe characters
+    if [[ "$query" =~ ^[a-zA-Z0-9\ -]+$ ]]; then
+        python3 /path/to/skill_orchistration.py "$query" 2>&1 | tee logs/output_${query}.log
+    else
+        echo "⚠️ Warning: Term '$query' contains special characters. Escaping may be needed." >&2
+    fi
+    
+}
+
+# Usage examples:
+run_orchistration "India temples"
+run_orchistration "San Diego waterfront"
+
+4. Python One-Liner (Programmatic)
+
+If you need to call it from Python code:
+
+#!/usr/bin/env python3
+import subprocess, sys
+
+def query_chroma(term):
+    script_path = "/path/to/skill_orchistration.py"
+    
+    # Build the command safely
+    cmd = [sys.executable, "-c", 
+           f'''from chroma_query_methods import {module}.{method}''']
+    
+    result = subprocess.run(cmd + ["'".join(term.split())], capture_output=True)
+
+5. Interactive Script (Menu-Driven)
+
+Create a helper script /path/to/run_search.sh:
+
+#!/bin/bash
+
+SC_PATH="/home/madhekar/.openclaw/workspace/skills/chroma-query-executor/scripts"
+SCRIPT="$SC_PATH/skill_orchistration.py"
+
+echo "===== ChromaDB Search Runner ====="
+read -p "Enter search term (e.g., 'India', 'San Diego'): " QUERY
+
+# Execute and capture output
+python3 "$SCRIPT" "$QUERY" 2>&1 | tee "/tmp/search_result_${QUERY// /_}.log"
+
+if [ $? -eq 0 ]; then
+    echo ""
+    echo "✅ Search completed successfully!"
+else
+    echo ""
+    echo "❌ Error occurred during search." >&2
+fi
+
+# Show first line of results (URL) if available
+grep -m1 'url' "/tmp/search_result_${QUERY// /_}.log" 2>/dev/null || true
+
+⚠️ Important Security Notes:
+
+Never use shell expansion for untrusted input:
+
+# ❌ UNSAFE (could execute malicious code)
+result=$(python3 $SCRIPT "$user_input")
+
+# ✅ SAFE (validate first, quote variables)
+if [[ ! "$USER_INPUT" =~ [^a-zA-Z0-9\ -] ]]; then
+    python3 $SCRIPT "$USER_INPUT"  # Note: proper quoting! 
+fi
+
+📁 Example Usage Scenarios:
+Quick one-off searches:
+
+python3 skill_orchistration.py "India festivals"
+python3 skill_orchistration.py "San Diego skyline"  
+python3 skill_orchistration.py "Paris landmarks"
+
+Automated batch run:
+
+# Read from file (one query per line)
+while IFS= read -r term; do
+    [ -z "$term" ] && continue
+    
+    python3 /path/to/skill_orchistration.py "${term}" \
+        > "/tmp/results/${term// /_}_results.log" 2>&1
+        
+done < queries.txt
+
+# Process results programmatically while avoiding subshell issues
+for file in /tmp/results/*.log; do
+    grep "url:" "$file" | head -1
+done
+
+🧰 Advanced: Using Python's argparse for robust CLI:
+
+If you want a more polished command-line tool, create /path/to/search_helper.py:
+
+#!/usr/bin/env python3
+import subprocess, sys, pathlib, shlex
+
+SC_PATH = "/home/madhekar/.openclaw/workspace/skills/chroma-query-executor/scripts"
+SCRIPT_NAME = "skill_orchistration.py"
+
+def search_chroma(term: str):
+    if not term or len(term.strip()) == 0:
+        print("❌ Error: No search query provided", file=sys.stderr)
+        sys.exit(1)
+    
+    cmd_line = f"python3 {SC_PATH}/{SCRIPT_NAME} {shlex.quote(term)} 2>&1"
+    
+    # Execute with proper error handling  
+    result = subprocess.run(cmd_line, shell=True, capture_output=True, text=True)
+    
+    if result.returncode != 0:
+        print(f"\n⚠️ Warning: Command exited with code {result.returncode}", file=sys.stderr)
+        return False
+    
+    # Print output (if any)  
+    if result.stdout.strip():
+        print(result.stdout, end="")
+    
+    if result.stderr.strip():  # Some errors are expected and okay
+        print(f"\nStderr: {result.stderr}\n", file=sys.stderr)
+    
+    return True
+
+if __name__ == "__main__":
+    term = sys.argv[1] if len(sys.argv) > 1 else ""
+    search_chroma(term or "default_search_term")
+
+🔄 Your Current Setup Works Perfectly For:
+
+✅ Quick manual runs
+✅ Single-threaded scripts with simple CLI args
+✅ Direct subprocess calls from Python
+
+Just ensure: Proper quoting of arguments to handle spaces/special chars correctly!
