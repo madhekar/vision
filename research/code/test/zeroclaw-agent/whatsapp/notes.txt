@@ -74,3 +74,39 @@ These are best practices that improve my stability and how I interact with rate-
   Install Chromium on Linux/WSL/Docker: Run sudo apt update && sudo apt install chromium-browser (or google-chrome-stable) inside your Linux environment so OpenClaw can auto-detect the binary.Explicitly Set Executable Path: Use openclaw config set browser.executablePath <path-to-browser> to point OpenClaw directly to your installed browser binary if auto-detection fails.Use a Remote Node: Run OpenClaw on a host machine with a full desktop OS (like macOS or Windows) using openclaw node run instead of a headless Linux environment.
 
   openclaw message send --media /home/madhekar/Downloads/vision/README.md --target Bhal
+
+  ----
+
+  channels: {
+    whatsapp: {
+      groups: {
+        // Use only if all groups should be admitted at the root scope.
+        // Applies to all accounts that do not define their own groups map.
+        "*": { systemPrompt: "Default prompt for all groups." },
+      },
+      direct: {
+        // Applies to all accounts that do not define their own direct map.
+        "*": { systemPrompt: "Default prompt for all direct chats." },
+      },
+      accounts: {
+        work: {
+          groups: {
+            // This account defines its own groups, so root groups are fully
+            // replaced. To keep a wildcard, define "*" explicitly here too.
+            "120363406415684625@g.us": {
+              requireMention: false,
+              systemPrompt: "Focus on project management.",
+            },
+            // Use only if all groups should be admitted in this account.
+            "*": { systemPrompt: "Default prompt for work groups." },
+          },
+          direct: {
+            // This account defines its own direct map, so root direct entries are
+            // fully replaced. To keep a wildcard, define "*" explicitly here too.
+            "+15551234567": { systemPrompt: "Prompt for a specific work direct chat." },
+            "*": { systemPrompt: "Default prompt for work direct chats." },
+          },
+        },
+      },
+    },
+  },
