@@ -233,3 +233,22 @@ Auth state store: ~/.openclaw/agents/main/agent/openclaw-agent.sqlite
 Provider: openai
 Profiles: (none)
 ------
+
+,
+    "whatsapp": {
+      "allowFrom": [
+        "+18589522575"
+      ],
+      "chunkMode": "length",
+      "debounceMs": 0,
+      "dmPolicy": "pairing",
+      "enabled": true,
+      "groupAllowFrom": [
+        "+18589522575"
+      ],
+      "groupPolicy": "allowlist",
+      "mediaMaxMb": 50,
+      "selfChatMode": true,
+      "sendReadReceipts": true,
+      "textChunkLimit": 4000
+    }
