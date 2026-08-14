@@ -110,3 +110,10 @@ These are best practices that improve my stability and how I interact with rate-
       },
     },
   },
+
+------
+
+openclaw channels status --json --probe + logs
+openclaw channels login --channel whatsapp
+openclaw health --json
+
