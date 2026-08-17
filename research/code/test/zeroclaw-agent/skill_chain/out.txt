@@ -19,3 +19,14 @@
     'text': "\n\nThe video depicts a scene where two individuals, John and Sarah, are engaged in conversation at the Machala location. In the first frame, John is seen approaching Sarah, who is standing near a tree. He extends his hand towards her as he introduces himself.\n\nIn the second frame, Sarah smiles warmly and greets John, welcoming him to the area. She leads him to a bench, where they sit down to discuss their shared interests in traveling and meeting new people.\n\nAs the conversation progresses, they share stories about their experiences with different cultures and customs. They talk about Machala's rich history and the unique blend of cultures that make it an interesting place to visit.\n\nIn the fourth frame, Sarah pulls out a map from her backpack, highlighting various points of interest around Machala. John listens attentively as she explains the significance of each location.\n\nAs they continue their conversation, the setting sun casts a warm glow over the scene, creating a serene atmosphere that underscores the sense of connection and camaraderie between John and Sarah.\n\nFinally, in the fifth frame, John extends his hand once again to thank Sarah for sharing her knowledge with him. He says goodbye as he turns to leave Machala, feeling enriched by their conversation and the experiences they've shared together.\n\nThroughout this video, it is clear that both John and Sarah have a deep appreciation for meeting new people and exploring different cultures. Their exchange in Machala serves as a reminder of the power of connection and the beauty of discovering new places and ideas."
     }
 ]
+
+
+,
+    "port": 18789,
+    "remote": {
+      "token": "__OPENCLAW_REDACTED__"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    }

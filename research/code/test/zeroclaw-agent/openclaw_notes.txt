@@ -252,3 +252,19 @@ Profiles: (none)
       "sendReadReceipts": true,
       "textChunkLimit": 4000
     }
+
+----
+
+Close Code 1006 is a special code that means the connection was closed abnormally (locally) by the browser implementation.
+
+If your browser client reports close code 1006, then you should be looking at the websocket.onerror(evt) event for details.
+
+However, Chrome will rarely report any close code 1006 reasons to the Javascript side. This is likely due to client security rules in the WebSocket spec to prevent abusing WebSocket. (such as using it to scan for open ports on a destination server, or for generating lots of connections for a denial-of-service attack).
+
+Note that Chrome will often report a close code 1006 if there is an error during the HTTP Upgrade to Websocket (this is the step before a WebSocket is technically "connected"). For reasons such as bad authentication or authorization, or bad protocol use (such as requesting a subprotocol, but the server itself doesn't support that same subprotocol), or even an attempt at talking to a server location that isn't a WebSocket (such as attempting to connect to ws://images.google.com/)
+
+Fundamentally, if you see a close code 1006, you have a very low level error with WebSocket itself (similar to "Unable to Open File" or "Socket Error"), not really meant for the user, as it points to a low level issue with your code and implementation. Fix your low level issues, and then when you are connected, you can then include more reasonable error codes. You can accomplish this in terms of scope or severity in your project. Example: info and warning level are part of your project's specific protocol, and don't cause the connection to terminate. With severe or fatal messages reporting also using your project's protocol to convey as much detail as you want, and then closing the connection using the limited abilities of the WebSocket close flow.
+
+Be aware that WebSocket close codes are very strictly defined, and the close reason phrase/message cannot exceed 123 characters in length (this is an intentional WebSocket limitation).
+
+But not all is lost, if you are just wanting this information for debugging reasons, the detail of the closure, and its underlying reason is often reported with a fair amount of detail in Chrome's Javascript console.
