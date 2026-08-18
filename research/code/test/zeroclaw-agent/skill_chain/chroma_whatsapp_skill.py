@@ -7,7 +7,7 @@ method = "query_video_collection_uri"
 arg_query, arg_whatsapp_id =  "'San Diego'", "whatsapp-id"
 # Check if arguments were passed
 if len(sys.argv) > 2:
-    arg_discord_id = f"{sys.argv[1]}"
+    arg_whatsapp_id = f"{sys.argv[1]}"
     arg_query = f'"{sys.argv[2]}"'    
 
     print(f"arguments: {sys.argv[1]} : {sys.argv[2]}")
