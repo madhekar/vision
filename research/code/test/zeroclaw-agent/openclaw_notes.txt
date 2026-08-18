@@ -268,3 +268,19 @@ Fundamentally, if you see a close code 1006, you have a very low level error wit
 Be aware that WebSocket close codes are very strictly defined, and the close reason phrase/message cannot exceed 123 characters in length (this is an intentional WebSocket limitation).
 
 But not all is lost, if you are just wanting this information for debugging reasons, the detail of the closure, and its underlying reason is often reported with a fair amount of detail in Chrome's Javascript console.
+
+-----
+
+,
+    "whatsapp": {
+      "dmPolicy": "allowlist",
+      "allowFrom": [
+        "+18589522575",
+        "+18583808555"
+      ],
+      "groupPolicy": "allowlist",
+      "groupAllowFrom": [
+        "+18589522575"
+      ],
+      "enabled": true
+    }
