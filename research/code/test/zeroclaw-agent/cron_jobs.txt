@@ -1,7 +1,9 @@
-openclaw automations create "0 7 * * *" \
+openclaw cron add \
   --name "Run chroma whatsapp Script" \
-  --command "python3 /path/to/your/script.py" \
-  --command-cwd "/path/to/your/project" \
+  --cron "*/15 * * * *" \
+  --session isolated \
+  --deliver \
   --announce \
-  --channel slack \
-  --to "channel:C1234567890"
+  --channel "whatsapp" \
+  --to "whatsapp:+18589522575" \
+  --message "execute and report results python3 /home/madhekar/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_whatsapp_skill.py '+18589522575' 'Esha, anjali and Bhalchandra'"
