@@ -1,0 +1,7 @@
+openclaw automations create "0 7 * * *" \
+  --name "Run chroma whatsapp Script" \
+  --command "python3 /path/to/your/script.py" \
+  --command-cwd "/path/to/your/project" \
+  --announce \
+  --channel slack \
+  --to "channel:C1234567890"
