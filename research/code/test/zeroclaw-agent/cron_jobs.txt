@@ -1,9 +1,29 @@
 openclaw cron add \
   --name "Run chroma whatsapp Script" \
   --cron "*/15 * * * *" \
-  --session isolated \
+  --session main \
   --deliver \
   --announce \
   --channel "whatsapp" \
   --to "whatsapp:+18589522575" \
   --message "execute and report results python3 /home/madhekar/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_whatsapp_skill.py '+18589522575' 'Esha, anjali and Bhalchandra'"
+
+----
+
+openclaw cron add \
+  --name "Run chroma whatsapp Script" \
+  --cron "*/15 * * * *" \
+  --session main \
+  --system-event 'execute with two arguments and report results "/home/madhekar/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_whatsapp_skill.py" "+18589522575" "Esha, anjali and Bhalchandra"' \
+  --wake now 
+
+----
+
+openclaw cron add \
+  --name "Run chroma whatsapp script" \
+  --cron "*/8 * * * *" \
+  --deliver \
+  --announce \
+  --channel "whatsapp" \
+  --to "whatsapp:+18589522575" \
+  --command-argv '["python3", "-c", "/home/madhekar/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_whatsapp_skill.py", "+18589522575","Esha"]'

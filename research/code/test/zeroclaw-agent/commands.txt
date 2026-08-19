@@ -9,3 +9,17 @@ To inspect the listener:
     lsof -nP -iTCP:42617 -sTCP:LISTEN
 
 ----
+
+
+
+
+15:24:00-07:00 warn cron {"module":"cron","storePath":"/home/madhekar/.openclaw/cron/jobs.json"} 
+{"jobId":"d08d69f6-9008-4c4c-9629-b1e2d74d9ea5","jobName":"Run chroma whatsapp script","error":"Channel is required when multiple channels are configured: discord, whatsapp. 
+Pass --channel <channel> to choose one. Set delivery.channel explicitly or use a main session with a previous channel.","diagnosticsSummary":"stdout:\narguments: +18589522575 : Esha\n\nstderr:\nTraceback (most recent call last):\n  
+File \"/home/madhekar/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_whatsapp_skill.py\", line 17, in <module>\n    cp = subprocess.run([sys.executable, \"-c\", cmd_1], capture_output=True, 
+text=True, check=True)\n  File \"/usr/lib/python3.10/subprocess.py\", line 526, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['/usr/bin/python3', '-c', 'import chroma_query_methods; chroma_query_methods.query_video_collection_uri(\"Esha\")']' returned non-zero exit status 1."} cron: job run returned error status
+
+
+----
+
+invoke /home/madhekar/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_whatsapp_skill.py with arguments "+18589522575" "Pune festivals"
