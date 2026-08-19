@@ -22,4 +22,6 @@ text=True, check=True)\n  File \"/usr/lib/python3.10/subprocess.py\", line 526, 
 
 ----
 
-invoke /home/madhekar/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_whatsapp_skill.py with arguments "+18589522575" "Pune festivals"
+invoke "~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_whatsapp_skill.py" with arguments "+18589522575" "Pune festivals"
+
+execute "~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_discord_skill.py" with arguments "Bhal" "Pune festivals"
