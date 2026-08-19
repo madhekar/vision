@@ -1,11 +1,13 @@
 #!/bin/bash
 
 # Configuration Variables
-TO="bmadhekar@gmail.com"
-SUBJECT="Email with Attachment"
+TO="$1"
+SUBJECT="ZMedia - $(date +%m/%d/%Y)"
 BOUNDARY="MULTIPART-BOUNDARY-$(date +%s)"
-FILE="/path/to/file.pdf"
+FILE="$2"
 FILENAME=$(basename "$FILE")
+RUBRIC="$3"
+NARATIVE="$4"
 
 # Construct Raw Email Structure
 (
@@ -15,9 +17,17 @@ FILENAME=$(basename "$FILE")
   echo "Content-Type: multipart/mixed; boundary=\"$BOUNDARY\""
   echo ""
   echo "--$BOUNDARY"
-  echo "Content-Type: text/plain; charset=utf-8"
+  echo "Content-Type: text/html; charset=utf-8"
   echo ""
-  echo "Hello, please find your attachment below."
+  echo "
+    <html>
+     <body>
+      <p>Hello,</p>
+      <p><b>Archived Media found One years ago,</b></p>
+      <p><b>Rubric</b> : $RUBRIC</p>
+      <p><b>Narrative</b>  : $NARATIVE</p>
+     </body>
+   </html>"
   echo ""
   echo "--$BOUNDARY"
   echo "Content-Type: application/octet-stream; name=\"$FILENAME\""
@@ -27,4 +37,4 @@ FILENAME=$(basename "$FILE")
   base64 "$FILE"
   echo ""
   echo "--$BOUNDARY--"
-) | msmtp -t
+) | msmtp --debug -t
