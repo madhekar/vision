@@ -3,7 +3,9 @@ import sys
 import subprocess
 
 module = "chroma_query_methods"
-method = "query_video_collection_uri"
+method_img = "query_video_collection_uri"
+method_vid = "query_image_collection"
+
 arg_query, arg_email_id =  "'San Diego'", "email-id"
 # Check if arguments were passed
 if len(sys.argv) > 2:
