@@ -19,8 +19,8 @@ if len(sys.argv) > 2:
 
     #cmd_2 = ["./send_email_w_attach.sh", arg_email_id, valid_arr[0]['url'], valid_arr[0]['caption'], valid_arr[0]['text'], "--debug"]
 
-    msg = valid_arr[0]['caption'] + ":\n" +  valid_arr[0]['text']
-    cmd_2 =     command = [
+    msg = f"**Rubric**: *{valid_arr[0]['caption']}*" + "\n" + f"**Narative**: {valid_arr[0]['text']}"
+    cmd_2 = command = [
         "openclaw", 
         "message",
         "send", 
