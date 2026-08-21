@@ -1,4 +1,5 @@
 import os
+import time
 import chromadb
 from chromadb.config import Settings
 import json
@@ -37,7 +38,7 @@ def query_image_collection( query_texts: list) -> dict:
     )
     arr = []
     for ir in img_res["metadatas"][0]:
-        arr.append({"caption": ir["caption"] , "description": ir["text"]})
+        arr.append({"caption": ir["caption"] , "description": ir["text"], "ts": time.ctime(ir["ts"])})
     return arr
 
 def query_video_collection( query_texts: list) -> dict:
@@ -53,15 +54,15 @@ def query_video_collection_uri( query_texts: list) -> list:
     _, vid_collection, _, n_results = chroma_query_init()
     #print(f">>> Querying video collection with text(s): {query_texts}")
     result = vid_collection.query( query_texts=query_texts, n_results=n_results)
-    #print("<<< Video results retrieved from ChromaDB")
     # Return ONLY the "vuri" tag values (videos)
     arr = []
     for vr in result["metadatas"][0]:
         if os.path.getsize(vr["vuri"]) > max_bytes:
            cvideo = compress_video(vr["vuri"], 20)
-           arr.append({"url": cvideo, "caption": vr["caption"].replace('"', ''), "text": vr["text"]})
+           dt = time.ctime(vr["ts"]) if vr["ts"] else time.ctime(180000000)
+           arr.append({"url": cvideo, "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": dt})
         else:
-          arr.append({"url": vr["vuri"], "caption": vr["caption"].replace('"', ''), "text": vr["text"]})    
+          arr.append({"url": vr["vuri"], "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": dt})    
     #arr = ["/Users/bhal/Cabinet Storage.jpg", "Esha highschool", "torry pines ..."]
     print(arr)
     return arr

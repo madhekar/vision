@@ -5,7 +5,7 @@ import subprocess
 module = "chroma_query_methods"
 method = "query_video_collection_uri"
 arg_query, arg_discord_id =  "'San Diego'", "discord-id"
-# Check if arguments were passed
+
 if len(sys.argv) > 2:
     arg_discord_id = f"{sys.argv[1]}"
     arg_query = f'"{sys.argv[2]}"'    
@@ -19,8 +19,10 @@ if len(sys.argv) > 2:
 
     #cmd_2 = ["./send_email_w_attach.sh", arg_email_id, valid_arr[0]['url'], valid_arr[0]['caption'], valid_arr[0]['text'], "--debug"]
 
-    msg = valid_arr[0]['caption'] + ":\n" +  valid_arr[0]['text']
-    cmd_2 =     command = [
+    #msg = valid_arr[0]['caption'] + ":\n" +  valid_arr[0]['text']
+    msg = f"**Rubric**: {valid_arr[0]['caption']}" + "\n\n" + f"**Narative**: {valid_arr[0]['text']}" + "\n\n" + f"**DateTime**: {valid_arr[0]['ts']}"
+
+    cmd_2 = command = [
         "openclaw", 
         "message",
         "send", 
