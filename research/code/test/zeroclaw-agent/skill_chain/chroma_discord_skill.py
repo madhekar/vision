@@ -1,4 +1,5 @@
 import ast
+import json
 import sys
 import subprocess
 
@@ -15,19 +16,20 @@ if len(sys.argv) > 2:
     cmd_1 = f"import {module}; {module}.{method}({arg_query})"
 
     cp = subprocess.run([sys.executable, "-c", cmd_1], capture_output=True, text=True, check=True)
-    valid_arr = ast.literal_eval(cp.stdout)
+    #print("^^^", ast.literal_eval(cp.stdout)[0]) #, ast.literal_eval(cp.stdout))
+    valid_arr = ast.literal_eval(cp.stdout.strip())[0]
 
     #cmd_2 = ["./send_email_w_attach.sh", arg_email_id, valid_arr[0]['url'], valid_arr[0]['caption'], valid_arr[0]['text'], "--debug"]
 
     #msg = valid_arr[0]['caption'] + ":\n" +  valid_arr[0]['text']
-    msg = f"**Rubric**: {valid_arr[0]['caption']}" + "\n\n" + f"**Narative**: {valid_arr[0]['text']}" + "\n\n" + f"**DateTime**: {valid_arr[0]['ts']}"
+    msg = f'**Rubric**: {valid_arr["caption"]}' + '\n\n' + f'**Narative**: {valid_arr["text"]}' + '\n\n' + f'**DateTime**: {valid_arr["ts"]}'
 
     cmd_2 = command = [
         "openclaw", 
         "message",
         "send", 
         "--channel", "discord",
-        "--media", valid_arr[0]['url'], 
+        "--media", valid_arr['url'], 
         "--message", msg, 
         "--target", arg_discord_id
     ]

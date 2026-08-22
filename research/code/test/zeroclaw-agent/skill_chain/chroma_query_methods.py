@@ -57,13 +57,13 @@ def query_video_collection_uri( query_texts: list) -> list:
     # Return ONLY the "vuri" tag values (videos)
     arr = []
     for vr in result["metadatas"][0]:
-        print("-->",vr)
+        #print("-->",vr)
         if os.path.getsize(vr["vuri"]) > max_bytes:
            cvideo = compress_video(vr["vuri"], 20)
-           #dt = time.ctime(vr["ts"]) if vr["ts"] else time.ctime(1800000000)
+
            arr.append({"url": cvideo, "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})
         else:
-          arr.append({"url": vr["vuri"], "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["tsgit "]})    
+           arr.append({"url": vr["vuri"], "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})    
     #arr = ["/Users/bhal/Cabinet Storage.jpg", "Esha highschool", "torry pines ..."]
     print(arr)
     return arr
