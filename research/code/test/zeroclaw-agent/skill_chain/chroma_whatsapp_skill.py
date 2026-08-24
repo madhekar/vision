@@ -10,7 +10,7 @@ arg_query, arg_whatsapp_id =  "'San Diego'", "whatsapp-id"
 
 if len(sys.argv) > 3:
     arg_collection_type = f"{sys.argv[1]}"
-    arg_discord_id = f"{sys.argv[2]}"
+    arg_whatsapp_id = f"{sys.argv[2]}"
     arg_query = f'"{sys.argv[3]}"'    
 
     print(f"arguments:{sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]}")
