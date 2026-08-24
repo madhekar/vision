@@ -8,7 +8,7 @@ method_img = "query_image_collection"
 
 arg_email_id, arg_query  =   "email-id", "'San Diego'"
 # Check if arguments were passed
-if len(sys.argv) > 3:
+if len(sys.argv) > 2:
     print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]}")
     collection_type = f"{sys.argv[1]}"
     arg_email_id = f"{sys.argv[2]}"
