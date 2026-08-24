@@ -6,13 +6,17 @@ module = "chroma_query_methods"
 method_vid = "query_video_collection_uri"
 method_img = "query_image_collection"
 
-arg_query, arg_email_id =  "'San Diego'", "email-id"
+arg_email_id, arg_query  =   "email-id", "'San Diego'"
 # Check if arguments were passed
-if len(sys.argv) > 2:
-    print(f"arguments: {sys.argv[1]} : {sys.argv[2]}")
-    arg_email_id = f"{sys.argv[1]}"
-    arg_query = f'"{sys.argv[2]}"'
-    cmd_1 = f"import {module}; {module}.{method_vid}({arg_query})"
+if len(sys.argv) > 3:
+    print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]}")
+    collection_type = f"{sys.argv[1]}"
+    arg_email_id = f"{sys.argv[2]}"
+    arg_query = f'"{sys.argv[3]}"'
+    if collection_type == "image":
+        cmd_1 = f"import {module}; {module}.{method_img}({arg_query})"
+    elif collection_type == "video":
+        cmd_1 = f"import {module}; {module}.{method_vid}({arg_query})"
 
     cp = subprocess.run([sys.executable, "-c", cmd_1], capture_output=True, text=True, check=True)
     valid_arr = ast.literal_eval(cp.stdout)
