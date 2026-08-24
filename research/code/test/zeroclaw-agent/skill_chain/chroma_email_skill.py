@@ -3,8 +3,8 @@ import sys
 import subprocess
 
 module = "chroma_query_methods"
-method_img = "query_video_collection_uri"
-method_vid = "query_image_collection"
+method_vid = "query_video_collection_uri"
+method_img = "query_image_collection"
 
 arg_query, arg_email_id =  "'San Diego'", "email-id"
 # Check if arguments were passed
@@ -12,7 +12,7 @@ if len(sys.argv) > 2:
     print(f"arguments: {sys.argv[1]} : {sys.argv[2]}")
     arg_email_id = f"{sys.argv[1]}"
     arg_query = f'"{sys.argv[2]}"'
-    cmd_1 = f"import {module}; {module}.{method}({arg_query})"
+    cmd_1 = f"import {module}; {module}.{method_vid}({arg_query})"
 
     cp = subprocess.run([sys.executable, "-c", cmd_1], capture_output=True, text=True, check=True)
     valid_arr = ast.literal_eval(cp.stdout)
