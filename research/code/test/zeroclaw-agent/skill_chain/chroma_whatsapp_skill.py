@@ -3,16 +3,22 @@ import sys
 import subprocess
 
 module = "chroma_query_methods"
-method = "query_video_collection_uri"
+method_image ="query_image_collection"
+method_video = "query_video_collection_uri"
 arg_query, arg_whatsapp_id =  "'San Diego'", "whatsapp-id"
 # Check if arguments were passed
-if len(sys.argv) > 2:
-    arg_whatsapp_id = f"{sys.argv[1]}"
-    arg_query = f'"{sys.argv[2]}"'    
 
-    print(f"arguments: {sys.argv[1]} : {sys.argv[2]}")
+if len(sys.argv) > 3:
+    arg_collection_type = f"{sys.argv[1]}"
+    arg_discord_id = f"{sys.argv[2]}"
+    arg_query = f'"{sys.argv[3]}"'    
 
-    cmd_1 = f"import {module}; {module}.{method}({arg_query})"
+    print(f"arguments:{sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]}")
+
+    if arg_collection_type == "image":
+         cmd_1 = f"import {module}; {module}.{method_image}({arg_query})"
+    elif arg_collection_type == "video":
+         cmd_1 = f"import {module}; {module}.{method_video}({arg_query})"
 
     cp = subprocess.run([sys.executable, "-c", cmd_1], capture_output=True, text=True, check=True)
     valid_arr = ast.literal_eval(cp.stdout.strip())[0]
