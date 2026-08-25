@@ -22,12 +22,12 @@ text=True, check=True)\n  File \"/usr/lib/python3.10/subprocess.py\", line 526, 
 
 ----
 
-invoke "~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_whatsapp_skill.py" with arguments "+18589522575" "Pune festivals"
+execute "python3 chroma_whatsapp_skill.py" "video" "+18589522575" "Pune festivals"
 
-execute "~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_discord_skill.py" with arguments "Bhal" "Pune festivals"
+execute "python3 chroma_discord_skill.py" "video" "Bhal" "Pune festivals"
 
-execute python3 chroma_whatsapp_skill.py with arguments "video" "+919822912480" "San Diego beach"
+execute "python3 chroma_whatsapp_skill.py"  "video" "+919822912480" "San Diego beach"
 
-execute python3 chroma_email_skill.py with arguments "video" "bhalba@yahoo.com" "San Diego beach"
+execute "python3 chroma_email_skill.py" "video" "bhalba@yahoo.com" "San Diego beach"
 
-execute python3 chroma_whatsapp_skill.py with argumants "video" "+919822197598" "san diego betch"
+execute "python3 chroma_whatsapp_skill.py"  "video" "+919822197598" "San Diego beach"
