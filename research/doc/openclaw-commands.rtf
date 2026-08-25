@@ -1,0 +1,835 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue-Bold;\f1\fnil\fcharset0 HelveticaNeue;\f2\fnil\fcharset0 LucidaGrande;
+\f3\fnil\fcharset0 AppleColorEmoji;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;\red65\green219\blue109;
+\red233\green233\blue233;\red79\green145\blue248;\red67\green67\blue67;\red249\green179\blue29;\red117\green117\blue117;
+\red29\green29\blue29;\red29\green29\blue29;\red221\green60\blue46;\red177\green104\blue251;\red37\green202\blue233;
+\red238\green87\blue167;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c100000;\cssrgb\c29020\c87059\c50196;
+\cssrgb\c92941\c92941\c92941;\cssrgb\c37647\c64706\c98039;\cssrgb\c33333\c33333\c33333;\cssrgb\c98431\c74902\c14118;\cssrgb\c53333\c53333\c53333;
+\cssrgb\c14902\c14902\c14902;\cssrgb\c14902\c14902\c14902\c70196;\cssrgb\c90196\c32549\c23529;\cssrgb\c75294\c51765\c98824;\cssrgb\c13333\c82745\c93333;
+\cssrgb\c95686\c44706\c71373;\cssrgb\c100000\c100000\c100000\c1569;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{none\}}{\leveltext\leveltemplateid1\'00;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{none\}}{\leveltext\leveltemplateid101\'00;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{none\}}{\leveltext\leveltemplateid201\'00;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{none\}}{\leveltext\leveltemplateid301\'00;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid4}
+{\list\listtemplateid5\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{none\}}{\leveltext\leveltemplateid401\'00;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid5}
+{\list\listtemplateid6\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{none\}}{\leveltext\leveltemplateid501\'00;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid6}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}{\listoverride\listid6\listoverridecount0\ls6}}
+\margl1440\margr1440\vieww16920\viewh18440\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs24\fsmilli12160 \cf2 \cb3 \expnd0\expndtw0\kerning0
+Gateway\
+openclaw gateway            status|start|stop|restart\
+openclaw dashboard         # Web UI\
+openclaw tui                       # Terminal UI\
+\
+Channels\
+openclaw channels list\
+openclaw channels status --probe\
+openclaw channels login          # WhatsApp QR\
+openclaw channels add --channel telegram --token $TOK\
+openclaw channels logs --channel telegram\
+openclaw channels remove --channel discord --delete\
+\
+Agents\
+
+\f1\b0 openclaw agents list --bindings\
+openclaw agents add|delete <name>\
+openclaw agents bindings|bind|unbind\
+openclaw agents set-identity --from-identity\
+\
+Logs\
+openclaw logs --follow\
+openclaw logs --json --limit 200\
+openclaw status --all --deep   # Full diagnosis\
+openclaw status --usage        # Provider usage/quota\
+openclaw doctor --deep --yes\
+openclaw health --json --verbose\
+\
+Plugins & Skills\
+openclaw plugins list|info|enable|disable|install|doctor\
+openclaw plugins install --force \'85  # v2026.4.5+: replace existing without dangerous override\
+openclaw plugins install clawhub:<pkg>  # ClawHub-first installs\
+openclaw skills list|info|check   # v2026.3.22+: search|install|update\
+clawhub install|uninstall <slug>\
+clawhub update --all\
+\
+Sessions & Update\
+openclaw sessions cleanup       # Disk budget cleanup\
+openclaw memory search --query "text"\
+openclaw memory rem-harness      # v2026.4.5: REM preview (experimental dreaming)\
+openclaw memory promote-explain  # v2026.4.5: explain promotion\
+openclaw cron list|add|edit|rm|enable|disable|run  # v2026.4.1: --tools on add|edit\
+openclaw flows list|show|cancel  # Task flows (substrate v2026.4.2+)\
+openclaw config schema         # JSON Schema dump (v2026.3.28+)\
+openclaw --container my-openclaw status --all --deep # CLI in container (v2026.3.24)\
+openclaw update --dry-run       # Preview update\
+openclaw update --channel stable|beta|dev\
+openclaw update --tag main  # From GitHub main (v2026.3.22+)\
+\
+Backup\
+openclaw backup create         # Local state archive\
+openclaw backup create --only-config # Config only\
+openclaw backup create --no-include-workspace\
+openclaw backup verify <path>    # Validate manifest\
+\
+Directived\
+:think high    # Thinking level\
+:model opus    # Model override\
+:fast         # Fast mode (Anthropic/OpenAI) v2026.3.12\
+:send off      # Suppress delivery\
+:verbose       # Verbose mode\
+:reasoning on  # Separate reasoning\
+:elevated ask  # Exec approval\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs28\fsmilli14400 \cf2 All Channels
+\fs30 \
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2618\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf10 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth5459\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf10 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs21\fsmilli10880 \cf2 CHANNEL\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 NOTES\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth2618\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5459\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 Telegram\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Most stable. Bot API. DM voice.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth2618\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5459\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 WhatsApp\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 QR scan. Breaks on reboot.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth2618\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5459\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 Discord\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Voice + text. DAVE recovery.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth2618\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5459\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 Google Chat\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Native support.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth2618\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5459\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 Slack\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Bot + App Token + Signing Secret.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth2618\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5459\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 iMessage\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 macOS only, Shortcuts bridge.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth2618\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5459\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 Signal\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Requires signal-cli.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth2618\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5459\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 MS Teams\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Extension channel.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth2618\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5459\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 Synology Chat\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Native plugin. Webhook ingress. 
+\fs19\fsmilli9600 NEW
+\fs25\fsmilli12800 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth2618\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5459\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 WebChat\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Built-in at 
+\fs25 localhost:18789
+\fs25\fsmilli12800 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth2618\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5459\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 Matrix\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Extension. BlueBubbles, Zalo also.\cf9 \cb1 \cell \lastrow\row
+\pard\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 \cb3 \
+\
+Memory System\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs28\fsmilli14400 \cf2 How It Works
+\fs30 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0
+\fs26\fsmilli13280 \cf2 \kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+Daily logs 
+\fs25 memory/YYYY-MM-DD.md
+\fs26\fsmilli13280  \'97 today + yesterday\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0\cf2 \kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+Long-term 
+\fs25 MEMORY.md
+\fs26\fsmilli13280  \'97 curated, DM only\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+Vector search \'97 ~400 token chunks\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+Providers: local GGUF 
+\f2 \uc0\u8594 
+\f1  OpenAI 
+\f2 \uc0\u8594 
+\f1  Gemini (incl. gemini-embedding-2-preview) 
+\f2 \uc0\u8594 
+\f1  Ollama 
+\f2 \uc0\u8594 
+\f1  Voyage\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+Flush at 40k tokens 
+\f2 \uc0\u8594 
+\f1  daily log\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+FTS: multilingual stop-words (ES/PT/JP/KR/AR) 
+\fs19\fsmilli9600 NEW\
+\pard\tx720\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\fs28\fsmilli14400 \cf2 CLI
+\fs19\fsmilli9600 \
+CLI\
+\pard\pardeftab720\qc\partightenfactor0
+
+\fs20\fsmilli10400 \cf2 Copy\
+\pard\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 openclaw memory index --all\
+openclaw memory search --query "text"\
+openclaw memory rem-harness      # REM preview (experimental dreaming, v2026.4.5+)\
+openclaw memory promote-explain  # Explain promotion decisions\
+openclaw sessions cleanup  # Disk budget\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls2\ilvl0
+\fs26\fsmilli13280 \cf2 \kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+\'93Save this to memory\'94 for important facts\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls2\ilvl0\cf2 \kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+Keep MEMORY.md compact\
+\ls2\ilvl0\kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+Doctor now checks memory embedding readiness
+\fs19\fsmilli9600 \
+\pard\tx720\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\fs28\fsmilli14400 \cf2 Dreaming
+\fs19\fsmilli9600 \
+V2026.4.5 \'b7 EXPERIMENTAL\
+\pard\pardeftab720\sa208\partightenfactor0
+
+\fs28\fsmilli14400 \cf2 Dreaming runs weighted promotion from recent daily notes into longer-lived memory (light / deep / REM-style phases). Promotion trace and diary-style output are written to 
+\fs25 dreams.md
+\fs28\fsmilli14400  at the workspace root so you can inspect what ran without pulling that file into default recall unless you ask.\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls3\ilvl0
+\fs26\fsmilli13280 \cf2 \kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+Chat: 
+\fs25 /dreaming
+\fs26\fsmilli13280  \'97 status and help for the feature\
+\ls3\ilvl0\kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+UI: Dreams / Dream Diary in the Control UI when dreaming is enabled\
+\ls3\ilvl0\kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+Config: opt-in via dreaming settings (see upstream docs); tune aging with 
+\fs25 recencyHalfLifeDays
+\fs26\fsmilli13280  / 
+\fs25 maxAgeDays
+\fs26\fsmilli13280  where supported\cf9 \cb1 \
+\pard\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 \cb3 \
+\pard\tx720\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\fs43\fsmilli21600 \cf2 Cron Jobs\
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs22\fsmilli11200 \cf2 \uc0\u55357 \u56599 
+\f1  Link
+\fs28\fsmilli14400 \
+Cron jobs let your assistant run scheduled tasks independently \'97 morning briefings, weekly reports, CI checks, or data scraping. Jobs are defined in 
+\fs25 cron/jobs.json
+\fs28\fsmilli14400  with standard cron expressions and can target isolated sessions so they never interfere with your active conversations.\
+\pard\pardeftab720\partightenfactor0
+\cf2 Job Format
+\fs19\fsmilli9600 \
+CONFIG\
+\pard\pardeftab720\qc\partightenfactor0
+
+\fs20\fsmilli10400 \cf2 Copy\
+\pard\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 \{ "name": "Morning Brief",\
+  "schedule": \{ "kind": "cron", "expr": "0 8 * * *" \},\
+  "sessionTarget": "isolated",\
+  "payload": \{ "kind": "agentTurn",\
+    "message": "Deliver my briefing." \}\
+\}\
+\pard\pardeftab720\partightenfactor0
+
+\fs28\fsmilli14400 \cf2 Schedules
+\fs19\fsmilli9600 \
+TIP\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls4\ilvl0
+\fs25 \cf2 \kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+0 7 * * *
+\fs26\fsmilli13280  \'97 Morning briefing\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls4\ilvl0
+\fs25 \cf2 \kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+0 18 * * 1-5
+\fs26\fsmilli13280  \'97 Weekday recap\
+\ls4\ilvl0
+\fs25 \kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+0 10 * * 1
+\fs26\fsmilli13280  \'97 Weekly intel\
+\ls4\ilvl0
+\fs25 \kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+0 8 1 * *
+\fs26\fsmilli13280  \'97 Monthly reminder\
+\pard\pardeftab720\partightenfactor0
+\cf2 Cron persists delivered state for failure visibility. v2026.3.11: Isolated cron jobs no longer notify via ad hoc agent sends \'97 run 
+\fs25 openclaw doctor --fix
+\fs26\fsmilli13280  to migrate legacy config.
+\fs24\fsmilli12160 \
+\pard\tx720\pardeftab720\partightenfactor0
+\cf2 \
+\
+\pard\pardeftab720\sa320\partightenfactor0
+
+\fs28\fsmilli14400 \cf9 \cb1 OpenClaw can read files, run commands, and connect to external services, so security defaults matter from day one. Start with DM pairing, allowlists, and sandboxing, then add skill vetting and regular audits. Treat every inbound message and community skill as untrusted input until proven safe.\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 Hardening
+\fs19\fsmilli9600 \
+SECURITY\
+\pard\pardeftab720\qc\partightenfactor0
+
+\fs20\fsmilli10400 \cf2 Copy\
+\pard\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 openclaw doctor --fix\
+openclaw security audit --deep\
+chmod 700 ~/.openclaw\
+chmod 600 ~/.openclaw/openclaw.json\
+chmod 700 ~/.openclaw/credentials\
+\pard\pardeftab720\partightenfactor0
+
+\fs28\fsmilli14400 \cf2 Policies
+\fs19\fsmilli9600 \
+CONFIG\
+\pard\pardeftab720\qc\partightenfactor0
+
+\fs20\fsmilli10400 \cf2 Copy\
+\pard\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 security: \{\
+  dmPolicy: "pairing",\
+  groupPolicy: "allowlist",\
+  sandboxEnabled: true,\
+  trust_model: \{\
+    multi_user_heuristic: true  // NEW\
+  \}\
+\}\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls5\ilvl0
+\fs26\fsmilli13280 \cf2 \kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+Browser SSRF now 
+\fs25 trusted-network
+\fs26\fsmilli13280  by default\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls5\ilvl0\cf2 \kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+Exec obfuscation detection before allowlist\
+\ls5\ilvl0\kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+HSTS for direct HTTPS deployments\
+\pard\pardeftab720\partightenfactor0
+
+\fs28\fsmilli14400 \cf2 Skill Vetting
+\fs19\fsmilli9600 \
+SECURITY\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls6\ilvl0
+\fs26\fsmilli13280 \cf2 \kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+Red flags: 
+\fs25 curl|bash
+\fs26\fsmilli13280 , base64, Gatekeeper bypass\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls6\ilvl0
+\fs25 \cf2 \kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+pip install cisco-ai-skill-scanner
+\fs26\fsmilli13280 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls6\ilvl0\cf2 \kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+Check zero-width Unicode in SKILL.md\
+\ls6\ilvl0\kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+No auto-update skills\
+\ls6\ilvl0\kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+Sandbox rejects hardlink alias escapes\
+\ls6\ilvl0\kerning1\expnd0\expndtw0 		\expnd0\expndtw0\kerning0
+v2026.3.12: Workspace plugin auto-load disabled \'97 explicit trust required for workspace plugins\
+\pard\tx720\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 \
+\pard\pardeftab720\partightenfactor0
+
+\fs43\fsmilli21600 \cf2 Troubleshooting\
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs22\fsmilli11200 \cf2 \uc0\u55357 \u56599 
+\f1  Link
+\fs28\fsmilli14400 \
+Most OpenClaw issues fall into a few categories: port conflicts, stale sessions, channel disconnects, or configuration mismatches. The 
+\fs25 openclaw doctor --deep --yes
+\fs28\fsmilli14400  command resolves the majority automatically. This section covers the rest \'97 common problems, their fixes, and the update commands to keep your installation current.\
+\pard\pardeftab720\sa320\partightenfactor0
+\cf2 Looking for a specific error? 
+\f2 \uc0\u8594 
+\f1  {\field{\*\fldinst{HYPERLINK "https://openclawcheatsheet.com/troubleshoot"}}{\fldrslt \ul \ulc14 Browse all 20 error fixes}}\
+\pard\pardeftab720\partightenfactor0
+\cf2 Universal Fix
+\fs30 \
+\pard\pardeftab720\qc\partightenfactor0
+
+\fs20\fsmilli10400 \cf2 Copy\
+\pard\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 openclaw doctor --deep --yes\
+\pard\pardeftab720\partightenfactor0
+
+\fs26\fsmilli13280 \cf2 Solves 80% of issues. Now checks memory embedding readiness too.\
+\pard\pardeftab720\partightenfactor0
+
+\fs28\fsmilli14400 \cf2 Common Issues
+\fs30 \
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth5085\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf10 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth3225\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf10 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs21\fsmilli10880 \cf2 PROBLEM\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 FIX\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5085\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth3225\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 Port conflict\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25 \cf2 lsof -i :18789
+\fs25\fsmilli12800 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5085\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth3225\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 Context full\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25 \cf2 /compact
+\fs25\fsmilli12800  or 
+\fs25 /new
+\fs25\fsmilli12800 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5085\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth3225\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 Channel down\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25 \cf2 openclaw channels status --probe
+\fs25\fsmilli12800 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clcbpat16 \clwWidth5085\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clcbpat16 \clwWidth3225\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 No response\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25 \cf2 openclaw logs --follow
+\fs25\fsmilli12800 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5085\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth3225\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 WhatsApp drops\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Re-scan QR. Use Telegram.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5085\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth3225\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 Stale lock\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Auto-detected via port reachability now\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5085\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth3225\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 Config invalid / startup fails\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25 \cf2 openclaw config validate
+\fs25\fsmilli12800  for JSON/schema errors\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5085\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth3225\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 Auth/pairing fails after upgrade\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Set 
+\fs25 gateway.auth.mode
+\fs25\fsmilli12800  to 
+\fs25 token
+\fs25\fsmilli12800  or 
+\fs25 password
+\fs25\fsmilli12800  (v2026.3.7+). Cron notify broken? Run 
+\fs25 openclaw doctor --fix
+\fs25\fsmilli12800  (v2026.3.11). Workspace plugins not loading? v2026.3.12 disabled auto-load \'97 explicit trust required.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5085\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth3225\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 Restart loop\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Fixed in v2026.2.22+. Update.\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5085\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth3225\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 Disk full sessions\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25 \cf2 openclaw sessions cleanup
+\fs25\fsmilli12800 \cell \lastrow\row
+\pard\pardeftab720\partightenfactor0
+
+\fs28\fsmilli14400 \cf2 Update
+\fs19\fsmilli9600 \
+CLI\
+\pard\pardeftab720\qc\partightenfactor0
+
+\fs20\fsmilli10400 \cf2 Copy\
+\pard\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 sudo npm i -g openclaw@latest\
+openclaw update --dry-run\
+openclaw update wizard\
+openclaw update --channel beta\
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf10 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf10 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs21\fsmilli10880 \cf2 COMMAND\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 WHAT IT DOES\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /status\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Model, context, queue, runtime; adds provider usage when available\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /tasks\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Session background task board (v2026.4.1)\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /dreaming\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Memory dreaming status/help \'97 experimental (v2026.4.5); see {\field{\*\fldinst{HYPERLINK "https://openclawcheatsheet.com/changelog/v2026.4.5/memory-dreaming-experimental"}}{\fldrslt \ul \ulc12 changelog}}\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /help, /commands\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Common commands grouped\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /new [model]\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Fresh session (alias: /reset)\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /compact [instr]\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Summarize context, free tokens\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /stop\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Abort run + clear queue\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /think [level]\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 off, minimal, low, medium, high, xhigh, adaptive\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /model [id]\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Switch model; /model list, /model status\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /usage off|tokens|full|cost\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Per-response footer; cost = local summary\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /fast\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Toggle fast mode (Anthropic/OpenAI) \'97 v2026.3.12\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /tts on|off|always|inbound\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Toggle text-to-speech\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /send on|off|inherit\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Override delivery (owner-only)\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /reasoning on|off|stream\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Separate reasoning message\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /elevated on|off|ask|full\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Exec approval level\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /whoami\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Sender identity (alias: /id)\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /context [list|detail|json]\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Token usage per-file\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /subagents spawn|list|kill|steer\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Spawn or control sub-agents\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /export-session [path]\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Export session to HTML with full prompt\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /approve allow-once|deny\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Resolve exec approval prompts\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \tamart128 \tamarb128 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth9427\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth16836\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf11 \clbrdrr\brdrnil \clpadt128 \clpadl208 \clpadb128 \clpadr208 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs24\fsmilli12160 \cf2 /check-updates\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs25\fsmilli12800 \cf2 Quick update summary\cf9 \cell \lastrow\row
+}
