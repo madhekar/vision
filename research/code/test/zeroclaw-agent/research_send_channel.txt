@@ -1,0 +1,14 @@
+Research the topic: "[INSERT_TOPIC_HERE]"
+
+Instructions:
+1. Search the web and read at least 3-5 authoritative, recent sources.
+2. Extract the core developments, key data points, and contrasting perspectives.
+3. Synthesize the findings into a clean, concise markdown report with the following structure:
+   - **Executive Summary:** 2-3 sentences overview.
+   - **Key Findings:** Bullet points with specific facts/data.
+   - **Open Questions / Unknowns:** What remains unresolved or debated.
+   - **Sources:** Bulleted list of URLs/references used.
+4. Send the final formatted report directly to the designated channel: [INSERT_CHANNEL_ID_OR_NAME, e.g., #research-updates or Telegram chat ID].
+
+
+openclaw chat create --cron "0 9 * * 1" --prompt "Read research-scripts/topic.txt, execute the research workflow, and announce the markdown report to channel #research-updates"
