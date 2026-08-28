@@ -120,3 +120,7 @@ openclaw health --json
 ------
 
 You must replace whatsapp-id with a valid recipient format like an E.164 phone number, group JID, or newsletter JID depending on your tool or API configuration.Valid Target FormatsE.164 phone number: Use the full phone number with country code, omitting plus signs, dashes, or spaces (e.g., 15551234567 or following your specific tool's requirement like +15551234567).Group JID: Use the group identifier ending with @g.us (e.g., 123456789-group@g.us).Newsletter JID: Use the channel/newsletter identifier ending with @newsletter.Could you tell me which tool, library, or API (e.g., Baileys, WPPConnect, Meta Cloud API) you are using so I can give you the exact formatting example for your code?
+
+error [tools] read failed: ENOENT: no such file or directory, access '/home/madhekar/.openclaw/workspace/skills/chroma-discord/scripts/chroma_discord_skill.py' 
+raw_params={"path":"/home/madhekar/.openclaw/workspace/skills/chroma-discord/scripts/chroma_discord_skill.py"}
+14:39:38-07:00 error [tools] read failed: ENOENT: no such file or directory, access '/home/madhekar/.openclaw/workspace/skills/chroma-discord/scripts/chroma_discord_skill.py' raw_params={"path":"/home/madhekar/.openclaw/workspace/skills/chroma-discord/scripts/chroma_discord_skill.py"}
