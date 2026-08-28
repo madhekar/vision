@@ -12,3 +12,12 @@ Instructions:
 
 
 openclaw chat create --cron "0 9 * * 1" --prompt "Read research-scripts/topic.txt, execute the research workflow, and announce the markdown report to channel #research-updates"
+
+
+-----
+
+Research the topic: "[INSERT YOUR TOPIC HERE]". 
+Use your web browsing skill to analyze the top 5-10 Google search results to gather current, verified facts. 
+Synthesize the findings into a clear, structured executive summary with core takeaways, actionable insights, 
+and primary source links. 
+Once the report is finalized, format it using clean markdown and use your WhatsApp tool to message the complete report directly to my chat.
