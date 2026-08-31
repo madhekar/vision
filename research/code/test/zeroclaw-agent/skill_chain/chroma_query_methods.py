@@ -74,15 +74,7 @@ def query_text_collection( query_texts: list) -> dict:
     )
 
 '''
-Samsung USB
-
-SWEETHOME
-
-GRANDCANYON
-
-Berkeley
-
-ASSORT_K30
+valid src types: Samsung USB, SWEETHOME, GRANDCANYON, Berkeley, ASSORT_K30
 '''
 def query_with_image_metadata( query_texts: list, src_filter: str, ts_filter: int) -> dict:
     """Return similarity search results with  metadata filtering for image collection."""

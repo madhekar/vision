@@ -3,25 +3,31 @@ import sys
 import subprocess
 
 module = "chroma_query_methods"
-method_vid = "query_video_collection_uri"
-method_img = "query_image_collection"
+method_vid = "query_with_video_metadata"
+method_img = "query_with_image_metadata"
 
 arg_email_id, arg_query  =   "email-id", "'San Diego'"
 # Check if arguments were passed
 if len(sys.argv) > 2:
-    print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]}")
+    print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]} : {sys.argv[4]}: {sys.argv[5]}")
     collection_type = f"{sys.argv[1]}"
     arg_email_id = f"{sys.argv[2]}"
-    arg_query = f'"{sys.argv[3]}"'
+    arg_query = f"{sys.argv[3]}"
     arg_src_name = f"{sys.argv[4]}"
     arg_date_time = f"{sys.argv[5]}"
-    if collection_type == "image":
-        cmd_1 = f"import {module}; {module}.{method_img}({arg_query})({arg_src_name})({arg_date_time})"
-    elif collection_type == "video":
-        cmd_1 = f"import {module}; {module}.{method_vid}({arg_query})({arg_src_name})({arg_date_time})"
 
-    cp = subprocess.run([sys.executable, "-c", cmd_1], capture_output=True, text=True, check=True)
-    valid_arr = ast.literal_eval(cp.stdout)
+    try:
+        if collection_type == "image":
+            cmd_1 = "import chroma_query_methods; chroma_query_methods.query_with_image_metadata(sys.argv[3], sys.argv[4], sys.argv[5])"
+        elif collection_type == "video":
+            cmd_1 = "import chroma_query_methods; chroma_query_methods.query_with_video_metadata(sys.argv[3], sys.argv[4], sys.argv[5])"
+
+        cp = subprocess.run(["python3", "-c", "import chroma_query_methods; chroma_query_methods.query_with_video_metadata(sys.argv[3], sys.argv[4], sys.argv[5])"], capture_output=True, text=True, check=True)
+        valid_arr = ast.literal_eval(cp.stdout)
+    except subprocess.CalledProcessError as e:
+        print(f"Command failed with exit code: {e.returncode}")
+        print(f"Error details:\n{e.stderr}")  # <-- This reveals the actual problem!
+
 
     try:
        cmd_2 = ["./send_msmtp_email_w_attach.sh", arg_email_id, valid_arr[0]['url'], valid_arr[0]['caption'], valid_arr[0]['text'], "--debug"]
