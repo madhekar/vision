@@ -340,7 +340,7 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
                     "final-data/img" #+ image_final_path,
                     )
 
-                    df_chunk[:] = df_chunk(format_ts_seachable, axis=1)
+                    df_chunk[:] = df_chunk.apply(format_ts_seachable, axis=1)
                     
                     df_uris =  df_chunk['uri']
                     df_ids = df_chunk['id']
@@ -378,7 +378,7 @@ def populate_videos_in_vdb(client, video_metadata_path, video_metadata_file, col
 
                     df_video_data = refactor_video_metadata(df_chunk)
 
-                    df_video_data[:] = df_video_data(format_ts_seachable, axis=1)
+                    df_video_data[:] = df_video_data.apply(format_ts_seachable, axis=1)
 
                     #print("----->>", df_video_data.head())
                     df_video_uris = df_video_data['uri']  # frame uri
