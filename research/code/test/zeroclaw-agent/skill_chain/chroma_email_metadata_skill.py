@@ -1,12 +1,14 @@
 import ast
 import sys
 import subprocess
+from datetime import datetime
 
 module = "chroma_query_methods"
 method_vid = "query_with_video_metadata"
 method_img = "query_with_image_metadata"
 
 arg_email_id, arg_query  =   "email-id", "'San Diego'"
+valid_arr = []
 # Check if arguments were passed
 if len(sys.argv) > 2:
     print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]} : {sys.argv[4]}: {sys.argv[5]}")
@@ -14,15 +16,15 @@ if len(sys.argv) > 2:
     arg_email_id = f"{sys.argv[2]}"
     arg_query = f"{sys.argv[3]}"
     arg_src_name = f"{sys.argv[4]}"
-    arg_date_time = f"{sys.argv[5]}"
+    arg_date_time = f"{datetime.strptime(sys.argv[5], '%Y:%m:%d').timestamp()}"
 
     try:
         if collection_type == "image":
-            cmd_1 = "import chroma_query_methods; chroma_query_methods.query_with_image_metadata(sys.argv[3], sys.argv[4], sys.argv[5])"
+            cmd_1 = f"import {module}; {module}.{method_img}([{arg_query}], {arg_src_name}, {arg_date_time})"
         elif collection_type == "video":
-            cmd_1 = "import chroma_query_methods; chroma_query_methods.query_with_video_metadata(sys.argv[3], sys.argv[4], sys.argv[5])"
+            cmd_1 = f"import {module}; {module}.{method_vid}([{arg_query}], {arg_src_name}, {arg_date_time})"
 
-        cp = subprocess.run(["python3", "-c", "import chroma_query_methods; chroma_query_methods.query_with_video_metadata(sys.argv[3], sys.argv[4], sys.argv[5])"], capture_output=True, text=True, check=True)
+        cp = subprocess.run(["python3", "-c", cmd_1], capture_output=True, text=True, check=True)
         valid_arr = ast.literal_eval(cp.stdout)
     except subprocess.CalledProcessError as e:
         print(f"Command failed with exit code: {e.returncode}")
