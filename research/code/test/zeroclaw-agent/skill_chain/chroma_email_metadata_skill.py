@@ -1,7 +1,7 @@
 import ast
 import sys
 import subprocess
-from datetime import datetime
+from dateutil import parser
 
 module = "chroma_query_methods"
 method_vid = "query_with_video_metadata"
@@ -16,7 +16,7 @@ if len(sys.argv) > 2:
     arg_email_id = f"{sys.argv[2]}"
     arg_query = f"{sys.argv[3]}"
     arg_src_name = f"{sys.argv[4]}"
-    arg_date_time = f"{datetime.strptime(sys.argv[5], '%Y:%m:%d').timestamp()}"
+    arg_date_time = int(parser.parse(sys.argv[5]).timestamp())
 
     try:
         if collection_type == "image":
@@ -24,8 +24,14 @@ if len(sys.argv) > 2:
         elif collection_type == "video":
             cmd_1 = f"import {module}; {module}.{method_vid}([{arg_query}], {arg_src_name}, {arg_date_time})"
 
+        
         cp = subprocess.run(["python3", "-c", cmd_1], capture_output=True, text=True, check=True)
-        valid_arr = ast.literal_eval(cp.stdout)
+        if cp.stdout == "":
+            print("no result found")
+            sys.exit(0)
+        else:
+            print("cmd:", cmd_1, "out:", cp.stdout)
+            valid_arr = ast.literal_eval(cp.stdout)
     except subprocess.CalledProcessError as e:
         print(f"Command failed with exit code: {e.returncode}")
         print(f"Error details:\n{e.stderr}")  # <-- This reveals the actual problem!
