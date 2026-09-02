@@ -36,33 +36,26 @@ def query_image_collection( query_texts: list) -> dict:
         query_texts=query_texts,
         n_results=n_results
     )
-    arr = []
+    result_list = []
     for ir in img_res["metadatas"][0]:
-        arr.append({"caption": ir["caption"] , "description": ir["text"], "ts": time.ctime(ir["ts"])})
-    return arr
+        result_list.append({"caption": ir["caption"] , "text": ir["text"], "ts": time.ctime(ir["ts"]), "uri": ir["uri"] })
+    return result_list
 
-def query_video_collection( query_texts: list) -> dict:
-    _, vid_collection, _, n_results = chroma_query_init()
-    """Return semantic similarity search results for given query texts for video collection."""
-    return vid_collection.query(
-        query_texts=query_texts,
-        n_results=n_results
-    )
 
-def query_video_collection_uri( query_texts: list) -> list:
+def query_video_collection( query_texts: list) -> list:
     """Return semantic similarity search results vuri fields only; for given query texts for video collection ."""
     _, vid_collection, _, n_results = chroma_query_init()
     result = vid_collection.query( query_texts=query_texts, n_results=n_results)
-    arr = []
+    result_list = []
     for vr in result["metadatas"][0]:
         if os.path.getsize(vr["vuri"]) > max_bytes:
            cvideo = compress_video(vr["vuri"], 20)
 
-           arr.append({"url": cvideo, "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})
+           result_list.append({"url": cvideo, "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})
         else:
-           arr.append({"url": vr["vuri"], "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})    
-    print(arr)
-    return arr
+           result_list.append({"url": vr["vuri"], "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})    
+    print(result_list)
+    return result_list
 
 
 def query_text_collection( query_texts: list) -> dict:
@@ -76,33 +69,51 @@ def query_text_collection( query_texts: list) -> dict:
 '''
 valid src types: Samsung USB, SWEETHOME, GRANDCANYON, Berkeley, ASSORT_K30
 '''
-def query_with_image_metadata( query_texts: list, src_filter: str, ts_filter: int) -> dict:
+def query_image_with_metadata( query_texts: list, src_filter: str, ts_filter_low: int, ts_filter_high: int) -> dict:
     """Return similarity search results with  metadata filtering for image collection."""
     img_collection, _, _, n_results = chroma_query_init()
-    metadata_filter = '{ "$and": [{"src": {"$eq": "' + src_filter + '" }},{"ts": {"$gte":' + str(ts_filter) +'}}]}'
-    print("--->", metadata_filter)
-    return img_collection.query(
+    metadata_filter = { 
+        "$and": [
+            {"src": {"$eq": src_filter }},
+            {"ts": {"$gte": ts_filter_low }},
+            {"ts": {"$lte": ts_filter_high }}  
+        ]}
+    print("--metadata filter->", metadata_filter)
+    img_res = img_collection.query(
         query_texts=query_texts,
         n_results=n_results,
         where= json.loads(metadata_filter)
     )
+    arr = []
+    for ir in img_res["metadatas"][0]:
+        arr.append({"caption": ir["caption"] , "text": ir["text"], "ts": time.ctime(ir["ts"]), "uri": ir["uri"] }) #time.ctime()
+    return arr
 
-
-def query_with_video_metadata( query_texts: list, src_filter: str, ts_filter_l: int, ts_filter_h: int) -> dict:
+def query_video_with_metadata( query_texts: list, src_filter: str, ts_filter_low: int, ts_filter_high: int) -> dict:
     """Return similarity search results with  metadata filtering for video collection."""
+
     _, vid_collection, _, n_results = chroma_query_init()
-    #metadata_filter = {"src": {"$eq": src_filter }} 
+
     metadata_filter = {
         "$and": [
-          {"ts": {"$gte": ts_filter_l }},
-          {"ts": {"$lte": ts_filter_h }}  
+          {"src": {"$eq": src_filter }},
+          {"ts": {"$gte": ts_filter_low }},
+          {"ts": {"$lte": ts_filter_high }}  
             ]}
     print("--->", metadata_filter)
-    return vid_collection.query(
-        query_texts=query_texts,
-        n_results=n_results,
-        where=metadata_filter
-    )
+
+    result = vid_collection.query(query_texts=query_texts, n_results=n_results, where=metadata_filter)
+
+    result_list = []
+    for vr in result["metadatas"][0]:
+        if os.path.getsize(vr["vuri"]) > max_bytes:
+           cvideo = compress_video(vr["vuri"], 20)
+
+           result_list.append({"url": cvideo, "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})
+        else:
+           result_list.append({"url": vr["vuri"], "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})    
+    print(result_list)
+    return result_list
 
 
 def query_with_text_metadata( query_texts: list, src_filter: str, ts_filter: int) -> dict:
