@@ -78,7 +78,7 @@ def query_image_with_metadata( query_texts: list, src_filter: str, ts_filter_low
             {"ts": {"$gte": ts_filter_low }},
             {"ts": {"$lte": ts_filter_high }}  
         ]}
-    print("--metadata filter->", metadata_filter)
+    print( metadata_filter)
     img_res = img_collection.query(
         query_texts=query_texts,
         n_results=n_results,

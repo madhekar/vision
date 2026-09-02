@@ -32,7 +32,7 @@ if len(sys.argv) > 2:
         else:
             print("cmd:", cmd_1, "out:", result.stdout)
             valid_arr = ast.literal_eval(result.stdout)
-            
+
     except subprocess.CalledProcessError as e:
         print(f"Command failed with exit code: {e.returncode}")
         print(f"Error details:\n{e.stderr}")  # <-- This reveals the actual problem!
@@ -50,3 +50,4 @@ if len(sys.argv) > 2:
         print("Error output:", e.stderr)
 else:
     print("No arguments provided. e.g skill_orchestration.py email-id query-string")
+
