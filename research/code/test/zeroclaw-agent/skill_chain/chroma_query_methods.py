@@ -38,7 +38,7 @@ def query_image_collection( query_texts: list) -> dict:
     )
     result_list = []
     for ir in img_res["metadatas"][0]:
-        result_list.append({"caption": ir["caption"] , "text": ir["text"], "ts": time.ctime(ir["ts"]), "uri": ir["uri"] })
+        result_list.append({"caption": ir["caption"] , "text": ir["text"], "ts": ir["ts"], "uri": ir["uri"] })
     return result_list
 
 
@@ -82,7 +82,7 @@ def query_image_with_metadata( query_texts: list, src_filter: str, ts_filter_low
     img_res = img_collection.query(
         query_texts=query_texts,
         n_results=n_results,
-        where= json.loads(metadata_filter)
+        where= metadata_filter
     )
     arr = []
     for ir in img_res["metadatas"][0]:
