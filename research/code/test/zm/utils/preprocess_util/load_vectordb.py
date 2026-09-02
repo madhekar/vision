@@ -324,6 +324,10 @@ def createVectorDB(vector_db_dir_path, image_collection_name, text_collection_na
 def format_ts_seachable(row):
     row['ts'] = int(row['ts'])
     return row
+
+def format_strts_seachable(row):
+    row['ts'] = int(parser.parse(row['ts']).timestamp())
+    return row
 """
 IMAGE embeddings in vector database
 """
@@ -378,7 +382,7 @@ def populate_videos_in_vdb(client, video_metadata_path, video_metadata_file, col
 
                     df_video_data = refactor_video_metadata(df_chunk)
 
-                    df_video_data[:] = df_video_data.apply(format_ts_seachable, axis=1)
+                    df_video_data[:] = df_video_data.apply(format_strts_seachable, axis=1)
 
                     #print("----->>", df_video_data.head())
                     df_video_uris = df_video_data['uri']  # frame uri
