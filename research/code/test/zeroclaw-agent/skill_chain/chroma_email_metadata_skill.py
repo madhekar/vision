@@ -4,34 +4,35 @@ import subprocess
 from dateutil import parser
 
 module = "chroma_query_methods"
-method_vid = "query_with_video_metadata"
-method_img = "query_with_image_metadata"
+method_vid = "query_video_with_metadata"
+method_img = "query_image_with_metadata"
 
 arg_email_id, arg_query  =   "email-id", "'San Diego'"
 valid_arr = []
 # Check if arguments were passed
 if len(sys.argv) > 2:
-    print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]} : {sys.argv[4]}: {sys.argv[5]}")
+    print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]} : {sys.argv[4]}: {sys.argv[5]} : {sys.argv[6]}")
     collection_type = f"{sys.argv[1]}"
     arg_email_id = f"{sys.argv[2]}"
     arg_query = f"{sys.argv[3]}"
-    arg_src_name = f"{sys.argv[4]}"
-    arg_date_time = int(parser.parse(sys.argv[5]).timestamp())
+    src_name = f"{sys.argv[4]}"
+    datetime_low = int(parser.parse(sys.argv[5]).timestamp())
+    datetime_high = int(parser.parse(sys.argv[6]).timestamp())
 
     try:
         if collection_type == "image":
-            cmd_1 = f"import {module}; {module}.{method_img}([{arg_query}], {arg_src_name}, {arg_date_time})"
+            cmd_1 = f"import {module}; {module}.{method_img}([{arg_query}], {src_name}, {datetime_low}, {datetime_high})"
         elif collection_type == "video":
-            cmd_1 = f"import {module}; {module}.{method_vid}([{arg_query}], {arg_src_name}, {arg_date_time})"
+            cmd_1 = f"import {module}; {module}.{method_vid}([{arg_query}], {src_name}, {datetime_low}, {datetime_high})"
 
-        
-        cp = subprocess.run(["python3", "-c", cmd_1], capture_output=True, text=True, check=True)
-        if cp.stdout == "":
+        result = subprocess.run(["python3", "-c", cmd_1], capture_output=True, text=True, check=True)
+        if result.stdout == "":
             print("no result found")
             sys.exit(0)
         else:
-            print("cmd:", cmd_1, "out:", cp.stdout)
-            valid_arr = ast.literal_eval(cp.stdout)
+            print("cmd:", cmd_1, "out:", result.stdout)
+            valid_arr = ast.literal_eval(result.stdout)
+            
     except subprocess.CalledProcessError as e:
         print(f"Command failed with exit code: {e.returncode}")
         print(f"Error details:\n{e.stderr}")  # <-- This reveals the actual problem!
