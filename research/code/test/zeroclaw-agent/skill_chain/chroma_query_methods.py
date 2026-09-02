@@ -80,6 +80,7 @@ def query_with_image_metadata( query_texts: list, src_filter: str, ts_filter: in
     """Return similarity search results with  metadata filtering for image collection."""
     img_collection, _, _, n_results = chroma_query_init()
     metadata_filter = '{ "$and": [{"src": {"$eq": "' + src_filter + '" }},{"ts": {"$gte":' + str(ts_filter) +'}}]}'
+    print("--->", metadata_filter)
     return img_collection.query(
         query_texts=query_texts,
         n_results=n_results,
@@ -87,14 +88,20 @@ def query_with_image_metadata( query_texts: list, src_filter: str, ts_filter: in
     )
 
 
-def query_with_video_metadata( query_texts: list, src_filter: str, ts_filter: int) -> dict:
+def query_with_video_metadata( query_texts: list, src_filter: str, ts_filter_l: int, ts_filter_h: int) -> dict:
     """Return similarity search results with  metadata filtering for video collection."""
     _, vid_collection, _, n_results = chroma_query_init()
-    metadata_filter = '{ "$and": [{"src": {"$eq": "' + src_filter + '" }},{"ts": {"$gte":' + str(ts_filter) +'}}]}'
+    #metadata_filter = {"src": {"$eq": src_filter }} 
+    metadata_filter = {
+        "$and": [
+          {"ts": {"$gte": ts_filter_l }},
+          {"ts": {"$lte": ts_filter_h }}  
+            ]}
+    print("--->", metadata_filter)
     return vid_collection.query(
         query_texts=query_texts,
         n_results=n_results,
-        where=json.loads(metadata_filter)
+        where=metadata_filter
     )
 
 

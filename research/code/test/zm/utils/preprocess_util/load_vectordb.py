@@ -5,6 +5,7 @@ import os
 import uuid
 import chardet
 from datetime import datetime
+from dateutil import parser
 import chromadb as cdb
 import streamlit as st
 import PIL
@@ -320,7 +321,9 @@ def createVectorDB(vector_db_dir_path, image_collection_name, text_collection_na
 
     return client, collection_images, collection_texts, collection_videos
 
-
+def format_ts_seachable(row):
+    row['ts'] = int(parser.parse(row['ts']).timestamp())
+    return row
 """
 IMAGE embeddings in vector database
 """
@@ -336,7 +339,9 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
                     "input-data/img",
                     "final-data/img" #+ image_final_path,
                     )
-       
+
+                    df_chunk[:] = df_chunk(format_ts_seachable, axis=1)
+                    
                     df_uris =  df_chunk['uri']
                     df_ids = df_chunk['id']
                     df_metadata = df_chunk[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text", "uri"]].fillna("").T.to_dict().values()
@@ -372,6 +377,8 @@ def populate_videos_in_vdb(client, video_metadata_path, video_metadata_file, col
                 for df_chunk in reader:
 
                     df_video_data = refactor_video_metadata(df_chunk)
+
+                    df_video_data[:] = df_video_data(format_ts_seachable, axis=1)
 
                     #print("----->>", df_video_data.head())
                     df_video_uris = df_video_data['uri']  # frame uri
