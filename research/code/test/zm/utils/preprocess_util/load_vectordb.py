@@ -322,7 +322,7 @@ def createVectorDB(vector_db_dir_path, image_collection_name, text_collection_na
     return client, collection_images, collection_texts, collection_videos
 
 def format_ts_seachable(row):
-    row['ts'] = int(parser.parse(row['ts']).timestamp())
+    row['ts'] = str(int(parser.parse(row['ts']).timestamp()))
     return row
 """
 IMAGE embeddings in vector database
