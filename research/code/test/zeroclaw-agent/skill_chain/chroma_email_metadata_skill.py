@@ -32,9 +32,12 @@ if len(sys.argv) > 2:
             print("no result found")
             sys.exit(0)
         else:
-            print("cmd:", cmd_1, "out:", result.stdout)
-            valid_arr = ast.literal_eval(result.stdout)
-
+            #print("cmd:", cmd_1, "out:", result.stdout)
+            try:
+               valid_arr = ast.literal_eval(result.stdout.strip())
+               print("*---*",valid_arr[0])
+            except (SyntaxError, ValueError) as e:
+                print(f"Invalid Syntax or value:  {e}")
     except subprocess.CalledProcessError as e:
         print(f"Command failed with exit code: {e.returncode}")
         print(f"Error details:\n{e.stderr}")  # <-- This reveals the actual problem!

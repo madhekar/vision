@@ -78,16 +78,17 @@ def query_image_with_metadata( query_texts: list, src_filter: str, ts_filter_sta
             {"ts": {"$gte": ts_filter_start }},
             {"ts": {"$lte": ts_filter_end }}  
         ]}
-    print( metadata_filter)
+    #print( metadata_filter)
     img_res = img_collection.query(
         query_texts=query_texts,
         n_results = n_results,
+        include=["metadatas"],
         where = metadata_filter
     )
     arr = []
-    print(img_res)
     for ir in img_res["metadatas"][0]:
-        arr.append({"caption": ir["caption"].replace('"', '') , "text": ir["text"], "ts": time.ctime(ir["ts"]), "uri": ir["uri"] }) #time.ctime()
+        arr.append({"caption": (ir["caption"]).replace('"','') , "text": ir["text"], "ts": str(ir["ts"]), "url": ir["uri"] })
+    print("****", arr)
     return arr
 
 def query_video_with_metadata( query_texts: list, src_filter: str, ts_filter_low: int, ts_filter_high: int) -> dict:
