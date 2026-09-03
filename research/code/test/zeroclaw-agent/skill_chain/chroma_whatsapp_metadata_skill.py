@@ -8,8 +8,8 @@ module = "chroma_query_methods"
 method_vid = "query_video_with_metadata"
 method_img = "query_image_with_metadata"
 arg_query, arg_whatsapp_id =  "'San Diego'", "whatsapp-id"
-# Check if arguments were passed
 
+# Check if arguments were passed
 if len(sys.argv) > 3:
     collection_type = f"{sys.argv[1]}"
     arg_whatsapp_id = f"{sys.argv[2]}"
@@ -41,7 +41,7 @@ if len(sys.argv) > 3:
 
     if valid_arr:
 
-        msg = f"**Rubric**: {valid_arr['caption']}" + "\n\n" + f"**Narative**: {valid_arr['text']}" + "\n\n" + f"**DateTime**: {time.ctime(valid_arr['ts'])}"
+        msg = f"**Rubric**: {valid_arr['caption']}" + "\n\n" + f"**Narative**: {valid_arr['text']}" + "\n\n" + f"**DateTime**: {time.ctime(int(valid_arr['ts']))}"
 
         cmd_2 = command = [
             "openclaw", 
