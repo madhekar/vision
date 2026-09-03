@@ -35,3 +35,11 @@ execute "python3 chroma_whatsapp_skill.py"  "video" "+919822197598" "San Diego b
 execute "python3 chroma_whatsapp_skill.py" "video" "+18589522575" "archeological sites in India"
 
 execute "python3 chroma_whatsapp_skill.py" "video" "+18589522575" "Ganapati festival in India"
+
+---metadata----
+
+python3 chroma_whatsapp_metadata_skill.py "image" "+18589522575" "'India'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'India'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+
+python3 chroma_email_metadata_skill.py "video" "bhalba@yahoo.com" "'India'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
