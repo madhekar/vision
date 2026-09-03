@@ -87,8 +87,8 @@ def query_image_with_metadata( query_texts: list, src_filter: str, ts_filter_sta
     )
     arr = []
     for ir in img_res["metadatas"][0]:
-        arr.append({"caption": (ir["caption"]).replace('"','') , "text": ir["text"], "ts": str(ir["ts"]), "url": ir["uri"] })
-    print("****", arr)
+        arr.append({"caption": (ir["caption"]).replace('"','') , "text": ir["text"], "ts": str(ir["ts"]), "url": ir["uri"]})
+    print(arr)
     return arr
 
 def query_video_with_metadata( query_texts: list, src_filter: str, ts_filter_low: int, ts_filter_high: int) -> dict:
