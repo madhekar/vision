@@ -43,3 +43,5 @@ python3 chroma_whatsapp_metadata_skill.py "image" "+18589522575" "'India'" "'GRA
 python3 chroma_discord_metadata_skill.py "image" "Bhal" "'India'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
 
 python3 chroma_email_metadata_skill.py "video" "bhalba@yahoo.com" "'India'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+
+python3 chroma_whatsapp_metadata_skill.py "image" "+919373312610" "'India'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
