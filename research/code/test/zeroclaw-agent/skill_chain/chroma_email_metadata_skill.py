@@ -19,28 +19,39 @@ if len(sys.argv) > 2:
     datetime_low = sys.argv[5] #int(parser.parse(sys.argv[5]).timestamp())
     datetime_high = sys.argv[6] #int(parser.parse(sys.argv[6]).timestamp())
 
-    try:
-        if collection_type == "image":
-            cmd_1 = f"import {module}; {module}.{method_img}([{arg_query}], {src_name}, {datetime_low}, {datetime_high})"
-        elif collection_type == "video":
-            cmd_1 = f"import {module}; {module}.{method_vid}([{arg_query}], {src_name}, {datetime_low}, {datetime_high})"
+    
+    if collection_type == "image":
+        cmd_1 = f"import {module}; {module}.{method_img}([{arg_query}], {src_name}, {datetime_low}, {datetime_high})"
+    elif collection_type == "video":
+        cmd_1 = f"import {module}; {module}.{method_vid}([{arg_query}], {src_name}, {datetime_low}, {datetime_high})"
 
-        result = subprocess.run(["python3", "-c", cmd_1], capture_output=True, text=True, check=True)
+    process = subprocess.Popen(
+         cmd_1,
+         stdout=subprocess.PIPE,
+         stderr=subprocess.PIPE,
+         text=True)    
 
-        print('-->',result)
-        if result.stdout == "":
-            print("no result found")
-            sys.exit(0)
-        else:
-            #print("cmd:", cmd_1, "out:", result.stdout)
-            try:
-               valid_arr = ast.literal_eval(result.stdout.strip())
-               print("*---*",valid_arr[0])
-            except (SyntaxError, ValueError) as e:
-                print(f"Invalid Syntax or value:  {e}")
-    except subprocess.CalledProcessError as e:
-        print(f"Command failed with exit code: {e.returncode}")
-        print(f"Error details:\n{e.stderr}")  # <-- This reveals the actual problem!
+    stdout, stderr = process.communicate()
+
+    print("STDOUT", stdout.strip())
+    p
+    # try:
+    #     result = subprocess.run(["python3", "-c", cmd_1], capture_output=True, text=True, check=True)
+
+    #     print('-->',result)
+    #     if result.stdout == "":
+    #         print("no result found")
+    #         sys.exit(0)
+    #     else:
+    #         #print("cmd:", cmd_1, "out:", result.stdout)
+    #         try:
+    #            valid_arr = ast.literal_eval(result.stdout.strip())
+    #            print("*---*",valid_arr[0])
+    #         except (SyntaxError, ValueError) as e:
+    #             print(f"Invalid Syntax or value:  {e}")
+    # except subprocess.CalledProcessError as e:
+    #     print(f"Command failed with exit code: {e.returncode}")
+    #     print(f"Error details:\n{e.stderr}")  # <-- This reveals the actual problem!
 
 
     try:
