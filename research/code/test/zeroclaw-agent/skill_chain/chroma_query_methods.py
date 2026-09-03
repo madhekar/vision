@@ -50,7 +50,6 @@ def query_video_collection( query_texts: list) -> list:
     for vr in result["metadatas"][0]:
         if os.path.getsize(vr["vuri"]) > max_bytes:
            cvideo = compress_video(vr["vuri"], 20)
-
            result_list.append({"url": cvideo, "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})
         else:
            result_list.append({"url": vr["vuri"], "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})    
@@ -87,7 +86,7 @@ def query_image_with_metadata( query_texts: list, src_filter: str, ts_filter_sta
     )
     arr = []
     for ir in img_res["metadatas"][0]:
-        arr.append({"caption": (ir["caption"]).replace('"','') , "text": ir["text"], "ts": str(ir["ts"]), "url": ir["uri"]})
+        arr.append({"caption": ir["caption"].replace('"','') , "text": ir["text"], "ts": str(ir["ts"]), "url": ir["uri"]})
     print(arr)
     return arr
 
@@ -102,9 +101,13 @@ def query_video_with_metadata( query_texts: list, src_filter: str, ts_filter_low
           {"ts": {"$gte": ts_filter_low }},
           {"ts": {"$lte": ts_filter_high }}  
             ]}
-    print("--->", metadata_filter)
+    #print("--->", metadata_filter)
 
-    result = vid_collection.query(query_texts=query_texts, n_results=n_results, where=metadata_filter)
+    result = vid_collection.query(
+        query_texts=query_texts, 
+        n_results=n_results, 
+        include=["metadatas"], 
+        where=metadata_filter)
 
     result_list = []
     for vr in result["metadatas"][0]:
