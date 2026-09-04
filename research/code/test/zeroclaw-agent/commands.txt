@@ -45,3 +45,25 @@ python3 chroma_discord_metadata_skill.py "image" "Bhal" "'India'" "'GRANDCANYON'
 python3 chroma_email_metadata_skill.py "video" "bhalba@yahoo.com" "'India'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
 
 python3 chroma_whatsapp_metadata_skill.py "image" "+919373312610" "'India'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha near Golden Gate Bridge'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+
+python3 chroma_whatsapp_metadata_skill.py "image" "+18589975216" "'Esha near Golden Gate Bridge'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Old man waring labels with yellow Indian Scooter'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Old men gathered together for a reunion in a school in India'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+
+python3 chroma_whatsapp_metadata_skill.py "image" "+919373312610" "'Old men gathered together for a reunion in a school in India'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Baby seating on lap smiling with tung out in mischief, baby is waring light red color jacket holding own toe'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Cozy picture of Esha and Anjali smiling in embrace'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha is smiling and  holding a cat in embrace'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+
+   python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Kumar, Asha with one lady and a man taking selfy standing in farmland in India'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+
+   python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha and two other girls after graduation at Berkeley class of 2021 written on their scarf'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Two Ganapati idols side by side'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
