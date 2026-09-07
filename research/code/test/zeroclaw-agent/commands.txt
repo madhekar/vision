@@ -36,6 +36,10 @@ execute "python3 chroma_whatsapp_skill.py" "video" "+18589522575" "archeological
 
 execute "python3 chroma_whatsapp_skill.py" "video" "+18589522575" "Ganapati festival in India"
 
+execute "python3 chroma_whatsapp_skill.py" "image" "+18589522575" "four weman standing in front of a lake."
+
+execute "python3 chroma_discord_skill.py" "video" "Bhal" "Pune festivals"
+
 ---metadata----
 
 python3 chroma_whatsapp_metadata_skill.py "image" "+18589522575" "'India'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
@@ -67,3 +71,18 @@ python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha is smiling and  h
    python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha and two other girls after graduation at Berkeley class of 2021 written on their scarf'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
 
 python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Two Ganapati idols side by side'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha, Anjali and Bhalchandra posing in front of Taj Mahal in Agra India'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_skill.py "image" "Bhal" "'Esha, Anjali and Bhalchandra posing in front of Taj Mahal in Agra India'"
+
+python3 chroma_whatsapp_metadata_skill.py "image" "+18589975216" "'Humming bird seating on a tree in madhekar backyard'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'A sleepy Man waring Blue weast named Bhiman'" "'Samsung USB'" "2026/06/01" "2026/06/30"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'A Man waring Red turban, pink jacket and green long shirt smiling at camera.'" "'Samsung USB'" "2025/06/01" "2026/06/30"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'A Indian Man waring white cap and white shirt smiling at camera.'" "'Samsung USB'" "2022/06/01" "2026/06/30"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha, Anjali and Neelakshi posing for a picture'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
