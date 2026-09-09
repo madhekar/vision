@@ -38,7 +38,7 @@ execute "python3 chroma_whatsapp_skill.py" "video" "+18589522575" "Ganapati fest
 
 execute "python3 chroma_whatsapp_skill.py" "image" "+18589522575" "four weman standing in front of a lake."
 
-execute "python3 chroma_discord_skill.py" "video" "Bhal" "Pune festivals"
+execute "python3 chroma_discord_skill.py" "image" "Bhal" "Pune festivals"
 
 ---metadata----
 
@@ -86,3 +86,19 @@ python3 chroma_discord_metadata_skill.py "image" "Bhal" "'A Man waring Red turba
 python3 chroma_discord_metadata_skill.py "image" "Bhal" "'A Indian Man waring white cap and white shirt smiling at camera.'" "'Samsung USB'" "2022/06/01" "2026/06/30"
 
 python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha, Anjali and Neelakshi posing for a picture'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Large number of students enjoy Holi Indian festival.'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Extreamly Messy Cal student kitchen at Berkeley.'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Cat named pattya slipping on lap of person named Bhalchandra.'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha waring long ear jewelry, it has two jewelry items one dot and other is vale jewelry.'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Highway picture of car traffic in heavy rain, picture is taken from a car.'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Cal students performing at RAAS Indian dance competition event with colorful sticks in hand wearing colorful dress.'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha posing for a picture in front of a gaient statue of flamingo in Las Vegas'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha holding a mug with embossed text THE BEST is yet TO come in Las Vegas'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
