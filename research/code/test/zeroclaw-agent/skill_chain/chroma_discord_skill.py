@@ -5,7 +5,7 @@ import subprocess
 
 module = "chroma_query_methods"
 method_image ="query_image_collection"
-method_video = "query_video_collection_uri"
+method_video = "query_video_collection"
 arg_query, arg_discord_id =  "'San Diego'", "discord-id"
 
 if len(sys.argv) > 3:

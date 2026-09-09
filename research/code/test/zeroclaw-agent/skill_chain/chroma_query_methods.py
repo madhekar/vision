@@ -57,13 +57,13 @@ def query_video_collection( query_texts: list) -> list:
     return result_list
 
 
-def query_text_collection( query_texts: list) -> dict:
-    """Return semantic similarity search results for given query texts for text collection."""
-    _, _, txt_collection, n_results = chroma_query_init()
-    return txt_collection.query(
-        query_texts=query_texts,
-        n_results=n_results
-    )
+# def query_text_collection( query_texts: list) -> dict:
+#     """Return semantic similarity search results for given query texts for text collection."""
+#     _, _, txt_collection, n_results = chroma_query_init()
+#     return txt_collection.query(
+#         query_texts=query_texts,
+#         n_results=n_results
+#     )
 
 '''
 valid src types: Samsung USB, SWEETHOME, GRANDCANYON, Berkeley, ASSORT_K30
@@ -141,7 +141,7 @@ if __name__=="__main__":
     elif method_name == "query_image_collection":
         print(query_image_collection(sys.argv[2]))
 
-    elif method_name == "query_video_collection_uri":
+    elif method_name == "query_video_collection":
         print(query_video_collection(sys.argv[2]))    
         
     elif method_name == "query_text_collection":

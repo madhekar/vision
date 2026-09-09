@@ -22,7 +22,7 @@ text=True, check=True)\n  File \"/usr/lib/python3.10/subprocess.py\", line 526, 
 
 ----
 
-execute "python3 chroma_whatsapp_skill.py" "video" "+18589522575" "Pune Ganapati festivals"
+execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "Pune Ganapati festivals"
 
 execute "python3 chroma_discord_skill.py" "video" "Bhal" "Pune festivals"
 

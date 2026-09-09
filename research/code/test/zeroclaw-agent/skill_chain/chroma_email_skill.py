@@ -3,7 +3,7 @@ import sys
 import subprocess
 
 module = "chroma_query_methods"
-method_vid = "query_video_collection_uri"
+method_vid = "query_video_collection"
 method_img = "query_image_collection"
 
 arg_email_id, arg_query  =   "email-id", "'San Diego'"

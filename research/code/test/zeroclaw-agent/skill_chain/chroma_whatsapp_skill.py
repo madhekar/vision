@@ -4,7 +4,7 @@ import subprocess
 
 module = "chroma_query_methods"
 method_image ="query_image_collection"
-method_video = "query_video_collection_uri"
+method_video = "query_video_collection"
 arg_query, arg_whatsapp_id =  "'San Diego'", "whatsapp-id"
 # Check if arguments were passed
 

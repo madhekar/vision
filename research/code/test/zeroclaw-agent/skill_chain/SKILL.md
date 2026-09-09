@@ -57,7 +57,7 @@ python3 ~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_query_
 ### Query Video Collection and return results
 Query Video Collection in chromadb using query stings provided in list and return python dictionary object from chromadb:
 ```bash
-python3 ~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_query_methods.py query_video_collection_uri ['query_str',]
+python3 ~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_query_methods.py query_video_collection ['query_str',]
 ```
 
 ### Query Text Collection and return results
