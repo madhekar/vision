@@ -52,6 +52,14 @@ python3 chroma_discord_metadata_skill.py "image" "Bhal" "'image taken in Alaska 
 
 python3 chroma_discord_metadata_skill.py "image" "Bhal" "'image taken in Alaska, Anjali is posing to wearing a large HORN on her head.'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
 
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Anjali, Esha and Shibangi checking a tree in Alaska.'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'BEST picture from Alaska travel.'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha and Bhalchandra huddle together in extreme cold breeze in Grand Canyon National Park.'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha and Anjali huddle together in extreme cold breeze in Grand Canyon National Park.'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+
 python3 chroma_email_metadata_skill.py "video" "bhalba@yahoo.com" "'India'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
 
 python3 chroma_whatsapp_metadata_skill.py "image" "+919373312610" "'India'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
@@ -59,6 +67,8 @@ python3 chroma_whatsapp_metadata_skill.py "image" "+919373312610" "'India'" "'GR
 python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha near Golden Gate Bridge'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
 
 python3 chroma_whatsapp_metadata_skill.py "image" "+18589975216" "'Esha near Golden Gate Bridge'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+
+python3 chroma_whatsapp_metadata_skill.py "image" "+18583808555, +18589522575" "'Esha near Golden Gate Bridge'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
 
 python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Old man waring labels with yellow Indian Scooter'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
 
