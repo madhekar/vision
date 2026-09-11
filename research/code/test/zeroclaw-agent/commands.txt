@@ -82,9 +82,9 @@ python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Cozy picture of Esha a
 
 python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha is smiling and  holding a cat in embrace'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
 
-   python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Kumar, Asha with one lady and a man taking selfy standing in farmland in India'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Kumar, Asha with one lady and a man taking selfy standing in farmland in India'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
 
-   python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha and two other girls after graduation at Berkeley class of 2021 written on their scarf'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha and two other girls after graduation at Berkeley class of 2021 written on their scarf'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
 
 python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Two Ganapati idols side by side'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
 
@@ -95,7 +95,10 @@ python3 chroma_discord_skill.py "image" "Bhal" "'Esha, Anjali and Bhalchandra po
 python3 chroma_whatsapp_metadata_skill.py "image" "+18589975216" "'Humming bird seating on a tree in madhekar backyard'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
 
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'A sleepy Man waring Blue weast named Bhiman'" "'Samsung USB'" "2026/06/01" "2026/06/30"
+"python3 chroma_discord_metadata_skill.py" "image" "Bhal" "A sleepy Man we/aring Blue jacket named Bhiman" "Samsung USB" "2026/06/01" "2026/06/30"
+
+python3 chroma_discord_metadata_skill.py "image" "'Bhal'" "'A sleepy Man wearing Blue jacket named Bhiman'" "'Samsung USB'" "2020-06-01" "2026-06-30"
+
 
 python3 chroma_discord_metadata_skill.py "image" "Bhal" "'A Man waring Red turban, pink jacket and green long shirt smiling at camera.'" "'Samsung USB'" "2025/06/01" "2026/06/30"
 
@@ -118,3 +121,5 @@ python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Cal students performin
 python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha posing for a picture in front of a giant statue of flamingo in Las Vegas'" "'ASSORT_K30'" "2008/01/01" "2026/12/12" --- no message
 
 python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha holding a mug with embossed message THE BEST is yet TO come in Las Vegas'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"  --- not correct message
+
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'RAAS dance member students enjoy get together.'" "'Berkeley'" "2008-01-01" "2026/12/12"
