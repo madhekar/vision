@@ -25,14 +25,18 @@ if len(sys.argv) > 3:
     elif collection_type == "video":
         cmd_1 = f"import {module}; {module}.{method_vid}([{arg_query}], {src_name}, {datetime_low}, {datetime_high})"
 
+    valid_arr = []
     try:
             result = subprocess.run(["python3", "-c", cmd_1], capture_output=True, text=True, check=True)
-            if result.stdout == "":
+            if not result.stdout.splitlines():
                 print("no result found")
                 sys.exit(0)
             else:
                 try:
-                   valid_arr = ast.literal_eval(result.stdout.strip())[0]
+                   #print("--->>", result.stdout.strip(), result.stderr.strip())
+                   valid_arr = result.stdout.splitlines()[0] #ast.literal_eval(result.stdout.splitlines())[0]
+
+                   print(valid_arr)
                 except (SyntaxError, ValueError) as e:
                     print(f"Invalid Syntax or value:  {e}")
     except subprocess.CalledProcessError as e:
@@ -61,6 +65,7 @@ if len(sys.argv) > 3:
             print("Failed to send message.")
             print("Error code:", e.returncode)
             print("Error output:", e.stderr)
-
+    else:
+         print("No intermedia records found in vector db")
 else:
     print("No arguments provided. e.g chroma_discord_skill.py email-id query-string")

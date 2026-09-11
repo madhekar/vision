@@ -34,6 +34,7 @@ if len(sys.argv) > 3:
             sys.exit(0)
         else:
             try:
+                print("--->>", result.stdout.strip())
                 valid_arr = ast.literal_eval(result.stdout.strip())[0]
             except (SyntaxError, ValueError) as e:
                 print(f"Invalid Syntax or value:  {e}")

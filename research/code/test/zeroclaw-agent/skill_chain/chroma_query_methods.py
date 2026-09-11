@@ -53,7 +53,7 @@ def query_video_collection( query_texts: list) -> list:
            result_list.append({"url": cvideo, "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})
         else:
            result_list.append({"url": vr["vuri"], "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})    
-    print(result_list)
+    print("--->", result_list)
     return result_list
 
 
@@ -118,7 +118,7 @@ def query_video_with_metadata( query_texts: list, src_filter: str, ts_filter_low
         else:
            result_list.append({"url": vr["vuri"], "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})    
     print(result_list)
-    return result_list
+    # return result_list
 
 
 def query_text_with_metadata( query_texts: list, src_filter: str, ts_filter: int) -> dict:
