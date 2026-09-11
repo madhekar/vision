@@ -117,7 +117,10 @@ def query_video_with_metadata( query_texts: list, src_filter: str, ts_filter_low
            result_list.append({"url": cvideo, "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})
         else:
            result_list.append({"url": vr["vuri"], "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})    
-    print(result_list)
+    if result_list:       
+        print(result_list)
+    else:
+        print("no")    
     # return result_list
 
 

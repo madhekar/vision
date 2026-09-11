@@ -28,13 +28,13 @@ if len(sys.argv) > 3:
     valid_arr = []
     try:
             result = subprocess.run(["python3", "-c", cmd_1], capture_output=True, text=True, check=True)
-            if not result.stdout.splitlines():
+            if result.stdout.strip() == "no":
                 print("no result found")
                 sys.exit(0)
             else:
                 try:
                    #print("--->>", result.stdout.strip(), result.stderr.strip())
-                   valid_arr = result.stdout.splitlines()[0] #ast.literal_eval(result.stdout.splitlines())[0]
+                   valid_arr = ast.literal_eval(result.stdout.strip())[0]
 
                    print(valid_arr)
                 except (SyntaxError, ValueError) as e:
