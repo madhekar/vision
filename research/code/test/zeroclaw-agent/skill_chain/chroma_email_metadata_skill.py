@@ -25,9 +25,10 @@ if len(sys.argv) > 2:
     elif collection_type == "video":
         cmd_1 = f"import {module}; {module}.{method_vid}([{arg_query}], {src_name}, {datetime_low}, {datetime_high})"
 
+    valid_arr = []
     try:
         result = subprocess.run(["python3", "-c", cmd_1], capture_output=True, text=True, check=True)
-        if result.stdout == "":
+        if result.stdout.strip() == "no":
             print("no result found")
             sys.exit(0)
         else:

@@ -87,8 +87,11 @@ def query_image_with_metadata( query_texts: list, src_filter: str, ts_filter_sta
     arr = []
     for ir in img_res["metadatas"][0]:
         arr.append({"caption": ir["caption"].replace('"','') , "text": ir["text"], "ts": str(ir["ts"]), "url": ir["uri"]})
-    print(arr)
-    return arr
+    if arr:       
+        print(arr)
+    else:
+        print("no") 
+
 
 def query_video_with_metadata( query_texts: list, src_filter: str, ts_filter_low: int, ts_filter_high: int) -> dict:
     """Return similarity search results with  metadata filtering for video collection."""
@@ -121,7 +124,6 @@ def query_video_with_metadata( query_texts: list, src_filter: str, ts_filter_low
         print(result_list)
     else:
         print("no")    
-    # return result_list
 
 
 def query_text_with_metadata( query_texts: list, src_filter: str, ts_filter: int) -> dict:

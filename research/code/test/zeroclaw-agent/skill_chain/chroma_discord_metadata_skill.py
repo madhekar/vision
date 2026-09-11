@@ -26,15 +26,15 @@ if len(sys.argv) > 3:
 
     # cp = subprocess.run([sys.executable, "-c", cmd_1], capture_output=True, text=True, check=True)
     # valid_arr = ast.literal_eval(cp.stdout.strip())[0]
-
+    valid_arr = []
     try:
         result = subprocess.run(["python3", "-c", cmd_1], capture_output=True, text=True, check=True)
-        if result.stdout == "":
+        if result.stdout.strip() == "no":
             print("no result found")
             sys.exit(0)
         else:
             try:
-                print("--->>", result.stdout.strip())
+                #print("--->>", result.stdout.strip())
                 valid_arr = ast.literal_eval(result.stdout.strip())[0]
             except (SyntaxError, ValueError) as e:
                 print(f"Invalid Syntax or value:  {e}")
