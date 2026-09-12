@@ -20,6 +20,10 @@ File \"/home/madhekar/.openclaw/workspace/skills/chroma-query-executor/scripts/c
 text=True, check=True)\n  File \"/usr/lib/python3.10/subprocess.py\", line 526, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['/usr/bin/python3', '-c', 'import chroma_query_methods; chroma_query_methods.query_video_collection_uri(\"Esha\")']' returned non-zero exit status 1."} cron: job run returned error status
 
 
+
+whatsapp group idols
+
+18589975216-1441916503@g.us
 ----
 
 execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "Pune Ganapati festivals"
