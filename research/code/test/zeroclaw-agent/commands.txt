@@ -1,7 +1,7 @@
 A ZeroClaw daemon or another service may already be running on this port.
 Try one of:
 
-    open http://127.0.0.1:42617
+    open http:-/127.0.0.1:42617
     zeroclaw gateway get-paircode
     zeroclaw gateway start --port 42618
 
@@ -42,84 +42,84 @@ execute "python3 chroma_discord_skill.py" "image" "Bhal" "Pune festivals"
 
 ---metadata----
 
-python3 chroma_whatsapp_metadata_skill.py "image" "+18589522575" "'India'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+python3 chroma_whatsapp_metadata_skill.py "image" "+18589522575" "'India'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'India'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'India'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha busy taking selfie of her and mount Mackenzie, in Alaska'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha busy taking selfie of her and mount Mackenzie, in Alaska'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'image taken in Alaska that includes Esha, Anjali & Bhalchandra.'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'image taken in Alaska that includes Esha, Anjali & Bhalchandra.'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'image taken in Alaska, Anjali is posing to wearing a large HORN on her head.'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'image taken in Alaska, Anjali is posing to wearing a large HORN on her head.'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Anjali, Esha and Shibangi checking a tree in Alaska.'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Anjali, Esha and Shibangi checking a tree in Alaska.'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'BEST picture from Alaska travel.'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'BEST picture from Alaska travel.'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha and Bhalchandra huddle together in extreme cold breeze in Grand Canyon National Park.'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha and Bhalchandra huddle together in extreme cold breeze in Grand Canyon National Park.'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha and Anjali huddle together in extreme cold breeze in Grand Canyon National Park.'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha and Anjali huddle together in extreme cold breeze in Grand Canyon National Park.'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
-python3 chroma_email_metadata_skill.py "video" "bhalba@yahoo.com" "'India'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+python3 chroma_email_metadata_skill.py "video" "bhalba@yahoo.com" "'India'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
-python3 chroma_whatsapp_metadata_skill.py "image" "+919373312610" "'India'" "'GRANDCANYON'" "2008/01/01" "2026/12/12"
+python3 chroma_whatsapp_metadata_skill.py "image" "+919373312610" "'India'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha near Golden Gate Bridge'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha near Golden Gate Bridge'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
-python3 chroma_whatsapp_metadata_skill.py "image" "+18589975216" "'Esha near Golden Gate Bridge'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+python3 chroma_whatsapp_metadata_skill.py "image" "+18589975216" "'Esha near Golden Gate Bridge'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
-python3 chroma_whatsapp_metadata_skill.py "image" "+18583808555, +18589522575" "'Esha near Golden Gate Bridge'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+python3 chroma_whatsapp_metadata_skill.py "image" "+18583808555, +18589522575" "'Esha near Golden Gate Bridge'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Old man waring labels with yellow Indian Scooter'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Old man waring labels with yellow Indian Scooter'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Old men gathered together for a reunion in a school in India'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Old men gathered together for a reunion in a school in India'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
-python3 chroma_whatsapp_metadata_skill.py "image" "+919373312610" "'Old men gathered together for a reunion in a school in India'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+python3 chroma_whatsapp_metadata_skill.py "image" "+919373312610" "'Old men gathered together for a reunion in a school in India'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Baby seating on lap smiling with tung out in mischief, baby is waring light red color jacket holding own toe'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Baby seating on lap smiling with tung out in mischief, baby is waring light red color jacket holding own toe'" "'SWEETHOME'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Cozy picture of Esha and Anjali smiling in embrace'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Cozy picture of Esha and Anjali smiling in embrace'" "'SWEETHOME'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha is smiling and  holding a cat in embrace'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha is smiling and  holding a cat in embrace'" "'SWEETHOME'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Kumar, Asha with one lady and a man taking selfy standing in farmland in India'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Kumar, Asha with one lady and a man taking selfy standing in farmland in India'" "'SWEETHOME'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha and two other girls after graduation at Berkeley class of 2021 written on their scarf'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha and two other girls after graduation at Berkeley class of 2021 written on their scarf'" "'SWEETHOME'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Two Ganapati idols side by side'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Two Ganapati idols side by side'" "'SWEETHOME'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha, Anjali and Bhalchandra posing in front of Taj Mahal in Agra India'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha, Anjali and Bhalchandra posing in front of Taj Mahal in Agra India'" "'SWEETHOME'" "2008-01-01" "2026-12-12"
 
 python3 chroma_discord_skill.py "image" "Bhal" "'Esha, Anjali and Bhalchandra posing in front of Taj Mahal in Agra India'"
 
-python3 chroma_whatsapp_metadata_skill.py "image" "+18589975216" "'Humming bird seating on a tree in madhekar backyard'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+python3 chroma_whatsapp_metadata_skill.py "image" "+18589975216" "'Humming bird seating on a tree in madhekar backyard'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
 
-"python3 chroma_discord_metadata_skill.py" "image" "Bhal" "A sleepy Man we/aring Blue jacket named Bhiman" "Samsung USB" "2026/06/01" "2026/06/30"
+"python3 chroma_discord_metadata_skill.py" "image" "Bhal" "A sleepy Man we-aring Blue jacket named Bhiman" "Samsung USB" "2026-06-01" "2026-06-30"
 
-python3 chroma_discord_metadata_skill.py "image" "'Bhal'" "'A sleepy Man wearing Blue jacket named Bhiman'" "'Samsung USB'" "2020-06-01" "2026-06-30"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'A sleepy Man wearing Blue jacket named Bhiman'" "'Samsung USB'" "2020-06-01" "2026-06-30"
 
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'A Man waring Red turban, pink jacket and green long shirt smiling at camera.'" "'Samsung USB'" "2025/06/01" "2026/06/30"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'A Man waring Red turban, pink jacket and green long shirt smiling at camera.'" "'Samsung USB'" "2025-06-01" "2026-06-30"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'A Indian Man waring white cap and white shirt smiling at camera.'" "'Samsung USB'" "2022/06/01" "2026/06/30"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'A Indian Man waring white cap and white shirt smiling at camera.'" "'Samsung USB'" "2022-06-01" "2026-06-30"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha, Anjali and Neelakshi posing for a picture'" "'SWEETHOME'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha, Anjali and Neelakshi posing for a picture'" "'SWEETHOME'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Large number of students enjoy Holi Indian festival.'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Large number of students enjoy Holi Indian festival.'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Extreamly Messy Cal student kitchen at Berkeley.'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Extreamly Messy Cal student kitchen at Berkeley.'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Cat named pattya slipping on lap of person named Bhalchandra.'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Cat named pattya slipping on lap of person named Bhalchandra.'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha waring long ear jewelry, it has two jewelry items one dot and other is vale jewelry.'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha waring long ear jewelry, it has two jewelry items one dot and other is vale jewelry.'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Highway picture of car traffic in heavy rain, picture is taken from a car.'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Highway picture of car traffic in heavy rain, picture is taken from a car.'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Cal students performing at RAAS Indian dance competition event with colorful sticks in hand wearing colorful dress.'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Cal students performing at RAAS Indian dance competition event with colorful sticks in hand wearing colorful dress.'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha posing for a picture in front of a giant statue of flamingo in Las Vegas'" "'ASSORT_K30'" "2008/01/01" "2026/12/12" --- no message
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha posing for a picture in front of a giant statue of flamingo in Las Vegas'" "'ASSORT_K30'" "2008-01-01" "2026-12-12" --- no message
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha holding a mug with embossed message THE BEST is yet TO come in Las Vegas'" "'ASSORT_K30'" "2008/01/01" "2026/12/12"  --- not correct message
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha holding a mug with embossed message THE BEST is yet TO come in Las Vegas'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"  --- not correct message
 
-python3 chroma_discord_metadata_skill.py "image" "Bhal" "'RAAS dance member students enjoy get together.'" "'Berkeley'" "2008-01-01" "2026/12/12"
+python3 chroma_discord_metadata_skill.py "image" "Bhal" "'RAAS dance member students enjoy get together.'" "'Berkeley'" "2008-01-01" "2026-12-12"
