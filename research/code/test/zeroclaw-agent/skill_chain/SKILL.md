@@ -2,6 +2,9 @@
 name: chroma-query-executor
 version: 1.0
 description: Runs my custom Python process on the local machine.
+emoji: 📊
+bins:
+  - python3
 permissions:
   - local_execution
 ---
@@ -17,15 +20,15 @@ This skill triggers a local Python scripts 'chroma_email_skill.py`, `chroma_what
 - Python 3.10.18
 - chromadb 0.6.3
 
-### Execute channel specific workclow, Query ChromaDB using query_str for a specific media type ("image" | "video" | "text") media type then convert in to channel specific format and send the informationg to specific email address
+### Execute channel specific workflow method with input arguments provided
 ```bash
-python3 ~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_email_skill.py "media type" "email address" ['query_str',]
+python3 ~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_email_skill.py --input "media type" "email address" ['query_str',]
 ``` 
-### Execute channel specific workclow, Query ChromaDB using query_str for a specific media type ("image" | "video" | "text") media type then convert in to channel specific format and send the informationg to specific whatsapp id
+### Execute channel specific workflow method with input arguments provided
 ```bash
 python3 ~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_whatsapp_skill.py "media type" "whatsapp id" ['query_str',]
 ``` 
-### Execute channel specific workclow, Query ChromaDB using query_str for a specific media type ("image" | "video" | "text") media type then convert in to channel specific format and send the informationg to specific discord id
+### Execute channel specific workflow method with input arguments provided
 ```bash
 python3 ~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_discord_skill.py "media type" "discord id" ['query_str',]
 ``` 
