@@ -38,7 +38,7 @@ def query_image_collection( query_texts: list) -> dict:
     )
     result_list = []
     for ir in img_res["metadatas"][0]:
-        result_list.append({"caption": ir["caption"] , "text": ir["text"], "ts": ir["ts"], "uri": ir["uri"] })
+        result_list.append({"caption": ir["caption"] , "text": ir["text"], "ts": ir["ts"], "url": ir["uri"] })
     print(result_list)
 
 
