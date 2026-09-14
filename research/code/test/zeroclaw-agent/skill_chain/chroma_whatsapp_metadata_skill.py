@@ -15,15 +15,15 @@ if len(sys.argv) > 3:
     arg_whatsapp_id = f"{sys.argv[2]}"
     arg_query = f'"{sys.argv[3]}"'    
     src_name = sys.argv[4]
-    datetime_low = int(parser.parse(sys.argv[5]).timestamp()) 
-    datetime_high = int(parser.parse(sys.argv[6]).timestamp())
+    start_datetime = int(parser.parse(sys.argv[5]).timestamp()) 
+    end_datetime = int(parser.parse(sys.argv[6]).timestamp())
 
-    print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]} : {sys.argv[4]}: {sys.argv[5]} - {datetime_low} : {sys.argv[6]} - {datetime_high}")
+    print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]} : {sys.argv[4]}: {sys.argv[5]} - {start_datetime} : {sys.argv[6]} - {end_datetime}")
         
     if collection_type == "image":
-        cmd_1 = f"import {module}; {module}.{method_img}([{arg_query}], {src_name}, {datetime_low}, {datetime_high})"
+        cmd_1 = f"import {module}; {module}.{method_img}([{arg_query}], {src_name}, {start_datetime}, {end_datetime})"
     elif collection_type == "video":
-        cmd_1 = f"import {module}; {module}.{method_vid}([{arg_query}], {src_name}, {datetime_low}, {datetime_high})"
+        cmd_1 = f"import {module}; {module}.{method_vid}([{arg_query}], {src_name}, {start_datetime}, {end_datetime})"
 
     valid_arr = []
     try:
