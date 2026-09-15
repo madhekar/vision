@@ -2,6 +2,7 @@ import os
 import chromadb
 from chromadb.utils import embedding_functions
 
+# https://github.com/Unstructured-IO/unstructured
 # 1. Initialize local persistent database
 # This saves the SQLite metadata and HNSW index files inside the ./chroma_db folder
 db_path = "./chroma_db_3"
