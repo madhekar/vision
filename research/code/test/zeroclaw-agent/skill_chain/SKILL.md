@@ -19,31 +19,31 @@ This skill triggers a local Python scripts 'chroma_email_skill.py', 'chroma_what
 
 ### Execute channel specific workflow method with input arguments provided shch as media type, channel specific target id, list of query strings
 ```bash
-python3 baseDir/scripts/chroma_email_skill.py "media type" "email address" ['query_str',]
+python3 ~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_email_skill.py "media type" "email address" ["query string",]
 ``` 
 
 ### Execute channel specific workflow method with input arguments provided shch as media type, channel specific target id, list of query strings
 ```bash
-python3 baseDir/scripts/chroma_whatsapp_skill.py "media type" "whatsapp id" ['query_str',]
+python3 ~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_whatsapp_skill.py "media type" "whatsapp id" ["query string",]
 ``` 
 
 ### Execute channel specific workflow method with input arguments provided shch as media type, channel specific target id, list of query strings
 ```bash
-python3 baseDir/scripts/chroma_discord_skill.py "media type" "discord id" ['query_str',]
+python3 ~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_discord_skill.py "media type" "discord id" ["query string",]
 ``` 
 
 
 ### Execute channel specific workflow method with input arguments provided shch as media type, channel specific target id, list of query strings, source name, start datetime. end datetime
 ```bash
-python3 baseDir/scripts/chroma_email_skill.py "media type" "email address" ['query_str',] "source name" "start datetime" "end datetime"
+python3 ~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_email_skill.py "media type" "email address" ["query string",] "source name" "start datetime" "end datetime"
 ``` 
 
 ### Execute channel specific workflow method with input arguments provided shch as media type, channel specific target id, list of query strings, source name, start datetime. end datetime
 ```bash
-python3 baseDir/scripts/chroma_whatsapp_skill.py "media type" "whatsapp id" ['query_str',] "source name" "start datetime" "end datetime"
+python3 ~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_whatsapp_skill.py "media type" "whatsapp id" ["query string",] "source name" "start datetime" "end datetime"
 ``` 
 
 ### Execute channel specific workflow method with input arguments provided shch as media type, channel specific target id, list of query strings, source name, start datetime. end datetime
 ```bash
-python3 baseDir/scripts/chroma_discord_skill.py "media type" "discord id" ['query_str',] "source name" "start datetime" "end datetime"
+python3 ~/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_discord_skill.py "media type" "discord id" ["query string",] "source name" "start datetime" "end datetime"
 ```

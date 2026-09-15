@@ -26,27 +26,29 @@ whatsapp group idols
 18589975216-1441916503@g.us
 ----
 
-execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "Pune Ganapati festivals"
+execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'Pune Ganapati festivals'"
 
-execute "python3 chroma_discord_skill.py" "video" "Bhal" "Pune festivals"
+execute python3 chroma_discord_skill.py "video" "Bhal" "'Pune festivals'"
 
-execute "python3 chroma_whatsapp_skill.py"  "video" "+919822912480" "San Diego beach"
+execute python3 chroma_whatsapp_skill.py  "video" "+919822912480" "'San Diego beach'"
 
-execute "python3 chroma_email_skill.py" "video" "bhalba@yahoo.com" "San Diego beach"
+execute python3 chroma_email_skill.py "video" "bhalba@yahoo.com" "'San Diego beach'"
 
-execute "python3 chroma_whatsapp_skill.py"  "video" "+919822197598" "San Diego beach"
+execute python3 chroma_whatsapp_skill.py  "video" "+919822197598" "'San Diego beach'"
 
-execute "python3 chroma_whatsapp_skill.py" "video" "+18589522575" "archeological sites in India"
+execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'archeological sites in India'"
 
-execute "python3 chroma_whatsapp_skill.py" "video" "+18589522575" "Ganapati festival in India"
+execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'Ganapati festival in India'"
 
-execute "python3 chroma_whatsapp_skill.py" "image" "+18589522575" "four weman standing in front of a lake."
+execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'four weman standing in front of a lake.'"
 
-execute "python3 chroma_discord_skill.py" "image" "Bhal" "Pune festivals"
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Pune festivals'"
+
+execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'four weman standing in front of a lake.'"
 
 ---metadata----  "18589975216-1441916503@g.us"
 
-python3 chroma_whatsapp_metadata_skill.py "image" "+18589522575" "'India'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
+python3 chroma_whatsapp_metadata_skill.py "image" "+18589522575" "'India'" "GRANDCANYON" "2008-01-01" "2026-12-12"
 
 python3 chroma_discord_metadata_skill.py "image" "Bhal" "'India'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 

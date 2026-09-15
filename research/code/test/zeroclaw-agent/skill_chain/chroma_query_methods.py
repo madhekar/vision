@@ -38,8 +38,8 @@ def query_image_collection( query_texts: list) -> dict:
     )
     result_list = []
     for ir in img_res["metadatas"][0]:
-        result_list.append({"caption": ir["caption"] , "text": ir["text"], "ts": ir["ts"], "uri": ir["uri"] })
-    return result_list
+        result_list.append({"caption": ir["caption"] , "text": ir["text"], "ts": ir["ts"], "url": ir["uri"] })
+    print(result_list)
 
 
 def query_video_collection( query_texts: list) -> list:
@@ -53,8 +53,7 @@ def query_video_collection( query_texts: list) -> list:
            result_list.append({"url": cvideo, "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})
         else:
            result_list.append({"url": vr["vuri"], "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})    
-    print("--->", result_list)
-    return result_list
+    print(result_list)
 
 
 # def query_text_collection( query_texts: list) -> dict:
@@ -149,8 +148,8 @@ if __name__=="__main__":
     elif method_name == "query_video_collection":
         print(query_video_collection(sys.argv[2]))    
         
-    elif method_name == "query_text_collection":
-        print(query_text_collection(sys.argv[2]))        
+    #elif method_name == "query_text_collection":
+        #print(query_text_collection(sys.argv[2]))    
 
     elif method_name == "query_image_with_metadata":
         print(query_image_with_metadata(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])) 
