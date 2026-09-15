@@ -40,11 +40,18 @@ execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'archeological 
 
 execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'Ganapati festival in India'"
 
+execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha and Bhalchandra huddle together in extreme cold breeze wearing thick jackets in Grand Canyon National Park.'"
+
 execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'four weman standing in front of a lake.'"
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Pune festivals'"
 
-execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'four weman standing in front of a lake.'"
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'four weman standing in front of a lake.'"
+
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Ganapti puja at Madhekar residence.'"
+
+
+execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'Esha and Shibangi at San Diego beach'"
 
 ---metadata----  "18589975216-1441916503@g.us"
 

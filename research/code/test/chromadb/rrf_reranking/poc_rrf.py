@@ -90,7 +90,7 @@ hybrid_ranker = Rrf(
 # 5. Execute Chainable Search with Complex Metadata Expressions
 # Only match published documents belonging to specific technical domains
 search_pipeline = (
-    Search(collection)
+    collection.search(user_query)
     .where(
         (K("status") == "published") & 
         ((K("category") == "AI/ML") | (K("category") == "DevOps"))
