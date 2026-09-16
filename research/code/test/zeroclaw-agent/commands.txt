@@ -50,8 +50,8 @@ execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Ganapti puja at Madhekar residence.'"
 
+execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'Esha and Shibangi in Hickman elementary for science field day class.'"
 
-execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'Esha and Shibangi at San Diego beach'"
 
 ---metadata----  "18589975216-1441916503@g.us"
 
