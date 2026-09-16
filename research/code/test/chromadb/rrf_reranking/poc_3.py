@@ -22,14 +22,16 @@ documents = [
     "Error ABC-123 means payment authorization timed out.",
     "The python programming language is great for data science and AI.",
     "Pythons are large constrictor snakes found in tropical regions.",
-    "How to configure connection timeout settings in a production database system."
+    "How to configure connection timeout settings in a production database system.",
+    "ABC-123 could represent kinder school because they teach kids ABC and 123 alpha and numerical basics."
 ]
-ids = ["doc1", "doc2", "doc3", "doc4"]
+ids = ["doc1", "doc2", "doc3", "doc4", "doc4"]
 metadatas = [
     {"tags": "error abc-123 payment timeout auth"},
     {"tags": "python programming language data science ai"},
     {"tags": "python snake animal wildlife tropical"},
-    {"tags": "database connection timeout config production"}
+    {"tags": "database connection timeout config production"},
+    {"tags": "kinder scools teaching basics"}
 ]
 
 collection.add(
