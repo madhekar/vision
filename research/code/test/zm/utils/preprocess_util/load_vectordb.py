@@ -348,11 +348,13 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
                     
                     df_uris =  df_chunk['uri']
                     df_ids = df_chunk['id']
+                    df_docs = df_chunk['text']
                     df_metadata = df_chunk[["ts", "src", "type", "latlon", "loc", "ppt", "caption", "text", "uri"]].fillna("").T.to_dict().values()
 
                     print(list(df_metadata))
                     try:
                         collection_images.add(ids=df_ids.tolist(), 
+                                               documents= df_docs.to_list(),
                                                 metadatas=list(df_metadata), 
                                                 uris=df_uris.tolist()) 
                         st.info(f"added {chunk_size} image metadata.")
@@ -386,11 +388,13 @@ def populate_videos_in_vdb(client, video_metadata_path, video_metadata_file, col
 
                     #print("----->>", df_video_data.head())
                     df_video_uris = df_video_data['uri']  # frame uri
+                    df_docs = df_video_data['text']
                     df_video_ids = df_video_data['id']  # frame id
                     df_video_metadata = df_video_data[["ts", "src", "latlon", "loc", "caption" ,"text", "vuri"]].fillna("").T.to_dict().values()
 
                     try:
                         collection_videos.add(ids=df_video_ids.tolist(), 
+                                              documents=df_docs.tolist(),
                                                 metadatas=list(df_video_metadata), 
                                                 uris=df_video_uris.tolist()) 
                         
