@@ -63,7 +63,7 @@ def reciprocal_rank_fusion(dense_results, sparse_results, k=60, dense_weight=1.0
     return sorted_docs
 
 # 6. Execute the Hybrid Search
-query_text = "What does error ABC-123 mean?"
+query_text = "What does ABC-123 mean?"
 
 # Path A: Dense Semantic Search (Vector similarity match)
 dense_res = collection.query(
