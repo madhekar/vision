@@ -25,7 +25,7 @@ documents = [
     "How to configure connection timeout settings in a production database system.",
     "ABC-123 could represent kinder school because they teach kids ABC and 123 alpha and numerical basics."
 ]
-ids = ["doc1", "doc2", "doc3", "doc4", "doc4"]
+ids = ["doc1", "doc2", "doc3", "doc4", "doc5"]
 metadatas = [
     {"tags": "error abc-123 payment timeout auth"},
     {"tags": "python programming language data science ai"},
