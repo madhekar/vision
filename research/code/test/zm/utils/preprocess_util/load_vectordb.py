@@ -354,7 +354,7 @@ def populate_images_in_vdb(client, image_metadata_path, image_metadata_file, col
                     print(list(df_metadata))
                     try:
                         collection_images.add(ids=df_ids.tolist(), 
-                                               documents= df_docs.to_list(),
+                                               #documents= df_docs.to_list(),
                                                 metadatas=list(df_metadata), 
                                                 uris=df_uris.tolist()) 
                         st.info(f"added {chunk_size} image metadata.")
@@ -394,7 +394,7 @@ def populate_videos_in_vdb(client, video_metadata_path, video_metadata_file, col
 
                     try:
                         collection_videos.add(ids=df_video_ids.tolist(), 
-                                              documents=df_docs.tolist(),
+                                              #documents=df_docs.tolist(),
                                                 metadatas=list(df_video_metadata), 
                                                 uris=df_video_uris.tolist()) 
                         
