@@ -83,6 +83,8 @@ collection.add(
     documents= docs #["The image captures a moment shared by four individuals. Kumar, with his glasses and red shirt, stands alongside Asha, who is wearing a white saree. Two women are also present in the picture; one of them can be seen holding a purse. They all appear to be posing for the photo with cheerful expressions on their faces. The setting seems serene, surrounded by nature, suggesting that they might be enjoying a day out or celebrating an occasion at this location."]
 )
 
+
+
 # 2. Query using a raw text embedding vector manually
 query_results = collection.query(
     query_embeddings=[tv], # Pass the text vector directly
