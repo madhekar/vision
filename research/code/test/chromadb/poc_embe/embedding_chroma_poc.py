@@ -73,7 +73,6 @@ for e in image_description:
     emb.append(img_vector.tolist())
     docs.append(text_prompt)
     meta.append({"source_path": img})
-tv = txt_vector
 #print(img_vector.tolist())
 # 1. Insert raw image embeddings manually
 collection.add(
@@ -83,11 +82,16 @@ collection.add(
     documents= docs #["The image captures a moment shared by four individuals. Kumar, with his glasses and red shirt, stands alongside Asha, who is wearing a white saree. Two women are also present in the picture; one of them can be seen holding a purse. They all appear to be posing for the photo with cheerful expressions on their faces. The setting seems serene, surrounded by nature, suggesting that they might be enjoying a day out or celebrating an occasion at this location."]
 )
 
+# 1. Process your text query using your multimodal processor/model
+inputs = processor(text=["find Esha and Anjali are present in the picture."], images=Image.open(img), return_tensors="pt", padding=True, truncation=True, max_length=77)
+text_features = outputs.text_embeds / outputs.text_embeds.norm(dim=-1, keepdim=True)
+txt_vector_pre = text_features.squeeze().numpy()
+#text_embedding = model.get_text_features(**inputs).detach().numpy().tolist()
 
 
 # 2. Query using a raw text embedding vector manually
 query_results = collection.query(
-    query_embeddings=[tv], # Pass the text vector directly
+    query_embeddings=txt_vector_pre, # Pass the text vector directly
     n_results=1
 )
-print(query_results)
+print("results---->", query_results)
