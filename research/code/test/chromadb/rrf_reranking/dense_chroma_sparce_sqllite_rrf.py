@@ -120,7 +120,7 @@ def hybrid_search_rrf(query_text, k=60, top_n=3):
         
     return final_results
 
-# --- 4. EXECUTION SIMULATION ---
+# --- 4. EXECUTION SIMULATION --- /mnt/zmdata/home-media-app/data/final-data/img/SWEETHOME/3d56d0be-1086-575a-a0c3-7702a611ea82/IMG_5521.PNG
 
 large_dataset_mock = [
  (
@@ -137,7 +137,18 @@ large_dataset_mock = [
  ),
   (
      'img_005',"The image depicts a warm and intimate scene at the Madhekar residence in Carmel Valley. In the center of the frame, Esha, a happy soul, is seated on the floor with her legs stretched out in front of her. She's wearing a comfortable blue shirt that matches the lively energy she exudes.\n\nTo her right, another girl is sitting down as well, engaged in conversation or perhaps enjoying some quiet time together. The two girls seem to be having a pleasant interaction, contributing to the overall relaxed atmosphere of the scene.\n\nOn Esha's left, another person, Esha - the neutral soul, stands with an air of calmness and composure that contrasts with her twin's effervescent mood. She is dressed in a blue top as well, creating a sense of harmony within the image.\n\nThe kitchen counter in the background is cluttered with various items, including a cup and some food wrappers, indicating recent activity or ongoing preparation for a meal. The presence of these everyday objects adds a layer of authenticity to this snapshot of life at the Madhekar residence."
+  ),
+  (
+    "img_006",  "In this image, we see three individuals standing together near the tranquil waters of Big Bear Lake in California. The two men on either side appear to be enjoying their time by the lake, with one sporting a blue shirt and the other dressed in a white shirt. Between them is Esha, a natural soul who exudes a sense of peace and harmony with her surroundings. She stands slightly in front of the men, creating an interesting visual dynamic that draws attention to her as the central figure in this serene scene by Big Bear Lake."
+  ),
+  (
+     "img_007", "The image appears to be a screenshot of a webpage, specifically a section that seems to be a personal profile or blog entry for someone named Yashaswi. This is evident from the text \"Yashaswi\" at the top of the page. The central focus of the image is a photograph capturing two individuals embracing each other outdoors. They are standing in front of what appears to be a residential building, possibly the Madhekar Residence Home located in San Diego, as indicated by the location provided.\n\nThe people in the photo seem to be enjoying a moment of affection and happiness, with one person wearing a dress that suggests a casual or celebratory occasion. The surroundings are lush with greenery, implying they might be in a well-maintained residential area or a park within San Diego. The building in the background has a modern architectural style, characterized by clean lines and minimal ornamentation, which is common for contemporary urban homes."
+  ),
+  (
+      "img_008", "The image captures a joyful moment at the Madhekar Residence Home in San Diego, where a group of seven people are gathered for a photo. The house's warm and inviting atmosphere is evident from the wooden walls that form a cozy backdrop to this gathering. Each individual in the group is dressed casually, suggesting an informal event or celebration. Their expressions are cheerful and relaxed, indicating a sense of camaraderie and shared happiness. The lighting in the room casts a soft glow on their faces, highlighting their smiles and adding to the overall warmth of the scene."
   )
+
+
 ]
 
 
@@ -152,7 +163,7 @@ ids, docs = zip(*large_dataset_mock)
 insert_documents(list(docs), list(ids))
 
 # This query has strong semantic matches for one doc, and exact keyword matches for another
-search_query = "high performance full-text database index structures"
+search_query = "seven lakes esha blog" #"high performance full-text database index structures"
 print(f"Executing Hybrid RRF Search for: '{search_query}'\n")
 
 fused_results = hybrid_search_rrf(search_query, k=60, top_n=3)
