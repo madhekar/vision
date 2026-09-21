@@ -8,7 +8,7 @@ import ollama
 
 # 1. Setup Local Configurations
 # Using Qwen 2.5 (change to 'qwen2.5:1.5b' or 'llama3' depending on your hardware)
-OLLAMA_MODEL = "qwen2.5:7b" 
+OLLAMA_MODEL = "qwen3.5b-6-6:latest"#"qwen2.5:7b" 
 
 # 2. Setup Mock Data and Pipeline Elements
 documents = [
