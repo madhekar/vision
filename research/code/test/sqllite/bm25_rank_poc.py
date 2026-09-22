@@ -93,7 +93,7 @@ def search_documents(query_string, db_path=DB_FILE_PATH):
     results = cursor.fetchall()
     #print(f"---> {results}")
     for row in results:
-        print(f"ID: {row[0]} | Rank: {row[4]:.4f}\nText: {row[3]}\n{'-'*40}")
+        print(f"ID: {row[0]} | Rank: {row[4]:.4f} | Caption: {row[2]} | Text: {row[3]}")
 
     conn.close()
 
