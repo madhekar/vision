@@ -81,7 +81,7 @@ def search_documents(query_string, db_path=DB_FILE_PATH):
 
     # SQL query joining the FTS index with the main table to pull all fields
     search_query = """
-        SELECT d.id, d.uri, d.caption, d.text, bm25(df) as rank
+        SELECT d.id, d.uri, d.caption, d.text, bm25(documents_fts) as rank
         FROM documents_fts df
         JOIN documents d ON df.rowid = d.rowid
         WHERE documents_fts MATCH ?
@@ -91,7 +91,7 @@ def search_documents(query_string, db_path=DB_FILE_PATH):
 
     cursor.execute(search_query, (query_string,))
     results = cursor.fetchall()
-
+    #print(f"---> {results}")
     for row in results:
         print(f"ID: {row[0]} | Rank: {row[4]:.4f}\nText: {row[3]}\n{'-'*40}")
 
@@ -99,4 +99,4 @@ def search_documents(query_string, db_path=DB_FILE_PATH):
 
 
 # Example usage:
-search_documents("Anjali and Esha enjoy the outdoor park")
+search_documents("Esha and Anjali are dressed in traditional Indian attire")
