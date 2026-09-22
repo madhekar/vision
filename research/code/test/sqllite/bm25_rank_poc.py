@@ -15,7 +15,7 @@ def setup_database_and_load_json(json_path, db_path):
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS documents (
-            url TEXT,
+            uri TEXT,
             id TEXT PRIMARY KEY,
             src TEXT,
             ts TEXT,
@@ -52,13 +52,13 @@ def setup_database_and_load_json(json_path, db_path):
 
     # 3. Read JSON data and insert into the database
     with open(json_path, "r", encoding="utf-8") as f:
-        # Assumes JSON is a list of objects: [{"url": "...", "id": "..."}, ...]
+        # Assumes JSON is a list of objects: [{"uri": "...", "id": "..."}, ...]
         # If it is JSON Lines (one JSON per line), use: data = [json.loads(line) for line in f]
         data = json.load(f)
 
     insert_query = """
-        INSERT OR IGNORE INTO documents (url, id, src, ts, type, latlon, loc, ppt, caption, text)
-        VALUES (:url, :id, :src, :ts, :type, :latlon, :loc, :ppt, :caption, :text)
+        INSERT OR IGNORE INTO documents (uri, id, src, ts, type, latlon, loc, ppt, caption, text)
+        VALUES (:uri, :id, :src, :ts, :type, :latlon, :loc, :ppt, :caption, :text)
     """
 
     # Batch insert for high performance
@@ -81,7 +81,7 @@ def search_documents(query_string, db_path=DB_FILE_PATH):
 
     # SQL query joining the FTS index with the main table to pull all fields
     search_query = """
-        SELECT d.id, d.url, d.caption, d.text, bm25(df) as rank
+        SELECT d.id, d.uri, d.caption, d.text, bm25(df) as rank
         FROM documents_fts df
         JOIN documents d ON df.rowid = d.rowid
         WHERE documents_fts MATCH ?
@@ -99,4 +99,4 @@ def search_documents(query_string, db_path=DB_FILE_PATH):
 
 
 # Example usage:
-# search_documents("your search keywords here")
+search_documents("Anjali and Esha enjoy the outdoor park")
