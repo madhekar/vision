@@ -81,12 +81,31 @@ def generate_query_variations_local(original_query: str) -> list[str]:
 
 # 4. Pipeline Fusion Helper
 def reciprocal_rank_fusion(dense_results, sparse_results, k=60):
-    rrf_scores = {}
+
+    print("---->", dense_results, "---", sparse_results)
+    """     rrf_scores = {}
     for rank, doc_id in enumerate(dense_results):
         rrf_scores[doc_id] = rrf_scores.get(doc_id, 0) + (1.0 / (k + (rank + 1)))
     for rank, doc_id in enumerate(sparse_results):
         rrf_scores[doc_id] = rrf_scores.get(doc_id, 0) + (1.0 / (k + (rank + 1)))
-    return sorted(rrf_scores.items(), key=lambda item: item, reverse=True)
+    return sorted(rrf_scores.items(), key=lambda item: item, reverse=True) """
+
+    # Trackers for RRF scores and document text mapping
+    rrf_scores = ()
+    doc_text_map = {}
+    
+    # 2. Score sparse candidates
+    for rank, doc_id in enumerate(sparse_results, start=1):
+        rrf_scores[int(doc_id)-1] += 1.0 / (k + rank)
+        #doc_text_map[doc_id] = text
+        
+    # 3. Score dense candidates
+    for rank, (doc_id, text) in enumerate(dense_results, start=1):
+        rrf_scores[int(doc_id)-1] += 1.0 / (k + rank)
+        #doc_text_map[doc_id] = text
+
+    # 4. Sort candidates by their combined RRF score descending
+    return sorted(rrf_scores.items(), key=lambda x: x, reverse=True)
 
 
 # 5. Combined Local Retrieval Pipeline
@@ -102,22 +121,27 @@ def advanced_retrieval_pipeline(original_query):
     
     # Step B: Multi-query Search execution
     for q in all_queries:
+        print(f"query --- {q}")
         # Dense Retrieval (Chroma DB)
         dense_res = collection.query(query_texts=[q], n_results=3)
+        print(f'dense_res--- {dense_res}')
         dense_ids = dense_res['ids'] if dense_res['ids'] else []
         for doc_id in dense_ids:
             if doc_id not in dense_global_ranks:
                 dense_global_ranks.append(doc_id)
-                
+        print(f"dense global ranks --- {doc_id}")   
+
         # Sparse Retrieval (BM25)
         tokenized_query = q.lower().split(" ")
         sparse_scores = bm25.get_scores(tokenized_query)
+        print(f"sparse scores --- {sparse_scores}")
         top_sparse_indices = np.argsort(sparse_scores)[::-1][:3]
         for idx in top_sparse_indices:
             doc_id = str(idx)
             if doc_id not in sparse_global_ranks:
                 sparse_global_ranks.append(doc_id)
 
+    print(f"dense -- sparse ranks --- {dense_global_ranks}::{sparse_global_ranks}")
     # Step C: Merging using RRF
     rrf_ranked_docs = reciprocal_rank_fusion(dense_global_ranks, sparse_global_ranks)
     candidate_ids = [doc_id for doc_id, score in rrf_ranked_docs]
