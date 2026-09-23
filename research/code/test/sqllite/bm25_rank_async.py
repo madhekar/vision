@@ -14,7 +14,7 @@ async def setup_database_and_load_json(json_path, db_path):
         await db.execute(
             """
             CREATE TABLE IF NOT EXISTS documents (
-                url TEXT,
+                uri TEXT,
                 id TEXT PRIMARY KEY,
                 src TEXT,
                 ts TEXT,
@@ -54,8 +54,8 @@ async def setup_database_and_load_json(json_path, db_path):
             data = json.load(f)
 
         insert_query = """
-            INSERT OR IGNORE INTO documents (url, id, src, ts, type, latlon, loc, ppt, caption, text)
-            VALUES (:url, :id, :src, :ts, :type, :latlon, :loc, :ppt, :caption, :text)
+            INSERT OR IGNORE INTO documents (uri, id, src, ts, type, latlon, loc, ppt, caption, text)
+            VALUES (:uri, :id, :src, :ts, :type, :latlon, :loc, :ppt, :caption, :text)
         """
 
         # Batch insert asynchronously
@@ -70,10 +70,10 @@ async def search_documents(query_string, db_path):
     async with aiosqlite.connect(db_path) as db:
         # Notice bm25(documents_fts) uses the exact table name
         search_query = """
-            SELECT d.id, d.url, d.caption, d.text, bm25(documents_fts) as rank
+            SELECT d.id, d.uri, d.caption, d.text, bm25(documents_fts) as rank
             FROM documents_fts df
             JOIN documents d ON df.rowid = d.rowid
-            WHERE df MATCH ?
+            WHERE documents_fts MATCH ?
             ORDER BY rank ASC
             LIMIT 10;
         """
@@ -88,7 +88,7 @@ async def search_documents(query_string, db_path):
 
             for row in results:
                 print(
-                    f"ID: {row[0]} | Rank: {row[4]:.4f}\nText: {row[3]}\n{'-'*40}"
+                    f"ID: {row[0]} | Rank: {row[4]:.4f} | Caption: {row[2]} | Text: {row[3]}"
                 )
 
 
@@ -98,7 +98,7 @@ async def main():
 
     # Perform an async test search
     print("\n--- Running Asynchronous Search ---")
-    await search_documents("your search keywords", DB_FILE_PATH)
+    await search_documents("Esha and Anjali are dressed in traditional Indian attire", DB_FILE_PATH)
 
 
 # Execute the asyncio event loop
