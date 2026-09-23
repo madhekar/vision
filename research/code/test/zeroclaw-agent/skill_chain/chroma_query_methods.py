@@ -2,14 +2,20 @@ import os
 import time
 import chromadb
 from chromadb.config import Settings
+from sentence_transformers import CrossEncoder
 import json
 import sys
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from  compress_video_helper import compress_video
+import chroma_util as cu
 import warnings
 
 warnings.filterwarnings("ignore", category=FutureWarning, module="timm")
 max_bytes = 5 * 1024 * 1024
+
+def init_rerank_model():
+    reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+    return reranker_model
 
 '''handles chromadb query functions supported by agent'''
 def chroma_query_init():
@@ -20,7 +26,7 @@ def chroma_query_init():
     vid_collection = client.get_or_create_collection(name="multimodal_collection_videos", embedding_function=embedding_function)
     txt_collection = client.get_or_create_collection(name="multimodal_collection_texts", embedding_function=embedding_function)
     n_results = 2
-
+    
     return img_collection, vid_collection, txt_collection, n_results
 
 def get_collection_count() -> list[int]:
@@ -32,10 +38,11 @@ def get_collection_count() -> list[int]:
 def query_image_collection( query_texts: list) -> dict:
     """Return semantic similarity search results for given query texts for image collection."""
     img_collection, _, _, n_results = chroma_query_init()
-    img_res =  img_collection.query(
+    """     img_res =  img_collection.query(
         query_texts=query_texts,
         n_results=n_results
-    )
+    ) """
+    img_res = cu.rerank_image_text_search(init_rerank_model(), query_texts, img_collection, 100, n_results)
     result_list = []
     for ir in img_res["metadatas"][0]:
         result_list.append({"caption": ir["caption"] , "text": ir["text"], "ts": ir["ts"], "url": ir["uri"] })
