@@ -30,6 +30,10 @@ execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'Pune Ganapati 
 
 execute python3 chroma_discord_skill.py "video" "Bhal" "'Pune festivals'"
 
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Five person Social event with Anjali'"
+
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Five person Social event with Kumar in Pune, India'"
+
 execute python3 chroma_whatsapp_skill.py  "video" "+919822912480" "'San Diego beach'"
 
 execute python3 chroma_email_skill.py "video" "bhalba@yahoo.com" "'San Diego beach'"
