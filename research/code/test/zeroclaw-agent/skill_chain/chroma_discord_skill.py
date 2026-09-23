@@ -1,4 +1,5 @@
 import ast
+import time
 import json
 import sys
 import subprocess
@@ -24,7 +25,7 @@ if len(sys.argv) > 3:
 
     valid_arr = ast.literal_eval(cp.stdout.strip())[0]
 
-    msg = f'**Rubric**: {valid_arr["caption"]}' + '\n\n' + f'**Narative**: {valid_arr["text"]}' + '\n\n' + f'**DateTime**: {valid_arr["ts"]}'
+    msg = f'**Rubric**: {valid_arr["caption"]}' + '\n\n' + f'**Narative**: {valid_arr["text"]}' + '\n\n' + f'**DateTime**: {time.ctime(int(valid_arr['ts']))}'
 
     cmd_2 = command = [
         "openclaw", 

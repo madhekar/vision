@@ -65,7 +65,6 @@ async def setup_database_and_load_json(json_path, db_path):
             f"Successfully loaded {len(data)} records and populated FTS5 index."
         )
 
-
 async def search_documents(query_string, db_path):
     async with aiosqlite.connect(db_path) as db:
         # Notice bm25(documents_fts) uses the exact table name

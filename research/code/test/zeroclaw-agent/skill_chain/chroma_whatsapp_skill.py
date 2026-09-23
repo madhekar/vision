@@ -1,4 +1,5 @@
 import ast
+import time
 import sys
 import subprocess
 
@@ -25,7 +26,7 @@ if len(sys.argv) > 3:
 
     #cmd_2 = ["./send_email_w_attach.sh", arg_email_id, valid_arr[0]['url'], valid_arr[0]['caption'], valid_arr[0]['text'], "--debug"]
 
-    msg = f"**Rubric**: {valid_arr['caption']}" + "\n\n" + f"**Narative**: {valid_arr['text']}" + "\n\n" + f"**DateTime**: {valid_arr['ts']}"
+    msg = f"**Rubric**: {valid_arr['caption']}" + "\n\n" + f"**Narative**: {valid_arr['text']}" + "\n\n" + f"**DateTime**: {time.ctime(int(valid_arr['ts']))}"
     cmd_2 = command = [
         "openclaw", 
         "message",
