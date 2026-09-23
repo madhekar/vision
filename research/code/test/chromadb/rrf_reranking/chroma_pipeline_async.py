@@ -6,11 +6,13 @@ from chromadb.utils import embedding_functions
 from sentence_transformers import CrossEncoder
 import ollama
 
+
 # 1. Configuration & Global Initializations
 OLLAMA_MODEL = "qwen3.5b-6-6:latest"#"qwen2.5:7b"
 DB_PATH = "async_scalable_store_4.db"
 CHROMA_PATH = "./chroma_db_4"
 BATCH_SIZE = 1000
+
 
 # Initialize Persistent SQLite Database
 conn = sqlite3.connect(DB_PATH)
