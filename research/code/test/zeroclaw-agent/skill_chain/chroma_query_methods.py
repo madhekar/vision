@@ -45,8 +45,7 @@ def query_image_collection( query_texts: list) -> dict:
         n_results=n_results
     ) """ 
     img_res = cu.rerank_image_text_search(rr_model, query_texts, img_collection, 100, n_results)
-    # print("--->", img_res[0])
-    # print("===>", img_res[1][1])
+
     result_list = []
     for ir in img_res:
         #print(ir[1])
@@ -56,21 +55,22 @@ def query_image_collection( query_texts: list) -> dict:
 
 def query_video_collection( query_texts: list) -> list:
     """Return semantic similarity search results vuri fields only; for given query texts for video collection ."""
-    _, vid_collection, _, n_results = chroma_query_init()
-    result = vid_collection.query( query_texts=query_texts, n_results=n_results)
+    _, vid_collection, _, rr_model, n_results = chroma_query_init()
+    #result = vid_collection.query( query_texts=query_texts, n_results=n_results)
+    result = cu.rerank_video_text_search(rr_model, query_texts, vid_collection, True, 50, n_results)
     result_list = []
-    for vr in result["metadatas"][0]:
-        if os.path.getsize(vr["vuri"]) > max_bytes:
-           cvideo = compress_video(vr["vuri"], 20)
-           result_list.append({"url": cvideo, "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})
+    for vr in result:
+        if os.path.getsize(vr[1]["vuri"]) > max_bytes:
+           cvideo = compress_video(vr[1]["vuri"], 20)
+           result_list.append({"url": cvideo, "caption": vr[1]["caption"].replace('"', ''), "text": vr[1]["text"], "ts": vr[1]["ts"]})
         else:
-           result_list.append({"url": vr["vuri"], "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})    
+           result_list.append({"url": vr[1]["vuri"], "caption": vr[1]["caption"].replace('"', ''), "text": vr[1]["text"], "ts": vr[1]["ts"]})    
     print(result_list)
 
 
 # def query_text_collection( query_texts: list) -> dict:
 #     """Return semantic similarity search results for given query texts for text collection."""
-#     _, _, txt_collection, n_results = chroma_query_init()
+#     _, _, txt_collection,_, n_results = chroma_query_init()
 #     return txt_collection.query(
 #         query_texts=query_texts,
 #         n_results=n_results
