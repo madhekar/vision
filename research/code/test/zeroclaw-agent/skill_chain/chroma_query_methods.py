@@ -39,16 +39,18 @@ def get_collection_count() -> list[int]:
 def query_image_collection( query_texts: list) -> dict:
     """Return semantic similarity search results for given query texts for image collection."""
     img_collection, _, _, rr_model, n_results = chroma_query_init()
-    print("cc", n_results)
-    img_res =  img_collection.query(
+    
+    """     img_res =  img_collection.query(
         query_texts=query_texts,
         n_results=n_results
-    ) 
-    #img_res = cu.rerank_image_text_search(rr_model, query_texts, img_collection, 100, n_results)
-    print("--->", img_res)
+    ) """ 
+    img_res = cu.rerank_image_text_search(rr_model, query_texts, img_collection, 100, n_results)
+    # print("--->", img_res[0])
+    # print("===>", img_res[1][1])
     result_list = []
-    for ir in img_res["metadatas"][0]:
-        result_list.append({"caption": ir["caption"] , "text": ir["text"], "ts": ir["ts"], "url": ir["uri"] })
+    for ir in img_res:
+        #print(ir[1])
+        result_list.append({"caption": ir[1]["caption"] , "text": ir[1]["text"], "ts": ir[1]["ts"], "url": ir[1]["uri"] })
     print(result_list)
 
 
