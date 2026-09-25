@@ -465,7 +465,7 @@ def populate_text_in_vdb(client, text_folder, collection_text):
     client.clear_system_cache()
 
 def populate_image_BM25_db(image_metadata_path, image_metadata_file, sqllite_path, image_bm25_idx):
-    return su.setup_database_and_load_json(os.path.join(image_metadata_path, image_metadata_file), os.join.path(sqllite_path, image_bm25_idx))
+    return su.setup_database_and_load_json(os.path.join(image_metadata_path, image_metadata_file), os.path.join(sqllite_path, image_bm25_idx))
 
 def populate_video_BM25_db(video_metadata_path, video_metadata_file, sqllite_path, video_bm25_idx):    
     return su.setup_database_and_load_json(os.path.join(video_metadata_path, video_metadata_file), os.path.join(sqllite_path, video_bm25_idx))
@@ -586,6 +586,10 @@ def execute():
 
         st.info(f"done adding images: {collection_img.count()}  documents: {collection_txt.count()} and videos: {collection_video.count()}")
 
+        #os.makedirs(sqllite_path, exist_ok=True)
+        #populate_image_BM25_db(image_metadata_path=metadata_path, image_metadata_file=metadata_file, sqllite_path=sqllite_path, image_bm25_idx=image_bm25_idx)
+
+        #populate_video_BM25_db(video_metadata_path=metadata_path, video_metadata_file=video_metadata_file, sqllite_path=sqllite_path, video_bm25_idx=video_bm25_idx)
         #archive_metadata(metadata_path, arc_folder_name, metadata_file)
 
         #mu.remove_files_folders(image_initial_path)
