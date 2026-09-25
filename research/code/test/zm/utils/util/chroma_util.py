@@ -105,7 +105,7 @@ def rerank_image_text_search(rr_model, text, image_collection, rmax=100, top=30)
 
         return (reranked_images) 
 
-def rerank_video_search(rr_model, thumb_img_url, video_collection, rerank=False, rmax=20, top=10):
+def rerank_video_search(rr_model, thumb_img_url, video_collection, rerank=False, rmax=50, top=10):
              # Cross-encoder for precise reranking 
         # (You can use a cross-encoder trained on image-text tasks or text if your query is text-based)     
         reranked_videos = []
@@ -157,7 +157,7 @@ def rerank_video_search(rr_model, thumb_img_url, video_collection, rerank=False,
         #return (dr)
 
 
-def rerank_video_text_search(rr_model, text, video_collection, rekank=False, rmax=20, top=10):
+def rerank_video_text_search(rr_model, text, video_collection, rerank=False, rmax=50, top=10):
 
         # Cross-encoder for precise reranking 
         # (You can use a cross-encoder trained on image-text tasks or text if your query is text-based)
@@ -178,7 +178,7 @@ def rerank_video_text_search(rr_model, text, video_collection, rekank=False, rma
         d = {k: [v1, v2] for k, v1, v2 in zip(candidate_texts, results["uris"][0], results["metadatas"][0])}
         dm = {k: [v1, v2] for k, v1, v2 in zip(vid_url, results["uris"][0], results["metadatas"][0])}
 
-        if not rekank:
+        if not rerank:
              res = set(dm.keys())
              for url in list(res)[:top]:
                    reranked_videos.append(dm[url])
