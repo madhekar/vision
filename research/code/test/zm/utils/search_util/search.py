@@ -299,7 +299,7 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
             st.session_state["imgs"] = cu.rerank_image_text_search(rr_model, modalityTxt, cImgs, rmax=50, top=30)
 
             # execute video query with search criteria
-            st.session_state["videos"] = cu.rerank_video_text_search(rr_model, modalityTxt, cVideos, rekank=False, rmax=20, top=10)
+            st.session_state["videos"] = cu.rerank_video_text_search(rr_model, modalityTxt, cVideos, rerank=False, rmax=20, top=10)
             #print("**videos**", cVideos.count(), "***",  st.session_state["videos"])
 
 
