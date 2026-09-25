@@ -20,6 +20,7 @@ from chromadb.config import DEFAULT_TENANT, Settings
 from utils.util import model_util as mu
 from utils.util import storage_stat as ss
 from utils.util import video_util as vu
+from utils.util import sqllite_util as su
 from utils.config_util import config
 from chromadb.utils.data_loaders import ImageLoader
 from chromadb.config import Settings
@@ -462,7 +463,13 @@ def populate_text_in_vdb(client, text_folder, collection_text):
 
     # client.persist() - not available anymore
     client.clear_system_cache()
-    
+
+def populate_image_BM25_db(image_metadata_path, image_metadata_file, sqllite_path, image_bm25_idx):
+    return su.setup_database_and_load_json(os.path.join(image_metadata_path, image_metadata_file), os.join.path(sqllite_path, image_bm25_idx))
+
+def populate_video_BM25_db(video_metadata_path, video_metadata_file, sqllite_path, video_bm25_idx):    
+    return su.setup_database_and_load_json(os.path.join(video_metadata_path, video_metadata_file), os.path.join(sqllite_path, video_bm25_idx))
+
 '''
 ok for now! todo
 '''
