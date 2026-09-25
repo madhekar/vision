@@ -524,6 +524,10 @@ def execute():
         audio_collection_name,
         text_folder_name,
 
+        sqllite_path,
+        image_bm25_idx,
+        video_bm25_idx,
+
         image_final_path,
         text_final_path,
         video_final_path,

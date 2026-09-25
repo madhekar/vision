@@ -74,8 +74,8 @@ async def search_documents(query_string, db_path):
             FROM documents_fts df
             JOIN documents d ON df.rowid = d.rowid
             WHERE documents_fts MATCH ?
-            ORDER BY rank ASC
-            LIMIT 10;
+            ORDER BY df.rank ASC
+            LIMIT 30;
         """
 
         # Execute and fetch results asynchronously
@@ -85,11 +85,9 @@ async def search_documents(query_string, db_path):
             if not results:
                 print(f"No results found for: '{query_string}'")
                 return
-
+            
             for row in results:
-                print(
-                    f"ID: {row[0]} | Rank: {row[4]:.4f} | Caption: {row[2]} | Text: {row[3]}"
-                )
+                print(f"---> ID: {row[0]} | Rank: {row[4]:.4f} | Caption: {row[2]} | Text: {row[3]}")
 
 
 async def main():

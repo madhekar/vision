@@ -543,6 +543,10 @@ def vectordb_config_load():
 
         text_dir_path = dict["vectordb"]["text_dir_path"]
 
+        sqllite_path = dict['sqllite']['sqllite_path']
+        image_bm25_idx = dict['sqllite']['image_bm25_idx']
+        video_bm25_idx= dict['sqllite']['video_bm25_idx']
+
         image_final_path = dict["prod"]["image_final_path"]
         text_final_path = dict["prod"]["text_final_path"]
         video_final_path = dict["prod"]["video_final_path"]
@@ -564,6 +568,10 @@ def vectordb_config_load():
         audio_collection_name,
 
         os.path.join(dr, *text_dir_path.split(os.sep)[1:]),
+
+        os.path.join(dr, *sqllite_path.split(os.sep)[1:]),     
+        image_bm25_idx,
+        video_bm25_idx,   
 
         os.path.join(dr, *image_final_path.split(os.sep)[1:]),
         os.path.join(dr, *text_final_path.split(os.sep)[1:]),
