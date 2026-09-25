@@ -1,10 +1,16 @@
 import json
 import sqlite3
 
-# Define file paths
-JSON_FILE_PATH = "metadata.json"
-DB_FILE_PATH = "search_index.db"
 
+def drop_table(db_path):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    cursor.execute(
+    """
+     DROP TABLE IF EXISTS documents_fts;
+    """ 
+    )
 
 def setup_database_and_load_json(json_path, db_path):
     # Connect to SQLite database
@@ -54,7 +60,8 @@ def setup_database_and_load_json(json_path, db_path):
     with open(json_path, "r", encoding="utf-8") as f:
         # Assumes JSON is a list of objects: [{"uri": "...", "id": "..."}, ...]
         # If it is JSON Lines (one JSON per line), use: data = [json.loads(line) for line in f]
-        data = json.load(f)
+        # data = json.load(f)
+        data = [json.loads(line) for line in f]
 
     insert_query = """
         INSERT OR IGNORE INTO documents (uri, id, src, ts, type, latlon, loc, ppt, caption, text)
@@ -71,11 +78,7 @@ def setup_database_and_load_json(json_path, db_path):
     conn.close()
 
 
-# Run the loader
-setup_database_and_load_json(JSON_FILE_PATH, DB_FILE_PATH)
-
-
-def search_documents(query_string, db_path=DB_FILE_PATH):
+def search_documents(query_string, db_path):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
@@ -97,6 +100,14 @@ def search_documents(query_string, db_path=DB_FILE_PATH):
 
     conn.close()
 
+if __name__=="__main__":
 
-# Example usage:
-search_documents("Esha dressed in traditional Indian attire")
+    # Define file paths
+    JSON_FILE_PATH = "metadata.json"
+    DB_FILE_PATH = "search_index.db"
+
+    drop_table(db_path=DB_FILE_PATH)
+    # Run the loader
+    setup_database_and_load_json(JSON_FILE_PATH, DB_FILE_PATH)
+    # Example usage:
+    search_documents("Esha dressed in traditional Indian attire",DB_FILE_PATH)

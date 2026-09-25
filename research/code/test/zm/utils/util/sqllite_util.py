@@ -1,6 +1,6 @@
 import json
 import sqlite3
-
+import pandas as pd
 
 
 def setup_database_and_load_json(json_path, db_path):
@@ -51,7 +51,13 @@ def setup_database_and_load_json(json_path, db_path):
     with open(json_path, "r", encoding="utf-8") as f:
         # Assumes JSON is a list of objects: [{"uri": "...", "id": "..."}, ...]
         # If it is JSON Lines (one JSON per line), use: data = [json.loads(line) for line in f]
-        data = json.load(f)
+        #data = json.load(f)
+        data = [json.loads(line) for line in f]
+    # df = pd.read_json(json_path, lines=True)
+    # df["uri"] = df["uri"].str.replace(
+    #         "input-data/img",
+    #         "final-data/img" #+ image_final_path,
+    #    )
 
     insert_query = """
         INSERT OR IGNORE INTO documents (uri, id, src, ts, type, latlon, loc, ppt, caption, text)
