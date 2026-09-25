@@ -1,3 +1,4 @@
+import os
 import json
 import sqlite3
 
@@ -106,7 +107,7 @@ if __name__=="__main__":
     JSON_FILE_PATH = "metadata.json"
     DB_FILE_PATH = "search_index.db"
 
-    drop_table(db_path=DB_FILE_PATH)
+    os.remove(DB_FILE_PATH)
     # Run the loader
     setup_database_and_load_json(JSON_FILE_PATH, DB_FILE_PATH)
     # Example usage:
