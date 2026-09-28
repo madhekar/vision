@@ -586,8 +586,8 @@ def execute():
 
         st.info(f"done adding images: {collection_img.count()}  documents: {collection_txt.count()} and videos: {collection_video.count()}")
 
-        #os.makedirs(sqllite_path, exist_ok=True)
-        #populate_image_BM25_db(image_metadata_path=metadata_path, image_metadata_file=metadata_file, sqllite_path=sqllite_path, image_bm25_idx=image_bm25_idx)
+        os.makedirs(sqllite_path, exist_ok=True)
+        populate_image_BM25_db(image_metadata_path=metadata_path, image_metadata_file=metadata_file, sqllite_path=sqllite_path, image_bm25_idx=image_bm25_idx)
 
         #populate_video_BM25_db(video_metadata_path=metadata_path, video_metadata_file=video_metadata_file, sqllite_path=sqllite_path, video_bm25_idx=video_bm25_idx)
         #archive_metadata(metadata_path, arc_folder_name, metadata_file)

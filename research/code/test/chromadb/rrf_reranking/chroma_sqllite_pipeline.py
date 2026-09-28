@@ -7,7 +7,7 @@ from sentence_transformers import CrossEncoder
 import ollama
 
 # 1. Configuration & Global Initializations
-OLLAMA_MODEL = "qwen2.5:7b"
+OLLAMA_MODEL = "qwen3.5b-6-6:latest" #"qwen2.5:7b"
 DB_PATH = "async_scalable_store.db"
 CHROMA_PATH = "./chroma_db"
 BATCH_SIZE = 1000
