@@ -105,10 +105,10 @@ if __name__=="__main__":
 
     # Define file paths
     JSON_FILE_PATH = "metadata.json"
-    DB_FILE_PATH = "search_index.db"
+    DB_FILE_PATH = "/mnt/zmdata/home-media-app/data/app-data/sqllite/zm_image_idx.db"#"search_index.db"
 
-    os.remove(DB_FILE_PATH)
+    #os.remove(DB_FILE_PATH)
     # Run the loader
-    setup_database_and_load_json(JSON_FILE_PATH, DB_FILE_PATH)
+    #setup_database_and_load_json(JSON_FILE_PATH, DB_FILE_PATH)
     # Example usage:
     search_documents("Esha dressed in traditional Indian attire",DB_FILE_PATH)
