@@ -17,100 +17,107 @@ TOP_QUERY_N = 5
 conn = sqlite3.connect(DB_PATH)
 cursor = conn.cursor()
 
-# 1. Create the main table to store all data fields
-cursor.execute(
-        """
-        CREATE TABLE IF NOT EXISTS documents (
-            uri TEXT,
-            id TEXT PRIMARY KEY,
-            src TEXT,
-            ts TEXT,
-            type TEXT,
-            latlon TEXT,
-            loc TEXT,
-            ppt TEXT,
-            caption TEXT,
-            text TEXT
-        )
-    """
-    )
+# # 1. Create the main table to store all data fields
+# cursor.execute(
+#         """
+#         CREATE TABLE IF NOT EXISTS documents (
+#             uri TEXT,
+#             id TEXT PRIMARY KEY,
+#             src TEXT,
+#             ts TEXT,
+#             type TEXT,
+#             latlon TEXT,
+#             loc TEXT,
+#             ppt TEXT,
+#             caption TEXT,
+#             text TEXT
+#         )
+#     """
+#     )
 
-# 2. Create the FTS5 virtual table (externally content-backed for efficiency)
-# Since only 'text' is used for searching, it's the only indexed column.
-cursor.execute(
-        """
-        CREATE VIRTUAL TABLE IF NOT EXISTS documents_fts USING fts5(
-            text,
-            content='documents',
-            content_rowid='rowid'
-        )
-    """
-    )
+# # 2. Create the FTS5 virtual table (externally content-backed for efficiency)
+# # Since only 'text' is used for searching, it's the only indexed column.
+# cursor.execute(
+#         """
+#         CREATE VIRTUAL TABLE IF NOT EXISTS documents_fts USING fts5(
+#             text,
+#             content='documents',
+#             content_rowid='rowid'
+#         )
+#     """
+#     )
 
-# Create triggers to keep the FTS index automatically updated on inserts
-cursor.execute(
-        """
-        CREATE TRIGGER IF NOT EXISTS t_documents_ai AFTER INSERT ON documents BEGIN
-            INSERT INTO documents_fts(rowid, text) VALUES (new.rowid, new.text);
-        END;
-    """
-    )
-conn.commit()
+# # Create triggers to keep the FTS index automatically updated on inserts
+# cursor.execute(
+#         """
+#         CREATE TRIGGER IF NOT EXISTS t_documents_ai AFTER INSERT ON documents BEGIN
+#             INSERT INTO documents_fts(rowid, text) VALUES (new.rowid, new.text);
+#         END;
+#     """
+#     )
+# conn.commit()
 
 # Initialize Persistent Chroma DB Client
 chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
 emb_fn = embedding_functions.DefaultEmbeddingFunction()
-collection = chroma_client.get_or_create_collection(name="async_hybrid_search", embedding_function=emb_fn)
-
+#collection = chroma_client.get_or_create_collection(name="async_hybrid_search", embedding_function=emb_fn)
+collection_images = chroma_client.get_or_create_collection(
+      name="multimodal_collection_images", 
+      embedding_function=emb_fn, 
+      metadata={"hnsw:space": "cosine",
+                "hnsw:M" : 24, 
+                "hnsw:construction_ef": 200, 
+                "hnsw:search_ef": 100},
+      )
 # Initialize Cross-Encoder Reranker
 reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
 
 # 2. Production Batch Ingestion Engine (Ensures Persistence)
-def index_documents_batch(documents_list: list[str]):
-    """
-    Accepts a list of raw text strings, chunks them dynamically into 
-    configured BATCH_SIZE chunks, and executes atomic insertions into 
-    SQLite, SQLite FTS5 (BM25), and ChromaDB.
-    """
-    if not documents_list:
-        print("⚠️ Document input list is empty. Skipping execution.")
-        return
+# def index_documents_batch(documents_list: list[str]):
+#     """
+#     Accepts a list of raw text strings, chunks them dynamically into 
+#     configured BATCH_SIZE chunks, and executes atomic insertions into 
+#     SQLite, SQLite FTS5 (BM25), and ChromaDB.
+#     """
+#     if not documents_list:
+#         print("⚠️ Document input list is empty. Skipping execution.")
+#         return
 
-    # Calculate global sequence tracking offset to safely append rows
-    cursor.execute("SELECT COUNT(*) FROM documents")
-    global_counter = cursor.fetchone()[0]
+#     # Calculate global sequence tracking offset to safely append rows
+#     cursor.execute("SELECT COUNT(*) FROM documents")
+#     global_counter = cursor.fetchone()[0]
     
-    print(f"📦 Preparing to index {len(documents_list)} documents into persistent storage...")
+#     print(f"📦 Preparing to index {len(documents_list)} documents into persistent storage...")
     
-    for i in range(0, len(documents_list), BATCH_SIZE):
-        chunk = documents_list[i : i + BATCH_SIZE]
+#     for i in range(0, len(documents_list), BATCH_SIZE):
+#         chunk = documents_list[i : i + BATCH_SIZE]
         
-        sqlite_batch = []
-        chroma_texts = []
-        chroma_ids = []
+#         sqlite_batch = []
+#         chroma_texts = []
+#         chroma_ids = []
         
-        for text in chunk:
-            doc_id = str(global_counter)
-            sqlite_batch.append((doc_id, text))
-            chroma_texts.append(text)
-            chroma_ids.append(doc_id)
-            global_counter += 1
+#         for text in chunk:
+#             doc_id = str(global_counter)
+#             sqlite_batch.append((doc_id, text))
+#             chroma_texts.append(text)
+#             chroma_ids.append(doc_id)
+#             global_counter += 1
 
-        # Transactional SQLite writes
-        try:
-            cursor.execute("BEGIN TRANSACTION")
-            cursor.executemany("INSERT OR IGNORE INTO documents (id, text) VALUES (?, ?)", sqlite_batch)
-            cursor.executemany("INSERT OR IGNORE INTO persistent_bm25_idx (id, text) VALUES (?, ?)", sqlite_batch)
-            conn.commit()
-        except sqlite3.Error as e:
-            conn.rollback()
-            print(f"❌ SQLite database insertion rolled back due to error: {e}")
-            raise e
+#         # Transactional SQLite writes
+#         try:
+#             cursor.execute("BEGIN TRANSACTION")
+#             cursor.executemany("INSERT OR IGNORE INTO documents (id, text) VALUES (?, ?)", sqlite_batch)
+#             cursor.executemany("INSERT OR IGNORE INTO persistent_bm25_idx (id, text) VALUES (?, ?)", sqlite_batch)
+#             conn.commit()
+#         except sqlite3.Error as e:
+#             conn.rollback()
+#             print(f"❌ SQLite database insertion rolled back due to error: {e}")
+#             raise e
         
-        # Persistent Chroma write 
-        collection.add(documents=chroma_texts, ids=chroma_ids)
-        print(f"   ✅ successfully committed and vectorized batch chunk of size {len(chunk)}.")
+#         # Persistent Chroma write 
+#         collection.add(documents=chroma_texts, ids=chroma_ids)
+#         print(f"   ✅ successfully committed and vectorized batch chunk of size {len(chunk)}.")
 
 
 # 3. Asynchronous LLM Query Expansion Engine
@@ -152,7 +159,7 @@ async def generate_query_variations_async(original_query: str) -> list[str]:
 
 # 4. Thread-Safe Search Workers
 def run_dense_query(query: str) -> list[str]:
-    dense_res = collection.query(query_texts=[query], n_results=TOP_QUERY_N)
+    dense_res = collection_images.query(query_texts=[query], n_results=TOP_QUERY_N)
     print(f"---> dense query: {dense_res}")
     ids = []
     if dense_res and 'ids' in dense_res and dense_res['ids']:
@@ -171,7 +178,7 @@ def run_sparse_query(query: str) -> list[str]:
         thread_cursor = thread_conn.cursor()
         try:
             thread_cursor.execute("""
-        SELECT d.id, d.text, bm25(documents_fts) as rank
+        SELECT d.id, d.uri, d.caption, d.text, bm25(documents_fts) as rank
         FROM documents_fts df
         JOIN documents d ON df.rowid = d.rowid
         WHERE documents_fts MATCH ?

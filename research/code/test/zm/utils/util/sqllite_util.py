@@ -83,7 +83,7 @@ def search_documents(query_string, db_path):
         JOIN documents d ON df.rowid = d.rowid
         WHERE documents_fts MATCH ?
         ORDER BY rank ASC
-        LIMIT 10;
+        LIMIT 5;
     """
 
     cursor.execute(search_query, (query_string,))
