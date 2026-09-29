@@ -118,7 +118,7 @@ async def generate_query_variations_async(original_query: str) -> list[str]:
                     break
                 
         variations = json.loads(raw_text.strip())
-        return variations[:3]
+        return variations[:2]
     except Exception as e:
         print(f"⚠️ Falling back to default variations due to parsing error: {e}")
         return [f"{original_query} hybrid", f"{original_query} index", f"{original_query} vector"]
@@ -156,6 +156,7 @@ def run_sparse_query(query: str) -> list[str]:
 
 # 5. Reciprocal Rank Fusion
 def reciprocal_rank_fusion(dense_results, sparse_results, k=60):
+    print(f"RRF: dense: {dense_results} sparse: {sparse_results}")
     rrf_scores = {}
     for rank, doc_id in enumerate(dense_results):
         rrf_scores[doc_id] = rrf_scores.get(doc_id, 0.0) + (1.0 / (k + (rank + 1)))
@@ -226,7 +227,10 @@ async def main():
         "Artificial intelligence and machine learning are transforming industries.",
         "Python is a popular programming language for data science and analytics.",
         "Advanced retrieval pipelines use hybrid search and reranking techniques.",
-        "Vector databases like Chroma help store and query dense embeddings efficiently."
+        "Vector databases like Chroma help store and query dense embeddings efficiently.",
+        "AI technique that combines information search with text generation to make large language models (LLMs) more accurate and factual.",
+        "Retrieval-augmented generation (RAG) is a technique that enables large language models (LLMs) to retrieve and incorporate new information from external data.",
+        "Retrieval-Augmented Generation (RAG) is a technique that lets an AI look up external information before answering a question, grounding its response in actual facts instead of just guessing from memory."
     ]
 
     # Populate index if database files don't have records yet
