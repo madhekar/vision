@@ -127,6 +127,7 @@ async def generate_query_variations_async(original_query: str) -> list[str]:
 # 4. Thread-Safe Search Workers
 def run_dense_query(query: str) -> list[str]:
     dense_res = collection.query(query_texts=[query], n_results=5)
+    print(f"---> dense query: {dense_res}")
     ids = []
     if dense_res and 'ids' in dense_res and dense_res['ids']:
         for nested_ids in dense_res['ids']:
@@ -140,6 +141,7 @@ def run_sparse_query(query: str) -> list[str]:
     clean_q = "".join([c if c.isalnum() or c.isspace() else " " for c in query]).strip()
     if clean_q:
         thread_conn = sqlite3.connect(DB_PATH)
+        #thread_conn.execute("PRAGMA journal_mode=WAL;")
         thread_cursor = thread_conn.cursor()
         try:
             thread_cursor.execute("""
@@ -149,6 +151,7 @@ def run_sparse_query(query: str) -> list[str]:
                 LIMIT 5
             """, (clean_q,))
             ids = [str(row[0]) for row in thread_cursor.fetchall()]
+            print(f"--->sparse query: {ids} clean-q: {clean_q}")
         finally:
             thread_conn.close()
     return ids
@@ -234,14 +237,16 @@ async def main():
     ]
 
     # Populate index if database files don't have records yet
-    cursor.execute("SELECT COUNT(*) FROM documents")
-    if cursor.fetchone()[0] == 0:
-        print("💾 Storage tables empty. Initiating batch entry persistence routine...")
-        index_documents_batch(my_raw_documents)
-    else:
-        print("💾 Storage records found. Re-using active database contents...")
+    cursor.execute("SELECT * FROM documents")
+    print(f"sqllite records: {cursor.fetchall()}")
+    # if cursor.fetchone()[0] == 0:
+    #     print("💾 Storage tables empty. Initiating batch entry persistence routine...")
+    #     index_documents_batch(my_raw_documents)
+    # else:
+    #     print("💾 Storage records found. Re-using active database contents...")
 
-    user_query = "How to build advanced search pipelines?"
+    user_query = "RAG Dog"
+                 #"How to build advanced search pipelines?"
     print(f"\n--- Running Asynchronous Disk Pipeline for: '{user_query}' ---\n")
     
     final_results = await advanced_retrieval_pipeline_async(user_query)
