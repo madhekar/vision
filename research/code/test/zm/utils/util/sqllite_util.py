@@ -4,7 +4,21 @@ import sqlite3
 import pandas as pd
 
 
+# A basic list of common English stop words
+STOP_WORDS = {"the", "is", "at", "which", "on", "and", "a", "an", "to", "in", "for", "with", "of"}
 
+def clean_and_format_query(user_input: str) -> str:
+    # 1. Lowercase and remove all non-alphanumeric/non-space characters
+    clean_input = re.sub(r'[^\w\s]', '', user_input.lower())
+    
+    # 2. Tokenize and filter out common stop words
+    words = [word for word in clean_input.split() if word not in STOP_WORDS]
+    
+    # 3. Format for FTS5 (joining words implies an 'AND' relationship)
+    # Adding '*' turns them into prefix matches (e.g., "sql*" matches "sqlite")
+    fts5_query = " ".join([f"{word}*" for word in words])
+    
+    return fts5_query
 
 def setup_database_and_load_json(json_path, db_path):
     # Connect to SQLite database
