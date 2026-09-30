@@ -126,11 +126,11 @@ reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 async def generate_query_variations_async(original_query: str) -> list[str]:
     prompt = f"""
     You are an AI assistant optimizing search retrieval queries.
-    Given the user's original query, generate exactly 3 variations or phrasings 
+    Given the user's original query, generate exactly two variations or phrasings 
     that cover different synonyms, technical terms, or perspectives.
     
     You must output your response strictly as a JSON array of strings. Do not include markdown formatting or extra text.
-    Example output format: ["variation 1", "variation 2", "variation 3"]
+    Example output format: ["variation 1", "variation 2"]
 
     Original Query: {original_query}
     """
@@ -282,7 +282,9 @@ async def main():
     # else:
     #     print("💾 Storage records found. Re-using active database contents...")
 
-    user_query = "Esha dressed in traditional Indian attire."
+    user_query = "Esha and Shibangi in Hickman elementary conducting science field day class."
+    #"Working on the Apple mac while eating an Apple." 
+    #"Esha dressed in traditional Indian attire."
                  #"How to build advanced search pipelines?"
     print(f"\n--- Running Asynchronous Disk Pipeline for: '{user_query}' ---\n")
     
