@@ -1,3 +1,4 @@
+import re
 import json
 import sqlite3
 import asyncio
@@ -121,6 +122,21 @@ reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 #         collection.add(documents=chroma_texts, ids=chroma_ids)
 #         print(f"   ✅ successfully committed and vectorized batch chunk of size {len(chunk)}.")
 
+# A basic list of common English stop words
+STOP_WORDS = {"the", "is", "at", "which", "on", "and", "a", "an", "to", "in", "for", "with", "of"}
+
+def clean_and_format_query(user_input: str) -> str:
+    # 1. Lowercase and remove all non-alphanumeric/non-space characters
+    clean_input = re.sub(r'[^\w\s]', '', user_input.lower())
+    
+    # 2. Tokenize and filter out common stop words
+    words = [word for word in clean_input.split() if word not in STOP_WORDS]
+    
+    # 3. Format for FTS5 (joining words implies an 'AND' relationship)
+    # Adding '*' turns them into prefix matches (e.g., "sql*" matches "sqlite")
+    fts5_query = " ".join([f"{word}*" for word in words])
+    
+    return fts5_query
 
 # 3. Asynchronous LLM Query Expansion Engine
 async def generate_query_variations_async(original_query: str) -> list[str]:
@@ -173,7 +189,8 @@ def run_dense_query(query: str) -> list[str]:
 
 def run_sparse_query(query: str) -> list[str]:
     ids = []
-    clean_q = "".join([c if c.isalnum() or c.isspace() else " " for c in query]).strip()
+    #clean_q = "".join([c if c.isalnum() or c.isspace() else " " for c in query]).strip()
+    clean_q = clean_and_format_query(query).strip()
     if clean_q:
         thread_conn = sqlite3.connect(DB_PATH)
         #thread_conn.execute("PRAGMA journal_mode=WAL;")
