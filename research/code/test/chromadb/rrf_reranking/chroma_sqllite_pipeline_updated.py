@@ -299,17 +299,19 @@ async def main():
     # else:
     #     print("💾 Storage records found. Re-using active database contents...")
 
-    user_query = "Esha and Shibangi in Hickman elementary"
+    user_query = "Esha and Shibangi"
     #"Working on the Apple mac while eating an Apple." 
     #"Esha dressed in traditional Indian attire."
                  #"How to build advanced search pipelines?"
     print(f"\n--- Running Asynchronous Disk Pipeline for: '{user_query}' ---\n")
     
     final_results = await advanced_retrieval_pipeline_async(user_query)
+
+    print(f"***{final_results}")
     
-    print("\nFinal Top Reranked Results:")
-    for rank, (doc_id, text, score) in enumerate(final_results, 1):
-        print(f"{rank}. [ID: {doc_id}] [Rerank Score: {score:.4f}] -> {text}")
+    # print("\nFinal Top Reranked Results:")
+    # for rank, (doc_id, text, score) in enumerate(final_results, 1):
+    #     print(f"{rank}. [ID: {doc_id}] [Rerank Score: {score:.4f}] -> {text}")
         
     conn.close()
 
