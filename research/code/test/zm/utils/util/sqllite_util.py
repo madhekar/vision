@@ -1,6 +1,9 @@
+import re
 import json
 import sqlite3
 import pandas as pd
+
+
 
 
 def setup_database_and_load_json(json_path, db_path):
@@ -33,7 +36,8 @@ def setup_database_and_load_json(json_path, db_path):
         CREATE VIRTUAL TABLE IF NOT EXISTS documents_fts USING fts5(
             text,
             content='documents',
-            content_rowid='rowid'
+            content_rowid='rowid',
+            tokenize="porter unicode61"
         )
     """
     )

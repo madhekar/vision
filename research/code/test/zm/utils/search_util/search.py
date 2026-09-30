@@ -465,7 +465,7 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
         c1, c2 = st.columns([7, 3])    
 
         with c1:  
-            with st.container(key="my_custom_container"):#(height=500, border=False):
+            with st.container(key="my_custom_container"): #(height=500, border=False):
                  vid  = st.session_state["vmeta"][index]
                  video_file = open(vid, "rb")
                  video_bytes = video_file.read()

@@ -12,7 +12,7 @@ OLLAMA_MODEL = "qwen3.5b-6-6:latest" #"qwen2.5:7b"
 DB_PATH = "/mnt/zmdata/home-media-app/data/app-data/sqllite/zm_image_idx.db"#"async_scalable_store.db"
 CHROMA_PATH = "/mnt/zmdata/home-media-app/data/app-data/vectordb"#"./chroma_db"
 BATCH_SIZE = 1000
-TOP_QUERY_N = 5
+TOP_QUERY_N = 3
 
 # Initialize Persistent SQLite Database
 conn = sqlite3.connect(DB_PATH)
@@ -162,7 +162,7 @@ async def generate_query_variations_async(original_query: str) -> list[str]:
 # 4. Thread-Safe Search Workers
 def run_dense_query(query: str) -> list[str]:
     dense_res = collection_images.query(query_texts=[query], n_results=TOP_QUERY_N)
-    print(f"---> dense query: {dense_res}")
+    print(f"---> dense query: {dense_res} \n")
     ids = []
     if dense_res and 'ids' in dense_res and dense_res['ids']:
         for nested_ids in dense_res['ids']:
@@ -180,7 +180,7 @@ def run_sparse_query(query: str) -> list[str]:
         thread_cursor = thread_conn.cursor()
         try:
             thread_cursor.execute("""
-        SELECT d.id, d.uri, d.caption, d.text, bm25(documents_fts) as rank
+        SELECT d.id, d.uri, d.caption, d.text, d.ts, bm25(documents_fts) as rank
         FROM documents_fts df
         JOIN documents d ON df.rowid = d.rowid
         WHERE documents_fts MATCH ?
@@ -188,7 +188,7 @@ def run_sparse_query(query: str) -> list[str]:
         LIMIT ?;
     """, (clean_q, TOP_QUERY_N))
             ids = [str(row[0]) for row in thread_cursor.fetchall()]
-            print(f"--->sparse query: {ids} clean-q: {clean_q}")
+            print(f"--->sparse query: {ids} clean-q: {clean_q} \n")
         finally:
             thread_conn.close()
     return ids
@@ -262,16 +262,16 @@ async def advanced_retrieval_pipeline_async(original_query):
 # 7. Orchestrated Runtime Execution Loop
 async def main():
     # Production-ready array ingestion entrypoint
-    my_raw_documents = [
-        "The quick brown fox jumps over the lazy dog.",
-        "Artificial intelligence and machine learning are transforming industries.",
-        "Python is a popular programming language for data science and analytics.",
-        "Advanced retrieval pipelines use hybrid search and reranking techniques.",
-        "Vector databases like Chroma help store and query dense embeddings efficiently.",
-        "AI technique that combines information search with text generation to make large language models (LLMs) more accurate and factual.",
-        "Retrieval-augmented generation (RAG) is a technique that enables large language models (LLMs) to retrieve and incorporate new information from external data.",
-        "Retrieval-Augmented Generation (RAG) is a technique that lets an AI look up external information before answering a question, grounding its response in actual facts instead of just guessing from memory."
-    ]
+    # my_raw_documents = [
+    #     "The quick brown fox jumps over the lazy dog.",
+    #     "Artificial intelligence and machine learning are transforming industries.",
+    #     "Python is a popular programming language for data science and analytics.",
+    #     "Advanced retrieval pipelines use hybrid search and reranking techniques.",
+    #     "Vector databases like Chroma help store and query dense embeddings efficiently.",
+    #     "AI technique that combines information search with text generation to make large language models (LLMs) more accurate and factual.",
+    #     "Retrieval-augmented generation (RAG) is a technique that enables large language models (LLMs) to retrieve and incorporate new information from external data.",
+    #     "Retrieval-Augmented Generation (RAG) is a technique that lets an AI look up external information before answering a question, grounding its response in actual facts instead of just guessing from memory."
+    # ]
 
     # Populate index if database files don't have records yet
     cursor.execute("SELECT * FROM documents")
@@ -282,7 +282,7 @@ async def main():
     # else:
     #     print("💾 Storage records found. Re-using active database contents...")
 
-    user_query = "Esha and Shibangi in Hickman elementary conducting science field day class."
+    user_query = "Esha and Shibangi in Hickman elementary"
     #"Working on the Apple mac while eating an Apple." 
     #"Esha dressed in traditional Indian attire."
                  #"How to build advanced search pipelines?"
