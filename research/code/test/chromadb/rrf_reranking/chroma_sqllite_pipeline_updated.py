@@ -4,6 +4,7 @@ import asyncio
 import chromadb
 from chromadb.utils import embedding_functions
 from sentence_transformers import CrossEncoder
+from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 import ollama
 
 # 1. Configuration & Global Initializations
@@ -59,11 +60,12 @@ cursor = conn.cursor()
 
 # Initialize Persistent Chroma DB Client
 chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
-emb_fn = embedding_functions.DefaultEmbeddingFunction()
+#emb_fn =   #openclip embedding function!
+embedding_function = OpenCLIPEmbeddingFunction()# embedding_functions.DefaultEmbeddingFunction()
 #collection = chroma_client.get_or_create_collection(name="async_hybrid_search", embedding_function=emb_fn)
 collection_images = chroma_client.get_or_create_collection(
       name="multimodal_collection_images", 
-      embedding_function=emb_fn, 
+      embedding_function=embedding_function, 
       metadata={"hnsw:space": "cosine",
                 "hnsw:M" : 24, 
                 "hnsw:construction_ef": 200, 
