@@ -15,56 +15,18 @@ DB_PATH = "/mnt/zmdata/home-media-app/data/app-data/sqllite/zm_image_idx.db"#"as
 CHROMA_PATH = "/mnt/zmdata/home-media-app/data/app-data/vectordb"#"./chroma_db"
 BATCH_SIZE = 1000
 TOP_QUERY_N = 9
+# A basic list of common English stop words
+STOP_WORDS = {"the", "is", "at", "which", "on", "and", "a", "an", "to", "in", "for", "with", "of"}
 
 # Initialize Persistent SQLite Database
 conn = sqlite3.connect(DB_PATH)
 cursor = conn.cursor()
 
-# # 1. Create the main table to store all data fields
-# cursor.execute(
-#         """
-#         CREATE TABLE IF NOT EXISTS documents (
-#             uri TEXT,
-#             id TEXT PRIMARY KEY,
-#             src TEXT,
-#             ts TEXT,
-#             type TEXT,
-#             latlon TEXT,
-#             loc TEXT,
-#             ppt TEXT,
-#             caption TEXT,
-#             text TEXT
-#         )
-#     """
-#     )
-
-# # 2. Create the FTS5 virtual table (externally content-backed for efficiency)
-# # Since only 'text' is used for searching, it's the only indexed column.
-# cursor.execute(
-#         """
-#         CREATE VIRTUAL TABLE IF NOT EXISTS documents_fts USING fts5(
-#             text,
-#             content='documents',
-#             content_rowid='rowid'
-#         )
-#     """
-#     )
-
-# # Create triggers to keep the FTS index automatically updated on inserts
-# cursor.execute(
-#         """
-#         CREATE TRIGGER IF NOT EXISTS t_documents_ai AFTER INSERT ON documents BEGIN
-#             INSERT INTO documents_fts(rowid, text) VALUES (new.rowid, new.text);
-#         END;
-#     """
-#     )
-# conn.commit()
-
 # Initialize Persistent Chroma DB Client
 chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
 #emb_fn =   #openclip embedding function!
-embedding_function = OpenCLIPEmbeddingFunction()# embedding_functions.DefaultEmbeddingFunction()
-#collection = chroma_client.get_or_create_collection(name="async_hybrid_search", embedding_function=emb_fn)
+embedding_function = OpenCLIPEmbeddingFunction()
+
 collection_images = chroma_client.get_or_create_collection(
       name="multimodal_collection_images", 
       embedding_function=embedding_function, 
@@ -75,56 +37,6 @@ collection_images = chroma_client.get_or_create_collection(
       )
 # Initialize Cross-Encoder Reranker
 reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
-
-
-# 2. Production Batch Ingestion Engine (Ensures Persistence)
-# def index_documents_batch(documents_list: list[str]):
-#     """
-#     Accepts a list of raw text strings, chunks them dynamically into 
-#     configured BATCH_SIZE chunks, and executes atomic insertions into 
-#     SQLite, SQLite FTS5 (BM25), and ChromaDB.
-#     """
-#     if not documents_list:
-#         print("⚠️ Document input list is empty. Skipping execution.")
-#         return
-
-#     # Calculate global sequence tracking offset to safely append rows
-#     cursor.execute("SELECT COUNT(*) FROM documents")
-#     global_counter = cursor.fetchone()[0]
-    
-#     print(f"📦 Preparing to index {len(documents_list)} documents into persistent storage...")
-    
-#     for i in range(0, len(documents_list), BATCH_SIZE):
-#         chunk = documents_list[i : i + BATCH_SIZE]
-        
-#         sqlite_batch = []
-#         chroma_texts = []
-#         chroma_ids = []
-        
-#         for text in chunk:
-#             doc_id = str(global_counter)
-#             sqlite_batch.append((doc_id, text))
-#             chroma_texts.append(text)
-#             chroma_ids.append(doc_id)
-#             global_counter += 1
-
-#         # Transactional SQLite writes
-#         try:
-#             cursor.execute("BEGIN TRANSACTION")
-#             cursor.executemany("INSERT OR IGNORE INTO documents (id, text) VALUES (?, ?)", sqlite_batch)
-#             cursor.executemany("INSERT OR IGNORE INTO persistent_bm25_idx (id, text) VALUES (?, ?)", sqlite_batch)
-#             conn.commit()
-#         except sqlite3.Error as e:
-#             conn.rollback()
-#             print(f"❌ SQLite database insertion rolled back due to error: {e}")
-#             raise e
-        
-#         # Persistent Chroma write 
-#         collection.add(documents=chroma_texts, ids=chroma_ids)
-#         print(f"   ✅ successfully committed and vectorized batch chunk of size {len(chunk)}.")
-
-# A basic list of common English stop words
-STOP_WORDS = {"the", "is", "at", "which", "on", "and", "a", "an", "to", "in", "for", "with", "of"}
 
 def clean_and_format_query(user_input: str) -> str:
     # 1. Lowercase and remove all non-alphanumeric/non-space characters
@@ -261,18 +173,17 @@ async def advanced_retrieval_pipeline_async(original_query):
     placeholders = ",".join("?" for _ in candidate_ids)
     #cursor.execute(f"SELECT id, text FROM documents WHERE id IN ({placeholders})", candidate_ids)
     cursor.execute(f"SELECT id, text, uri, caption, ts, latlon, loc FROM documents WHERE id IN ({placeholders})", candidate_ids)
-    # list_iter = []
+
     columns = [col[0] for col in cursor.description]
-    #print(f"---columns: {columns}")
+
     rows =  [row for row in cursor.fetchall()]
     results = [dict(zip(columns, row)) for row in rows]
-    print(f"---results: {results}")
+
     lookup_results = [{d['id']:d for d in results}]
     dr = [{k:v  for k, v in d.items()} for d in lookup_results]
-    print(f"--->lookup: {dr[0]}")
-
+    
     db_results = {str(row[0]): row[1] for row in rows}
-    print(f"db_results---> {db_results}")
+    #print(f"db_results---> {db_results}")
     candidate_texts = [db_results[doc_id] for doc_id in candidate_ids if doc_id in db_results]
 
     # Deep Cross-Encoder Reranking
@@ -286,9 +197,6 @@ async def advanced_retrieval_pipeline_async(original_query):
         key=lambda x: x[0], 
         reverse=True
     )
-    
-    # print(f"--->candidates: {items}")
-
     return reranked_results
 
 
@@ -323,5 +231,5 @@ if __name__ == "__main__":
     #"Esha dressed in traditional Indian attire." 
     # #"How to build advanced search pipelines?"
     rlist = execute_rrf_query(user_query)
-    for rl in rlist:
-        print(f"---{rl}\n")
+    for i, rl in enumerate(rlist):
+        print(f"{i}->{rl}\n")
