@@ -259,7 +259,20 @@ async def advanced_retrieval_pipeline_async(original_query):
 
     # Dynamic low-heap text retrieval from SQLite
     placeholders = ",".join("?" for _ in candidate_ids)
-    cursor.execute(f"SELECT id, text FROM documents WHERE id IN ({placeholders})", candidate_ids)
+    cursor.execute(f"SELECT id, text, uri, caption, ts, latlon, loc FROM documents WHERE id IN ({placeholders})", candidate_ids)
+    # list_iter = []
+    # columns = [col[0] for col in cursor.description]
+    # print(f"---columns: {columns}")
+    # results = [dict(zip(columns, row)) for row in cursor.fetchall()]
+    # print(f"---results: {results}")
+    # db_results = [{d['id']:d} for d in results]
+
+    #print(f"---> {exp_result}")
+    # for item in cursor.fetchall():
+    #     print(f"***item: {item}")
+    #     list_iter.append({k: item[k] for k in item})
+ 
+    #print([row for row in cursor.fetchall()])
     db_results = {str(row[0]): row[1] for row in cursor.fetchall()}
     
     candidate_texts = [db_results[doc_id] for doc_id in candidate_ids if doc_id in db_results]
