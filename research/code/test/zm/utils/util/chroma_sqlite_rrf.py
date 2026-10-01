@@ -9,36 +9,37 @@ from sentence_transformers import CrossEncoder
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 import ollama
 
-# 1. Configuration & Global Initializations
-OLLAMA_MODEL = "qwen3.5b-6-6:latest" #"qwen2.5:7b"
-DB_PATH = "/mnt/zmdata/home-media-app/data/app-data/sqllite/zm_image_idx.db"#"async_scalable_store.db"
-CHROMA_PATH = "/mnt/zmdata/home-media-app/data/app-data/vectordb"#"./chroma_db"
-BATCH_SIZE = 1000
-TOP_QUERY_N = 9
-# A basic list of common English stop words
-STOP_WORDS = {"the", "is", "at", "which", "on", "and", "a", "an", "to", "in", "for", "with", "of"}
 
-# Initialize Persistent SQLite Database
-conn = sqlite3.connect(DB_PATH)
-cursor = conn.cursor()
+def init_global(chroma_path, sqllite_path):
+    # 1. Configuration & Global Initializations
 
-# Initialize Persistent Chroma DB Client
-chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
-#emb_fn =   #openclip embedding function!
-embedding_function = OpenCLIPEmbeddingFunction()
+    top_n_results = 9
 
-collection_images = chroma_client.get_or_create_collection(
-      name="multimodal_collection_images", 
-      embedding_function=embedding_function, 
-      metadata={"hnsw:space": "cosine",
-                "hnsw:M" : 24, 
-                "hnsw:construction_ef": 200, 
-                "hnsw:search_ef": 100},
-      )
-# Initialize Cross-Encoder Reranker
-reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+
+    # Initialize Persistent SQLite Database
+    conn = sqlite3.connect(sqllite_path)
+    sqlite_cursor = conn.cursor()
+
+    # Initialize Persistent Chroma DB Client
+    chroma_client = chromadb.PersistentClient(path=chroma_path)
+    #emb_fn =   #openclip embedding function!
+    embedding_function = OpenCLIPEmbeddingFunction()
+
+    collection_images = chroma_client.get_or_create_collection(
+        name="multimodal_collection_images", 
+        embedding_function=embedding_function, 
+        metadata={"hnsw:space": "cosine",
+                    "hnsw:M" : 24, 
+                    "hnsw:construction_ef": 200, 
+                    "hnsw:search_ef": 100},
+        )
+    # Initialize Cross-Encoder Reranker
+    reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+    return (conn, sqlite_cursor, collection_images, reranker, top_n_results)
 
 def clean_and_format_query(user_input: str) -> str:
+    # A basic list of common English stop words
+    STOP_WORDS = {"the", "is", "at", "which", "on", "and", "a", "an", "to", "in", "for", "with", "of"}
     # 1. Lowercase and remove all non-alphanumeric/non-space characters
     clean_input = re.sub(r'[^\w\s]', '', user_input.lower())
     
@@ -89,9 +90,9 @@ def clean_and_format_query(user_input: str) -> str:
 
 
 # 4. Thread-Safe Search Workers
-def run_dense_query(query: str) -> list[str]:
-    dense_res = collection_images.query(query_texts=[query], n_results=TOP_QUERY_N)
-    print(f"---> dense query: {dense_res} \n")
+def run_dense_query(collection_images, query: str, top_n_results) -> list[str]:
+    dense_res = collection_images.query(query_texts=[query], n_results=top_n_results)
+    #print(f"---> dense query: {dense_res} \n")
     ids = []
     if dense_res and 'ids' in dense_res and dense_res['ids']:
         for nested_ids in dense_res['ids']:
@@ -100,12 +101,12 @@ def run_dense_query(query: str) -> list[str]:
     return ids
 
 
-def run_sparse_query(query: str) -> list[str]:
+def run_sparse_query(sqlite_path, query: str, top_n_results) -> list[str]:
     ids = []
     #clean_q = "".join([c if c.isalnum() or c.isspace() else " " for c in query]).strip()
     clean_q = clean_and_format_query(query).strip()
     if clean_q:
-        thread_conn = sqlite3.connect(DB_PATH)
+        thread_conn = sqlite3.connect(sqlite_path)
         #thread_conn.execute("PRAGMA journal_mode=WAL;")
         thread_cursor = thread_conn.cursor()
         try:
@@ -116,7 +117,7 @@ def run_sparse_query(query: str) -> list[str]:
         WHERE documents_fts MATCH ?
         ORDER BY rank ASC
         LIMIT ?;
-    """, (clean_q, TOP_QUERY_N))
+    """, (clean_q, top_n_results))
             ids = [str(row[0]) for row in thread_cursor.fetchall()]
             print(f"--->sparse query: {ids} clean-q: {clean_q} \n")
         finally:
@@ -137,15 +138,15 @@ def reciprocal_rank_fusion(dense_results, sparse_results, k=60):
 
 
 # 6. Combined Asynchronous Pipeline Execution
-async def advanced_retrieval_pipeline_async(original_query):
+async def advanced_retrieval_pipeline_async(original_query, collection_images, sqlite_path, cursor, reranker, top_n_results):
     #query_variations = await generate_query_variations_async(original_query)
     all_queries = [original_query] #+ query_variations
     print(f"   -> Executing Expanded Search Scope against: {all_queries}\n")
     
     tasks = []
     for q in all_queries:
-        tasks.append(asyncio.to_thread(run_dense_query, q))
-        tasks.append(asyncio.to_thread(run_sparse_query, q))
+        tasks.append(asyncio.to_thread(run_dense_query, collection_images, q, top_n_results))
+        tasks.append(asyncio.to_thread(run_sparse_query, sqlite_path, q, top_n_results))
     
     print("⚡ Executing all dense and sparse searches concurrently...")
     search_results = await asyncio.gather(*tasks)
@@ -201,10 +202,12 @@ async def advanced_retrieval_pipeline_async(original_query):
 
 
 # 7. Orchestrated Runtime Execution Loop
-async def rrf_query(user_query):
+async def rrf_query(chroma_path, sqlite_path, user_query):
     start_time = time.perf_counter()
+
+    (conn, sqlite_cursor, collection_images, reranker, top_n_results) = init_global(chroma_path, sqlite_path)
  
-    final_results = await advanced_retrieval_pipeline_async(user_query)
+    final_results = await advanced_retrieval_pipeline_async(user_query, collection_images, sqlite_path, sqlite_cursor, reranker, top_n_results)
 
     print("\n***Reranked Results***\n")
     items = []
@@ -219,17 +222,19 @@ async def rrf_query(user_query):
 
     return items
 
-def execute_rrf_query(user_query):    
+def execute_rrf_query(chroma_path, sqlite_path, user_query):    
     
     print(f"\n--- Running Asynchronous Disk Pipeline for: '{user_query}' ---\n")
-    result = asyncio.run(rrf_query(user_query))    
+    result = asyncio.run(rrf_query(chroma_path, sqlite_path, user_query))    
     return result
 
 if __name__ == "__main__":    
-    
+    OLLAMA_MODEL = "qwen3.5b-6-6:latest" #"qwen2.5:7b"
+    DB_PATH = "/mnt/zmdata/home-media-app/data/app-data/sqllite/zm_image_idx.db"
+    CHROMA_PATH = "/mnt/zmdata/home-media-app/data/app-data/vectordb"
     user_query = "Esha and Shibangi"#"Working on the Apple mac while eating an Apple." 
     #"Esha dressed in traditional Indian attire." 
     # #"How to build advanced search pipelines?"
-    rlist = execute_rrf_query(user_query)
+    rlist = execute_rrf_query(CHROMA_PATH, DB_PATH, user_query)
     for i, rl in enumerate(rlist):
         print(f"{i}->{rl}\n")
