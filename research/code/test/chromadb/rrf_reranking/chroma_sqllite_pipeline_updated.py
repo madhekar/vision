@@ -262,11 +262,15 @@ async def advanced_retrieval_pipeline_async(original_query):
     #cursor.execute(f"SELECT id, text FROM documents WHERE id IN ({placeholders})", candidate_ids)
     cursor.execute(f"SELECT id, text, uri, caption, ts, latlon, loc FROM documents WHERE id IN ({placeholders})", candidate_ids)
     # list_iter = []
-    # columns = [col[0] for col in cursor.description]
-    # print(f"---columns: {columns}")
-    # results = [dict(zip(columns, row)) for row in cursor.fetchall()]
-    # print(f"---results: {results}")
-    # db_results = [{d['id']:d} for d in results]
+    columns = [col[0] for col in cursor.description]
+    #print(f"---columns: {columns}")
+    rows =  [row for row in cursor.fetchall()]
+    results = [dict(zip(columns, row)) for row in rows]
+    print(f"---results: {results}")
+    lookup_results = [{d['id']:d for d in results}]
+    dr = [{k:v  for k, v in d.items()} for d in lookup_results]
+    
+    print(f"--->lookup: {dr[0]}")
 
     #print(f"---> {exp_result}")
     # for item in cursor.fetchall():
@@ -274,23 +278,25 @@ async def advanced_retrieval_pipeline_async(original_query):
     #     list_iter.append({k: item[k] for k in item})
  
     #print([row for row in cursor.fetchall()])
-    db_results = {str(row[0]): row[1] for row in cursor.fetchall()}
+
+    db_results = {str(row[0]): row[1] for row in rows}
     print(f"db_results---> {db_results}")
     candidate_texts = [db_results[doc_id] for doc_id in candidate_ids if doc_id in db_results]
 
     # Deep Cross-Encoder Reranking
     pairs = [[original_query, doc_text] for doc_text in candidate_texts]
     rerank_scores = await asyncio.to_thread(reranker.predict, pairs)
-    
+
+    items = list(map(dr[0].get, candidate_ids))
+
     reranked_results = sorted(
-        zip(candidate_ids, candidate_texts, rerank_scores), 
+        zip(candidate_ids, candidate_texts, rerank_scores, items), 
         key=lambda x: x[2], 
         reverse=True
     )
-
-    placeholders = ",".join("?" for _ in candidate_ids)
-   
     
+    # print(f"--->candidates: {items}")
+
     return reranked_results
 
 
@@ -307,8 +313,8 @@ async def main():
     final_results = await advanced_retrieval_pipeline_async(user_query)
 
     print("\n***Reranked Results***\n")
-    for rank, (doc_id, text, score) in enumerate(final_results, 1):
-        print(f"{rank}. [ID: {doc_id}] [Rerank Score: {score:.4f}] -> {text}\n")
+    for rank, (doc_id, text, score, item) in enumerate(final_results, 1):
+        print(f"{rank}. [ID: {doc_id}] [Rerank Score: {score:.4f}] -> {text} item-> {item}\n")
         
     conn.close()
 
