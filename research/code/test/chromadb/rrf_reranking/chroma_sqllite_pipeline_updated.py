@@ -226,8 +226,8 @@ def reciprocal_rank_fusion(dense_results, sparse_results, k=60):
 
 # 6. Combined Asynchronous Pipeline Execution
 async def advanced_retrieval_pipeline_async(original_query):
-    query_variations = await generate_query_variations_async(original_query)
-    all_queries = [original_query] + query_variations
+    #query_variations = await generate_query_variations_async(original_query)
+    all_queries = [original_query] #+ query_variations
     print(f"   -> Executing Expanded Search Scope against: {all_queries}\n")
     
     tasks = []
