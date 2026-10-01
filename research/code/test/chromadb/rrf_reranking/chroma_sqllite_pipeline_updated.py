@@ -1,5 +1,6 @@
 import re
 import json
+import time
 import sqlite3
 import asyncio
 import chromadb
@@ -278,6 +279,7 @@ async def advanced_retrieval_pipeline_async(original_query):
 
 # 7. Orchestrated Runtime Execution Loop
 async def main():
+    start_time = time.perf_counter()
     # Production-ready array ingestion entrypoint
     # my_raw_documents = [
     #     "The quick brown fox jumps over the lazy dog.",
@@ -314,6 +316,10 @@ async def main():
     #     print(f"{rank}. [ID: {doc_id}] [Rerank Score: {score:.4f}] -> {text}")
         
     conn.close()
+
+    end_time = time.perf_counter()
+
+    print(f"Elapsed time: {(end_time -  start_time):.6f} seconds")
 
 if __name__ == "__main__":
     asyncio.run(main())
