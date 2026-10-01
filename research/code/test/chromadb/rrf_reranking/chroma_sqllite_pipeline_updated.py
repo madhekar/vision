@@ -14,7 +14,7 @@ OLLAMA_MODEL = "qwen3.5b-6-6:latest" #"qwen2.5:7b"
 DB_PATH = "/mnt/zmdata/home-media-app/data/app-data/sqllite/zm_image_idx.db"#"async_scalable_store.db"
 CHROMA_PATH = "/mnt/zmdata/home-media-app/data/app-data/vectordb"#"./chroma_db"
 BATCH_SIZE = 1000
-TOP_QUERY_N = 3
+TOP_QUERY_N = 9
 
 # Initialize Persistent SQLite Database
 conn = sqlite3.connect(DB_PATH)
@@ -269,15 +269,7 @@ async def advanced_retrieval_pipeline_async(original_query):
     print(f"---results: {results}")
     lookup_results = [{d['id']:d for d in results}]
     dr = [{k:v  for k, v in d.items()} for d in lookup_results]
-    
     print(f"--->lookup: {dr[0]}")
-
-    #print(f"---> {exp_result}")
-    # for item in cursor.fetchall():
-    #     print(f"***item: {item}")
-    #     list_iter.append({k: item[k] for k in item})
- 
-    #print([row for row in cursor.fetchall()])
 
     db_results = {str(row[0]): row[1] for row in rows}
     print(f"db_results---> {db_results}")
@@ -290,8 +282,8 @@ async def advanced_retrieval_pipeline_async(original_query):
     items = list(map(dr[0].get, candidate_ids))
 
     reranked_results = sorted(
-        zip(candidate_ids, candidate_texts, rerank_scores, items), 
-        key=lambda x: x[2], 
+        zip(rerank_scores, items), 
+        key=lambda x: x[0], 
         reverse=True
     )
     
@@ -301,26 +293,35 @@ async def advanced_retrieval_pipeline_async(original_query):
 
 
 # 7. Orchestrated Runtime Execution Loop
-async def main():
+async def rrf_query(user_query):
     start_time = time.perf_counter()
  
-    # Populate index if database files don't have records yet
-    #cursor.execute("SELECT * FROM documents")
-
-    user_query = "Esha and Shibangi"#"Working on the Apple mac while eating an Apple." #"Esha dressed in traditional Indian attire." #"How to build advanced search pipelines?"
-    print(f"\n--- Running Asynchronous Disk Pipeline for: '{user_query}' ---\n")
-    
     final_results = await advanced_retrieval_pipeline_async(user_query)
 
     print("\n***Reranked Results***\n")
-    for rank, (doc_id, text, score, item) in enumerate(final_results, 1):
-        print(f"{rank}. [ID: {doc_id}] [Rerank Score: {score:.4f}] -> {text} item-> {item}\n")
-        
+    items = []
+    for rank, (score, item) in enumerate(final_results, 1):
+        items.append(item)
+        print(f"{rank}. [Rerank Score: {score:.4f}] item-> {item}\n")
     conn.close()
 
     end_time = time.perf_counter()
 
     print(f"Elapsed time: {(end_time -  start_time):.6f} seconds")
 
-if __name__ == "__main__":
-    asyncio.run(main())
+    return items
+
+def execute_rrf_query(user_query):    
+    
+    print(f"\n--- Running Asynchronous Disk Pipeline for: '{user_query}' ---\n")
+    result = asyncio.run(rrf_query(user_query))    
+    return result
+
+if __name__ == "__main__":    
+    
+    user_query = "Esha and Shibangi"#"Working on the Apple mac while eating an Apple." 
+    #"Esha dressed in traditional Indian attire." 
+    # #"How to build advanced search pipelines?"
+    rlist = execute_rrf_query(user_query)
+    for rl in rlist:
+        print(f"---{rl}\n")
