@@ -259,6 +259,7 @@ async def advanced_retrieval_pipeline_async(original_query):
 
     # Dynamic low-heap text retrieval from SQLite
     placeholders = ",".join("?" for _ in candidate_ids)
+    #cursor.execute(f"SELECT id, text FROM documents WHERE id IN ({placeholders})", candidate_ids)
     cursor.execute(f"SELECT id, text, uri, caption, ts, latlon, loc FROM documents WHERE id IN ({placeholders})", candidate_ids)
     # list_iter = []
     # columns = [col[0] for col in cursor.description]
@@ -274,7 +275,7 @@ async def advanced_retrieval_pipeline_async(original_query):
  
     #print([row for row in cursor.fetchall()])
     db_results = {str(row[0]): row[1] for row in cursor.fetchall()}
-    
+    print(f"db_results---> {db_results}")
     candidate_texts = [db_results[doc_id] for doc_id in candidate_ids if doc_id in db_results]
 
     # Deep Cross-Encoder Reranking
@@ -286,6 +287,9 @@ async def advanced_retrieval_pipeline_async(original_query):
         key=lambda x: x[2], 
         reverse=True
     )
+
+    placeholders = ",".join("?" for _ in candidate_ids)
+   
     
     return reranked_results
 
