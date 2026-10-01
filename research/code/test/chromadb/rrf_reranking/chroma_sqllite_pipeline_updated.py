@@ -140,40 +140,40 @@ def clean_and_format_query(user_input: str) -> str:
     return fts5_query
 
 # 3. Asynchronous LLM Query Expansion Engine
-async def generate_query_variations_async(original_query: str) -> list[str]:
-    prompt = f"""
-    You are an AI assistant optimizing search retrieval queries.
-    Given the user's original query, generate exactly two variations or phrasings 
-    that cover different synonyms, technical terms, or perspectives.
+# async def generate_query_variations_async(original_query: str) -> list[str]:
+#     prompt = f"""
+#     You are an AI assistant optimizing search retrieval queries.
+#     Given the user's original query, generate exactly two variations or phrasings 
+#     that cover different synonyms, technical terms, or perspectives.
     
-    You must output your response strictly as a JSON array of strings. Do not include markdown formatting or extra text.
-    Example output format: ["variation 1", "variation 2"]
+#     You must output your response strictly as a JSON array of strings. Do not include markdown formatting or extra text.
+#     Example output format: ["variation 1", "variation 2"]
 
-    Original Query: {original_query}
-    """
+#     Original Query: {original_query}
+#     """
     
-    print(f"🦙 Generating query variations via '{OLLAMA_MODEL}'...")
-    try:
-        response = await asyncio.to_thread(
-            ollama.generate, model=OLLAMA_MODEL, prompt=prompt, options={"temperature": 0.3}
-        )
-        raw_text = response['response'].strip()
+#     print(f"🦙 Generating query variations via '{OLLAMA_MODEL}'...")
+#     try:
+#         response = await asyncio.to_thread(
+#             ollama.generate, model=OLLAMA_MODEL, prompt=prompt, options={"temperature": 0.3}
+#         )
+#         raw_text = response['response'].strip()
         
-        if "```" in raw_text:
-            parts = raw_text.split("```")
-            for part in parts:
-                if part.strip().startswith("json"):
-                    raw_text = part.strip()[4:]
-                    break
-                elif part.strip().startswith("["):
-                    raw_text = part.strip()
-                    break
+#         if "```" in raw_text:
+#             parts = raw_text.split("```")
+#             for part in parts:
+#                 if part.strip().startswith("json"):
+#                     raw_text = part.strip()[4:]
+#                     break
+#                 elif part.strip().startswith("["):
+#                     raw_text = part.strip()
+#                     break
                 
-        variations = json.loads(raw_text.strip())
-        return variations[:2]
-    except Exception as e:
-        print(f"⚠️ Falling back to default variations due to parsing error: {e}")
-        return [f"{original_query} hybrid", f"{original_query} index", f"{original_query} vector"]
+#         variations = json.loads(raw_text.strip())
+#         return variations[:2]
+#     except Exception as e:
+#         print(f"⚠️ Falling back to default variations due to parsing error: {e}")
+#         return [f"{original_query} hybrid", f"{original_query} index", f"{original_query} vector"]
 
 
 # 4. Thread-Safe Search Workers
@@ -280,40 +280,18 @@ async def advanced_retrieval_pipeline_async(original_query):
 # 7. Orchestrated Runtime Execution Loop
 async def main():
     start_time = time.perf_counter()
-    # Production-ready array ingestion entrypoint
-    # my_raw_documents = [
-    #     "The quick brown fox jumps over the lazy dog.",
-    #     "Artificial intelligence and machine learning are transforming industries.",
-    #     "Python is a popular programming language for data science and analytics.",
-    #     "Advanced retrieval pipelines use hybrid search and reranking techniques.",
-    #     "Vector databases like Chroma help store and query dense embeddings efficiently.",
-    #     "AI technique that combines information search with text generation to make large language models (LLMs) more accurate and factual.",
-    #     "Retrieval-augmented generation (RAG) is a technique that enables large language models (LLMs) to retrieve and incorporate new information from external data.",
-    #     "Retrieval-Augmented Generation (RAG) is a technique that lets an AI look up external information before answering a question, grounding its response in actual facts instead of just guessing from memory."
-    # ]
-
+ 
     # Populate index if database files don't have records yet
-    cursor.execute("SELECT * FROM documents")
-    #print(f"sqllite records: {cursor.fetchall()}")
-    # if cursor.fetchone()[0] == 0:
-    #     print("💾 Storage tables empty. Initiating batch entry persistence routine...")
-    #     index_documents_batch(my_raw_documents)
-    # else:
-    #     print("💾 Storage records found. Re-using active database contents...")
+    #cursor.execute("SELECT * FROM documents")
 
-    user_query = "Esha and Shibangi"
-    #"Working on the Apple mac while eating an Apple." 
-    #"Esha dressed in traditional Indian attire."
-                 #"How to build advanced search pipelines?"
+    user_query = "Esha and Shibangi"#"Working on the Apple mac while eating an Apple." #"Esha dressed in traditional Indian attire." #"How to build advanced search pipelines?"
     print(f"\n--- Running Asynchronous Disk Pipeline for: '{user_query}' ---\n")
     
     final_results = await advanced_retrieval_pipeline_async(user_query)
 
-    print(f"***{final_results}")
-    
-    # print("\nFinal Top Reranked Results:")
-    # for rank, (doc_id, text, score) in enumerate(final_results, 1):
-    #     print(f"{rank}. [ID: {doc_id}] [Rerank Score: {score:.4f}] -> {text}")
+    print("\n***Reranked Results***\n")
+    for rank, (doc_id, text, score) in enumerate(final_results, 1):
+        print(f"{rank}. [ID: {doc_id}] [Rerank Score: {score:.4f}] -> {text}\n")
         
     conn.close()
 
