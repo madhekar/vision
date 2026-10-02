@@ -10,32 +10,31 @@ from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 import ollama
 
 
-def init_global(chroma_path, sqllite_path):
-    # 1. Configuration & Global Initializations
+# def init_global(chroma_path, sqllite_path):
+#     # 1. Configuration & Global Initializations
 
-    top_n_results = 9
+#     top_n_results = 9
 
+#     # Initialize Persistent SQLite Database
+#     conn = sqlite3.connect(sqllite_path)
+#     sqlite_cursor = conn.cursor()
 
-    # Initialize Persistent SQLite Database
-    conn = sqlite3.connect(sqllite_path)
-    sqlite_cursor = conn.cursor()
+#     # Initialize Persistent Chroma DB Client
+#     chroma_client = chromadb.PersistentClient(path=chroma_path)
+#     #emb_fn =   #openclip embedding function!
+#     embedding_function = OpenCLIPEmbeddingFunction()
 
-    # Initialize Persistent Chroma DB Client
-    chroma_client = chromadb.PersistentClient(path=chroma_path)
-    #emb_fn =   #openclip embedding function!
-    embedding_function = OpenCLIPEmbeddingFunction()
-
-    collection_images = chroma_client.get_or_create_collection(
-        name="multimodal_collection_images", 
-        embedding_function=embedding_function, 
-        metadata={"hnsw:space": "cosine",
-                    "hnsw:M" : 24, 
-                    "hnsw:construction_ef": 200, 
-                    "hnsw:search_ef": 100},
-        )
-    # Initialize Cross-Encoder Reranker
-    reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2") #cross-encoder/ms-marco-MiniLM-L-6-v2
-    return (conn, sqlite_cursor, collection_images, reranker, top_n_results)
+#     collection_images = chroma_client.get_or_create_collection(
+#         name="multimodal_collection_images", 
+#         embedding_function=embedding_function, 
+#         metadata={"hnsw:space": "cosine",
+#                     "hnsw:M" : 24, 
+#                     "hnsw:construction_ef": 200, 
+#                     "hnsw:search_ef": 100},
+#         )
+#     # Initialize Cross-Encoder Reranker
+#     reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2") #cross-encoder/ms-marco-MiniLM-L-6-v2
+#     return (conn, sqlite_cursor, collection_images, reranker, top_n_results)
 
 def clean_and_format_query(user_input: str) -> str:
     # A basic list of common English stop words

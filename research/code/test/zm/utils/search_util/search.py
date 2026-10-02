@@ -21,6 +21,7 @@ from chromadb.config import Settings, DEFAULT_TENANT
 from sentence_transformers import CrossEncoder
 from utils.util import file_type_ext as fte
 from utils.util import chroma_util as cu
+from utils.util import chroma_sqlite_rrf as csr
 import sqlite3
 
 PIL.Image.MAX_IMAGE_PIXELS = 933120000
@@ -111,7 +112,7 @@ def init_vdb(vdp, icn, tcn, vcn, sip):
     )
 
     #print("*****", collection_text.peek())
-    return client, collection_images, collection_text, collection_videos, sqlite_connection, sqlite_cursor, top_n_results
+    return client, collection_images, collection_text, collection_videos, sqlite_cursor, top_n_results
 
 def updateMetadata(client, image_collection,  id, desc, names, dt, loc):
     # vector database persistance
@@ -153,7 +154,7 @@ def os_specific_path(img_path):
 
     return n_pth    
 
-def search_fn(rr_model, cImgs, cTxts, cVideos):
+def search_fn(rr_model, cImgs, cTxts, cVideos, sqlite_image_path, sqlite_cursor, top_n_results):
     # create default application Tabs
     image, video, text = st.tabs(["Image", "Video", "Text"])
 
@@ -620,10 +621,10 @@ def execute():
 
     vdb, icn, tcn, vcn, acn, sip, svp = config.search_config_load()
     print(vdb, ': ', icn,':', tcn)
-    client, img_collection, txt_collection, video_collection, sqlite_connection, sqlite_cursor, top_n_results  = init_vdb(vdb, icn, tcn, vcn) #client, collection_images, collection_text, collection_videos, sqlite_connection, sqlite_cursor, top_n_results
+    client, img_collection, txt_collection, video_collection, sqlite_cursor, top_n_results  = init_vdb(vdb, icn, tcn, vcn) #client, collection_images, collection_text, collection_videos, sqlite_connection, sqlite_cursor, top_n_results
 
     rr_model = init_rerank_model()
 
-    search_fn(rr_model, img_collection, txt_collection, video_collection)
+    search_fn(rr_model, img_collection, txt_collection, video_collection, sip, sqlite_cursor, top_n_results)
 
     

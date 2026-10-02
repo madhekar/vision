@@ -62,7 +62,7 @@ def rerank_image_search(rr_model, img_url, image_collection, rmax=100, top=30):
         return (reranked_images)    
 
 
-def rerank_image_text_search(rr_model, text, image_collection, rmax=100, top=30):
+def rerank_image_text_search(rr_model, text, image_collection, rmax=100, top_k=30):
 
         # Cross-encoder for precise reranking 
         # (You can use a cross-encoder trained on image-text tasks or text if your query is text-based)
@@ -96,12 +96,12 @@ def rerank_image_text_search(rr_model, text, image_collection, rmax=100, top=30)
 
         # Print top 10 reranked images
         reranked_images = []
-        top_k = top
+    
         for i, (t, score) in enumerate(reranked_results[:top_k]):
             reranked_images.append(d[t])
             #print(f"***Rank {i+1} | Text: {t} | Cross-Encoder Score: {score:.4f} | reranked: {reranked_images}")
 
-        #print(f"****reranked: {reranked_images}")
+        print(f"****reranked: {reranked_images}")
 
         return (reranked_images) 
 
