@@ -26,19 +26,20 @@ def chroma_query_init():
     vid_collection = client.get_or_create_collection(name="multimodal_collection_videos", embedding_function=embedding_function)
     txt_collection = client.get_or_create_collection(name="multimodal_collection_texts", embedding_function=embedding_function)
     reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+    sqlite_path = "/mnt/zmdata/home-media-app/data/app-data/sqlite/zm_image_idx.db"
     n_results = 2
     
-    return img_collection, vid_collection, txt_collection, reranker_model, n_results
+    return img_collection, vid_collection, txt_collection, reranker_model, sqlite_path, n_results
 
 def get_collection_count() -> list[int]:
-    img_collection, vid_collection, txt_collection, _ = chroma_query_init()
+    img_collection, vid_collection, txt_collection, _,_ = chroma_query_init()
     """Return the array total number of items in a collection for each modality."""
     return [img_collection.count(), vid_collection.count(), txt_collection.count()]
 
 
 def query_image_collection( query_texts: list) -> dict:
     """Return semantic similarity search results for given query texts for image collection."""
-    img_collection, _, _, rr_model, n_results = chroma_query_init()
+    img_collection, _, _, rr_model, sqlite_img_path, n_results = chroma_query_init()
     
     """     img_res =  img_collection.query(
         query_texts=query_texts,

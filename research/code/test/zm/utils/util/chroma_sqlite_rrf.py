@@ -202,12 +202,12 @@ async def advanced_retrieval_pipeline_async(original_query, collection_images, s
 
 
 # 7. Orchestrated Runtime Execution Loop
-async def rrf_query(sqlite_path, sqlite_cursor, collection_images, reranker, top_n_results, user_query):
+async def rrf_query(user_query, sqlite_path, sqlite_cursor, collection_images, reranker, rmax):
     start_time = time.perf_counter()
 
     #(conn, sqlite_cursor, collection_images, reranker, top_n_results) = init_global(chroma_path, sqlite_path)
  
-    final_results = await advanced_retrieval_pipeline_async(user_query, collection_images, sqlite_path, sqlite_cursor, reranker, top_n_results)
+    final_results = await advanced_retrieval_pipeline_async(user_query, collection_images, sqlite_path, sqlite_cursor, reranker, rmax)
 
     print("\n***Reranked Results***\n")
     items = []
@@ -223,15 +223,13 @@ async def rrf_query(sqlite_path, sqlite_cursor, collection_images, reranker, top
     return items
 
 # cu.rerank_image_text_search(rr_model, modalityTxt, cImgs, rmax=50, top_k=30)
-def rerank_rrf_image_text_search(reranker, user_query, collection_images, sqlite_path, sqlite_cursor, rmax=50, top_k=30):
-#def execute_rrf_query(sqlite_path, sqlite_cursor, collection_images, reranker, top_n_results, user_query):    
-    
+def rerank_rrf_image_text_search(reranker, user_query, collection_images, sqlite_path, rmax=50, top_k=5):   
     conn = sqlite3.connect(sqlite_path)
     #thread_conn.execute("PRAGMA journal_mode=WAL;")
     cursor = conn.cursor()
     print(f"\n--- Running Asynchronous Disk Pipeline for: '{user_query}' ---\n")
-    result = asyncio.run(rrf_query(sqlite_path, cursor, collection_images, reranker, top_k, user_query))    
-    return result
+    result = asyncio.run(rrf_query(user_query, sqlite_path, cursor, collection_images, reranker,  rmax))    
+    return result[:top_k]
 
 if __name__ == "__main__":    
     OLLAMA_MODEL = "qwen3.5b-6-6:latest" #"qwen2.5:7b"
@@ -241,6 +239,6 @@ if __name__ == "__main__":
     user_query = "Esha and Shibangi"#"Working on the Apple mac while eating an Apple." r
     #"Esha dressed in traditional Indian attire." 
     # #"How to build advanced search pipelines?"
-    rlist = rerank_rrf_image_text_search(reranker, user_query, collection_images, DB_PATH, sqlite_cursor, rmax=50, top_k=30)
+    rlist = rerank_rrf_image_text_search(reranker, user_query, collection_images, DB_PATH, sqlite_cursor, rmax=50, top_k=10)
     for i, rl in enumerate(rlist):
         print(f"{i}->{rl}\n")

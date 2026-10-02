@@ -147,3 +147,7 @@ python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha posing for a pict
 python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha holding a mug with embossed message THE BEST is yet TO come in Las Vegas'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"  --- not correct message
 
 python3 chroma_discord_metadata_skill.py "image" "Bhal" "'RAAS dance member students enjoy get together.'" "'Berkeley'" "2008-01-01" "2026-12-12"
+
+
+# sample text search
+Esha, Shibangi, Shoma and Anjali enjoying and laughing together

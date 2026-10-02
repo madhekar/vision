@@ -32,41 +32,11 @@ MAX_DT = datetime.datetime.now()
 def init_rerank_model():
     reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
     return reranker_model
-'''
-def init_global(chroma_path, sqllite_path):
-    # 1. Configuration & Global Initializations
-    top_n_results = 9
 
-    # Initialize Persistent SQLite Database
-    conn = sqlite3.connect(sqllite_path)
-    sqlite_cursor = conn.cursor()
-
-    # Initialize Persistent Chroma DB Client
-    # chroma_client = chromadb.PersistentClient(path=chroma_path)
-    # #emb_fn =   #openclip embedding function!
-    # embedding_function = OpenCLIPEmbeddingFunction()
-
-    # collection_images = chroma_client.get_or_create_collection(
-    #     name="multimodal_collection_images", 
-    #     embedding_function=embedding_function, 
-    #     metadata={"hnsw:space": "cosine",
-    #                 "hnsw:M" : 24, 
-    #                 "hnsw:construction_ef": 200, 
-    #                 "hnsw:search_ef": 100},
-    #     )
-    # Initialize Cross-Encoder Reranker
-    reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2") #cross-encoder/ms-marco-MiniLM-L-6-v2
-    return (conn, sqlite_cursor, collection_images,top_n_results)
-'''
 @st.cache_resource(show_spinner=True)
-def init_vdb(vdp, icn, tcn, vcn, sip):
+def init_vdb(vdp, icn, tcn, vcn):
 
-    top_n_results = 9
-
-    # Initialize Persistent SQLite Database
-    sqlite_connection = sqlite3.connect(sip)
-    sqlite_cursor = sqlite_connection.cursor()
-
+  
     # vector database persistance
     client = cdb.PersistentClient( path=vdp, tenant=DEFAULT_TENANT ,settings=Settings(allow_reset=False)) #, anonymized_teleney=False))
     
@@ -112,7 +82,7 @@ def init_vdb(vdp, icn, tcn, vcn, sip):
     )
 
     #print("*****", collection_text.peek())
-    return client, collection_images, collection_text, collection_videos, sqlite_cursor, top_n_results
+    return client, collection_images, collection_text, collection_videos
 
 def updateMetadata(client, image_collection,  id, desc, names, dt, loc):
     # vector database persistance
@@ -154,7 +124,7 @@ def os_specific_path(img_path):
 
     return n_pth    
 
-def search_fn(rr_model, cImgs, cTxts, cVideos, sqlite_image_path, sqlite_cursor, top_n_results):
+def search_fn(rr_model, cImgs, cTxts, cVideos, sqlite_image_path):
     # create default application Tabs
     image, video, text = st.tabs(["Image", "Video", "Text"])
 
@@ -329,7 +299,7 @@ def search_fn(rr_model, cImgs, cTxts, cVideos, sqlite_image_path, sqlite_cursor,
 
             #print(">>>>>", st.session_state["document"])
 
-            st.session_state["imgs"] = csr.rerank_rrf_image_text_search(rr_model, modalityTxt, cImgs, sqlite_image_path, sqlite_cursor, 50, 10) #cu.rerank_image_text_search(rr_model, modalityTxt, cImgs, rmax=50, top_k=30)
+            st.session_state["imgs"] = csr.rerank_rrf_image_text_search(rr_model, modalityTxt, cImgs, sqlite_image_path, 50, 10) #cu.rerank_image_text_search(rr_model, modalityTxt, cImgs, rmax=50, top_k=30)
 
             # execute video query with search criteria
             st.session_state["videos"] = cu.rerank_video_text_search(rr_model, modalityTxt, cVideos, rerank=False, rmax=20, top=10)
@@ -621,10 +591,9 @@ def execute():
 
     vdb, icn, tcn, vcn, acn, sip, svp = config.search_config_load()
     print(vdb, ': ', icn,':', tcn)
-    client, img_collection, txt_collection, video_collection, sqlite_cursor, top_n_results  = init_vdb(vdb, icn, tcn, vcn, sip) #client, collection_images, collection_text, collection_videos, sqlite_connection, sqlite_cursor, top_n_results
-
+    client, img_collection, txt_collection, video_collection  = init_vdb(vdb, icn, tcn, vcn) 
     rr_model = init_rerank_model()
 
-    search_fn(rr_model, img_collection, txt_collection, video_collection, sip, sqlite_cursor, top_n_results)
+    search_fn(rr_model, img_collection, txt_collection, video_collection, sip)
 
     
