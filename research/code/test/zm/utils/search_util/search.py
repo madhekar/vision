@@ -329,7 +329,7 @@ def search_fn(rr_model, cImgs, cTxts, cVideos, sqlite_image_path, sqlite_cursor,
 
             #print(">>>>>", st.session_state["document"])
 
-            st.session_state["imgs"] = cu.rerank_image_text_search(rr_model, modalityTxt, cImgs, rmax=50, top=30)
+            st.session_state["imgs"] = csr.rerank_rrf_image_text_search(rr_model, modalityTxt, cImgs, sqlite_image_path, sqlite_cursor, 50, 10) #cu.rerank_image_text_search(rr_model, modalityTxt, cImgs, rmax=50, top_k=30)
 
             # execute video query with search criteria
             st.session_state["videos"] = cu.rerank_video_text_search(rr_model, modalityTxt, cVideos, rerank=False, rmax=20, top=10)
@@ -342,18 +342,18 @@ def search_fn(rr_model, cImgs, cTxts, cVideos, sqlite_image_path, sqlite_cursor,
             # if img.shape[2] == 4:
             #     img = img[:, :, :3]
             #     #img = img.convert("RGB")
-            st.session_state["t_imgs"].append(img[0])
+            st.session_state["t_imgs"].append(img["uri"])
             
         for i, mdata in enumerate(st.session_state["imgs"]):
             #st.write(mdata) #---???
-            tss =  mdata[1]["ts"] if mdata[1]["ts"]  else "1765060800.0"
+            tss =  mdata["ts"] if mdata["ts"]  else "1765060800.0"
             st.session_state["meta"].append(
                 "Desc:["
-                + mdata[1]["text"]
+                + mdata["text"]
                 # + "] ) People: ["
                 # + mdata.get("names")
                 + "] Location: ["
-                + mdata[1]["loc"]
+                + mdata["loc"]
                 + "] Date: ["
                 + str(datetime.datetime.fromtimestamp(float(tss)))
                 + "]"
@@ -435,7 +435,7 @@ def search_fn(rr_model, cImgs, cTxts, cVideos, sqlite_image_path, sqlite_cursor,
             with colt:
                 st.markdown("<p class='big-font-subh'>Title: </p>", unsafe_allow_html=True)
             with cole:
-                o_caption = f'<p class="input">{st.session_state["imgs"][index][1]["caption"]}</p>'
+                o_caption = f'<p class="input">{st.session_state["imgs"][index]["caption"]}</p>'
                 st.markdown(o_caption, unsafe_allow_html=True)
 
 
@@ -443,21 +443,21 @@ def search_fn(rr_model, cImgs, cTxts, cVideos, sqlite_image_path, sqlite_cursor,
             with colt:
                 st.markdown("<p class='big-font-subh'>Desc: </p>", unsafe_allow_html=True)
             with cole:
-                o_desc = f'<p class="input">{st.session_state["imgs"][index][1]["text"]}</p>'
+                o_desc = f'<p class="input">{st.session_state["imgs"][index]["text"]}</p>'
                 st.markdown(o_desc, unsafe_allow_html=True)
 
             colt, cole = c2.columns([0.1, 0.9])
             with colt:
                st.write("<p class='big-font-subh'>Folks: </p>", unsafe_allow_html=True)
             with cole:
-               o_names = f'<p class="input">{st.session_state["imgs"][index][1]["ppt"]} </p>'
+               o_names = f'<p class="input">{st.session_state["imgs"][index]["ppt"]} </p>'
                st.markdown(o_names, unsafe_allow_html=True)
 
             colt, cole = c2.columns([0.1, 0.9])
             with colt:
                st.write("<p class='input-subh'>DT: </p>", unsafe_allow_html=True)
             with cole:
-                tts = "0.0" if st.session_state["imgs"][index][1]["ts"] == "" else st.session_state["imgs"][index][1]["ts"]
+                tts = "0.0" if st.session_state["imgs"][index]["ts"] == "" else st.session_state["imgs"][index]["ts"]
                 o_datetime = f'<p class="input">{str(datetime.datetime.fromtimestamp(float(tts)))}</p>'
                 st.markdown(o_datetime, unsafe_allow_html=True)
 
@@ -465,11 +465,11 @@ def search_fn(rr_model, cImgs, cTxts, cVideos, sqlite_image_path, sqlite_cursor,
             with colt:
                 st.write("<p class='big-font-subh'>Area: </p>", unsafe_allow_html=True)
             with cole:
-                o_location = f'<p class="input">{st.session_state["imgs"][index][1]["loc"]}</p>'
+                o_location = f'<p class="input">{st.session_state["imgs"][index]["loc"]}</p>'
                 st.markdown(o_location, unsafe_allow_html=True)
 
 
-            ll = ast.literal_eval(st.session_state["imgs"][index][1]["latlon"])     
+            ll = ast.literal_eval(st.session_state["imgs"][index]["latlon"])     
             lat = ll[0] 
             lon = ll[1]
 
@@ -621,7 +621,7 @@ def execute():
 
     vdb, icn, tcn, vcn, acn, sip, svp = config.search_config_load()
     print(vdb, ': ', icn,':', tcn)
-    client, img_collection, txt_collection, video_collection, sqlite_cursor, top_n_results  = init_vdb(vdb, icn, tcn, vcn) #client, collection_images, collection_text, collection_videos, sqlite_connection, sqlite_cursor, top_n_results
+    client, img_collection, txt_collection, video_collection, sqlite_cursor, top_n_results  = init_vdb(vdb, icn, tcn, vcn, sip) #client, collection_images, collection_text, collection_videos, sqlite_connection, sqlite_cursor, top_n_results
 
     rr_model = init_rerank_model()
 

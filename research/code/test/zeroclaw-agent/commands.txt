@@ -52,6 +52,8 @@ execute python3 chroma_discord_skill.py "image" "Bhal" "'Pune festivals'"
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'four weman standing in front of a lake.'"
 
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha Hallowen party in carmel valley elementary'"
+
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Ganapti puja at Madhekar residence.'"
 
 execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha and Shibangi in Hickman elementary for science field day class.'"
@@ -62,7 +64,7 @@ execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Celebration of
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Celebration of Esha's 20th birthday in Berkeley.'"
 
----metadata----  "18589975216-1441916503@g.us"
+---metadata----  "18589975216-1441916503@g.us" 
 
 python3 chroma_whatsapp_metadata_skill.py "image" "+18589522575" "'India'" "GRANDCANYON" "2008-01-01" "2026-12-12"
 

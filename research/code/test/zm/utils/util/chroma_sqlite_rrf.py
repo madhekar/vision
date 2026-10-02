@@ -173,7 +173,7 @@ async def advanced_retrieval_pipeline_async(original_query, collection_images, s
     # Dynamic low-heap text retrieval from SQLite
     placeholders = ",".join("?" for _ in candidate_ids)
     #cursor.execute(f"SELECT id, text FROM documents WHERE id IN ({placeholders})", candidate_ids)
-    cursor.execute(f"SELECT id, text, uri, caption, ts, latlon, loc FROM documents WHERE id IN ({placeholders})", candidate_ids)
+    cursor.execute(f"SELECT id, text, uri, caption, ts, latlon, loc, ppt FROM documents WHERE id IN ({placeholders})", candidate_ids)
 
     columns = [col[0] for col in cursor.description]
 
@@ -214,7 +214,7 @@ async def rrf_query(sqlite_path, sqlite_cursor, collection_images, reranker, top
     for rank, (score, item) in enumerate(final_results, 1):
         items.append(item)
         print(f"{rank}. [Rerank Score: {score:.4f}] item-> {item}\n")
-    conn.close()
+    sqlite_cursor.close()
 
     end_time = time.perf_counter()
 
@@ -222,10 +222,15 @@ async def rrf_query(sqlite_path, sqlite_cursor, collection_images, reranker, top
 
     return items
 
-def execute_rrf_query(sqlite_path, sqlite_cursor, collection_images, reranker, top_n_results, user_query):    
+# cu.rerank_image_text_search(rr_model, modalityTxt, cImgs, rmax=50, top_k=30)
+def rerank_rrf_image_text_search(reranker, user_query, collection_images, sqlite_path, sqlite_cursor, rmax=50, top_k=30):
+#def execute_rrf_query(sqlite_path, sqlite_cursor, collection_images, reranker, top_n_results, user_query):    
     
+    conn = sqlite3.connect(sqlite_path)
+    #thread_conn.execute("PRAGMA journal_mode=WAL;")
+    cursor = conn.cursor()
     print(f"\n--- Running Asynchronous Disk Pipeline for: '{user_query}' ---\n")
-    result = asyncio.run(rrf_query(sqlite_path, sqlite_cursor, collection_images, reranker, top_n_results, user_query))    
+    result = asyncio.run(rrf_query(sqlite_path, cursor, collection_images, reranker, top_k, user_query))    
     return result
 
 if __name__ == "__main__":    
@@ -233,9 +238,9 @@ if __name__ == "__main__":
     DB_PATH = "/mnt/zmdata/home-media-app/data/app-data/sqlite/zm_image_idx.db"
     CHROMA_PATH = "/mnt/zmdata/home-media-app/data/app-data/vectordb"
     (conn, sqlite_cursor, collection_images, reranker, top_n_results) =init_global(CHROMA_PATH, DB_PATH)
-    user_query = "Esha and Shibangi"#"Working on the Apple mac while eating an Apple." 
+    user_query = "Esha and Shibangi"#"Working on the Apple mac while eating an Apple." r
     #"Esha dressed in traditional Indian attire." 
     # #"How to build advanced search pipelines?"
-    rlist = execute_rrf_query(DB_PATH, sqlite_cursor, collection_images, reranker, top_n_results, user_query)
+    rlist = rerank_rrf_image_text_search(reranker, user_query, collection_images, DB_PATH, sqlite_cursor, rmax=50, top_k=30)
     for i, rl in enumerate(rlist):
         print(f"{i}->{rl}\n")

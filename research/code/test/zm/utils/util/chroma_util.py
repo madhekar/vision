@@ -37,6 +37,8 @@ def rerank_image_search(rr_model, img_url, image_collection, rmax=100, top=30):
 
         d = dict(zip(results["uris"][0], results["metadatas"][0]))
 
+        #print(f"--->dict {d}")
+
         # Deep Reranking (Cross-Encoder)
         # Create pairs: [Query Image, Candidate Image] for the cross-encoder to score
         pairs = []
@@ -52,14 +54,16 @@ def rerank_image_search(rr_model, img_url, image_collection, rmax=100, top=30):
         scored_results = list(zip(candidate_uris, scores))
         reranked_results = sorted(scored_results, key=lambda x: x[1], reverse=True)
 
+
+        print(f"----> {reranked_results}")
         # Print top 10 reranked images
         reranked_images = []
         top_k = top
         for i, (uri, score) in enumerate(reranked_results[:top_k]):
-            reranked_images.append([uri, d[uri]])
+            reranked_images.append(d[uri])
             #print(f"Rank {i+1} | Image: {uri} | Cross-Encoder Score: {score:.4f} | caption: {d[uri]['caption']}")
 
-        return (reranked_images)    
+        return reranked_images   
 
 
 def rerank_image_text_search(rr_model, text, image_collection, rmax=100, top_k=30):
@@ -98,7 +102,7 @@ def rerank_image_text_search(rr_model, text, image_collection, rmax=100, top_k=3
         reranked_images = []
     
         for i, (t, score) in enumerate(reranked_results[:top_k]):
-            reranked_images.append(d[t])
+            reranked_images.append(d[t][1])
             #print(f"***Rank {i+1} | Text: {t} | Cross-Encoder Score: {score:.4f} | reranked: {reranked_images}")
 
         print(f"****reranked: {reranked_images}")
