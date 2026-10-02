@@ -6,3 +6,5 @@ vectordb:
   text_collection_name: multimodal_collection_texts
   video_collection_name: multimodal_collection_videos
   audio_collection_name: multimedia_collection_audios
+sqlitedb:
+  sqlitedb_path: /data/app-data/sqllite/zm_image_idx.db
