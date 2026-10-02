@@ -576,10 +576,17 @@ def search_fn(rr_model, cImgs, cTxts, cVideos):
 
 '''
  search execute
+         os.path.join(dr, *vectordb_path.split(os.sep)[1:]),
+        image_collection_name,
+        text_collection_name,
+        video_collection_name,
+        audio_collection_name,
+        os.path.join(dr, *sqlitedb_image_path.split(os.sep)[1:]),
+        os.path.join(dr, *sqlitedb_video_path.split(os.sep)[1:]),
 '''
 def execute():
 
-    vdb, icn, tcn, vcn, acn = config.search_config_load()
+    vdb, icn, tcn, vcn, acn, sip, svp = config.search_config_load()
     print(vdb, ': ', icn,':', tcn)
     client, img_collection, txt_collection, video_collection  = init_vdb(vdb, icn, tcn, vcn)
 

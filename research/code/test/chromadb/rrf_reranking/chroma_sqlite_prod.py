@@ -34,7 +34,7 @@ def init_global(chroma_path, sqllite_path):
                     "hnsw:search_ef": 100},
         )
     # Initialize Cross-Encoder Reranker
-    reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+    reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2") #cross-encoder/ms-marco-MiniLM-L-6-v2
     return (conn, sqlite_cursor, collection_images, reranker, top_n_results)
 
 def clean_and_format_query(user_input: str) -> str:
@@ -202,10 +202,10 @@ async def advanced_retrieval_pipeline_async(original_query, collection_images, s
 
 
 # 7. Orchestrated Runtime Execution Loop
-async def rrf_query(chroma_path, sqlite_path, user_query):
+async def rrf_query(sqlite_path, sqlite_cursor, collection_images, reranker, top_n_results, user_query):
     start_time = time.perf_counter()
 
-    (conn, sqlite_cursor, collection_images, reranker, top_n_results) = init_global(chroma_path, sqlite_path)
+    #(conn, sqlite_cursor, collection_images, reranker, top_n_results) = init_global(chroma_path, sqlite_path)
  
     final_results = await advanced_retrieval_pipeline_async(user_query, collection_images, sqlite_path, sqlite_cursor, reranker, top_n_results)
 
@@ -222,19 +222,20 @@ async def rrf_query(chroma_path, sqlite_path, user_query):
 
     return items
 
-def execute_rrf_query(chroma_path, sqlite_path, user_query):    
+def execute_rrf_query(sqlite_path, sqlite_cursor, collection_images, reranker, top_n_results, user_query):    
     
     print(f"\n--- Running Asynchronous Disk Pipeline for: '{user_query}' ---\n")
-    result = asyncio.run(rrf_query(chroma_path, sqlite_path, user_query))    
+    result = asyncio.run(rrf_query(sqlite_path, sqlite_cursor, collection_images, reranker, top_n_results, user_query))    
     return result
 
 if __name__ == "__main__":    
     OLLAMA_MODEL = "qwen3.5b-6-6:latest" #"qwen2.5:7b"
-    DB_PATH = "/mnt/zmdata/home-media-app/data/app-data/sqllite/zm_image_idx.db"
+    DB_PATH = "/mnt/zmdata/home-media-app/data/app-data/sqlite/zm_image_idx.db"
     CHROMA_PATH = "/mnt/zmdata/home-media-app/data/app-data/vectordb"
+    (conn, sqlite_cursor, collection_images, reranker, top_n_results) =init_global(CHROMA_PATH, DB_PATH)
     user_query = "Esha and Shibangi"#"Working on the Apple mac while eating an Apple." 
     #"Esha dressed in traditional Indian attire." 
     # #"How to build advanced search pipelines?"
-    rlist = execute_rrf_query(CHROMA_PATH, DB_PATH, user_query)
+    rlist = execute_rrf_query(DB_PATH, sqlite_cursor, collection_images, reranker, top_n_results, user_query)
     for i, rl in enumerate(rlist):
         print(f"{i}->{rl}\n")
