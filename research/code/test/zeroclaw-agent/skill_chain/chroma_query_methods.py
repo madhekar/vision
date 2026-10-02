@@ -8,6 +8,7 @@ import sys
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from  compress_video_helper import compress_video
 import chroma_util as cu
+import chroma_sqlite_rrf as csr
 import warnings
 
 warnings.filterwarnings("ignore", category=FutureWarning, module="timm")
@@ -45,7 +46,7 @@ def query_image_collection( query_texts: list) -> dict:
         query_texts=query_texts,
         n_results=n_results
     ) """ 
-    img_res = cu.rerank_image_text_search(rr_model, query_texts, img_collection, 100, n_results)
+    img_res = csr.rerank_rrf_image_text_search(rr_model, query_texts, img_collection, sqlite_img_path, 50, n_results)  #cu.rerank_image_text_search(rr_model, query_texts, img_collection, 100, n_results)
 
     result_list = []
     for ir in img_res:
