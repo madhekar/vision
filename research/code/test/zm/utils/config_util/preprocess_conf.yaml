@@ -20,8 +20,8 @@ vectordb:
   audio_collection_name: multimedia_collection_audios
   text_dir_path: /data/input-data/txt/
 
-sqllite:
-  sqllite_path: /data/app-data/sqllite/
+sqlite:
+  sqllite_path: /data/app-data/sqlite/
   image_bm25_idx: zm_image_idx.db
   video_bm25_idx: zm_video_idx.db  
 

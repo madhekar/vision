@@ -635,12 +635,18 @@ def search_config_load():
         video_collection_name = dict["vectordb"]["video_collection_name"]
         audio_collection_name = dict["vectordb"]["audio_collection_name"]
 
+        sqlitedb_image_path = dict["sqlitedb"]["sqlitedb_image_path"]
+        sqlitedb_video_path = dict["sqlitedb"]["sqlitedb_video_path"]
+
+
     return (
         os.path.join(dr, *vectordb_path.split(os.sep)[1:]),
         image_collection_name,
         text_collection_name,
         video_collection_name,
         audio_collection_name,
+        os.path.join(dr, *sqlitedb_image_path.split(os.sep)[1:]),
+        os.path.join(dr, *sqlitedb_video_path.split(os.sep)[1:]),
     )
 
 """
