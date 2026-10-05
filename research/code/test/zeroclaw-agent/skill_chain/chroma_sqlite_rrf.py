@@ -203,7 +203,7 @@ async def advanced_retrieval_pipeline_async(original_query, collection_images, s
 
 # 7. Orchestrated Runtime Execution Loop
 async def rrf_query(user_query, sqlite_path, sqlite_cursor, collection_images, reranker, rmax):
-    start_time = time.perf_counter()
+    #start_time = time.perf_counter()
 
     #(conn, sqlite_cursor, collection_images, reranker, top_n_results) = init_global(chroma_path, sqlite_path)
  
@@ -216,7 +216,7 @@ async def rrf_query(user_query, sqlite_path, sqlite_cursor, collection_images, r
         #print(f"{rank}. [Rerank Score: {score:.4f}] item-> {item}\n")
     sqlite_cursor.close()
 
-    end_time = time.perf_counter()
+    #end_time = time.perf_counter()
 
     #print(f"Elapsed time: {(end_time -  start_time):.6f} seconds")
 

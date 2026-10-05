@@ -52,6 +52,8 @@ execute python3 chroma_discord_skill.py "image" "Bhal" "'Baby seating on lap smi
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'four weman standing in front of a lake.'"
 
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha and Bhalchandra standing in sunny Alaska by the Lake, Esha is wearing Hickman T shirt'"
+
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha Hallowen party in carmel valley elementary'"
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha, Saachi and Sanvi cozy seating together smiling.'"
