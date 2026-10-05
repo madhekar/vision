@@ -48,7 +48,7 @@ execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha and Bhalc
 
 execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'four weman standing in front of a lake.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Pune festivals'"
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Baby seating on lap smiling with tung out in mischief, baby is wearing light red color jacket holding own toe'"
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'four weman standing in front of a lake.'"
 
@@ -60,7 +60,7 @@ execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha and Shiba
 
 execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Cafeteria in Berkeley University with yellow chairs and wooden tables.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Celebration of Esha's 20th birthday in Berkeley.'"
+execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha Celebration of 20th birthday in Berkeley.'"
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Celebration of Esha's 20th birthday in Berkeley.'"
 
