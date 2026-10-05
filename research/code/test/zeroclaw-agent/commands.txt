@@ -54,6 +54,10 @@ execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha Hallowen party in carmel valley elementary'"
 
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha, Saachi and Sanvi cozy seating together smiling.'"
+
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Anjali and Shoma in park in the background a water fountain is seen.'"
+
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Ganapti puja at Madhekar residence.'"
 
 execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha and Shibangi in Hickman elementary for science field day class.'"
@@ -118,6 +122,7 @@ python3 chroma_discord_skill.py "image" "Bhal" "'Esha, Anjali and Bhalchandra po
 
 python3 chroma_whatsapp_metadata_skill.py "image" "+18589975216" "'Humming bird seating on a tree in madhekar backyard'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
+python3 chroma_discord_skill.py "image" "Bhal" "'Esha and Shibhangi playing joyfully seating on a tire tied to a tree as swing.'"
 
 "python3 chroma_discord_metadata_skill.py" "image" "Bhal" "A sleepy Man we-aring Blue jacket named Bhiman" "Samsung USB" "2026-06-01" "2026-06-30"
 
