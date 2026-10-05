@@ -56,7 +56,7 @@ execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha, Saachi and Sanvi cozy seating together smiling.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Anjali and Shoma in park in the background a water fountain is seen.'"
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Anjali and Shoma posing for a picture in park in front of a water fountain.'"
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Ganapti puja at Madhekar residence.'"
 
