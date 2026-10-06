@@ -52,6 +52,8 @@ execute python3 chroma_discord_skill.py "image" "Bhal" "'Baby seating on lap smi
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'four weman standing in front of a lake.'"
 
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Two toddler girls enjoy and laugh in pune India. They were fiends from same daycare center'"
+
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha and Shibangi standing in front of large ship ancher in busy Alaska port.'"
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha, Bhalchandra and Anjali standing in front of large Glacier in Seaward Alaska.'"
