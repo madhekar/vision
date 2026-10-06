@@ -56,6 +56,11 @@ execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha, Bhalchandra and Anjali standing in front of large Glacier in Seaward Alaska.'"
 
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Kumar and Anjali standing in front of a fort in Indoor, India.'"
+
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Anjali, Kumar and Asha are standing in a makeshift road-side restaurant in India'"
+
+
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha and Bhalchandra standing in sunny Alaska by the Lake, Esha is wearing Hickman T shirt'"
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha Hallowen party in carmel valley elementary'"
