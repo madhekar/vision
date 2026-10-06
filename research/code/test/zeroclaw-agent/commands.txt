@@ -54,6 +54,8 @@ execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Two toddler girls enjoy and laugh in pune India. They were fiends from same daycare center'"
 
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Two toddler girls enjoy and profusely laugh in Pune India.They are wearing white bangles and bands in hand.'"
+
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'A cat is seating quietly after she was tightly wrapped in a blanket.'"
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha and Shibangi standing in front of large ship ancher in busy Alaska port.'"
