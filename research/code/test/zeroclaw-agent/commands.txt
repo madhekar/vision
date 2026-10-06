@@ -75,6 +75,12 @@ execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha In front of a larg
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha is wearing a moose horn on her head in Alaska.'"
 
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha standing in front of a giant flamingo in Las Vegas.'"
+
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha standing in front of a giant flamingo in Las Vegas.'"
+
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and Anjali seating on dorm room bed in Berkeley, Esha has arranged memory pictures on the back wall. Esha is wearing her favorite bag'"
+
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Anjali, Kumar and Asha are standing in a makeshift road-side restaurant in India. Anjali is holding her spectacles in hand while busy taking selfie. Food plates, water utensils, red chairs and blue tables in the background.'"
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha and Bhalchandra standing in sunny Alaska by the Lake, Esha is wearing Hickman T shirt'"
