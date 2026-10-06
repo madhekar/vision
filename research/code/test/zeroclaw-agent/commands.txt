@@ -75,7 +75,7 @@ execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha In front of a larg
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha is wearing a moose horn on her head in Alaska.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha standing in front of a giant flamingo in Las Vegas.'"
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and her two other friends enjoying their picnic, near Golden Gate Park, in San Francisco.'"
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha standing in front of a giant flamingo in Las Vegas.'"
 
