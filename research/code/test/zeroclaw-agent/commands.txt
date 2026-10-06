@@ -48,6 +48,10 @@ execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha and Bhalc
 
 execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'four weman standing in front of a lake.'"
 
+execute python3 chroma_whatsapp_skill.py "image" "+919822912480" "'Two men are standing with small bushes in their hands  in a street waering blue and pink shirts and spectacles in Alandi Pune, India.'"
+
+Two men are standing with small bushes in their hands  in a street waering blue and pink shirts and spectacles in Alandi Pune, India
+
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Baby seating on lap smiling with tung out in mischief, baby is wearing light red color jacket holding own toe'"
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'four weman standing in front of a lake.'"
@@ -55,6 +59,8 @@ execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Two toddler girls enjoy and laugh in pune India. They were fiends from same daycare center'"
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Two toddler girls enjoy and profusely laugh in Pune India.They are wearing white bangles and bands in hand.'"
+
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Two toddler girls both have short black hair and profusely laughing with wide open mouth.  Two of them seating on same large chair, a red lamp shade is in the background.'"
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'A cat is seating quietly after she was tightly wrapped in a blanket.'"
 
