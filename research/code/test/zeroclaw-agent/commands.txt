@@ -68,6 +68,8 @@ execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Two toddler girls both have short black hair and profusely laughing with wide open mouth.  Two of them seating on same large chair, a red lamp shade is in the background.'"
 
+Two small girls short black hair and profusely laughing,  Two of them seating on same chair, a red lamp shade is in the background.
+
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'A cat is seating quietly after she was tightly wrapped in a blanket.'"
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha and Shibangi standing in front of large ship ancher in busy Alaska port.'"
