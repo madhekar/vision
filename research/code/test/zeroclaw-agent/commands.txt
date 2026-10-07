@@ -64,8 +64,6 @@ execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha, anjali and bhalch
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Movie cutouts musical.'"
 
-
-
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'four weman standing in front of a lake.'"
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Two toddler girls enjoy and laugh in pune India. They were fiends from same daycare center'"
