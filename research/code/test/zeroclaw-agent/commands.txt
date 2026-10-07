@@ -48,6 +48,8 @@ execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha and Bhalc
 
 execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'four weman standing in front of a lake.'"
 
+execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha sliding down on a railing similing, she is wearing pink top and blue jeans.'"
+
 execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha and two other girls after graduation, all three of them  wearing class of 2021 hey are all wearing blue caps and gowns adorned with yellow tassel at Berkeley University'"
 
 execute python3 chroma_whatsapp_skill.py "image" "+919822912480" "'Two men are standing with small bushes in their hands  in a street waering blue and pink shirts and spectacles in Alandi Pune, India.'"
