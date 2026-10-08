@@ -104,7 +104,7 @@ execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, Esha, Saachi an
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, Esha, Saachi and Sanvi are engrossed watching a video on a mobile phone.'"
 
-execute python3 chroma_whatsapp_skill.py  "image" "+919822197598" "'Deep red chiilies in three trays to dry in sun.'"
+execute python3 chroma_whatsapp_skill.py  "image" "+18589522575" "'Deep red chilies in three trays to dry in sun.'"
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha In front of a large BETZ Transformer in Hoover Dam hydro power generation sight.'"
 
