@@ -128,6 +128,8 @@ execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Ganapti puja at Madhekar residence.'"
 
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha standing on a balcony adorned with cacti, infont of a MOLINO "EL PUJOL" restaurant in Mexico City.'"
+
 execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha and Shibangi in Hickman elementary for science field day class.'"
 
 execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Cafeteria in Berkeley University with yellow chairs and wooden tables.'"
@@ -137,6 +139,7 @@ execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha Celebrati
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Celebration of Esha's 20th birthday in Berkeley.'"
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Bhalchandra wearing Blue shirt and black pants is seating next to Einstein statue statue .'"
+
 
 
 ---metadata----  "18589975216-1441916503@g.us" 
