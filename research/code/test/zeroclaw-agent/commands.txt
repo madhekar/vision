@@ -94,12 +94,17 @@ execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Anjali, Kumar and Asha are standing in a makeshift road-side restaurant in India. Anjali is holding her spectacles in hand while busy taking selfie.'"
 
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha and Anjali standing in front of huge decorative antic brown  door, The door is adorned with intricate carvings in  Mexico City'"
+
 execute python3 chroma_whatsapp_skill.py "image" "+919373312610" "'Anjali, Kumar and Asha are standing in a makeshift road-side restaurant in India. Anjali is holding her spectacles in hand while busy taking selfie.'"
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, Bhalchandra and Esha are standing by the lake in Alaska, three of them huddle together because surrounding is Extremely cold.'"
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, Esha, Saachi and Sanvi are engrossed watching a video on a mobile phone.'"
 
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, Esha, Saachi and Sanvi are engrossed watching a video on a mobile phone.'"
+
+execute python3 chroma_whatsapp_skill.py  "image" "+919822197598" "'Deep red chiilies in three trays to dry in sun.'"
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha In front of a large BETZ Transformer in Hoover Dam hydro power generation sight.'"
 
