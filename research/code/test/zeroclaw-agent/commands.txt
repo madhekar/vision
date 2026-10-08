@@ -66,6 +66,8 @@ execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha, anjali and bhalch
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and anjali in tight embrace in a hotel room, microwave is in background.'"
 
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Couple dance for their second marriage holding hands, lady is waering pink saree dress and the other donning a blue suit, in the background other people enjoy watching the dance and cheer.'"
+
 execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'movie cutout musical'"
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'four weman standing in front of a lake.'"
