@@ -40,6 +40,8 @@ execute python3 chroma_email_skill.py "video" "bhalba@yahoo.com" "'San Diego bea
 
 execute python3 chroma_whatsapp_skill.py  "video" "+919822197598" "'San Diego beach'"
 
+execute python3 chroma_whatsapp_skill.py  "image" "+919822197598" "'chandrakant seating on chair with pink jacket and red turban'"
+
 execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'archeological sites in India'"
 
 execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'Ganapati festival in India'"
