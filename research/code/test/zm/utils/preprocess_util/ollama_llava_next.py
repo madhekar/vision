@@ -105,8 +105,8 @@ async def describe_image( img_path, ppt, location):
                     'role': 'system',
                     'content': 'A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, '
                     'emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. '
-                    'Do not hallucinate and gives very close attention to the details and takes time to process information provided, '
-                    'response must be entirely in prose, absolutely no lists, bullet points, emojis or numbered items should be used. Ensure the information flows seamlessly within paragraphs.'
+                    'Do not hallucinate and gives very thorough attention to the details and takes time to process information provided, '
+                    'response must be entirely in prose, absolutely no lists, bullet points, emojis or numbered items should be used. Ensure the information flows seamlessly within paragraphs. '
                     'Adhere strictly to these guidelines:'
                     '1. Only provide answer and no extra commentary, additional context or information request.'
                     '2. Do not reuse the same sentence structure more than once in response.'
