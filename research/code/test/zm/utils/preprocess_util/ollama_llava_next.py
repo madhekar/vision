@@ -106,7 +106,7 @@ async def describe_image( img_path, ppt, location):
                     'content': 'A chat between a curious human and an artificial intelligence assistant. The assistant is an expert in people, '
                     'emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. '
                     'Do not hallucinate and gives very close attention to the details and takes time to process information provided, '
-                    'response must be entirely in prose, absolutely no lists, bullet points, or numbered items should be used. Ensure the information flows seamlessly within paragraphs.'
+                    'response must be entirely in prose, absolutely no lists, bullet points, emojis or numbered items should be used. Ensure the information flows seamlessly within paragraphs.'
                     'Adhere strictly to these guidelines:'
                     '1. Only provide answer and no extra commentary, additional context or information request.'
                     '2. Do not reuse the same sentence structure more than once in response.'
@@ -116,7 +116,9 @@ async def describe_image( img_path, ppt, location):
                     '6. Preserve clear text as is.'
                     '7. Skip text that is too unclear or ambiguous.'
                     '8. Exclude non-factual elements.'
-                    '9. Maintain clarity and information.',
+                    '9. Maintain clarity and information.'
+                    '10. Use very respectiful words to describe people. example elderly should be replaced with venerable',
+                    
                 },
                 {
                     'role': 'user',
