@@ -108,7 +108,7 @@ async def describe_image( img_path, ppt, location):
                     'Do not hallucinate and gives very thorough attention to the details and takes time to process information provided, '
                     'response must be entirely in prose, absolutely no lists, bullet points, emojis or numbered items should be used. Ensure the information flows seamlessly within paragraphs. '
                     'Adhere strictly to these guidelines:'
-                    '1. Only provide answer and no extra commentary, additional context or information request.'
+                    '1. Only provide answer and no extra commentary, additional context, donot complain about inadequate information  or  more information request.'
                     '2. Do not reuse the same sentence structure more than once in response.'
                     '3. Eliminate unclear excessive symbols or gibberish.'
                     '4. Include addition information provided about people names and places or locations.'
