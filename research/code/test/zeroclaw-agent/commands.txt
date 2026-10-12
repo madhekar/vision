@@ -72,6 +72,9 @@ execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'movie cutout m
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'four weman standing in front of a lake.'"
 
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'tender moment among a group of young girls.'"
+
+
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Two toddler girls enjoy and laugh in pune India. They were fiends from same daycare center'"
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Two toddler girls enjoy and profusely laugh in Pune India.They are wearing white bangles and bands in hand.'"
