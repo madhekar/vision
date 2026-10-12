@@ -106,9 +106,11 @@ execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, Bhalchandra and
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, Esha, Saachi and Sanvi are engrossed watching a video on a mobile phone.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha, wearing a black spectacles standing front of London Clock tower and cathedral church in a busy street wearing full orange jacket and dark blue Joggers, holding a phone in one hand. traffic signals and railing is also visible in background'"
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha, wearing a black spectacles standing front of Big Ben Clock tower in London a busy street wearing full orange jacket and dark blue Joggers, holding a phone in one hand. traffic signals and railing is also visible in background'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and Bhalchandra standing in front of London Eye,  Esha is wearing full orange jacket, black spectacles and dark blue Joggers, holding a phone in one hand, while Bhalchandra wearing blue shirt and blue jacket. Thames river water is seen in background'"
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and Bhalchandra standing in front of London Eye Ferris wheel,  Esha is wearing full orange jacket, black spectacles and dark blue Joggers, holding a phone in one hand, while Bhalchandra wearing blue shirt and blue jacket. Thames river water is seen in background'"
+
+execute python3 chroma_discord_skill.py "image" "Bhal" "'London Eye Ferris wheel, Thames river water is seen in the background'"
 
 
 execute python3 chroma_whatsapp_skill.py  "image" "+18589522575" "'Deep red chilies in three trays to dry in sun.'"
