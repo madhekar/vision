@@ -12,7 +12,7 @@ Lil Peoples world daycare Bellevue,WA,US,47.6023837,-122.1509483
 BCA Pre-school Bellevue,WA,US,47.6326327,-122.1438737
 Hickman elementary school,CA,US,32.914994,-117.153358
 CDMA elementary school,CA,US,32.940702,-117.228672
-CVMS  Middle School,CA,US,32.9466601, -117.2316515
+CVMS Middle School,CA,US,32.9466601, -117.2316515
 Torry Pines high school,CA,US,32.95844,-117.224907
 Prime elementary,CA,US,47.635425,-122.144208
 Malibu Tample Calabasas,CA,US,34.095699,-118.710197
@@ -31,9 +31,9 @@ Grand Canyon National Park,AZ,US,36.3078548,-112.292896
 Ellis Island Statue Of Liberty,NY,US,40.6985935,-74.0420135
 Lake Tahoe National,CA,US,39.0885405,-120.0503528
 Newport Beach,CA,US,33.6170092,-117.9294401
-Santa Barbara Mission ,CA,US,34.420830,-119.698189
-Julian Recreation ,CA,US,33.6170092,-116.5878464
-Palm Springs ,CA,US,33.8246269,-116.540303
+Santa Barbara Mission,CA,US,34.420830,-119.698189
+Julian Recreation,CA,US,33.6170092,-116.5878464
+Palm Springs,CA,US,33.8246269,-116.540303
 Temecula Recreation,CA,US,33.4946353,-117.147366
 Los Penasquitos Canyon County Preserve,CA,US,32.9375784,-117.1274967
 Big Bear Lake,CA,US,34.2440587,-116.910118
@@ -61,13 +61,13 @@ George Washington Birthplace National Monument,VA,US,38.1918855,-76.9208322
 San Diego Zoo San Diego,CA,US,32.7359874,-117.1506542
 Hilltop Park San Diego,CA,US,32.9712946,-117.1190194
 Celly Cristobal Park San Diego,CA,US,32.923220700,-117.16772200
-Solvang XMAS village ,CA,US,34.5960774,-120.1381144
+Solvang XMAS village,CA,US,34.5960774,-120.1381144
 Independence Hall Philadelphia,PA,US,39.9488872,-75.150026
 Shankarrao and preeti  Bridgetown,NJ,US,39.9642492,-74.2572533
 Wild Animal Safari Park San Diego,CA,US,33.0981185,-116.9965363
 BAPS Shri Swaminarayan Mandir Chino Hills,CA,US,33.9772249,-117.6961614
 Bharatnatyam Class San Diego,CA,US,32.930294,-117.087159
-University of San Diego ,CA,US,32.875696,-117.154587
+University of San Diego,CA,US,32.875696,-117.154587
 Poway Performing Arts Poway,CA,US,32.9970824,-117.0245726
 Bellevue Downtown Park San Diego,WA,US,47.6124709,-122.2045589
 Ensenada Cruise Mexico,BC,MX,31.865858,-116.607681
@@ -112,7 +112,7 @@ Kīlauea Big Island,HI,US,19.4138647,-155.275811
 Hawaii Volcanoes National Park,HI,US,19.2608312,-155.3578662
 Hawaii tropical botanical garden,HI,US,19.810773,-155.09633
 Ellison Onizuka Kona International airport,HI,US,19.743906,-156.042296
-Ramona City ,CA,US,33.0472806,-116.8776005
+Ramona City,CA,US,33.0472806,-116.8776005
 Rainbow Falls Hilo AK,HI,US,19.7194808,-155.1095939
 Rosarito Resort and spa,BC,MX,32.360440,-117.046450
 Hualalai Four Seasons Resort AK,HI,US,19.8278417,-155.991648
@@ -132,7 +132,7 @@ Vittal and Rukhmai Devasthan Pandharpur,MH,IN,17.674553,75.323723
 Sadaphuli Society Pune,MH,IN,18.4959828,73.8143501
 Siddharth Hall Kothrud Pune,MH,IN,18.494569,73.810733
 Sadashivgad Hajarmachi near Ogaliwadi Karad,MH,IN,17.305214,74.236286
-Janhvi Bhise Pusegaon Satara ,MH,IN,17.681810,74.345581
+Janhvi Bhise Pusegaon Satara,MH,IN,17.681810,74.345581
 Revati Deshpande Ahmedabad,GJ,IN,23.033863,72.585022
 Moraya Gosavi Samadhi Mandir,MH,IN,18.633610,73.792445
 Bijalinagar MSEB colony chinchwad,MH,IN,18.626078,73.812157
@@ -145,14 +145,14 @@ Lonavala on Mumbai to Pune Road,MH,IN,18.748060,73.407219
 Satpur Nashik,MH,IN,19.997440,73.721283 
 Sinhgad Fort sinhgad ghat Rd Khadakwasala Pune,MH,IN,18.406413,73.768134
 Dundahera Village Gurgaon,HR,IN,28.5168721,77.079369
-British Musiam London,England,UK,51.5178938,-0.1271777
-Buckingham Palace London,England,UK,51.5008349,-0.1430045
-London Eye London,England,UK,51.5033416,-0.1196765
-Trafalgar Square London,England,UK,51.5084502,-0.1284499
-Hyde Park London,England,UK,51.5074889,-0.1622074
-City of London,England,UK,51.4893335,-0.1440551
-Team Strand London,England,UK,51.5135779,-0.1125022
-London Coliseum London,England,UK,51.5099959,-0.1262165
+British Musiam London,ENG,UK,51.5178938,-0.1271777
+Buckingham Palace London,ENG,UK,51.5008349,-0.1430045
+London Eye London,ENG,UK,51.5033416,-0.1196765
+Trafalgar Square London,ENG,UK,51.5084502,-0.1284499
+Hyde Park London,ENG,UK,51.5074889,-0.1622074
+City of London,ENG,UK,51.4893335,-0.1440551
+Team Strand London,ENG,UK,51.5135779,-0.1125022
+London Coliseum London,ENG,UK,51.5099959,-0.1262165
 Zurich Airport Switzerland,LSZH,CH,47.4633881,8.5533661
 Colosseum Rome City,RM,IT,41.8909421,12.491903
 Vatican Church Rome City,RM,IT,41.8948385,12.5842085
