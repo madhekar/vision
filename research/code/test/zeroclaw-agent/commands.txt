@@ -106,6 +106,12 @@ execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, Bhalchandra and
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, Esha, Saachi and Sanvi are engrossed watching a video on a mobile phone.'"
 
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, in front of Harder Kulm in Swiss mountain obervation deck in the background.'"
+
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Seven Red blue color Hydro Generators in Hoover Dam.'" #dam's spillway
+
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Hoover Dam and spillway.'"
+
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha, wearing a black spectacles standing front of Big Ben Clock tower in London a busy street wearing full orange jacket and dark blue Joggers, holding a phone in one hand. traffic signals and railing is also visible in background'"
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and Bhalchandra standing in front of London Eye Ferris wheel,  Esha is wearing full orange jacket, black spectacles and dark blue Joggers, holding a phone in one hand, while Bhalchandra wearing blue shirt and blue jacket. Thames river water is seen in background'"
