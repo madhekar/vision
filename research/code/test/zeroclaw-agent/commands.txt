@@ -56,9 +56,9 @@ execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha sliding d
 
 execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha and two other girls after graduation, all three of them  wearing class of 2021 hey are all wearing blue caps and gowns adorned with yellow tassel at Berkeley University'"
 
-execute python3 chroma_whatsapp_skill.py "image" "+919822912480" "'Two men are standing with small bushes in their hands  in a street waering blue and pink shirts and spectacles in Alandi Pune, India.'"
+execute python3 chroma_whatsapp_skill.py "image" "+919822912480" "'Two men are standing with small bushes in their hands  in a street wearing blue and pink shirts and spectacles in Alandi Pune, India.'"
 
-Two men are standing with small bushes in their hands  in a street waering blue and pink shirts and spectacles in Alandi Pune, India
+Two men are standing with small bushes in their hands  in a street wearing blue and pink shirts and spectacles in Alandi Pune, India
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Baby seating on lap smiling with tung out in mischief, baby is wearing light red color jacket holding own toe'"
 
@@ -66,7 +66,9 @@ execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha, anjali and bhalch
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and anjali in tight embrace in a hotel room, microwave is in background.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Couple dance for their second marriage holding hands, lady is waering pink saree dress and the other donning a blue suit, in the background other people enjoy watching the dance and cheer.'"
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha and anjali in tight embrace in a hotel room, microwave is in background.'"
+
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Couple dance for their second marriage holding hands, lady is wearing pink saree dress and the other donning a blue suit, in the background other people enjoy watching the dance and cheer.'"
 
 execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'movie cutout musical'"
 
