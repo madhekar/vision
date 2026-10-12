@@ -40,9 +40,9 @@ execute python3 chroma_email_skill.py "video" "bhalba@yahoo.com" "'San Diego bea
 
 execute python3 chroma_whatsapp_skill.py  "video" "+919822197598" "'San Diego beach'"
 
-execute python3 chroma_whatsapp_skill.py  "image" "+919822197598" "'chandrakant seating on chair with pink jacket and red turban'"
+execute python3 chroma_whatsapp_skill.py  "image" "+919822197598" "'Chandrakant seating on chair with pink jacket and red turban'"
 
-execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'archeological sites in India'"
+execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'Archeological sites in India'"
 
 execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'Ganapati festival in India'"
 
@@ -58,23 +58,22 @@ execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha and two o
 
 execute python3 chroma_whatsapp_skill.py "image" "+919822912480" "'Two men are standing with small bushes in their hands  in a street wearing blue and pink shirts and spectacles in Alandi Pune, India.'"
 
-Two men are standing with small bushes in their hands  in a street wearing blue and pink shirts and spectacles in Alandi Pune, India
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Baby seating on lap smiling with tung out in mischief, baby is wearing light red color jacket holding own toe'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha, anjali and bhalchandra greeting Esha for her birthday while She is cutting a homemade vegan cake.'"
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha, Anjali and bhalchandra greeting Esha for her birthday while She is cutting a homemade vegan cake.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and anjali in tight embrace in a hotel room, microwave is in background.'"
+execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and Anjali in tight embrace in a hotel room, microwave is in background.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha and anjali in tight embrace in a hotel room, microwave is in background.'"
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha and Anjali in tight embrace in a hotel room, microwave is in background.'"
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Couple dance for their second marriage holding hands, lady is wearing pink saree dress and the other donning a blue suit, in the background other people enjoy watching the dance and cheer.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'movie cutout musical'"
+execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Movie cutout musical'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'four weman standing in front of a lake.'"
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Four weman standing in front of a lake.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'tender moment among a group of young girls.'"
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Tender moment among a group of young girls.'"
 
 
 execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Two toddler girls enjoy and laugh in pune India. They were fiends from same daycare center'"
