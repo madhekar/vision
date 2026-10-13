@@ -84,7 +84,8 @@ valid src types: Samsung USB, SWEETHOME, GRANDCANYON, Berkeley, ASSORT_K30
 '''
 def query_image_with_metadata( query_texts: list, src_filter: str, ts_filter_start: int, ts_filter_end: int) -> dict:
     """Return similarity search results with  metadata filtering for image collection."""
-    img_collection, _, _, n_results = chroma_query_init()
+    #img_collection, _, _, n_results = chroma_query_init()
+    img_collection, _, _, _, _, n_results = chroma_query_init()
     metadata_filter = { 
         "$and": [
             {"src": {"$eq": src_filter }},
@@ -110,7 +111,8 @@ def query_image_with_metadata( query_texts: list, src_filter: str, ts_filter_sta
 def query_video_with_metadata( query_texts: list, src_filter: str, ts_filter_low: int, ts_filter_high: int) -> dict:
     """Return similarity search results with  metadata filtering for video collection."""
 
-    _, vid_collection, _, n_results = chroma_query_init()
+    #_, vid_collection, _, n_results = chroma_query_init()
+    _, vid_collection, _, _, _, n_results = chroma_query_init()
 
     metadata_filter = {
         "$and": [
@@ -142,7 +144,8 @@ def query_video_with_metadata( query_texts: list, src_filter: str, ts_filter_low
 
 def query_text_with_metadata( query_texts: list, src_filter: str, ts_filter: int) -> dict:
     """Return similarity search results with metadata filtering for text collection."""
-    _, _, txt_collection, n_results = chroma_query_init()
+    #_, _, txt_collection, n_results = chroma_query_init()
+    _, _, txt_collection, _, _, n_results = chroma_query_init()
     metadata_filter = '{ "$and": [{"src": {"$eq": "' + src_filter + '" }},{"ts": {"$gte":' + str(ts_filter) +'}}]}'
     return txt_collection.query(
         query_texts=query_texts,
