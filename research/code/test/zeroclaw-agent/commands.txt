@@ -120,6 +120,8 @@ execute python3 chroma_discord_skill.py "image" "Bhal" "'London Eye Ferris wheel
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, Esha and Bhalchandra wrapped hand in Bandage in front of water fall in Hawaii.'"
 
+execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha show the trick of matching her face with Lays class bag picture.'"
+
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, Esha and Bhalchandra ready for Atlantis tour in Kona Hawaii.'"
 
 execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and Shibangi are having breakfast in Alaska, cereal bag and lucerne milk carton infront of their table.'"
