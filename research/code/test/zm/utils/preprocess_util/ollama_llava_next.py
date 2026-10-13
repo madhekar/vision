@@ -119,7 +119,7 @@ async def describe_image( img_path, ppt, location):
                     '7. Skip text that is too unclear or ambiguous.'
                     '8. Exclude non-factual elements.'
                     '9. Maintain clarity and information.'
-                    '10. Use very respectiful words to describe people. example elderly should be replaced with venerable',
+                    '10. Use very respectiful words to describe people. example elderly, older should be replaced with venerable',
                     
                 },
                 {
