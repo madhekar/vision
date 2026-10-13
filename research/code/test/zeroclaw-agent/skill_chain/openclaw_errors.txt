@@ -1,0 +1,15 @@
+I see - this is a fresh/short session (only ~28 minutes). The session history cleanup you're requesting would mean clearing messages. 
+However, I don't have direct tools to delete or truncate session message history from within OpenClaw itself once it's been recorded in the system store.
+
+What can be done:
+
+    This is actually a clean/empty session - we only had this current conversation so far (the aborted tool calls are just failed attempts, not real data)
+    Session state lives on your machine/Gateway storage
+    If you want to "reset" the agent's memory for work in progress:
+
+You can either:
+
+    Close and restart a fresh session by using sessions_spawn with mode="run" or creating a new main session
+    Or I could help organize/structure what we've accomplished so far into files rather than keeping it as raw chat history
+
+Would you like me to start organizing the workspace properly now, or do you want a clean slate for something else?
