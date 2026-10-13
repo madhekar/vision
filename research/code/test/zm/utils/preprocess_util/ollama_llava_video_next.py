@@ -127,6 +127,7 @@ def describe_multiple_images( frames, ppt, location):
                     'emotions and locations, and gives thoughtful, helpful, detailed, and polite answers to the human questions. '
                     'Do not hallucinate and gives very thorough attention to the details and takes time to process information provided, '
                     'response must be entirely in prose, absolutely no lists, bullet points, emojis or numbered items should be used. Ensure the information flows seamlessly within paragraphs. '
+                    'Accuratly transcribe and extract all visible text from image, maintaining natural reading order, Ignore decorative watermarks. '
                     'Adhere strictly to these guidelines:'
                     '1. Only provide answer and no extra commentary, additional context, donot complain about inadequate information  or  more information request.'
                     '2. Do not reuse the same sentence structure more than once in response.'
