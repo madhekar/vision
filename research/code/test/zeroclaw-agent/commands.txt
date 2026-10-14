@@ -171,7 +171,7 @@ execute python3 chroma_discord_skill.py "image" "Bhal" "'Bhalchandra wearing Blu
 
 ---metadata----  "18589975216-1441916503@g.us" 
 
-execute python3 chroma_whatsapp_metadata_skill.py "image" "+18589522575" "'India'" "GRANDCANYON" "2008-01-01" "2026-12-12"
+execute python3 chroma_whatsapp_metadata_skill.py "image" "+18589522575" "'India'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
 execute python3 chroma_discord_metadata_skill.py "image" "Bhal" "'India pictures'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
@@ -196,6 +196,8 @@ python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha and Anjali huddle
 execute python3 chroma_email_metadata_skill.py "video" "bhalba@yahoo.com" "'India'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
 execute python3 chroma_discord_metadata_skill.py "image" "Bhal" "'BEST picture from Alaska travel.'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
+
+execute python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Old antic dancing god statue made in black metal.'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
 execute  python3 chroma_whatsapp_metadata_skill.py "image" "+919373312610" "'India'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
@@ -233,7 +235,7 @@ execute  python3 chroma_whatsapp_metadata_skill.py "image" "+18589975216" "'Humm
 
 execute  python3 chroma_discord_skill.py "image" "Bhal" "'Esha and Shibhagi playing joyfully seating on a tire tied to a tree as swing.'"
 
-execute  python3 chroma_discord_metadata_skill.py "image" "Bhal" "A sleepy Man we-aring Blue jacket named Bhiman" "Samsung USB" "2026-06-01" "2026-06-30"
+execute  python3 chroma_discord_metadata_skill.py "image" "Bhal" "A sleepy Man we-aring Blue jacket named Bhiman" "'Samsung USB'" "2026-06-01" "2026-06-30"
 
 execute  python3 chroma_discord_metadata_skill.py "image" "Bhal" "'A sleepy Man wearing Blue jacket named Bhiman'" "'Samsung USB'" "2020-06-01" "2026-06-30"
 
