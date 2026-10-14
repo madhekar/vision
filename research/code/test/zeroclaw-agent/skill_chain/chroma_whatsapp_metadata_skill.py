@@ -13,7 +13,7 @@ arg_query, arg_whatsapp_id =  "'San Diego'", "whatsapp-id"
 if len(sys.argv) > 3:
     collection_type = f"{sys.argv[1]}"
     arg_whatsapp_id = f"{sys.argv[2]}"
-    arg_query = f'"{sys.argv[3]}"'    
+    arg_query = f"{sys.argv[3]}"   
     src_name = sys.argv[4]
     start_datetime = int(parser.parse(sys.argv[5]).timestamp()) 
     end_datetime = int(parser.parse(sys.argv[6]).timestamp())
@@ -24,6 +24,8 @@ if len(sys.argv) > 3:
         cmd_1 = f"import {module}; {module}.{method_img}([{arg_query}], {src_name}, {start_datetime}, {end_datetime})"
     elif collection_type == "video":
         cmd_1 = f"import {module}; {module}.{method_vid}([{arg_query}], {src_name}, {start_datetime}, {end_datetime})"
+
+    #print(cmd_1)    
 
     valid_arr = []
     try:
@@ -45,7 +47,7 @@ if len(sys.argv) > 3:
 
     if valid_arr:
 
-        msg = f"**Rubric**: {valid_arr['caption']}" + "\n\n" + f"**Narative**: {valid_arr['text']}" + "\n\n" + f"**DateTime**: {time.ctime(int(valid_arr['ts']))}"
+        msg = f"**Rubric**: {valid_arr['caption']}" + "\n\n" + f"**Narative**: {valid_arr['text']}" + "\n\n" + f"**DateTime**: {time.ctime(int(float(valid_arr['ts'])))}"
 
         cmd_2 = command = [
             "openclaw", 

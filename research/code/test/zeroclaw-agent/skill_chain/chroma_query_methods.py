@@ -86,6 +86,8 @@ def query_image_with_metadata( query_texts: list, src_filter: str, ts_filter_sta
     """Return similarity search results with  metadata filtering for image collection."""
     #img_collection, _, _, n_results = chroma_query_init()
     img_collection, _, _, _, _, n_results = chroma_query_init()
+
+    print(src_filter, ts_filter_start, ts_filter_end)
     metadata_filter = { 
         "$and": [
             {"src": {"$eq": src_filter }},
