@@ -1,0 +1,65 @@
+Startup valuation methods depend heavily on the company's growth stage, ranging from qualitative scoring frameworks for pre-revenue ideas to financial and market-driven models for revenue-generating businesses.
+
+Pre-Revenue and Early-Stage Methods
+
+• Berkus Method: Evaluates a startup across five key success factors (sound idea, prototype, quality management team, strategic relationships, and product rollout or sales). 
+Each factor can add up to $500,000, capping the pre-money valuation typically around $2.5 million.
+
+• Scorecard Method: Compares your startup to the average pre-money valuation of similar companies in your region and sector. It adjusts that baseline up or down based on weighted categories like team strength (often 30%), 
+market opportunity (25%), and product protection (15%), as detailed by Equidam.
+
+• Cost-to-Duplicate Approach: Calculates the exact historical cost to build the physical assets, write the code, and fund research and development from scratch. 
+This acts as a floor for the value, though it ignores future potential or brand value.
+
+Revenue-Generating and Growth-Stage Methods
+
+• Market Multiples (Comparable Company Analysis): Looks at recent acquisition prices or public trading multiples (such as Annual Recurring Revenue or ARR multiples) of similar companies in your industry.
+• Discounted Cash Flow (DCF): Forecasts the startup’s future free cash flows over several years and discounts them back to their present value using a high discount rate that reflects high investment risk.
+• Venture Capital (VC) Method: Works backward from a projected exit value (terminal value) several years in the future. It divides that future value by the investor's desired return on investment (ROI), 
+then adjusts for expected dilution from future funding rounds.
+
+
+------
+
+
+A startup valuation calculation determines the economic worth of an early-stage company before or after receiving investment, typically split into pre-money valuation (worth before the new funding) 
+and post-money valuation (worth after the new funding is added).
+
+The Core Math Equation
+
+• Post-Money Valuation = Pre-Money Valuation + Amount Raised
+• Investor Ownership % = Amount Raised ÷ Post-Money Valuation
+• Pre-Money Valuation = Post-Money Valuation − Amount Raised
+Example: If an investor puts in $2 million for 20% of the company:
+• Post-money valuation = $2,000,000 ÷ 0.20 = $10 million
+• Pre-money valuation = $10,000,000 − $2,000,000 = $8 million
+
+Common Startup Valuation Methods
+
+
+1. Early-Stage / Pre-Revenue Methods
+
+• The Berkus Method: Assigns dollar values (up to $500,000 each, capped around $2.5M total) to qualitative milestones like sound idea, prototype, management team, strategic relationships, and product rollout.
+• The Scorecard Method: Compares the startup to an average funded startup in the same region and adjusts the baseline value using weighted criteria such as team strength (30%), market size (25%), and product 
+(15%) via platforms like Equidam.
+
+• Cost-to-Duplicate: Totals the actual historical expenses and physical/R&D asset fair market values required to rebuild the company from scratch.
+
+2. Growth-Stage / Revenue-Driven Methods
+
+• Market Multiples (Comparable Analysis): Applies industry-standard revenue or ARR (Annual Recurring Revenue) multiples (e.g., 2x–3x ARR or similar recent transaction data) derived from comparable companies.
+• Discounted Cash Flow (DCF): Projects future free cash flows and discounts them back to present value using a high discount rate to account for high startup failure risks.
+• Venture Capital (VC) Method: Works backward from a predicted future exit value (terminal value) 5 to 10 years out, divides it by the target investor return multiple (e.g., 5x–10x), and subtracts the projected investment.
+• 
+Reddit·r/Entrepreneur
+How to calculate the valuation of startup? : r/Entrepreneur
+February 22, 2023 — Startup Valuation Methods: Startup valuation is primarily driven by future revenue and profit projections. Common methods include ...
+• 
+Investopedia
+Unlocking the Secrets to Valuing Startup Ventures
+Sep 16, 2026 — Key Takeaways * Determining a startup's value often involves methods different from those used for mature companies, such as cost-
+• 
+HSBC Innovation Banking
+Startup Valuation: How to Value Your Startup Before Raising ...
+Valuation methods: how startups are typically priced 1. Comparable company analysis This is one of the most common approaches. Inv...
+Show all
