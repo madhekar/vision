@@ -1,10 +1,10 @@
 import os
 import time
+import json
+import sys
 import chromadb
 from chromadb.config import Settings
 from sentence_transformers import CrossEncoder
-import json
-import sys
 from chromadb.utils.embedding_functions import OpenCLIPEmbeddingFunction
 from  compress_video_helper import compress_video
 import chroma_util as cu
@@ -28,7 +28,7 @@ def chroma_query_init():
     txt_collection = client.get_or_create_collection(name="multimodal_collection_texts", embedding_function=embedding_function)
     reranker_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
     sqlite_path = "/mnt/zmdata/home-media-app/data/app-data/sqlite/zm_image_idx.db"
-    n_results = 2
+    n_results = 1
     
     return img_collection, vid_collection, txt_collection, reranker_model, sqlite_path, n_results
 
@@ -87,7 +87,7 @@ def query_image_with_metadata( query_texts: list, src_filter: str, ts_filter_sta
     #img_collection, _, _, n_results = chroma_query_init()
     img_collection, _, _, _, _, n_results = chroma_query_init()
 
-    print(src_filter, ts_filter_start, ts_filter_end)
+    #print(src_filter, ts_filter_start, ts_filter_end)
     metadata_filter = { 
         "$and": [
             {"src": {"$eq": src_filter }},

@@ -14,11 +14,11 @@ if len(sys.argv) > 3:
     collection_type = f"{sys.argv[1]}"
     arg_whatsapp_id = f"{sys.argv[2]}"
     arg_query = f"{sys.argv[3]}"   
-    src_name = sys.argv[4]
+    src_name = f"{sys.argv[4]}"
     start_datetime = int(parser.parse(sys.argv[5]).timestamp()) 
     end_datetime = int(parser.parse(sys.argv[6]).timestamp())
 
-    print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]} : {sys.argv[4]}: {sys.argv[5]} - {start_datetime} : {sys.argv[6]} - {end_datetime}")
+    #print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]} : {sys.argv[4]}: {sys.argv[5]} - {start_datetime} : {sys.argv[6]} - {end_datetime}")
         
     if collection_type == "image":
         cmd_1 = f"import {module}; {module}.{method_img}([{arg_query}], {src_name}, {start_datetime}, {end_datetime})"
@@ -29,13 +29,12 @@ if len(sys.argv) > 3:
 
     valid_arr = []
     try:
-            result = subprocess.run(["python3", "-c", cmd_1], capture_output=True, text=True, check=True)
+            result = subprocess.run([sys.executable, "-c", cmd_1], capture_output=True, text=True, check=True)
             if result.stdout.strip() == "no":
                 print("no result found")
                 sys.exit(0)
             else:
                 try:
-                   #print("--->>", result.stdout.strip(), result.stderr.strip())
                    valid_arr = ast.literal_eval(result.stdout.strip())[0]
 
                    print(valid_arr)
@@ -70,4 +69,4 @@ if len(sys.argv) > 3:
     else:
          print("No intermedia records found in vector db")
 else:
-    print("No arguments provided. e.g chroma_discord_skill.py email-id query-string")
+    print("No arguments provided.")
