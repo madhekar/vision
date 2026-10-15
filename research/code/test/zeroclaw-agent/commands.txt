@@ -16,7 +16,7 @@ To inspect the listener:
 15:24:00-07:00 warn cron {"module":"cron","storePath":"/home/madhekar/.openclaw/cron/jobs.json"} 
 {"jobId":"d08d69f6-9008-4c4c-9629-b1e2d74d9ea5","jobName":"Run chroma whatsapp script","error":"Channel is required when multiple channels are configured: discord, whatsapp. 
 Pass --channel <channel> to choose one. Set delivery.channel explicitly or use a main session with a previous channel.","diagnosticsSummary":"stdout:\narguments: +18589522575 : Esha\n\nstderr:\nTraceback (most recent call last):\n  
-File \"/home/madhekar/.openclaw/workspace/skills/chroma-query-executor/scripts/chroma_whatsapp_skill.py\", line 17, in <module>\n    cp = subprocess.run([sys.executable, \"-c\", cmd_1], capture_output=True, 
+File \"/home/madhekar/.openclaw/workspace/skills/chroma-query-executor/scripts/ZmVibeW.py\", line 17, in <module>\n    cp = subprocess.run([sys.executable, \"-c\", cmd_1], capture_output=True, 
 text=True, check=True)\n  File \"/usr/lib/python3.10/subprocess.py\", line 526, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['/usr/bin/python3', '-c', 'import chroma_query_methods; chroma_query_methods.query_video_collection_uri(\"Esha\")']' returned non-zero exit status 1."} cron: job run returned error status
 
 
@@ -26,147 +26,149 @@ whatsapp group idols
 18589975216-1441916503@g.us
 ----
 
-execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'Pune Ganapati festivals'"
+execute python3 ZmVibeW.py "video" "+18589522575" "'Pune Ganapati festivals'"
 
-execute python3 chroma_discord_skill.py "video" "Bhal" "'Pune festivals'"
+execute python3 ZmVibeD.py "video" "Bhal" "'Pune festivals'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Five person Social event with Anjali'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Five person Social event with Anjali'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Five person Social event with Kumar in Pune, India'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Five person Social event with Kumar in Pune, India'"
 
-execute python3 chroma_whatsapp_skill.py  "video" "+919822912480" "'San Diego beach'"
+execute python3 ZmVibeW.py  "video" "+919822912480" "'San Diego beach'"
 
-execute python3 chroma_email_skill.py "video" "bhalba@yahoo.com" "'San Diego beach'"
+execute python3 ZmVibeE.py "video" "bhalba@yahoo.com" "'San Diego beach'"
 
-execute python3 chroma_whatsapp_skill.py  "video" "+919822197598" "'San Diego beach'"
+execute python3 ZmVibeW.py  "video" "+919822197598" "'San Diego beach'"
 
-execute python3 chroma_whatsapp_skill.py  "image" "+919822197598" "'Chandrakant seating on chair with pink jacket and red turban'"
+execute python3 ZmVibeW.py  "image" "+919822197598" "'Chandrakant seating on chair with pink jacket and red turban'"
 
-execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'Archeological sites in India'"
+execute python3 ZmVibeW.py "video" "+18589522575" "'Archeological sites in India'"
 
-execute python3 chroma_whatsapp_skill.py "video" "+18589522575" "'Ganapati festival in India'"
+execute python3 ZmVibeW.py "video" "+18589522575" "'Ganapati festival in India'"
 
-execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha and Bhalchandra huddle together in extreme cold breeze wearing thick jackets in Grand Canyon National Park.'"
+execute python3 ZmVibeW.py "image" "+18589522575" "'Esha and Bhalchandra huddle together in extreme cold breeze wearing thick jackets in Grand Canyon National Park.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'four weman standing in front of a lake.'"
+execute python3 ZmVibeW.py "image" "+18589522575" "'four weman standing in front of a lake.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha holding a cat with both the hands  similing, she is wearing black top and black shorts, green plants and trees in the background.'"
+execute python3 ZmVibeW.py "image" "+18589522575" "'Esha holding a cat with both the hands  similing, she is wearing black top and black shorts, green plants and trees in the background.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha sliding down on a railing similing, she is wearing pink top and blue jeans.'"
+execute python3 ZmVibeW.py "image" "+18589522575" "'Esha sliding down on a railing similing, she is wearing pink top and blue jeans.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha and two other girls after graduation, all three of them  wearing class of 2021 hey are all wearing blue caps and gowns adorned with yellow tassel at Berkeley University'"
+execute python3 ZmVibeW.py "image" "+18589522575" "'Esha and two other girls after graduation, all three of them  wearing class of 2021 hey are all wearing blue caps and gowns adorned with yellow tassel at Berkeley University'"
 
-execute python3 chroma_whatsapp_skill.py "image" "+919822912480" "'Two men are standing with small bushes in their hands  in a street wearing blue and pink shirts and spectacles in Alandi Pune, India.'"
+execute python3 ZmVibeW.py "image" "+919822912480" "'Two men are standing with small bushes in their hands  in a street wearing blue and pink shirts and spectacles in Alandi Pune, India.'"
 
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Baby seating on lap smiling with tung out in mischief, baby is wearing light red color jacket holding own toe'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Baby seating on lap smiling with tung out in mischief, baby is wearing light red color jacket holding own toe'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha, Anjali and bhalchandra greeting Esha for her birthday while She is cutting a homemade vegan cake.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Esha, Anjali and bhalchandra greeting Esha for her birthday while She is cutting a homemade vegan cake.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and Anjali in tight embrace in a hotel room, microwave is in background.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Esha and Anjali in tight embrace in a hotel room, microwave is in background.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha and Anjali in tight embrace in a hotel room, microwave is in background.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha and Anjali in tight embrace in a hotel room, microwave is in background.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Couple dance for their second marriage holding hands, lady is wearing pink saree dress and the other donning a blue suit, in the background other people enjoy watching the dance and cheer.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Couple dance for their second marriage holding hands, lady is wearing pink saree dress and the other donning a blue suit, in the background other people enjoy watching the dance and cheer.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Movie cutout musical'"
+execute python3 ZmVibeW.py "image" "+18589522575" "'Movie cutout musical'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Four weman standing in front of a lake.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Four weman standing in front of a lake.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Tender moment among a group of young girls.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Tender moment among a group of young girls.'"
 
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Two toddler girls enjoy and laugh in pune India. They were fiends from same daycare center'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Two toddler girls enjoy and laugh in pune India. They were fiends from same daycare center'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Two toddler girls enjoy and profusely laugh in Pune India.They are wearing white bangles and bands in hand.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Two toddler girls enjoy and profusely laugh in Pune India.They are wearing white bangles and bands in hand.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Two toddler girls both have short black hair and profusely laughing with wide open mouth.  Two of them seating on same large chair, a red lamp shade is in the background.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Two toddler girls both have short black hair and profusely laughing with wide open mouth.  Two of them seating on same large chair, a red lamp shade is in the background.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha and Anjali in India sari holding an Idol.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha and Anjali in India sari holding an Idol.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'A cat is seating quietly alone, after she was tightly wrapped in a white blanket.'" ???
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'A cat is seating quietly alone, after she was tightly wrapped in a white blanket.'" ???
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha and Shibangi standing in front of large ship ancher in busy Alaska port.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha and Shibangi standing in front of large ship ancher in busy Alaska port.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha, Bhalchandra and Anjali standing in front of large Glacier in Seaward Alaska.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha, Bhalchandra and Anjali standing in front of large Glacier in Seaward Alaska.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Kumar and Anjali standing in front of a fort in Indoor, India.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Kumar and Anjali standing in front of a fort in Indoor, India.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Anjali, Kumar and Asha are standing in a makeshift road-side restaurant in India'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Anjali, Kumar and Asha are standing in a makeshift road-side restaurant in India'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha standing in Grand Canyon national park and socking in the surrounding fresh snow in the background'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha standing in Grand Canyon national park and socking in the surrounding fresh snow in the background'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Anjali, Kumar and Asha are standing in a makeshift road-side restaurant in India. Anjali is holding her spectacles in hand while busy taking selfie.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Anjali, Kumar and Asha are standing in a makeshift road-side restaurant in India. Anjali is holding her spectacles in hand while busy taking selfie.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha and Anjali standing in front of huge decorative antic brown  door, The door is adorned with intricate carvings in  Mexico City'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha and Anjali standing in front of huge decorative antic brown  door, The door is adorned with intricate carvings in  Mexico City'"
 
-execute python3 chroma_whatsapp_skill.py "image" "+919373312610" "'Anjali, Kumar and Asha are standing in a makeshift road-side restaurant in India. Anjali is holding her spectacles in hand while busy taking selfie.'"
+execute python3 ZmVibeW.py "image" "+919373312610" "'Anjali, Kumar and Asha are standing in a makeshift road-side restaurant in India. Anjali is holding her spectacles in hand while busy taking selfie.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, Bhalchandra and Esha are standing by the lake in Alaska, three of them huddle together because surrounding is Extremely cold.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Anjali, Bhalchandra and Esha are standing by the lake in Alaska, three of them huddle together because surrounding is Extremely cold.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, Esha, Saachi and Sanvi are engrossed watching a video on a mobile phone.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Anjali, Esha, Saachi and Sanvi are engrossed watching a video on a mobile phone.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, in front of Harder Kulm in Swiss mountain obervation deck in the background.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Anjali, in front of Harder Kulm in Swiss mountain obervation deck in the background.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Seven Red blue color Hydro Generators in Hoover Dam.'" #dam's spillway
+execute python3 ZmVibeD.py "image" "Bhal" "'Seven Red blue color Hydro Generators in Hoover Dam.'" #dam's spillway
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Hoover Dam and spillway.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Hoover Dam and spillway.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha, wearing a black spectacles standing front of Big Ben Clock tower in London a busy street wearing full orange jacket and dark blue Joggers, holding a phone in one hand. traffic signals and railing is also visible in background'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Esha, wearing a black spectacles standing front of Big Ben Clock tower in London a busy street wearing full orange jacket and dark blue Joggers, holding a phone in one hand. traffic signals and railing is also visible in background'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and Bhalchandra standing in front of London Eye Ferris wheel,  Esha is wearing full orange jacket, black spectacles and dark blue Joggers, holding a phone in one hand, while Bhalchandra wearing blue shirt and blue jacket. Thames river water is seen in background'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Esha and Bhalchandra standing in front of London Eye Ferris wheel,  Esha is wearing full orange jacket, black spectacles and dark blue Joggers, holding a phone in one hand, while Bhalchandra wearing blue shirt and blue jacket. Thames river water is seen in background'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'London Eye Ferris wheel, Thames river water is seen in the background'"
+execute python3 ZmVibeD.py "image" "Bhal" "'London Eye Ferris wheel, Thames river water is seen in the background'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, Esha and Bhalchandra wrapped hand in Bandage in front of water fall in Hawaii.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Anjali, Esha and Bhalchandra wrapped hand in Bandage in front of water fall in Hawaii.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha show the trick of matching her face with Lays class bag picture.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha show the trick of matching her face with Lays class bag picture.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'three girls enjoy wortph seating in a sunny park in San Francisco.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'three girls enjoy wortph seating in a sunny park in San Francisco.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Anjali, Esha and Bhalchandra ready for Atlantis tour in Kona Hawaii.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Anjali, Esha and Bhalchandra ready for Atlantis tour in Kona Hawaii.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha, a joyful individual, standing in front of a breathtaking landscape at Denali.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Esha, a joyful individual, standing in front of a breathtaking landscape at Denali.'"
 
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and Shibangi are having breakfast in Alaska, cereal bag and lucerne milk carton infront of their table.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Esha and Shibangi are having breakfast in Alaska, cereal bag and lucerne milk carton infront of their table.'"
 
 
-execute python3 chroma_whatsapp_skill.py  "image" "+18589522575" "'Deep red chilies in three trays to dry in sun.'"
+execute python3 ZmVibeW.py  "image" "+18589522575" "'Deep red chilies in three trays to dry in sun.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha In front of a large BETZ Transformer in Hoover Dam hydro electic power generation facility.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Esha In front of a large BETZ Transformer in Hoover Dam hydro electic power generation facility.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha is wearing a moose horn on her head in Alaska.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Esha is wearing a moose horn on her head in Alaska.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and her two other friends enjoying their picnic, near Golden Gate Park, in San Francisco.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Esha and her two other friends enjoying their picnic, near Golden Gate Park, in San Francisco.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha standing in front of a giant flamingo in Las Vegas.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Esha standing in front of a giant flamingo in Las Vegas.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and Anjali seating on dorm room bed in Berkeley, Esha has arranged memory pictures on the back wall. Esha is wearing her favorite bag'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Esha and Anjali seating on dorm room bed in Berkeley, Esha has arranged memory pictures on the back wall. Esha is wearing her favorite bag'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Anjali, Kumar and Asha are standing in a makeshift road-side restaurant in India. Anjali is holding her spectacles in hand while busy taking selfie. Food plates, water utensils, red chairs and blue tables in the background.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Anjali, Kumar and Asha are standing in a makeshift road-side restaurant in India. Anjali is holding her spectacles in hand while busy taking selfie. Food plates, water utensils, red chairs and blue tables in the background.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha and Bhalchandra standing in sunny Alaska by the Lake, Esha is wearing Hickman T shirt'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha and Bhalchandra standing in sunny Alaska by the Lake, Esha is wearing Hickman T shirt'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha Hallowen party in carmel valley elementary'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha Hallowen party in carmel valley elementary'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha, Saachi and Sanvi cozy seating together smiling.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha, Saachi and Sanvi cozy seating together smiling.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Anjali and Shoma posing for a picture in park in front of a water fountain.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Anjali and Shoma posing for a picture in park in front of a water fountain.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Ganapti puja at Madhekar residence.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Ganapti puja at Madhekar residence.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "18589975216-1441916503@g.us" "'Esha standing on a balcony adorned with cacti, infont of a MOLINO "EL PUJOL" restaurant in Mexico City.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha standing on a balcony adorned with cacti, infont of a MOLINO "EL PUJOL" restaurant in Mexico City.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha and Shibangi in Hickman elementary for science field day class.'"
+execute python3 ZmVibeW.py "image" "+18589522575" "'Esha and Shibangi in Hickman elementary for science field day class.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Cafeteria in Berkeley University with yellow chairs and wooden tables.'"
+execute python3 ZmVibeW.py "image" "+18589522575" "'Cafeteria in Berkeley University with yellow chairs and wooden tables.'"
 
-execute python3 chroma_whatsapp_skill.py "image" "+18589522575" "'Esha Celebration of 20th birthday in Berkeley.'"
+execute python3 ZmVibeW.py "image" "+18589522575" "'Esha Celebration of 20th birthday in Berkeley.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Celebration of Esha's 20th birthday in Berkeley.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Celebration of Esha's 20th birthday in Berkeley.'"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Bhalchandra wearing Blue shirt and black pants is seating next to Einstein statue statue .'"
+execute python3 ZmVibeE.py "image" "bhalba@yahoo.com" "'Celebration of Esha's 20th birthday in Berkeley.'"
+
+execute python3 ZmVibeD.py "image" "Bhal" "'Bhalchandra wearing Blue shirt and black pants is seating next to Einstein statue statue .'"
 
 
 ---metadata----  "18589975216-1441916503@g.us" 
@@ -200,6 +202,8 @@ execute python3 chroma_email_metadata_skill.py "video" "bhalba@yahoo.com" "'Indi
 execute python3 chroma_discord_metadata_skill.py "image" "Bhal" "'BEST picture from Alaska travel.'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
 execute python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Old antic dancing god statue made in black metal.'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
+
+execute python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Bhalchandra drivers id card.'" "'SWEETHOME'" "2008-01-01" "2026-12-12"
 
 execute python3 chroma_whatsapp_metadata_skill.py "image" "+919373312610" "'Old antic dancing god statue made in black metal.'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
@@ -239,11 +243,11 @@ execute python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Two Ganapati i
 
 execute python3 chroma_discord_metadata_skill.py "image" "Bhal" "'Esha, Anjali and Bhalchandra posing in front of Taj Mahal in Agra India'" "'SWEETHOME'" "2008-01-01" "2026-12-12"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha, Anjali and Bhalchandra posing in front of Taj Mahal in Agra India'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Esha, Anjali and Bhalchandra posing in front of Taj Mahal in Agra India'"
 
 execute python3 chroma_whatsapp_metadata_skill.py "image" "+18589975216" "'Humming bird seating on a tree in madhekar backyard'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
-execute python3 chroma_discord_skill.py "image" "Bhal" "'Esha and Shibhagi playing joyfully seating on a tire tied to a tree as swing.'"
+execute python3 ZmVibeD.py "image" "Bhal" "'Esha and Shibhagi playing joyfully seating on a tire tied to a tree as swing.'"
 
 execute python3 chroma_discord_metadata_skill.py "image" "Bhal" "A sleepy Man wearing Blue jacket named Bhiman" "'Samsung USB'" "2026-06-01" "2026-06-30"
 
