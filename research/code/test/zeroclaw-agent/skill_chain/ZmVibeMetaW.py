@@ -24,8 +24,7 @@ if len(sys.argv) > 3:
         cmd_1 = f"import {module}; {module}.{method_img}([{arg_query}], {src_name}, {start_datetime}, {end_datetime})"
     elif collection_type == "video":
         cmd_1 = f"import {module}; {module}.{method_vid}([{arg_query}], {src_name}, {start_datetime}, {end_datetime})"
-
-    #print(cmd_1)    
+ 
 
     valid_arr = []
     try:
