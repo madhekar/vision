@@ -20,12 +20,17 @@ if len(sys.argv) > 3:
          cmd_1 = f"import {module}; {module}.{method_image}({arg_query})"
     elif arg_collection_type == "video":
          cmd_1 = f"import {module}; {module}.{method_video}({arg_query})"
-
-    cp = subprocess.run([sys.executable, "-c", cmd_1], capture_output=True, text=True, check=True)
-
-    valid_arr = ast.literal_eval(cp.stdout.strip())[0]
-
-    print(valid_arr)
+    valid_arr = []     
+    try:
+       print(cmd_1)
+       cp = subprocess.run([sys.executable, "-c", cmd_1], capture_output=True, text=True, check=True)
+       print(cp)
+       valid_arr = ast.literal_eval(cp.stdout.strip())[0]
+       #print(valid_arr)
+    
+    except subprocess.CalledProcessError as e:
+        print(f"Exit code: {e.returncode}")
+        print(f"Output:\n{e.output}")
     #cmd_2 = ["./send_email_w_attach.sh", arg_email_id, valid_arr[0]['url'], valid_arr[0]['caption'], valid_arr[0]['text'], "--debug"]
 
     msg = f"**Rubric**: {valid_arr['caption']}" + "\n\n" + f"**Narative**: {valid_arr['text']}" + "\n\n" + f"**DateTime**: {time.ctime(int(float(valid_arr['ts'])))}"

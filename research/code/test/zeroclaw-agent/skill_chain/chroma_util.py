@@ -29,7 +29,7 @@ def rerank_image_search(rr_model, img_url, image_collection, rmax=100, top=30):
             n_results=rmax,
         )
 
-        print(f"chroma util: {results}")
+        #print(f"chroma util: {results}")
         # Extract candidates
         candidate_uris = results["uris"][0]
         #candidate_embeddings = results["embeddings"][0]

@@ -1,71 +1,50 @@
-import sys
-import os
-import subprocess
+import ast
+import time
 import json
+import sys
+import subprocess
 
-def get_duration(input_file):
-    cmd = [
-        'ffprobe', '-v', 'error', '-show_entries', 'format=duration',
-        '-of', 'json', input_file
+module = "chroma_query_methods"
+method_image ="query_image_collection"
+method_video = "query_video_collection"
+arg_query, arg_discord_id =  "'San Diego'", "discord-id"
+
+if len(sys.argv) > 3:
+    arg_collection_type = f"{sys.argv[1]}"
+    arg_discord_id = f"{sys.argv[2]}"
+    arg_query = f'"{sys.argv[3]}"'    
+
+    print(f"arguments:{sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]}")
+
+    if arg_collection_type == "image":
+         cmd_1 = f"import {module}; {module}.{method_image}({arg_query})"
+    elif arg_collection_type == "video":
+         cmd_1 = f"import {module}; {module}.{method_video}({arg_query})"
+
+    cp = subprocess.run([sys.executable, "-c", cmd_1], capture_output=True, text=True, check=True)
+
+    valid_arr = ast.literal_eval(cp.stdout.strip())[0]
+
+    msg = f'**Rubric**: {valid_arr["caption"]}' + '\n\n' + f'**Narative**: {valid_arr["text"]}' + '\n\n' + f'**DateTime**: {time.ctime(int(float(valid_arr["ts"])))}'
+
+    cmd_2 = command = [
+        "openclaw", 
+        "message",
+        "send", 
+        "--channel", "discord",
+        "--media", valid_arr['url'], 
+        "--message", msg, 
+        "--target", arg_discord_id
     ]
-    result = subprocess.run(cmd, capture_output=True, text=True, check=True)
-    data = json.loads(result.stdout)
-    return float(data['format']['duration'])
+    #print(cmd_2)
+    try:
+        result = subprocess.run(cmd_2,  capture_output=True, text=True, check=True)
+        print("Message sent successfully!")
+        print("Output:", result.stdout)
+    except subprocess.CalledProcessError as e:
+        print("Failed to send message.")
+        print("Error code:", e.returncode)
+        print("Error output:", e.stderr)
 
-def compress_video(input_file, target_size_mb):
-    # Setup filenames
-    name, ext = os.path.splitext(input_file)
-    output_file = f"{name}_compressed.mp4"
-    
-    # Calculate target bitrate
-    duration = get_duration(input_file)
-    audio_bitrate_kbps = 128
-    
-    # Formula: (Target Size in bits / duration) - audio bitrate
-    target_size_bits = target_size_mb * 1024 * 1024 * 8
-    total_bitrate_bps = target_size_bits / duration
-    video_bitrate_bps = total_bitrate_bps - (audio_bitrate_kbps * 1000)
-    
-    video_bitrate_kbps = int(video_bitrate_bps / 1000)
-    
-    if video_bitrate_kbps <= 0:
-        print("Error: Target size is too small for this video duration.")
-        return
-
-    #print(f"Targeting: {target_size_mb} MB | Video Bitrate: {video_bitrate_kbps} kbps")
-
-    # Pass 1
-    pass1_cmd = [
-        'ffmpeg', '-y', '-loglevel', 'quiet', '-i', input_file, 
-        '-c:v', 'libx264', '-b:v', f'{video_bitrate_kbps}k',
-        '-pass', '1', '-an', '-f', 'mp4', os.devnull if os.name != 'nt' else 'NUL'
-    ]
-    
-    # Pass 2
-    pass2_cmd = [
-        'ffmpeg', '-y', '-loglevel', 'quiet', '-i', input_file, 
-        '-c:v', 'libx264', '-b:v', f'{video_bitrate_kbps}k',
-        '-pass', '2', '-c:a', 'aac', '-b:a', f'{audio_bitrate_kbps}k', 
-        output_file
-    ]
-
-    #print("Running Pass 1...")
-    subprocess.run(pass1_cmd, check=False)
-    
-    #print("Running Pass 2...")
-    subprocess.run(pass2_cmd, check=False)
-    
-    # Clean up two-pass log files
-    for file in os.listdir('.'):
-        if file.startswith('ffmpeg2pass'):
-            os.remove(file)
-            
-    #print(f"Finished! Saved as: {output_file}")
-
-    return output_file
-
-if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("Usage: python compress.py <input_video> <target_size_in_mb>")
-    else:
-        compress_video(sys.argv[1], float(sys.argv[2]))
+else:
+    print("No arguments provided. e.g chroma_discord_skill.py email-id query-string")
