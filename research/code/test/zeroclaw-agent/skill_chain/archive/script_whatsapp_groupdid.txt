@@ -1,0 +1,38 @@
+18589975216-1441916503@g.us. -->AEBM 
+
+120363043757584552@g.us. -->RISHI, Anjali, Bhalchandra
+
+(() => {
+    const header = document.querySelector('#main header');
+    if (!header) {
+        console.error('❌ Please open a WhatsApp group chat first!');
+        return;
+    }
+    
+    // Find the dynamic React internal tracking key
+    const fiberKey = Object.keys(header).find(
+        key => key.startsWith('__reactFiber$') || key.startsWith('__reactInternalInstance$')
+    );
+    
+    if (!fiberKey) {
+        console.error('❌ Could not find React internal properties on this element.');
+        return;
+    }
+
+    let fiber = header[fiberKey];
+    while (fiber) {
+        const id = fiber.pendingProps?.chat?.id?._serialized;
+        if (id) {
+            if (!id.endsWith('@g.us')) {
+                console.warn(`⚠️ The active chat is not a group. ID found: ${id}`);
+                return;
+            }
+            // Automatically copy it to your clipboard
+            copy(id);
+            console.log(`%c✅ Group ID Found & Copied to Clipboard: ${id}`, 'color: #128C7E; font-weight: bold; font-size: 14px;');
+            return id;
+        }
+        fiber = fiber.return;
+    }
+    console.error('❌ Group ID was not found in the React properties.');
+})();
