@@ -98,13 +98,15 @@ def query_image_with_metadata( query_texts: list, src_filter: str, ts_filter_sta
         include=["metadatas"],
         where = metadata_filter
     )
+    print(img_res)
     arr = []
     for ir in img_res["metadatas"][0]:
         arr.append({"caption": ir["caption"].replace('"','') , "text": ir["text"], "ts": str(ir["ts"]), "url": ir["uri"]})
     if arr:       
         print(arr)
+        return arr
     else:
-        print("no") 
+        return []
 
 
 def query_video_with_metadata( query_texts: list, src_filter: str, ts_filter_low: int, ts_filter_high: int) -> dict:

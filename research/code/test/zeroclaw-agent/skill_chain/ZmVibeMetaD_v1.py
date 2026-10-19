@@ -4,11 +4,7 @@ import sys
 import shlex
 import subprocess
 from dateutil import parser
-<<<<<<< HEAD:research/code/test/zeroclaw-agent/skill_chain/ZmVibeMetaD.py
 import chroma_query_methods as cqm
-=======
-import chroma_query_methods_v1 as cqm
->>>>>>> d8960de47b25ac83920dddebee295133c5fe73a3:research/code/test/zeroclaw-agent/skill_chain/ZmVibeMetaD_v1.py
 
 arg_query, arg_discord_id =  "''", ""
 
@@ -24,7 +20,6 @@ if len(sys.argv) > 3:
     # query_image_with_metadata( query_texts: list, src_filter: str, ts_filter_start: int, ts_filter_end: int)
     valid_arr = []
     try:
-<<<<<<< HEAD:research/code/test/zeroclaw-agent/skill_chain/ZmVibeMetaD.py
 
         result = subprocess.run([sys.executable, "-c", cmd_1], capture_output=True, text=True, check=True)
         if result.stdout.strip() == "no":
@@ -38,17 +33,6 @@ if len(sys.argv) > 3:
     except subprocess.CalledProcessError as e:
         print(f"Command failed exit code: {e.returncode}")
         print(f"Error details:\n{e.stderr}")  # <-- This reveals the actual problem!
-=======
-        if collection_type == "image":
-            cp = cqm.query_image_with_metadata(arg_query, src_name,  start_datetime, end_datetime)
-            valid_arr = cp[0]
-        elif collection_type == "video":
-            cp =  cqm.query_video_with_metadata(arg_query, src_name, start_datetime, end_datetime)
-            valid_arr = cp[0]
-    except Exception as e:
-        print(f"Command failed: {e}")
-
->>>>>>> d8960de47b25ac83920dddebee295133c5fe73a3:research/code/test/zeroclaw-agent/skill_chain/ZmVibeMetaD_v1.py
     
     if valid_arr:
         msg = f'**Rubric**: {valid_arr["caption"]}' + '\n\n' + f'**Narative**: {valid_arr["text"]}' + '\n\n' + f'**DateTime**: {time.ctime(int(valid_arr["ts"]))}'

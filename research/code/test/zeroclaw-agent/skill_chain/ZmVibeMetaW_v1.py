@@ -17,11 +17,13 @@ if len(sys.argv) > 3:
     start_datetime = int(parser.parse(sys.argv[5]).timestamp()) 
     end_datetime = int(parser.parse(sys.argv[6]).timestamp())
 
-    #print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]} : {sys.argv[4]}: {sys.argv[5]} - {start_datetime} : {sys.argv[6]} - {end_datetime}")
+    print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]} : {sys.argv[4]}: {sys.argv[5]} - {start_datetime} : {sys.argv[6]} - {end_datetime}")
+
     valid_arr = []  
     try:
         if collection_type == "image":
             cp =  cqm.query_image_with_metadata(arg_query, src_name, start_datetime, end_datetime)
+            print(cp)
             valid_arr = cp[0]
         elif collection_type == "video":
             cp = cqm.query_video_with_metadata(arg_query, src_name, start_datetime, end_datetime) 
