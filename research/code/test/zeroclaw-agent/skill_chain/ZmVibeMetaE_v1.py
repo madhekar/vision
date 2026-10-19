@@ -15,6 +15,7 @@ if len(sys.argv) > 2:
     src_name = sys.argv[4]
     start_datetime = int(parser.parse(sys.argv[5]).timestamp()) 
     end_datetime = int(parser.parse(sys.argv[6]).timestamp()) 
+    
     print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]} : {sys.argv[4]}: {sys.argv[5]} - {start_datetime} : {sys.argv[6]} - {end_datetime}")
 
     valid_arr = []    
