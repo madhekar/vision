@@ -42,7 +42,7 @@ if len(sys.argv) > 3:
     try:
         result = subprocess.run(cmd_2,  capture_output=True, text=True, check=True)
         #print("Message sent successfully!")
-        #print("Output:", result.stdout)
+        print("Output:", result.stdout)
     except subprocess.CalledProcessError as e:
         print("Failed to send message.")
         print("Error code:", e.returncode)
