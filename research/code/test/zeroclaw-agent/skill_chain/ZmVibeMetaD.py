@@ -4,6 +4,7 @@ import sys
 import shlex
 import subprocess
 from dateutil import parser
+import chroma_query_methods as cqm
 
 module = "chroma_query_methods"
 method_vid = "query_video_with_metadata"
@@ -28,6 +29,7 @@ if len(sys.argv) > 3:
 
     valid_arr = []
     try:
+
         result = subprocess.run([sys.executable, "-c", cmd_1], capture_output=True, text=True, check=True)
         if result.stdout.strip() == "no":
             print("no result found")
