@@ -179,7 +179,9 @@ execute python3 ZmVibeMetaD.py "image" "Bhal" "'India pictures'" "'GRANDCANYON'"
 
 execute python3 ZmVibeMetaD.py "image" "Bhal" "'Esha in traditional Indian dress with three other friends at Berkeley University'" "'Berkeley'" "2008-01-01" "2026-12-12"
 
-execute python3 ZmVibeMetaD.py "image" "Bhal" "'Esha and Shibangi in formal attire dress with one other friend at Berkeley University'" "'Berkeley'" "2008-01-01" "2026-12-12"
+execute python3 ZmVibeMetaD.py "image" "Bhal" "'Esha in red, Shibangi in black with one other friend in blue formal attire dress at Berkeley University'" "'Berkeley'" "2008-01-01" "2026-12-12"
+
+execute python3 ZmVibeMetaE.py "image" "bhalba@yahoo.com" "'Six friend in image fore sanding while two seating in front in the background "Cal" in written in white color over yellow background at Berkeley University'" "'Berkeley'" "2008-01-01" "2026-12-12"
 
 execute python3 ZmVibeMetaD.py "image" "Bhal" "'Esha busy taking selfie of her and mount Mackenzie, in Alaska'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
