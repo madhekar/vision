@@ -3,11 +3,10 @@ import time
 import sys
 import subprocess
 from dateutil import parser
+import chroma_query_methods_v1 as cqm
 
-module = "chroma_query_methods"
-method_vid = "query_video_with_metadata"
-method_img = "query_image_with_metadata"
-arg_query, arg_whatsapp_id =  "'San Diego'", "whatsapp-id"
+
+arg_query, arg_whatsapp_id =  "''", ""
 
 # Check if arguments were passed
 if len(sys.argv) > 3:
@@ -18,30 +17,19 @@ if len(sys.argv) > 3:
     start_datetime = int(parser.parse(sys.argv[5]).timestamp()) 
     end_datetime = int(parser.parse(sys.argv[6]).timestamp())
 
-    #print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]} : {sys.argv[4]}: {sys.argv[5]} - {start_datetime} : {sys.argv[6]} - {end_datetime}")
-        
-    if collection_type == "image":
-        cmd_1 = f"import {module}; {module}.{method_img}([{arg_query}], {src_name}, {start_datetime}, {end_datetime})"
-    elif collection_type == "video":
-        cmd_1 = f"import {module}; {module}.{method_vid}([{arg_query}], {src_name}, {start_datetime}, {end_datetime})"
- 
+    print(f"arguments: {sys.argv[1]} : {sys.argv[2]} : {sys.argv[3]} : {sys.argv[4]}: {sys.argv[5]} - {start_datetime} : {sys.argv[6]} - {end_datetime}")
 
-    valid_arr = []
+    valid_arr = []  
     try:
-            result = subprocess.run([sys.executable, "-c", cmd_1], capture_output=True, text=True, check=True)
-            if result.stdout.strip() == "no":
-                print("no result found")
-                sys.exit(0)
-            else:
-                try:
-                   valid_arr = ast.literal_eval(result.stdout.strip())[0]
-
-                   print(valid_arr)
-                except (SyntaxError, ValueError) as e:
-                    print(f"Invalid Syntax or value:  {e}")
-    except subprocess.CalledProcessError as e:
-            print(f"Command failed with exit code: {e.returncode}")
-            print(f"Error details:\n{e.stderr}")  # <-- This reveals the actual problem!
+        if collection_type == "image":
+            cp =  cqm.query_image_with_metadata(arg_query, src_name, start_datetime, end_datetime)
+            print(cp)
+            valid_arr = cp[0]
+        elif collection_type == "video":
+            cp = cqm.query_video_with_metadata(arg_query, src_name, start_datetime, end_datetime) 
+            valid_arr = cp[0]
+    except Exception as e:
+            print(f"Command failed: {e}")
 
     if valid_arr:
 

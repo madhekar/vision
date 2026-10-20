@@ -48,12 +48,11 @@ def query_image_collection( query_texts: list) -> dict:
     ) """ 
     img_res = csr.rerank_rrf_image_text_search(rr_model, query_texts, img_collection, sqlite_img_path, 50, n_results)  
     #cu.rerank_image_text_search(rr_model, query_texts, img_collection, 100, n_results)
-
+    print(img_res)
     result_list = []
     for ir in img_res:
-        #print(ir[1])
         result_list.append({"caption": ir["caption"] , "text": ir["text"], "ts": ir["ts"], "url": ir["uri"] })
-    print(result_list)
+    return result_list
 
 
 def query_video_collection( query_texts: list) -> list:
@@ -68,7 +67,7 @@ def query_video_collection( query_texts: list) -> list:
            result_list.append({"url": cvideo, "caption": vr[1]["caption"].replace('"', ''), "text": vr[1]["text"], "ts": vr[1]["ts"]})
         else:
            result_list.append({"url": vr[1]["vuri"], "caption": vr[1]["caption"].replace('"', ''), "text": vr[1]["text"], "ts": vr[1]["ts"]})    
-    print(result_list)
+    return result_list
 
 
 # def query_text_collection( query_texts: list) -> dict:
@@ -98,13 +97,11 @@ def query_image_with_metadata( query_texts: list, src_filter: str, ts_filter_sta
         include=["metadatas"],
         where = metadata_filter
     )
+    print(img_res)
     arr = []
     for ir in img_res["metadatas"][0]:
         arr.append({"caption": ir["caption"].replace('"','') , "text": ir["text"], "ts": str(ir["ts"]), "url": ir["uri"]})
-    if arr:       
-        print(arr)
-    else:
-        print("no") 
+    return arr
 
 
 def query_video_with_metadata( query_texts: list, src_filter: str, ts_filter_low: int, ts_filter_high: int) -> dict:
@@ -133,10 +130,8 @@ def query_video_with_metadata( query_texts: list, src_filter: str, ts_filter_low
            result_list.append({"url": cvideo, "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})
         else:
            result_list.append({"url": vr["vuri"], "caption": vr["caption"].replace('"', ''), "text": vr["text"], "ts": vr["ts"]})    
-    if result_list:       
-        print(result_list)
-    else:
-        print("no")    
+
+    return result_list 
 
 
 def query_text_with_metadata( query_texts: list, src_filter: str, ts_filter: int) -> dict:
