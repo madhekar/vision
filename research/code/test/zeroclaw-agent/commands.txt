@@ -150,6 +150,8 @@ execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha and Bhal
 
 execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha Hallowen party in carmel valley elementary'"
 
+execute python3 ZmVibeW.py "image" "18589522575" "'picture in a picture of indian Holi festival party main picture many colorful hands probably dancing on a loud music in second picture Esha with her friend both have bright colorful on face with text BAZAART written on picture at Berkeley University'"
+
 execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha, Saachi and Sanvi cozy seating together smiling.'"
 
 execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Anjali and Shoma posing for a picture in park in front of a water fountain.'"
@@ -181,6 +183,8 @@ execute python3 ZmVibeMetaD.py "image" "Bhal" "'Esha in traditional Indian dress
 
 execute python3 ZmVibeMetaD.py "image" "Bhal" "'Esha in red, Shibangi in black with one other friend in blue formal attire dress at Berkeley University'" "'Berkeley'" "2008-01-01" "2026-12-12"
 
+execute python3 ZmVibeMetaD.py "image" "Bhal" "'Five friends seating on a bench wearing black top, in the background a red wall with picture frame with text "Joan Miro" at Berkeley University'" "'Berkeley'" "2008-01-01" "2026-12-12"
+
 execute python3 ZmVibeMetaE.py "image" "bhalba@yahoo.com" "'Six friend in image fore sanding while two seating in front in the background "Cal" in written in white color over yellow background at Berkeley University'" "'Berkeley'" "2008-01-01" "2026-12-12"
 
 execute python3 ZmVibeMetaD.py "image" "Bhal" "'Esha busy taking selfie of her and mount Mackenzie, in Alaska'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
@@ -194,6 +198,8 @@ execute python3 ZmVibeMetaD.py "image" "Bhal" "'Anjali, Esha and Shibangi checki
 execute python3 ZmVibeMetaD.py "image" "Bhal" "'BEST picture from Alaska travel.'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
 execute python3 ZmVibeMetaD.py "image" "Bhal" "'BEST picture from Alaska travel.'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
+
+
 
 python3 ZmVibeMetaD.py "image" "Bhal" "'Esha and Bhalchandra huddle together in extreme cold breeze in Grand Canyon National Park.'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
