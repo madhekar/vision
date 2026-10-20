@@ -177,6 +177,8 @@ execute python3 ZmVibeMetaW.py "image" "+18589522575" "'India'" "'GRANDCANYON'" 
 
 execute python3 ZmVibeMetaD.py "image" "Bhal" "'India pictures'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
+execute python3 ZmVibeMetaD.py "image" "Bhal" "'Esha in traditional Indian dress with three other friends at Berkeley University'" "'Berkeley'" "2008-01-01" "2026-12-12"
+
 execute python3 ZmVibeMetaD.py "image" "Bhal" "'Esha busy taking selfie of her and mount Mackenzie, in Alaska'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
 
 execute python3 ZmVibeMetaD.py "image" "Bhal" "'image taken in Alaska that includes Esha, Anjali & Bhalchandra.'" "'GRANDCANYON'" "2008-01-01" "2026-12-12"
