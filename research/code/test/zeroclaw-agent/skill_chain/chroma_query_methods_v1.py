@@ -48,7 +48,7 @@ def query_image_collection( query_texts: list) -> dict:
     ) """ 
     img_res = csr.rerank_rrf_image_text_search(rr_model, query_texts, img_collection, sqlite_img_path, 50, n_results)  
     #cu.rerank_image_text_search(rr_model, query_texts, img_collection, 100, n_results)
-
+    print(img_res)
     result_list = []
     for ir in img_res:
         #print(ir[1])

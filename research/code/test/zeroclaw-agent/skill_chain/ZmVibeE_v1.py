@@ -26,9 +26,11 @@ if len(sys.argv) > 2:
     except Exception as e:
         print(f"Exit code: {e}")
 
+    print(valid_arr)
+
     if valid_arr:
         try:
-            cmd_2 = ["./send_msmtp_email_w_attach.sh", arg_email_id, valid_arr[0]['url'], valid_arr[0]['caption'], valid_arr[0]['text'], "--debug"]
+            cmd_2 = ["./send_msmtp_email_w_attach.sh", arg_email_id, valid_arr['url'], valid_arr['caption'], valid_arr['text'], "--debug"]
             cp2 = subprocess.run(cmd_2,  capture_output=True, text=True, check=True)
             print("Message sent successfully!")
 
