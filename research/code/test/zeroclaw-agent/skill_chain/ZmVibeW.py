@@ -6,7 +6,6 @@ import chroma_query_methods_v1 as cqm
 
 arg_query, arg_whatsapp_id =  "''", ""
 
-
 if len(sys.argv) > 3:
     arg_collection_type = f"{sys.argv[1]}"
     arg_whatsapp_id = f"{sys.argv[2]}"

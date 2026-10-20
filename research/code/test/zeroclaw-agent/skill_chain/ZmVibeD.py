@@ -1,6 +1,4 @@
-import ast
 import time
-import json
 import sys
 import chroma_query_methods_v1 as cqm
 import subprocess
