@@ -229,6 +229,8 @@ execute python3 ZmVibeMetaD.py "image" "Bhal" "'BEST picture from Alaska travel.
 
 execute python3 ZmVibeMetaD.py "image" "Bhal" "'Esha near Golden Gate Bridge'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
+execute python3 ZmVibeMetaD.py "image" "Bhal" "'Sham standing in front of Torry Pines State park flat rock beach many people standing on rock, He is wearing Red jacket with black stripes'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
+
 execute python3 ZmVibeMetaW.py "image" "+18589975216" "'Esha near Golden Gate Bridge'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
 execute python3 ZmVibeMetaW.py "image" "18589975216-1441916503@g.us" "'Esha near Golden Gate Bridge'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
