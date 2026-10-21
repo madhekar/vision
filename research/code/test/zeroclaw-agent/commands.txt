@@ -36,7 +36,7 @@ execute python3 ZmVibeD.py "image" "Bhal" "'Five person Social event with Kumar 
 
 execute python3 ZmVibeW.py  "video" "+919822912480" "'San Diego beach'"
 
-execute python3 ZmVibeE.py  "video" "bhalba@yahoo.com" "'four boys tackling each other on cotton sofa, in background wall there is a poster with words SATURDAYS'"
+execute python3 ZmVibeE.py  "image" "bhalba@yahoo.com" "'four boys standing on a college dorm room sofa  playing with each other, in the background wall there is a poster with words SATURDAYS a white cloth hanger is seen on sofa at Berkeley University.'"
 
 execute python3 ZmVibeE.py "video" "bhalba@yahoo.com" "'San Diego beach'"
 
