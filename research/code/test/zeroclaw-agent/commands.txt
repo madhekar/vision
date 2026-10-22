@@ -278,7 +278,7 @@ execute python3 ZmVibeMetaD.py "image" "Bhal" "'Esha, Anjali and Neelakshi posin
 
 execute python3 ZmVibeMetaD.py "image" "Bhal" "'Large number of students enjoy Holi Indian festival.'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
-execute python3 ZmVibeMetaD.py "image" "Bhal" "'Extreamly Messy Cal student kitchen at Berkeley.'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
+execute python3 ZmVibeMetaD.py "image" "Bhal" "'Extremly Messy Cal student kitchen at Berkeley.'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
 execute python3 ZmVibeMetaD.py "image" "Bhal" "'Cat named pattya slipping on lap of person named Bhalchandra.'" "'ASSORT_K30'" "2008-01-01" "2026-12-12"
 
