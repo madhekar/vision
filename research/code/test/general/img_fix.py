@@ -1,4 +1,7 @@
-from PIL import Image
+from PIL import Image, ImageFile
+
+# Force Pillow to load broken or truncated images
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 def repair_png(input_path, output_path):
     with Image.open(input_path) as img:
