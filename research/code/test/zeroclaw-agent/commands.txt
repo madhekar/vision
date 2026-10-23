@@ -150,6 +150,8 @@ execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Anjali, Kumar
 
 execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha and Bhalchandra standing in sunny Alaska by the Lake, Esha is wearing Hickman T shirt'"
 
+execute python3 ZmVibeW.py "video" "18589975216-1441916503@g.us" "'Esha and Bhalchandra standing in sunny Alaska by the Lake, Esha is wearing Hickman T shirt'"
+
 execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha Hallowen party in carmel valley elementary'"
 
 execute python3 ZmVibeW.py "image" "18589522575" "'picture in a picture of indian Holi festival party main picture many colorful hands probably dancing on a loud music in second picture Esha with her friend both have bright colorful on face with text BAZAART written on picture at Berkeley University'"
@@ -158,7 +160,7 @@ execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha, Saachi 
 
 execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Anjali and Shoma posing for a picture in park in front of a water fountain.'"
 
-execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Ganapti puja at Madhekar residence.'"
+execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Ganapti puja in san diego califirnia.'"
 
 execute python3 ZmVibeW.py "image" "18589975216-1441916503@g.us" "'Esha standing on a balcony adorned with cacti, infont of a MOLINO "EL PUJOL" restaurant in Mexico City.'"
 

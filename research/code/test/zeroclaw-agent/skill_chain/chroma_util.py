@@ -169,7 +169,7 @@ def rerank_video_text_search(rr_model, text, video_collection, rerank=False, rma
                 include=["data", "metadatas"], 
                 n_results=rmax
         )
-
+        print(results)
         # Extract candidates
         candidate_texts = [v["text"] for v in results['metadatas'][0]] #results["metadatas"][0]["text"]
         vid_url = [v["vuri"] for v in results['metadatas'][0]]

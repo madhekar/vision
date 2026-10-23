@@ -57,7 +57,7 @@ def query_image_collection( query_texts: list) -> dict:
 
 def query_video_collection( query_texts: list) -> list:
     """Return semantic similarity search results vuri fields only; for given query texts for video collection ."""
-    _, vid_collection, _, rr_model, n_results = chroma_query_init()
+    _, vid_collection, _, rr_model, _, n_results = chroma_query_init()
     #result = vid_collection.query( query_texts=query_texts, n_results=n_results)
     result = cu.rerank_video_text_search(rr_model, query_texts, vid_collection, True, 50, n_results)
     result_list = []

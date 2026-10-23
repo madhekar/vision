@@ -2,7 +2,7 @@ import ast
 import time
 import sys
 import subprocess
-import chroma_query_methods_v1 as cqm
+import chroma_query_methods as cqm
 
 arg_query, arg_whatsapp_id =  "''", ""
 
