@@ -140,6 +140,8 @@ execute python3 ZmVibeD.py "image" "Bhal" "'Esha In front of a large BETZ Transf
 
 execute python3 ZmVibeD.py "image" "Bhal" "'Esha is wearing a moose horn on her head in Alaska.'"
 
+execute python3 ZmVibeD.py "image" "Bhal" "'Berkeley common area for students to eat lunch, student concierge help center in the middle.'"
+
 execute python3 ZmVibeD.py "image" "Bhal" "'Esha and her two other friends enjoying their picnic, near Golden Gate Park, in San Francisco.'"
 
 execute python3 ZmVibeD.py "image" "Bhal" "'Esha standing in front of a giant flamingo in Las Vegas.'"
