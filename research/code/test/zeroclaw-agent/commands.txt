@@ -142,6 +142,14 @@ execute python3 ZmVibeD.py "image" "Bhal" "'Esha is wearing a moose horn on her 
 
 execute python3 ZmVibeD.py "image" "Bhal" "'Berkeley common area for students to eat lunch, student concierge help center in the middle.'"
 
+execute python3 ZmVibeD.py "image" "Bhal" "'Esha and fore other Berkeley students taking a brake in common area for students to eat lunch. Two of them holding coffee plastic cups.'"
+
+execute python3 ZmVibeD.py "image" "Bhal" "'A large hall-a-way in Berkeley common area for students to relax, study, eat lunch, which has large seating arranged.'"
+
+execute python3 ZmVibeD.py "image" "Bhal" "'A large hall in Berkeley for students to relax, study, eat lunch, which has many seating tables and chairs arranged. Some decorative trees in the background.'"
+
+execute python3 ZmVibeD.py "image" "Bhal" "'A large Library hall in Berkeley for students  study with high decorative ceiling, which has many seating tables and chairs arranged.'"
+
 execute python3 ZmVibeD.py "image" "Bhal" "'Esha and her two other friends enjoying their picnic, near Golden Gate Park, in San Francisco.'"
 
 execute python3 ZmVibeD.py "image" "Bhal" "'Esha standing in front of a giant flamingo in Las Vegas.'"
