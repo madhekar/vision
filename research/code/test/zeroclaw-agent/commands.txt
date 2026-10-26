@@ -150,6 +150,8 @@ execute python3 ZmVibeD.py "image" "Bhal" "'A large hall in Berkeley for student
 
 execute python3 ZmVibeD.py "image" "Bhal" "'A large Library hall in Berkeley for students  study with high decorative ceiling, which has many seating tables and chairs arranged.'"
 
+execute python3 ZmVibeD.py "image" "Bhal" "'Anjali visited Esha EECS department server room in  Berkeley for students , server racks at the background.'"
+
 execute python3 ZmVibeD.py "image" "Bhal" "'Esha and her two other friends enjoying their picnic, near Golden Gate Park, in San Francisco.'"
 
 execute python3 ZmVibeD.py "image" "Bhal" "'Esha standing in front of a giant flamingo in Las Vegas.'"
