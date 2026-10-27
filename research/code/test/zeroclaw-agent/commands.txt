@@ -136,6 +136,8 @@ execute python3 ZmVibeD.py "image" "Bhal" "'Esha and Shibangi are having breakfa
 
 execute python3 ZmVibeW.py  "image" "+18589522575" "'Deep red chilies in three trays to dry in sun.'"
 
+execute python3 ZmVibeW.py  "image" "+18589522575" "'A Typical dorm room in Berkeley, shared by two students. Two beds and study tables seen in image.'"
+
 execute python3 ZmVibeD.py "image" "Bhal" "'Esha In front of a large BETZ Transformer in Hoover Dam hydro electric power generation facility.'"
 
 execute python3 ZmVibeD.py "image" "Bhal" "'Esha is wearing a moose horn on her head in Alaska.'"
