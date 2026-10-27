@@ -1,0 +1,27 @@
+openclaw config set memory.search '{"enabled":true,"provider":"ollama","model":"nomic-embed-text:v1.5","remote":{"baseUrl":"http://127.0.0.1:11434"},"sources":["memory","sessions"]}'
+
+
+  "memory": {
+    "search": {
+      "enabled": true,
+      "provider": "ollama",
+      "model": "nomic-embed-text:v1.5",
+      "remote": {
+        "baseUrl": "http://127.0.0.1:11434"
+      },
+      "sources": [
+        "memory",
+        "sessions"
+      ],
+      "query": {
+        "hybrid": {
+          "enabled": true,
+          "vectorWeight": 0.7,
+          "textWeight": 0.3
+        }
+      },
+      "cache": {
+        "enabled": true
+      }
+    }
+  },
