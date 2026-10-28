@@ -146,6 +146,8 @@ execute python3 ZmVibeD.py "image" "Bhal" "'Esha is wearing off-white sweater an
 
 execute python3 ZmVibeD.py "image" "Bhal" "'Esha is wearing big white hat with butterfly and bird patches and pink shirt.'"
 
+execute python3 ZmVibeD.py "image" "Bhal" "'Esha, Anjali and Bhalchandra huddle together looking straight at camera.'"
+
 execute python3 ZmVibeD.py "image" "Bhal" "'Esha is wearing a hair blue-purple hairband with small red and yellow color bares.'"
 
 execute python3 ZmVibeD.py "image" "Bhal" "'Esha is wearing a hairband with small red and yellow color bares seating on red chair.'"
