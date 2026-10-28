@@ -45,3 +45,27 @@ Approach	Best Used For	Primary Benefit	Primary Drawback
 Default rsync	Rapid day-to-day backups.	Incredibly fast; only checks size and timestamps.	Can miss silent file corruption if sizes stay identical.
 rsync -c	Detecting data degradation across storage arrays.	Pure, safe transfer engine automation.	Extreme disk I/O; slow execution speeds.
 External md5sum Manifest	Multi-hop migrations or cold storage auditing.	Provides a permanent, date-stamped validation blueprint.	Requires a two-step shell script workflow.
+
+
+------
+
+The md5sum Command in Linux computes and verifies 128-bit MD5 cryptographic checksums to check file integrity.
+
+What is md5sum?
+
+• Purpose: Generates a 32-character hexadecimal string representing a file's 128-bit MD5 hash value.
+• Integrity Check: Confirms that a file has not changed due to corrupt downloads or disk issues.
+• Security Warning: MD5 is cryptographically broken and vulnerable to collision attacks; do not use it for security-sensitive verification (use SHA-256 or BLAKE2 instead).
+
+Common Commands
+
+• Generate a hash:bash
+md5sum filename.txt
+Use code with caution.
+• Save hashes to a file:bash
+md5sum filename.txt > file.md5
+Use code with caution.
+• Verify files against a saved hash file:bash
+md5sum -c file.md5
+Use code with caution.
+If you are trying to check a specific file, tell me your operating system (Linux, macOS, or Windows) so I can give you the exact command or tool you need.
