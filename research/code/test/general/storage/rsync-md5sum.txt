@@ -17,18 +17,24 @@ Option 2: Generate and Verify an External md5sum Manifest
 
 If you want to keep an audit trail or double-check a copy process independently of rsync, you can generate a standard .md5 text manifest before the transfer and verify it after completion.
 1. Generate the MD5 baseline list in the source directory:
+------------------------------------------------
 bash
 cd /path/to/source/
 find . -type f -exec md5sum {} + > manifest.md5
+------------------------------------------------
 Use code with caution.
 2. Use rsync to copy your data (including the manifest):
+-------------------------------------------------
 bash
 rsync -av /path/to/source/ /path/to/destination/
+-------------------------------------------------
 Use code with caution.
 3. Verify the files at the destination:
+-------------------------------------------------
 bash
 cd /path/to/destination/
 md5sum -c manifest.md5
+-------------------------------------------------
 Use code with caution.
 The -c flag for md5sum tells it to read the generated file, compute the live hashes of the copied items, and output OK for successful matches.
 
