@@ -28,6 +28,8 @@ def extract_video_metadata(directory_path, output_csv):
         # Run command and capture output
         result = subprocess.run(command, capture_output=True, text=True, check=True)
         csv_content = result.stdout
+
+        print(f"---> csv {csv_content}")
         
         processed_csv =  csv_content
         for _ in range(2):
