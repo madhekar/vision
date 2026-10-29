@@ -130,6 +130,7 @@ execute python3 ZmVibeD.py "image" "Bhal" "'Anjali, Esha and Bhalchandra ready f
 
 execute python3 ZmVibeD.py "image" "Bhal" "'Esha, a joyful individual, standing in front of a breathtaking landscape at Denali.'"
 
+execute python3 ZmVibeD.py "image" "Bhal" "'Anjali and Bhalchandra posing for selfie in front of a status of mother holding her kid in Poway, califirnia.'"
 
 execute python3 ZmVibeD.py "image" "Bhal" "'Esha and Shibangi are having breakfast in Alaska, cereal bag and lucerne milk carton infront of their table.'"
 
