@@ -46,6 +46,7 @@ def extract_video_metadata(directory_path, output_csv):
 
 def get_missing_metadata_dataframe(fname):
     df = pd.read_csv(fname)
+    print(f"--->>file {fname} dataframe {df}")
     dfr = df[
         (
             (df["SourceFile"] != "SourceFile")
