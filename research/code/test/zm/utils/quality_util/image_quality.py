@@ -253,7 +253,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold,image_size_limit, image
     print(result)
     archive_images( image_dir_path, archive_path, result)
 
-def execute(source_name, filter_list):
+def execute(source_name, filter_list, retro_quality):
     result = "success"
     try:
         print(filter_list)
@@ -265,7 +265,7 @@ def execute(source_name, filter_list):
          image_quality_threshold, 
          image_size_limit, 
          image_width_limit, 
-         image_height_limit) = config.image_quality_config_load()
+         image_height_limit) = config.image_quality_config_load(retro_quality)
 
         input_image_path_updated = os.path.join(input_image_path, source_name)
         input_video_path_updated = os.path.join(input_video_path, source_name)

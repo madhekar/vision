@@ -64,7 +64,11 @@ def exe():
     ) = config.data_validation_config_load()
 
     st.sidebar.subheader("SELECT DATA SOURCE", divider="gray")
-    user_source_selected = st.sidebar.selectbox("data source folder", options=extract_user_raw_data_folders(raw_data_path),label_visibility="collapsed", index=0)
+    c1,c2 = st.sidebar.columns([.7,.3])
+    with c1:
+        user_source_selected = st.selectbox("data source folder", options=extract_user_raw_data_folders(raw_data_path),label_visibility="collapsed", index=0)
+    with c2:
+        retro = st.checkbox("Retro")    
 
     options = ['people','scenic','document']   # todo
     filter_selection = st.sidebar.multiselect(
@@ -371,7 +375,7 @@ def exe():
             if st.button("Img Quality Check", use_container_width=True, type="primary"):
                 with st.status(label="quality", expanded=True) as sc3c:
                     st.write("image quality check starting...")
-                    results = iq.execute(user_source_selected, filter_selection)
+                    results = iq.execute(user_source_selected, filter_selection, retro)
                     if results == 'success':
                         sc3c.update(label="image quality complete", state="complete")
                     else:
