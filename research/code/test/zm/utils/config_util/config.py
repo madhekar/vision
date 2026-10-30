@@ -384,7 +384,7 @@ quality:
   image_height_limit: 1024
 """
 @st.cache_resource
-def image_quality_config_load():
+def image_quality_config_load(retro_quality):
     dr,*_ = app_config_load()
     with open("utils/config_util/quality_conf.yaml") as prop:
         dict = yaml.safe_load(prop)
@@ -401,7 +401,26 @@ def image_quality_config_load():
         image_width_limit = dict["quality"]["image_width_limit"]
         image_height_limit = dict["quality"]["image_height_limit"]
 
-    return (
+        retro_input_image_path = dict["retro_quality"]["input_image_path"]
+        retro_input_video_path = dict["retro_quality"]["input_video_path"]
+        retro_archive_quality_path = dict["retro_quality"]["archive_quality_path"]
+        retro_image_quality_threshold = dict["retro_quality"]["image_quality_threshold"]
+        retro_image_size_limit = dict["retro_quality"]["image_size_limit"]
+        retro_image_width_limit = dict["retro_quality"]["image_width_limit"]
+        retro_image_height_limit = dict["retro_quality"]["image_height_limit"]
+
+    if retro_quality:
+        return (
+        os.path.join(dr, *retro_input_image_path.split(os.sep)[1:]),
+        os.path.join(dr, *retro_input_video_path.split(os.sep)[1:]),
+        os.path.join(dr, *retro_archive_quality_path.split(os.sep)[1:]),
+        retro_image_quality_threshold,
+        retro_image_size_limit,
+        retro_image_width_limit,
+        retro_image_height_limit
+    )
+    else:
+        return (
         os.path.join(dr, *input_image_path.split(os.sep)[1:]),
         os.path.join(dr, *input_video_path.split(os.sep)[1:]),
         os.path.join(dr, *archive_quality_path.split(os.sep)[1:]),

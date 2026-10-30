@@ -385,7 +385,7 @@ def exe():
             if st.button("Vid Quality Check", use_container_width=True, type="primary"):
                 with st.status(label="quality", expanded=True) as sc3c:
                     st.write("video quality check / fix starting...")
-                    results = vq.execute(user_source_selected, filter_selection)
+                    results = vq.execute(user_source_selected, filter_selection, retro)
                     if results == 'success':
                         sc3c.update(label="video quality complete", state="complete")
                     else:

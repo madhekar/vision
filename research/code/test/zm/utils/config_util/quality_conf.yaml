@@ -6,3 +6,11 @@ quality:
   image_size_limit: 200000
   image_width_limit: 1024
   image_height_limit: 1024
+retro_quality:
+  input_image_path: /data/input-data/img/
+  input_video_path: /data/input-data/video/
+  archive_quality_path: /data/input-data/error/img/quality
+  image_quality_threshold: 8.0
+  image_size_limit: 1000
+  image_width_limit: 200
+  image_height_limit: 200 
