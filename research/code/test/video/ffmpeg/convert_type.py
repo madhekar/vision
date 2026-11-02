@@ -14,11 +14,12 @@ def get_video_format(file_path):
         raise Exception(f"Error reading file metadata: {result.stderr}")
         
     metadata = json.loads(result.stdout)
+    print("--->", metadata)
     # Get the format name (e.g., 'mov,mp4,m4a,3gp,3g2,mj2' or 'matroska,webm')
     format_name = metadata.get('format', {}).get('format_name', '')
     return format_name
 
-def convert_to_mp4_if_needed(input_path):
+def convert_to_mov_if_needed(input_path):
     """Checks if a video is MP4. If not, converts it."""
     if not os.path.exists(input_path):
         print("File does not exist.")
@@ -27,17 +28,24 @@ def convert_to_mp4_if_needed(input_path):
     try:
         file_format = get_video_format(input_path)
         print(f"Detected format: {file_format}")
+        base, _ = os.path.splitext(input_path)
+        output_path = f"{base}_converted.mov"
+        copy_cmd = [
+            'ffmpeg', '-i', input_path,
+            '-c', 'copy', output_path
+        ]
+        subprocess.run(copy_cmd, check=True)
+        # Check if 'mov' is part of the detected format string
+        if 'mov' in file_format.split(','):
 
-        # Check if 'mp4' is part of the detected format string
-        if 'mp4' in file_format.split(','):
-            print(f"'{input_path}' is already an MP4. No conversion needed.")
+            print(f"'{input_path}' is already an MOV. No conversion needed just copy with extension.")
             return
 
         # If it's not MP4, prepare output path
-        base, _ = os.path.splitext(input_path)
-        output_path = f"{base}_converted.mp4"
+        # base, _ = os.path.splitext(input_path)
+        # output_path = f"{base}_converted.mov"
         
-        print(f"Converting '{input_path}' to MP4...")
+        print(f"Converting '{input_path}' to MOV...")
         # '-c:v libx264 -c:a aac' ensures high-compatibility MP4 encoding
         conversion_cmd = [
             'ffmpeg', '-i', input_path, 
@@ -52,4 +60,4 @@ def convert_to_mp4_if_needed(input_path):
         print(f"An error occurred: {e}")
 
 # Example Usage:
-# convert_to_mp4_if_needed("my_video.mkv")
+convert_to_mov_if_needed("/home/madhekar/temp/old_samsung_USB/old_videos/hbad_monkey.avi")
