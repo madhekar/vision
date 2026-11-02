@@ -387,10 +387,10 @@ def remove_empty_folders(path_absolute):
                 print(f"exception: {e} removing empty folder {path}")
     return cnt
 
-def convert_video_format(i_vid):
-    
+#def convert_video_format(i_vid):
 
-def remove_empty_files_and_folders(root_folder, size_limit=100):
+
+def remove_empty_files_and_folders(root_folder, size_limit=10):
     fc, dc = 0, 0
     mac_file_pattern = '._'
     for dpath, dnames, files in os.walk(root_folder, topdown=False):
