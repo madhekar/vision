@@ -7,6 +7,14 @@ from utils.util import storage_stat as ss
 from utils.missing_util import exif_missing_metadata as emm
 from utils.util import statusmsg_util as sm
 
+
+# ffmpeg -i "/home/madhekar/temp/old_samsung_USB/old_videos/Video 1.avi" 
+#        -map_metadata 0 
+#        -movflags use_metadata_tags 
+#        -c:v libx264 
+#        -c:a aac 
+#        "/home/madhekar/temp/old_samsung_USB/old_videos/output.mov"
+
 def extract_video_metadata(directory_path, output_csv):
     # command to extract specific tags in CSV format
     command = [
@@ -37,7 +45,7 @@ def extract_video_metadata(directory_path, output_csv):
         processed_csv = processed_csv.replace(",\n", ",-\n")
 
         df = pd.read_csv(io.StringIO(processed_csv))        
-        required_columns = ['SourceFile','GPSLongitude','GPSLatitude','CreateDate']
+        required_columns = ['SourceFile','GPSLongitude','GPSLatitude','CreateDate'] 
         df = df.reindex(columns=required_columns, fill_value='-')
         print('****',df)
         df.to_csv(output_csv, index=False)
