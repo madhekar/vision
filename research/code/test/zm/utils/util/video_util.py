@@ -366,16 +366,16 @@ def corp_detect_and_crop_video(i_vid):
         
         shutil.move(t_vid, i_vid)
 
-        if is_not_mov_ext(i_vid):
-            f_type_cmd = [
-                "ffmpag", "-i", i_vid,
-                "-map_metadata", "0",
-                "-movflags use_metadata_tags",
-                "-c:v", "lib264",
-                "-c:a", "aac",
-                Path(i_vid).with_suffix(".mov")
-            ]
-            subprocess.run(f_type_cmd, check=True)
+        # if is_not_mov_ext(i_vid):
+        #     f_type_cmd = [
+        #         "ffmpag", "-i", i_vid,
+        #         "-map_metadata", "0",
+        #         "-movflags use_metadata_tags",
+        #         "-c:v", "lib264",
+        #         "-c:a", "aac",
+        #         Path(i_vid).with_suffix(".mov")
+        #     ]
+        #     subprocess.run(f_type_cmd, check=True)
 
         # Step 4: create thumbnail for video
         thumbnail_path = get_thumbnail_path(i_vid)
