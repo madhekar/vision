@@ -94,7 +94,7 @@ def execute(source_name):
     if ss.check_path_n_files_exists(input_video_path):
 
         #clean empty folders if any
-        ss.remove_empty_files_and_folders(input_video_path) #remove_empty_folders(input_image_path) 
+        #ss.remove_empty_files_and_folders(input_video_path) #remove_empty_folders(input_image_path) 
 
         output_file_path = os.path.join(mvmp, source_name)
         if not os.path.exists(output_file_path):
