@@ -210,6 +210,10 @@ def add_gps_to_video(video_path, lat, lon, alt=0):
         print(f"Successfully updated {video_path}, result: {result}")
     except subprocess.CalledProcessError as e:
         print(f"Error: {e.stderr}")
+
+def is_not_mov_ext(file_path):
+   return Path(file_path).suffix.lower()
+        
 '''
 If FFmpeg fails to find a crop area (e.g., black bars) with cropdetect, the video likely lacks sufficient black borders, has uneven black levels, 
 or the sampling time is too early. Fix this by testing later in the video, increasing the limit of black pixel density, or manually setting
@@ -305,7 +309,12 @@ Key Considerations
     Performance: Re-encoding takes more CPU resources than copying.
     Video Encoder: If libx264 is not available, you can use -c:v mpeg4 or check ffmpeg -codecs for other options. 
 
-
+# ffmpeg -i "/home/madhekar/temp/old_samsung_USB/old_videos/Video 1.avi" 
+#        -map_metadata 0 
+#        -movflags use_metadata_tags 
+#        -c:v libx264 
+#        -c:a aac 
+#        "/home/madhekar/temp/old_samsung_USB/old_videos/output.mov"
 '''
 
 def corp_detect_and_crop_video(i_vid):
@@ -356,6 +365,17 @@ def corp_detect_and_crop_video(i_vid):
             os.remove(i_vid)     # Remove file
         
         shutil.move(t_vid, i_vid)
+
+        if is_not_mov_ext(i_vid):
+            f_type_cmd = [
+                "ffmpag", "-i", i_vid,
+                "-map_metadata", "0",
+                "-movflags use_metadata_tags",
+                "-c:v", "lib264",
+                "-c:a", "aac",
+                Path(i_vid).with_suffix(".mov")
+            ]
+            subprocess.run(f_type_cmd, check=True)
 
         # Step 4: create thumbnail for video
         thumbnail_path = get_thumbnail_path(i_vid)
