@@ -405,7 +405,7 @@ def remove_empty_files_and_folders(root_folder, size_limit=10):
                     try:
                         os.remove(fp)
                         fc +=1
-                        #print(f'removed empty file: {fp}')
+                        print(f'removed empty file: {fp}')
                     except (OSError, SyntaxError) as e:
                         print(f'error removing file {fp}: {e}')  
             except (OSError, SyntaxError) as e:
