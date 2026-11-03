@@ -39,7 +39,7 @@ def extract_video_metadata(directory_path, output_csv):
         df = pd.read_csv(io.StringIO(processed_csv))        
         required_columns = ['SourceFile','GPSLongitude','GPSLatitude','CreateDate']
         df = df.reindex(columns=required_columns, fill_value='-')
-
+        print('****',df)
         df.to_csv(output_csv, index=False)
             
         print(f"Success: Metadata saved to {output_csv}")
