@@ -72,6 +72,25 @@ def total_number_files_n_folders(src_dir):
    sm.add_messages("validate", f"s|now copying number of folders: {nfolders} total number of files: {nfiles} from {src_dir} ")
    return nfolders, nfiles
 
+def find_non_std_video_files(target_directory):
+    # Extensions to exclude (case-insensitive)
+    excluded_extensions = ('.mov', '.mp4')
+    
+    # List to store matching file paths
+    matching_files = []
+
+    # os.walk automatically recurses into all subdirectories
+    for root, dirs, files in os.walk(target_directory):
+        for file in files:
+            # Check if the file does not end with the excluded extensions
+            if not file.lower().endswith(excluded_extensions):
+                # Construct the full absolute or relative path
+                full_path = os.path.join(root, file)
+                matching_files.append(full_path)
+                
+    return matching_files
+
+
 ## possible performance issue 
 def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio, image_size_limit):
 
