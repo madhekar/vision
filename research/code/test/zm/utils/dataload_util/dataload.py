@@ -76,7 +76,7 @@ def total_number_files_n_folders(src_dir):
 
 def find_non_std_video_files(target_directory):
     # Extensions to exclude (case-insensitive)
-    excluded_extensions = ('.mov', '.mp4')
+    excluded_extensions = ('.MOV', '.MP4', '.mov', '.mp4')
     
     # List to store matching file paths
     matching_files = []
@@ -101,7 +101,7 @@ def convert_to_mov_if_needed(input_path):
         try:
             # file_format = get_video_format(input_path)
             base, _ = os.path.splitext(input_path)
-            output_path = f"{base}.mov"
+            output_path = f"{base}.MOV"
 
             
             print(f"Converting '{input_path}' to MOV...")
@@ -115,10 +115,16 @@ def convert_to_mov_if_needed(input_path):
             ]
             
             subprocess.run(conversion_cmd, check=True)
+
+            if os.path.exists(input_path) and os.path.getsize()>0:
+                os.remove(input_path)
+
             print(f"Successfully converted! Saved to: {output_path}")
 
-        except Exception as e:
+        except subprocess.CalledProcessError as e:
             print(f"An error occurred: {e}")
+        except Exception as e:
+            print("unexpected error", e)
 
 ## possible performance issue 
 def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio, image_size_limit):
@@ -161,6 +167,7 @@ def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio, i
                             ret = handle_copy_media_files(root, fdest_video, uuid_path, vid_items)  
                             if ret:
                                 non_std_videos = find_non_std_video_files(fdest_video)
+                                print(f"non_std_videos: {non_std_videos}")
                                 [convert_to_mov_if_needed(non_std_video) for non_std_video in non_std_videos]
                             pbar.update(len(vid_items))
 
