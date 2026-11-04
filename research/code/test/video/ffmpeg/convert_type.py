@@ -43,14 +43,16 @@ def convert_to_mov_if_needed(input_path):
 
         # If it's not MP4, prepare output path
         # base, _ = os.path.splitext(input_path)
-        # output_path = f"{base}_converted.mov"
+        output_path = f"{base}_converted.mov"
         
         print(f"Converting '{input_path}' to MOV...")
         # '-c:v libx264 -c:a aac' ensures high-compatibility MP4 encoding
         conversion_cmd = [
             'ffmpeg', '-i', input_path, 
-            '-c:v', 'libx264', '-c:a', 'aac', 
-            '-movflags', '+faststart', output_path
+            "-map_metadata", "0",
+            "-movflags", "use_metadata_tags",
+            '-c:v', 'libx264', 
+            '-c:a', 'aac', output_path
         ]
         
         subprocess.run(conversion_cmd, check=True)
