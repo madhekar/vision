@@ -64,6 +64,7 @@ def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
                 e4 = RuntimeError(f"An Unknown error occurred in datavalidate: {e}")
                 sm.add_messages("validate", f"e|exception: {e4} unknown file exception: {f_dest}.\n\n")
                 continue
+    return True
 
 def total_number_files_n_folders(src_dir):
    nfolders, nfiles = 0, 0
@@ -157,7 +158,10 @@ def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio, i
                             pbar.update(len(img_items))
 
                         if len(vid_items) > 0:
-                            handle_copy_media_files(root, fdest_video, uuid_path, vid_items)    
+                            ret = handle_copy_media_files(root, fdest_video, uuid_path, vid_items)  
+                            if ret:
+                                non_std_videos = find_non_std_video_files(fdest_video)
+                                convert_to_mov_if_needed(non_std_videos)
                             pbar.update(len(vid_items))
 
                         if len(txt_items) > 0:
