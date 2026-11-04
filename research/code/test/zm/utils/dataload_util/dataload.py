@@ -161,7 +161,7 @@ def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio, i
                             ret = handle_copy_media_files(root, fdest_video, uuid_path, vid_items)  
                             if ret:
                                 non_std_videos = find_non_std_video_files(fdest_video)
-                                convert_to_mov_if_needed(non_std_videos)
+                                [convert_to_mov_if_needed(non_std_video) for non_std_video in non_std_videos]
                             pbar.update(len(vid_items))
 
                         if len(txt_items) > 0:
