@@ -2,6 +2,7 @@ import os
 import PIL
 import shutil
 import uuid
+import subprocess
 from tqdm import tqdm
 from utils.config_util import config
 from utils.util import file_type_ext as fte
@@ -90,6 +91,33 @@ def find_non_std_video_files(target_directory):
                 
     return matching_files
 
+def convert_to_mov_if_needed(input_path):
+    """Checks if a video is MP4. If not, converts it."""
+    if not os.path.exists(input_path):
+        print("File does not exist.")
+        return
+    else:
+        try:
+            # file_format = get_video_format(input_path)
+            base, _ = os.path.splitext(input_path)
+            output_path = f"{base}.mov"
+
+            
+            print(f"Converting '{input_path}' to MOV...")
+            # '-c:v libx264 -c:a aac' ensures high-compatibility MP4 encoding
+            conversion_cmd = [
+                'ffmpeg', '-i', input_path, 
+                "-map_metadata", "0",
+                "-movflags", "use_metadata_tags",
+                '-c:v', 'libx264', 
+                '-c:a', 'aac', output_path
+            ]
+            
+            subprocess.run(conversion_cmd, check=True)
+            print(f"Successfully converted! Saved to: {output_path}")
+
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
 ## possible performance issue 
 def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio, image_size_limit):
