@@ -34,6 +34,7 @@ def clean_media_folders(folder):
     sm.add_messages("validate", f"s|done to cleaning {folder}\n\n")    
 
 
+
 def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
 
     f_dest = os.path.join(fdest_media, uuid_path)
@@ -52,7 +53,7 @@ def handle_copy_media_files(root, fdest_media, uuid_path, media_items):
                 continue
             except PermissionError:
                 e2 = RuntimeError("Permission denied.")
-                sm.add_messages("validate",f"e|exception: {e2} file permissing denied {item_path}")
+                sm.add_messages("validate",f"e|exception: {e2} file permissing denied {item_path}\n\n")
                 continue
             except FileExistsError:
                 e3 = RuntimeError("Destination file already exists.")
@@ -135,7 +136,6 @@ def copy_files_only(src_dir, fdest_image, fdest_txt, fdest_video, fdest_audio, i
 '''
 def clean_unknown_files_folders(fdest_image, fdest_txt, fdest_video, fdest_audio, size_limit):
     try:
-
         ifcnt = ss.trim_unknown_files(fdest_image)        
         tfcnt = ss.trim_unknown_files(fdest_txt)
         vfcnt = ss.trim_unknown_files(fdest_video)

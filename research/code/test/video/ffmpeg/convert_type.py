@@ -26,24 +26,24 @@ def convert_to_mov_if_needed(input_path):
         return
 
     try:
-        file_format = get_video_format(input_path)
-        print(f"Detected format: {file_format}")
+        # file_format = get_video_format(input_path)
+        # print(f"Detected format: {file_format}")
         base, _ = os.path.splitext(input_path)
         output_path = f"{base}_converted.mov"
-        copy_cmd = [
-            'ffmpeg', '-i', input_path,
-            '-c', 'copy', output_path
-        ]
-        subprocess.run(copy_cmd, check=True)
-        # Check if 'mov' is part of the detected format string
-        if 'mov' in file_format.split(','):
+        # copy_cmd = [
+        #     'ffmpeg', '-i', input_path,
+        #     '-c', 'copy', output_path
+        # ]
+        # subprocess.run(copy_cmd, check=True)
+        # # Check if 'mov' is part of the detected format string
+        # if 'mov' in file_format.split(','):
 
-            print(f"'{input_path}' is already an MOV. No conversion needed just copy with extension.")
-            return
+        #     print(f"'{input_path}' is already an MOV. No conversion needed just copy with extension.")
+        #     return
 
-        # If it's not MP4, prepare output path
-        # base, _ = os.path.splitext(input_path)
-        output_path = f"{base}_converted.mov"
+        # # If it's not MP4, prepare output path
+        # # base, _ = os.path.splitext(input_path)
+        # output_path = f"{base}_converted.mov"
         
         print(f"Converting '{input_path}' to MOV...")
         # '-c:v libx264 -c:a aac' ensures high-compatibility MP4 encoding
