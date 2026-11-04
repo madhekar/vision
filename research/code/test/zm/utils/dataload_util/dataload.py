@@ -116,7 +116,7 @@ def convert_to_mov_if_needed(input_path):
             
             subprocess.run(conversion_cmd, check=True)
 
-            if os.path.exists(input_path) and os.path.getsize()>0:
+            if os.path.exists(input_path) and os.path.getsize(input_path)>0:
                 os.remove(input_path)
 
             print(f"Successfully converted! Saved to: {output_path}")
