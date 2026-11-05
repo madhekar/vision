@@ -337,20 +337,7 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
 
         col = (col + 1) % row_size
 
-"""
-metadata:
-  raw_data_path: /data/raw-data/
-  static_metadata_path: /data/app-data/static-metadata/
-  static_metadata_file: static_locations.parquet
-  missing_metadata_path: /data/input-data/error/img/missing-data/
-  missing_metadata_file: missing-metadata-wip.csv
-  missing_metadata_filter_file: missing-metadata-filter-wip.csv
-  missing_metadata_edit_file: missing-matadata-edits.csv
-  home_latitude: 32.968700
-  home_longitude: -117.184200
-  batch_size_max: 250
-  row_size_preset: 7
-"""
+
 def execute():
 
     (rdp, smp, smf, mmp, mvmp, mmf, mmff, mmef, hlat, hlon, bsmx, rszp) = get_env()
@@ -365,7 +352,7 @@ def execute():
         label_visibility="collapsed",
         #on_change=remove_initialization_on_device_change()
     )
-    print('---->', user_source_selected)
+    #print('---->', user_source_selected)
     if st.session_state['global_user_source'] != user_source_selected:
         print(f"--->:{st.session_state['global_user_source']} : {user_source_selected}")
         st.session_state["global_user_source"] = user_source_selected
