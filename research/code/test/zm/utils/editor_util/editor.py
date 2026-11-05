@@ -2,6 +2,7 @@ import streamlit as st
 from math import ceil
 import pandas as pd
 import os
+from pathlib import Path
 import folium as fl
 from streamlit_folium import st_folium
 from streamlit_folium import folium_static
@@ -372,26 +373,36 @@ def execute():
         remove_initialization_on_device_change()
 
     show_missing = st.sidebar.checkbox(label='missing')
+
+    mmfile = mmff if show_missing else mmf
+
+    img_path = os.path.join(mmp, user_source_selected, mmfile)
+    vid_path = os.path.join(mvmp, user_source_selected, mmfile)
+
     c1,c2 = st.sidebar.columns([1,1.7], gap="small")
     with c1:
         st.write("**Edit Options:**")
     with c2:    
-        edit_choice = st.radio("Edit option:", ["image", "video"], horizontal=True)#, label_visibility="collapsed")
+        if os.path.exists(img_path) and os.path.exists(vid_path): 
+           edit_choice = st.radio("Edit option:", ["image", "video"], horizontal=True, label_visibility="collapsed")
+        elif os.path.exists(img_path) and not os.path.exists(vid_path):   
+            edit_choice = st.radio("Edit option:", ["image"], horizontal=True, label_visibility="collapsed") 
     modality = "I" if edit_choice == "image" else "V"    
-
-    mmfile = mmff if show_missing else mmf
 
     initialize(smp, smf, mmp, mvmp, mmfile, mmef, hlat, hlon, user_source_selected)
     
-    
     if modality == "I":
-        df = pd.read_csv(os.path.join(mmp, user_source_selected, mmfile)) #['SourceFile']
+        df = pd.read_csv(img_path) #['SourceFile']
         df.sort_values(by='DateTimeOriginal', ascending=True,inplace=True)
         files = df['SourceFile']
     else:    
-        df = pd.read_csv(os.path.join(mvmp, user_source_selected, mmfile)) #['SourceFile']
-        df.sort_values(by="CreateDate", ascending=True, inplace=True)
-        files = df['SourceFile']
+        if not os.path.exists(vid_path):
+            df = pd.read_csv(vid_path) #['SourceFile']
+            df.sort_values(by="CreateDate", ascending=True, inplace=True)
+            files = df['SourceFile']
+        else:
+            st.error(f"No video files exists for: '{user_source_selected}'")
+            return    
     
     st.sidebar.subheader("Display Criteria",divider="gray")
 
@@ -422,7 +433,7 @@ def execute():
     else:
         st.sidebar.subheader('Edited Images', divider="gray")
         config = {
-            'SourceFile' : st.column_config.TextColumn('image', width='small', required=True),       
+            'SourceFile' : st.column_config.TextColumn('image', width='small', required=True),      
             'GPSLatitude' : st.column_config.NumberColumn('latitude', min_value=-90.0, max_value=90.0, required=True),
             'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
             'CreateDate' : st.column_config.TextColumn('datetime', width="small", required=False)}

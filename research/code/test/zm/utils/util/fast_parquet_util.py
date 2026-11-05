@@ -13,9 +13,9 @@ cc = coco.CountryConverter()
 def transform_raw_locations(fpath):
     rdf = None
     try:
-        with open(fpath, "r") as temp_f:
+        with open(fpath, "r") as temp_file:
             f_arr = []
-            for line in temp_f.readlines():
+            for line in temp_file:
                 a_ = line.split(",")
                 a_ = [s.strip() for s in a_]
                 if len(a_) > 5:
