@@ -188,8 +188,8 @@ def select_location_by_country_and_state(rdf):
     ffrdf = frdf[frdf['state'] == selected_state]
     s_ffrdf = ffrdf.sort_values(by='name')
     loc_values = list(s_ffrdf['name'].unique())
-    if 'Madhekar Residence Home in San Diego' in loc_values:    
-        default_loc = loc_values.index('Madhekar Residence Home in San Diego')
+    if 'Sage Mesa Carmel Valley' in loc_values:    
+        default_loc = loc_values.index('Sage Mesa Carmel Valley')
         selected_location = st.sidebar.selectbox('description', s_ffrdf['name'].unique(), index=default_loc)  
     else:
         selected_location = st.sidebar.selectbox('Description', s_ffrdf['name'].unique())      
