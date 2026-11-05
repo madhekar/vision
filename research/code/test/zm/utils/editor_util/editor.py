@@ -401,7 +401,7 @@ def execute():
             df.sort_values(by="CreateDate", ascending=True, inplace=True)
             files = df['SourceFile']
         else:
-            st.error(f"No video files exists for: '{user_source_selected}'")
+            st.error(f"No video files exists for: {user_source_selected}")
             return    
     
     st.sidebar.subheader("Display Criteria",divider="gray")
