@@ -1,10 +1,9 @@
 import os
 import csv
 
-target_folder = r"/Users/bhal/Downloads/parallel_loops_in_python" # Use r'...' for windows paths
 
 def create_locations_exif_template(target_folder):
-
+    image_extensions = ('.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.py')
     for root, dirs, files in os.walk(target_folder):
         csv_path = os.path.join(root, "coordinates.csv")
         
@@ -14,6 +13,7 @@ def create_locations_exif_template(target_folder):
                 
             # Write files (excluding the csv we are actively generating)
             for file in files:
-                if file != "coorditates.csv":
+                if file != "coorditates.csv" and file.lower().endswith(image_extensions):
                     writer.writerow([file, "-", "-"])
 
+create_locations_exif_template("/mnt/zmdata/home-media-app/data/input-data/img/madhekar")
