@@ -383,7 +383,8 @@ def execute():
         df.sort_values(by='DateTimeOriginal', ascending=True,inplace=True)
         files = df['SourceFile']
     else:    
-        if not os.path.exists(vid_path):
+        print(f"video path--{vid_path}")
+        if os.path.exists(vid_path):
             df = pd.read_csv(vid_path) #['SourceFile']
             df.sort_values(by="CreateDate", ascending=True, inplace=True)
             files = df['SourceFile']
