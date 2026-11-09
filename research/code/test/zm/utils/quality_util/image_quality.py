@@ -252,6 +252,7 @@ def iq_work_flow(image_dir_path, archive_path, threshold,image_size_limit, image
         #pool.join()
     print(result)
     archive_images( image_dir_path, archive_path, result)
+    ss.remove_empty_image_files_and_folders(image_dir_path)
 
 def execute(source_name, filter_list, retro_quality):
     result = "success"
