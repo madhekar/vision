@@ -3,12 +3,12 @@ import sys
 import subprocess
 
 
-def extract_exif_forall_image_subfolders(root_dir, gps_date_per_sub_folder):
+def extract_exif_forall_image_subfolders(root_dir, gps_dt_csv="gps_date.csv"):
     # This example extracts metadata into a tab-delimited file named 'exif_out.txt' inside each folder
     exif_command = ["exiftool", "-csv", "-n", "-r", "--ext", "csv", "-GPSLatitude", "-GPSLongitude", "-DateTimeOriginal"]
 
     # os.walk yields a 3-tuple (dirpath, dirnames, filenames) for each directory in the tree
-    for dirpath, dirnames, filenames in os.walk(root_dir, gps_date_per_sub_folder):
+    for dirpath, dirnames, filenames in os.walk(root_dir):
         print(f"Processing folder: {dirpath}")
 
         if dirpath == root_dir:
@@ -21,7 +21,7 @@ def extract_exif_forall_image_subfolders(root_dir, gps_date_per_sub_folder):
         try:
             # Run the command
             # if you want to redirect the output to a file per folder:
-            with open(os.path.join(dirpath, "exif_out.csv"), "w") as outfile:
+            with open(os.path.join(dirpath, gps_dt_csv), "w") as outfile:
                 subprocess.run(command, stdout=outfile, stderr=subprocess.PIPE, text=True, check=True)
                 
         except subprocess.CalledProcessError as e:
@@ -61,7 +61,8 @@ if __name__ == "__main__":
         data_source_name = sys.argv[1]
         print("Arguments passed:", data_source_name)
         # Define the root directory and your target command
-        img_root = os.path.join(root_dir, "img", data_source_name)
-        extract_exif_forall_image_subfolders(root_dir=img_root, gps_date_per_sub_folder=gps_date_csv)
+        img_root = os.path.join(root_dir, data_source_name)
+        print(img_root)
+        extract_exif_forall_image_subfolders(root_dir=img_root, gps_dt_csv=gps_date_csv)
     else:
         print("No arguments provided.")

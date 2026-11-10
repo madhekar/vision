@@ -5,11 +5,10 @@ import pandas as pd
 def format_loc_data(file_path):
     df = pd.read_csv(file_path, delimiter=',')
 
-    print(df)
-    # df_sorted = df.sort_values(by=['', 'column_B'])
+    df_sorted = df.sort_values(by=['country', 'state'], ascending=[False, True])
 
-    # pt = df_sorted.pivot_table()
+    print(df_sorted)
 
-    # print(pt)
+    df_sorted.to_csv("sorted_default.csv", index=False)
 
 format_loc_data("./default.csv")
