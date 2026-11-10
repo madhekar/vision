@@ -1,4 +1,5 @@
 import os
+import sys
 import subprocess
 
 
@@ -51,10 +52,16 @@ def extract_exif_forall_video_subfolders(root_dir, gps_date_per_sub_folder):
             print(f"Error processing {dirpath}: {e.stderr}")            
 
 if __name__ == "__main__":
-    data_source_name = "KIDDO"
-    # Define the root directory and your target command
-    root_dir = "/mnt/zmdata/home-media-app/data/input-data/img"
-    img_root = os.path.join(root_dir, "img", data_source_name)
-    vid_root = os.path.join(root_dir, "video" , data_source_name)
+    data_source_name = "KIDDO" 
     gps_date_csv = "gps_date.csv"
-    extract_exif_forall_image_subfolders(root_dir=root_dir, gps_date_per_sub_folder=gps_date_csv)
+    root_dir = "/mnt/zmdata/home-media-app/data/input-data/img"
+    # sys.argv[0] is always the script name itself
+    # sys.argv[1:] contains the arguments passed by the user
+    if len(sys.argv) > 1:
+        data_source_name = sys.argv[1]
+        print("Arguments passed:", data_source_name)
+        # Define the root directory and your target command
+        img_root = os.path.join(root_dir, "img", data_source_name)
+        extract_exif_forall_image_subfolders(root_dir=img_root, gps_date_per_sub_folder=gps_date_csv)
+    else:
+        print("No arguments provided.")
