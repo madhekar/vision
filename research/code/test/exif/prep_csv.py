@@ -1,19 +1,15 @@
 import os
 import csv
+import pandas as pd
+#/Users/bhal/work/vision/research/code/test/zm/schema/base_data/locations/default.csv
+def format_loc_data(file_path):
+    df = pd.read_csv(file_path, delimiter=',')
 
+    print(df)
+    # df_sorted = df.sort_values(by=['', 'column_B'])
 
-def create_locations_exif_template(target_folder):
-    image_extensions = ('.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.py')
-    for root, dirs, files in os.walk(target_folder):
-        csv_path = os.path.join(root, "coordinates.csv")
-        
-        with open(csv_path, mode='w', newline='', encoding='utf-8') as f:
-            writer = csv.writer(f)
-            writer.writerow(["SourceFile","GPSLatitude","GPSLongitude"])
-                
-            # Write files (excluding the csv we are actively generating)
-            for file in files:
-                if file != "coorditates.csv" and file.lower().endswith(image_extensions):
-                    writer.writerow([file, "-", "-"])
+    # pt = df_sorted.pivot_table()
 
-create_locations_exif_template("/mnt/zmdata/home-media-app/data/input-data/img/madhekar")
+    # print(pt)
+
+format_loc_data("./default.csv")
