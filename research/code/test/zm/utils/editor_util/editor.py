@@ -326,7 +326,7 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)   # ---extrimental
                 image = Image.open(image)  
                 image.thumbnail((200,200), Image.Resampling.LANCZOS)
-                b_image = ImageOps.expand(image, border=1, fill=scolor)
+                b_image = ImageOps.expand(image, border=3, fill=scolor)
                 c1.image(b_image, caption=label,use_column_width=True, output_format="JPG")
                 st.markdown('</div>', unsafe_allow_html=True)  # ---extrimental
             else: 
