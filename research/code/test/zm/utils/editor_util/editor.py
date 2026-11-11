@@ -2,7 +2,7 @@ import streamlit as st
 from math import ceil
 import pandas as pd
 import os
-from pathlib import Path
+from pathlib import Path, PurePath
 import folium as fl
 from streamlit_folium import st_folium
 from streamlit_folium import folium_static
@@ -381,7 +381,9 @@ def execute():
     
     if modality == "I":
         df = pd.read_csv(img_path) #['SourceFile']
-        df.sort_values(by='DateTimeOriginal', ascending=True,inplace=True)
+        #df.sort_values(by='DateTimeOriginal', ascending=True,inplace=True)
+        #df.sort_values(by="SourceFile", key=lambda x: x.apply(lambda p: PurePath(p).parts)) #(x.str.count("/"), x.str.lower()), inplace=True)
+        df.sort_values(by="SourceFile", key=lambda col: col.map(lambda x: Path(x).parent.name), inplace=True)
         files = df['SourceFile']
     else:    
         print(f"video path--{vid_path}")
