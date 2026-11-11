@@ -246,6 +246,11 @@ def showMap(hlat, hlon):
 
 '''
 /mnt/zmdata/home-media-app/data/input-data/video/GRANDCANYON/27f5e377-04b9-5d21-a4b6-0de5de7eade1/thumbnails/IMGP2372.png
+• Red (#e6194B)
+• Green (#3cb44b)
+• Blue (#4363d8)
+• Yellow (#ffe119)
+• Purple (#911eb4)
 '''
 #@st.fragment
 def editLocations(files, page, batch_size, row_size, modality="I"):        
@@ -254,7 +259,7 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
     parent = ""
-    color_values = cycle(["#FFD1DC", "#89CFF0", "#98FF98", "#E6E6FA", "#FFFACD"])
+    color_values = cycle(["#e6194B","#3cb44b","#4363d8","#ffe119","#911eb4"]) #cycle(["#FFD1DC", "#89CFF0", "#98FF98", "#E6E6FA", "#FFFACD"])
     col = 0
     
     clear_markers()
