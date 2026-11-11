@@ -246,11 +246,6 @@ def showMap(hlat, hlon):
 
 '''
 /mnt/zmdata/home-media-app/data/input-data/video/GRANDCANYON/27f5e377-04b9-5d21-a4b6-0de5de7eade1/thumbnails/IMGP2372.png
-• Red (#e6194B)
-• Green (#3cb44b)
-• Blue (#4363d8)
-• Yellow (#ffe119)
-• Purple (#911eb4)
 '''
 #@st.fragment
 def editLocations(files, page, batch_size, row_size, modality="I"):        
