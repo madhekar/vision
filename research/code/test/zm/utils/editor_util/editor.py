@@ -11,7 +11,7 @@ from utils.config_util import config
 from utils.util import location_util as lu 
 from utils.util import storage_stat as ss
 import PIL
-from PIL import Image, ImageFile
+from PIL import Image, ImageFile, ImageOps
 from utils.util import fast_parquet_util as fpu
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
@@ -320,7 +320,8 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)   # ---extrimental
                 image = Image.open(image)  
                 image.thumbnail((200,200), Image.Resampling.LANCZOS)
-                c1.image(image, caption=label,use_column_width=True, output_format="JPG")
+                b_image = ImageOps.expand(image, border=10, fill="#FF4848")
+                c1.image(b_image, caption=label,use_column_width=True, output_format="JPG")
                 st.markdown('</div>', unsafe_allow_html=True)  # ---extrimental
             else: 
                 root, base = os.path.split(image)
