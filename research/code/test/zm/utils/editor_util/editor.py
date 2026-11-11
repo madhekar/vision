@@ -13,6 +13,7 @@ from utils.util import storage_stat as ss
 import PIL
 from PIL import Image, ImageFile, ImageOps
 from utils.util import fast_parquet_util as fpu
+from itertools import cycle
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 PIL.Image.MAX_IMAGE_PIXELS = 933120000
@@ -252,6 +253,8 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
     
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
+    parent = ""
+    color_values = cycle(["#FFD1DC", "#89CFF0", "#98FF98", "#E6E6FA", "#FFFACD"])
     col = 0
     
     clear_markers()
@@ -267,6 +270,9 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 lon = st.session_state.df.at[image, "GPSLongitude"]
                 dt = st.session_state.df.at[image, "DateTimeOriginal"]
                 label = os.path.basename(image)
+                if parent != Path(image).parent.name:
+                   parent = Path(image).parent.name
+                   scolor = next(color_values)
             else:
                 #st.session_state.vdf.reset_index()
                 lat = st.session_state.vdf.at[image, "GPSLatitude"]
@@ -320,7 +326,7 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)   # ---extrimental
                 image = Image.open(image)  
                 image.thumbnail((200,200), Image.Resampling.LANCZOS)
-                b_image = ImageOps.expand(image, border=10, fill="#FF4848")
+                b_image = ImageOps.expand(image, border=1, fill=scolor)
                 c1.image(b_image, caption=label,use_column_width=True, output_format="JPG")
                 st.markdown('</div>', unsafe_allow_html=True)  # ---extrimental
             else: 
