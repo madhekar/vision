@@ -2,6 +2,8 @@ import os
 from datetime import datetime
 from pathlib import Path
 from PIL import Image, ExifTags
+import pandas as pd
+
 
 # Supported image extensions
 IMAGE_EXTS = {'.jpg', '.jpeg', '.png', '.tiff', '.webp'}
@@ -50,7 +52,11 @@ def sort_and_rename_folders(parent_dir: str, rename: bool = False):
     # Sort folders chronologically
     folder_dates.sort(key=lambda x: x[0])
 
-    print(f"--->folder_dates: {folder_dates}\n")
+    #print(f"--->folder_dates: {folder_dates}\n")
+    df = pd.DataFrame(folder_dates, columns=["date", "img_path"])
+    df["parent"] = df["img_path"].map(lambda x: Path(x).name)
+    
+    print(df)
 
     for dt, folder in folder_dates:
         date_prefix = dt.strftime("%Y-%m-%d")

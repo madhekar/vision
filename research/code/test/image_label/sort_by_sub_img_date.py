@@ -1,11 +1,11 @@
 from pathlib import Path
 import pandas as pd
-
+import os
 
 def sort_subfolders_by_min_date(
     df: pd.DataFrame,
-    path_col: str = 'image_path',
-    date_col: str = 'created_date',
+    path_col: str = 'SourceFile',
+    date_col: str = 'DateTimeOriginal',
 ) -> pd.DataFrame:
   """Groups images by their immediate parent subfolder and returns a DataFrame
 
@@ -15,7 +15,7 @@ def sort_subfolders_by_min_date(
   temp_df = df.copy()
 
   # Ensure the date column is in datetime format for accurate chronological sorting
-  temp_df[date_col] = pd.to_datetime(temp_df[date_col])
+  #temp_df[date_col] = pd.to_datetime(temp_df[date_col])
 
   # Extract the immediate parent folder name (e.g., '/root/sub_a/img.jpg' -> 'sub_a')
   temp_df['subfolder'] = temp_df[path_col].apply(lambda p: Path(p).parent.name)
@@ -48,8 +48,9 @@ data = {
     ],
 }
 
-
-df = pd.DataFrame(data)
+df = pd.read_csv (os.path.join("/mnt/zmdata/home-media-app/data/input-data/error/img/missing-data/KIDDO/missing-metadata-wip.csv"),index_col=False, dtype={"SourceFile": str}) #('metadata.csv')
+#df.set_index("SourceFile", inplace=True)
+#df = pd.DataFrame("/mnt/zmdata/home-media-app/data/input-data/error/img/missing-data/KIDDO/missing-metadata-wip.csv")
 print(df)
 result = sort_subfolders_by_min_date(df)
 print(result)
