@@ -62,7 +62,7 @@ def sort_and_rename_folders(parent_dir: str, rename: bool = False):
                 print(f"  Skipped rename: '{new_name.name}' already exists.")
 
 if __name__ == "__main__":
-    TARGET_DIRECTORY = "/path/to/your/collection"
+    TARGET_DIRECTORY = "/mnt/zmdata/home-media-app/data/input-data/img/KIDDO"
     
     # Set rename=False for a dry-run preview; change to True to rename folders on disk
     sort_and_rename_folders(TARGET_DIRECTORY, rename=False)
