@@ -50,6 +50,8 @@ def sort_and_rename_folders(parent_dir: str, rename: bool = False):
     # Sort folders chronologically
     folder_dates.sort(key=lambda x: x[0])
 
+    print(f"--->folder_dates: {folder_dates}\n")
+
     for dt, folder in folder_dates:
         date_prefix = dt.strftime("%Y-%m-%d")
         print(f"{date_prefix} -> {folder.name}")
