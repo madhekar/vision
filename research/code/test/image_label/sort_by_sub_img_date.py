@@ -5,7 +5,10 @@ import os
 def sort_subfolders_by_min_date(
     df: pd.DataFrame,
     path_col: str = 'SourceFile',
+    gpslat_col: str = 'GPSLatitude',
+    gpslan_col: str = 'GPSLongitude',
     date_col: str = 'DateTimeOriginal',
+    user_col:str = 'UserComment'
 ) -> pd.DataFrame:
   """Groups images by their immediate parent subfolder and returns a DataFrame
 
@@ -14,8 +17,18 @@ def sort_subfolders_by_min_date(
   # Work on a copy to avoid mutating the original DataFrame
   temp_df = df.copy()
 
+  #temp_df = temp_df[['SourceFile', 'DateTimeOriginal']]
+
+  print(temp_df)
+
   # Ensure the date column is in datetime format for accurate chronological sorting
-  #temp_df[date_col] = pd.to_datetime(temp_df[date_col])
+  temp_df[date_col] = pd.to_datetime(temp_df[date_col], format='%Y:%m:%d %H:%M:%S')
+
+  #import pandas as pd
+
+# Works on a single string or a DataFrame column
+#df['timestamp'] = pd.to_datetime(df['timestamp'], format='%Y:%m:%d %H:%M:%S')
+
 
   # Extract the immediate parent folder name (e.g., '/root/sub_a/img.jpg' -> 'sub_a')
   temp_df['subfolder'] = temp_df[path_col].apply(lambda p: Path(p).parent.name)
@@ -25,7 +38,7 @@ def sort_subfolders_by_min_date(
       temp_df.groupby('subfolder', as_index=False)[date_col]
       .min()
       .rename(columns={date_col: 'min_created_date'})
-      .sort_values(by='min_created_date', ascending=True)
+      .sort_values(by='min_created_date', ascending=False)
       .reset_index(drop=True)
   )
 
@@ -48,9 +61,10 @@ data = {
     ],
 }
 
-df = pd.read_csv (os.path.join("/mnt/zmdata/home-media-app/data/input-data/error/img/missing-data/KIDDO/missing-metadata-wip.csv"),index_col=False, dtype={"SourceFile": str}) #('metadata.csv')
+df = pd.read_csv ("/mnt/zmdata/home-media-app/data/input-data/error/img/missing-data/KIDDO/missing-metadata-wip.csv", dtype=str, usecols=['SourceFile','Idx','GPSLatitude','GPSLongitude','DateTimeOriginal','UserComment']) #('metadata.csv')
+df = df.drop(['Idx'], axis=1)
 #df.set_index("SourceFile", inplace=True)
 #df = pd.DataFrame("/mnt/zmdata/home-media-app/data/input-data/error/img/missing-data/KIDDO/missing-metadata-wip.csv")
-print(df)
+print(df.head(1))
 result = sort_subfolders_by_min_date(df)
 print(result)
