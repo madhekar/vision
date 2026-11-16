@@ -425,7 +425,11 @@ def execute():
         else:
             st.error(f"No video files exists for: {user_source_selected}")
             return    
-    
+
+    d = group_paths_by_subfolder(files)  
+    selected_key = st.sidebar.selectbox(label="select sub-folder", options=d.keys())  
+    files =  d[selected_key]
+
     st.sidebar.subheader("Display Criteria",divider="gray")
 
     cb,cr,cp = st.sidebar.columns([1,1,1])
@@ -439,11 +443,6 @@ def execute():
         page = st.selectbox("Page Number:", range(1, num_batches + 1))
         #video_page = st.swlwctbox("vPage Number:", range(1, num_video_batches))
 
-    d = group_paths_by_subfolder(files)
-    #print(f"dict: {d}")
-    selected_key = st.sidebar.selectbox("select folder", d.keys())    
-
-    files =  d[selected_key]
 
     if modality == "I":
         st.sidebar.subheader('Edited Images', divider="gray")
@@ -453,7 +452,7 @@ def execute():
             'GPSLongitude' : st.column_config.NumberColumn('longitude',min_value=-180.0, max_value= 180.0, required=True),
             'DateTimeOriginal' : st.column_config.TextColumn('datetime', width="small", required=False)}
         
-        st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=350, hide_index=True) #
+        st.session_state["edited_image_attributes"] = st.sidebar.data_editor(st.session_state["edited_image_attributes"], column_config=config, num_rows="dynamic", use_container_width=True, height=250, hide_index=True) #
 
         save_btn = st.sidebar.button(label="Save: Image Metadata",  use_container_width=True) 
         if save_btn:
