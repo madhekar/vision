@@ -22,7 +22,7 @@ def sort_subfolders_by_min_date(
   print(temp_df)
 
   # Ensure the date column is in datetime format for accurate chronological sorting
-  temp_df[date_col] = pd.to_datetime(temp_df[date_col], format='%Y:%m:%d %H:%M:%S')
+  #temp_df[date_col] = pd.to_datetime(temp_df[date_col], format='%Y:%m:%d %H:%M:%S')
 
   #import pandas as pd
 
@@ -38,7 +38,7 @@ def sort_subfolders_by_min_date(
       temp_df.groupby('subfolder', as_index=False)[date_col]
       .min()
       .rename(columns={date_col: 'min_created_date'})
-      .sort_values(by='min_created_date', ascending=False)
+      .sort_values(by='min_created_date', ascending=True)
       .reset_index(drop=True)
   )
 

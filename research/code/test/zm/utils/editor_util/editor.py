@@ -273,12 +273,16 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 if parent != Path(image).parent.name:
                    parent = Path(image).parent.name
                    scolor = next(color_values)
+                   
             else:
                 #st.session_state.vdf.reset_index()
                 lat = st.session_state.vdf.at[image, "GPSLatitude"]
                 lon = st.session_state.vdf.at[image, "GPSLongitude"]
                 dt = st.session_state.vdf.at[image, "CreateDate"]
                 label = os.path.basename(image)    
+                if parent != Path(image).parent.name:
+                   parent = Path(image).parent.name
+                   scolor = next(color_values)
 
             if lat != "-" and lon != '-':
                 if modality == "I":
@@ -325,22 +329,26 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
             if modality == "I":    
                 st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)   # ---extrimental
                 image = Image.open(image)  
-                image.thumbnail((200,200), Image.Resampling.LANCZOS)
+                image.thumbnail((300,300), Image.Resampling.LANCZOS)
                 b_image = ImageOps.expand(image, border=3, fill=scolor)
                 c1.image(b_image, caption=label,use_column_width=True, output_format="JPG")
                 st.markdown('</div>', unsafe_allow_html=True)  # ---extrimental
             else: 
                 root, base = os.path.split(image)
                 name, _ = os.path.splitext(base)
+
                 thumbnail_name = name + ".png"
-                thumbnail_img = os.path.join(root, "thumbnails", thumbnail_name)
+                thumbnail_img = os.path.join(root, "thumbnails", thumbnail_name)                
                 if os.path.exists(thumbnail_img):
-                   c1.image(thumbnail_img, caption=label, use_column_width=True, output_format="PNG")
+                    image = Image.open(thumbnail_img)
+                    image.thumbnail((300,300), Image.Resampling.LANCZOS )
+                    b_image = ImageOps.expand(image, border=3, fill=scolor)
+                    c1.image(b_image, caption=label, use_column_width=True, output_format="PNG")
                 else:
                     c1.write(label)   
 
 
-            st.divider()    
+            #st.divider()    
 
         col = (col + 1) % row_size
 
@@ -395,7 +403,8 @@ def execute():
         print(f"video path--{vid_path}")
         if os.path.exists(vid_path):
             df = pd.read_csv(vid_path) #['SourceFile']
-            df.sort_values(by="CreateDate", ascending=True, inplace=True)
+            #df.sort_values(by="CreateDate", ascending=True, inplace=True)
+            df.sort_values(by="SourceFile", key=lambda col: col.map(lambda x: Path(x).parent.name), inplace=True)
             files = df['SourceFile']
         else:
             st.error(f"No video files exists for: {user_source_selected}")
