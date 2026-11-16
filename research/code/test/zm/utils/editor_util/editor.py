@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 import streamlit as st
 from math import ceil
 import pandas as pd
@@ -247,20 +249,34 @@ def showMap(hlat, hlon):
 '''
 /mnt/zmdata/home-media-app/data/input-data/video/GRANDCANYON/27f5e377-04b9-5d21-a4b6-0de5de7eade1/thumbnails/IMGP2372.png
 '''
+@st.cache_data
+def group_paths_by_subfolder(paths: list[str]):
+    groups = defaultdict(list)
+    for raw_path in sorted(paths):
+        p = Path(raw_path)
+
+        groups[p.parent.name].append(str(p))
+    return dict(groups)    
+
 #@st.fragment
 def editLocations(files, page, batch_size, row_size, modality="I"):        
     sindex = select_location_by_country_and_state(st.session_state.df_loc)  
-    
+
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
     parent = ""
-    color_values = cycle(["#e6194B","#3cb44b","#4363d8","#ffe119","#911eb4"]) #cycle(["#FFD1DC", "#89CFF0", "#98FF98", "#E6E6FA", "#FFFACD"])
+    color_values = cycle(["#e6194B","#3cb44b","#4363d8","#ffe119","#911eb4"])
     col = 0
     
     clear_markers()
     
     lat, lon, dt, label = "","","",""
     for image in batch:
+        if parent != Path(image).parent.name:
+            parent = Path(image).parent.name
+            st.divider()
+            scolor = next(color_values)
+
         with grid[col]:
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
 
@@ -270,9 +286,9 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 lon = st.session_state.df.at[image, "GPSLongitude"]
                 dt = st.session_state.df.at[image, "DateTimeOriginal"]
                 label = os.path.basename(image)
-                if parent != Path(image).parent.name:
-                   parent = Path(image).parent.name
-                   scolor = next(color_values)
+                # if parent != Path(image).parent.name:
+                #    parent = Path(image).parent.name
+                #    scolor = next(color_values)
                    
             else:
                 #st.session_state.vdf.reset_index()
@@ -422,6 +438,12 @@ def execute():
     with cp:   
         page = st.selectbox("Page Number:", range(1, num_batches + 1))
         #video_page = st.swlwctbox("vPage Number:", range(1, num_video_batches))
+
+    d = group_paths_by_subfolder(files)
+    #print(f"dict: {d}")
+    selected_key = st.sidebar.selectbox("select folder", d.keys())    
+
+    files =  d[selected_key]
 
     if modality == "I":
         st.sidebar.subheader('Edited Images', divider="gray")
