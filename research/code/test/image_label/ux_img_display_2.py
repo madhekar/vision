@@ -6,7 +6,7 @@ st.set_page_config(page_title="Subfolder Image Gallery", layout="wide")
 st.title("Image Gallery by Subfolder")
 
 # 1. Point this to your main directory containing subfolders
-ROOT_DIR = Path("path/to/your/images")
+ROOT_DIR = Path("/mnt/zmdata/home-media-app/data/input-data/img/KIDDO")
 VALID_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
 
 # 2. Scan subfolders and collect image paths
@@ -45,8 +45,8 @@ folders_to_show = (
 )
 
 # 4. Grid settings
-cols_per_row = 4
-rows_per_page = 2
+cols_per_row = 10
+rows_per_page = 5
 images_per_page = cols_per_row * rows_per_page
 
 # 5. Render each subfolder with its own pagination and columns
@@ -77,6 +77,6 @@ for folder_name, images in folders_to_show:
         
         for col, img_path in zip(cols, row_images):
             with col:
-                st.image(img_path, caption=Path(img_path).name, use_container_width=True)
+                st.image(img_path, caption=Path(img_path).name) #, use_container_width=True)
                 
     st.divider()
