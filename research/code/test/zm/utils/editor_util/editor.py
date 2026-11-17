@@ -119,6 +119,9 @@ def initialize(smp, smf, mmp, mvmp, mmf, mmef, hlat, hlon, user_source):
         if "edited_video_attributes" not in st.session_state:
             st.session_state["edited_video_attributes"] = pd.DataFrame(columns=('SourceFile', 'GPSLatitude', 'GPSLongitude', 'CreateDate'))     
 
+        if 'selectbox_option' not in st.session_state:
+            st.session_state.selectbox_option = 0    
+
     except Exception as e:      
         st.error(f"Exception occurred in initializing Metadata Editor: {e}")
 
@@ -249,7 +252,7 @@ def showMap(hlat, hlon):
 '''
 /mnt/zmdata/home-media-app/data/input-data/video/GRANDCANYON/27f5e377-04b9-5d21-a4b6-0de5de7eade1/thumbnails/IMGP2372.png
 '''
-@st.cache_data
+#@st.cache_data
 def group_paths_by_subfolder(paths: list[str]):
     groups = defaultdict(list)
     for raw_path in sorted(paths):
@@ -428,7 +431,9 @@ def execute():
             return    
 
     d = group_paths_by_subfolder(files)  
-    selected_key = st.sidebar.selectbox(label="select sub-folder", options=d.keys())  
+    folder_keys = list(d.keys())
+    selected_key = st.sidebar.selectbox(label="select sub-folder", options=folder_keys)  
+    st.session_state.selectbox_option = folder_keys.index(selected_key)
     files =  d[selected_key]
 
     st.sidebar.subheader("Display Criteria",divider="gray")
@@ -475,8 +480,9 @@ def execute():
     # show world map with locations map
     showMap(hlat=hlat, hlon=hlon)
 
+    
     # Location to Apply to many images
-    st.subheader("Edit Location and Date", divider='gray') 
+    st.subheader(f"**Edit Location and Date** index: ***{st.session_state.selectbox_option}***", divider='gray') 
 
     st.sidebar.subheader('Locations', divider='gray')
 
