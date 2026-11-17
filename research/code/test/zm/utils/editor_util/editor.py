@@ -265,17 +265,17 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
     batch = files[(page - 1) * batch_size : page * batch_size]
     grid = st.columns(row_size, gap="small", vertical_alignment="top")
     parent = ""
-    color_values = cycle(["#e6194B","#3cb44b","#4363d8","#ffe119","#911eb4"])
+    #color_values = cycle(["#e6194B","#3cb44b","#4363d8","#ffe119","#911eb4"])
     col = 0
     
     clear_markers()
     
     lat, lon, dt, label = "","","",""
     for image in batch:
-        if parent != Path(image).parent.name:
-            parent = Path(image).parent.name
-            st.divider()
-            scolor = next(color_values)
+        # if parent != Path(image).parent.name:
+        #     parent = Path(image).parent.name
+        #     st.divider()
+        #     scolor = next(color_values)
 
         with grid[col]:
             c1, c2 = st.columns([1.0, 1.0], gap="small", vertical_alignment="top")
@@ -296,9 +296,9 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 lon = st.session_state.vdf.at[image, "GPSLongitude"]
                 dt = st.session_state.vdf.at[image, "CreateDate"]
                 label = os.path.basename(image)    
-                if parent != Path(image).parent.name:
-                   parent = Path(image).parent.name
-                   scolor = next(color_values)
+                # if parent != Path(image).parent.name:
+                #    parent = Path(image).parent.name
+                #    scolor = next(color_values)
 
             if lat != "-" and lon != '-':
                 if modality == "I":
@@ -346,8 +346,8 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 st.markdown('<div class="responsive-img-container">', unsafe_allow_html=True)   # ---extrimental
                 image = Image.open(image)  
                 image.thumbnail((300,300), Image.Resampling.LANCZOS)
-                b_image = ImageOps.expand(image, border=3, fill=scolor)
-                c1.image(b_image, caption=label,use_column_width=True, output_format="JPG")
+                #b_image = ImageOps.expand(image, border=3, fill=scolor)
+                c1.image(image, caption=label,use_column_width=True, output_format="JPG")
                 st.markdown('</div>', unsafe_allow_html=True)  # ---extrimental
             else: 
                 root, base = os.path.split(image)
@@ -358,12 +358,10 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 if os.path.exists(thumbnail_img):
                     image = Image.open(thumbnail_img)
                     image.thumbnail((300,300), Image.Resampling.LANCZOS )
-                    b_image = ImageOps.expand(image, border=3, fill=scolor)
-                    c1.image(b_image, caption=label, use_column_width=True, output_format="PNG")
+                    #b_image = ImageOps.expand(image, border=3, fill=scolor)
+                    c1.image(image, caption=label, use_column_width=True, output_format="PNG")
                 else:
                     c1.write(label)   
-
-
             #st.divider()    
 
         col = (col + 1) % row_size
@@ -411,16 +409,16 @@ def execute():
     
     if modality == "I":
         df = pd.read_csv(img_path) #['SourceFile']
-        #df.sort_values(by='DateTimeOriginal', ascending=True,inplace=True)
+        df.sort_values(by='DateTimeOriginal', ascending=True,inplace=True)
         #df.sort_values(by="SourceFile", key=lambda x: x.apply(lambda p: PurePath(p).parts)) #(x.str.count("/"), x.str.lower()), inplace=True)
-        df.sort_values(by="SourceFile", key=lambda col: col.map(lambda x: Path(x).parent.name), inplace=True)
+        #df.sort_values(by="SourceFile", key=lambda col: col.map(lambda x: Path(x).parent.name), inplace=True)
         files = df['SourceFile']
     else:    
         print(f"video path--{vid_path}")
         if os.path.exists(vid_path):
             df = pd.read_csv(vid_path) #['SourceFile']
-            #df.sort_values(by="CreateDate", ascending=True, inplace=True)
-            df.sort_values(by="SourceFile", key=lambda col: col.map(lambda x: Path(x).parent.name), inplace=True)
+            df.sort_values(by="CreateDate", ascending=True, inplace=True)
+            #df.sort_values(by="SourceFile", key=lambda col: col.map(lambda x: Path(x).parent.name), inplace=True)
             files = df['SourceFile']
         else:
             st.error(f"No video files exists for: {user_source_selected}")
