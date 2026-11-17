@@ -347,8 +347,11 @@ def editLocations(files, page, batch_size, row_size, modality="I"):
                 image = Image.open(image)  
                 image.thumbnail((300,300), Image.Resampling.LANCZOS)
                 #b_image = ImageOps.expand(image, border=3, fill=scolor)
+                st.markdown("""<style> button[title="View fullscreen"] { display: none;}""", unsafe_allow_html=True,)
                 c1.image(image, caption=label,use_column_width=True, output_format="JPG")
-                st.markdown('</div>', unsafe_allow_html=True)  # ---extrimental
+                  
+
+                #st.markdown('</div>', unsafe_allow_html=True)  # ---extrimental
             else: 
                 root, base = os.path.split(image)
                 name, _ = os.path.splitext(base)
