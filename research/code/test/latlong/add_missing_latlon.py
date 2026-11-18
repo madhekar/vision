@@ -21,6 +21,7 @@ def getLocationDetails(strLnL, max_retires):
         return cache[strLnL]
     else:
         geolocator = Nominatim(user_agent=random_user_agent())
+        print(geolocator.query_postal_code("92130"))
         try:
             rev = RateLimiter(geolocator.reverse, min_delay_seconds=1)
             location = rev(strLnL, language="en", exactly_one=True)

@@ -21,8 +21,9 @@ def generate_user_specific_static_metadata(missing_path, missing_file, location_
 
     # dataframe for all default static locations
     default_df = fpu.combine_all_default_locations(location_path)
-    print(f"default locations: {default_df.head()}")
+    print(f"%$%$%$default locations: {default_df.head()}")
    
+    print(f"missing path: {missing_path} missing file: {missing_file}")
     # additional locations not included in default static locations
     df_unique =  usl.get_unique_locations(pd.read_csv(os.path.join(missing_path, missing_file)),default_df)
 
@@ -234,7 +235,7 @@ def execute():
             with ca_status:
                 if ca_create:
                     ca.info(f'starting to create user specific static location data for: {user_source_selected}')
-                    print(user_location_metadata_file)
+                    print(user_location_metadata_path, ":", user_location_metadata_file)
                     if not os.path.exists(os.path.join(user_location_metadata_path, user_location_metadata_file)):
                         generate_user_specific_static_metadata(missing_metadata_path, missing_metadata_file, default_location_metadata_path, user_location_metadata_path, user_location_metadata_file) 
                     ca_status.update(label='user specific locations complete!', state='complete', expanded=False)

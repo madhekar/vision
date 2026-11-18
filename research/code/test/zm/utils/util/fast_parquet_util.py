@@ -24,8 +24,8 @@ def transform_raw_locations(fpath):
 
             # create data frame
             df = pd.DataFrame(f_arr, columns=["name", "state", "country", "latitude", "longitude"])
-            df.to_csv('test.csv', index=False)
-
+            #df.to_csv('test.csv', index=False)
+            
             #print(df.isnull().sum())
             #dtype={'name': str, 'state': str, 'city':str, 'latitude': float, 'longitude': float}
             df["name"] = df["name"].astype(str)
@@ -53,7 +53,7 @@ def create_or_append_locations(raw_file, pfile_path):
         st.info(f"adding file: {raw_file} to parquat store: {pfile_path}")
         df = transform_raw_locations(raw_file)
 
-        print(f'---> {df.dtypes}')
+        print(f'---> {df.dtypes} {df}')
         if not os.path.isfile(pfile_path):
             #print(pfile_path)
             write(pfile_path, df)#, object_encoding = obj_encoding)
@@ -117,7 +117,7 @@ def combine_all_default_locations(location_root):
         locations_file_list = glob.glob(os.path.join(location_root, "*.csv"))
         pdf = []
         for f in locations_file_list:
-            #print(f'>> {f}')
+            print(f'>> {f}')
             pdf.append(transform_raw_locations(f))
         df_comb = pd.concat(pdf, ignore_index=True)  
         print(f'>>{len(df_comb)}')  
@@ -136,6 +136,7 @@ def add_all_locations(location_root, user_location_root, user_location_metadata_
     except Exception as e:
         st.error(f"create append locations parquet for file: {f} failed with exception: {e}")
    
+    """    STRUCTURE IS DIFFERENT FOR USER LOCATIONS 
     try:
         # locations_file_list = glob.glob(os.path.join(user_location_root, user_location_metadata_file))
         # for f in locations_file_list:
@@ -148,7 +149,7 @@ def add_all_locations(location_root, user_location_root, user_location_metadata_
         # for f in locations_file_list:
         create_or_append_locations(os.path.join(user_location_root, user_video_location_metadata_file), parquet_file_path)
     except Exception as e:
-        st.error(f"create append locations parquet for file: {f} failed with exception: {e}")    
+        st.error(f"create append locations parquet for file: {f} failed with exception: {e}")   """  
 
 
 def init_location_cache(parquet_file_path):
