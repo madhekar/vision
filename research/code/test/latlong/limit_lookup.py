@@ -1,7 +1,9 @@
 import numpy as np
 from scipy.spatial import cKDTree
+import pandas as pd
 
 EARTH_RADIUS_M = 6_371_000.0
+
 
 
 def latlon_to_cartesian(latlon: np.ndarray) -> np.ndarray:
@@ -19,14 +21,45 @@ def meters_to_chord(meters: float) -> float:
   return 2.0 * np.sin(angle_rad / 2.0)
 
 
-# 1. Build the tree once
-coords = np.array([
-    [32.7157, -117.1611],  # San Diego
-    [34.0522, -118.2437],  # Los Angeles
-    [37.7749, -122.4194],  # San Francisco
-])
-values = np.array(["San Diego", "Los Angeles", "San Francisco"])
-tree = cKDTree(latlon_to_cartesian(coords))
+def build_known_lat_long_tree(data_file):
+
+    df = pd.read_csv(data_file)
+
+    dfl = df[['latitude', 'longitude']]
+    dfv = df[['description', 'state', 'country']]
+
+    tree = cKDTree(latlon_to_cartesian(dfl.to_numpy())) 
+
+    values = dfv.to_numpy()
+
+    def query_nearest_neighbor_within(coordinates, distance=50_000):
+       max_cord = meters_to_chord(distance)
+       query_coorditates = np.array(coordinates)
+       dist, idx = tree.query(latlon_to_cartesian(query_coorditates), k=1, distance_upper_bound=max_cord, workers=-1)
+
+       for i, idx in enumerate(indices):
+         if idx == len(coordinates):
+            print(f"Query {i}: No match within radius")
+         else:
+            # Convert chord back to exact meters if needed
+            arc_meters = 2.0 * EARTH_RADIUS_M * np.arcsin(distances[i] / 2.0)
+            print(f"Query {i}: {values[idx]} ({arc_meters:.1f} m away)")
+
+
+# # 1. Build the tree once
+# coords = np.array([
+#     [32.7157, -117.1611],  # San Diego
+#     [34.0522, -118.2437],  # Los Angeles
+#     [37.7749, -122.4194],  # San Francisco
+# ])
+# values = np.array(["San Diego", "Los Angeles", "San Francisco"])
+# tree = cKDTree(latlon_to_cartesian(coords))
+
+def query_nearest_neighbor_within(coordinates, distance=50_000):
+  max_cord = meters_to_chord(distance)
+  query_coorditates = np.array(coordinates)
+
+
 
 # 2. Query nearest neighbor within 50 km (50,000 meters)
 queries = np.array([
