@@ -59,4 +59,5 @@ sm = SpatialMatcher()
 sm.init_tree(
     '/mnt/zmdata/home-media-app/data/app-data/static-metadata/locations/default/default.csv'
 )
-sm.query([2.8456, -17.2734])
+sm.query([32.8456, -117.2734])
+# Query [32.8456, -117.2734]: ['La Jolla Cave La Jolla' 'CA' 'US'] (394.6 m away)
