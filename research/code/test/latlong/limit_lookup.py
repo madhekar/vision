@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.spatial import cKDTree
 import pandas as pd
+from functools import lru_cache
 
 EARTH_RADIUS_M = 6_371_000.0
 
@@ -20,7 +21,11 @@ def meters_to_chord(meters: float) -> float:
   angle_rad = meters / EARTH_RADIUS_M
   return 2.0 * np.sin(angle_rad / 2.0)
 
+'''
+  lru
+'''
 
+@lru_cache(maxsize=1)
 def build_known_lat_long_tree(data_file):
 
     df = pd.read_csv(data_file)
@@ -33,6 +38,8 @@ def build_known_lat_long_tree(data_file):
     values = dfv.to_numpy()
 
     def query_nearest_neighbor_within(coordinates, distance=50_000):
+
+       #tree, values = build_known_lat_long_tree(data_file)
        max_cord = meters_to_chord(distance)
        query_coorditates = np.array(coordinates)
        dist, idx = tree.query(latlon_to_cartesian(query_coorditates), k=1, distance_upper_bound=max_cord, workers=-1)
