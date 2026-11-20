@@ -94,7 +94,7 @@ def collect_addresses(df, loc_accuracy=6):
         print(f"{addr},{ll[1]},{ll[0]}")
         address, state, contry = addr.split(',')
         result_list.append([address, state, contry, ll[1], ll[0]])
-    df = pd.DataFrame(result_list, columns=['address','state','county','latitude','longitude'])
+    df = pd.DataFrame(result_list, columns=['name','state','county','latitude','longitude'])
     return df
 
 
