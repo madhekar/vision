@@ -54,7 +54,7 @@ def create_or_append_locations(raw_file, pfile_path):
         st.info(f"adding file: {raw_file} to parquat store: {pfile_path}")
         df = transform_raw_locations(raw_file)
 
-        print(f'---> {df.dtypes} {df}')
+        print(f'Data Added to Parquet: {df.head(5)}')
         if not os.path.isfile(pfile_path):
             #print(pfile_path)
             write(pfile_path, df)#, object_encoding = obj_encoding)

@@ -44,7 +44,6 @@ def getLocationDetails(strLnL, max_retires):
         try:
             rev = RateLimiter(geolocator.reverse, min_delay_seconds=1)
             location = rev(strLnL, language="en", exactly_one=True)
-            print("++++>",location)
             if location:
                 address = location.address
                 ##
@@ -59,8 +58,7 @@ def getLocationDetails(strLnL, max_retires):
                 cache[strLnL] = address
                 return address
         except (GeocoderTimedOut, GeocoderUnavailable) as e:
-            st.warning(f"Get address failed with {e}")
-        print('->>>', address)    
+            st.warning(f"Get address failed with {e}") 
     return address
 
 def join_state_county(line):
@@ -75,13 +73,8 @@ def join_state_county(line):
 
 def collect_addresses(df, loc_accuracy=6):
     df = df[['latitude', 'longitude']].astype(float).round(loc_accuracy)
-    # df["latitude"] = df["latitude"].astype(float).round(2)
-    # df["longitude"] = df["longitude"].astype(float).round(4)
-    # df['latitude'] = [round(float(x), 4) for x in df['latitude']]
-    # df['longitude'] = [round(float(x), 4) for x in df['longitude']]
     df_nodup = df.drop_duplicates(subset=["latitude", "longitude"], keep=False)
     #print("--->", df_nodup.size, df_nodup.head())
-
     #df.to_csv("lat_lon_nodup.csv", index=False, encoding="utf-8")
 
     list_lat_lon = df_nodup.values.tolist()
