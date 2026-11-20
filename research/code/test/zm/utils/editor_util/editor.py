@@ -432,9 +432,19 @@ def execute():
 
     d = group_paths_by_subfolder(files)  
     folder_keys = list(d.keys())
-    selected_key = st.sidebar.selectbox(label="select sub-folder", options=folder_keys)  
-    st.session_state.selectbox_option = folder_keys.index(selected_key)
-    files =  d[selected_key]
+    idx, val = st.sidebar.selectbox(label="select sub-folder", options=list(enumerate(folder_keys)), format_func=lambda x: f"{x[0]} - {x[1]}"  )
+    st.session_state.selectbox_option = folder_keys.index(val)
+    active_color = "#d4edda"
+    st.markdown(
+        f""" 
+            <style>
+            div[data-baseweb="select"] > div {{
+            background-color: {active_color};
+            }}
+            </style>
+        """, unsafe_allow_html=True
+            )
+    files =  d[val]
 
     st.sidebar.subheader("Display Criteria",divider="gray")
 
