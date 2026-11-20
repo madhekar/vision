@@ -49,7 +49,12 @@ def getLocationDetails(strLnL, max_retires):
                 address = location.address
                 ##
                 address_parts = location.raw.get('address',{})
-                print(address_parts.get('road'), address_parts.get('state'), address_parts.get('country'))
+                street = f"{address_parts.get('house_number', '')} {address_parts.get('road', '')}".strip()
+                city = address_parts.get('city') or address_parts.get('town') or address_parts.get('village')
+                state = address_parts.get('state')
+                country = address_parts.get('country')
+
+                address = f"{street} {city},{state},{country}"
                 ##
                 cache[strLnL] = address
                 return address
