@@ -80,9 +80,9 @@ def collect_addresses(df, loc_accuracy=6):
     # df['latitude'] = [round(float(x), 4) for x in df['latitude']]
     # df['longitude'] = [round(float(x), 4) for x in df['longitude']]
     df_nodup = df.drop_duplicates(subset=["latitude", "longitude"], keep=False)
-    print("--->", df_nodup.size, df_nodup.head())
+    #print("--->", df_nodup.size, df_nodup.head())
 
-    df.to_csv("lat_lon_nodup.csv", index=False, encoding="utf-8")
+    #df.to_csv("lat_lon_nodup.csv", index=False, encoding="utf-8")
 
     list_lat_lon = df_nodup.values.tolist()
     result_list = []
@@ -93,7 +93,7 @@ def collect_addresses(df, loc_accuracy=6):
         addr = join_state_county(addr)
         print(f"{addr},{ll[1]},{ll[0]}")
         address, state, contry = addr.split(',')
-        result_list.append([address, state, contry, ll[1], ll[0]])
+        result_list.append([address, state, contry, ll[0], ll[1]])
     df = pd.DataFrame(result_list, columns=['name','state','county','latitude','longitude'])
     return df
 
@@ -164,12 +164,12 @@ def load_missing_recods(f_name, static_metadata):
    condition = df['GPSLatitude'] == '-'
    dfp = df[~(condition)]
 
-   print('not missing-->', dfp.size)
+   #print('not missing-->', dfp.size)
 
    # match column names to parquet file standards
    dfp.rename(columns={'GPSLatitude':'latitude', 'GPSLongitude': 'longitude'}, inplace=True)
 
-   print(dfp.head(),dfp.size)
+   #print(dfp.head(),dfp.size)
    
    # read parquet file already generated from default static locations
    dfpq = pd.read_parquet(static_metadata)
@@ -191,7 +191,7 @@ def load_missing_recods(f_name, static_metadata):
    # get location address/ name from library, round lat lon to 6 digits max
    collect_addresses(dfr)
 
-   dfr.to_csv('new_lat_lon.csv', index=False, encoding='utf-8')
+   #dfr.to_csv('new_lat_lon.csv', index=False, encoding='utf-8')
 
 # static_metadata = '/home/madhekar/work/home-media-app/data/app-data/static-metadata/static_locations.parquet'
 # input_file = "/home/madhekar/work/home-media-app/data/input-data/error/img/missing-data/AnjaliBackup/missing-metadata-wip.csv"

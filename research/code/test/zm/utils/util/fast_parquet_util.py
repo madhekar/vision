@@ -22,7 +22,7 @@ def transform_raw_locations(fpath):
                 if len(a_) > 5:
                     a_[0 : len(a_) - 4] = ["-".join(a_[0 : len(a_) - 4])]
                 f_arr.append(a_)
-            print(f"*** {f_arr}")
+            #print(f"*** {f_arr}")
             # create data frame
             df = pd.DataFrame(f_arr, columns=["name", "state", "country", "latitude", "longitude"])
             #df.to_csv('test.csv', index=False)
@@ -42,7 +42,7 @@ def transform_raw_locations(fpath):
             df.to_csv(fpath, sep=",", header=False, index=False)
 
             rdf = df
-            print(f"+++>> {fpath}: {rdf.shape}")
+            #print(f"+++>> {fpath}: {rdf.shape}")
             st.info(f"{fpath}: {rdf.shape}")
     except Exception as e:
         st.error(f"failed to transform {fpath} raw locations with exception: {e}")
@@ -121,7 +121,7 @@ def combine_all_default_locations(location_root):
             print(f'>> {f}')
             pdf.append(transform_raw_locations(f))
         df_comb = pd.concat(pdf, ignore_index=True)  
-        print(f'>>{len(df_comb)}')  
+        #print(f'>>{len(df_comb)}')  
     except Exception as e:
         st.error(
             f"create append locations parquet for file: {f} failed with exception: {e}"

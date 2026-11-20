@@ -43,7 +43,7 @@ def collect_addresses(df):
     df_nodup = df.drop_duplicates(subset=['latitude', 'longitude'], keep=False)
     print('--->', df_nodup.size, df_nodup.head())
 
-    df.to_csv('lat_lon_nodup.csv', index=False, encoding='utf-8')
+    #df.to_csv('lat_lon_nodup.csv', index=False, encoding='utf-8')
 
     list_lat_lon = df_nodup.values.tolist()
     result_list = []
