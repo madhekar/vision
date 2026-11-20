@@ -11,6 +11,23 @@ import random
 import string
 import time
 
+'''
+1026, South De Anza Boulevard, San Jose, Santa Clara County, California, 95129, United States
+1026 South De Anza Boulevard,95129,United States,-122.030616,37.309585
+(-122.030792, 36.974117)
+++++> Church Street, Downtown District (Commercial), Downtown, Santa Cruz, Santa Cruz County, California, 95061, United States
+Church Street Downtown District (Commercial),95061,United States,-122.030792,36.974117
+(-122.133136, 47.618261)
+++++> 825, 156th Avenue Northeast, Crossroads, Bellevue, King County, Washington, 98007, United States
+825 156th Avenue Northeast,98007,United States,-122.133136,47.618261
+(-122.199047, 47.609985)
+++++> 10595, Main Street, Bellevue, King County, Washington, 98004, United States
+10595 Main Street,98004,United States,-122.199047,47.609985
+(-88.086652, 42.004433)
+++++> 1253, Crabtree Lane, Legend Lane Apartments, Schaumburg, Schaumburg Township, Cook County, Illinois, 60193, United States
+
+
+'''
 
 def random_user_agent(num_chars=8):
     return "".join(random.choices(string.ascii_letters + string.digits, k=8))
@@ -27,8 +44,13 @@ def getLocationDetails(strLnL, max_retires):
         try:
             rev = RateLimiter(geolocator.reverse, min_delay_seconds=1)
             location = rev(strLnL, language="en", exactly_one=True)
+            print("++++>",location)
             if location:
                 address = location.address
+                ##
+                address_parts = location.raw.get('address',{})
+                print(address_parts.get('road'), address_parts.get('state'), address_parts.get('country'))
+                ##
                 cache[strLnL] = address
                 return address
         except (GeocoderTimedOut, GeocoderUnavailable) as e:
