@@ -7,7 +7,7 @@ import country_converter as coco
 from utils.util import us_states as ust
 from utils.util import ball_tree as bt
 import streamlit as st
-import csv
+
 cc = coco.CountryConverter()
 
 
@@ -54,7 +54,7 @@ def create_or_append_locations(raw_file, pfile_path):
         st.info(f"adding file: {raw_file} to parquat store: {pfile_path}")
         df = transform_raw_locations(raw_file)
 
-        print(f'Data Added to Parquet: {df.head(5)}')
+        print(f'{raw_file}')
         if not os.path.isfile(pfile_path):
             #print(pfile_path)
             write(pfile_path, df)#, object_encoding = obj_encoding)
@@ -129,6 +129,8 @@ def combine_all_default_locations(location_root):
     return df_comb
 
 def add_all_locations(location_root, user_location_root, user_location_metadata_file, user_video_location_metadata_file, parquet_file_path):
+
+    print("Adding Location Data...")
     try:
         locations_file_list = glob.glob(os.path.join(location_root, "*.csv"))
         for f in locations_file_list:
