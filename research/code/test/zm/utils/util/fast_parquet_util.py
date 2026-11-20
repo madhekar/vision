@@ -7,6 +7,7 @@ import country_converter as coco
 from utils.util import us_states as ust
 from utils.util import ball_tree as bt
 import streamlit as st
+import csv
 cc = coco.CountryConverter()
 
 
@@ -21,7 +22,7 @@ def transform_raw_locations(fpath):
                 if len(a_) > 5:
                     a_[0 : len(a_) - 4] = ["-".join(a_[0 : len(a_) - 4])]
                 f_arr.append(a_)
-
+            print(f"*** {f_arr}")
             # create data frame
             df = pd.DataFrame(f_arr, columns=["name", "state", "country", "latitude", "longitude"])
             #df.to_csv('test.csv', index=False)

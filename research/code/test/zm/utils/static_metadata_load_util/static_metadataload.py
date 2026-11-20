@@ -28,7 +28,7 @@ def generate_user_specific_static_metadata(missing_path, missing_file, location_
     df_unique =  usl.get_unique_locations(pd.read_csv(os.path.join(missing_path, missing_file)),default_df)
 
     #create draft static unique location file
-    df_unique.to_csv(os.path.join(user_location_metadata_path, user_location_metadata_file), index=False, encoding="utf-8")
+    df_unique.to_csv(os.path.join(user_location_metadata_path, user_location_metadata_file), index=False, encoding="utf-8",header=False)
     print(f'---->{df_unique} : {len(df_unique)}')
 
 def transform_and_add_static_metadata(location_metadata_path, user_location_metadata, user_location_metadata_file, user_video_location_metadata_file, final_parquet_storage):
