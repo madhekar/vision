@@ -74,6 +74,11 @@ Pune Airport Pune MH,MH,IN,18.5803749,73.9182265
 Keetronics Devgiri industrial Estate,MH,IN,18.507399,73.807182
 Smithsonian Castle WDC,DC,US,38.8876933,-77.0260614
 George Washington Birthplace National Monument,VA,US,38.1918855,-76.9208322
+the Washington Monument Washington DC,DC,US,38.8895,-77.0353
+National Museum of American History,DC,US,38.891262,-77.030159
+National Air and Space Museum,DC,US,38.887806,-77.019844
+Arlington National Cemetery,DC,US,38.8794,-77.0738 
+
 San Diego Zoo San Diego,CA,US,32.7359874,-117.1506542
 Hilltop Park San Diego,CA,US,32.9712946,-117.1190194
 Mesa Verde Park MiraMesa,CA,US,32.90588,-117.14420
@@ -245,4 +250,5 @@ Woodland Park Zoo Seattle,WA,US,47.6685,-122.3543
 Bellevue Library in Downtown,WA,US,47.620050,-122.193669 
 Newport Beach California,CA,US,33.6167,-117.8976
 Palm Springs California,CA,US,33.8305,-116.5456
-Imperial Sand Dunes Recreation Area,CA,US,32.97321,-115.17314 
+Imperial Sand Dunes Recreation Area,CA,US,32.97321,-115.17314
+Palm Springs Aerial Tramway,CA,US,33.8372,-116.6142
