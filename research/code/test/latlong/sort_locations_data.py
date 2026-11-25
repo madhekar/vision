@@ -1,7 +1,9 @@
 import pandas as pd
 
 def sort_locations(default_loc_file):
-    df = pd.read_csv(default_loc_file, names=['name', 'state', 'country', "latitude", 'longitude'])
+    df = pd.read_csv(default_loc_file, names=['name', 'state', 'country', 'latitude', 'longitude'])
+
+    print(df)
 
     df_sorted = df.sort_values(by=['country', 'state'], ascending=[True, False])
 
