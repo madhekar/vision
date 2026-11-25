@@ -38,7 +38,7 @@ Fair Ground San Diego County,CA,US,32.972329,-117.257165
 Berkeley University,CA,US,47.221035,-122.513763
 Hyde St  San Francisco,CA,US,37.7960041,-122.4186642
 Google Mountain View,CA,US,37.4224857,-122.0855846
-Bhuskute Bellevue,WA,US,47.5612244,-122.1350465
+Bhuskute Home Bellevue,WA,US,47.5612244,-122.1350465
 Balboa Park San Diego,CA,US,32.7316771, -117.1465253
 County Fair San Diego,CA,US,32.715736,-117.161087
 Sequoia national park,CA,US,36.4958406,-118.5599194
@@ -46,13 +46,13 @@ Yellowstone National Park,MT,US,44.6200885,-110.5606893
 Grand Canyon National Park,AZ,US,36.3078548,-112.292896
 Ellis Island Statue Of Liberty,NY,US,40.6985935,-74.0420135
 Lake Tahoe National,CA,US,39.0885405,-120.0503528
-Newport Beach,CA,US,33.6170092,-117.9294401
+Newport Beach Newport,CA,US,33.6170092,-117.9294401
 Santa Barbara Mission,CA,US,34.420830,-119.698189
 Julian Recreation,CA,US,33.6170092,-116.5878464
 Palm Springs,CA,US,33.8246269,-116.540303
-Temecula Recreation,CA,US,33.4946353,-117.147366
+Temecula Recreation Center,CA,US,33.4946353,-117.147366
 Los Penasquitos Canyon County Preserve,CA,US,32.9375784,-117.1274967
-Big Bear Lake,CA,US,34.2440587,-116.910118
+Big Bear Lake Park,CA,US,34.2440587,-116.910118
 Empire State Building,NY,US,40.7484421,-73.9856589
 Disneyland Park Anaheim,CA,US,33.812511,-117.918976
 Universal Studios Hollywood,CA,US,34.138088,-118.353470
@@ -100,12 +100,12 @@ BAPS Shri Swaminarayan Mandir Chino Hills,CA,US,33.9772249,-117.6961614
 Bharatnatyam Class San Diego,CA,US,32.930294,-117.087159
 University of San Diego,CA,US,32.875696,-117.154587
 Poway Performing Arts Poway,CA,US,32.9970824,-117.0245726
-Bellevue Downtown Park San Diego,WA,US,47.6124709,-122.2045589
+Bellevue Downtown Park Bellevue,WA,US,47.6124709,-122.2045589
 Ensenada Cruise Mexico,BC,MX,31.865858,-116.607681
 Ballard Locks Seattle,WA,US,47.6660193,-122.3977506
 Space Needle Seattle,WA,US,47.620422,-122.349358
 Seattle Center complex Pacific Science Center,CA,US,47.620564,-122.350616
-Snoqualmie Pass,WA,US,47.39233,-121.40009
+Snoqualmie Pass Washington,WA,US,47.39233,-121.40009
 Green Lake Park Seattle,WA,US,47.6782841,-122.3385487
 Talkeetna village Alaska,AK,US,62.320904,-150.106628
 Cooper Landing Alaska,AK,US,60.490002,-149.834167
@@ -113,7 +113,7 @@ Homer City Alaska,AK,US,59.645203,-151.544250
 Wasilla village Alaska,AK,US,61.581390,-149.439438
 Willow Creek Alaska,AK,US,61.820301,-145.212433
 Kenai Fjords National Park,AK,US,60.043777,-149.816360
-Shri Mandir San Diego,CA,US,32.8951019,-117.1244042
+Shri Mandir Mira Mesa,CA,US,32.8951019,-117.1244042
 Torrey Pines State Reserve San Diego,CA,US,32.921650,-117.253532
 Iron Mountain San Diego,CA,US,32.9707813,-116.955412
 Woodson Mountain San Diego,CA,US,38.0086764,-116.970721
@@ -159,7 +159,7 @@ Sagar and Amla Redmond,WA,US,47.6694141,-122.1238767
 Sigma One Pune,MH,IN,18.5113684,73.8155321
 Geeta Park in Kothrud,MH,IN,18.5142,73.8091
 Shaniwar Wada in Pune,MH,IN,18.5194,73.8554
-Erandwane Pune,MH,IN,18.5071,73.8310
+Erandwane Park Pune,MH,IN,18.5071,73.8310
 Utsav karyalay kothrud Pune,MH,IN,18.5080,73.8016
 Chandrakant and Uttara Pune,MH,IN,18.5038889,73.807673
 Arun and Usha Solapur,MH,IN,17.6642503,75.9258639
@@ -234,7 +234,6 @@ Old Town Historic District,CA,US,32.7536612,-117.1944792
 Bonita Museum and Cultural Center,CA,US,32.6610,-117.0345
 Cuyamaca Rancho State Park,CA,US,32.9264375,-116.5586295
 Mission Trails Regional San Diego,CA,US,32.8283,-117.0576
-Green Lake Park Seattle,WA,47.6816,-122.3411
 Lake Washington King County,WA,US,47.6266,-122.2606
 Las Americas Premium Outlets San Ysidro,CA,US,32.5442,-117.0413
 the Hotel del Coronado,CA,US,32.6781,-117.1839
